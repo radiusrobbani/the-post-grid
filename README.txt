@@ -142,7 +142,8 @@ For any bug or suggestion please mail support@radiustheme.com
 == Changelog ==
 
 = 2.3.6.5 =
-* Add New icon
+* Added new icon
+* Fixed image height issue
 
 = 2.3.6.4 =
 * Added Image Size

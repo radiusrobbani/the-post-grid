@@ -1,6 +1,11 @@
 /**********************************************************************/
 /**************************** The Post Grid ***************************/
 /**********************************************************************/
+/*
+Plugin: The Post Grid
+Author: RadiusTheme
+Version: 2.3.6.5
+ */
 .rt-tpg-container * {
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
@@ -193,6 +198,10 @@
     -ms-transition: all 1.1s ease;
     transition: all 1.1s ease;
     max-width: 100%;
+}
+
+.rt-holder .rt-img-holder img {
+    height: auto;
 }
 
 .rt-tpg-container .layout1 .rt-holder .rt-img-holder:hover img {
