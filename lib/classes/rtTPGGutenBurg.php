@@ -40,7 +40,7 @@ if (!class_exists('rtTPGGutenBurg')):
             );
             wp_localize_script('rt-tpg-cgb-block-js', 'rttpgGB', array(
                 'short_codes' => $rtTPG->getAllTPGShortCodeList(),
-                'icon' => $rtTPG->assetsUrl . 'images/rt-tpg-menu.png',
+                'icon' => $rtTPG->assetsUrl . 'images/icon-16x16.png',
             ));
             wp_enqueue_style('wp-edit-blocks');
         }

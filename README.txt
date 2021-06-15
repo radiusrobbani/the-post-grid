@@ -3,8 +3,8 @@ Contributors: techlabpro1
 Donate link:
 Tags: post grid, content grid, post display, post format, post view, blog display, news display, post
 Requires at least: 4.5
-Tested up to: 5.7.2
-Stable tag: 2.3.6.4
+Tested up to: 5.7
+Stable tag: 2.3.6.5
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -130,15 +130,19 @@ For any bug or suggestion please mail support@radiustheme.com
 == Screenshots ==
 
 01. Layout 1
-02. Layout 2
-03. Layout 2 Single
-04. Layout 3
-05. Isotope Layout
-06. Grid Generator
-07. Settings
+02. Layout 2 Single
+03. Layout 2
+04. Isotope Layout
+05. Shortcode Post Source
+06. Shortcode Layout Settings
+07. Shortcode Field Selections
+08. Shortcode Style
 
 
 == Changelog ==
+
+= 2.3.6.5 =
+* Add New icon
 
 = 2.3.6.4 =
 * Added Image Size
