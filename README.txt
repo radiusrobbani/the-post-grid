@@ -4,7 +4,7 @@ Donate link:
 Tags: post grid, content grid, post display, post format, post view, blog display, news display, post
 Requires at least: 4.5
 Tested up to: 5.7
-Stable tag: 2.3.6.5
+Stable tag: 2.3.6.6
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -140,6 +140,9 @@ For any bug or suggestion please mail support@radiustheme.com
 
 
 == Changelog ==
+
+= 2.3.6.6 =
+* Changed demo link
 
 = 2.3.6.5 =
 * Added new icon
