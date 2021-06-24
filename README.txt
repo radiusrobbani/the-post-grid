@@ -12,7 +12,7 @@ Fast & Easy way to display WordPress post in Grid, List & Isotope view ( filter 
 
 == Description ==
 
-[Plugin Demo](http://demo.radiustheme.com/wordpress/plugins/the-post-grid/) | [Documentation](https://radiustheme.com/how-to-setup-configure-the-post-grid-free-version-for-wordpress/) | [Get Pro](https://www.radiustheme.com/the-post-grid-pro-for-wordpress/)
+[Plugin Demo](https://www.radiustheme.com/demo/plugins/the-post-grid/) | [Documentation](https://radiustheme.com/how-to-setup-configure-the-post-grid-free-version-for-wordpress/) | [Get Pro](https://www.radiustheme.com/the-post-grid-pro-for-wordpress/)
 
 The Post Grid is a fully Responsive & Mobile friendly plugin to display your page/post in Grid, List and Isotope View without any line of coding. It is fast and easy to generate grid from admin end and insert into page/post. You can Display posts by any category(s), tag(s), author(s), keyword(s) also Order posts by Id, Title, Created date, Modified date and Menu order.
 

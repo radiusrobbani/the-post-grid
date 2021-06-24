@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name: The Post Grid
- * Plugin URI: http://demo.radiustheme.com/wordpress/plugins/the-post-grid/
+ * Plugin URI: https://www.radiustheme.com/demo/plugins/the-post-grid/
  * Description: Fast & Easy way to display WordPress post in Grid, List & Isotope view ( filter by category, tag, author..)  without a single line of coding.
  * Author: RadiusTheme
  * Version: 2.3.6.5
