@@ -1,4 +1,3 @@
 <?php
 
-global $rtTPG;
-echo $rtTPG->rtFieldGenerator( $rtTPG->itemFields() );
+echo rtTPG()->rtFieldGenerator( rtTPG()->itemFields() );

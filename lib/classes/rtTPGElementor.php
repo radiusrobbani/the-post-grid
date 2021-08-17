@@ -13,8 +13,7 @@ if ( ! class_exists( 'rtTPGElementor' ) ):
 		}
 
 		function init() {
-			global $rtTPG;
-			require_once( $rtTPG->libPath . '/vendor/RtElementorWidget.php' );
+			require_once( rtTPG()->libPath . '/vendor/RtElementorWidget.php' );
 
 			// Register widget
 			\Elementor\Plugin::instance()->widgets_manager->register_widget_type( new RtElementorWidget() );

@@ -25,10 +25,9 @@ if(!class_exists('rtTPGSCButton')):
             if ( 'true' == get_user_option( 'rich_editing' ) ) {
                 add_filter( 'mce_external_plugins', array( $this ,'mce_external_plugins' ) );
                 add_filter( 'mce_buttons', array($this, 'mce_buttons' ) );
-                global $rtTPG;
                 echo "<style>";
                 echo "i.mce-i-rt_tpg_scg{";
-                echo "background: url('".$rtTPG->assetsUrl ."images/icon-20x20.png');";
+                echo "background: url('".rtTPG()->assetsUrl ."images/icon-20x20.png');";
                 echo "}";
                 echo "</style>";
             }
@@ -40,8 +39,7 @@ if(!class_exists('rtTPGSCButton')):
          * @return array
          */
         function mce_external_plugins( $plugin_array ) {
-            global $rtTPG;
-            $plugin_array[$this->sc_tag] = $rtTPG->assetsUrl .'js/mce-button.js';
+            $plugin_array[$this->sc_tag] = rtTPG()->assetsUrl .'js/mce-button.js';
             return $plugin_array;
         }
 

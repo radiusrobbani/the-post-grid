@@ -10,51 +10,116 @@ if (!class_exists('rtTPGAjaxResponse')):
             add_action('wp_ajax_rtTPGTaxonomyListByPostType', array($this, 'rtTPGTaxonomyListByPostType'));
             add_action('wp_ajax_rtTPGIsotopeFilter', array($this, 'rtTPGIsotopeFilter'));
             add_action('wp_ajax_rtTPGTermListByTaxonomy', array($this, 'rtTPGTermListByTaxonomy'));
+            add_action('wp_ajax_defaultFilterItem', array($this, 'defaultFilterItem'));
+            add_action('wp_ajax_getCfGroupListAsField', array($this, 'getCfGroupListAsField'));
+        }
+
+        function getCfGroupListAsField() {
+
+            $error = true;
+            $data = $msg = null;
+            if (rtTPG()->verifyNonce()) {
+                $fields = array();
+                $post_type = !empty($_REQUEST['post_type']) ? $_REQUEST['post_type'] : null;
+                if ($cf = rtTPG()->checkWhichCustomMetaPluginIsInstalled() && $post_type) {
+                    $fields['cf_group'] = array(
+                        "type"        => "checkbox",
+                        "name"        => "cf_group",
+                        "holderClass" => "tpg-hidden cf-fields cf-group",
+                        "label"       => "Custom Field group",
+                        "multiple"    => true,
+                        "alignment"   => "vertical",
+                        "id"          => "cf_group",
+                        "options"     => rtTPG()->get_groups_by_post_type($post_type, $cf)
+                    );
+                    $error = false;
+                    $data = rtTPG()->rtFieldGenerator($fields);
+                }
+            } else {
+                $msg = __('Server Error !!', 'the-post-grid');
+            }
+            $response = array(
+                'error' => $error,
+                'msg'   => $msg,
+                'data'  => $data
+            );
+            wp_send_json($response);
+            die();
+        }
+
+        function defaultFilterItem() {
+
+            rtTPG()->rtTPGSettingFields();
+            $error = true;
+            $data = $msg = null;
+            if (rtTPG()->verifyNonce()) {
+                if ($filter = $_REQUEST['filter']) {
+                    $error = false;
+                    $msg = __('Success', 'the-post-grid');
+                    $data .= "<option value=''>" . __('Show All', 'the-post-grid') . "</option>";
+                    $items = rtTPG()->rt_get_all_term_by_taxonomy($filter, '', 0);
+                    if (!empty($items)) {
+                        foreach ($items as $id => $item) {
+                            $data .= "<option value='{$id}'>{$item}</option>";
+                        }
+                    }
+                }
+            } else {
+                $msg = __('Session Error !!', 'the-post-grid');
+            }
+            $response = array(
+                'error' => $error,
+                'msg'   => $msg,
+                'data'  => $data
+            );
+            wp_send_json($response);
+            die();
         }
 
         function rtTPGSaveSettings() {
-            global $rtTPG;
-            $rtTPG->rtTPGSettingFields();
-            $error = true;
-            $msg = null;
 
-            if ($rtTPG->verifyNonce()) {
+            rtTPG()->rtTPGSettingFields();
+            $error = true;
+            if (rtTPG()->verifyNonce()) {
                 unset($_REQUEST['action']);
-                unset($_REQUEST[$rtTPG->nonceId()]);
+                unset($_REQUEST[rtTPG()->nonceId()]);
                 unset($_REQUEST['_wp_http_referer']);
-                update_option($rtTPG->options['settings'], $_REQUEST);
-                $error = false;
-                $msg = __('Settings successfully updated', 'the-post-grid');
+                update_option(rtTPG()->options['settings'], $_REQUEST);
+                $response = array(
+                    'error' => false,
+                    'msg'   => __('Settings successfully updated', 'the-post-grid')
+                );
             } else {
-                $msg = __('Security Error !!', 'the-post-grid');
+                $response = array(
+                    'error' => $error,
+                    'msg'   => __('Session Error !!', 'the-post-grid')
+                );
             }
-            wp_send_json(array(
-                'error' => $error,
-                'msg'   => $msg
-            ));
+            wp_send_json($response);
             die();
         }
 
         function rtTPGTaxonomyListByPostType() {
-            global $rtTPG;
+
             $error = true;
             $msg = $data = null;
-            if ($rtTPG->verifyNonce()) {
+            if (rtTPG()->verifyNonce()) {
                 $error = false;
-                $taxonomies = $rtTPG->rt_get_all_taxonomy_by_post_type(isset($_REQUEST['post_type']) ? $_REQUEST['post_type'] : null);
+                $taxonomies = rtTPG()->rt_get_all_taxonomy_by_post_type(isset($_REQUEST['post_type']) ? $_REQUEST['post_type'] : null);
                 if (is_array($taxonomies) && !empty($taxonomies)) {
-                    $data .= $rtTPG->rtFieldGenerator(
+                    $data .= rtTPG()->rtFieldGenerator(
                         array(
-                            'type'     => 'checkbox',
-                            'name'     => 'tpg_taxonomy',
-                            'label'    => 'Taxonomy',
-                            'id'       => 'post-taxonomy',
-                            "multiple" => true,
-                            'options'  => $taxonomies
+                            'tpg_taxonomy' => array(
+                                'type'     => 'checkbox',
+                                'label'    => 'Taxonomy',
+                                'id'       => 'post-taxonomy',
+                                "multiple" => true,
+                                'options'  => $taxonomies
+                            )
                         )
                     );
                 } else {
-                    $data = '<div class="rt-field-wrapper">' . __('No Taxonomy found', 'the-post-grid') . '</div>';
+                    $data = __('<div class="field-holder">No Taxonomy found</div>', 'the-post-grid');
                 }
 
             } else {
@@ -65,12 +130,12 @@ if (!class_exists('rtTPGAjaxResponse')):
         }
 
         function rtTPGIsotopeFilter() {
-            global $rtTPG;
+
             $error = true;
             $msg = $data = null;
-            if ($rtTPG->verifyNonce()) {
+            if (rtTPG()->verifyNonce()) {
                 $error = false;
-                $taxonomies = $rtTPG->rt_get_taxonomy_for_isotope_filter(isset($_REQUEST['post_type']) ? $_REQUEST['post_type'] : null);
+                $taxonomies = rtTPG()->rt_get_taxonomy_for_filter(isset($_REQUEST['post_type']) ? $_REQUEST['post_type'] : null);
                 if (is_array($taxonomies) && !empty($taxonomies)) {
                     foreach ($taxonomies as $tKey => $tax) {
                         $data .= "<option value='{$tKey}'>{$tax}</option>";
@@ -84,34 +149,36 @@ if (!class_exists('rtTPGAjaxResponse')):
         }
 
         function rtTPGTermListByTaxonomy() {
-            global $rtTPG;
+
             $error = true;
             $msg = $data = null;
-            if ($rtTPG->verifyNonce()) {
+            if (rtTPG()->verifyNonce()) {
                 $error = false;
                 $taxonomy = isset($_REQUEST['taxonomy']) ? $_REQUEST['taxonomy'] : null;
                 $data .= "<div class='term-filter-item-container {$taxonomy}'>";
-                $data .= $rtTPG->rtFieldGenerator(
+                $data .= rtTPG()->rtFieldGenerator(
                     array(
-                        'type'        => 'select',
-                        'name'        => 'term_' . $taxonomy,
-                        'label'       => ucfirst(str_replace('_', ' ', $taxonomy)),
-                        'class'       => 'rt-select2 full',
-                        'id'          => 'term-' . mt_rand(),
-                        'holderClass' => "term-filter-item {$taxonomy}",
-                        'value'       => null,
-                        "multiple"    => true,
-                        'options'     => $rtTPG->rt_get_all_term_by_taxonomy($taxonomy)
+                        'term_' . $taxonomy => array(
+                            'type'        => 'select',
+                            'label'       => ucfirst(str_replace('_', ' ', $taxonomy)),
+                            'class'       => 'rt-select2 full',
+                            'id'          => 'term-' . mt_rand(),
+                            'holderClass' => "term-filter-item {$taxonomy}",
+                            'value'       => null,
+                            "multiple"    => true,
+                            'options'     => rtTPG()->rt_get_all_term_by_taxonomy($taxonomy)
+                        )
                     )
                 );
-                $data .= $rtTPG->rtFieldGenerator(
+                $data .= rtTPG()->rtFieldGenerator(
                     array(
-                        'type'        => 'select',
-                        'name'        => 'term_operator_' . $taxonomy,
-                        'label'       => 'Operator',
-                        'class'       => 'rt-select2 full',
-                        'holderClass' => "term-filter-item-operator {$taxonomy}",
-                        'options'     => $rtTPG->rtTermOperators()
+                        'term_operator_' . $taxonomy => array(
+                            'type'        => 'select',
+                            'label'       => 'Operator',
+                            'class'       => 'rt-select2 full',
+                            'holderClass' => "term-filter-item-operator {$taxonomy}",
+                            'options'     => rtTPG()->rtTermOperators()
+                        )
                     )
                 );
                 $data .= "</div>";
@@ -123,13 +190,9 @@ if (!class_exists('rtTPGAjaxResponse')):
         }
 
         function shortCodeList() {
-            global $rtTPG;
             $html = null;
-            $scQ = new WP_Query(array('post_type'      => $rtTPG->post_type,
-                                      'order_by'       => 'title',
-                                      'order'          => 'DESC',
-                                      'post_status'    => 'publish',
-                                      'posts_per_page' => -1
+            $scQ = new WP_Query(apply_filters('tpg_sc_list_query_args',
+                array('post_type' => rtTPG()->post_type, 'order_by' => 'title', 'order' => 'DESC', 'post_status' => 'publish', 'posts_per_page' => -1)
             ));
             if ($scQ->have_posts()) {
 

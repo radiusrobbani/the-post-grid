@@ -4,7 +4,7 @@ Donate link:
 Tags: post grid, content grid, post display, post format, post view, blog display, news display, post
 Requires at least: 4.5
 Tested up to: 5.7
-Stable tag: 2.3.6.6
+Stable tag: 3.0.0
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -141,12 +141,17 @@ For any bug or suggestion please mail support@radiustheme.com
 
 == Changelog ==
 
+= 3.0.0 =
+* Updated to FontAwesome 5
+* Added responsive column settings in ShortCode
+* Added meta color and typography settings
+* Added excerpt color and typography settings
+
 = 2.3.6.6 =
 * Changed demo link
 
 = 2.3.6.5 =
-* Added new icon
-* Fixed image height issue
+* Add New icon
 
 = 2.3.6.4 =
 * Added Image Size

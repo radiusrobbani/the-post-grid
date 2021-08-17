@@ -29,18 +29,17 @@ if (!class_exists('rtTPGGutenBurg')):
         }
 
         function block_editor_assets() {
-            global $rtTPG;
             // Scripts.
             wp_enqueue_script(
                 'rt-tpg-cgb-block-js',
-                $rtTPG->assetsUrl . "js/post-grid-blocks.js",
+                rtTPG()->assetsUrl . "js/post-grid-blocks.js",
                 array('wp-blocks', 'wp-i18n', 'wp-element'),
                 (defined('WP_DEBUG') && WP_DEBUG) ? time() : RT_THE_POST_GRID_VERSION,
                 true
             );
             wp_localize_script('rt-tpg-cgb-block-js', 'rttpgGB', array(
-                'short_codes' => $rtTPG->getAllTPGShortCodeList(),
-                'icon' => $rtTPG->assetsUrl . 'images/icon-16x16.png',
+                'short_codes' => rtTPG()->getAllTPGShortCodeList(),
+                'icon' => rtTPG()->assetsUrl . 'images/icon-16x16.png',
             ));
             wp_enqueue_style('wp-edit-blocks');
         }

@@ -6,8 +6,7 @@ if(!class_exists('RT_TPGWidget')):
     /**
     *
     */
-    class RT_TPGWidget extends WP_Widget
-    {
+    class RT_TPGWidget extends WP_Widget {
 
         function __construct() {
 
@@ -26,17 +25,17 @@ if(!class_exists('RT_TPGWidget')):
             echo $before_widget;
             if ( ! empty( $instance['title'] ) ) {
                 echo $args['before_title'] . apply_filters( 'widget_title',
-                        ( isset( $instance['title'] ) ? $instance['title'] : "The Post Grid Pro" ) ) . $args['after_title'];
+                        ( isset( $instance['title'] ) ? $instance['title'] : "The Post Grid" ) ) . $args['after_title'];
             }
             if(!empty($id)){
                 echo do_shortcode("[the-post-grid id='{$id}' ]");
             }
             echo $after_widget;
         }
+
         function form( $instance ) {
 
-            global $rtTPG;
-            $scList   = $rtTPG->getAllTPGShortCodeList();
+            $scList   = rtTPG()->getAllTPGShortCodeList();
             $defaults = array(
                 'title' => "The Post Grid",
                 'id' => null
@@ -65,15 +64,14 @@ if(!class_exists('RT_TPGWidget')):
                 </select></p>
             <?php
         }
-        public function update( $new_instance, $old_instance ) {
 
+        public function update( $new_instance, $old_instance ) {
             $instance          = array();
             $instance['title'] = ( ! empty( $new_instance['title'] ) ) ? strip_tags( $new_instance['title'] ) : '';
             $instance['id']    = ( ! empty( $new_instance['id'] ) ) ? absint( $new_instance['id'] ) : '';
 
             return $instance;
         }
-
 
     }
 

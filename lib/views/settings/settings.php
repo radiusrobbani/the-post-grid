@@ -1,24 +1,73 @@
-<?php global $rtTPG; ?>
-<div class="wrap">
-    <h2><?php esc_html_e('The Post Grid Settings', 'the-post-grid'); ?></h2>
-    <div class="rt-settings-container">
-        <div class="rt-setting-title">
-            <h3><?php esc_html_e('General settings', "the-post-grid") ?></h3>
-        </div>
-        <div class="rt-setting-content">
-            <form id="rt-tpg-settings-form" onsubmit="rtTPGSettings(this); return false;">
-                <div class="rt-setting-holder">
-                    <?php echo $rtTPG->rtFieldGenerator($rtTPG->rtTPGSettingFields(), true); ?>
-                </div>
-                <p class="submit"><input type="submit" name="submit" class="rt-admin-btn button button-primary rtSaveButton"
-                                         value="<?php esc_html_e('Save Changes', 'the-post-grid'); ?>"></p>
-                <?php wp_nonce_field($rtTPG->nonceText(), $rtTPG->nonceId()); ?>
-            </form>
-            <div class="rt-response"></div>
-        </div>
-        <div class="rt-pro-feature-content">
-            <?php rtTPG()->rt_plugin_sc_pro_information('settings'); ?>
-        </div>
-    </div>
+<div class="wrap rttpg-wrapper">
+    <div id="upf-icon-edit-pages" class="icon32 icon32-posts-page"><br/></div>
+    <h2><?php _e( 'The Post Grid Settings', 'the-post-grid' ); ?></h2>
+    <h3><?php _e( 'General settings', 'the-post-grid' ); ?>
+        <a style="margin-left: 15px; font-size: 15px;"
+           href="https://www.radiustheme.com/how-to-setup-configure-the-post-grid-free-version-for-wordpress/"
+           target="_blank"><?php _e( 'Documentation', 'the-post-grid' ) ?></a>
+    </h3>
 
+    <div class="rt-setting-wrapper">
+        <div class="rt-response"></div>
+        <form id="rt-tpg-settings-form">
+			<?php
+			$settings = get_option( rtTPG()->options['settings'] );
+			$last_tab = isset( $settings['_tpg_last_active_tab'] ) ? trim( $settings['_tpg_last_active_tab'] ) : 'popup-fields';
+			$html     = null;
+			$html     .= '<div id="settings-tabs" class="rt-tabs rt-tab-container">';
+
+			$html .= '<ul class="tab-nav rt-tab-nav">';
+                $html     .= sprintf( '<li%s><a href="#popup-fields">%s</a></li>
+                                    <li%s><a href="#social-share">%s</a></li>
+                                    <li%s><a href="#custom-script">%s</a></li>
+                                    <li%s><a href="#other-settings">%s</a></li>',
+                    $last_tab == "popup-fields" ? ' class="active"' : '',
+                    __( 'PopUp field selection', 'the-post-grid' ),
+                    $last_tab == "social-share" ? ' class="active"' : '',
+                    __( 'Social Share', 'the-post-grid' ),
+                    $last_tab == "custom-script" ? ' class="active"' : '',
+                    __( 'Custom Script', 'the-post-grid' ),
+                    $last_tab == "other-settings" ? ' class="active"' : '',
+                    __( 'Other Settings', 'the-post-grid' )
+                );
+
+            ob_start();
+            do_action('tpg_settings_tab_title', $last_tab);
+            $html .= ob_get_clean();
+
+			$html .= '</ul>';
+
+			$html .= sprintf( '<div id="popup-fields" class="rt-tab-content"%s>', $last_tab == "popup-fields" ? ' style="display:block"' : '' );
+			$html .= rtTPG()->rtFieldGenerator( rtTPG()->rtTpgSettingsDetailFieldSelection() );
+			$html .= '</div>';
+
+			$html .= sprintf( '<div id="social-share" class="rt-tab-content"%s>', $last_tab == "social-share" ? ' style="display:block"' : '' );
+			$html .= rtTPG()->rtFieldGenerator( rtTPG()->rtTPGSettingsSocialShareFields() );
+			$html .= '</div>';
+
+			$html .= sprintf( '<div id="custom-script" class="rt-tab-content"%s>', $last_tab == "custom-script" ? ' style="display:block"' : '' );
+			$html .= rtTPG()->rtFieldGenerator( rtTPG()->rtTPGSettingsCustomScriptFields() );
+			$html .= '</div>';
+
+			$html .= sprintf( '<div id="other-settings" class="rt-tab-content"%s>', $last_tab == "other-settings" ? ' style="display:block"' : '' );
+			$html .= rtTPG()->rtFieldGenerator( rtTPG()->rtTPGSettingsOtherSettingsFields(), true );
+			$html .= '</div>';
+
+			ob_start();
+			do_action('tpg_settings_tab_content', $last_tab);
+			$html .= ob_get_clean();
+
+			$html .= sprintf( '<input type="hidden" id="_tpg_last_active_tab" name="_tpg_last_active_tab"  value="%s"/>', $last_tab );
+			$html .= '</div>';
+
+			echo $html;
+			?>
+            <p class="submit-wrap"><input type="submit" name="submit" class="button button-primary rtSaveButton"
+                                          value="Save Changes"></p>
+
+			<?php wp_nonce_field( rtTPG()->nonceText(), rtTPG()->nonceId() ); ?>
+        </form>
+
+        <div class="rt-response"></div>
+    </div>
 </div>

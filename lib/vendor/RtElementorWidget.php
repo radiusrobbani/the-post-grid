@@ -19,7 +19,6 @@ class RtElementorWidget extends \Elementor\Widget_Base {
 	}
 
 	protected function _register_controls() {
-		global $rtTPG;
 		$this->start_controls_section(
 			'content_section',
 			[
@@ -34,7 +33,7 @@ class RtElementorWidget extends \Elementor\Widget_Base {
 				'type'    => \Elementor\Controls_Manager::SELECT2,
 				'id'      => 'style',
 				'label'   => __( 'Post Grid', 'the-post-grid' ),
-				'options' => $rtTPG->getAllTPGShortCodeList(),
+				'options' => rtTPG()->getAllTPGShortCodeList()
 			)
 		);
 
@@ -43,9 +42,9 @@ class RtElementorWidget extends \Elementor\Widget_Base {
 
 	protected function render() {
 		$settings = $this->get_settings_for_display();
-		if ( isset( $settings['post_grid_id'] ) && ! empty( $settings['post_grid_id'] ) && $id = absint( $settings['post_grid_id'] ) ) {
+		if(isset($settings['post_grid_id']) && !empty($settings['post_grid_id']) && $id = absint($settings['post_grid_id'])){
 			echo do_shortcode( '[the-post-grid id="' . $id . '"]' );
-		} else {
+		}else{
 			echo "Please select a post grid";
 		}
 	}

@@ -1,18 +1,55 @@
 <?php
 
 if (!class_exists('rtTPGInit')):
-    class rtTPGInit
-    {
+    class rtTPGInit {
+
+        private $version;
 
         function __construct() {
+            $this->version = defined('WP_DEBUG') && WP_DEBUG ? time() : RT_THE_POST_GRID_VERSION;
             add_action('init', array($this, 'init'), 1);
-            add_action('admin_menu', array($this, 'admin_menu'));
+            add_action('admin_init', array($this, 'the_post_grid_remove_all_meta_box'), 9999);
+            add_action('admin_menu', array($this, 'tgp_menu_register'));
             add_action('plugins_loaded', array($this, 'the_post_grid_load_text_domain'));
             register_activation_hook(RT_THE_POST_GRID_PLUGIN_ACTIVE_FILE_NAME, array($this, 'activate'));
             register_deactivation_hook(RT_THE_POST_GRID_PLUGIN_ACTIVE_FILE_NAME, array($this, 'deactivate'));
-            add_filter('plugin_action_links_' . RT_THE_POST_GRID_PLUGIN_ACTIVE_FILE_NAME,
-                array($this, 'rt_post_grid_marketing'));
+            add_filter('plugin_action_links_' . RT_THE_POST_GRID_PLUGIN_ACTIVE_FILE_NAME, array(
+                $this,
+                'rt_post_grid_marketing'
+            ));
             add_action('admin_enqueue_scripts', array($this, 'settings_admin_enqueue_scripts'));
+        }
+
+        function the_post_grid_remove_all_meta_box() {
+            if (is_admin() && apply_filters('rttpg_remove_all_extra_metabox_from_shordcode', true)) {
+                add_filter("get_user_option_meta-box-order_" . rtTPG()->post_type, array(
+                    $this,
+                    'remove_all_meta_boxes_tgp_sc'
+                ));
+            }
+        }
+
+        function remove_all_meta_boxes_tgp_sc() {
+            global $wp_meta_boxes;
+            if (isset($wp_meta_boxes[rtTPG()->post_type]['normal']['high']['rttpg_meta']) && $wp_meta_boxes[rtTPG()->post_type]['normal']['high']['rttpg_sc_preview_meta'] && $wp_meta_boxes[rtTPG()->post_type]['side']['low']['rt_plugin_sc_pro_information'] ) {
+                $publishBox = $wp_meta_boxes[rtTPG()->post_type]['side']['core']['submitdiv'];
+                $scBox = $wp_meta_boxes[rtTPG()->post_type]['normal']['high']['rttpg_meta'];
+                $scBoxPreview = $wp_meta_boxes[rtTPG()->post_type]['normal']['high']['rttpg_sc_preview_meta'];
+                $docBox = $wp_meta_boxes[rtTPG()->post_type]['side']['low']['rt_plugin_sc_pro_information'];
+
+                $wp_meta_boxes[rtTPG()->post_type] = array(
+                    'side'   => array(
+                        'core' => array('submitdiv' => $publishBox),
+                        'default' => [
+                            'rt_plugin_sc_pro_information' => $docBox
+                        ]
+                    ),
+                    'normal'   => array('high' => array('submitdiv' => $scBox)),
+                    'advanced' => array('high' => array('postexcerpt' => $scBoxPreview))
+                );
+
+                return array();
+            }
         }
 
         function init() {
@@ -32,18 +69,16 @@ if (!class_exists('rtTPGInit')):
                 'not_found_in_trash' => __('No Post Grids found in Trash', 'the-post-grid'),
             );
 
-            global $rtTPG;
-
-            register_post_type($rtTPG->post_type, array(
+            register_post_type(rtTPG()->post_type, array(
                 'labels'          => $labels,
                 'public'          => false,
                 'show_ui'         => true,
                 '_builtin'        => false,
                 'capability_type' => 'page',
                 'hierarchical'    => true,
-                'menu_icon'       => $rtTPG->assetsUrl . 'images/icon-16x16.png',
+                'menu_icon'       => rtTPG()->assetsUrl . 'images/icon-16x16.png',
                 'rewrite'         => false,
-                'query_var'       => $rtTPG->post_type,
+                'query_var'       => rtTPG()->post_type,
                 'supports'        => array(
                     'title',
                 ),
@@ -51,71 +86,83 @@ if (!class_exists('rtTPGInit')):
                 'menu_position'   => 20,
             ));
 
-            // register acf scripts
+            // register scripts
             $scripts = array();
             $styles = array();
             $scripts[] = array(
-                'handle' => 'rt-isotope-js',
-                'src'    => $rtTPG->assetsUrl . "vendor/isotope/isotope.pkgd.min.js",
-                'deps'   => array('jquery', 'imagesloaded'),
+                'handle' => 'rt-image-load-js',
+                'src'    => rtTPG()->assetsUrl . "vendor/isotope/imagesloaded.pkgd.min.js",
+                'deps'   => array('jquery'),
                 'footer' => true
             );
             $scripts[] = array(
-                'handle' => 'rt-actual-height-js',
-                'src'    => $rtTPG->assetsUrl . "vendor/actual-height/jquery.actual.min.js",
-                'deps'   => array('jquery', 'imagesloaded'),
+                'handle' => 'rt-isotope-js',
+                'src'    => rtTPG()->assetsUrl . "vendor/isotope/isotope.pkgd.min.js",
+                'deps'   => array('jquery'),
                 'footer' => true
+            );
+
+            $scripts[] = array(
+                'handle'  => 'rt-actual-height-js',
+                'src'     => rtTPG()->assetsUrl . "vendor/actual-height/jquery.actual.min.js",
+                'deps'    => array('jquery'),
+                'footer'  => true,
+                'version' => '1.0.19'
             );
             $scripts[] = array(
                 'handle' => 'rt-tpg',
-                'src'    => $rtTPG->assetsUrl . "js/rttpg.js",
+                'src'    => rtTPG()->assetsUrl . "js/rttpg.js",
                 'deps'   => array('jquery'),
                 'footer' => true
             );
             // register acf styles
-            $styles['rt-fontawsome'] = $rtTPG->assetsUrl . 'vendor/font-awesome/css/font-awesome.min.css';
-            $styles['rt-tpg'] = $rtTPG->assetsUrl . 'css/thepostgrid.css';
+            $styles['rt-fontawsome'] = rtTPG()->assetsUrl . 'vendor/font-awesome/css/font-awesome.min.css';
+            $styles['rt-tpg'] = rtTPG()->assetsUrl . 'css/thepostgrid.css';
+            $styles['rt-tpg-rtl'] = rtTPG()->assetsUrl . 'css/thepostgrid-rtl.css';
 
             if (is_admin()) {
 
                 $scripts[] = array(
-                    'handle' => 'rt-select2-js',
-                    'src'    => $rtTPG->assetsUrl . "vendor/select2/select2.min.js",
+                    'handle' => 'rt-select2',
+                    'src'    => rtTPG()->assetsUrl . "vendor/select2/select2.min.js",
                     'deps'   => array('jquery'),
                     'footer' => false
                 );
                 $scripts[] = array(
                     'handle' => 'rt-tpg-admin',
-                    'src'    => $rtTPG->assetsUrl . "js/admin.js",
+                    'src'    => rtTPG()->assetsUrl . "js/admin.js",
                     'deps'   => array('jquery'),
                     'footer' => true
                 );
-                $styles['rt-select2-css'] = $rtTPG->assetsUrl . 'vendor/select2/select2.css';
-                $styles['rt-select2-bootstrap-css'] = $rtTPG->assetsUrl . 'vendor/select2/select2-bootstrap.css';
-                $styles['rt-tpg-admin'] = $rtTPG->assetsUrl . 'css/admin.css';
+                $scripts[] = array(
+                    'handle' => 'rt-tpg-admin-preview',
+                    'src'    => rtTPG()->assetsUrl . "js/admin-preview.js",
+                    'deps'   => array('jquery'),
+                    'footer' => true
+                );
+                $styles['rt-select2'] = rtTPG()->assetsUrl . 'vendor/select2/select2.min.css';
+                $styles['rt-tpg-admin'] = rtTPG()->assetsUrl . 'css/admin.css';
+                $styles['rt-tpg-admin-preview'] = rtTPG()->assetsUrl . 'css/admin-preview.css';
             }
 
-            $version = (defined('WP_DEBUG') && WP_DEBUG) ? time() : $rtTPG->options['version'];
             foreach ($scripts as $script) {
-                wp_register_script($script['handle'], $script['src'], $script['deps'], $version,
-                    $script['footer']);
+                wp_register_script($script['handle'], $script['src'], $script['deps'], isset($script['version']) ? $script['version'] : $this->version, $script['footer']);
             }
-
 
             foreach ($styles as $k => $v) {
-                wp_register_style($k, $v, false, $version);
+                wp_register_style($k, $v, false, isset($script['version']) ? $script['version'] : $this->version);
             }
         }
 
-        function admin_menu() {
-            global $rtTPG;
-            add_submenu_page('edit.php?post_type=' . $rtTPG->post_type, __('Settings', "the-post-grid"), __('Settings', "the-post-grid"),
-                'administrator', 'rttpg_settings', array($this, 'rttpg_settings'));
+        function tgp_menu_register() {
+            add_submenu_page('edit.php?post_type=' . rtTPG()->post_type, __('Settings'), __('Settings', "the-post-grid"), 'administrator', 'rttpg_settings', array(
+                $this,
+                'rttpg_settings'
+            ));
         }
 
         function rttpg_settings() {
-            global $rtTPG;
-            $rtTPG->render('settings.settings');
+            rtTPG()->render_view('settings.settings');
         }
 
         public function the_post_grid_load_text_domain() {
@@ -131,49 +178,47 @@ if (!class_exists('rtTPGInit')):
         }
 
         private function insertDefaultData() {
-            global $rtTPG;
-            update_option($rtTPG->options['installed_version'], $rtTPG->options['version']);
-            if (!get_option($rtTPG->options['settings'])) {
-                update_option($rtTPG->options['settings'], $rtTPG->defaultSettings);
+            update_option(rtTPG()->options['installed_version'], RT_THE_POST_GRID_VERSION);
+            if (!get_option(rtTPG()->options['settings'])) {
+                update_option(rtTPG()->options['settings'], rtTPG()->defaultSettings);
             }
         }
 
         function rt_post_grid_marketing($links) {
             $links[] = '<a target="_blank" href="' . esc_url('https://www.radiustheme.com/demo/plugins/the-post-grid/') . '">Demo</a>';
             $links[] = '<a target="_blank" href="' . esc_url('https://www.radiustheme.com/how-to-setup-configure-the-post-grid-free-version-for-wordpress/') . '">Documentation</a>';
-            $links[] = '<a target="_blank" style="color: #39b54a;font-weight: 700;" href="' . esc_url('https://www.radiustheme.com/the-post-grid-pro-for-wordpress/') . '">Get Pro</a>';
+            if (!rtTPG()->hasPro()) {
+                $links[] = '<a target="_blank" style="color: #39b54a;font-weight: 700;" href="' . esc_url('https://www.radiustheme.com/the-post-grid-pro-for-wordpress/') . '">Get Pro</a>';
+            }
 
             return $links;
         }
 
-
         function settings_admin_enqueue_scripts() {
-            global $pagenow, $typenow, $rtTPG;
+            global $pagenow, $typenow;
 
             // validate page
             if (!in_array($pagenow, array('edit.php'))) {
                 return;
             }
-            if ($typenow != $rtTPG->post_type) {
+            if ($typenow != rtTPG()->post_type) {
                 return;
             }
 
             wp_enqueue_script(array(
                 'jquery',
-                'rt-select2-js',
-                'rt-tpg-admin',
+                'rt-tpg-admin'
             ));
 
             // styles
             wp_enqueue_style(array(
-                'rt-select2-css',
-                'rt-tpg-admin',
+                'rt-tpg-admin'
             ));
 
-            $nonce = wp_create_nonce($rtTPG->nonceText());
+            $nonce = wp_create_nonce(rtTPG()->nonceText());
             wp_localize_script('rt-tpg-admin', 'rttpg',
                 array(
-                    'nonceID' => $rtTPG->nonceId(),
+                    'nonceID' => rtTPG()->nonceId(),
                     'nonce'   => $nonce,
                     'ajaxurl' => admin_url('admin-ajax.php')
                 ));
