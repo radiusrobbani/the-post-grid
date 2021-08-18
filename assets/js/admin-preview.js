@@ -94,9 +94,7 @@
     $("#rttpg_meta").on('change', 'select,input', function () {
         renderTpgPreview();
     });
-    /*$("#rttpg_meta").on('change', '.wp-picker-holder', function () {
-        renderTpgPreview();
-    });*/
+
     $("#rttpg_meta").on("input propertychange", function () {
         renderTpgPreview();
     });
