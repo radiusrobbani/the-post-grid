@@ -2,8 +2,7 @@
 
 if (!class_exists('rtTPGAjaxResponse')):
 
-    class rtTPGAjaxResponse
-    {
+    class rtTPGAjaxResponse {
         function __construct() {
             add_action('wp_ajax_rtTPGSettings', array($this, 'rtTPGSaveSettings'));
             add_action('wp_ajax_rtTPGShortCodeList', array($this, 'shortCodeList'));

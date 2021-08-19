@@ -2,8 +2,7 @@
 
 if (!class_exists('rtTPGLoadMoreResponse')):
 
-    class rtTPGLoadMoreResponse
-    {
+    class rtTPGLoadMoreResponse {
         private $l4toggleLoadMore;
         private $order = "DESC";
 

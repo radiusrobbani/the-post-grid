@@ -876,6 +876,7 @@ span.more-loading {
 .rt-layout-filter-container .rt-filter-wrap .rt-filter-button-wrap {
     padding: 0;
     margin-top: 0;
+    margin-left: 0;
 }
 
 .rt-layout-filter-container .rt-filter-wrap .rt-filter-button-item .rt-filter-sub-tax {

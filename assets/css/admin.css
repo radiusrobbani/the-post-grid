@@ -494,6 +494,10 @@ div#button_bg_color_holder:before {
     .rt-tab-content .field-holder#button_hover_text_color_holder {
         border-top: 1px solid #e1e1e1;
     }
+    div#button_border_color_holder + div,
+    div#button_border_color_holder {
+        width: 150px;
+    }
 }
 
 @media all and (max-width: 1199px) {

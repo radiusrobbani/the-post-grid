@@ -2,8 +2,7 @@
 
 if (!class_exists('rtTPGOptions')):
 
-    class rtTPGOptions
-    {
+    class rtTPGOptions {
 
         function rtPostTypes() {
 

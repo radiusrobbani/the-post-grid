@@ -1,7 +1,6 @@
 <?php
 if (!class_exists('rtTPGHook')):
-    class rtTPGHook
-    {
+    class rtTPGHook {
 
         function __construct() {
             add_filter('tpg_author_arg', array(__CLASS__, 'filter_author_args'), 10);

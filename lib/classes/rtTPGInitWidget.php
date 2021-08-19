@@ -16,5 +16,4 @@ if (!class_exists('rtTPGInitWidget')):
         }
     }
 
-
 endif;

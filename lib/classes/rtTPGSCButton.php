@@ -2,7 +2,7 @@
 
 if(!class_exists('rtTPGSCButton')):
 
-    class rtTPGSCButton{
+    class rtTPGSCButton {
 
         public $sc_tag = 'rt_tpg_scg';
 

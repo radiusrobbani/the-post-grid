@@ -5,8 +5,7 @@ if (!defined('WPINC')) {
 
 if (!class_exists('rtTPGGutenBurg')):
 
-    class rtTPGGutenBurg
-    {
+    class rtTPGGutenBurg {
         function __construct() {
             add_action('enqueue_block_assets', array($this, 'block_assets'));
             add_action('enqueue_block_editor_assets', array($this, 'block_editor_assets'));

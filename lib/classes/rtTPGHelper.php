@@ -2,8 +2,7 @@
 
 if (!class_exists('rtTPGHelper')):
 
-    class rtTPGHelper
-    {
+    class rtTPGHelper {
 
         function verifyNonce() {
             $nonce = isset($_REQUEST[$this->nonceId()]) ? $_REQUEST[$this->nonceId()] : null;
@@ -511,6 +510,10 @@ if (!class_exists('rtTPGHelper')):
 
         function get_the_excerpt($post_id, $data = array()) {
             $type = $data['excerpt_type'];
+            $post = get_post($post_id);
+            if (empty($post)) {
+                return '';
+            }
             if ($type == 'full') {
                 ob_start();
                 the_content();
@@ -518,7 +521,11 @@ if (!class_exists('rtTPGHelper')):
 
                 return apply_filters('tpg_content_full', $content, $post_id, $data);
             } else {
-                $defaultExcerpt = get_the_excerpt($post_id);
+                if (class_exists('ET_GB_Block_Layout')) {
+                    $defaultExcerpt = $post->post_excerpt ?: wp_trim_words($post->post_content, 55);
+                } else {
+                    $defaultExcerpt = get_the_excerpt($post_id);
+                }
                 $limit = isset($data['excerpt_limit']) ? abs($data['excerpt_limit']) : 0;
                 $more = $data['excerpt_more_text'];
                 $excerpt = preg_replace('`\[[^\]]*\]`', '', $defaultExcerpt);
