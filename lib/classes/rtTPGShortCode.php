@@ -449,7 +449,12 @@ if (!class_exists('rtTPGShortCode')):
                         )
                     );
                 }
+
                 $gridQuery = new WP_Query(apply_filters('tpg_sc_query_args', $args, $scMeta));
+
+                $max_page = ceil($limit / $posts_per_page);
+                $gridQuery->max_num_pages = $gridQuery->max_num_pages < $max_page ? $gridQuery->max_num_pages : $max_page;
+
                 // Start layout
                 $html .= rtTPG()->layoutStyle($layoutID, $scMeta, $layout, $scID);
                 $containerDataAttr .= " data-sc-id='{$scID}'";

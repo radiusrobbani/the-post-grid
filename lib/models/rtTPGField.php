@@ -335,9 +335,9 @@ if ( ! class_exists( 'rtTPGField' ) ):
 			if ( is_array( $this->options ) && ! empty( $this->options ) ) {
 				foreach ( $this->options as $key => $value ) {
 					$checked = ( $key == $this->value ? "checked" : null );
-					if(empty($checked)) {
+					/*if(empty($checked)) {
                         $checked = ( $key == $this->default ? "checked" : null );
-                    }
+                    }*/
 					$h       .= "<label for='{$this->name}-{$key}'>
                             <input {$atts} type='radio' id='{$this->id}-{$key}' {$checked} name='{$this->name}' value='{$key}'>{$value}
                             </label>";
