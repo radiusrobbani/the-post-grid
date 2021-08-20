@@ -109,26 +109,6 @@ msgstr ""
 msgid "Settings"
 msgstr ""
 
-#: ../lib/classes/rtTPGLoadMoreResponse.php:487
-msgid "Session error"
-msgstr ""
-
-#: ../lib/classes/rtTPGLoadMoreResponse.php:484
-msgid "Shortcode Id not defined"
-msgstr ""
-
-#: ../lib/classes/rtTPGLoadMoreResponse.php:60, ../lib/classes/rtTPGPreview.php:67, ../lib/classes/rtTPGShortCode.php:137
-msgid "Read More"
-msgstr ""
-
-#: ../lib/classes/rtTPGLoadMoreResponse.php:62, ../lib/classes/rtTPGOptions.php:382, ../lib/classes/rtTPGOptions.php:388, ../lib/classes/rtTPGPreview.php:69, ../lib/classes/rtTPGShortCode.php:139
-msgid "Show all"
-msgstr ""
-
-#: ../lib/classes/rtTPGLoadMoreResponse.php:477, ../lib/classes/rtTPGPreview.php:867, ../lib/classes/rtTPGShortCode.php:896
-msgid "No post found"
-msgstr ""
-
 #: ../lib/classes/rtTPGMeta.php:27
 msgid "Shortcode"
 msgstr ""
@@ -201,7 +181,7 @@ msgstr ""
 msgid "OR — show posts which match one or more settings"
 msgstr ""
 
-#: ../lib/classes/rtTPGOptions.php:50, ../lib/classes/rtTPGPreview.php:655, ../lib/classes/rtTPGShortCode.php:693
+#: ../lib/classes/rtTPGOptions.php:50, ../lib/classes/rtTPGPreview.php:655, ../lib/classes/rtTPGShortCode.php:702
 msgid "Meta value"
 msgstr ""
 
@@ -259,6 +239,10 @@ msgstr ""
 
 #: ../lib/classes/rtTPGOptions.php:176
 msgid "Enter your license key"
+msgstr ""
+
+#: ../lib/classes/rtTPGOptions.php:382, ../lib/classes/rtTPGOptions.php:388, ../lib/classes/rtTPGPreview.php:69, ../lib/classes/rtTPGShortCode.php:139
+msgid "Show all"
 msgstr ""
 
 #: ../lib/classes/rtTPGOptions.php:387
@@ -417,39 +401,47 @@ msgstr ""
 msgid "Get Pro Version"
 msgstr ""
 
-#: ../lib/classes/rtTPGPreview.php:419, ../lib/classes/rtTPGShortCode.php:460
+#: ../lib/classes/rtTPGPreview.php:67, ../lib/classes/rtTPGShortCode.php:137
+msgid "Read More"
+msgstr ""
+
+#: ../lib/classes/rtTPGPreview.php:419, ../lib/classes/rtTPGShortCode.php:469
 msgid "All"
 msgstr ""
 
-#: ../lib/classes/rtTPGPreview.php:653, ../lib/classes/rtTPGPreview.php:660, ../lib/classes/rtTPGShortCode.php:691, ../lib/classes/rtTPGShortCode.php:698
+#: ../lib/classes/rtTPGPreview.php:653, ../lib/classes/rtTPGPreview.php:660, ../lib/classes/rtTPGShortCode.php:700, ../lib/classes/rtTPGShortCode.php:707
 msgid "Sort By None"
 msgstr ""
 
-#: ../lib/classes/rtTPGPreview.php:678, ../lib/classes/rtTPGShortCode.php:716
+#: ../lib/classes/rtTPGPreview.php:678, ../lib/classes/rtTPGShortCode.php:725
 msgid "Search..."
 msgstr ""
 
-#: ../lib/classes/rtTPGPreview.php:686, ../lib/classes/rtTPGShortCode.php:724
+#: ../lib/classes/rtTPGPreview.php:686, ../lib/classes/rtTPGShortCode.php:733
 msgid "Loading ..."
 msgstr ""
 
-#: ../lib/classes/rtTPGPreview.php:770, ../lib/classes/rtTPGShortCode.php:805
+#: ../lib/classes/rtTPGPreview.php:867, ../lib/classes/rtTPGShortCode.php:905
+msgid "No post found"
+msgstr ""
+
+#: ../lib/classes/rtTPGPreview.php:770, ../lib/classes/rtTPGShortCode.php:814
 msgid "Search"
 msgstr ""
 
-#: ../lib/classes/rtTPGPreview.php:901, ../lib/classes/rtTPGPreview.php:896, ../lib/classes/rtTPGShortCode.php:922
+#: ../lib/classes/rtTPGPreview.php:901, ../lib/classes/rtTPGPreview.php:896, ../lib/classes/rtTPGShortCode.php:931
 msgid "Load More"
 msgstr ""
 
-#: ../lib/classes/rtTPGShortCode.php:960
+#: ../lib/classes/rtTPGShortCode.php:969
 msgid "No shortCode found"
 msgstr ""
 
-#: ../lib/classes/rtTPGShortCode.php:980
+#: ../lib/classes/rtTPGShortCode.php:989
 msgid "This is a restricted content, you need to logged in to view this content."
 msgstr ""
 
-#: ../lib/classes/rtTPGShortCode.php:974
+#: ../lib/classes/rtTPGShortCode.php:983
 msgid "You are not permitted to view this content."
 msgstr ""
 

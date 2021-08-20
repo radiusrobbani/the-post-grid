@@ -581,6 +581,10 @@ span.more-loading {
     padding-right: 0px;
 }
 
+.rt-holder .entry-title a {
+    color: #000000;
+}
+
 .rt-tpg-container .rt-holder .post-meta.center .read-more {
     float: none;
 }
@@ -604,6 +608,8 @@ span.more-loading {
 .rt-tpg-container .rt-holder .read-more a {
     padding: 8px 15px;
     font-size: 15px;
+    display: inline-block;
+    line-height: 1.5;
 }
 
 .rt-tpg-container .rt-holder .tpg-excerpt {
@@ -1208,7 +1214,7 @@ body > .rt-tooltip .rt-tooltip-bottom:after {
 .rt-tpg-container .isotope1 .rt-holder .rt-detail,
 .rt-tpg-container .carousel1 .rt-holder .rt-detail {
     background: #fff;
-    padding: 15px 0px;
+    padding: 15px 0 0;
 }
 
 .rt-tpg-container .layout1 .rt-holder .rt-detail h3,
@@ -1512,6 +1518,7 @@ body > .rt-tooltip .rt-tooltip-bottom:after {
     font-size: 13px;
     letter-spacing: 0.1em;
     text-transform: uppercase;
+    margin-top: 30px;
     color: #fff;
     background-color: #fb4c35;
     text-decoration: none;

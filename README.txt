@@ -142,7 +142,7 @@ For any bug or suggestion please mail support@radiustheme.com
 == Changelog ==
 
 = 3.0.1 =
-* Fixed excerpt issue
+* Fixed isotope masonry issue
 
 = 3.0.0 =
 * Updated to FontAwesome 5

@@ -343,7 +343,9 @@ if (!class_exists('rtTPGShortCode')):
                     $arg_class[] = 'rt-equal-height';
                 }
                 $gridType = !empty($scMeta['grid_style'][0]) ? $scMeta['grid_style'][0] : 'even';
-                if (!$isCarousel && !$isOffset) {
+                if ($isIsotope && !rtTPG()->hasPro()) {
+                    $arg_class[] = "masonry-grid-item";
+                } else if (!$isCarousel && !$isOffset) {
                     $arg_class[] = $gridType . "-grid-item";
                 }
                 $arg_class[] = "rt-grid-item";
@@ -452,8 +454,10 @@ if (!class_exists('rtTPGShortCode')):
 
                 $gridQuery = new WP_Query(apply_filters('tpg_sc_query_args', $args, $scMeta));
 
-                $max_page = ceil($limit / $posts_per_page);
-                $gridQuery->max_num_pages = $gridQuery->max_num_pages < $max_page ? $gridQuery->max_num_pages : $max_page;
+                if (isset($posts_per_page) && $posts_per_page && $limit) {
+                    $max_page = ceil($limit / $posts_per_page);
+                    $gridQuery->max_num_pages = $gridQuery->max_num_pages < $max_page ? $gridQuery->max_num_pages : $max_page;
+                }
 
                 // Start layout
                 $html .= rtTPG()->layoutStyle($layoutID, $scMeta, $layout, $scID);
