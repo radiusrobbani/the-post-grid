@@ -53,10 +53,14 @@ if (!class_exists('rtTPGAjaxResponse')):
             $data = $msg = null;
             if (rtTPG()->verifyNonce()) {
                 if ($filter = $_REQUEST['filter']) {
+                    $include = [];
+                    if(isset($_REQUEST['include']) && $term = $_REQUEST['include']) {
+                        $include = explode(',', $term);
+                    }
                     $error = false;
                     $msg = __('Success', 'the-post-grid');
                     $data .= "<option value=''>" . __('Show All', 'the-post-grid') . "</option>";
-                    $items = rtTPG()->rt_get_all_term_by_taxonomy($filter, '', 0);
+                    $items = rtTPG()->rt_get_selected_term_by_taxonomy($filter, $include, '', 0);
                     if (!empty($items)) {
                         foreach ($items as $id => $item) {
                             $data .= "<option value='{$id}'>{$item}</option>";

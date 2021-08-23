@@ -29,39 +29,39 @@ msgstr ""
 msgid "Server Error !!"
 msgstr ""
 
-#: ../lib/classes/rtTPGAjaxResponse.php:67, ../lib/classes/rtTPGAjaxResponse.php:94, ../lib/classes/rtTPGPreview.php:938
+#: ../lib/classes/rtTPGAjaxResponse.php:71, ../lib/classes/rtTPGAjaxResponse.php:98, ../lib/classes/rtTPGPreview.php:938
 msgid "Session Error !!"
 msgstr ""
 
-#: ../lib/classes/rtTPGAjaxResponse.php:57
+#: ../lib/classes/rtTPGAjaxResponse.php:61
 msgid "Success"
 msgstr ""
 
-#: ../lib/classes/rtTPGAjaxResponse.php:58, ../lib/classes/rtTPGOptions.php:352
+#: ../lib/classes/rtTPGAjaxResponse.php:62, ../lib/classes/rtTPGOptions.php:352
 msgid "Show All"
 msgstr ""
 
-#: ../lib/classes/rtTPGAjaxResponse.php:89
+#: ../lib/classes/rtTPGAjaxResponse.php:93
 msgid "Settings successfully updated"
 msgstr ""
 
-#: ../lib/classes/rtTPGAjaxResponse.php:125, ../lib/classes/rtTPGAjaxResponse.php:144, ../lib/classes/rtTPGAjaxResponse.php:185
+#: ../lib/classes/rtTPGAjaxResponse.php:129, ../lib/classes/rtTPGAjaxResponse.php:148, ../lib/classes/rtTPGAjaxResponse.php:189
 msgid "Security error"
 msgstr ""
 
-#: ../lib/classes/rtTPGAjaxResponse.php:121
+#: ../lib/classes/rtTPGAjaxResponse.php:125
 msgid "<div class=\"field-holder\">No Taxonomy found</div>"
 msgstr ""
 
-#: ../lib/classes/rtTPGAjaxResponse.php:211
+#: ../lib/classes/rtTPGAjaxResponse.php:215
 msgid "No shortCode found."
 msgstr ""
 
-#: ../lib/classes/rtTPGAjaxResponse.php:200
+#: ../lib/classes/rtTPGAjaxResponse.php:204
 msgid "Select Short code"
 msgstr ""
 
-#: ../lib/classes/rtTPGAjaxResponse.php:202, ../lib/classes/rtTPGOptions.php:776, ../lib/classes/rtTPGOptions.php:788
+#: ../lib/classes/rtTPGAjaxResponse.php:206, ../lib/classes/rtTPGOptions.php:776, ../lib/classes/rtTPGOptions.php:788
 msgid "Default"
 msgstr ""
 
@@ -181,7 +181,7 @@ msgstr ""
 msgid "OR — show posts which match one or more settings"
 msgstr ""
 
-#: ../lib/classes/rtTPGOptions.php:50, ../lib/classes/rtTPGPreview.php:655, ../lib/classes/rtTPGShortCode.php:702
+#: ../lib/classes/rtTPGOptions.php:50, ../lib/classes/rtTPGPreview.php:655, ../lib/classes/rtTPGShortCode.php:698
 msgid "Meta value"
 msgstr ""
 
@@ -405,43 +405,43 @@ msgstr ""
 msgid "Read More"
 msgstr ""
 
-#: ../lib/classes/rtTPGPreview.php:419, ../lib/classes/rtTPGShortCode.php:469
+#: ../lib/classes/rtTPGPreview.php:419, ../lib/classes/rtTPGShortCode.php:465
 msgid "All"
 msgstr ""
 
-#: ../lib/classes/rtTPGPreview.php:653, ../lib/classes/rtTPGPreview.php:660, ../lib/classes/rtTPGShortCode.php:700, ../lib/classes/rtTPGShortCode.php:707
+#: ../lib/classes/rtTPGPreview.php:653, ../lib/classes/rtTPGPreview.php:660, ../lib/classes/rtTPGShortCode.php:696, ../lib/classes/rtTPGShortCode.php:703
 msgid "Sort By None"
 msgstr ""
 
-#: ../lib/classes/rtTPGPreview.php:678, ../lib/classes/rtTPGShortCode.php:725
+#: ../lib/classes/rtTPGPreview.php:678, ../lib/classes/rtTPGShortCode.php:721
 msgid "Search..."
 msgstr ""
 
-#: ../lib/classes/rtTPGPreview.php:686, ../lib/classes/rtTPGShortCode.php:733
+#: ../lib/classes/rtTPGPreview.php:686, ../lib/classes/rtTPGShortCode.php:729
 msgid "Loading ..."
 msgstr ""
 
-#: ../lib/classes/rtTPGPreview.php:867, ../lib/classes/rtTPGShortCode.php:905
+#: ../lib/classes/rtTPGPreview.php:867, ../lib/classes/rtTPGShortCode.php:901
 msgid "No post found"
 msgstr ""
 
-#: ../lib/classes/rtTPGPreview.php:770, ../lib/classes/rtTPGShortCode.php:814
+#: ../lib/classes/rtTPGPreview.php:770, ../lib/classes/rtTPGShortCode.php:810
 msgid "Search"
 msgstr ""
 
-#: ../lib/classes/rtTPGPreview.php:901, ../lib/classes/rtTPGPreview.php:896, ../lib/classes/rtTPGShortCode.php:931
+#: ../lib/classes/rtTPGPreview.php:901, ../lib/classes/rtTPGPreview.php:896, ../lib/classes/rtTPGShortCode.php:927
 msgid "Load More"
 msgstr ""
 
-#: ../lib/classes/rtTPGShortCode.php:969
+#: ../lib/classes/rtTPGShortCode.php:965
 msgid "No shortCode found"
 msgstr ""
 
-#: ../lib/classes/rtTPGShortCode.php:989
+#: ../lib/classes/rtTPGShortCode.php:985
 msgid "This is a restricted content, you need to logged in to view this content."
 msgstr ""
 
-#: ../lib/classes/rtTPGShortCode.php:983
+#: ../lib/classes/rtTPGShortCode.php:979
 msgid "You are not permitted to view this content."
 msgstr ""
 
