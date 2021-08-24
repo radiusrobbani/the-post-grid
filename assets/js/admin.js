@@ -402,12 +402,18 @@
         }
     }
 
-    $('#term_category_holder select').on('change', function (evt) {
+    $('#term_category_holder select').on('change', function (e) {
         setDefaultItems();
+        if ($("#tgp_filter-_taxonomy_filter").is(':checked')) {
+            setDefaultItemsForFilter();
+        }
     });
 
-    $('#term_post_tag_holder select').on('change', function (evt) {
+    $('#term_post_tag_holder select').on('change', function (e) {
         setDefaultItems();
+        if ($("#tgp_filter-_taxonomy_filter").is(':checked')) {
+            setDefaultItemsForFilter();
+        }
     });
 
     function setDefaultItems() {
@@ -467,8 +473,27 @@
             target = $('#tgp_default_filter'),
             $fId = target_from.val();
 
+        var $term = [];
+
+        if ($fId == 'category') {
+            if ($('#term_category_holder').length && $('#post-taxonomy-category')) {
+                var selected_term = $('#term_category_holder select').select2('data');
+                selected_term.forEach(function (element){
+                    $term.push(element.id);
+                });
+            }
+        } else if ($fId == 'post_tag') {
+            $term = [];
+            if ($('#term_post_tag_holder').length && $('#post-taxonomy-post_tag')) {
+                var selected_term = $('#term_post_tag_holder select').select2('data');
+                selected_term.forEach(function (element){
+                    $term.push(element.id);
+                });
+            }
+        }
+
         if ($fId) {
-            var data = 'action=defaultFilterItem&filter=' + $fId + "&rttpg_nonce=" + rttpg.nonce;
+            var data = 'action=defaultFilterItem&filter=' + $fId + '&include=' + $term + "&rttpg_nonce=" + rttpg.nonce;
             $.ajax({
                 type: "post",
                 url: rttpg.ajaxurl,

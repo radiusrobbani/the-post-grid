@@ -23,6 +23,7 @@ echo $sHtml;
             foreach($advFilters['post_filter']['options'] as $key => $filter){
                 if($key == 'tpg_taxonomy'){
                     $html .= "<div class='rt-tpg-filter taxonomy tpg_taxonomy tpg-hidden'>";
+
                     if(isset($pt) && $pt){
                         $taxonomies = rtTPG()->rt_get_all_taxonomy_by_post_type($pt);
                         $taxA = get_post_meta($post->ID, 'tpg_taxonomy');
