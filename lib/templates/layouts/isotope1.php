@@ -2,7 +2,7 @@
 
 $html = $htmlDetail = $iTitle = null;
 if(in_array('title', $items)){
-    $iTitle = "<h3 class='entry-title'><a data-id='{$pID}' class='{$anchorClass}' href='{$pLink}'{$link_target}>{$title}</a></h3>";
+    $iTitle = sprintf('<%1$s class="entry-title"><a data-id="%2$s" class="%3$s" href="%4$s"%5$s>%6$s</a></%1$s>', $title_tag,$pID,$anchorClass,$pLink,$link_target,$title);
 }
 
 $html .= sprintf('<div class="%s" data-id="%d">', esc_attr(implode(" ", array_filter([$grid, $class, $isoFilter]))), $pID);

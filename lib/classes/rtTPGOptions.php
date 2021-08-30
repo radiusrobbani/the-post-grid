@@ -580,6 +580,15 @@ if (!class_exists('rtTPGOptions')):
                     "type"  => "text",
                     "label" => "Read more text"
                 ),
+                'title_tag'                => array(
+                    'type'    => 'select',
+                    'name'    => 'title_tag',
+                    'label'   => esc_html__('Title tag', 'the-post-grid'),
+                    'class'   => 'rt-select2',
+                    'id'      => 'title-tag',
+                    'options' => $this->getTitleTags(),
+                    'default' => 'h3'
+                ),
                 'link_to_detail_page'              => array(
                     "type"      => "radio",
                     "label"     => "Link To Detail Page",
@@ -638,6 +647,14 @@ if (!class_exists('rtTPGOptions')):
             return array(
                 'even'    => "Even Grid",
                 'masonry' => "Masonry"
+            );
+        }
+
+        function getTitleTags() {
+            return array(
+                'h2' => "H2",
+                'h3' => "H3",
+                'h4' => "H4"
             );
         }
 

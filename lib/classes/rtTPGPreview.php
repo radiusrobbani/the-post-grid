@@ -408,6 +408,8 @@ if ( ! class_exists( 'rtTPGPreview' ) ):
 					);
 				}
 
+                $arg['title_tag'] = (!empty($scMeta['title_tag']) && in_array($scMeta['title_tag'], array_keys(rtTPG()->getTitleTags()))) ? esc_attr($scMeta['title_tag']) : 'h3';
+
 				$gridQuery = new WP_Query( $args );
 				// Start layout
 				$data              .= rtTPG()->layoutStyle( $layoutID, $scMeta, $layout );

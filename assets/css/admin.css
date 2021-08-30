@@ -115,6 +115,10 @@ ul.rt-tab-nav li {
     margin-bottom: -1px;
 }
 
+ul.rt-tab-nav li:nth-child(4) {
+    margin-right: 3px;
+}
+
 ul.rt-tab-nav li:focus {
     outline: none;
 }

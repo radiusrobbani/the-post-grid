@@ -1217,18 +1217,30 @@ body > .rt-tooltip .rt-tooltip-bottom:after {
     padding: 15px 0 0;
 }
 
+.rt-tpg-container .layout1 .rt-holder .rt-detail h2,
 .rt-tpg-container .layout1 .rt-holder .rt-detail h3,
+.rt-tpg-container .layout1 .rt-holder .rt-detail h4,
+.rt-tpg-container .isotope1 .rt-holder .rt-detail h2,
 .rt-tpg-container .isotope1 .rt-holder .rt-detail h3,
-.rt-tpg-container .carousel1 .rt-holder .rt-detail h3 {
+.rt-tpg-container .isotope1 .rt-holder .rt-detail h4,
+.rt-tpg-container .carousel1 .rt-holder .rt-detail h2,
+.rt-tpg-container .carousel1 .rt-holder .rt-detail h3,
+.rt-tpg-container .carousel1 .rt-holder .rt-detail h4 {
     font-size: 26px;
     line-height: 1.25;
     margin: 0 0 18px;
     font-weight: 400;
 }
 
+.rt-tpg-container .layout1 .rt-holder .rt-detail.rt-with-title h2,
 .rt-tpg-container .layout1 .rt-holder .rt-detail.rt-with-title h3,
+.rt-tpg-container .layout1 .rt-holder .rt-detail.rt-with-title h4,
+.rt-tpg-container .isotope1 .rt-holder .rt-detail.rt-with-title h2,
 .rt-tpg-container .isotope1 .rt-holder .rt-detail.rt-with-title h3,
-.rt-tpg-container .carousel1 .rt-holder .rt-detail.rt-with-title h3 {
+.rt-tpg-container .isotope1 .rt-holder .rt-detail.rt-with-title h4,
+.rt-tpg-container .carousel1 .rt-holder .rt-detail.rt-with-title h2,
+.rt-tpg-container .carousel1 .rt-holder .rt-detail.rt-with-title h3,
+.rt-tpg-container .carousel1 .rt-holder .rt-detail.rt-with-title h4 {
     margin-bottom: 5px;
 }
 
@@ -1293,7 +1305,9 @@ body > .rt-tooltip .rt-tooltip-bottom:after {
     transform: scale(1.1);
 }
 
-.rt-tpg-container .layout2 .rt-holder .rt-detail h3 {
+.rt-tpg-container .layout2 .rt-holder .rt-detail h2,
+.rt-tpg-container .layout2 .rt-holder .rt-detail h3,
+.rt-tpg-container .layout2 .rt-holder .rt-detail h4 {
     font-size: 26px;
     line-height: 1.25;
     margin: 0px 0 15px 0;
@@ -1343,7 +1357,9 @@ body > .rt-tooltip .rt-tooltip-bottom:after {
     margin-bottom: 20px;
 }
 
-.rt-tpg-container .layout3 .rt-holder .rt-detail h3 {
+.rt-tpg-container .layout3 .rt-holder .rt-detail h2,
+.rt-tpg-container .layout3 .rt-holder .rt-detail h3,
+.rt-tpg-container .layout3 .rt-holder .rt-detail h4 {
     font-size: 26px;
     margin: 0px 0 18px 0;
     line-height: 1.25;
