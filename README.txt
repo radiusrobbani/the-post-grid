@@ -142,7 +142,8 @@ For any bug or suggestion please mail support@radiustheme.com
 == Changelog ==
 
 = 3.0.2 =
-* Fixed lazy load issue
+* Fixed pagination issue
+* Fixed shortcode title tag issue
 
 = 3.0.1 =
 * Fixed isotope masonry issue

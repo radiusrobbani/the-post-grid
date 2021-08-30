@@ -1125,7 +1125,18 @@ if (!class_exists('rtTPGHelper')):
             // Title decoration
 
             if ($title_color || $title_size || $title_weight || $title_alignment) {
-                $css .= "#{$layoutID} .{$layout} .rt-holder h3.entry-title,#{$layoutID} .{$layout} .rt-holder h3.entry-title a,#{$layoutID} .rt-holder .rt-woo-info h3 a,#{$layoutID} .rt-holder .rt-woo-info h3{";
+                $css .= "#{$layoutID} .{$layout} .rt-holder h2.entry-title,
+                #{$layoutID} .{$layout} .rt-holder h3.entry-title,
+                #{$layoutID} .{$layout} .rt-holder h4.entry-title,
+                #{$layoutID} .{$layout} .rt-holder h2.entry-title a,
+                #{$layoutID} .{$layout} .rt-holder h3.entry-title a,
+                #{$layoutID} .{$layout} .rt-holder h4.entry-title a,
+                #{$layoutID} .rt-holder .rt-woo-info h2 a,
+                #{$layoutID} .rt-holder .rt-woo-info h3 a,
+                #{$layoutID} .rt-holder .rt-woo-info h4 a,
+                #{$layoutID} .rt-holder .rt-woo-info h2,
+                #{$layoutID} .rt-holder .rt-woo-info h3,
+                #{$layoutID} .rt-holder .rt-woo-info h4{";
                 if ($title_color) {
                     $css .= "color:" . $title_color . ";";
                 }
@@ -1143,10 +1154,18 @@ if (!class_exists('rtTPGHelper')):
 
             // Title hover color
             if ($title_hover_color) {
-                $css .= "#{$layoutID} .{$layout} .rt-holder h3.entry-title:hover,
+                $css .= "#{$layoutID} .{$layout} .rt-holder h2.entry-title:hover,
+                        #{$layoutID} .{$layout} .rt-holder h3.entry-title:hover,
+                        #{$layoutID} .{$layout} .rt-holder h4.entry-title:hover,
+						#{$layoutID} .{$layout} .rt-holder h2.entry-title a:hover,
 						#{$layoutID} .{$layout} .rt-holder h3.entry-title a:hover,
+						#{$layoutID} .{$layout} .rt-holder h4.entry-title a:hover,
+						#{$layoutID} .rt-holder .rt-woo-info h2 a:hover,
 						#{$layoutID} .rt-holder .rt-woo-info h3 a:hover,
-						#{$layoutID} .rt-holder .rt-woo-info h3:hover{";
+						#{$layoutID} .rt-holder .rt-woo-info h4 a:hover,
+						#{$layoutID} .rt-holder .rt-woo-info h2:hover,
+						#{$layoutID} .rt-holder .rt-woo-info h3:hover,
+						#{$layoutID} .rt-holder .rt-woo-info h4:hover{";
                 $css .= "color:" . $title_hover_color . " !important;";
                 $css .= "}";
             }

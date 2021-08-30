@@ -29,7 +29,7 @@ msgstr ""
 msgid "Server Error !!"
 msgstr ""
 
-#: ../lib/classes/rtTPGAjaxResponse.php:71, ../lib/classes/rtTPGAjaxResponse.php:98, ../lib/classes/rtTPGPreview.php:938
+#: ../lib/classes/rtTPGAjaxResponse.php:71, ../lib/classes/rtTPGAjaxResponse.php:98, ../lib/classes/rtTPGPreview.php:940
 msgid "Session Error !!"
 msgstr ""
 
@@ -61,7 +61,7 @@ msgstr ""
 msgid "Select Short code"
 msgstr ""
 
-#: ../lib/classes/rtTPGAjaxResponse.php:206, ../lib/classes/rtTPGOptions.php:776, ../lib/classes/rtTPGOptions.php:788
+#: ../lib/classes/rtTPGAjaxResponse.php:206, ../lib/classes/rtTPGOptions.php:793, ../lib/classes/rtTPGOptions.php:805
 msgid "Default"
 msgstr ""
 
@@ -181,7 +181,7 @@ msgstr ""
 msgid "OR — show posts which match one or more settings"
 msgstr ""
 
-#: ../lib/classes/rtTPGOptions.php:50, ../lib/classes/rtTPGPreview.php:655, ../lib/classes/rtTPGShortCode.php:693
+#: ../lib/classes/rtTPGOptions.php:50, ../lib/classes/rtTPGPreview.php:657, ../lib/classes/rtTPGShortCode.php:695
 msgid "Meta value"
 msgstr ""
 
@@ -309,95 +309,99 @@ msgstr ""
 msgid "Excerpt Type"
 msgstr ""
 
-#: ../lib/classes/rtTPGOptions.php:769
+#: ../lib/classes/rtTPGOptions.php:586
+msgid "Title tag"
+msgstr ""
+
+#: ../lib/classes/rtTPGOptions.php:786
 msgid "Read more button border radius"
 msgstr ""
 
-#: ../lib/classes/rtTPGOptions.php:770
+#: ../lib/classes/rtTPGOptions.php:787
 msgid "Leave it blank for default"
 msgstr ""
 
-#: ../lib/classes/rtTPGOptions.php:775
+#: ../lib/classes/rtTPGOptions.php:792
 msgid "Read more button alignment"
 msgstr ""
 
-#: ../lib/classes/rtTPGOptions.php:778
+#: ../lib/classes/rtTPGOptions.php:795
 msgid "Left"
 msgstr ""
 
-#: ../lib/classes/rtTPGOptions.php:779
+#: ../lib/classes/rtTPGOptions.php:796
 msgid "Right"
 msgstr ""
 
-#: ../lib/classes/rtTPGOptions.php:780
+#: ../lib/classes/rtTPGOptions.php:797
 msgid "Center"
 msgstr ""
 
-#: ../lib/classes/rtTPGOptions.php:785
+#: ../lib/classes/rtTPGOptions.php:802
 msgid "Title Position (Above or Below image)"
 msgstr ""
 
-#: ../lib/classes/rtTPGOptions.php:790
+#: ../lib/classes/rtTPGOptions.php:807
 msgid "Above image"
 msgstr ""
 
-#: ../lib/classes/rtTPGOptions.php:791
+#: ../lib/classes/rtTPGOptions.php:808
 msgid "Below image"
 msgstr ""
 
-#: ../lib/classes/rtTPGOptions.php:793
+#: ../lib/classes/rtTPGOptions.php:810
 msgid "<span style='color:red'>Only Layout 1, Layout 12, Layout 14, Isotope1, Isotope8, Isotope10, Carousel Layout 1, Carousel Layout 8, Carousel Layout 10</span>"
 msgstr ""
 
-#: ../lib/classes/rtTPGOptions.php:876
+#: ../lib/classes/rtTPGOptions.php:893
 msgid "Character"
 msgstr ""
 
-#: ../lib/classes/rtTPGOptions.php:877
+#: ../lib/classes/rtTPGOptions.php:894
 msgid "Word"
 msgstr ""
 
-#: ../lib/classes/rtTPGOptions.php:880
+#: ../lib/classes/rtTPGOptions.php:897
 msgid "Full Content"
 msgstr ""
 
-#: ../lib/classes/rtTPGOptions.php:899
+#: ../lib/classes/rtTPGOptions.php:916
 msgid "Taxonomy filter"
 msgstr ""
 
-#: ../lib/classes/rtTPGOptions.php:900
+#: ../lib/classes/rtTPGOptions.php:917
 msgid "Author filter"
 msgstr ""
 
-#: ../lib/classes/rtTPGOptions.php:901
+#: ../lib/classes/rtTPGOptions.php:918
 msgid "Order - Sort retrieved posts by parameter"
 msgstr ""
 
-#: ../lib/classes/rtTPGOptions.php:902
+#: ../lib/classes/rtTPGOptions.php:919
 msgid "Sort Order - Designates the ascending or descending order of the \"orderby\" parameter"
 msgstr ""
 
-#: ../lib/classes/rtTPGOptions.php:903
+#: ../lib/classes/rtTPGOptions.php:920
 msgid "Search filter"
 msgstr ""
 
-#: ../lib/classes/rtTPGOptions.php:923
+#: ../lib/classes/rtTPGOptions.php:940
 msgid "Layout 1"
 msgstr ""
 
-#: ../lib/classes/rtTPGOptions.php:924
+#: ../lib/classes/rtTPGOptions.php:941
 msgid "Layout 2"
 msgstr ""
 
-#: ../lib/classes/rtTPGOptions.php:925
+#: ../lib/classes/rtTPGOptions.php:942
 msgid "Layout 3"
 msgstr ""
 
-#: ../lib/classes/rtTPGOptions.php:926
+#: ../lib/classes/rtTPGOptions.php:943
 msgid "Isotope Layout"
 msgstr ""
 
-#: ../lib/classes/rtTPGOptions.php:1051
+#: ../lib/classes/rtTPGOptions.php:1068
 msgid "Get Pro Version"
 msgstr ""
 
@@ -405,43 +409,43 @@ msgstr ""
 msgid "Read More"
 msgstr ""
 
-#: ../lib/classes/rtTPGPreview.php:419, ../lib/classes/rtTPGShortCode.php:460
+#: ../lib/classes/rtTPGPreview.php:421, ../lib/classes/rtTPGShortCode.php:462
 msgid "All"
 msgstr ""
 
-#: ../lib/classes/rtTPGPreview.php:653, ../lib/classes/rtTPGPreview.php:660, ../lib/classes/rtTPGShortCode.php:691, ../lib/classes/rtTPGShortCode.php:698
+#: ../lib/classes/rtTPGPreview.php:655, ../lib/classes/rtTPGPreview.php:662, ../lib/classes/rtTPGShortCode.php:693, ../lib/classes/rtTPGShortCode.php:700
 msgid "Sort By None"
 msgstr ""
 
-#: ../lib/classes/rtTPGPreview.php:678, ../lib/classes/rtTPGShortCode.php:716
+#: ../lib/classes/rtTPGPreview.php:680, ../lib/classes/rtTPGShortCode.php:718
 msgid "Search..."
 msgstr ""
 
-#: ../lib/classes/rtTPGPreview.php:686, ../lib/classes/rtTPGShortCode.php:724
+#: ../lib/classes/rtTPGPreview.php:688, ../lib/classes/rtTPGShortCode.php:726
 msgid "Loading ..."
 msgstr ""
 
-#: ../lib/classes/rtTPGPreview.php:867, ../lib/classes/rtTPGShortCode.php:896
+#: ../lib/classes/rtTPGPreview.php:869, ../lib/classes/rtTPGShortCode.php:898
 msgid "No post found"
 msgstr ""
 
-#: ../lib/classes/rtTPGPreview.php:770, ../lib/classes/rtTPGShortCode.php:805
+#: ../lib/classes/rtTPGPreview.php:772, ../lib/classes/rtTPGShortCode.php:807
 msgid "Search"
 msgstr ""
 
-#: ../lib/classes/rtTPGPreview.php:901, ../lib/classes/rtTPGPreview.php:896, ../lib/classes/rtTPGShortCode.php:922
+#: ../lib/classes/rtTPGPreview.php:903, ../lib/classes/rtTPGPreview.php:898, ../lib/classes/rtTPGShortCode.php:924
 msgid "Load More"
 msgstr ""
 
-#: ../lib/classes/rtTPGShortCode.php:960
+#: ../lib/classes/rtTPGShortCode.php:962
 msgid "No shortCode found"
 msgstr ""
 
-#: ../lib/classes/rtTPGShortCode.php:980
+#: ../lib/classes/rtTPGShortCode.php:982
 msgid "This is a restricted content, you need to logged in to view this content."
 msgstr ""
 
-#: ../lib/classes/rtTPGShortCode.php:974
+#: ../lib/classes/rtTPGShortCode.php:976
 msgid "You are not permitted to view this content."
 msgstr ""
 
