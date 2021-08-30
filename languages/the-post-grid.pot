@@ -181,7 +181,7 @@ msgstr ""
 msgid "OR — show posts which match one or more settings"
 msgstr ""
 
-#: ../lib/classes/rtTPGOptions.php:50, ../lib/classes/rtTPGPreview.php:655, ../lib/classes/rtTPGShortCode.php:698
+#: ../lib/classes/rtTPGOptions.php:50, ../lib/classes/rtTPGPreview.php:655, ../lib/classes/rtTPGShortCode.php:693
 msgid "Meta value"
 msgstr ""
 
@@ -405,43 +405,43 @@ msgstr ""
 msgid "Read More"
 msgstr ""
 
-#: ../lib/classes/rtTPGPreview.php:419, ../lib/classes/rtTPGShortCode.php:465
+#: ../lib/classes/rtTPGPreview.php:419, ../lib/classes/rtTPGShortCode.php:460
 msgid "All"
 msgstr ""
 
-#: ../lib/classes/rtTPGPreview.php:653, ../lib/classes/rtTPGPreview.php:660, ../lib/classes/rtTPGShortCode.php:696, ../lib/classes/rtTPGShortCode.php:703
+#: ../lib/classes/rtTPGPreview.php:653, ../lib/classes/rtTPGPreview.php:660, ../lib/classes/rtTPGShortCode.php:691, ../lib/classes/rtTPGShortCode.php:698
 msgid "Sort By None"
 msgstr ""
 
-#: ../lib/classes/rtTPGPreview.php:678, ../lib/classes/rtTPGShortCode.php:721
+#: ../lib/classes/rtTPGPreview.php:678, ../lib/classes/rtTPGShortCode.php:716
 msgid "Search..."
 msgstr ""
 
-#: ../lib/classes/rtTPGPreview.php:686, ../lib/classes/rtTPGShortCode.php:729
+#: ../lib/classes/rtTPGPreview.php:686, ../lib/classes/rtTPGShortCode.php:724
 msgid "Loading ..."
 msgstr ""
 
-#: ../lib/classes/rtTPGPreview.php:867, ../lib/classes/rtTPGShortCode.php:901
+#: ../lib/classes/rtTPGPreview.php:867, ../lib/classes/rtTPGShortCode.php:896
 msgid "No post found"
 msgstr ""
 
-#: ../lib/classes/rtTPGPreview.php:770, ../lib/classes/rtTPGShortCode.php:810
+#: ../lib/classes/rtTPGPreview.php:770, ../lib/classes/rtTPGShortCode.php:805
 msgid "Search"
 msgstr ""
 
-#: ../lib/classes/rtTPGPreview.php:901, ../lib/classes/rtTPGPreview.php:896, ../lib/classes/rtTPGShortCode.php:927
+#: ../lib/classes/rtTPGPreview.php:901, ../lib/classes/rtTPGPreview.php:896, ../lib/classes/rtTPGShortCode.php:922
 msgid "Load More"
 msgstr ""
 
-#: ../lib/classes/rtTPGShortCode.php:965
+#: ../lib/classes/rtTPGShortCode.php:960
 msgid "No shortCode found"
 msgstr ""
 
-#: ../lib/classes/rtTPGShortCode.php:985
+#: ../lib/classes/rtTPGShortCode.php:980
 msgid "This is a restricted content, you need to logged in to view this content."
 msgstr ""
 
-#: ../lib/classes/rtTPGShortCode.php:979
+#: ../lib/classes/rtTPGShortCode.php:974
 msgid "You are not permitted to view this content."
 msgstr ""
 
@@ -473,7 +473,7 @@ msgstr ""
 msgid "Select post grid"
 msgstr ""
 
-#: ../lib/views/settings/post-source.php:139
+#: ../lib/views/settings/post-source.php:140
 msgid "If \"Meta value\", \"Meta value Number\" or \"Meta value datetime\" is chosen then meta key is required."
 msgstr ""
 
