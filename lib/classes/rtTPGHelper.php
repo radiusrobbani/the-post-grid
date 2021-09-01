@@ -501,7 +501,7 @@ if (!class_exists('rtTPGHelper')):
                 if ($aID = get_post_thumbnail_id($post_id)) {
                     $image = wp_get_attachment_image($aID, $fImgSize, '', ['class' => $img_class, 'loading' => false]);
                     $imgSrc = wp_get_attachment_image_src($aID, $fImgSize);
-                    $imgSrc = $imgSrc[0];
+                    $imgSrc = !empty($imgSrc) ? $imgSrc[0] : $imgSrc;
                 }
             } else if ($mediaSource == 'first_image') {
                 if ($img = preg_match_all('/<img.+src=[\'"]([^\'"]+)[\'"].*>/i', get_the_content($post_id),
