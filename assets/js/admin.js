@@ -228,7 +228,7 @@
     customImageSize();
     featureImageEffect();
     tpgOrderByEffect();
-    $("#link_to_detail_page_holder").on("click", "input[type='radio']", function () {
+    $("#link_to_detail_page_holder").on("change", "input[type='checkbox']", function () {
         detailLinkEffect();
     });
     $("#detail_page_link_type_holder").on("click", "input[type='radio']", function () {
@@ -586,7 +586,7 @@
 
     function detailLinkEffect() {
         var detailPageLink = $("#link_to_detail_page_holder input[name='link_to_detail_page']:checked").val();
-        if (detailPageLink == "yes") {
+        if (detailPageLink) {
             $(".field-holder.detail-page-link-type").show();
         } else {
             $(".field-holder.detail-page-link-type,.field-holder.popup-type,.field-holder.tpg-link-target").hide();
@@ -597,18 +597,14 @@
     function linkTypeEffect() {
         var linkType = $("#detail_page_link_type_holder input[name='detail_page_link_type']:checked").val(),
             detailPageLink = $("#link_to_detail_page_holder input[name='link_to_detail_page']:checked").val();
-        if (linkType == "popup" && detailPageLink == 'yes') {
+        if (linkType == "popup" && detailPageLink) {
             $(".field-holder.popup-type").show();
+            $(".field-holder.tpg-link-target").hide()
         } else {
             $(".field-holder.popup-type").hide();
-        }
-        if (detailPageLink == 'yes') {
             $(".field-holder.tpg-link-target").show();
-        } else {
-            $(".field-holder.tpg-link-target").hide();
         }
     }
-
 
     function tpgAjaxCall(element, action, arg, handle) {
         var data;

@@ -340,7 +340,7 @@ if (!class_exists('rtTPGOptions')):
                     "options"     => rtTPG()->rt_get_taxonomy_for_filter()
                 ),
                 'tgp_filter_taxonomy_hierarchical' => array(
-                    "type"        => "checkbox",
+                    "type"        => "switch",
                     "label"       => "Display as sub category",
                     'holderClass' => "sc-tpg-grid-filter sc-tpg-filter tpg-hidden",
                     "option"      => "Active"
@@ -361,13 +361,13 @@ if (!class_exists('rtTPGOptions')):
                     "options"     => array('' => __('Show All', 'the-post-grid'))
                 ),
                 'tpg_hide_all_button'              => array(
-                    "type"        => "checkbox",
+                    "type"        => "switch",
                     "label"       => "Hide All (Show all) button",
                     'holderClass' => "sc-tpg-grid-filter sc-tpg-filter tpg-hidden",
                     "option"      => 'Hide'
                 ),
                 'tpg_post_count'                   => array(
-                    "type"        => "checkbox",
+                    "type"        => "switch",
                     "label"       => "Show post count",
                     'holderClass' => "sc-tpg-grid-filter sc-tpg-filter tpg-hidden",
                     "option"      => 'Enable'
@@ -397,33 +397,30 @@ if (!class_exists('rtTPGOptions')):
                     "default"     => esc_html__("Show all", 'the-post-grid')
                 ),
                 'isotope_filter_dropdown'          => array(
-                    "type"        => "checkbox",
+                    "type"        => "switch",
                     "label"       => "Isotope dropdown filter",
                     'holderClass' => "isotope-item sc-isotope-filter sc-isotope-filter-dropdown tpg-hidden pro-field",
-                    "option"      => 'Enable'
                 ),
                 'isotope_filter_show_all'          => array(
-                    "type"        => "checkbox",
+                    "type"        => "switch",
                     "name"        => "isotope_filter_show_all",
                     "label"       => "Isotope filter (Show All item)",
                     'holderClass' => "isotope-item sc-isotope-filter-show-all tpg-hidden pro-field",
                     "id"          => "rt-tpg-sc-isotope-filter-show-all",
-                    "option"      => 'Disable'
                 ),
                 'isotope_filter_count'             => array(
-                    "type"        => "checkbox",
+                    "type"        => "switch",
                     "label"       => "Isotope filter count number",
                     'holderClass' => "isotope-item sc-isotope-filter tpg-hidden pro-field",
                     "option"      => 'Enable'
                 ),
                 'isotope_filter_url'               => array(
-                    "type"        => "checkbox",
+                    "type"        => "switch",
                     "label"       => "Isotope filter URL",
                     'holderClass' => "isotope-item sc-isotope-filter tpg-hidden pro-field",
-                    "option"      => 'Enable'
                 ),
                 'isotope_search_filter'            => array(
-                    "type"        => "checkbox",
+                    "type"        => "switch",
                     "label"       => "Isotope search filter",
                     'holderClass' => "isotope-item sc-isotope-search-filter tpg-hidden pro-field",
                     "id"          => "rt-tpg-sc-isotope-search-filter",
@@ -489,19 +486,8 @@ if (!class_exists('rtTPGOptions')):
                     'options'     => $this->scColumns(),
                     "description" => "Mobile < 768px"
                 ),
-                'ignore_sticky_posts'              => array(
-                    "type"      => "radio",
-                    "label"     => "Show sticky posts at the top",
-                    'holderClass' => "pro-field",
-                    "alignment" => "vertical",
-                    "default"   => true,
-                    "options"   => array(
-                        false => "Yes",
-                        true  => "No",
-                    )
-                ),
                 'pagination'                       => array(
-                    "type"        => "checkbox",
+                    "type"        => "switch",
                     "label"       => "Pagination",
                     'holderClass' => "pagination",
                     "id"          => "rt-tpg-pagination",
@@ -523,10 +509,10 @@ if (!class_exists('rtTPGOptions')):
                     "options"     => $this->postLoadingType(),
                 ),
                 'feature_image'                    => array(
-                    "type"   => "checkbox",
-                    "label"  => "Feature Image",
+                    "type"   => "switch",
+                    "label"  => "Hide Feature Image",
                     "id"     => "rt-tpg-feature-image",
-                    "option" => 'Disable'
+                    "default" => false
                 ),
                 'featured_image_size'              => array(
                     "type"        => "select",
@@ -599,14 +585,10 @@ if (!class_exists('rtTPGOptions')):
                     'default' => 'h3'
                 ),
                 'link_to_detail_page'              => array(
-                    "type"      => "radio",
+                    "type"      => "switch",
                     "label"     => "Link To Detail Page",
                     "alignment" => "vertical",
-                    "default"   => 'yes',
-                    "options"   => array(
-                        'yes' => 'Yes',
-                        'no'  => 'No'
-                    )
+                    "default"   => true,
                 ),
                 'detail_page_link_type'            => array(
                     "type"        => "radio",
@@ -643,6 +625,20 @@ if (!class_exists('rtTPGOptions')):
             );
 
             return apply_filters('rt_tpg_layout_options', $options);
+        }
+
+        function stickySettings() {
+            $options = [
+                'ignore_sticky_posts'              => array(
+                    "type"      => "switch",
+                    "label"     => "Show sticky posts at the top",
+                    'holderClass' => "pro-field",
+                    "alignment" => "vertical",
+                    "default"   => false,
+                ),
+            ];
+
+            return $options;
         }
 
         function scMarginOpt() {
