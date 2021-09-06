@@ -965,3 +965,48 @@ body .rt-admin-btn:hover {
         width: inherit;
     }
 }
+
+.checkbox-filter-field {
+    display: flex;
+}
+
+.checkbox-filter-field > label {
+    width: 200px;
+}
+
+.checkbox-filter-field .rt-tpg-filter {
+    flex: 1;
+}
+
+.checkbox-filter-field .rt-tpg-filter.taxonomy {
+    display: inline-block;
+    width: 100%;
+    margin-bottom: 15px;
+}
+
+.checkbox-filter-field .rt-tpg-filter.taxonomy .field-holder.term-filter-item-relation {
+    margin-bottom: 0;
+}
+
+.checkbox-filter-field .rt-tpg-filter.date_range .rt-tpg-filter-item,
+.checkbox-filter-field .rt-tpg-filter.order .rt-tpg-filter-item,
+.checkbox-filter-field .rt-tpg-filter.tpg_post_status .rt-tpg-filter-item {
+    background: #dad2ff;
+}
+
+.checkbox-filter-field .rt-tpg-filter.s .rt-tpg-filter-item,
+.checkbox-filter-field .rt-tpg-filter.author .rt-tpg-filter-item {
+    background: #dad2ff;
+}
+
+.checkbox-filter-field .rt-tpg-filter.order .rt-tpg-filter-item > .field-holder > .field,
+.checkbox-filter-field .rt-tpg-filter.date_range .field-holder .field,
+.checkbox-filter-field .rt-tpg-filter.author .field-holder .field,
+.checkbox-filter-field .rt-tpg-filter.tpg_post_status .field-holder .field {
+    float: none;
+    width: 100%;
+}
+
+.checkbox-filter-field .rt-tpg-filter.date_range .field-holder {
+    margin-bottom: 0;
+}

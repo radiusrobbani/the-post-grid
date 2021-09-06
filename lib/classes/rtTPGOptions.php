@@ -268,11 +268,12 @@ if (!class_exists('rtTPGOptions')):
             ]);
             return array(
                 'post_filter' => array(
-                    'type'      => "checkbox",
+                    'type'      => "checkboxFilter",
                     'name'      => "post_filter",
                     'label'     => "Advanced filters",
                     "alignment" => "vertical",
                     "multiple"  => true,
+                    'default'   => ['tpg_taxonomy', 'order'],
                     "options"   => $fields,
                 )
             );
@@ -307,6 +308,14 @@ if (!class_exists('rtTPGOptions')):
         function rtTPGLayoutSettingFields() {
 
             $options = array(
+                'layout_type'                   => array(
+                    "type"          => "select",
+                    "name"          => "layout_type",
+                    "label"         => "Layout Type",
+                    "id"            => "rt-tpg-sc-layout-type",
+                    "class"         => "rt-select2",
+                    "options"       => $this->rtTPGLayoutType()
+                ),
                 'layout'                           => array(
                     "type"    => "select",
                     "name"    => "layout",
@@ -933,6 +942,18 @@ if (!class_exists('rtTPGOptions')):
                 8 => '80%',
                 9 => '90%',
             );
+        }
+
+        function rtTPGLayoutType() {
+            $layoutType = [];
+            $layoutType['grid'] = __("Grid", "the-post-grid");
+            $layoutType['grid_hover'] = __("Grid Hover", "the-post-grid");
+            $layoutType['slider'] = __("Slider", "the-post-grid");
+            $layoutType['isotope'] = __("Isotope", "the-post-grid");
+            $layoutType['woocommerce'] = __("WooCommerce", "the-post-grid");
+            $layoutType['edd'] = __("EDD", "the-post-grid");
+
+            return apply_filters('tpg_layouts_type', $layoutType);
         }
 
         function rtTPGLayouts() {

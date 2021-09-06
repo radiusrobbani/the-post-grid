@@ -111,6 +111,28 @@
         tlpShowHideScMeta();
     });
 
+    $("#rt-tpg-sc-layout-type").on("change", function (e) {
+        layoutList();
+    });
+
+    function layoutList() {
+        var layout = $('#rt-tpg-sc-layout-type').val(),
+            mySelect = $("#rt-tpg-sc-layout");
+
+        console.log(layout);
+
+        layout = layout ? layout : 'grid';
+        mySelect.empty();
+        switch (layout) {
+            case 'grid':
+                mySelect.append('<option value="layout1">Layout 1</option><option value="layout2">Layout 2</option><option value="layout3">Layout 3</option>');
+                break;
+            case 'isotope':
+                mySelect.append('<option value="isotope1">Isotope 1</option>');
+                break;
+        }
+    }
+
     $("#rt-sc-post-type").on("change", function (e) {
         var postType = $(this).val(),
             self = $(this);

@@ -11,6 +11,7 @@ if (!class_exists('rtTPGAjaxResponse')):
             add_action('wp_ajax_rtTPGTermListByTaxonomy', array($this, 'rtTPGTermListByTaxonomy'));
             add_action('wp_ajax_defaultFilterItem', array($this, 'defaultFilterItem'));
             add_action('wp_ajax_getCfGroupListAsField', array($this, 'getCfGroupListAsField'));
+            //add_action('wp_ajax_rtTPGLayout', [rtTPG(), 'rtTPGLayouts']);
         }
 
         function getCfGroupListAsField() {

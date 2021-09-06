@@ -15,12 +15,12 @@ echo $sHtml;
 <div class='rt-tpg-filter-container'>
     <?php echo rtTPG()->rtFieldGenerator(rtTPG()->rtTPAdvanceFilters()); ?>
     <div class="rt-tpg-filter-holder">
-        <h3 style="text-align: center">Advance filter options</h3>
+        <!--<h3 style="text-align: center">Advance filter options</h3>-->
         <?php
             $html = null;
             $pt = get_post_meta($post->ID, 'tpg_post_type', true);
             $advFilters = rtTPG()->rtTPAdvanceFilters();
-            foreach($advFilters['post_filter']['options'] as $key => $filter){
+            /*foreach($advFilters['post_filter']['options'] as $key => $filter){
                 if($key == 'tpg_taxonomy'){
                     $html .= "<div class='rt-tpg-filter taxonomy tpg_taxonomy tpg-hidden'>";
 
@@ -28,6 +28,7 @@ echo $sHtml;
                         $taxonomies = rtTPG()->rt_get_all_taxonomy_by_post_type($pt);
                         $taxA = get_post_meta($post->ID, 'tpg_taxonomy');
                             $post_filter = get_post_meta($post->ID, 'post_filter');
+
                             $html .= "<div class='taxonomy-field'>";
                             if(is_array($post_filter) && !empty($post_filter) && in_array('tpg_taxonomy', $post_filter) && !empty($taxonomies)) {
                                 $html .= rtTPG()->rtFieldGenerator(
@@ -243,7 +244,7 @@ echo $sHtml;
                     $html .= "</div>";
                 }
 
-            }
+            }*/
             echo $html;
         ?>
     </div>

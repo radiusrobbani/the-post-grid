@@ -192,7 +192,7 @@ if ( ! class_exists( 'rtTPGMeta' ) ):
                                 <li%s><a href="#sc-style">%s</a></li>
                               </ul>',
 				$last_tab == "sc-post-post-source" ? ' class="active"' : '',
-				__( 'Post Source', 'the-post-grid' ),
+				__( 'Query Build', 'the-post-grid' ),
 				$last_tab == "sc-post-layout-settings" ? ' class="active"' : '',
 				__( 'Layout Settings', 'the-post-grid' ),
 				$last_tab == "sc-field-selection" ? ' class="active"' : '',

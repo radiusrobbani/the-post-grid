@@ -25,43 +25,43 @@ msgstr ""
 msgid "Upgrade to pro"
 msgstr ""
 
-#: ../lib/classes/rtTPGAjaxResponse.php:38
+#: ../lib/classes/rtTPGAjaxResponse.php:39
 msgid "Server Error !!"
 msgstr ""
 
-#: ../lib/classes/rtTPGAjaxResponse.php:71, ../lib/classes/rtTPGAjaxResponse.php:98, ../lib/classes/rtTPGPreview.php:940
+#: ../lib/classes/rtTPGAjaxResponse.php:72, ../lib/classes/rtTPGAjaxResponse.php:99, ../lib/classes/rtTPGPreview.php:940
 msgid "Session Error !!"
 msgstr ""
 
-#: ../lib/classes/rtTPGAjaxResponse.php:61
+#: ../lib/classes/rtTPGAjaxResponse.php:62
 msgid "Success"
 msgstr ""
 
-#: ../lib/classes/rtTPGAjaxResponse.php:62, ../lib/classes/rtTPGOptions.php:352
+#: ../lib/classes/rtTPGAjaxResponse.php:63, ../lib/classes/rtTPGOptions.php:361
 msgid "Show All"
 msgstr ""
 
-#: ../lib/classes/rtTPGAjaxResponse.php:93
+#: ../lib/classes/rtTPGAjaxResponse.php:94
 msgid "Settings successfully updated"
 msgstr ""
 
-#: ../lib/classes/rtTPGAjaxResponse.php:129, ../lib/classes/rtTPGAjaxResponse.php:148, ../lib/classes/rtTPGAjaxResponse.php:189
+#: ../lib/classes/rtTPGAjaxResponse.php:130, ../lib/classes/rtTPGAjaxResponse.php:149, ../lib/classes/rtTPGAjaxResponse.php:190
 msgid "Security error"
 msgstr ""
 
-#: ../lib/classes/rtTPGAjaxResponse.php:125
+#: ../lib/classes/rtTPGAjaxResponse.php:126
 msgid "<div class=\"field-holder\">No Taxonomy found</div>"
 msgstr ""
 
-#: ../lib/classes/rtTPGAjaxResponse.php:215
+#: ../lib/classes/rtTPGAjaxResponse.php:216
 msgid "No shortCode found."
 msgstr ""
 
-#: ../lib/classes/rtTPGAjaxResponse.php:204
+#: ../lib/classes/rtTPGAjaxResponse.php:205
 msgid "Select Short code"
 msgstr ""
 
-#: ../lib/classes/rtTPGAjaxResponse.php:206, ../lib/classes/rtTPGOptions.php:793, ../lib/classes/rtTPGOptions.php:805
+#: ../lib/classes/rtTPGAjaxResponse.php:207, ../lib/classes/rtTPGOptions.php:802, ../lib/classes/rtTPGOptions.php:814
 msgid "Default"
 msgstr ""
 
@@ -138,7 +138,7 @@ msgid "Get Support"
 msgstr ""
 
 #: ../lib/classes/rtTPGMeta.php:195
-msgid "Post Source"
+msgid "Query Build"
 msgstr ""
 
 #: ../lib/classes/rtTPGMeta.php:197
@@ -241,167 +241,191 @@ msgstr ""
 msgid "Enter your license key"
 msgstr ""
 
-#: ../lib/classes/rtTPGOptions.php:382, ../lib/classes/rtTPGOptions.php:388, ../lib/classes/rtTPGPreview.php:69, ../lib/classes/rtTPGShortCode.php:139
+#: ../lib/classes/rtTPGOptions.php:391, ../lib/classes/rtTPGOptions.php:397, ../lib/classes/rtTPGPreview.php:69, ../lib/classes/rtTPGShortCode.php:139
 msgid "Show all"
 msgstr ""
 
-#: ../lib/classes/rtTPGOptions.php:387
+#: ../lib/classes/rtTPGOptions.php:396
 msgid "Show all text"
 msgstr ""
 
-#: ../lib/classes/rtTPGOptions.php:434
+#: ../lib/classes/rtTPGOptions.php:443
 msgid "Speed"
 msgstr ""
 
-#: ../lib/classes/rtTPGOptions.php:438
+#: ../lib/classes/rtTPGOptions.php:447
 msgid "Auto play Speed in milliseconds"
 msgstr ""
 
-#: ../lib/classes/rtTPGOptions.php:441
+#: ../lib/classes/rtTPGOptions.php:450
 msgid "Autoplay timeout"
 msgstr ""
 
-#: ../lib/classes/rtTPGOptions.php:445
+#: ../lib/classes/rtTPGOptions.php:454
 msgid "Autoplay interval timeout"
 msgstr ""
 
-#: ../lib/classes/rtTPGOptions.php:449
+#: ../lib/classes/rtTPGOptions.php:458
 msgid "Image column"
 msgstr ""
 
-#: ../lib/classes/rtTPGOptions.php:458
+#: ../lib/classes/rtTPGOptions.php:467
 msgid "Desktop"
 msgstr ""
 
-#: ../lib/classes/rtTPGOptions.php:467
+#: ../lib/classes/rtTPGOptions.php:476
 msgid "Tab"
 msgstr ""
 
-#: ../lib/classes/rtTPGOptions.php:476
+#: ../lib/classes/rtTPGOptions.php:485
 msgid "Mobile"
 msgstr ""
 
-#: ../lib/classes/rtTPGOptions.php:545
+#: ../lib/classes/rtTPGOptions.php:554
 msgid "Image Type"
 msgstr ""
 
-#: ../lib/classes/rtTPGOptions.php:553
+#: ../lib/classes/rtTPGOptions.php:562
 msgid "Title limit"
 msgstr ""
 
-#: ../lib/classes/rtTPGOptions.php:554
+#: ../lib/classes/rtTPGOptions.php:563
 msgid "Title limit only integer number is allowed, Leave it blank for full title."
 msgstr ""
 
-#: ../lib/classes/rtTPGOptions.php:558
+#: ../lib/classes/rtTPGOptions.php:567
 msgid "Title limit type"
 msgstr ""
 
-#: ../lib/classes/rtTPGOptions.php:565
+#: ../lib/classes/rtTPGOptions.php:574
 msgid "Excerpt limit"
 msgstr ""
 
-#: ../lib/classes/rtTPGOptions.php:566
+#: ../lib/classes/rtTPGOptions.php:575
 msgid "Excerpt limit only integer number is allowed, Leave it blank for full excerpt."
 msgstr ""
 
-#: ../lib/classes/rtTPGOptions.php:570
+#: ../lib/classes/rtTPGOptions.php:579
 msgid "Excerpt Type"
 msgstr ""
 
-#: ../lib/classes/rtTPGOptions.php:586
+#: ../lib/classes/rtTPGOptions.php:595
 msgid "Title tag"
 msgstr ""
 
-#: ../lib/classes/rtTPGOptions.php:786
+#: ../lib/classes/rtTPGOptions.php:795
 msgid "Read more button border radius"
 msgstr ""
 
-#: ../lib/classes/rtTPGOptions.php:787
+#: ../lib/classes/rtTPGOptions.php:796
 msgid "Leave it blank for default"
 msgstr ""
 
-#: ../lib/classes/rtTPGOptions.php:792
+#: ../lib/classes/rtTPGOptions.php:801
 msgid "Read more button alignment"
 msgstr ""
 
-#: ../lib/classes/rtTPGOptions.php:795
+#: ../lib/classes/rtTPGOptions.php:804
 msgid "Left"
 msgstr ""
 
-#: ../lib/classes/rtTPGOptions.php:796
+#: ../lib/classes/rtTPGOptions.php:805
 msgid "Right"
 msgstr ""
 
-#: ../lib/classes/rtTPGOptions.php:797
+#: ../lib/classes/rtTPGOptions.php:806
 msgid "Center"
 msgstr ""
 
-#: ../lib/classes/rtTPGOptions.php:802
+#: ../lib/classes/rtTPGOptions.php:811
 msgid "Title Position (Above or Below image)"
 msgstr ""
 
-#: ../lib/classes/rtTPGOptions.php:807
+#: ../lib/classes/rtTPGOptions.php:816
 msgid "Above image"
 msgstr ""
 
-#: ../lib/classes/rtTPGOptions.php:808
+#: ../lib/classes/rtTPGOptions.php:817
 msgid "Below image"
 msgstr ""
 
-#: ../lib/classes/rtTPGOptions.php:810
+#: ../lib/classes/rtTPGOptions.php:819
 msgid "<span style='color:red'>Only Layout 1, Layout 12, Layout 14, Isotope1, Isotope8, Isotope10, Carousel Layout 1, Carousel Layout 8, Carousel Layout 10</span>"
 msgstr ""
 
-#: ../lib/classes/rtTPGOptions.php:893
+#: ../lib/classes/rtTPGOptions.php:902
 msgid "Character"
 msgstr ""
 
-#: ../lib/classes/rtTPGOptions.php:894
+#: ../lib/classes/rtTPGOptions.php:903
 msgid "Word"
 msgstr ""
 
-#: ../lib/classes/rtTPGOptions.php:897
+#: ../lib/classes/rtTPGOptions.php:906
 msgid "Full Content"
 msgstr ""
 
-#: ../lib/classes/rtTPGOptions.php:916
+#: ../lib/classes/rtTPGOptions.php:925
 msgid "Taxonomy filter"
 msgstr ""
 
-#: ../lib/classes/rtTPGOptions.php:917
+#: ../lib/classes/rtTPGOptions.php:926
 msgid "Author filter"
 msgstr ""
 
-#: ../lib/classes/rtTPGOptions.php:918
+#: ../lib/classes/rtTPGOptions.php:927
 msgid "Order - Sort retrieved posts by parameter"
 msgstr ""
 
-#: ../lib/classes/rtTPGOptions.php:919
+#: ../lib/classes/rtTPGOptions.php:928
 msgid "Sort Order - Designates the ascending or descending order of the \"orderby\" parameter"
 msgstr ""
 
-#: ../lib/classes/rtTPGOptions.php:920
+#: ../lib/classes/rtTPGOptions.php:929
 msgid "Search filter"
 msgstr ""
 
-#: ../lib/classes/rtTPGOptions.php:940
+#: ../lib/classes/rtTPGOptions.php:949
+msgid "Grid"
+msgstr ""
+
+#: ../lib/classes/rtTPGOptions.php:950
+msgid "Grid Hover"
+msgstr ""
+
+#: ../lib/classes/rtTPGOptions.php:951
+msgid "Slider"
+msgstr ""
+
+#: ../lib/classes/rtTPGOptions.php:952
+msgid "Isotope"
+msgstr ""
+
+#: ../lib/classes/rtTPGOptions.php:953
+msgid "WooCommerce"
+msgstr ""
+
+#: ../lib/classes/rtTPGOptions.php:954
+msgid "EDD"
+msgstr ""
+
+#: ../lib/classes/rtTPGOptions.php:961
 msgid "Layout 1"
 msgstr ""
 
-#: ../lib/classes/rtTPGOptions.php:941
+#: ../lib/classes/rtTPGOptions.php:962
 msgid "Layout 2"
 msgstr ""
 
-#: ../lib/classes/rtTPGOptions.php:942
+#: ../lib/classes/rtTPGOptions.php:963
 msgid "Layout 3"
 msgstr ""
 
-#: ../lib/classes/rtTPGOptions.php:943
+#: ../lib/classes/rtTPGOptions.php:964
 msgid "Isotope Layout"
 msgstr ""
 
-#: ../lib/classes/rtTPGOptions.php:1068
+#: ../lib/classes/rtTPGOptions.php:1089
 msgid "Get Pro Version"
 msgstr ""
 
@@ -453,11 +477,15 @@ msgstr ""
 msgid "Premium Option"
 msgstr ""
 
-#: ../lib/models/rtTPGField.php:355
+#: ../lib/models/rtTPGField.php:479
+msgid "If \"Meta value\", \"Meta value Number\" or \"Meta value datetime\" is chosen then meta key is required."
+msgstr ""
+
+#: ../lib/models/rtTPGField.php:623
 msgid "Start"
 msgstr ""
 
-#: ../lib/models/rtTPGField.php:364
+#: ../lib/models/rtTPGField.php:632
 msgid "End"
 msgstr ""
 
@@ -475,10 +503,6 @@ msgstr ""
 
 #: ../lib/widgets/RT_TPGWidget.php:51
 msgid "Select post grid"
-msgstr ""
-
-#: ../lib/views/settings/post-source.php:140
-msgid "If \"Meta value\", \"Meta value Number\" or \"Meta value datetime\" is chosen then meta key is required."
 msgstr ""
 
 #: ../lib/views/settings/settings.php:3
