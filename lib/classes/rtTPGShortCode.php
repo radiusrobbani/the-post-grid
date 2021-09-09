@@ -53,6 +53,7 @@ if ( ! class_exists( 'rtTPGShortCode' ) ):
 				array_push( $style, 'rt-fontawsome' );
 				array_push( $script, 'rt-actual-height-js' );
 				array_push( $script, 'rt-tpg' );
+                array_push( $style, 'rt-tpg' );
 				if ( is_rtl() ) {
 					array_push( $style, 'rt-tpg-rtl' );
 				}

@@ -8,7 +8,7 @@ if (!class_exists('rtTPGFrontEnd')):
         }
 
         function rt_tpg_enqueue_styles() {
-            wp_enqueue_style('rt-tpg');
+            //wp_enqueue_style('rt-tpg');
             $settings = get_option(rtTPG()->options['settings']);
             $css = isset($settings['custom_css']) ? stripslashes($settings['custom_css']) : null;
             if ($css) {

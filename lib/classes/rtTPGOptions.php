@@ -105,6 +105,12 @@ if (!class_exists('rtTPGOptions')):
             $settings = get_option(rtTPG()->options['settings']);
 
             return array(
+                'tpg_load_script'   => array(
+                    'type'    => 'checkbox',
+                    'name'    => 'tpg_load_script',
+                    'label'   => __('Load Script only ShortCode page', 'the-post-grid'),
+                    'value'   => isset($settings['tpg_load_script']) ? $settings['tpg_load_script'] : false,
+                ),
                 'template_author'   => array(
                     'type'    => 'select',
                     'name'    => 'template_author',

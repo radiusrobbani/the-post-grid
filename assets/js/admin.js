@@ -132,13 +132,13 @@
     $(document).ready(function () {
         checkCustomFieldSettings();
         rtTgpFilter();
+        if ($(".rt-select2").length) {
+            tgpLiveReloadScript();
+        }
         tlpShowHideScMeta();
         checkCustomField();
         if ($('.rt-color').length) {
             $('.rt-color').wpColorPicker();
-        }
-        if ($(".rt-select2").length) {
-            tgpLiveReloadScript();
         }
         if ($(".date-range").length) {
             $(".date-range-start").datepicker({
