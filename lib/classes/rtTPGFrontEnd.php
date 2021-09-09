@@ -8,11 +8,13 @@ if (!class_exists('rtTPGFrontEnd')):
         }
 
         function rt_tpg_enqueue_styles() {
-            //wp_enqueue_style('rt-tpg');
             $settings = get_option(rtTPG()->options['settings']);
-            $css = isset($settings['custom_css']) ? stripslashes($settings['custom_css']) : null;
-            if ($css) {
-                wp_add_inline_style('rt-tpg', $css);
+            if (!isset($settings['tpg_load_script'])) {
+                wp_enqueue_style('rt-tpg');
+                $css = isset($settings['custom_css']) ? stripslashes($settings['custom_css']) : null;
+                if ($css) {
+                    wp_add_inline_style('rt-tpg', $css);
+                }
             }
             $scriptBefore = isset($settings['script_before_item_load']) ? stripslashes($settings['script_before_item_load']) : null;
             $scriptAfter = isset($settings['script_after_item_load']) ? stripslashes($settings['script_after_item_load']) : null;

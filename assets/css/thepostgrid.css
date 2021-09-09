@@ -1989,3 +1989,21 @@ body > .rt-tooltip .rt-tooltip-bottom:after {
         transform: rotate(360deg);
     }
 }
+.rt-container-fluid {
+    position: relative;
+}
+#bottom-script-loader {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 99999;
+    background: rgba(255,255,255,0.8);
+}
+#bottom-script-loader .rt-ball-clip-rotate {
+    color: #fb4c35;
+    position: absolute;
+    top: 80px;
+    left: 50%;
+    margin-left: -16px;
+    z-index: 2;
+}

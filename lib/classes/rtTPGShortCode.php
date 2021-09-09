@@ -20,6 +20,8 @@ if ( ! class_exists( 'rtTPGShortCode' ) ):
 
 		function register_sc_scripts() {
 
+            $settings = get_option(rtTPG()->options['settings']);
+
 			$caro   = $isSinglePopUp = false;
 			$script = array();
 			$style  = array();
@@ -53,7 +55,15 @@ if ( ! class_exists( 'rtTPGShortCode' ) ):
 				array_push( $style, 'rt-fontawsome' );
 				array_push( $script, 'rt-actual-height-js' );
 				array_push( $script, 'rt-tpg' );
-                array_push( $style, 'rt-tpg' );
+
+				if (isset($settings['tpg_load_script'])) {
+                    wp_enqueue_style('rt-tpg');
+                    $css = isset($settings['custom_css']) ? stripslashes($settings['custom_css']) : null;
+                    if ($css) {
+                        wp_add_inline_style('rt-tpg', $css);
+                    }
+                }
+
 				if ( is_rtl() ) {
 					array_push( $style, 'rt-tpg-rtl' );
 				}
@@ -457,6 +467,9 @@ if ( ! class_exists( 'rtTPGShortCode' ) ):
 				$html              .= rtTPG()->layoutStyle( $layoutID, $scMeta, $layout, $scID );
 				$containerDataAttr .= " data-sc-id='{$scID}'";
 				$html              .= "<div class='rt-container-fluid rt-tpg-container {$parentClass}' id='{$layoutID}' {$dataArchive} {$containerDataAttr}>";
+                if ( !$isCarousel && isset($settings['tpg_load_script'])) {
+                    $html .= '<div id="bottom-script-loader"><div class="rt-ball-clip-rotate"><div></div></div></div>';
+                }
 				if ( ! empty( $filters ) && ( $isGrid || $isOffset || $isWooCom || $isEdd ) ) {
 					$html                      .= "<div class='rt-layout-filter-container rt-clear'><div class='rt-filter-wrap'>";
 					$selectedSubTermsForButton = null;

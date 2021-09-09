@@ -106,7 +106,7 @@ if (!class_exists('rtTPGOptions')):
 
             return array(
                 'tpg_load_script'   => array(
-                    'type'    => 'checkbox',
+                    'type'    => 'switch',
                     'name'    => 'tpg_load_script',
                     'label'   => __('Load Script only ShortCode page', 'the-post-grid'),
                     'value'   => isset($settings['tpg_load_script']) ? $settings['tpg_load_script'] : false,
