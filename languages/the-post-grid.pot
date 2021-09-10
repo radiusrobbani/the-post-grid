@@ -250,7 +250,7 @@ msgid "Enable Pre-loader"
 msgstr ""
 
 #: ../lib/classes/rtTPGOptions.php:125
-msgid "Deactivate FontAwesome Script"
+msgid "Disable Font Awesome Script"
 msgstr ""
 
 #: ../lib/classes/rtTPGOptions.php:126
