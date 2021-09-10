@@ -247,10 +247,10 @@ if ( ! class_exists( 'rtTPGShortCode' ) ):
 					$post_status = ( isset( $scMeta['tpg_post_status'] ) ? $scMeta['tpg_post_status'] : array() );
 					if ( ! empty( $post_status ) ) {
 						$args['post_status'] = $post_status;
-					} else {
-						$args['post_status'] = 'publish';
 					}
-				}
+				} else {
+                    $args['post_status'] = 'publish';
+                }
 				// Author
 				$author        = ( isset( $scMeta['author'] ) ? $scMeta['author'] : array() );
 				$filterAuthors = array();

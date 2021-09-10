@@ -508,14 +508,16 @@ if (!class_exists('rtTPGHelper')):
                     $matches)
                 ) {
                     $imgSrc = $matches[1][0];
-                    if (isset($imgSrc) && !apply_filters('tpg_skip_ssl', false)) {
-                        $info = getimagesize($imgSrc);
-                        $size = isset($info[3]) ? $info[3] : '';
+                    $size = '';
 
-                        $image = "<img class='{$img_class}' src='{$imgSrc}' {$size} alt='{$alt}'>";
-                    } else {
-                        $image = "<img class='{$img_class}' src='{$imgSrc}' alt='{$alt}'>";
+                    $imgAbs = str_replace(trailingslashit(site_url()),ABSPATH, $imgSrc);
+
+                    if (file_exists($imgAbs)) {
+                        $info = getimagesize($imgAbs);
+                        $size = isset($info[3]) ? $info[3] : '';
                     }
+
+                    $image = "<img class='{$img_class}' src='{$imgSrc}' {$size} alt='{$alt}'>";
                 }
             }
 

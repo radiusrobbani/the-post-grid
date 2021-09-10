@@ -211,10 +211,10 @@ if ( ! class_exists( 'rtTPGPreview' ) ):
 					$post_status = ( isset( $scMeta['tpg_post_status'] ) ? $scMeta['tpg_post_status'] : array() );
 					if ( ! empty( $post_status ) ) {
 						$args['post_status'] = $post_status;
-					} else {
-						$args['post_status'] = 'publish';
 					}
-				}
+				} else {
+                    $args['post_status'] = 'publish';
+                }
 				// Author
 				$filterAuthors = array();
 				$author        = ( isset( $scMeta['author'] ) ? $scMeta['author'] : array() );
@@ -272,7 +272,6 @@ if ( ! class_exists( 'rtTPGPreview' ) ):
 					$dataArchive                    = " data-archive='{$aType}' data-archive-value='{$aValue}'";
 					$args['posts_per_archive_page'] = $args['posts_per_page'];
 				}
-
 
 				// Validation
 				$containerDataAttr = null;
