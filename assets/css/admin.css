@@ -966,7 +966,6 @@ body .rt-admin-btn:hover {
     }
 }
 
-<<<<<<< HEAD
 .checkbox-filter-field {
     display: flex;
 }
@@ -1012,8 +1011,6 @@ body .rt-admin-btn:hover {
     margin-bottom: 0;
 }
 
-=======
->>>>>>> main
 /*The rttm-switch - the box around the rttm-switch-slider*/
 .rttm-switch {
     position: relative;
