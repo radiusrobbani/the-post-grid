@@ -107,9 +107,6 @@ if ( ! class_exists( 'rtTPGField' ) ):
 					$html .= $this->checkbox();
 					break;
 
-                case 'switch':
-                    $html .= $this->switchField();
-                    break;
                 case 'checkboxFilter':
                     $html .= $this->checkboxFilter();
                     break;
@@ -334,14 +331,6 @@ if ( ! class_exists( 'rtTPGField' ) ):
 
 			return $h;
 		}
-
-        private function switchField() {
-            $h = null;
-            $checked = ( $this->value ? "checked" : null );
-            $h .= "<label class='rttm-switch'><input type='checkbox' {$checked} id='{$this->id}' name='{$this->name}' value='1' /><span class='rttm-switch-slider round'></span></label>";
-
-            return $h;
-        }
 
         private function checkboxFilter() {
 
@@ -605,7 +594,7 @@ if ( ! class_exists( 'rtTPGField' ) ):
 
             return $h;
         }
-
+        
 		private function radioField() {
             $holderClass = explode(' ', $this->holderClass);
             $atts = (in_array('pro-field', $holderClass)) && !rtTPG()->hasPro() ? 'disabled="true"' : '';

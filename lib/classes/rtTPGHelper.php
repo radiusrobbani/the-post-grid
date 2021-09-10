@@ -508,19 +508,23 @@ if (!class_exists('rtTPGHelper')):
                     $matches)
                 ) {
                     $imgSrc = $matches[1][0];
-                    // Open image as a string
-                    $data = file_get_contents($imgSrc);
-                    // getimagesizefromstring function accepts image data as string
-                    $info = getimagesizefromstring($data);
-                    // Get Image dimension
-                    $size = $info[3];
+                    $size = '';
+
+                    $imgAbs = str_replace(trailingslashit(site_url()),ABSPATH, $imgSrc);
+
+                    if (file_exists($imgAbs)) {
+                        $info = getimagesize($imgAbs);
+                        $size = isset($info[3]) ? $info[3] : '';
+                    }
 
                     $image = "<img class='{$img_class}' src='{$imgSrc}' {$size} alt='{$alt}'>";
                 }
             }
+
             if (!$imgSrc && $defaultImgId) {
                 $image = wp_get_attachment_image($defaultImgId, $fImgSize);
             }
+
             if ($imgSrc && $cSize) {
                 $w = (!empty($customImgSize[0]) ? absint($customImgSize[0]) : null);
                 $h = (!empty($customImgSize[1]) ? absint($customImgSize[1]) : null);

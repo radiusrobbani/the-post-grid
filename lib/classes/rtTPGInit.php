@@ -18,6 +18,16 @@ if (!class_exists('rtTPGInit')):
                 'rt_post_grid_marketing'
             ));
             add_action('admin_enqueue_scripts', array($this, 'settings_admin_enqueue_scripts'));
+            add_action( 'wp_print_styles', [$this, 'tpg_dequeue_unnecessary_styles'], 99 );
+        }
+
+        function tpg_dequeue_unnecessary_styles() {
+            $settings = get_option(rtTPG()->options['settings']);
+
+            if (isset($settings['tpg_skip_fa'])) {
+                wp_dequeue_style( 'rt-fontawsome' );
+                wp_deregister_style( 'rt-fontawsome' );
+            }
         }
 
         function the_post_grid_remove_all_meta_box() {
