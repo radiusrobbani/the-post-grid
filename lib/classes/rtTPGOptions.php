@@ -109,7 +109,22 @@ if (!class_exists('rtTPGOptions')):
                     'type'    => 'switch',
                     'name'    => 'tpg_load_script',
                     'label'   => __('Load Script only ShortCode page', 'the-post-grid'),
+                    'description'   => __('If you enable this, script will be loaded only ShortCode page.', 'the-post-grid'),
                     'value'   => isset($settings['tpg_load_script']) ? $settings['tpg_load_script'] : false,
+                ),
+                'tpg_enable_preloader'   => array(
+                    'type'    => 'switch',
+                    'name'    => 'tpg_enable_preloader',
+                    'label'   => __('Enable Pre-loader', 'the-post-grid'),
+                    'holderClass'   => 'tpg-hidden',
+                    'value'   => isset($settings['tpg_enable_preloader']) ? $settings['tpg_enable_preloader'] : false,
+                ),
+                'tpg_skip_fa'   => array(
+                    'type'    => 'switch',
+                    'name'    => 'tpg_skip_fa',
+                    'label'   => __('Deactivate FontAwesome Script', 'the-post-grid'),
+                    'description'   => __("If Font Awesome 5 exist with theme, don't need to load twice." , 'the-post-grid'),
+                    'value'   => isset($settings['tpg_enable_preloader']) ? $settings['tpg_enable_preloader'] : false,
                 ),
                 'template_author'   => array(
                     'type'    => 'select',

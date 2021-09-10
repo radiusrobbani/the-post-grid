@@ -224,7 +224,6 @@ if ( ! class_exists( 'rtTPGShortCode' ) ):
 					$args['tax_query'] = $taxQ;
 				}
 
-
 				// Order
 				if ( in_array( 'order', $adv_filter ) ) {
 					$order_by = ( isset( $scMeta['order_by'][0] ) ? $scMeta['order_by'][0] : null );
@@ -467,7 +466,7 @@ if ( ! class_exists( 'rtTPGShortCode' ) ):
 				$html              .= rtTPG()->layoutStyle( $layoutID, $scMeta, $layout, $scID );
 				$containerDataAttr .= " data-sc-id='{$scID}'";
 				$html              .= "<div class='rt-container-fluid rt-tpg-container {$parentClass}' id='{$layoutID}' {$dataArchive} {$containerDataAttr}>";
-                if ( !$isCarousel && isset($settings['tpg_load_script'])) {
+                if ( !$isCarousel && isset($settings['tpg_load_script']) && isset($settings['tpg_enable_preloader'])) {
                     $html .= '<div id="bottom-script-loader"><div class="rt-ball-clip-rotate"><div></div></div></div>';
                 }
 				if ( ! empty( $filters ) && ( $isGrid || $isOffset || $isWooCom || $isEdd ) ) {

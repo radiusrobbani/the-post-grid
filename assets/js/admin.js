@@ -204,6 +204,7 @@
 
     detailLinkEffect();
     customImageSize();
+    preLoaderEffect();
     featureImageEffect();
     tpgOrderByEffect();
     $("#link_to_detail_page_holder").on("click", "input[type='radio']", function () {
@@ -226,6 +227,19 @@
     $("#featured_image_size").on('change', function () {
         customImageSize();
     });
+
+    $("#tpg_load_script").on('change', function () {
+        preLoaderEffect();
+    });
+
+    function preLoaderEffect() {
+        var preLoader = $("#tpg_load_script_holder input[name='tpg_load_script']:checked").val();
+        if (preLoader) {
+            $("#tpg_enable_preloader_holder").show();
+        } else {
+            $("#tpg_enable_preloader_holder").hide();
+        }
+    }
 
     function customImageSize() {
         /* custom image size jquery */
