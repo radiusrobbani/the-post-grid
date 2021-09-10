@@ -122,7 +122,7 @@ if (!class_exists('rtTPGOptions')):
                 'tpg_skip_fa'   => array(
                     'type'    => 'switch',
                     'name'    => 'tpg_skip_fa',
-                    'label'   => __('Deactivate FontAwesome Script', 'the-post-grid'),
+                    'label'   => __('Disable Font Awesome Script', 'the-post-grid'),
                     'description'   => __("If Font Awesome 5 exist with theme, don't need to load twice." , 'the-post-grid'),
                     'value'   => isset($settings['tpg_enable_preloader']) ? $settings['tpg_enable_preloader'] : false,
                 ),
