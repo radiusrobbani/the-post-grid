@@ -251,7 +251,6 @@
         }
     }
 
-
     function rtTPGIsotopTaxonomyFilter($this) {
         var arg = "post_type=" + $this.val();
         var bindElement = $this;
