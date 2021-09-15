@@ -729,17 +729,6 @@ if (!class_exists('rtTPGOptions')):
 
         function rtTPGSCCategorySettings() {
             $fields = [
-                'tpg_category_style' => [
-                    "type"        => "select",
-                    "class"       => "rt-select2",
-                    "label"       => esc_html__("Style", "the-post-grid"),
-                    "blank"       => esc_html__("Default", "the-post-grid"),
-                    "options"     => [
-                        'style1' => esc_html__("Style 1", "the-post-grid"),
-                        'style2' => esc_html__("Style 2", "the-post-grid"),
-                        'style3' => esc_html__("Style 3", "the-post-grid"),
-                    ],
-                ],
                 'tpg_category_position' => [
                     "type"        => "select",
                     "class"       => "rt-select2",
@@ -752,6 +741,17 @@ if (!class_exists('rtTPGOptions')):
                         'bottom_left' => esc_html__("Over image (Bottom Left)", "the-post-grid"),
                         'bottom_right' => esc_html__("Over image (Bottom Right)", "the-post-grid"),
                         'image_center' => esc_html__("Over image (Center)", "the-post-grid"),
+                    ],
+                ],
+                'tpg_category_style' => [
+                    "type"        => "select",
+                    "class"       => "rt-select2",
+                    "label"       => esc_html__("Style", "the-post-grid"),
+                    "blank"       => esc_html__("Default", "the-post-grid"),
+                    "options"     => [
+                        'style1' => esc_html__("Style 1", "the-post-grid"),
+                        'style2' => esc_html__("Style 2", "the-post-grid"),
+                        'style3' => esc_html__("Style 3", "the-post-grid"),
                     ],
                 ],
             ];
@@ -808,7 +808,8 @@ if (!class_exists('rtTPGOptions')):
                     "holderClass"   => "pro-field",
                     "blank"       => esc_html__("Default", "the-post-grid"),
                     "options"     => array(
-                        'above' => esc_html__("Above excerpt", "the-post-grid"),
+                        'above_title' => esc_html__("Above Title", "the-post-grid"),
+                        'above_excerpt' => esc_html__("Above excerpt", "the-post-grid"),
                         'below' => esc_html__("Below excerpt", "the-post-grid"),
                     ),
                 ],
