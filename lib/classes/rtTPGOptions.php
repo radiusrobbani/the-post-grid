@@ -471,15 +471,6 @@ if (!class_exists('rtTPGOptions')):
                     'default'     => 5000,
                     "description" => __('Autoplay interval timeout', 'the-post-grid'),
                 ),
-                'tgp_layout2_image_column'         => array(
-                    'type'        => 'select',
-                    'label'       => __('Image column', 'the-post-grid'),
-                    'class'       => 'rt-select2',
-                    'holderClass' => "holder-layout2-image-column tpg-hidden",
-                    'default'     => 4,
-                    'options'     => $this->scColumns(),
-                    "description" => "Content column will calculate automatically"
-                ),
                 'column'                           => array(
                     'type'        => 'select',
                     'label'       => __('Desktop', 'the-post-grid'),
@@ -528,82 +519,6 @@ if (!class_exists('rtTPGOptions')):
                     "alignment"   => "vertical",
                     "default"     => 'pagination',
                     "options"     => $this->postLoadingType(),
-                ),
-                'feature_image'                    => array(
-                    "type"   => "switch",
-                    "label"  => "Hide Feature Image",
-                    "id"     => "rt-tpg-feature-image",
-                    "default" => false
-                ),
-                'featured_image_size'              => array(
-                    "type"        => "select",
-                    "label"       => "Feature Image Size",
-                    "class"       => "rt-select2",
-                    'holderClass' => "rt-feature-image-option tpg-hidden",
-                    "options"     => rtTPG()->get_image_sizes()
-                ),
-                'custom_image_size'                => array(
-                    "type"        => "image_size",
-                    "label"       => "Custom Image Size",
-                    'holderClass' => "rt-sc-custom-image-size-holder tpg-hidden",
-                    "multiple"    => true
-                ),
-                'media_source'                     => array(
-                    "type"        => "radio",
-                    "label"       => "Media Source",
-                    "default"     => 'feature_image',
-                    "alignment"   => "vertical",
-                    'holderClass' => "rt-feature-image-option tpg-hidden",
-                    "options"     => $this->rtMediaSource()
-                ),
-                'tpg_image_type'                   => array(
-                    "type"        => "radio",
-                    "label"       => __("Image Type", 'the-post-grid'),
-                    "alignment"   => "vertical",
-                    'holderClass' => "rt-feature-image-option tpg-hidden pro-field",
-                    "default"     => 'normal',
-                    "options"     => $this->get_image_types()
-                ),
-                'tpg_title_limit'                  => array(
-                    "type"        => "number",
-                    "label"       => esc_html__("Title limit", 'the-post-grid'),
-                    "description" => esc_html__("Title limit only integer number is allowed, Leave it blank for full title.", 'the-post-grid')
-                ),
-                'tpg_title_limit_type'             => array(
-                    "type"      => "radio",
-                    "label"     => esc_html__("Title limit type", 'the-post-grid'),
-                    "alignment" => "vertical",
-                    "default"   => 'character',
-                    "options"   => $this->get_limit_type(),
-                ),
-                'excerpt_limit'                    => array(
-                    "type"        => "number",
-                    "label"       => esc_html__("Excerpt limit", 'the-post-grid'),
-                    "description" => esc_html__("Excerpt limit only integer number is allowed, Leave it blank for full excerpt.", 'the-post-grid')
-                ),
-                'tgp_excerpt_type'                 => array(
-                    "type"      => "radio",
-                    "label"     => esc_html__("Excerpt Type", 'the-post-grid'),
-                    "alignment" => "vertical",
-                    "default"   => 'character',
-                    "options"   => $this->get_limit_type('content'),
-                ),
-                'tgp_excerpt_more_text'            => array(
-                    "type"  => "text",
-                    "label" => "Excerpt more text"
-                ),
-                'tgp_read_more_text'               => array(
-                    "type"  => "text",
-                    "label" => "Read more text"
-                ),
-                'title_tag'                => array(
-                    'type'    => 'select',
-                    'name'    => 'title_tag',
-                    'label'   => esc_html__('Title tag', 'the-post-grid'),
-                    'class'   => 'rt-select2',
-                    'id'      => 'title-tag',
-                    'options' => $this->getTitleTags(),
-                    'default' => 'h3'
                 ),
                 'link_to_detail_page'              => array(
                     "type"      => "switch",
@@ -684,6 +599,17 @@ if (!class_exists('rtTPGOptions')):
             );
         }
 
+        function getHeadingTags() {
+            return array(
+                'h1' => "H1",
+                'h2' => "H2",
+                'h3' => "H3",
+                'h4' => "H4",
+                'h5' => "H5",
+                'h6' => "H6"
+            );
+        }
+
         function rtTpgSettingsDetailFieldSelection() {
             $settings = get_option(rtTPG()->options['settings']);
 
@@ -759,6 +685,281 @@ if (!class_exists('rtTPGOptions')):
             return $newFields;
         }
 
+        function rtTPGSCHeadingSettings() {
+            $fields = [
+                'tpg_heading_tag'       => [
+                    'type'    => 'select',
+                    'name'    => 'tpg_heading_tag',
+                    'label'   => esc_html__('Tag', 'the-post-grid'),
+                    'class'   => 'rt-select2',
+                    'id'      => 'heading-tag',
+                    'options' => $this->getHeadingTags(),
+                    'default' => 'h2'
+                ],
+                'tpg_heading_style' => [
+                    "type"        => "select",
+                    "class"       => "rt-select2",
+                    "label"       => esc_html__("Style", "the-post-grid"),
+                    "blank"       => esc_html__("Default", "the-post-grid"),
+                    "options"     => [
+                        'style1' => esc_html__("Style 1", "the-post-grid"),
+                        'style2' => esc_html__("Style 2", "the-post-grid"),
+                        'style3' => esc_html__("Style 3", "the-post-grid"),
+                    ],
+                ],
+                'tpg_heading_alignment' => [
+                    "type"        => "select",
+                    "class"       => "rt-select2",
+                    "label"       => esc_html__("Alignment", "the-post-grid"),
+                    "blank"       => esc_html__("Default", "the-post-grid"),
+                    "options"     => [
+                        'left' => esc_html__("Left", "the-post-grid"),
+                        'right' => esc_html__("Right", "the-post-grid"),
+                        'center' => esc_html__("Center", "the-post-grid"),
+                    ],
+                ],
+                'tgp_heading_link'            => [
+                    "type"  => "url",
+                    "label" => __('Link', 'the-post-grid')
+                ],
+            ];
+
+            return $fields;
+        }
+
+        function rtTPGSCCategorySettings() {
+            $fields = [
+                'tpg_category_style' => [
+                    "type"        => "select",
+                    "class"       => "rt-select2",
+                    "label"       => esc_html__("Style", "the-post-grid"),
+                    "blank"       => esc_html__("Default", "the-post-grid"),
+                    "options"     => [
+                        'style1' => esc_html__("Style 1", "the-post-grid"),
+                        'style2' => esc_html__("Style 2", "the-post-grid"),
+                        'style3' => esc_html__("Style 3", "the-post-grid"),
+                    ],
+                ],
+                'tpg_category_position' => [
+                    "type"        => "select",
+                    "class"       => "rt-select2",
+                    "label"       => esc_html__("Position", "the-post-grid"),
+                    "blank"       => esc_html__("Default", "the-post-grid"),
+                    "options"     => [
+                        'above_title' => esc_html__("Above Title", "the-post-grid"),
+                        'top_left' => esc_html__("Over image (Top Left)", "the-post-grid"),
+                        'top_right' => esc_html__("Over image (Top Right)", "the-post-grid"),
+                        'bottom_left' => esc_html__("Over image (Bottom Left)", "the-post-grid"),
+                        'bottom_right' => esc_html__("Over image (Bottom Right)", "the-post-grid"),
+                        'image_center' => esc_html__("Over image (Center)", "the-post-grid"),
+                    ],
+                ],
+            ];
+
+            return $fields;
+        }
+
+        function rtTPGSCTitleSettings() {
+            $fields = [
+                'tpg_title_position'                 => [
+                    "type"        => "select",
+                    "label"       => esc_html__("Title Position (Above or Below image)", "the-post-grid"),
+                    "class"       => "rt-select2 ",
+                    "holderClass"   => "pro-field",
+                    "blank"       => esc_html__("Default", "the-post-grid"),
+                    "options"     => array(
+                        'above' => esc_html__("Above image", "the-post-grid"),
+                        'below' => esc_html__("Below image", "the-post-grid"),
+                    ),
+                    "description" => __("<span style='color:red'>Only Layout 1, Layout 12, Layout 14, Isotope1, Isotope8, Isotope10, Carousel Layout 1, Carousel Layout 8, Carousel Layout 10</span>", 'the-post-grid')
+                ],
+                'title_tag'                => array(
+                    'type'    => 'select',
+                    'name'    => 'title_tag',
+                    'label'   => esc_html__('Title tag', 'the-post-grid'),
+                    'class'   => 'rt-select2',
+                    'id'      => 'title-tag',
+                    'options' => $this->getTitleTags(),
+                    'default' => 'h3'
+                ),
+                'tpg_title_limit'                  => array(
+                    "type"        => "number",
+                    "label"       => esc_html__("Title limit", 'the-post-grid'),
+                    "description" => esc_html__("Title limit only integer number is allowed, Leave it blank for full title.", 'the-post-grid')
+                ),
+                'tpg_title_limit_type'             => array(
+                    "type"      => "radio",
+                    "label"     => esc_html__("Title limit type", 'the-post-grid'),
+                    "alignment" => "vertical",
+                    "default"   => 'character',
+                    "options"   => $this->get_limit_type(),
+                ),
+            ];
+
+            return $fields;
+        }
+
+        function rtTPGSCMetaSettings() {
+            $fields = [
+                'tpg_meta_position'                 => [
+                    "type"        => "select",
+                    "label"       => esc_html__("Meta Position", "the-post-grid"),
+                    "class"       => "rt-select2 ",
+                    "holderClass"   => "pro-field",
+                    "blank"       => esc_html__("Default", "the-post-grid"),
+                    "options"     => array(
+                        'above' => esc_html__("Above excerpt", "the-post-grid"),
+                        'below' => esc_html__("Below excerpt", "the-post-grid"),
+                    ),
+                ],
+                'tpg_meta_style' => [
+                    "type"        => "select",
+                    "class"       => "rt-select2",
+                    "label"       => esc_html__("Style", "the-post-grid"),
+                    "blank"       => esc_html__("Default", "the-post-grid"),
+                    "options"     => [
+                        'style1' => esc_html__("Style 1", "the-post-grid"),
+                        'style2' => esc_html__("Style 2", "the-post-grid"),
+                        'style3' => esc_html__("Style 3", "the-post-grid"),
+                    ],
+                ],
+                'tpg_meta_separator' => [
+                    "type"        => "select",
+                    "class"       => "rt-select2",
+                    "label"       => esc_html__("Separator Style", "the-post-grid"),
+                    "blank"       => esc_html__("Default", "the-post-grid"),
+                    "options"     => [
+                        'dot' => esc_html__("Dot ( . )", "the-post-grid"),
+                        's_slash' => esc_html__("Single Slash ( / )", "the-post-grid"),
+                        'd_slash' => esc_html__("Double Slash ( // )", "the-post-grid"),
+                        'hypen' => esc_html__("Hypen ( - )", "the-post-grid"),
+                        'v_pipe' => esc_html__("Vertical Pipe ( | )", "the-post-grid"),
+                    ],
+                ],
+            ];
+
+            return $fields;
+        }
+
+        function rtTPGSCImageSettings() {
+            $fields = [
+                'feature_image'                    => array(
+                    "type"   => "switch",
+                    "label"  => "Hide Feature Image",
+                    "id"     => "rt-tpg-feature-image",
+                    "default" => false
+                ),
+                'featured_image_size'              => array(
+                    "type"        => "select",
+                    "label"       => "Feature Image Size",
+                    "class"       => "rt-select2",
+                    'holderClass' => "rt-feature-image-option tpg-hidden",
+                    "options"     => rtTPG()->get_image_sizes()
+                ),
+                'custom_image_size'                => array(
+                    "type"        => "image_size",
+                    "label"       => "Custom Image Size",
+                    'holderClass' => "rt-sc-custom-image-size-holder tpg-hidden",
+                    "multiple"    => true
+                ),
+                'media_source'                     => array(
+                    "type"        => "radio",
+                    "label"       => "Media Source",
+                    "default"     => 'feature_image',
+                    "alignment"   => "vertical",
+                    'holderClass' => "rt-feature-image-option tpg-hidden",
+                    "options"     => $this->rtMediaSource()
+                ),
+                'tgp_layout2_image_column'         => array(
+                    'type'        => 'select',
+                    'label'       => __('Image column', 'the-post-grid'),
+                    'class'       => 'rt-select2',
+                    'holderClass' => "holder-layout2-image-column tpg-hidden",
+                    'default'     => 4,
+                    'options'     => $this->scColumns(),
+                    "description" => "Content column will calculate automatically"
+                ),
+                'tpg_image_type'                   => array(
+                    "type"        => "radio",
+                    "label"       => __("Type", 'the-post-grid'),
+                    "alignment"   => "vertical",
+                    'holderClass' => "rt-feature-image-option tpg-hidden pro-field",
+                    "default"     => 'normal',
+                    "options"     => $this->get_image_types()
+                ),
+                'tpg_image_animation'       => array(
+                    "type"        => "select",
+                    "label"       => __('Hover Animation', 'the-post-grid'),
+                    "class"       => "rt-select2",
+                    "options"     => [
+                        'default'   => __('Default', 'the-post-grid'),
+                        'zoom_in'   => __('Zoom in', 'the-post-grid'),
+                        'zoom_out'   => __('Zoom out', 'the-post-grid'),
+                        'none'   => __('None', 'the-post-grid'),
+                    ]
+                ),
+                'tpg_image_border_radius' => array(
+                    "type"        => "number",
+                    "class"       => "small-text",
+                    "label"       => esc_html__("Border radius", "the-post-grid"),
+                    "description" => __("Leave it blank for default", 'the-post-grid')
+                ),
+            ];
+
+            return $fields;
+        }
+
+        function rtTPGSCExcerptSettings() {
+            $fields = [
+                'excerpt_limit'                    => array(
+                    "type"        => "number",
+                    "label"       => esc_html__("Excerpt limit", 'the-post-grid'),
+                    "description" => esc_html__("Excerpt limit only integer number is allowed, Leave it blank for full excerpt.", 'the-post-grid')
+                ),
+                'tgp_excerpt_type'                 => array(
+                    "type"      => "radio",
+                    "label"     => esc_html__("Excerpt Type", 'the-post-grid'),
+                    "alignment" => "vertical",
+                    "default"   => 'character',
+                    "options"   => $this->get_limit_type('content'),
+                ),
+                'tgp_excerpt_more_text'            => array(
+                    "type"  => "text",
+                    "label" => "Excerpt more text"
+                ),
+            ];
+
+            return $fields;
+        }
+
+        function rtTPGSCButtonSettings() {
+            $fields = [
+                'tpg_read_more_button_border_radius' => array(
+                    "type"        => "number",
+                    "class"       => "small-text",
+                    "label"       => esc_html__("Border radius", "the-post-grid"),
+                    "description" => __("Leave it blank for default", 'the-post-grid')
+                ),
+                'tpg_read_more_button_alignment' => array(
+                    "type"        => "select",
+                    "class"       => "rt-select2",
+                    "label"       => esc_html__("Alignment", "the-post-grid"),
+                    "blank"       => esc_html__("Default", "the-post-grid"),
+                    "options"     => array(
+                        'left' => esc_html__("Left", "the-post-grid"),
+                        'right' => esc_html__("Right", "the-post-grid"),
+                        'center' => esc_html__("Center", "the-post-grid"),
+                    ),
+                ),
+                'tgp_read_more_text'               => array(
+                    "type"  => "text",
+                    "label" => "Text"
+                ),
+            ];
+
+            return $fields;
+        }
+
         function rtTPGStyleFields() {
 
             $fields = array(
@@ -806,35 +1007,6 @@ if (!class_exists('rtTPGOptions')):
                     "holderClass"   => "rt-3-column",
                     "class" => "rt-color"
                 ),
-                'tpg_read_more_button_border_radius' => array(
-                    "type"        => "number",
-                    "class"       => "small-text",
-                    "label"       => esc_html__("Read more button border radius", "the-post-grid"),
-                    "description" => __("Leave it blank for default", 'the-post-grid')
-                ),
-                'tpg_read_more_button_alignment' => array(
-                    "type"        => "select",
-                    "class"       => "rt-select2",
-                    "label"       => esc_html__("Read more button alignment", "the-post-grid"),
-                    "blank"       => esc_html__("Default", "the-post-grid"),
-                    "options"     => array(
-                        'left' => esc_html__("Left", "the-post-grid"),
-                        'right' => esc_html__("Right", "the-post-grid"),
-                        'center' => esc_html__("Center", "the-post-grid"),
-                    ),
-                ),
-                'tpg_title_position'                 => array(
-                    "type"        => "select",
-                    "label"       => esc_html__("Title Position (Above or Below image)", "the-post-grid"),
-                    "class"       => "rt-select2 ",
-                    "holderClass"   => "pro-field",
-                    "blank"       => esc_html__("Default", "the-post-grid"),
-                    "options"     => array(
-                        'above' => esc_html__("Above image", "the-post-grid"),
-                        'below' => esc_html__("Below image", "the-post-grid"),
-                    ),
-                    "description" => __("<span style='color:red'>Only Layout 1, Layout 12, Layout 14, Isotope1, Isotope8, Isotope10, Carousel Layout 1, Carousel Layout 8, Carousel Layout 10</span>", 'the-post-grid')
-                )
             );
 
             return apply_filters('rt_tpg_style_fields', $fields);

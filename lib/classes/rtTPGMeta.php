@@ -189,6 +189,7 @@ if ( ! class_exists( 'rtTPGMeta' ) ):
                                 <li%s><a href="#sc-post-post-source">%s</a></li>
                                 <li%s><a href="#sc-post-layout-settings">%s</a></li>
                                 <li%s><a href="#sc-field-selection">%s</a></li>
+                                <li%s><a href="#sc-settings">%s</a></li>
                                 <li%s><a href="#sc-style">%s</a></li>
                               </ul>',
 				$last_tab == "sc-post-post-source" ? ' class="active"' : '',
@@ -197,6 +198,8 @@ if ( ! class_exists( 'rtTPGMeta' ) ):
 				__( 'Layout Settings', 'the-post-grid' ),
 				$last_tab == "sc-field-selection" ? ' class="active"' : '',
 				__( 'Field Selection', 'the-post-grid' ),
+                $last_tab == "sc-settings" ? ' class="active"' : '',
+                __( 'Settings', 'the-post-grid' ),
 				$last_tab == "sc-style" ? ' class="active"' : '',
 				__( 'Style', 'the-post-grid' )
 			);
@@ -212,6 +215,10 @@ if ( ! class_exists( 'rtTPGMeta' ) ):
 			$html .= sprintf( '<div id="sc-field-selection" class="rt-tab-content"%s>', $last_tab == "sc-field-selection" ? ' style="display:block"' : '' );
 			$html .= rtTPG()->render_view( 'settings.item-fields', $post, true );
 			$html .= '</div>';
+
+            $html .= sprintf( '<div id="sc-settings" class="rt-tab-content"%s>', $last_tab == "sc-settings" ? ' style="display:block"' : '' );
+            $html .= rtTPG()->render_view( 'settings.sc-settings', $post, true );
+            $html .= '</div>';
 
 			$html .= sprintf( '<div id="sc-style" class="rt-tab-content"%s>', $last_tab == "sc-style" ? ' style="display:block"' : '' );
 			$html .= rtTPG()->render_view( 'settings.style', $post, true );
