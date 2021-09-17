@@ -24,6 +24,8 @@ if ( ! class_exists( 'rtTPGField' ) ):
 		}
 
 		private function setArgument( $key, $attr ) {
+		    global $pagenow;
+
 			$this->type     = isset( $attr['type'] ) ? ( $attr['type'] ? $attr['type'] : 'text' ) : 'text';
 			$this->multiple = isset( $attr['multiple'] ) ? ( $attr['multiple'] ? $attr['multiple'] : false ) : false;
 			$this->name     = ! empty( $key ) ? $key : null;
@@ -34,8 +36,8 @@ if ( ! class_exists( 'rtTPGField' ) ):
 
 			if ( ! $this->value ) {
 				$post_id = get_the_ID();
-				if ( ! rtTPG()->meta_exist( $post_id, $this->name ) ) {
-					$this->value = $this->default;
+				if ( ! rtTPG()->meta_exist( $post_id, $this->name ) &&  $pagenow == 'post-new.php') {
+                    $this->value = $this->default;
 				} else {
 					if ( $this->multiple ) {
 						$this->value = get_post_meta( $post_id, $this->name );
