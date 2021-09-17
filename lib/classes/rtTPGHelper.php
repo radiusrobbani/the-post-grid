@@ -273,6 +273,56 @@ if (!class_exists('rtTPGHelper')):
             return $html;
         }
 
+        function rtBoxStyle($fields = array()) {
+            $h = null;
+            if (!empty($fields)) {
+                foreach ($fields as $key => $label) {
+                    $atts = '';
+                    $proText = '';
+                    $class = '';
+
+                    $h .= "<div class='field-holder {$class}'>";
+                        $h .= "<div class='field-label'><label>{$label}{$proText}</label></div>";
+                        $h .= "<div class='field'>";
+                            // Top padding
+                            $h .= "<div class='field-inner col-4'>";
+                                $h .= "<div class='field-inner-container'>";
+                                    $h .= "<span class='label'>Top</span>";
+                                    $cValue = get_post_meta(get_the_ID(), $key . "_top", true);
+                                    $h .= "<input type='number' value='{$cValue}' class='rt-top-{$key}' name='{$key}_top'>";
+                                $h .= "</div>";
+                            $h .= "</div>";
+                            // Right padding
+                            $h .= "<div class='field-inner col-4'>";
+                                $h .= "<div class='field-inner-container'>";
+                                    $h .= "<span class='label'>Right</span>";
+                                    $cValue = get_post_meta(get_the_ID(), $key . "_right", true);
+                                    $h .= "<input type='number' value='{$cValue}' class='rt-right-{$key}' name='{$key}_right'>";
+                                $h .= "</div>";
+                            $h .= "</div>";
+                            // Bottom padding
+                            $h .= "<div class='field-inner col-4'>";
+                                $h .= "<div class='field-inner-container'>";
+                                    $h .= "<span class='label'>Bottom</span>";
+                                    $cValue = get_post_meta(get_the_ID(), $key . "_bottom", true);
+                                    $h .= "<input type='number' value='{$cValue}' class='rt-bottom-{$key}' name='{$key}_bottom'>";
+                                $h .= "</div>";
+                            $h .= "</div>";
+                            // Left padding
+                            $h .= "<div class='field-inner col-4'>";
+                                $h .= "<div class='field-inner-container'>";
+                                    $h .= "<span class='label'>Left</span>";
+                                    $cValue = get_post_meta(get_the_ID(), $key . "_left", true);
+                                    $h .= "<input type='number' value='{$cValue}' class='rt-left-{$key}' name='{$key}_left'>";
+                                $h .= "</div>";
+                            $h .= "</div>";
+                        $h .= "</div>";
+                    $h .= "</div>";
+                }
+            }
+            return $h;
+        }
+
         function rtSmartStyle($fields = array()) {
             $h = null;
             if (!empty($fields)) {

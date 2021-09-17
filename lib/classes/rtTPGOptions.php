@@ -1188,6 +1188,14 @@ if (!class_exists('rtTPGOptions')):
             );
         }
 
+        function rtTPGBoxSettings() {
+            return apply_filters('tpg_box_style', [
+                'box_padding'       => __("Box Padding", "the-post-grid"),
+                'content_padding'   => __("Content Padding", "the-post-grid"),
+                'box_margin'        => __("Box Margin",  "the-post-grid")
+            ]);
+        }
+
         function extraStyle() {
             return apply_filters('tpg_extra_style', [
                 'title'       => "Title",
