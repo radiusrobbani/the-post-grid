@@ -1014,6 +1014,145 @@ if (!class_exists('rtTPGOptions')):
 
         }
 
+        function rtTPGStyleHeading() {
+            $fields = [
+                'tpg_heading_bg' => array(
+                    "type"        => "text",
+                    "class"       => "rt-color",
+                    "label"       => esc_html__("Background Color", "the-post-grid"),
+                ),
+                'tpg_heading_color' => array(
+                    "type"        => "text",
+                    "class"       => "rt-color",
+                    "label"       => esc_html__("Text Color", "the-post-grid"),
+                ),
+                'tpg_heading_border_color' => array(
+                    "type"        => "text",
+                    "class"       => "rt-color",
+                    "label"       => esc_html__("Border Color", "the-post-grid"),
+                ),
+                'tpg_heading_border_size' => array(
+                    "type"        => "number",
+                    "class"       => "small-text",
+                    "label"       => esc_html__("Border Size", "the-post-grid"),
+                    "description" => __("Leave it blank for default", 'the-post-grid')
+                ),
+                'tpg_heading_margin' => array(
+                    "type"        => "number",
+                    "class"       => "small-text",
+                    "label"       => esc_html__("Margin", "the-post-grid"),
+                    "description" => __("Leave it blank for default", 'the-post-grid')
+                ),
+                'tpg_heading_padding' => array(
+                    "type"        => "number",
+                    "class"       => "small-text",
+                    "label"       => esc_html__("Padding", "the-post-grid"),
+                    "description" => __("Leave it blank for default", 'the-post-grid')
+                ),
+            ];
+
+            return apply_filters('tpg_heading_style_fields', $fields);
+        }
+
+        function rtTPGStyleFullArea() {
+            $fields = [
+                'tpg_full_area_bg' => array(
+                    "type"        => "text",
+                    "class"       => "rt-color",
+                    "label"       => esc_html__("Background", "the-post-grid"),
+                ),
+                'tpg_full_area_margin' => array(
+                    "type"        => "number",
+                    "class"       => "small-text",
+                    "label"       => esc_html__("Margin", "the-post-grid"),
+                    "description" => __("Leave it blank for default", 'the-post-grid')
+                ),
+                'tpg_full_area_padding' => array(
+                    "type"        => "number",
+                    "class"       => "small-text",
+                    "label"       => esc_html__("Padding", "the-post-grid"),
+                    "description" => __("Leave it blank for default", 'the-post-grid')
+                ),
+            ];
+
+            return apply_filters('tpg_box_style_fields', $fields);
+        }
+
+        function rtTPGStyleContentWrap() {
+            $fields = [
+                'tpg_content_wrap_bg' => array(
+                    "type"        => "text",
+                    "class"       => "rt-color",
+                    "label"       => esc_html__("Background Color", "the-post-grid"),
+                ),
+                'tpg_content_wrap_border' => array(
+                    "type"        => "number",
+                    "class"       => "small-text",
+                    "label"       => esc_html__("Border Width", "the-post-grid"),
+                    "description" => __("Leave it blank for default", 'the-post-grid')
+                ),
+                'tpg_content_wrap_border_color' => array(
+                    "type"        => "text",
+                    "class"       => "rt-color",
+                    "label"       => esc_html__("Border Color", "the-post-grid"),
+                ),
+                'tpg_content_wrap_shadow' => array(
+                    "type"        => "text",
+                    "class"       => "rt-color",
+                    "label"       => esc_html__("Box Shadow Color", "the-post-grid"),
+                ),
+                'tpg_box_padding' => array(
+                    "type"        => "number",
+                    "class"       => "small-text",
+                    "label"       => esc_html__("Box Padding", "the-post-grid"),
+                    "description" => __("Leave it blank for default", 'the-post-grid')
+                ),
+                'tpg_content_padding' => array(
+                    "type"        => "number",
+                    "class"       => "small-text",
+                    "label"       => esc_html__("Content Padding", "the-post-grid"),
+                    "description" => __("Leave it blank for default", 'the-post-grid')
+                ),
+            ];
+
+            return apply_filters('tpg_content_style_fields', $fields);
+        }
+
+        function rtTPGStyleCategory() {
+            $fields = [
+                'tpg_category_bg' => array(
+                    "type"        => "text",
+                    "class"       => "rt-color",
+                    "label"       => esc_html__("Background Color", "the-post-grid"),
+                ),
+                'tpg_category_color' => array(
+                    "type"        => "text",
+                    "class"       => "rt-color",
+                    "label"       => esc_html__("Text Color", "the-post-grid"),
+                ),
+                'tpg_category_border_radius' => array(
+                    "type"        => "number",
+                    "class"       => "small-text",
+                    "label"       => esc_html__("Border Radius", "the-post-grid"),
+                    "description" => __("Leave it blank for default", 'the-post-grid')
+                ),
+                'tpg_category_margin' => array(
+                    "type"        => "number",
+                    "class"       => "small-text",
+                    "label"       => esc_html__("Margin", "the-post-grid"),
+                    "description" => __("Leave it blank for default", 'the-post-grid')
+                ),
+                'tpg_category_padding' => array(
+                    "type"        => "number",
+                    "class"       => "small-text",
+                    "label"       => esc_html__("Padding", "the-post-grid"),
+                    "description" => __("Leave it blank for default", 'the-post-grid')
+                ),
+            ];
+
+            return apply_filters('tpg_category_style_fields', $fields);
+        }
+
         function itemFields() {
 
             $fields = array(
@@ -1186,14 +1325,6 @@ if (!class_exists('rtTPGOptions')):
                 'even'    => "Even",
                 'masonry' => "Masonry"
             );
-        }
-
-        function rtTPGBoxSettings() {
-            return apply_filters('tpg_box_style', [
-                'box_padding'       => __("Box Padding", "the-post-grid"),
-                'content_padding'   => __("Content Padding", "the-post-grid"),
-                'box_margin'        => __("Box Margin",  "the-post-grid")
-            ]);
         }
 
         function extraStyle() {

@@ -184,7 +184,7 @@ body .meta-box-sortables .field-holder select {
 }
 
 .rt-tab-content .field-holder {
-    margin-bottom: 15px;
+    margin-bottom: 5px;
     padding-top: 10px;
 }
 
@@ -1072,4 +1072,37 @@ input:checked + .rttm-switch-slider:before {
 
 .rttm-switch-slider.round:before {
     border-radius: 50%;
+}
+
+.rt-setting-holder .rt-tab-content .tpg-multiple-field-group {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.rt-setting-holder .rt-tab-content .tpg-multiple-field-group > div {
+    flex: 0 0 24%;
+    padding: 5px 0;
+    margin-bottom: 0;
+    border: none;
+    position: relative;
+}
+
+.rt-setting-holder .rt-tab-content .tpg-multiple-field-group > div .field-label {
+    float: none;
+    width: auto;
+}
+
+.rt-setting-holder .rt-tab-content .tpg-multiple-field-group > div .field-label label {
+    font-weight: normal;
+}
+
+.rt-setting-holder .rt-tab-content .tpg-multiple-field-group > div .field {
+    float: none;
+    width: auto;
+}
+
+.tpg-multiple-field-group > div .wp-picker-container {
+    position: absolute;
+    top: 34px;
+    z-index: 10;
 }
