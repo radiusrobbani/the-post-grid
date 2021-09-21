@@ -26,7 +26,20 @@ if (!class_exists('rtTPGHelper')):
             $fields = array_merge(
                 rtTPG()->rtTPGCommonFilterFields(),
                 rtTPG()->rtTPGLayoutSettingFields(),
+                // settings
+                rtTPG()->rtTPGSCHeadingSettings(),
+                rtTPG()->rtTPGSCCategorySettings(),
+                rtTPG()->rtTPGSCTitleSettings(),
+                rtTPG()->rtTPGSCMetaSettings(),
+                rtTPG()->rtTPGSCImageSettings(),
+                rtTPG()->rtTPGSCExcerptSettings(),
+                rtTPG()->rtTPGSCButtonSettings(),
+                // style
                 rtTPG()->rtTPGStyleFields(),
+                rtTPG()->rtTPGStyleHeading(),
+                rtTPG()->rtTPGStyleFullArea(),
+                rtTPG()->rtTPGStyleContentWrap(),
+                rtTPG()->rtTPGStyleCategory(),
                 rtTPG()->rtTPGPostType(),
                 rtTPG()->rtTPAdvanceFilters(),
                 rtTPG()->itemFields()

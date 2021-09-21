@@ -151,6 +151,13 @@ if ( ! class_exists( 'rtTPGShortCode' ) ):
 					'the-post-grid' ) );
 				$arg['tpg_title_position']  = isset( $scMeta['tpg_title_position'][0] ) && ! empty( $scMeta['tpg_title_position'][0] ) ? $scMeta['tpg_title_position'][0] : null;
 				$arg['btn_alignment_class'] = isset( $scMeta['tpg_read_more_button_alignment'][0] ) && ! empty( $scMeta['tpg_read_more_button_alignment'][0] ) ? $scMeta['tpg_read_more_button_alignment'][0] : '';
+                // Category Settings
+                $arg['category_position'] = isset($scMeta['tpg_category_position'][0]) ? $scMeta['tpg_category_position'][0] : null;
+                $arg['category_style'] = !empty($scMeta['tpg_category_style'][0]) ? $scMeta['tpg_category_style'][0] : '';
+                // Meta Settings
+                $arg['metaPosition'] = isset($scMeta['tpg_meta_position'][0]) ? $scMeta['tpg_meta_position'][0] : null;
+                $arg['metaStyle'] = !empty($scMeta['tpg_meta_style'][0]) ? $scMeta['tpg_meta_style'][0] : '';
+                $arg['metaSeparator'] = !empty($scMeta['tpg_meta_separator'][0]) ? $scMeta['tpg_meta_separator'][0] : '';
 
 				/* Argument create */
 				$args     = array();
@@ -348,6 +355,12 @@ if ( ! class_exists( 'rtTPGShortCode' ) ):
 					$arg_class[] = "rt-offset-item";
 				}
 
+                // Image animation type
+                $imgAnimationType = isset( $scMeta['tpg_image_animation'][0] ) ? $scMeta['tpg_image_animation'][0] : '';
+                if (!empty($imgAnimationType)) {
+                    $arg_class[] = $imgAnimationType;
+                }
+
 				$masonryG = null;
 				if ( $gridType == "even" ) {
 					$masonryG = " tpg-even";
@@ -466,7 +479,22 @@ if ( ! class_exists( 'rtTPGShortCode' ) ):
 				$html              .= rtTPG()->layoutStyle( $layoutID, $scMeta, $layout, $scID );
 				$containerDataAttr .= " data-sc-id='{$scID}'";
 				$html              .= "<div class='rt-container-fluid rt-tpg-container {$parentClass}' id='{$layoutID}' {$dataArchive} {$containerDataAttr}>";
-                if ( !$isCarousel && isset($settings['tpg_load_script']) && isset($settings['tpg_enable_preloader'])) {
+
+                // widget heading
+                $heading_tag = isset($scMeta['tpg_heading_tag'][0]) ? $scMeta['tpg_heading_tag'][0] : 'h2';
+                $heading_style = isset($scMeta['tpg_heading_style'][0]) && !empty($scMeta['tpg_heading_style'][0]) ? $scMeta['tpg_heading_style'][0] : 'style1';
+                $heading_alignment = isset($scMeta['tpg_heading_alignment'][0]) ? $scMeta['tpg_heading_alignment'][0] : '';
+                $heading_link = isset($scMeta['tpg_heading_link'][0]) ? $scMeta['tpg_heading_link'][0] : '';
+
+                if(!empty($arg['items']) && in_array('heading', $arg['items'])) {
+                    if ($heading_link) {
+                        $html .= sprintf('<%1$s class="tpg-widget-heading heading-%2$s %3$s"><a href="%4$s" title="%5$s">%5$s</a></%1$s>', $heading_tag, $heading_style, $heading_alignment, $heading_link, get_the_title());
+                    } else {
+                        $html .= sprintf('<%1$s class="tpg-widget-heading heading-%2$s %3$s">%4$s</%1$s>', $heading_tag, $heading_style, $heading_alignment, get_the_title());
+                    }
+                }
+
+				if ( !$isCarousel && isset($settings['tpg_load_script']) && isset($settings['tpg_enable_preloader'])) {
                     $html .= '<div id="bottom-script-loader"><div class="rt-ball-clip-rotate"><div></div></div></div>';
                 }
 				if ( ! empty( $filters ) && ( $isGrid || $isOffset || $isWooCom || $isEdd ) ) {

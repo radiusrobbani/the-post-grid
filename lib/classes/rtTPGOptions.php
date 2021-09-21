@@ -718,7 +718,7 @@ if (!class_exists('rtTPGOptions')):
                         'center' => esc_html__("Center", "the-post-grid"),
                     ],
                 ],
-                'tgp_heading_link'            => [
+                'tpg_heading_link'            => [
                     "type"  => "url",
                     "label" => __('Link', 'the-post-grid')
                 ],
@@ -810,7 +810,7 @@ if (!class_exists('rtTPGOptions')):
                     "options"     => array(
                         'above_title' => esc_html__("Above Title", "the-post-grid"),
                         'above_excerpt' => esc_html__("Above excerpt", "the-post-grid"),
-                        'below' => esc_html__("Below excerpt", "the-post-grid"),
+                        'below_excerpt' => esc_html__("Below excerpt", "the-post-grid"),
                     ),
                 ],
                 'tpg_meta_style' => [
@@ -892,11 +892,11 @@ if (!class_exists('rtTPGOptions')):
                     "type"        => "select",
                     "label"       => __('Hover Animation', 'the-post-grid'),
                     "class"       => "rt-select2",
+                    "blank"       => esc_html__("Default", "the-post-grid"),
                     "options"     => [
-                        'default'   => __('Default', 'the-post-grid'),
-                        'zoom_in'   => __('Zoom in', 'the-post-grid'),
-                        'zoom_out'   => __('Zoom out', 'the-post-grid'),
-                        'none'   => __('None', 'the-post-grid'),
+                        'img_zoom_in'   => __('Zoom in', 'the-post-grid'),
+                        'img_zoom_out'  => __('Zoom out', 'the-post-grid'),
+                        'img_no_effect' => __('None', 'the-post-grid'),
                     ]
                 ),
                 'tpg_image_border_radius' => array(
@@ -926,7 +926,8 @@ if (!class_exists('rtTPGOptions')):
                 ),
                 'tgp_excerpt_more_text'            => array(
                     "type"  => "text",
-                    "label" => "Excerpt more text"
+                    "label" => "Excerpt more text",
+                    "default"   => '...',
                 ),
             ];
 
@@ -1298,14 +1299,15 @@ if (!class_exists('rtTPGOptions')):
         function rtTPGItemFields() {
 
             $items = array(
-                'title'         => "Title",
-                'excerpt'       => "Excerpt",
-                'read_more'     => "Read More",
-                'post_date'     => "Post Date",
-                'author'        => "Author",
-                'categories'    => "Categories",
-                'tags'          => "Tags",
-                'comment_count' => "Comment count"
+                'heading'       => __("Widget Heading", "the-post-grid"),
+                'title'         => __("Title", "the-post-grid"),
+                'excerpt'       => __("Excerpt", "the-post-grid"),
+                'read_more'     => __("Read More", "the-post-grid"),
+                'post_date'     => __("Post Date", "the-post-grid"),
+                'author'        => __("Author", "the-post-grid"),
+                'categories'    => __("Categories", "the-post-grid"),
+                'tags'          => __("Tags", "the-post-grid"),
+                'comment_count' => __("Comment count", "the-post-grid")
             );
 
             return apply_filters('tpg_field_selection_items', $items);
