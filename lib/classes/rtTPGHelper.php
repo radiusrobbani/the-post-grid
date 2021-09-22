@@ -727,7 +727,6 @@ if (!class_exists('rtTPGHelper')):
 
         }
 
-
         function rt_pagination_ajax($pages = '', $range = 4, $scID) {
             $html = null;
 
@@ -856,7 +855,22 @@ if (!class_exists('rtTPGHelper')):
                 $overlay_padding = (!empty($scMeta['overlay_padding'][0]) ? absint($scMeta['overlay_padding'][0]) : null);
                 $gutter = !empty($scMeta['tgp_gutter'][0]) ? absint($scMeta['tgp_gutter'][0]) : null;
                 $read_more_button_border_radius = isset($scMeta['tpg_read_more_button_border_radius'][0]) ? $scMeta['tpg_read_more_button_border_radius'][0] : '';
-
+                // Heading
+                $headingBg = (isset($scMeta['tpg_heading_bg'][0]) ? $scMeta['tpg_heading_bg'][0] : null);
+                $headingColor = (isset($scMeta['tpg_heading_color'][0]) ? $scMeta['tpg_heading_color'][0] : null);
+                $headingBorderColor = (isset($scMeta['tpg_heading_border_color'][0]) ? $scMeta['tpg_heading_border_color'][0] : null);
+                $headingBorderSize = (isset($scMeta['tpg_heading_border_size'][0]) ? $scMeta['tpg_heading_border_size'][0] : null);
+                $headingMargin = (isset($scMeta['tpg_heading_margin'][0]) ? $scMeta['tpg_heading_margin'][0] : null);
+                $headingPadding = (isset($scMeta['tpg_heading_padding'][0]) ? $scMeta['tpg_heading_padding'][0] : null);
+                // Category
+                $catBg = (isset($scMeta['tpg_category_bg'][0]) ? $scMeta['tpg_category_bg'][0] : null);
+                $catTextColor = (isset($scMeta['tpg_category_color'][0]) ? $scMeta['tpg_category_color'][0] : null);
+                $catBorderRadius = (isset($scMeta['tpg_category_border_radius'][0]) ? $scMeta['tpg_category_border_radius'][0] : null);
+                $catMargin = (isset($scMeta['tpg_category_margin'][0]) ? $scMeta['tpg_category_margin'][0] : null);
+                $catPadding = (isset($scMeta['tpg_category_padding'][0]) ? $scMeta['tpg_category_padding'][0] : null);
+                // Image
+                $image_border_radius = isset($scMeta['tpg_image_border_radius'][0]) ? $scMeta['tpg_image_border_radius'][0] : '';
+                // Title
                 $title_color = (!empty($scMeta['title_color'][0]) ? $scMeta['title_color'][0] : null);
                 $title_size = (!empty($scMeta['title_size'][0]) ? absint($scMeta['title_size'][0]) : null);
                 $title_weight = (!empty($scMeta['title_weight'][0]) ? $scMeta['title_weight'][0] : null);
@@ -887,8 +901,23 @@ if (!class_exists('rtTPGHelper')):
                     !empty($scMeta['overlay_opacity']) ? absint($scMeta['overlay_opacity']) / 10 : .8) : null);
                 $overlay_padding = (!empty($scMeta['overlay_padding']) ? absint($scMeta['overlay_padding']) : null);
                 $gutter = !empty($scMeta['tgp_gutter']) ? absint($scMeta['tgp_gutter']) : null;
-                $read_more_button_border_radius = isset($scMeta['tpg_read_more_button_border_radius'][0]) ? $scMeta['tpg_read_more_button_border_radius'][0] : '';
-
+                $read_more_button_border_radius = isset($scMeta['tpg_read_more_button_border_radius']) ? $scMeta['tpg_read_more_button_border_radius'] : '';
+                // Heading
+                $headingBg = (isset($scMeta['tpg_heading_bg']) ? $scMeta['tpg_heading_bg'] : null);
+                $headingColor = (isset($scMeta['tpg_heading_color']) ? $scMeta['tpg_heading_color'] : null);
+                $headingBorderColor = (isset($scMeta['tpg_heading_border_color']) ? $scMeta['tpg_heading_border_color'] : null);
+                $headingBorderSize = (isset($scMeta['tpg_heading_border_size']) ? $scMeta['tpg_heading_border_size'] : null);
+                $headingMargin = (isset($scMeta['tpg_heading_margin']) ? $scMeta['tpg_heading_margin'] : null);
+                $headingPadding = (isset($scMeta['tpg_heading_padding']) ? $scMeta['tpg_heading_padding'] : null);
+                // Category
+                $catBg = (isset($scMeta['tpg_category_bg']) ? $scMeta['tpg_category_bg'] : null);
+                $catTextColor = (isset($scMeta['tpg_category_color']) ? $scMeta['tpg_category_color'] : null);
+                $catBorderRadius = (isset($scMeta['tpg_category_border_radius']) ? $scMeta['tpg_category_border_radius'] : null);
+                $catMargin = (isset($scMeta['tpg_category_margin']) ? $scMeta['tpg_category_margin'] : null);
+                $catPadding = (isset($scMeta['tpg_category_padding']) ? $scMeta['tpg_category_padding'] : null);
+                // Image
+                $image_border_radius = isset($scMeta['tpg_image_border_radius']) ? $scMeta['tpg_image_border_radius'] : '';
+                // Title
                 $title_color = (!empty($scMeta['title_color']) ? $scMeta['title_color'] : null);
                 $title_size = (!empty($scMeta['title_size']) ? absint($scMeta['title_size']) : null);
                 $title_weight = (!empty($scMeta['title_weight']) ? $scMeta['title_weight'] : null);
@@ -1137,7 +1166,46 @@ if (!class_exists('rtTPGHelper')):
                 $css .= "border-radius:" . $read_more_button_border_radius . "px;";
                 $css .= "}";
             }
-            // .rt-tpg-container .isotope1 .rt-holder .rt-detail .read-more
+
+            // Widget heading
+            if ($headingBg) {
+                $css .= "#{$layoutID} .tpg-widget-heading {";
+                $css .= "background:" . $headingBg . ";";
+                $css .= "}";
+            }
+            if ($headingColor) {
+                $css .= "#{$layoutID} .tpg-widget-heading {";
+                $css .= "color:" . $headingColor . ";";
+                $css .= "}";
+            }
+            if ($headingBorderSize) {
+                $css .= "#{$layoutID} .tpg-widget-heading {";
+                $css .= "border-style: solid;";
+                $css .= "border-width:" . $headingBorderSize . "px;";
+                $css .= "}";
+            }
+            if ($headingBorderColor) {
+                $css .= "#{$layoutID} .tpg-widget-heading {";
+                $css .= "border-color:" . $headingBorderColor . ";";
+                $css .= "}";
+            }
+            if ($headingMargin) {
+                $css .= "#{$layoutID} .tpg-widget-heading {";
+                $css .= "margin:" . $headingMargin . "px;";
+                $css .= "}";
+            }
+            if ($headingPadding) {
+                $css .= "#{$layoutID} .tpg-widget-heading {";
+                $css .= "padding:" . $headingMargin . "px;";
+                $css .= "}";
+            }
+
+            // Image border
+            if (isset($image_border_radius) || trim($image_border_radius) !== '') {
+                $css .= "#{$layoutID} .rt-img-holder img.rt-img-responsive {";
+                $css .= "border-radius:" . $image_border_radius . "px;";
+                $css .= "}";
+            }
 
             // Title decoration
 

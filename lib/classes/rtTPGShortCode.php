@@ -389,13 +389,13 @@ if ( ! class_exists( 'rtTPGShortCode' ) ):
 				}
 				$arg['class']       = implode( " ", $arg_class );
 				$arg['anchorClass'] = $arg['link_target'] = null;
-				$link               = ! empty( $scMeta['link_to_detail_page'][0] ) ? $scMeta['link_to_detail_page'][0] : 'yes';
-				if ( $link != 'yes' ) {
+				$link               = ! empty( $scMeta['link_to_detail_page'][0] ) ? $scMeta['link_to_detail_page'][0] : '1';
+				if ( $link != '1' ) {
 					$arg['anchorClass'] = ' disabled';
 				}
 				$isSinglePopUp = false;
 				$linkType      = ! empty( $scMeta['detail_page_link_type'][0] ) ? $scMeta['detail_page_link_type'][0] : 'popup';
-				if ( $link == 'yes' ) {
+				if ( $link == '1' ) {
 					if ( $linkType == 'popup' && rtTPG()->hasPro() ) {
 						$popupType = ! empty( $scMeta['popup_type'][0] ) ? $scMeta['popup_type'][0] : 'single';
 						if ( $popupType == 'single' ) {

@@ -70,7 +70,14 @@ if ( ! class_exists( 'rtTPGPreview' ) ):
 					'the-post-grid' ) );
 				$arg['tpg_title_position'] = isset( $scMeta['tpg_title_position'] ) && ! empty( $scMeta['tpg_title_position'] ) ? $scMeta['tpg_title_position'] : null;
                 $arg['btn_alignment_class'] = isset($scMeta['tpg_read_more_button_alignment']) && !empty($scMeta['tpg_read_more_button_alignment']) ? $scMeta['tpg_read_more_button_alignment'] : '';
-				/* Argument create */
+                // Category Settings
+                $arg['category_position'] = isset($scMeta['tpg_category_position']) ? $scMeta['tpg_category_position'] : null;
+                $arg['category_style'] = !empty($scMeta['tpg_category_style']) ? $scMeta['tpg_category_style'] : '';
+                // Meta Settings
+                $arg['metaPosition'] = isset($scMeta['tpg_meta_position']) ? $scMeta['tpg_meta_position'] : null;
+                $arg['metaStyle'] = !empty($scMeta['tpg_meta_style']) ? $scMeta['tpg_meta_style'] : '';
+                $arg['metaSeparator'] = !empty($scMeta['tpg_meta_separator']) ? $scMeta['tpg_meta_separator'] : '';
+                /* Argument create */
 				$args     = array();
 				$postType = ( isset( $scMeta['tpg_post_type'] ) ? $scMeta['tpg_post_type'] : null );
 
@@ -307,6 +314,12 @@ if ( ! class_exists( 'rtTPGPreview' ) ):
 					$arg_class[] = "rt-offset-item";
 				}
 
+                // Image animation type
+                $imgAnimationType = isset( $scMeta['tpg_image_animation'] ) ? $scMeta['tpg_image_animation'] : '';
+                if (!empty($imgAnimationType)) {
+                    $arg_class[] = $imgAnimationType;
+                }
+
 				$masonryG = null;
 				if ( $gridType == "even" ) {
 					$masonryG = "tpg-even";
@@ -337,10 +350,10 @@ if ( ! class_exists( 'rtTPGPreview' ) ):
 
 				$arg['anchorClass'] = null;
 				$arg['anchorClass'] = $arg['link_target'] = null;
-				$link               = ! empty( $scMeta['link_to_detail_page'] ) ? $scMeta['link_to_detail_page'] : 'yes';
+				$link               = ! empty( $scMeta['link_to_detail_page'] ) ? $scMeta['link_to_detail_page'] : '1';
 				$isSinglePopUp      = false;
 				$linkType           = ! empty( $scMeta['detail_page_link_type'][0] ) ? $scMeta['detail_page_link_type'][0] : 'popup';
-				if ( $link == 'yes' ) {
+				if ( $link == '1' ) {
 					if ( $linkType == 'popup' && rtTPG()->hasPro() ) {
 						$popupType = ! empty( $scMeta['popup_type'][0] ) ? $scMeta['popup_type'][0] : 'single';
 						if ( $popupType == 'single' ) {
@@ -357,7 +370,7 @@ if ( ! class_exists( 'rtTPGPreview' ) ):
 				}
 				$isSinglePopUp = false;
 				$linkType      = ! empty( $scMeta['detail_page_link_type'] ) ? $scMeta['detail_page_link_type'] : 'popup';
-				if ( $link == 'yes' && $linkType == 'popup' && rtTPG()->hasPro() ) {
+				if ( $link == '1' && $linkType == 'popup' && rtTPG()->hasPro() ) {
 					$popupType = ! empty( $scMeta['popup_type'] ) ? $scMeta['popup_type'] : 'single';
 					if ( $popupType == 'single' ) {
 						$arg['anchorClass'] .= ' tpg-single-popup';
@@ -414,6 +427,20 @@ if ( ! class_exists( 'rtTPGPreview' ) ):
 				$data              .= rtTPG()->layoutStyle( $layoutID, $scMeta, $layout );
 				$containerDataAttr .= "";
 				$data              .= "<div class='rt-container-fluid rt-tpg-container {$parentClass}' id='{$layoutID}' {$dataArchive} {$containerDataAttr}>";
+                // widget heading
+                $heading_tag = isset($scMeta['tpg_heading_tag']) ? $scMeta['tpg_heading_tag'] : 'h2';
+                $heading_style = isset($scMeta['tpg_heading_style']) && !empty($scMeta['tpg_heading_style']) ? $scMeta['tpg_heading_style'] : 'style1';
+                $heading_alignment = isset($scMeta['tpg_heading_alignment']) ? $scMeta['tpg_heading_alignment'] : '';
+                $heading_link = isset($scMeta['tpg_heading_link']) ? $scMeta['tpg_heading_link'] : '';
+
+                if(!empty($arg['items']) && in_array('heading', $arg['items'])) {
+                    if ($heading_link) {
+                        $data .= sprintf('<%1$s class="tpg-widget-heading heading-%2$s %3$s"><a href="%4$s" title="%5$s">%5$s</a></%1$s>', $heading_tag, $heading_style, $heading_alignment, $heading_link, get_the_title($scID));
+                    } else {
+                        $data .= sprintf('<%1$s class="tpg-widget-heading heading-%2$s %3$s">%4$s</%1$s>', $heading_tag, $heading_style, $heading_alignment, get_the_title($scID));
+                    }
+                }
+
 				$filters           = ! empty( $scMeta['tgp_filter'] ) ? $scMeta['tgp_filter'] : array();
 				if ( ! empty( $filters ) && ( $isGrid || $isOffset || $isWooCom ) ) {
 					$data                      .= "<div class='rt-layout-filter-container rt-clear'><div class='rt-filter-wrap'>";
