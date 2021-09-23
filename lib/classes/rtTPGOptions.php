@@ -1039,16 +1039,16 @@ if (!class_exists('rtTPGOptions')):
                     "description" => __("Leave it blank for default", 'the-post-grid')
                 ),
                 'tpg_heading_margin' => array(
-                    "type"        => "number",
-                    "class"       => "small-text",
+                    "type"        => "text",
+                    "class"       => "medium-text tpg-spacing-field",
                     "label"       => esc_html__("Margin", "the-post-grid"),
-                    "description" => __("Leave it blank for default", 'the-post-grid')
+                    "description" => __("Multiple value allowed separated by comma 12,0,5,10", 'the-post-grid')
                 ),
                 'tpg_heading_padding' => array(
-                    "type"        => "number",
-                    "class"       => "small-text",
+                    "type"        => "text",
+                    "class"       => "medium-text tpg-spacing-field",
                     "label"       => esc_html__("Padding", "the-post-grid"),
-                    "description" => __("Leave it blank for default", 'the-post-grid')
+                    "description" => __("Leave it blank for default, multiple value allowed separated by comma 12,0,5,10", 'the-post-grid')
                 ),
             ];
 
@@ -1063,14 +1063,14 @@ if (!class_exists('rtTPGOptions')):
                     "label"       => esc_html__("Background", "the-post-grid"),
                 ),
                 'tpg_full_area_margin' => array(
-                    "type"        => "number",
-                    "class"       => "small-text",
+                    "type"        => "text",
+                    "class"       => "medium-text",
                     "label"       => esc_html__("Margin", "the-post-grid"),
                     "description" => __("Leave it blank for default", 'the-post-grid')
                 ),
                 'tpg_full_area_padding' => array(
-                    "type"        => "number",
-                    "class"       => "small-text",
+                    "type"        => "text",
+                    "class"       => "medium-text",
                     "label"       => esc_html__("Padding", "the-post-grid"),
                     "description" => __("Leave it blank for default", 'the-post-grid')
                 ),
@@ -1086,31 +1086,36 @@ if (!class_exists('rtTPGOptions')):
                     "class"       => "rt-color",
                     "label"       => esc_html__("Background Color", "the-post-grid"),
                 ),
-                'tpg_content_wrap_border' => array(
-                    "type"        => "number",
-                    "class"       => "small-text",
-                    "label"       => esc_html__("Border Width", "the-post-grid"),
-                    "description" => __("Leave it blank for default", 'the-post-grid')
+                'tpg_content_wrap_shadow' => array(
+                    "type"        => "text",
+                    "class"       => "rt-color",
+                    "label"       => esc_html__("Box Shadow Color", "the-post-grid"),
                 ),
                 'tpg_content_wrap_border_color' => array(
                     "type"        => "text",
                     "class"       => "rt-color",
                     "label"       => esc_html__("Border Color", "the-post-grid"),
                 ),
-                'tpg_content_wrap_shadow' => array(
-                    "type"        => "text",
-                    "class"       => "rt-color",
-                    "label"       => esc_html__("Box Shadow Color", "the-post-grid"),
-                ),
-                'tpg_box_padding' => array(
+                'tpg_content_wrap_border' => array(
                     "type"        => "number",
                     "class"       => "small-text",
+                    "label"       => esc_html__("Border Width", "the-post-grid"),
+                    "description" => __("Leave it blank for default", 'the-post-grid')
+                ),
+                'tpg_content_wrap_border_radius' => array(
+                    "type"        => "number",
+                    "class"       => "small-text",
+                    "label"       => esc_html__("Border Radius", "the-post-grid"),
+                ),
+                'tpg_box_padding' => array(
+                    "type"        => "text",
+                    "class"       => "medium-text",
                     "label"       => esc_html__("Box Padding", "the-post-grid"),
                     "description" => __("Leave it blank for default", 'the-post-grid')
                 ),
                 'tpg_content_padding' => array(
-                    "type"        => "number",
-                    "class"       => "small-text",
+                    "type"        => "text",
+                    "class"       => "medium-text",
                     "label"       => esc_html__("Content Padding", "the-post-grid"),
                     "description" => __("Leave it blank for default", 'the-post-grid')
                 ),
@@ -1138,14 +1143,14 @@ if (!class_exists('rtTPGOptions')):
                     "description" => __("Leave it blank for default", 'the-post-grid')
                 ),
                 'tpg_category_margin' => array(
-                    "type"        => "number",
-                    "class"       => "small-text",
+                    "type"        => "text",
+                    "class"       => "medium-text tpg-spacing-field",
                     "label"       => esc_html__("Margin", "the-post-grid"),
                     "description" => __("Leave it blank for default", 'the-post-grid')
                 ),
                 'tpg_category_padding' => array(
-                    "type"        => "number",
-                    "class"       => "small-text",
+                    "type"        => "text",
+                    "class"       => "medium-text tpg-spacing-field",
                     "label"       => esc_html__("Padding", "the-post-grid"),
                     "description" => __("Leave it blank for default", 'the-post-grid')
                 ),

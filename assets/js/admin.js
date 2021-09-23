@@ -182,6 +182,13 @@
                 }
             });
         }
+
+        $('.tpg-spacing-field').on('change, keyup', function() {
+            var marginInput = $(this).val();
+            var marginValue = marginInput.replace(/[^\d,]+/g, '');
+            $(this).val(marginValue);
+        });
+
     });
 
     function setGetParameter(paramName, paramValue) {

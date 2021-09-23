@@ -313,7 +313,11 @@ if ( ! class_exists( 'rtTPGPreview' ) ):
 				if ( $isOffset ) {
 					$arg_class[] = "rt-offset-item";
 				}
-
+                // Category class
+                $catHaveBg = (isset($scMeta['tpg_category_bg']) ? $scMeta['tpg_category_bg'] : '');
+                if (!empty($catHaveBg)) {
+                    $arg_class[] = 'category-have-bg';
+                }
                 // Image animation type
                 $imgAnimationType = isset( $scMeta['tpg_image_animation'] ) ? $scMeta['tpg_image_animation'] : '';
                 if (!empty($imgAnimationType)) {

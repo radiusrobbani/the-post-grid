@@ -329,6 +329,10 @@ div#sc-post-post-source > .field-holder > .field > .field-holder:first-child {
     margin-bottom: 5px;
 }
 
+input.medium-text {
+    width: 100px;
+}
+
 input.large-text.code.rt-code-sc {
     color: #fff;
     background: #5d3dfd;

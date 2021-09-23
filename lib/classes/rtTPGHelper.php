@@ -837,6 +837,16 @@ if (!class_exists('rtTPGHelper')):
             return $return;
         }
 
+        public function formatSpacing($data = '') {
+            if (!empty($data)) {
+                $spacing = array_filter(explode(',', $data), 'is_numeric');
+                if (count($spacing) > 4) {
+                    $spacing = array_slice($spacing, 0, 4, true);
+                }
+                $data = implode("px ", $spacing);
+            }
+            return $data;
+        }
 
         public function layoutStyle($layoutID, $scMeta, $layout, $scId = null) {
             $css = null;
@@ -855,19 +865,39 @@ if (!class_exists('rtTPGHelper')):
                 $overlay_padding = (!empty($scMeta['overlay_padding'][0]) ? absint($scMeta['overlay_padding'][0]) : null);
                 $gutter = !empty($scMeta['tgp_gutter'][0]) ? absint($scMeta['tgp_gutter'][0]) : null;
                 $read_more_button_border_radius = isset($scMeta['tpg_read_more_button_border_radius'][0]) ? $scMeta['tpg_read_more_button_border_radius'][0] : '';
+                // Section
+                $sectionBg = (isset($scMeta['tpg_full_area_bg'][0]) ? $scMeta['tpg_full_area_bg'][0] : null);
+                $sectionMargin = (isset($scMeta['tpg_full_area_margin'][0]) ? $scMeta['tpg_full_area_margin'][0] : null);
+                $sectionMargin = $this->formatSpacing($sectionMargin);
+                $sectionPadding = (isset($scMeta['tpg_full_area_padding'][0]) ? $scMeta['tpg_full_area_padding'][0] : null);
+                $sectionPadding = $this->formatSpacing($sectionPadding);
+                // Box
+                $boxBg = (isset($scMeta['tpg_content_wrap_bg'][0]) ? $scMeta['tpg_content_wrap_bg'][0] : null);
+                $boxBorder = (isset($scMeta['tpg_content_wrap_border'][0]) ? $scMeta['tpg_content_wrap_border'][0] : null);
+                $boxBorderColor = (isset($scMeta['tpg_content_wrap_border_color'][0]) ? $scMeta['tpg_content_wrap_border_color'][0] : null);
+                $boxBorderRadius = (isset($scMeta['tpg_content_wrap_border_radius'][0]) ? $scMeta['tpg_content_wrap_border_radius'][0] : null);
+                $boxShadow = (isset($scMeta['tpg_content_wrap_shadow'][0]) ? $scMeta['tpg_content_wrap_shadow'][0] : null);
+                $boxPadding = (isset($scMeta['tpg_box_padding'][0]) ? $scMeta['tpg_box_padding'][0] : null);
+                $boxPadding = $this->formatSpacing($boxPadding);
+                $contentPadding = (isset($scMeta['tpg_content_padding'][0]) ? $scMeta['tpg_content_padding'][0] : null);
+                $contentPadding = $this->formatSpacing($contentPadding);
                 // Heading
                 $headingBg = (isset($scMeta['tpg_heading_bg'][0]) ? $scMeta['tpg_heading_bg'][0] : null);
                 $headingColor = (isset($scMeta['tpg_heading_color'][0]) ? $scMeta['tpg_heading_color'][0] : null);
                 $headingBorderColor = (isset($scMeta['tpg_heading_border_color'][0]) ? $scMeta['tpg_heading_border_color'][0] : null);
                 $headingBorderSize = (isset($scMeta['tpg_heading_border_size'][0]) ? $scMeta['tpg_heading_border_size'][0] : null);
                 $headingMargin = (isset($scMeta['tpg_heading_margin'][0]) ? $scMeta['tpg_heading_margin'][0] : null);
+                $headingMargin = $this->formatSpacing($headingMargin);
                 $headingPadding = (isset($scMeta['tpg_heading_padding'][0]) ? $scMeta['tpg_heading_padding'][0] : null);
+                $headingPadding = $this->formatSpacing($headingPadding);
                 // Category
                 $catBg = (isset($scMeta['tpg_category_bg'][0]) ? $scMeta['tpg_category_bg'][0] : null);
                 $catTextColor = (isset($scMeta['tpg_category_color'][0]) ? $scMeta['tpg_category_color'][0] : null);
                 $catBorderRadius = (isset($scMeta['tpg_category_border_radius'][0]) ? $scMeta['tpg_category_border_radius'][0] : null);
                 $catMargin = (isset($scMeta['tpg_category_margin'][0]) ? $scMeta['tpg_category_margin'][0] : null);
+                $catMargin = $this->formatSpacing($catMargin);
                 $catPadding = (isset($scMeta['tpg_category_padding'][0]) ? $scMeta['tpg_category_padding'][0] : null);
+                $catPadding = $this->formatSpacing($catPadding);
                 // Image
                 $image_border_radius = isset($scMeta['tpg_image_border_radius'][0]) ? $scMeta['tpg_image_border_radius'][0] : '';
                 // Title
@@ -902,13 +932,31 @@ if (!class_exists('rtTPGHelper')):
                 $overlay_padding = (!empty($scMeta['overlay_padding']) ? absint($scMeta['overlay_padding']) : null);
                 $gutter = !empty($scMeta['tgp_gutter']) ? absint($scMeta['tgp_gutter']) : null;
                 $read_more_button_border_radius = isset($scMeta['tpg_read_more_button_border_radius']) ? $scMeta['tpg_read_more_button_border_radius'] : '';
+                // Section
+                $sectionBg = (isset($scMeta['tpg_full_area_bg']) ? $scMeta['tpg_full_area_bg'] : null);
+                $sectionMargin = (isset($scMeta['tpg_full_area_margin']) ? $scMeta['tpg_full_area_margin'] : null);
+                $sectionMargin = $this->formatSpacing($sectionMargin);
+                $sectionPadding = (isset($scMeta['tpg_full_area_padding']) ? $scMeta['tpg_full_area_padding'] : null);
+                $sectionPadding = $this->formatSpacing($sectionPadding);
+                // Box
+                $boxBg = (isset($scMeta['tpg_content_wrap_bg']) ? $scMeta['tpg_content_wrap_bg'] : null);
+                $boxBorder = (isset($scMeta['tpg_content_wrap_border']) ? $scMeta['tpg_content_wrap_border'] : null);
+                $boxBorderColor = (isset($scMeta['tpg_content_wrap_border_color']) ? $scMeta['tpg_content_wrap_border_color'] : null);
+                $boxBorderRadius = (isset($scMeta['tpg_content_wrap_border_radius']) ? $scMeta['tpg_content_wrap_border_radius'] : null);
+                $boxShadow = (isset($scMeta['tpg_content_wrap_shadow']) ? $scMeta['tpg_content_wrap_shadow'] : null);
+                $boxPadding = (isset($scMeta['tpg_box_padding']) ? $scMeta['tpg_box_padding'] : null);
+                $boxPadding = $this->formatSpacing($boxPadding);
+                $contentPadding = (isset($scMeta['tpg_content_padding']) ? $scMeta['tpg_content_padding'] : null);
+                $contentPadding = $this->formatSpacing($contentPadding);
                 // Heading
                 $headingBg = (isset($scMeta['tpg_heading_bg']) ? $scMeta['tpg_heading_bg'] : null);
                 $headingColor = (isset($scMeta['tpg_heading_color']) ? $scMeta['tpg_heading_color'] : null);
                 $headingBorderColor = (isset($scMeta['tpg_heading_border_color']) ? $scMeta['tpg_heading_border_color'] : null);
                 $headingBorderSize = (isset($scMeta['tpg_heading_border_size']) ? $scMeta['tpg_heading_border_size'] : null);
                 $headingMargin = (isset($scMeta['tpg_heading_margin']) ? $scMeta['tpg_heading_margin'] : null);
+                $headingMargin = $this->formatSpacing($headingMargin);
                 $headingPadding = (isset($scMeta['tpg_heading_padding']) ? $scMeta['tpg_heading_padding'] : null);
+                $headingPadding = $this->formatSpacing($headingPadding);
                 // Category
                 $catBg = (isset($scMeta['tpg_category_bg']) ? $scMeta['tpg_category_bg'] : null);
                 $catTextColor = (isset($scMeta['tpg_category_color']) ? $scMeta['tpg_category_color'] : null);
@@ -1167,6 +1215,54 @@ if (!class_exists('rtTPGHelper')):
                 $css .= "}";
             }
 
+            // Section
+            if ($sectionBg) {
+                $css .= "#{$layoutID}.rt-tpg-container {";
+                $css .= "background:" . $sectionBg . ";";
+                $css .= "}";
+            }
+            if ($sectionMargin) {
+                $css .= "#{$layoutID}.rt-tpg-container {";
+                $css .= "margin:" . $sectionMargin . "px;";
+                $css .= "}";
+            }
+            if ($sectionPadding) {
+                $css .= "#{$layoutID}.rt-tpg-container {";
+                $css .= "padding:" . $sectionPadding . "px;";
+                $css .= "}";
+            }
+            // Box
+            if($boxBg) {
+                $css .= "#{$layoutID} .rt-holder, #{$layoutID} .rt-holder .rt-detail {";
+                $css .= "background-color:" . $boxBg . ";";
+                $css .= "}";
+            }
+            if($boxBorderColor) {
+                $css .= "#{$layoutID} .rt-holder {";
+                $css .= "border-color:" . $boxBorderColor . ";";
+                $css .= "}";
+            }
+            if($boxBorder) {
+                $css .= "#{$layoutID} .rt-holder {";
+                $css .= "border-style: solid;";
+                $css .= "border-width:" . $boxBorder . "px;";
+                $css .= "}";
+            }
+            if($boxBorderRadius) {
+                $css .= "#{$layoutID} .rt-holder {";
+                $css .= "border-radius:" . $boxBorderRadius . "px;";
+                $css .= "}";
+            }
+            if($boxPadding) {
+                $css .= "#{$layoutID} .rt-holder {";
+                $css .= "padding:" . $boxPadding . "px;";
+                $css .= "}";
+            }
+            if($contentPadding) {
+                $css .= "#{$layoutID} .rt-holder .rt-detail {";
+                $css .= "padding:" . $contentPadding . "px;";
+                $css .= "}";
+            }
             // Widget heading
             if ($headingBg) {
                 $css .= "#{$layoutID} .tpg-widget-heading {";
@@ -1196,10 +1292,9 @@ if (!class_exists('rtTPGHelper')):
             }
             if ($headingPadding) {
                 $css .= "#{$layoutID} .tpg-widget-heading {";
-                $css .= "padding:" . $headingMargin . "px;";
+                $css .= "padding:" . $headingPadding . "px;";
                 $css .= "}";
             }
-
             // Image border
             if (isset($image_border_radius) || trim($image_border_radius) !== '') {
                 $css .= "#{$layoutID} .rt-img-holder img.rt-img-responsive {";
@@ -1208,7 +1303,6 @@ if (!class_exists('rtTPGHelper')):
             }
 
             // Title decoration
-
             if ($title_color || $title_size || $title_weight || $title_alignment) {
                 $css .= "#{$layoutID} .{$layout} .rt-holder h2.entry-title,
                 #{$layoutID} .{$layout} .rt-holder h3.entry-title,
@@ -1236,7 +1330,6 @@ if (!class_exists('rtTPGHelper')):
                 }
                 $css .= "}";
             }
-
             // Title hover color
             if ($title_hover_color) {
                 $css .= "#{$layoutID} .{$layout} .rt-holder h2.entry-title:hover,
@@ -1254,7 +1347,6 @@ if (!class_exists('rtTPGHelper')):
                 $css .= "color:" . $title_hover_color . " !important;";
                 $css .= "}";
             }
-
             // Excerpt decoration
             if ($excerpt_color || $excerpt_size || $excerpt_weight || $excerpt_alignment) {
                 $css .= "#{$layoutID} .{$layout} .rt-holder .tpg-excerpt,#{$layoutID} .{$layout} .rt-holder .post-content,#{$layoutID} .rt-holder .rt-woo-info p{";
@@ -1272,7 +1364,6 @@ if (!class_exists('rtTPGHelper')):
                 }
                 $css .= "}";
             }
-
             // Post meta decoration
             if ($meta_data_color || $meta_data_size || $meta_data_weight || $meta_data_alignment) {
                 if ($meta_data_color) {
@@ -1294,6 +1385,32 @@ if (!class_exists('rtTPGHelper')):
                 if ($meta_data_alignment) {
                     $css .= "text-align:" . $meta_data_alignment . ";";
                 }
+                $css .= "}";
+            }
+            // Category
+            if ($catBg) {
+                $css .= "#{$layoutID} .cat-over-image .categories-links a, .cat-above-title .categories-links a{";
+                $css .= "background-color:" . $catBg . ";";
+                $css .= "}";
+            }
+            if ($catTextColor) {
+                $css .= "#{$layoutID} .cat-over-image .categories-links a, .cat-above-title .categories-links a{";
+                $css .= "color:" . $catTextColor . ";";
+                $css .= "}";
+            }
+            if($catBorderRadius) {
+                $css .= "#{$layoutID} .cat-over-image .categories-links a, .cat-above-title .categories-links a{";
+                $css .= "border-radius:" . $catBorderRadius . "px;";
+                $css .= "}";
+            }
+            if ($catPadding) {
+                $css .= "#{$layoutID} .cat-over-image .categories-links a, .cat-above-title .categories-links a{";
+                $css .= "padding:" . $catPadding . "px;";
+                $css .= "}";
+            }
+            if ($catMargin) {
+                $css .= "#{$layoutID} .categories-links{";
+                $css .= "margin:" . $catMargin . "px;";
                 $css .= "}";
             }
 
