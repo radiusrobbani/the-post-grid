@@ -75,7 +75,7 @@ if ( ! class_exists( 'rtTPGPreview' ) ):
                 $arg['category_style'] = !empty($scMeta['tpg_category_style']) ? $scMeta['tpg_category_style'] : '';
                 // Meta Settings
                 $arg['metaPosition'] = isset($scMeta['tpg_meta_position']) ? $scMeta['tpg_meta_position'] : null;
-                $arg['metaStyle'] = !empty($scMeta['tpg_meta_style']) ? $scMeta['tpg_meta_style'] : '';
+                $arg['metaIcon'] = !empty($scMeta['tpg_meta_icon']) ? $scMeta['tpg_meta_icon'] : '';
                 $arg['metaSeparator'] = !empty($scMeta['tpg_meta_separator']) ? $scMeta['tpg_meta_separator'] : '';
                 /* Argument create */
 				$args     = array();

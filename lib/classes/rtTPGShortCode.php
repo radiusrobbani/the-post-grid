@@ -156,7 +156,7 @@ if ( ! class_exists( 'rtTPGShortCode' ) ):
                 $arg['category_style'] = !empty($scMeta['tpg_category_style'][0]) ? $scMeta['tpg_category_style'][0] : '';
                 // Meta Settings
                 $arg['metaPosition'] = isset($scMeta['tpg_meta_position'][0]) ? $scMeta['tpg_meta_position'][0] : null;
-                $arg['metaStyle'] = !empty($scMeta['tpg_meta_style'][0]) ? $scMeta['tpg_meta_style'][0] : '';
+                $arg['metaIcon'] = isset($scMeta['tpg_meta_icon'][0]) ? $scMeta['tpg_meta_icon'][0] : true;
                 $arg['metaSeparator'] = !empty($scMeta['tpg_meta_separator'][0]) ? $scMeta['tpg_meta_separator'][0] : '';
 
 				/* Argument create */

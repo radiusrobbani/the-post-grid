@@ -803,7 +803,7 @@ if (!class_exists('rtTPGOptions')):
             $fields = [
                 'tpg_meta_position'                 => [
                     "type"        => "select",
-                    "label"       => esc_html__("Meta Position", "the-post-grid"),
+                    "label"       => esc_html__("Position", "the-post-grid"),
                     "class"       => "rt-select2 ",
                     "holderClass"   => "pro-field",
                     "blank"       => esc_html__("Default", "the-post-grid"),
@@ -813,21 +813,15 @@ if (!class_exists('rtTPGOptions')):
                         'below_excerpt' => esc_html__("Below excerpt", "the-post-grid"),
                     ),
                 ],
-                'tpg_meta_style' => [
-                    "type"        => "select",
-                    "class"       => "rt-select2",
-                    "label"       => esc_html__("Style", "the-post-grid"),
-                    "blank"       => esc_html__("Default", "the-post-grid"),
-                    "options"     => [
-                        'style1' => esc_html__("Style 1", "the-post-grid"),
-                        'style2' => esc_html__("Style 2", "the-post-grid"),
-                        'style3' => esc_html__("Style 3", "the-post-grid"),
-                    ],
+                'tpg_meta_icon' => [
+                    "type"        => "switch",
+                    "label"       => esc_html__("Icon", "the-post-grid"),
+                    "default" => true
                 ],
                 'tpg_meta_separator' => [
                     "type"        => "select",
                     "class"       => "rt-select2",
-                    "label"       => esc_html__("Separator Style", "the-post-grid"),
+                    "label"       => esc_html__("Separator", "the-post-grid"),
                     "blank"       => esc_html__("Default", "the-post-grid"),
                     "options"     => [
                         'dot' => esc_html__("Dot ( . )", "the-post-grid"),

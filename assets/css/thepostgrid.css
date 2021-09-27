@@ -2112,6 +2112,9 @@ body > .rt-tooltip .rt-tooltip-bottom:after {
 .category-have-bg .categories-links a {
     margin-right: 4px;
 }
+.cat-above-title.style2 {
+
+}
 .cat-over-image {
     position: absolute;
     z-index: 5;
@@ -2176,4 +2179,7 @@ body > .rt-tooltip .rt-tooltip-bottom:after {
 .post-meta-user.hypen > span::after {
     content: "-";
     right: -1px;
+}
+.post-meta-user > span:last-child:after {
+    content: none;
 }
