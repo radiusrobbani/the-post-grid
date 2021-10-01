@@ -189,7 +189,22 @@
             $(this).val(marginValue);
         });
 
+        if ($("#tpg_image_type").length) {
+            setImageBorderRadius();
+        }
+
+        $('#tpg_image_type').on('change', function() {
+            setImageBorderRadius();
+        });
+
     });
+
+    function setImageBorderRadius() {
+        var img_type = $("#tpg_image_type input[name='tpg_image_type']:checked").val(),
+            img_border_radius = $("#tpg_image_border_radius").val(),
+            img_border_radius  = (img_type == 'circle') ? 50 : img_border_radius;
+        $("#tpg_image_border_radius").val(img_border_radius);
+    }
 
     function setGetParameter(paramName, paramValue) {
         let url = window.location.href;

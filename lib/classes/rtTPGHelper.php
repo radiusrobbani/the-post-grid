@@ -1389,22 +1389,22 @@ if (!class_exists('rtTPGHelper')):
             }
             // Category
             if ($catBg) {
-                $css .= "#{$layoutID} .cat-over-image .categories-links a, .cat-above-title .categories-links a{";
+                $css .= "#{$layoutID} .cat-over-image.style2 .categories-links a,#{$layoutID} .cat-over-image.style3 .categories-links a,#{$layoutID} .cat-above-title.style2 .categories-links a,#{$layoutID} .cat-above-title.style3 .categories-links a {";
                 $css .= "background-color:" . $catBg . ";";
                 $css .= "}";
             }
             if ($catTextColor) {
-                $css .= "#{$layoutID} .cat-over-image .categories-links a, .cat-above-title .categories-links a{";
+                $css .= "#{$layoutID} .cat-over-image .categories-links a,#{$layoutID} .cat-above-title .categories-links a{";
                 $css .= "color:" . $catTextColor . ";";
                 $css .= "}";
             }
             if($catBorderRadius) {
-                $css .= "#{$layoutID} .cat-over-image .categories-links a, .cat-above-title .categories-links a{";
+                $css .= "#{$layoutID} .cat-over-image .categories-links a,#{$layoutID} .cat-above-title .categories-links a{";
                 $css .= "border-radius:" . $catBorderRadius . "px;";
                 $css .= "}";
             }
             if ($catPadding) {
-                $css .= "#{$layoutID} .cat-over-image .categories-links a, .cat-above-title .categories-links a{";
+                $css .= "#{$layoutID} .cat-over-image .categories-links a,#{$layoutID} .cat-above-title .categories-links a{";
                 $css .= "padding:" . $catPadding . "px;";
                 $css .= "}";
             }
