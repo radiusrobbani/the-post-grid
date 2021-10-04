@@ -1265,24 +1265,27 @@ if (!class_exists('rtTPGHelper')):
             }
             // Widget heading
             if ($headingBg) {
-                $css .= "#{$layoutID} .tpg-widget-heading {";
+                $css .= "#{$layoutID} .tpg-widget-heading.heading-style2 h2 {";
                 $css .= "background:" . $headingBg . ";";
                 $css .= "}";
             }
             if ($headingColor) {
-                $css .= "#{$layoutID} .tpg-widget-heading {";
+                $css .= "#{$layoutID} .tpg-widget-heading.heading-style2 h2 {";
                 $css .= "color:" . $headingColor . ";";
                 $css .= "}";
             }
             if ($headingBorderSize) {
-                $css .= "#{$layoutID} .tpg-widget-heading {";
+                $css .= "#{$layoutID} .tpg-widget-heading.heading-style2 {";
                 $css .= "border-style: solid;";
                 $css .= "border-width:" . $headingBorderSize . "px;";
                 $css .= "}";
             }
             if ($headingBorderColor) {
-                $css .= "#{$layoutID} .tpg-widget-heading {";
+                $css .= "#{$layoutID} .tpg-widget-heading.heading-style2 {";
                 $css .= "border-color:" . $headingBorderColor . ";";
+                $css .= "}";
+                $css .= "#{$layoutID} .tpg-widget-heading.heading-style2 h2::after {";
+                $css .= "border-top-color:" . $headingBorderColor . ";";
                 $css .= "}";
             }
             if ($headingMargin) {
@@ -1291,7 +1294,7 @@ if (!class_exists('rtTPGHelper')):
                 $css .= "}";
             }
             if ($headingPadding) {
-                $css .= "#{$layoutID} .tpg-widget-heading {";
+                $css .= "#{$layoutID} .tpg-widget-heading h2 {";
                 $css .= "padding:" . $headingPadding . "px;";
                 $css .= "}";
             }

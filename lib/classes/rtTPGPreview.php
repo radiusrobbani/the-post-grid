@@ -438,11 +438,14 @@ if ( ! class_exists( 'rtTPGPreview' ) ):
                 $heading_link = isset($scMeta['tpg_heading_link']) ? $scMeta['tpg_heading_link'] : '';
 
                 if(!empty($arg['items']) && in_array('heading', $arg['items'])) {
+                    $data .= sprintf('<div class="tpg-widget-heading heading-%1$s %2$s">', $heading_style, $heading_alignment);
                     if ($heading_link) {
-                        $data .= sprintf('<%1$s class="tpg-widget-heading heading-%2$s %3$s"><a href="%4$s" title="%5$s">%5$s</a></%1$s>', $heading_tag, $heading_style, $heading_alignment, $heading_link, get_the_title($scID));
+                        $data .= sprintf('<%1$s><a href="%2$s" title="%3$s">%3$s</a></%1$s>', $heading_tag, $heading_link, get_the_title($scID));
                     } else {
-                        $data .= sprintf('<%1$s class="tpg-widget-heading heading-%2$s %3$s">%4$s</%1$s>', $heading_tag, $heading_style, $heading_alignment, get_the_title($scID));
+                        $data .= sprintf('<%1$s>%2$s</%1$s>', $heading_tag, get_the_title($scID));
                     }
+                    $data .= '<span class="tpg-widget-heading-line"></span>';
+                    $data .= '</div>';
                 }
 
 				$filters           = ! empty( $scMeta['tgp_filter'] ) ? $scMeta['tgp_filter'] : array();

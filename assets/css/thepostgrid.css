@@ -1329,6 +1329,31 @@ body > .rt-tooltip .rt-tooltip-bottom:after {
     transform: scale(1.1);
 }
 
+.rt-tpg-container .layout2 .img_zoom_out .rt-holder .rt-img-holder img {
+    -webkit-transform: scale(1.1);
+    -moz-transform: scale(1.1);
+    -ms-transform: scale(1.1);
+    -o-transform: scale(1.1);
+    transform: scale(1.1);
+}
+
+.rt-tpg-container .layout2 .img_zoom_out .rt-holder .rt-img-holder:hover img {
+    -webkit-transform: scale(1);
+    -moz-transform: scale(1);
+    -ms-transform: scale(1);
+    -o-transform: scale(1);
+    transform: scale(1);
+}
+
+.rt-tpg-container .layout2 .img_no_effect .rt-holder .rt-img-holder img,
+.rt-tpg-container .layout2 .img_no_effect .rt-holder .rt-img-holder:hover img {
+    -webkit-transform: scale(1);
+    -moz-transform: scale(1);
+    -ms-transform: scale(1);
+    -o-transform: scale(1);
+    transform: scale(1);
+}
+
 .rt-tpg-container .layout2 .rt-holder .rt-detail h2,
 .rt-tpg-container .layout2 .rt-holder .rt-detail h3,
 .rt-tpg-container .layout2 .rt-holder .rt-detail h4 {
@@ -2171,6 +2196,67 @@ body > .rt-tooltip .rt-tooltip-bottom:after {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+}
+
+/*----------- Widget Heading -------------*/
+.tpg-widget-heading {
+    position: relative;
+    margin-bottom: 20px;
+    display: flex;
+}
+.tpg-widget-heading h2 {
+    position: relative;
+    padding-right: 15px;
+    margin-bottom: 0;
+}
+.tpg-widget-heading.heading-style1 h2::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    right: -15px;
+    width: 8px;
+    height: 8px;
+    margin-top: -4px;
+    border-radius: 50%;
+    background-color: #1e73be;
+    margin-right: 7px;
+    display: inline-block;
+}
+.tpg-widget-heading.heading-style1 .tpg-widget-heading-line {
+    border: 1px solid #e5e5e5;
+    border-width: 1px 0;
+    -webkit-box-flex: 1;
+    margin-top: 16px;
+    margin-left: 15px;
+    -ms-flex-positive: 1;
+    flex-grow: 1;
+    height: 4px;
+}
+.tpg-widget-heading.heading-style2 h2,
+.tpg-widget-heading.heading-style3 h2 {
+    background-color: #1e73be;
+    color: #fff;
+    font-size: 20px;
+    line-height: 1.4;
+    padding: 5px 15px;
+}
+.tpg-widget-heading.center {
+    justify-content: center;
+}
+.tpg-widget-heading.right {
+    justify-content: right;
+}
+.tpg-widget-heading.heading-style2 h2::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: -11px;
+    border-top: 12px solid #1e73be;
+    border-right: 12px solid transparent;
+}
+.tpg-widget-heading.heading-style2,
+.tpg-widget-heading.heading-style3 {
+    border-bottom: 2px solid #1e73be;
 }
 
 /* Separator */

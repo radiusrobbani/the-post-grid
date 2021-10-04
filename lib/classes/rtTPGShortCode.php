@@ -491,11 +491,14 @@ if ( ! class_exists( 'rtTPGShortCode' ) ):
                 $heading_link = isset($scMeta['tpg_heading_link'][0]) ? $scMeta['tpg_heading_link'][0] : '';
 
                 if(!empty($arg['items']) && in_array('heading', $arg['items'])) {
-                    if ($heading_link) {
-                        $html .= sprintf('<%1$s class="tpg-widget-heading heading-%2$s %3$s"><a href="%4$s" title="%5$s">%5$s</a></%1$s>', $heading_tag, $heading_style, $heading_alignment, $heading_link, get_the_title());
-                    } else {
-                        $html .= sprintf('<%1$s class="tpg-widget-heading heading-%2$s %3$s">%4$s</%1$s>', $heading_tag, $heading_style, $heading_alignment, get_the_title());
-                    }
+                    $html .= sprintf('<div class="tpg-widget-heading heading-%1$s %2$s">', $heading_style, $heading_alignment);
+                        if ($heading_link) {
+                            $html .= sprintf('<%1$s><a href="%2$s" title="%3$s">%3$s</a></%1$s>', $heading_tag, $heading_link, get_the_title());
+                        } else {
+                            $html .= sprintf('<%1$s>%2$s</%1$s>', $heading_tag, get_the_title());
+                        }
+                        $html .= '<span class="tpg-widget-heading-line"></span>';
+                    $html .= '</div>';
                 }
 
 				if ( !$isCarousel && isset($settings['tpg_load_script']) && isset($settings['tpg_enable_preloader'])) {
