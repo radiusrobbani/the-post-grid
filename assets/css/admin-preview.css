@@ -16,3 +16,8 @@
 .rt-tpg-container .layout11 .rt-holder h3 {
     font-size: 24px;
 }
+.rt-tpg-container .rt-img-holder img,
+.rt-tpg-container .rt-holder img {
+    max-width: 100%;
+    height: auto;
+}

@@ -1265,36 +1265,36 @@ if (!class_exists('rtTPGHelper')):
             }
             // Widget heading
             if ($headingBg) {
-                $css .= "#{$layoutID} .tpg-widget-heading.heading-style2 h2 {";
+                $css .= "#{$layoutID} .tpg-widget-heading-wrapper.heading-style2 .tpg-widget-heading,#{$layoutID} .tpg-widget-heading-wrapper.heading-style1 .tpg-widget-heading::before {";
                 $css .= "background:" . $headingBg . ";";
                 $css .= "}";
             }
             if ($headingColor) {
-                $css .= "#{$layoutID} .tpg-widget-heading.heading-style2 h2 {";
+                $css .= "#{$layoutID} .tpg-widget-heading-wrapper.heading-style2 .tpg-widget-heading {";
                 $css .= "color:" . $headingColor . ";";
                 $css .= "}";
             }
             if ($headingBorderSize) {
-                $css .= "#{$layoutID} .tpg-widget-heading.heading-style2 {";
+                $css .= "#{$layoutID} .tpg-widget-heading-wrapper.heading-style2 {";
                 $css .= "border-style: solid;";
                 $css .= "border-width:" . $headingBorderSize . "px;";
                 $css .= "}";
             }
             if ($headingBorderColor) {
-                $css .= "#{$layoutID} .tpg-widget-heading.heading-style2 {";
+                $css .= "#{$layoutID} .tpg-widget-heading-wrapper.heading-style2 {";
                 $css .= "border-color:" . $headingBorderColor . ";";
                 $css .= "}";
-                $css .= "#{$layoutID} .tpg-widget-heading.heading-style2 h2::after {";
+                $css .= "#{$layoutID} .tpg-widget-heading-wrapper.heading-style2 .tpg-widget-heading::after {";
                 $css .= "border-top-color:" . $headingBorderColor . ";";
                 $css .= "}";
             }
             if ($headingMargin) {
-                $css .= "#{$layoutID} .tpg-widget-heading {";
+                $css .= "#{$layoutID} .tpg-widget-heading-wrapper {";
                 $css .= "margin:" . $headingMargin . "px;";
                 $css .= "}";
             }
             if ($headingPadding) {
-                $css .= "#{$layoutID} .tpg-widget-heading h2 {";
+                $css .= "#{$layoutID} .tpg-widget-heading-wrapper .tpg-widget-heading {";
                 $css .= "padding:" . $headingPadding . "px;";
                 $css .= "}";
             }

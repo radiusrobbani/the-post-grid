@@ -394,7 +394,7 @@ if ( ! class_exists( 'rtTPGShortCode' ) ):
 				$arg['class']       = implode( " ", $arg_class );
 				$arg['anchorClass'] = $arg['link_target'] = null;
 				$link               = ! empty( $scMeta['link_to_detail_page'][0] ) ? $scMeta['link_to_detail_page'][0] : '1';
-				if ( $link != '1' ) {
+				if ( $link != '1' && $link != 'yes' ) {
 					$arg['anchorClass'] = ' disabled';
 				}
 				$isSinglePopUp = false;
@@ -433,7 +433,6 @@ if ( ! class_exists( 'rtTPGShortCode' ) ):
 				if ( isset( $arg['excerpt_type'] ) && $arg['excerpt_type'] === 'full' && ( $key = array_search( 'read_more', $arg['items'] ) ) !== false ) {
 					unset( $arg['items'][ $key ] );
 				}
-
 				if ( ! empty( $scMeta['ignore_sticky_posts'][0] ) ) {
 					$args['ignore_sticky_posts'] = true;
 				} else {
@@ -491,11 +490,11 @@ if ( ! class_exists( 'rtTPGShortCode' ) ):
                 $heading_link = isset($scMeta['tpg_heading_link'][0]) ? $scMeta['tpg_heading_link'][0] : '';
 
                 if(!empty($arg['items']) && in_array('heading', $arg['items'])) {
-                    $html .= sprintf('<div class="tpg-widget-heading heading-%1$s %2$s">', $heading_style, $heading_alignment);
+                    $html .= sprintf('<div class="tpg-widget-heading-wrapper heading-%1$s %2$s">', $heading_style, $heading_alignment);
                         if ($heading_link) {
-                            $html .= sprintf('<%1$s><a href="%2$s" title="%3$s">%3$s</a></%1$s>', $heading_tag, $heading_link, get_the_title());
+                            $html .= sprintf('<%1$s class="tpg-widget-heading"><a href="%2$s" title="%3$s">%3$s</a></%1$s>', $heading_tag, $heading_link, get_the_title());
                         } else {
-                            $html .= sprintf('<%1$s>%2$s</%1$s>', $heading_tag, get_the_title());
+                            $html .= sprintf('<%1$s class="tpg-widget-heading">%2$s</%1$s>', $heading_tag, get_the_title());
                         }
                         $html .= '<span class="tpg-widget-heading-line"></span>';
                     $html .= '</div>';
