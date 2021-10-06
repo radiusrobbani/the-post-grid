@@ -158,7 +158,6 @@ if ( ! class_exists( 'rtTPGShortCode' ) ):
                 $arg['metaPosition'] = isset($scMeta['tpg_meta_position'][0]) ? $scMeta['tpg_meta_position'][0] : null;
                 $arg['metaIcon'] = isset($scMeta['tpg_meta_icon'][0]) ? $scMeta['tpg_meta_icon'][0] : true;
                 $arg['metaSeparator'] = !empty($scMeta['tpg_meta_separator'][0]) ? $scMeta['tpg_meta_separator'][0] : '';
-
 				/* Argument create */
 				$args     = array();
 				$postType = ( isset( $scMeta['tpg_post_type'][0] ) ? $scMeta['tpg_post_type'][0] : 'post' );

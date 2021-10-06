@@ -1148,6 +1148,13 @@ if (!class_exists('rtTPGOptions')):
                     "label"       => esc_html__("Padding", "the-post-grid"),
                     "description" => __("Leave it blank for default", 'the-post-grid')
                 ),
+                'tpg_category_font_size' => array(
+                    "type"        => "select",
+                    "class"       => "rt-select2",
+                    "label"       => esc_html__("Font Size", "the-post-grid"),
+                    "default"     => '14',
+                    "options"     => rtTPG()->scFontSize(),
+                ),
             ];
 
             return apply_filters('tpg_category_style_fields', $fields);
