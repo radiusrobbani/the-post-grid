@@ -2270,8 +2270,8 @@ body > .rt-tooltip .rt-tooltip-bottom:after {
 .post-meta-user.dot > span,
 .post-meta-user.dot .meta-data > span {
     position: relative;
-    margin-right: 15px;
-    padding-right: 15px;
+    margin-right: 12px;
+    padding-right: 12px;
 }
 .post-meta-user.hypen > span::after,
 .post-meta-user.hypen .meta-data > span::after,
