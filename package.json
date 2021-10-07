@@ -20,9 +20,12 @@
     "package": "npm run dev && npm run prod && cross-env NODE_ENV=package mix"
   },
   "dependencies": {
+    "laravel-mix-wp-blocks": "^0.2.0",
     "select2": "^4.0.13"
   },
   "devDependencies": {
+    "@wordpress/babel-preset-default": "^6.3.2",
+    "@wordpress/dependency-extraction-webpack-plugin": "^3.2.1",
     "cli-color": "^2.0.0",
     "emojic": "^1.1.16",
     "fs-extra": "^10.0.0",

@@ -4,6 +4,7 @@ const path = require("path");
 const cliColor = require("cli-color");
 const emojic = require("emojic");
 const wpPot = require('wp-pot');
+const wpBlock = require("laravel-mix-wp-blocks");
 const min = Mix.inProduction() ? '.min' : '';
 
 if (process.env.NODE_ENV === 'package') {
@@ -36,7 +37,8 @@ if (process.env.NODE_ENV === 'package') {
 
     return;
 } else {
-
+    mix.block('./src/blocks.js', 'scripts');
+    //mix.js('src/blocks.js', 'assets/js/app.js');
     if (Mix.inProduction()) {
         let languages = path.resolve('languages');
         fsExtra.ensureDir(languages, function (err) {
