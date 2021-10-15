@@ -535,7 +535,7 @@ div#sc-post-post-source > .field-holder > .field > .field-holder:first-child {
 }
 
 .rt-setting-holder .field-holder .field-holder .field-label {
-    font-size: 15px;
+    font-size: 14px;
 }
 
 .rt-setting-holder .field-holder .field-holder .field-holder .field-label {
@@ -1300,14 +1300,13 @@ body .rt-admin-btn:hover {
     }
 }
 
-
 #post_filter .checkbox-filter-field {
     margin-top: 10px;
 }
 
 .checkbox-filter-field > label {
     width: 200px;
-    font-size: 16px;
+    font-size: 15px;
     color: #212121;
 }
 
