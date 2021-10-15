@@ -994,6 +994,7 @@ if ( ! class_exists( 'rtTPGOptions' ) ):
 					"class"   => "rt-color",
 					"default" => "#0367bf",
 				],
+				/*
 				'button_bg_color'         => [
 					"type"        => "text",
 					"name"        => "button_bg_color",
@@ -1001,6 +1002,7 @@ if ( ! class_exists( 'rtTPGOptions' ) ):
 					"holderClass" => "rt-3-column",
 					"class"       => "rt-color",
 				],
+
 				'button_hover_bg_color'   => [
 					"type"        => "text",
 					"name"        => "button_hover_bg_color",
@@ -1026,9 +1028,50 @@ if ( ! class_exists( 'rtTPGOptions' ) ):
 					"holderClass" => "rt-3-column",
 					"class"       => "rt-color",
 				],
+				*/
 			];
 
 			return apply_filters( 'rt_tpg_style_fields', $fields );
+		}
+
+		function rtTPGStyleButtonColorFields() {
+			$fields = [
+
+				'button_bg_color'         => [
+					"type"        => "text",
+					"name"        => "button_bg_color",
+					"label"       => "Background",
+//					"holderClass" => "rt-3-column",
+					"class"       => "rt-color",
+				],
+				'button_hover_bg_color'   => [
+					"type"        => "text",
+					"name"        => "button_hover_bg_color",
+					"label"       => "Hover Background",
+//					"holderClass" => "rt-3-column",
+					"class"       => "rt-color",
+				],
+				'button_active_bg_color'  => [
+					"type"        => "text",
+					"label"       => "Active Background",
+					"class"       => "rt-color",
+//					"holderClass" => "rt-3-column",
+				],
+				'button_text_bg_color'    => [
+					"type"        => "text",
+					"label"       => "Text",
+//					"holderClass" => "rt-3-column",
+					"class"       => "rt-color",
+				],
+				'button_hover_text_color' => [
+					"type"        => "text",
+					"label"       => "Text Hover",
+//					"holderClass" => "rt-3-column",
+					"class"       => "rt-color",
+				],
+			];
+
+			return apply_filters( 'rt_tpg_style_button_css_fields', $fields );
 		}
 
 		function rtTPGStyleHeading() {
