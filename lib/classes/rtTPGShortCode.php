@@ -1,9 +1,7 @@
 <?php
-
 if ( ! class_exists( 'rtTPGShortCode' ) ):
 
-	class rtTPGShortCode {
-
+    class rtTPGShortCode {
 		private $scA = array();
 		private $l4toggle = false;
 
