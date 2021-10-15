@@ -152,6 +152,7 @@ if ( ! class_exists( 'rtTPGShortCode' ) ):
                 // Category Settings
                 $arg['category_position'] = isset($scMeta['tpg_category_position'][0]) ? $scMeta['tpg_category_position'][0] : null;
                 $arg['category_style'] = !empty($scMeta['tpg_category_style'][0]) ? $scMeta['tpg_category_style'][0] : '';
+                $arg['catIcon'] = isset($scMeta['tpg_category_icon'][0]) ? $scMeta['tpg_category_icon'][0] : true;
                 // Meta Settings
                 $arg['metaPosition'] = isset($scMeta['tpg_meta_position'][0]) ? $scMeta['tpg_meta_position'][0] : null;
                 $arg['metaIcon'] = isset($scMeta['tpg_meta_icon'][0]) ? $scMeta['tpg_meta_icon'][0] : true;

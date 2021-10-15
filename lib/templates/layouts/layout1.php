@@ -3,7 +3,7 @@ $html = $htmlDetail = $metaHtml = $iTitle = $catHtml = $postMetaTop = $postMetaM
 
 if(in_array('categories', $items) && $categories) {
     $catHtml .= "<span class='categories-links'>";
-    if ($metaIcon) {
+    if ($catIcon) {
         $catHtml .= "<i class='fas fa-folder-open'></i>";
     }
     $catHtml .= "{$categories}</span>";

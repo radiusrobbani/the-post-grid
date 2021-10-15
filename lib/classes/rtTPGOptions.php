@@ -1,5 +1,4 @@
 <?php
-
 if ( ! class_exists( 'rtTPGOptions' ) ):
 
 	class rtTPGOptions {
@@ -766,6 +765,11 @@ if ( ! class_exists( 'rtTPGOptions' ) ):
 						'style3' => esc_html__( "Style 3", "the-post-grid" ),
 					],
 				],
+                'tpg_category_icon'      => [
+                    "type"    => "switch",
+                    "label"   => esc_html__( "Icon", "the-post-grid" ),
+                    "default" => true,
+                ],
 			];
 
 			return $fields;
