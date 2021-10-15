@@ -55,6 +55,8 @@
     width: 100%;
 }
 
+.post-type-rttpg .select2-container--classic .select2-selection--multiple:hover,
+.post-type-rttpg .select2-container--classic .select2-selection--single:hover,
 .post-type-rttpg.wp-core-ui select:focus,
 .post-type-rttpg.wp-core-ui select:hover,
 .post-type-rttpg input:focus,
@@ -333,6 +335,10 @@ body .meta-box-sortables .field-holder select {
     margin-bottom: -7px;
 }
 
+#settings-tabs .rt-tab-content .field-holder:not(:last-child) {
+    margin-bottom: 15px;
+}
+
 .rt-tab-content .field-holder:first-child {
     border-top: none;
     padding-top: 15px;
@@ -381,7 +387,7 @@ div#sc-post-post-source > .field-holder > .field > .field-holder:first-child {
 .rt-tab-content .field-holder .field-label {
     float: left;
     width: 200px;
-    font-size: 16px;
+    font-size: 15px;
     color: #222222;
 }
 
@@ -447,13 +453,13 @@ div#sc-post-post-source > .field-holder > .field > .field-holder:first-child {
 }
 
 .rt-tab-content .field .checkbox-filter-field .tpg-hidden::before {
-    left: -4px;
-    width: calc(100% + 19px);
+    left: -18px;
+    width: calc(100% + 34px);
 }
 
 .rt-tab-content .field-holder .taxonomy-field::before {
-    left: -5px;
-    width: calc(100% + 20px);
+    left: -18px;
+    width: calc(100% + 34px);
 }
 
 .rt-tab-content .field .checkbox-filter-field:last-child .tpg-hidden::before {
@@ -508,13 +514,6 @@ div#sc-post-post-source > .field-holder > .field > .field-holder:first-child {
 
 .rt-tab-content .field-holder .field-label label {
     font-weight: bold;
-}
-
-.rt-tab-content .field-holder.full > .field-label {
-    width: 100%;
-    display: block;
-    max-width: 100%;
-    margin-bottom: 15px;
 }
 
 .rt-tab-content .field-holder:after {
@@ -807,9 +806,9 @@ div#column_holder:before {
     width: 150px;
     height: 150px;
     display: inline-block;
-    background: #f7f7f7;
+    background: #e7edf1;
     position: relative;
-    padding: 10px;
+    border: 1px solid #d9e3ed;
 }
 
 .rt-image-preview::before {
@@ -843,21 +842,25 @@ div#column_holder:before {
     display: block;
 }
 
-span.dashicons.dashicons-plus-alt.rtAddImage, span.dashicons.dashicons-trash.rtRemoveImage {
+span.dashicons.dashicons-plus-alt.rtAddImage,
+span.dashicons.dashicons-trash.rtRemoveImage {
     position: absolute;
     cursor: pointer;
+    top: 0;
+    z-index: 99;
+    font-size: 15px;
+    padding: 4px 10px 2px;
+    color: #ffffff;
 }
 
 span.dashicons.dashicons-trash.rtRemoveImage {
-    color: red;
-    left: -10px;
-    top: -10px;
+    background-color: #de0000;
+    right: 0;
 }
 
 span.dashicons.dashicons-plus-alt.rtAddImage {
-    right: -10px;
-    top: -10px;
-    color: green;
+    background: green;
+    left: 0;
 }
 
 .pro-field .field-label {
@@ -866,7 +869,7 @@ span.dashicons.dashicons-plus-alt.rtAddImage {
 
 .pro-field .rttpg-tooltip {
     display: inline-block;
-    color: red;
+    color: #de0000;
     line-height: 1.3;
     font-weight: 600;
     font-size: 14px;
