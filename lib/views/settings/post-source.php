@@ -3,7 +3,7 @@
 echo rtTPG()->rtFieldGenerator( rtTPG()->rtTPGPostType() );
 $sHtml = null;
 $sHtml .= '<div class="field-holder rt-tpg-field-group">';
-$sHtml .= '<div class="field-label">Common filters</div>';
+$sHtml .= '<div class="field-label">Common Filters</div>';
 $sHtml .= '<div class="field">';
 $sHtml .= rtTPG()->rtFieldGenerator( rtTPG()->rtTPGCommonFilterFields(), true );
 $sHtml .= '</div>';

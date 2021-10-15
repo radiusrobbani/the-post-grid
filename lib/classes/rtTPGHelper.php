@@ -26,6 +26,8 @@ if (!class_exists('rtTPGHelper')):
             $fields = array_merge(
                 rtTPG()->rtTPGCommonFilterFields(),
                 rtTPG()->rtTPGLayoutSettingFields(),
+                rtTPG()->responsiveSettingsColumn(),
+                rtTPG()->layoutMiscSettings(),
                 // settings
                 rtTPG()->rtTPGSCHeadingSettings(),
                 rtTPG()->rtTPGSCCategorySettings(),

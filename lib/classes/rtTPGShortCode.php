@@ -180,7 +180,9 @@ if ( ! class_exists( 'rtTPGShortCode' ) ):
 
 				/* LIMIT */
 				$limit                  = ( ( empty( $scMeta['limit'][0] ) || $scMeta['limit'][0] === '-1' ) ? - 1 : absint( $scMeta['limit'][0] ) );
+				$queryOffset            = empty( $scMeta['offset'][0] ) ? 0 : absint( $scMeta['offset'][0] );
 				$args['posts_per_page'] = $limit;
+				//$args['offset']         = $queryOffset;
 				$pagination             = ! empty( $scMeta['pagination'][0] );
 				$posts_loading_type     = ( ! empty( $scMeta['posts_loading_type'][0] ) ? $scMeta['posts_loading_type'][0] : "pagination" );
 				if ( $pagination ) {

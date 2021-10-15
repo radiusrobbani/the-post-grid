@@ -264,6 +264,13 @@ if ( ! class_exists( 'rtTPGOptions' ) ):
 					"class"       => "full",
 					"description" => 'The number of posts to show. Set empty to show all found posts.',
 				],
+                'offset'        => [
+                    "name"        => "offset",
+                    "label"       => __("Offset", "the-post-grid"),
+                    "type"        => "number",
+                    "class"       => "full",
+                    "description" => 'The number of posts to exclude from start',
+                ],
 			];
 		}
 
@@ -292,7 +299,7 @@ if ( ! class_exists( 'rtTPGOptions' ) ):
 				'post_filter' => [
 					'type'      => "checkboxFilter",
 					'name'      => "post_filter",
-					'label'     => "Advanced filters",
+					'label'     => "Advanced Filters",
 					"alignment" => "vertical",
 					"multiple"  => true,
 					'default'   => [ 'tpg_taxonomy', 'order' ],
@@ -527,7 +534,7 @@ if ( ! class_exists( 'rtTPGOptions' ) ):
 				],
 				'posts_loading_type'               => [
 					"type"        => "radio",
-					"label"       => "Post Loading Type",
+					"label"       => "Pagination Type",
 					'holderClass' => "pagination-item posts-loading-type tpg-hidden pro-field",
 					"alignment"   => "vertical",
 					"default"     => 'pagination',
@@ -1075,13 +1082,13 @@ if ( ! class_exists( 'rtTPGOptions' ) ):
 					"type"        => "text",
 					"class"       => "medium-text",
 					"label"       => esc_html__( "Margin", "the-post-grid" ),
-					"description" => __( "Leave it blank for default", 'the-post-grid' ),
+                    "description" => __( "Multiple value allowed separated by comma 12,0,5,10", 'the-post-grid' ),
 				],
 				'tpg_full_area_padding' => [
 					"type"        => "text",
 					"class"       => "medium-text",
 					"label"       => esc_html__( "Padding", "the-post-grid" ),
-					"description" => __( "Leave it blank for default", 'the-post-grid' ),
+                    "description" => __( "Multiple value allowed separated by comma 12,0,5,10", 'the-post-grid' ),
 				],
 			];
 
@@ -1120,13 +1127,13 @@ if ( ! class_exists( 'rtTPGOptions' ) ):
 					"type"        => "text",
 					"class"       => "medium-text",
 					"label"       => esc_html__( "Box Padding", "the-post-grid" ),
-					"description" => __( "Leave it blank for default", 'the-post-grid' ),
+                    "description" => __( "Multiple value allowed separated by comma 12,0,5,10", 'the-post-grid' ),
 				],
 				'tpg_content_padding'            => [
 					"type"        => "text",
 					"class"       => "medium-text",
 					"label"       => esc_html__( "Content Padding", "the-post-grid" ),
-					"description" => __( "Leave it blank for default", 'the-post-grid' ),
+                    "description" => __( "Multiple value allowed separated by comma 12,0,5,10", 'the-post-grid' ),
 				],
 			];
 
@@ -1155,13 +1162,13 @@ if ( ! class_exists( 'rtTPGOptions' ) ):
 					"type"        => "text",
 					"class"       => "medium-text tpg-spacing-field",
 					"label"       => esc_html__( "Margin", "the-post-grid" ),
-					"description" => __( "Leave it blank for default", 'the-post-grid' ),
+                    "description" => __( "Multiple value allowed separated by comma 12,0,5,10", 'the-post-grid' ),
 				],
 				'tpg_category_padding'       => [
 					"type"        => "text",
 					"class"       => "medium-text tpg-spacing-field",
 					"label"       => esc_html__( "Padding", "the-post-grid" ),
-					"description" => __( "Leave it blank for default", 'the-post-grid' ),
+                    "description" => __( "Multiple value allowed separated by comma 12,0,5,10", 'the-post-grid' ),
 				],
 				'tpg_category_font_size'     => [
 					"type"    => "select",
