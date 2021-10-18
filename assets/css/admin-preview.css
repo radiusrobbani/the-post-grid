@@ -21,3 +21,7 @@
     max-width: 100%;
     height: auto;
 }
+.tpg-widget-heading-wrapper.center .tpg-widget-heading {
+    font-size: 30px;
+    font-weight: bold;
+}
