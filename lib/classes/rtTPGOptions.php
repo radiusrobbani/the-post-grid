@@ -337,21 +337,26 @@ if ( ! class_exists( 'rtTPGOptions' ) ):
 		function rtTPGLayoutSettingFields() {
 			$options = [
 				'layout_type'                      => [
-					"type"    => "select",
-					"name"    => "layout_type",
-					"label"   => "Layout Type",
+                    "type"    => "radio-image",
+					"label"   => __("Layout Type", "the-post-grid"),
 					"id"      => "rt-tpg-sc-layout-type",
-					"class"   => "rt-select2",
 					"options" => $this->rtTPGLayoutType(),
 				],
-				'layout'                           => [
+                'layout'                           => [
+                    "type"    => "radio-image",
+                    "label"   => __("Layout", "the-post-grid"),
+                    "id"      => "rt-tpg-sc-layout",
+                    "class"   => "rt-select2",
+                    "options" => $this->rtTPGLayouts(),
+                ],
+				/*'layout'                           => [
 					"type"    => "select",
 					"name"    => "layout",
 					"label"   => "Layout",
 					"id"      => "rt-tpg-sc-layout",
 					"class"   => "rt-select2",
 					"options" => $this->rtTPGLayouts(),
-				],
+				],*/
 				'tgp_filter'                       => [
 					"type"        => "checkbox",
 					"label"       => "Filter",
@@ -1345,23 +1350,47 @@ if ( ! class_exists( 'rtTPGOptions' ) ):
 		}
 
 		function rtTPGLayoutType() {
-			$layoutType                = [];
-			$layoutType['grid']        = __( "Grid", "the-post-grid" );
-			$layoutType['grid_hover']  = __( "Grid Hover", "the-post-grid" );
-			$layoutType['slider']      = __( "Slider", "the-post-grid" );
-			$layoutType['isotope']     = __( "Isotope", "the-post-grid" );
-			$layoutType['woocommerce'] = __( "WooCommerce", "the-post-grid" );
-			$layoutType['edd']         = __( "EDD", "the-post-grid" );
+			$layoutType = [
+                    'grid' => array(
+                        'title' => __( "Grid", "the-post-grid" ),
+                        'img' => rtTPG()->assetsUrl . 'images/grid.png',
+                    ),
+                    'list' => array(
+                        'title' => __( "List", "the-post-grid" ),
+                        'img' => rtTPG()->assetsUrl . 'images/list.png',
+                    ),
+                    'isotope' => array(
+                        'title' => __( "Isotope", "the-post-grid" ),
+                        'img' => rtTPG()->assetsUrl . 'images/isotope.png',
+                    ),
+            ];
 
-			return apply_filters( 'tpg_layouts_type', $layoutType );
+			return apply_filters( 'rt_tpg_layouts_type', $layoutType );
 		}
 
 		function rtTPGLayouts() {
-			$layouts             = [];
-			$layouts['layout1']  = __( "Layout 1", "the-post-grid" );
-			$layouts['layout2']  = __( "Layout 2", "the-post-grid" );
-			$layouts['layout3']  = __( "Layout 3", "the-post-grid" );
-			$layouts['isotope1'] = __( "Isotope Layout", "the-post-grid" );
+			$layouts    = [
+                'layout1' => array(
+                    'title' => __( "Grid Layout 1", "the-post-grid" ),
+                    'layout' => 'grid',
+                    'img' => rtTPG()->assetsUrl . 'images/layouts/grid1.png',
+                ),
+                'layout2' => array(
+                    'title' => __( "List Layout 1", "the-post-grid" ),
+                    'layout' => 'list',
+                    'img' => rtTPG()->assetsUrl . 'images/layouts/list1.png',
+                ),
+                'layout3' => array(
+                    'title' => __( "List Layout 2", "the-post-grid" ),
+                    'layout' => 'list',
+                    'img' => rtTPG()->assetsUrl . 'images/layouts/list2.png',
+                ),
+                'isotope1' => array(
+                    'title' => __( "Isotope Layout 1", "the-post-grid" ),
+                    'layout' => 'isotope',
+                    'img' => rtTPG()->assetsUrl . 'images/layouts/isotope1.png',
+                ),
+            ];
 
 			return apply_filters( 'tpg_layouts', $layouts );
 		}

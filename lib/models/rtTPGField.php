@@ -119,6 +119,10 @@ if ( ! class_exists( 'rtTPGField' ) ):
 					$html .= $this->radioField();
 					break;
 
+                case 'radio-image':
+                    $html .= $this->radioImage();
+                    break;
+
 				case 'date_range':
 					$html .= $this->dateRange();
 					break;
@@ -627,6 +631,44 @@ if ( ! class_exists( 'rtTPGField' ) ):
 
 			return $h;
 		}
+
+        /**
+         * Radio Image
+         *
+         * @return String
+         */
+        private function radioImage() {
+            $h = null;
+            $id = 'rttpg-' . $this->name;
+
+            $h .= sprintf("<div class='rttpg-radio-image %s' id='%s'>", esc_attr($this->alignment), esc_attr($id));
+            $selected_value = $this->value;
+            if ( is_array($this->options) && !empty($this->options) ) {
+                foreach ($this->options as $key => $value) {
+                    $checked = ( $key == $selected_value ? "checked" : null);
+                    $title = isset( $value['title'] ) && $value['title'] ? esc_html( $value['title'] ) : '';
+                    $layout = isset( $value['layout'] ) ?  $value['layout'] : '';
+                    $h .= sprintf('<label data-type="%7$s" class="radio-image %7$s"  for="%2$s">
+                            <input type="radio" id="%2$s" %3$s name="%4$s" value="%2$s">
+                            <div class="rttpg-radio-image-wrap">
+                                <img src="%5$s" title="%6$s" alt="%2$s">
+                                <div class="rttpg-checked"><span class="dashicons dashicons-yes"></span></div>
+                            </div>
+                            <div class="rttpg-demo-name">%6$s</div>
+                        </label>',
+                        '',
+                        esc_attr( $key ),
+                        esc_attr($checked),
+                        esc_attr($this->name),
+                        esc_url($value['img']),
+                        esc_attr($title),
+                        esc_attr( $layout )
+                    );
+                }
+            }
+            $h .= "</div>";
+            return $h;
+        }
 
 		private function dateRange() {
 			$h          = null;

@@ -111,27 +111,10 @@
         tlpShowHideScMeta();
     });
 
-    $("#rt-tpg-sc-layout-type").on("change", function (e) {
-        layoutList();
+    $("#rttpg-layout_type input[name=layout_type]").on('change', function () {
+        $('#layout_holder').show();
+        rtTPGlayoutType();
     });
-
-    function layoutList() {
-        var layout = $('#rt-tpg-sc-layout-type').val(),
-            mySelect = $("#rt-tpg-sc-layout");
-
-        console.log(layout);
-
-        layout = layout ? layout : 'grid';
-        mySelect.empty();
-        switch (layout) {
-            case 'grid':
-                mySelect.append('<option value="layout1">Layout 1</option><option value="layout2">Layout 2</option><option value="layout3">Layout 3</option>');
-                break;
-            case 'isotope':
-                mySelect.append('<option value="isotope1">Isotope 1</option>');
-                break;
-        }
-    }
 
     $("#rt-sc-post-type").on("change", function (e) {
         var postType = $(this).val(),
@@ -246,6 +229,7 @@
         }
     });
 
+    rtTPGlayoutType();
     detailLinkEffect();
     customImageSize();
     preLoaderEffect();
@@ -295,6 +279,28 @@
         }
     }
 
+    function rtTPGlayoutType() {
+        var layout_type = $("#rttpg-layout_type input[name=layout_type]:checked"),
+            layout_type_value = layout_type.val(),
+            selector = ".radio-image." + layout_type_value;
+
+        $('#rttpg-layout .radio-image').hide();
+
+        if( ! layout_type_value ) {
+            var selectChildByValue = $("#rttpg-layout input[name=layout]:checked"),
+                ownParent = selectChildByValue.parent('.radio-image'),
+                parentId = ownParent.attr('data-type');
+
+            $("#rttpg-layout_type input[id=" + parentId + "]").prop('checked', true);
+            selector = ".radio-image." + parentId ;
+            if( ! selectChildByValue.val() ) {
+                $('#layout_holder').hide();
+            } else {
+                $('#layout_holder').show();
+            }
+        }
+        $(selector).show();
+    }
 
     function rtTPGIsotopTaxonomyFilter($this) {
         var arg = "post_type=" + $this.val();
