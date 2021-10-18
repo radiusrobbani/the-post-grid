@@ -43,6 +43,7 @@ if (!class_exists('rtTPGHelper')):
                 rtTPG()->rtTPGStyleContentWrap(),
                 rtTPG()->rtTPGStyleCategory(),
                 rtTPG()->rtTPGPostType(),
+                rtTPG()->rtTPGStyleButtonColorFields(),
                 rtTPG()->rtTPAdvanceFilters(),
                 rtTPG()->itemFields()
             );
@@ -1269,27 +1270,35 @@ if (!class_exists('rtTPGHelper')):
             }
             // Widget heading
             if ($headingBg) {
-                $css .= "#{$layoutID} .tpg-widget-heading-wrapper.heading-style2 .tpg-widget-heading,#{$layoutID} .tpg-widget-heading-wrapper.heading-style1 .tpg-widget-heading::before {";
+                $css .= "#{$layoutID} .tpg-widget-heading-wrapper.heading-style1 .tpg-widget-heading, #{$layoutID} .tpg-widget-heading-wrapper.heading-style2 .tpg-widget-heading, #{$layoutID} .tpg-widget-heading-wrapper.heading-style3 .tpg-widget-heading {";
                 $css .= "background:" . $headingBg . ";";
                 $css .= "}";
+
+	            $css .= "#{$layoutID} .tpg-widget-heading-wrapper.heading-style2 .tpg-widget-heading::after {";
+	            $css .= "border-top-color:" . $headingBg . ";";
+	            $css .= "}";
             }
             if ($headingColor) {
-                $css .= "#{$layoutID} .tpg-widget-heading-wrapper.heading-style2 .tpg-widget-heading {";
+                $css .= "#{$layoutID} .tpg-widget-heading-wrapper.heading-style1 .tpg-widget-heading, #{$layoutID} .tpg-widget-heading-wrapper.heading-style1 .tpg-widget-heading a, #{$layoutID} .tpg-widget-heading-wrapper.heading-style2 .tpg-widget-heading, #{$layoutID} .tpg-widget-heading-wrapper.heading-style2 .tpg-widget-heading a, #{$layoutID} .tpg-widget-heading-wrapper.heading-style3 .tpg-widget-heading, #{$layoutID} .tpg-widget-heading-wrapper.heading-style3 .tpg-widget-heading a  {";
                 $css .= "color:" . $headingColor . ";";
+                $css .= "}";
+                $css .= "#{$layoutID} .tpg-widget-heading-wrapper.heading-style1 .tpg-widget-heading::before  {";
+                $css .= "background-color:" . $headingColor . ";";
                 $css .= "}";
             }
             if ($headingBorderSize) {
-                $css .= "#{$layoutID} .tpg-widget-heading-wrapper.heading-style2 {";
-                $css .= "border-style: solid;";
-                $css .= "border-width:" . $headingBorderSize . "px;";
+                $css .= "#{$layoutID} .tpg-widget-heading-wrapper.heading-style1, #{$layoutID} .tpg-widget-heading-wrapper.heading-style2, #{$layoutID} .tpg-widget-heading-wrapper.heading-style3 {";
+//                $css .= "border-bottom-style: solid;";
+                $css .= "border-bottom-width:" . $headingBorderSize . "px;";
+                $css .= "}";
+
+                $css .= "#{$layoutID} .tpg-widget-heading-wrapper.heading-style1 .tpg-widget-heading-line {";
+                $css .= "border-width:" . $headingBorderSize . "px 0;";
                 $css .= "}";
             }
             if ($headingBorderColor) {
-                $css .= "#{$layoutID} .tpg-widget-heading-wrapper.heading-style2 {";
+                $css .= "#{$layoutID} .tpg-widget-heading-wrapper.heading-style1 .tpg-widget-heading-line, #{$layoutID} .tpg-widget-heading-wrapper.heading-style2, #{$layoutID} .tpg-widget-heading-wrapper.heading-style3  {";
                 $css .= "border-color:" . $headingBorderColor . ";";
-                $css .= "}";
-                $css .= "#{$layoutID} .tpg-widget-heading-wrapper.heading-style2 .tpg-widget-heading::after {";
-                $css .= "border-top-color:" . $headingBorderColor . ";";
                 $css .= "}";
             }
             if ($headingMargin) {

@@ -446,7 +446,8 @@ if ( ! class_exists( 'rtTPGPreview' ) ):
 
                 if(!empty($arg['items']) && in_array('heading', $arg['items'])) {
                     $data .= sprintf('<div class="tpg-widget-heading-wrapper heading-%1$s %2$s">', $heading_style, $heading_alignment);
-                    if ($heading_link) {
+	                $data .= '<span class="tpg-widget-heading-line line-left"></span>';
+	                if ($heading_link) {
                         $data .= sprintf('<%1$s class="tpg-widget-heading"><a href="%2$s" title="%3$s">%3$s</a></%1$s>', $heading_tag, $heading_link, get_the_title($scID));
                     } else {
                         $data .= sprintf('<%1$s class="tpg-widget-heading">%2$s</%1$s>', $heading_tag, get_the_title($scID));

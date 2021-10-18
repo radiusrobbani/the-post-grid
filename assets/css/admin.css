@@ -9,6 +9,16 @@
     --rt-bg-light: #F7FAFC;
 }
 
+input.rt-code-sc::selection {
+    background: var(--rt-bg-light);
+    color: var(--rt-primary-color);
+}
+
+input.rt-code-sc::-moz-selection {
+    background: var(--rt-bg-light);
+    color: var(--rt-primary-color);
+}
+
 /*Default Global CSS for */
 .post-type-rttpg #rttpg_meta label {
     position: relative;
@@ -18,17 +28,18 @@
     white-space: inherit;
 }
 
+.post-type-rttpg #tpg-post-type-wrapper,
 .post-type-rttpg #rttpg_meta {
     background-color: #ffffff;
     padding: 20px;
 }
 
-.post-type-rttpg.wp-core-ui select {
+.post-type-rttpg.wp-core-ui #rttpg_meta select {
     min-height: 40px;
     border-color: #dee5e9;
 }
 
-.post-type-rttpg.wp-core-ui select:focus {
+.post-type-rttpg.wp-core-ui #rttpg_meta select:focus {
     outline: none;
     /*border: none;*/
     box-shadow: none;
@@ -55,8 +66,8 @@
     width: 100%;
 }
 
-.post-type-rttpg .select2-container--classic .select2-selection--multiple:hover,
-.post-type-rttpg .select2-container--classic .select2-selection--single:hover,
+.post-type-rttpg .select2-container--classic:not(.select2-container--open) .select2-selection--multiple:hover,
+.post-type-rttpg .select2-container--classic:not(.select2-container--open) .select2-selection--single:hover,
 .post-type-rttpg.wp-core-ui select:focus,
 .post-type-rttpg.wp-core-ui select:hover,
 .post-type-rttpg input:focus,
@@ -138,6 +149,11 @@
     color: #7c8387;
 }
 
+.rt-tab-content .wp-picker-holder {
+    position: absolute;
+    z-index: 999;
+}
+
 /*End Global CSS*/
 
 #tpg-loading {
@@ -164,7 +180,7 @@
 .tpg-form-item-wrap {
     margin-top: 15px;
     margin-bottom: 25px;
-    max-width: 500px;
+    max-width: 100%;
 }
 
 .tpg-form-item-wrap:after {
@@ -175,14 +191,16 @@
 
 .tpg-form-item-wrap label {
     float: left;
-    width: 30%;
+    width: 200px;
     font-weight: bold;
     min-width: 140px;
+    margin-bottom: 15px;
+    margin-top: 3px;
 }
 
 .tpg-form-item {
-    width: 70%;
-    float: right;
+    width: 300px;
+    float: left;
 }
 
 ul#order-target {
@@ -400,6 +418,10 @@ div#sc-post-post-source > .field-holder > .field > .field-holder:first-child {
     z-index: 10;
     border-radius: 4px;
     border: 1px solid #d9e3ed;
+}
+
+#sc-style.rt-tab-content .field-holder .field {
+    z-index: inherit;
 }
 
 .rt-tab-content #tpg_taxonomy_holder {
@@ -1346,6 +1368,7 @@ input:checked + .rttm-switch-slider:before {
     position: relative;
     width: 140px;
     overflow: hidden;
+    transition: 0.3s;
 }
 
 .post-type-rttpg .wp-picker-container .wp-color-result.button .wp-color-result-text {
