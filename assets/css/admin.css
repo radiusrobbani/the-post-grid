@@ -58,12 +58,16 @@ input.rt-code-sc::-moz-selection {
     background: #ffffff;
 }
 
-
 .post-type-rttpg input[type=time],
 .post-type-rttpg input[type=url],
 .post-type-rttpg input[type=number],
 .post-type-rttpg input[type=text] {
     width: 100%;
+}
+
+.post-type-rttpg .tablenav-pages .current-page {
+    width: auto;
+    min-height: inherit;
 }
 
 .post-type-rttpg .select2-container--classic:not(.select2-container--open) .select2-selection--multiple:hover,
