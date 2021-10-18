@@ -1085,6 +1085,73 @@ body .rt-admin-btn:hover {
 
 /* ============== MetaBox END ================ */
 
+/*--------- Layout -----------*/
+.radio-image,
+#rttpg-layout_type label {
+    margin-right: 10px;
+    display: inline-block;
+    margin-bottom: 10px;
+}
+
+.rttpg-radio-image [type=radio] {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.rttpg-radio-image [type=radio] + div.rttpg-radio-image-wrap {
+    cursor: pointer;
+}
+
+.rttpg-radio-image-wrap {
+    position: relative;
+    display: inline-flex;
+    border: 1px solid #dfdfdf;
+}
+
+.rttpg-radio-image-wrap img {
+    max-width: 130px;
+}
+
+.rttpg-radio-image [type=radio]:checked + div.rttpg-radio-image-wrap .rttpg-checked {
+    display: block;
+}
+
+.rttpg-checked {
+    display: none;
+    z-index: 99;
+    background: #5d3dfd;
+    height: auto;
+    color: white;
+    width: auto;
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    border-radius: 50%;
+    padding: 3px;
+}
+
+#layout_holder {
+    animation: fade-in 3s;
+}
+
+#layout_holder .radio-image {
+    animation: fade-in 0.4s;
+}
+
+@keyframes fade-in {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.rttpg-radio-image .rttpg-demo-name {
+    text-align: center;
+}
 /* media */
 
 @media (max-width: 1200px) {
@@ -1358,7 +1425,6 @@ input:checked + .rttm-switch-slider:before {
 }
 
 /*WP Color Picker*/
-
 
 .post-type-rttpg .wp-picker-container .wp-color-result.button {
     border: 1px solid #B8CAD6 !important;
