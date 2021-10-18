@@ -102,6 +102,7 @@ if ( ! class_exists( 'rtTPGPreview' ) ):
 
 				/* LIMIT */
 				$limit                  = ( ( empty( $scMeta['limit'] ) || $scMeta['limit'] === '-1' ) ? 10000000 : (int) $scMeta['limit'] );
+                $queryOffset            = empty( $scMeta['offset'] ) ? 0 :  (int) $scMeta['offset'];
 				$args['posts_per_page'] = $limit;
 				$pagination             = ( ! empty( $scMeta['pagination'] ) ? true : false );
 				$posts_loading_type     = ( ! empty( $scMeta['posts_loading_type'] ) ? $scMeta['posts_loading_type'] : "pagination" );
@@ -424,6 +425,11 @@ if ( ! class_exists( 'rtTPGPreview' ) ):
 						)
 					);
 				}
+
+                if ($pagination && $queryOffset && isset($args['paged']) ) {
+                    $queryOffset = ($posts_per_page * ($args['paged'] - 1)) + $queryOffset;
+                }
+                $args['offset'] = $queryOffset;
 
                 $arg['title_tag'] = (!empty($scMeta['title_tag']) && in_array($scMeta['title_tag'], array_keys(rtTPG()->getTitleTags()))) ? esc_attr($scMeta['title_tag']) : 'h3';
 
