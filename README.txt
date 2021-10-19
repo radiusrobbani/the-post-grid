@@ -141,6 +141,9 @@ For any bug or suggestion please mail support@radiustheme.com
 
 == Changelog ==
 
+= 3.0.5 =
+* Updated missing URL
+
 = 3.0.4 =
 * Fixed file readability issue
 * Added option for script loading

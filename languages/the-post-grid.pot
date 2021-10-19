@@ -477,15 +477,15 @@ msgstr ""
 msgid "You are not permitted to view this content."
 msgstr ""
 
-#: ../lib/models/rtTPGField.php:80
+#: ../lib/models/rtTPGField.php:82
 msgid "Premium Option"
 msgstr ""
 
-#: ../lib/models/rtTPGField.php:367
+#: ../lib/models/rtTPGField.php:369
 msgid "Start"
 msgstr ""
 
-#: ../lib/models/rtTPGField.php:376
+#: ../lib/models/rtTPGField.php:378
 msgid "End"
 msgstr ""
 
