@@ -643,26 +643,31 @@ if ( ! class_exists( 'rtTPGField' ) ):
 
             $h .= sprintf("<div class='rttpg-radio-image %s' id='%s'>", esc_attr($this->alignment), esc_attr($id));
             $selected_value = $this->value;
+
             if ( is_array($this->options) && !empty($this->options) ) {
                 foreach ($this->options as $key => $value) {
                     $checked = ( $key == $selected_value ? "checked" : null);
                     $title = isset( $value['title'] ) && $value['title'] ? esc_html( $value['title'] ) : '';
+                    $link = isset( $value['layout_link'] ) && $value['layout_link'] ? $value['layout_link'] : '';
+                    $linkHtml = empty($link) ? esc_html($title) : '<a href="'.esc_url($link).'" target="_blank">'.esc_html($title).'</a>';
                     $layout = isset( $value['layout'] ) ?  $value['layout'] : '';
-                    $h .= sprintf('<label data-type="%7$s" class="radio-image %7$s"  for="%2$s">
+                    $h .= sprintf('<div class="rt-tpg-radio-layout %7$s"><label data-type="%7$s" class="radio-image %7$s"  for="%2$s">
                             <input type="radio" id="%2$s" %3$s name="%4$s" value="%2$s">
                             <div class="rttpg-radio-image-wrap">
                                 <img src="%5$s" title="%6$s" alt="%2$s">
                                 <div class="rttpg-checked"><span class="dashicons dashicons-yes"></span></div>
                             </div>
-                            <div class="rttpg-demo-name">%6$s</div>
-                        </label>',
+                        </label>
+                        <div class="rttpg-demo-name">%8$s</div>
+                        </div>',
                         '',
                         esc_attr( $key ),
                         esc_attr($checked),
                         esc_attr($this->name),
                         esc_url($value['img']),
                         esc_attr($title),
-                        esc_attr( $layout )
+                        esc_attr($layout),
+                        $linkHtml
                     );
                 }
             }

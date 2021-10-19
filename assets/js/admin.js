@@ -113,7 +113,7 @@
 
     $("#rttpg-layout_type input[name=layout_type]").on('change', function () {
         $('#layout_holder').show();
-        rtTPGlayoutType();
+        rtTPGSelectedlayoutType();
     });
 
     $("#rt-sc-post-type").on("change", function (e) {
@@ -280,11 +280,25 @@
     }
 
     function rtTPGlayoutType() {
+        var $layout = $("#rttpg-layout input[name=layout]:checked"),
+            layoutType = $layout.parent('.radio-image').attr('data-type'),
+            selector = ".rt-tpg-radio-layout." + layoutType;
+
+        $('#rttpg-layout .rt-tpg-radio-layout').hide();
+        $('#layout_holder').hide();
+
+        if (layoutType) {
+            $("#rttpg-layout_type input[id=" + layoutType + "]").prop('checked', true);
+            $('#layout_holder').show();
+            $(selector).show();
+        }
+    }
+
+    function rtTPGSelectedlayoutType() {
         var layout_type = $("#rttpg-layout_type input[name=layout_type]:checked"),
             layout_type_value = layout_type.val(),
-            selector = ".radio-image." + layout_type_value;
-
-        $('#rttpg-layout .radio-image').hide();
+            selector = ".rt-tpg-radio-layout." + layout_type_value;
+        $('#rttpg-layout .rt-tpg-radio-layout').hide();
 
         if( ! layout_type_value ) {
             var selectChildByValue = $("#rttpg-layout input[name=layout]:checked"),
@@ -292,7 +306,7 @@
                 parentId = ownParent.attr('data-type');
 
             $("#rttpg-layout_type input[id=" + parentId + "]").prop('checked', true);
-            selector = ".radio-image." + parentId ;
+            selector = ".rt-tpg-radio-layout." + parentId ;
             if( ! selectChildByValue.val() ) {
                 $('#layout_holder').hide();
             } else {

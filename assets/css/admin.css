@@ -1086,8 +1086,8 @@ body .rt-admin-btn:hover {
 /* ============== MetaBox END ================ */
 
 /*--------- Layout -----------*/
-.radio-image,
-#rttpg-layout_type label {
+
+.rt-tpg-radio-layout {
     margin-right: 10px;
     display: inline-block;
     margin-bottom: 10px;
@@ -1152,6 +1152,16 @@ body .rt-admin-btn:hover {
 .rttpg-radio-image .rttpg-demo-name {
     text-align: center;
 }
+
+.rttpg-radio-image .rttpg-demo-name,
+.rttpg-radio-image .rttpg-demo-name a {
+    color: #7c8387;
+    text-decoration: none;
+}
+.rttpg-radio-image .rttpg-demo-name a:hover {
+    text-decoration: underline;
+}
+
 /* media */
 
 @media (max-width: 1200px) {

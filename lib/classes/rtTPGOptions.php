@@ -1333,21 +1333,25 @@ if ( ! class_exists( 'rtTPGOptions' ) ):
                 'layout1' => array(
                     'title' => __( "Grid Layout 1", "the-post-grid" ),
                     'layout' => 'grid',
+                    'layout_link'    => 'https://www.radiustheme.com/demo/plugins/the-post-grid/',
                     'img' => rtTPG()->assetsUrl . 'images/layouts/grid1.png',
                 ),
                 'layout2' => array(
                     'title' => __( "List Layout 1", "the-post-grid" ),
                     'layout' => 'list',
+                    'layout_link'    => 'https://www.radiustheme.com/demo/plugins/the-post-grid/list-layout-1/',
                     'img' => rtTPG()->assetsUrl . 'images/layouts/list1.png',
                 ),
                 'layout3' => array(
                     'title' => __( "List Layout 2", "the-post-grid" ),
                     'layout' => 'list',
+                    'layout_link'    => 'https://www.radiustheme.com/demo/plugins/the-post-grid/list-layout-rounded-image/',
                     'img' => rtTPG()->assetsUrl . 'images/layouts/list2.png',
                 ),
                 'isotope1' => array(
                     'title' => __( "Isotope Layout 1", "the-post-grid" ),
                     'layout' => 'isotope',
+                    'layout_link'    => 'https://www.radiustheme.com/demo/plugins/the-post-grid/layout-4-filter/',
                     'img' => rtTPG()->assetsUrl . 'images/layouts/isotope1.png',
                 ),
             ];
