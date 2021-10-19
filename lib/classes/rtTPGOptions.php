@@ -1086,7 +1086,7 @@ if (!class_exists('rtTPGOptions')):
                         <li>Enable/Disable Pagination.</li>
                         <li>AJAX Pagination (Load more and Load on Scrolling)</li>
                     </ol>
-                <a href="https://www.radiustheme.com/the-post-grid-pro-for-wordpress/" class="rt-admin-btn" target="_blank">' . __("Get Pro Version", "the-post-grid") . '</a>';
+                <a href="https://www.radiustheme.com/downloads/the-post-grid-pro-for-wordpress/" class="rt-admin-btn" target="_blank">' . __("Get Pro Version", "the-post-grid") . '</a>';
         }
 
     }
