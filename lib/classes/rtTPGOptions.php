@@ -269,7 +269,7 @@ if ( ! class_exists( 'rtTPGOptions' ) ):
                     "label"       => __("Offset", "the-post-grid"),
                     "type"        => "number",
                     "class"       => "full",
-                    "description" => 'The number of posts to exclude from start',
+                    "description" => 'The number of posts to skip from start',
                 ],
 			];
 		}
@@ -349,14 +349,6 @@ if ( ! class_exists( 'rtTPGOptions' ) ):
                     "class"   => "rt-select2",
                     "options" => $this->rtTPGLayouts(),
                 ],
-				/*'layout'                           => [
-					"type"    => "select",
-					"name"    => "layout",
-					"label"   => "Layout",
-					"id"      => "rt-tpg-sc-layout",
-					"class"   => "rt-select2",
-					"options" => $this->rtTPGLayouts(),
-				],*/
 				'tgp_filter'                       => [
 					"type"        => "checkbox",
 					"label"       => "Filter",

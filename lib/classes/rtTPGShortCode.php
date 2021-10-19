@@ -392,8 +392,9 @@ if ( ! class_exists( 'rtTPGShortCode' ) ):
 				}
 				$arg['class']       = implode( " ", $arg_class );
 				$arg['anchorClass'] = $arg['link_target'] = null;
-				$link               = ! empty( $scMeta['link_to_detail_page'][0] ) ? $scMeta['link_to_detail_page'][0] : '1';
-				if ( $link != '1' && $link != 'yes' ) {
+				$link               = isset($scMeta['link_to_detail_page'][0] ) ? $scMeta['link_to_detail_page'][0] : '1';
+				$link               = ($link == 'yes') ? '1' : $link;
+				if (!$link) {
 					$arg['anchorClass'] = ' disabled';
 				}
 				$isSinglePopUp = false;

@@ -356,7 +356,8 @@ if ( ! class_exists( 'rtTPGPreview' ) ):
 
 				$arg['anchorClass'] = null;
 				$arg['anchorClass'] = $arg['link_target'] = null;
-				$link               = ! empty( $scMeta['link_to_detail_page'] ) ? $scMeta['link_to_detail_page'] : '1';
+				$link               = isset( $scMeta['link_to_detail_page'] ) ? $scMeta['link_to_detail_page'] : '1';
+                $link               = ($link == 'yes') ? '1' : $link;
 				$isSinglePopUp      = false;
 				$linkType           = ! empty( $scMeta['detail_page_link_type'][0] ) ? $scMeta['detail_page_link_type'][0] : 'popup';
 				if ( $link == '1' ) {
