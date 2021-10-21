@@ -867,7 +867,7 @@ if ( ! class_exists( 'rtTPGShortCode' ) ):
 
 					$l             = $offLoop = 0;
 					$offsetBigHtml = $offsetSmallHtml = null;
-
+                    $postCount = 0;
 					while ( $gridQuery->have_posts() ) : $gridQuery->the_post();
 						if ( $colStore == $l ) {
 							if ( $this->l4toggle ) {
@@ -877,6 +877,7 @@ if ( ! class_exists( 'rtTPGShortCode' ) ):
 							}
 							$l = 0;
 						}
+						$arg['postCount'] = $postCount++;
 						$pID               = get_the_ID();
 						$arg['pID']        = $pID;
 						$arg['title']      = rtTPG()->get_the_title( $pID, $arg );
