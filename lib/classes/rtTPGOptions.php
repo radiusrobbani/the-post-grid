@@ -1307,6 +1307,10 @@ if ( ! class_exists( 'rtTPGOptions' ) ):
                         'title' => __( "Grid", "the-post-grid" ),
                         'img' => rtTPG()->assetsUrl . 'images/grid.png',
                     ),
+                    'grid_hover' => array(
+                        'title' => __( "Grid Hover", "the-post-grid" ),
+                        'img' => rtTPG()->assetsUrl . 'images/grid_hover.png',
+                    ),
                     'list' => array(
                         'title' => __( "List", "the-post-grid" ),
                         'img' => rtTPG()->assetsUrl . 'images/list.png',

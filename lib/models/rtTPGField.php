@@ -651,11 +651,13 @@ if ( ! class_exists( 'rtTPGField' ) ):
                     $link = isset( $value['layout_link'] ) && $value['layout_link'] ? $value['layout_link'] : '';
                     $linkHtml = empty($link) ? esc_html($title) : '<a href="'.esc_url($link).'" target="_blank">'.esc_html($title).'</a>';
                     $layout = isset( $value['layout'] ) ?  $value['layout'] : '';
+                    $taghtml = isset($value['tag']) ? '<div class="rt-tpg-layout-tag"><span>'.$value['tag'].'</span></div>' : '';
                     $h .= sprintf('<div class="rt-tpg-radio-layout %7$s"><label data-type="%7$s" class="radio-image %7$s"  for="%2$s">
                             <input type="radio" id="%2$s" %3$s name="%4$s" value="%2$s">
                             <div class="rttpg-radio-image-wrap">
                                 <img src="%5$s" title="%6$s" alt="%2$s">
                                 <div class="rttpg-checked"><span class="dashicons dashicons-yes"></span></div>
+                                %9$s
                             </div>
                         </label>
                         <div class="rttpg-demo-name">%8$s</div>
@@ -667,7 +669,8 @@ if ( ! class_exists( 'rtTPGField' ) ):
                         esc_url($value['img']),
                         esc_attr($title),
                         esc_attr($layout),
-                        $linkHtml
+                        $linkHtml,
+                        $taghtml
                     );
                 }
             }

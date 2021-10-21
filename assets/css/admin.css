@@ -1162,8 +1162,37 @@ body .rt-admin-btn:hover {
     color: #7c8387;
     text-decoration: none;
 }
+
 .rttpg-radio-image .rttpg-demo-name a:hover {
     text-decoration: underline;
+}
+
+.rt-tpg-layout-tag {
+    position: absolute;
+    right: 0;
+    top: 0;
+    z-index: 1;
+    overflow: hidden;
+    width: 50px;
+    height: 50px;
+}
+
+.rt-tpg-layout-tag span {
+    font-size: 10px;
+    font-weight: 700;
+    color: #fff;
+    text-transform: uppercase;
+    text-align: center;
+    line-height: 20px;
+    transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+    width: 67px;
+    display: block;
+    background: linear-gradient(#f70505,#8f0808);
+    box-shadow: 0 3px 10px -5px #000;
+    position: absolute;
+    top: 7px;
+    right: -17px;
 }
 
 /* media */
