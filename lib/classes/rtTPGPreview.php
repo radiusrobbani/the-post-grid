@@ -825,6 +825,7 @@ if ( ! class_exists( 'rtTPGPreview' ) ):
 					if ( $layout == 'layout4' ) {
 						$tgCol = round( 12 / $dCol );
 					}
+                    $gridPostCount = 0;
 					while ( $gridQuery->have_posts() ) : $gridQuery->the_post();
 						if ( $tgCol == $l ) {
 							if ( $this->l4toggle ) {
@@ -834,6 +835,7 @@ if ( ! class_exists( 'rtTPGPreview' ) ):
 							}
 							$l = 0;
 						}
+                        $arg['postCount'] = $gridPostCount++;
 						$pID               = get_the_ID();
 						$arg['pID']        = $pID;
 						$arg['title']      = rtTPG()->get_the_title( $pID, $arg );
@@ -845,6 +847,7 @@ if ( ! class_exists( 'rtTPGPreview' ) ):
 						$arg['excerpt']    = rtTPG()->get_the_excerpt( $pID, $arg );
 						$arg['categories'] = get_the_term_list( $pID, 'category', null, ', ' );
 						$arg['tags']       = get_the_term_list( $pID, 'post_tag', null, ', ' );
+                        $arg['responsiveCol'] = array( $dCol, $tCol, $mCol );
 						if ( $isIsotope ) {
 							$termAs    = wp_get_post_terms( $pID, $isotope_filter, array( "fields" => "all" ) );
 							$isoFilter = [];

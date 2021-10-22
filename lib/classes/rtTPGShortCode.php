@@ -867,7 +867,7 @@ if ( ! class_exists( 'rtTPGShortCode' ) ):
 
 					$l             = $offLoop = 0;
 					$offsetBigHtml = $offsetSmallHtml = null;
-                    $postCount = 0;
+                    $gridPostCount = 0;
 					while ( $gridQuery->have_posts() ) : $gridQuery->the_post();
 						if ( $colStore == $l ) {
 							if ( $this->l4toggle ) {
@@ -877,7 +877,7 @@ if ( ! class_exists( 'rtTPGShortCode' ) ):
 							}
 							$l = 0;
 						}
-						$arg['postCount'] = $postCount++;
+						$arg['postCount'] = $gridPostCount++;
 						$pID               = get_the_ID();
 						$arg['pID']        = $pID;
 						$arg['title']      = rtTPG()->get_the_title( $pID, $arg );
@@ -890,6 +890,7 @@ if ( ! class_exists( 'rtTPGShortCode' ) ):
 						$arg['excerpt']    = rtTPG()->get_the_excerpt( $pID, $arg );
 						$arg['categories'] = get_the_term_list( $pID, 'category', null, '<span class="rt-separator">,</span>' );
 						$arg['tags']       = get_the_term_list( $pID, 'post_tag', null, '<span class="rt-separator">,</span>' );
+                        $arg['responsiveCol'] = array( $dCol, $tCol, $mCol );
 						if ( $isIsotope ) {
 							$termAs    = wp_get_post_terms( $pID, $isotope_filter, array( "fields" => "all" ) );
 							$isoFilter = [];
