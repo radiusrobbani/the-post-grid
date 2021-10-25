@@ -1018,8 +1018,12 @@ if (!class_exists('rtTPGHelper')):
                 $ocp = rtTPG()->rtHex2rgba($primaryColor,
                     !empty($scMeta['overlay_opacity'][0]) ? absint($scMeta['overlay_opacity'][0]) / 10 : .8);
                 $css .= "#{$layoutID} .layout5 .rt-holder .overlay, #{$layoutID} .isotope2 .rt-holder .overlay, #{$layoutID} .carousel2 .rt-holder .overlay,#{$layoutID} .layout15 .rt-holder h3, #{$layoutID} .isotope11 .rt-holder h3, #{$layoutID} .carousel11 .rt-holder h3, #{$layoutID} .layout16 .rt-holder h3,
-					#{$layoutID} .isotope12 .rt-holder h3, #{$layoutID} .carousel12 .rt-holder h3 {";
+					#{$layoutID} .isotope12 .rt-holder h3, #{$layoutID} .carousel12 .rt-holder h3,#{$layoutID} .rt-post-overlay .post-img > a:first-of-type::after {";
                 $css .= "background-color:" . $ocp . ";";
+                $css .= "}";
+
+                $css .= "#{$layoutID} .rt-post-overlay .post-img > a:first-of-type::after {";
+                $css .= "background-image: none;";
                 $css .= "}";
 
             }
@@ -1238,7 +1242,7 @@ if (!class_exists('rtTPGHelper')):
             }
             // Box
             if($boxBg) {
-                $css .= "#{$layoutID} .rt-holder, #{$layoutID} .rt-holder .rt-detail {";
+                $css .= "#{$layoutID} .rt-holder, #{$layoutID} .rt-holder .rt-detail,#{$layoutID} .rt-post-overlay.rt-post-overlay-xl .post-img + .post-content {";
                 $css .= "background-color:" . $boxBg . ";";
                 $css .= "}";
             }
@@ -1329,6 +1333,8 @@ if (!class_exists('rtTPGHelper')):
                 #{$layoutID} .rt-holder .rt-woo-info h2 a,
                 #{$layoutID} .rt-holder .rt-woo-info h3 a,
                 #{$layoutID} .rt-holder .rt-woo-info h4 a,
+                #{$layoutID} .rt-post-overlay .post-img + .post-content .post-title,
+                #{$layoutID} .rt-post-overlay .post-img + .post-content .post-title a,
                 #{$layoutID} .rt-holder .rt-woo-info h2,
                 #{$layoutID} .rt-holder .rt-woo-info h3,
                 #{$layoutID} .rt-holder .rt-woo-info h4{";
@@ -1354,6 +1360,7 @@ if (!class_exists('rtTPGHelper')):
 						#{$layoutID} .{$layout} .rt-holder h2.entry-title a:hover,
 						#{$layoutID} .{$layout} .rt-holder h3.entry-title a:hover,
 						#{$layoutID} .{$layout} .rt-holder h4.entry-title a:hover,
+						#{$layoutID} .rt-post-overlay .post-img + .post-content .post-title a:hover,
 						#{$layoutID} .rt-holder .rt-woo-info h2 a:hover,
 						#{$layoutID} .rt-holder .rt-woo-info h3 a:hover,
 						#{$layoutID} .rt-holder .rt-woo-info h4 a:hover,
@@ -1365,7 +1372,7 @@ if (!class_exists('rtTPGHelper')):
             }
             // Excerpt decoration
             if ($excerpt_color || $excerpt_size || $excerpt_weight || $excerpt_alignment) {
-                $css .= "#{$layoutID} .{$layout} .rt-holder .tpg-excerpt,#{$layoutID} .{$layout} .rt-holder .post-content,#{$layoutID} .rt-holder .rt-woo-info p{";
+                $css .= "#{$layoutID} .{$layout} .rt-holder .tpg-excerpt,#{$layoutID} .{$layout} .rt-holder .post-content,#{$layoutID} .rt-holder .rt-woo-info p,#{$layoutID} .rt-post-overlay .post-img + .post-content p{";
                 if ($excerpt_color) {
                     $css .= "color:" . $excerpt_color . ";";
                 }
@@ -1388,7 +1395,7 @@ if (!class_exists('rtTPGHelper')):
                     $css .= "}";
                 }
 
-                $css .= "#{$layoutID} .{$layout} .rt-holder .post-meta-user,#{$layoutID} .{$layout} .rt-holder .post-meta-user .meta-data, #{$layoutID} .{$layout} .rt-holder .post-meta-user a, #{$layoutID} .{$layout} .rt-holder .rt-detail .post-meta .rt-tpg-social-share {";
+                $css .= "#{$layoutID} .{$layout} .rt-holder .post-meta-user,#{$layoutID} .{$layout} .rt-holder .post-meta-user .meta-data, #{$layoutID} .{$layout} .rt-holder .post-meta-user a, #{$layoutID} .{$layout} .rt-holder .rt-detail .post-meta .rt-tpg-social-share,#{$layoutID} .rt-post-overlay .post-meta-user span,#{$layoutID} .rt-post-overlay .post-meta-user a,.rt-post-overlay .post-meta-user span.author a {";
                 if ($meta_data_color) {
                     $css .= "color:" . $meta_data_color . ";";
                 }
@@ -1405,36 +1412,36 @@ if (!class_exists('rtTPGHelper')):
             }
             // Category
             if ($catBg) {
-                $css .= "#{$layoutID} .cat-over-image.style2 .categories-links a,#{$layoutID} .cat-over-image.style3 .categories-links a,#{$layoutID} .cat-above-title.style2 .categories-links a,#{$layoutID} .cat-above-title.style3 .categories-links a {";
+                $css .= "#{$layoutID} .cat-over-image.style2 .categories-links a,#{$layoutID} .cat-over-image.style3 .categories-links a,#{$layoutID} .cat-above-title.style2 .categories-links a,#{$layoutID} .cat-above-title.style3 .categories-links a,#{$layoutID} .rt-tpg-category > a {";
                 $css .= "background-color:" . $catBg . ";";
                 $css .= "}";
 
-                $css .= "#{$layoutID} .cat-above-title.style3 .categories-links a:after,.cat-over-image.style3 .categories-links a:after {";
+                $css .= "#{$layoutID} .cat-above-title.style3 .categories-links a:after,.cat-over-image.style3 .categories-links a:after,#{$layoutID} .rt-tpg-category > a {";
                 $css .= "border-top-color:" . $catBg . ";";
                 $css .= "}";
             }
             if ($catTextColor) {
-                $css .= "#{$layoutID} .cat-over-image .categories-links a,#{$layoutID} .cat-above-title .categories-links a{";
+                $css .= "#{$layoutID} .cat-over-image .categories-links a,#{$layoutID} .cat-above-title .categories-links a,#{$layoutID} .rt-tpg-category > a {";
                 $css .= "color:" . $catTextColor . ";";
                 $css .= "}";
             }
             if($catBorderRadius) {
-                $css .= "#{$layoutID} .cat-over-image .categories-links a,#{$layoutID} .cat-above-title .categories-links a{";
+                $css .= "#{$layoutID} .cat-over-image .categories-links a,#{$layoutID} .cat-above-title .categories-links a,#{$layoutID} .rt-tpg-category > a{";
                 $css .= "border-radius:" . $catBorderRadius . "px;";
                 $css .= "}";
             }
             if ($catPadding) {
-                $css .= "#{$layoutID} .cat-over-image .categories-links a,#{$layoutID} .cat-above-title .categories-links a{";
+                $css .= "#{$layoutID} .cat-over-image .categories-links a,#{$layoutID} .cat-above-title .categories-links a,#{$layoutID} .rt-tpg-category > a{";
                 $css .= "padding:" . $catPadding . "px;";
                 $css .= "}";
             }
             if ($catMargin) {
-                $css .= "#{$layoutID} .categories-links{";
+                $css .= "#{$layoutID} .categories-links,#{$layoutID} .rt-tpg-category > a{";
                 $css .= "margin:" . $catMargin . "px;";
                 $css .= "}";
             }
             if ($categorySize) {
-                $css .= "#{$layoutID} .categories-links {";
+                $css .= "#{$layoutID} .categories-links,#{$layoutID} .rt-tpg-category > a {";
                 $css .= "font-size:" . $categorySize . "px;";
                 $css .= "}";
             }
