@@ -416,6 +416,9 @@ if ( ! class_exists( 'rtTPGShortCode' ) ):
 				$parentClass   = ( ! empty( $scMeta['parent_class'][0] ) ? trim( $scMeta['parent_class'][0] ) : null );
 				$defaultImgId  = ( ! empty( $scMeta['default_preview_image'][0] ) ? absint( $scMeta['default_preview_image'][0] ) : null );
 				$customImgSize = ( ! empty( $scMeta['custom_image_size'] ) ? $scMeta['custom_image_size'] : array() );
+                // Grid Hover Layout
+                $fSmallImgSize = ( isset( $scMeta['featured_small_image_size'][0] ) ? $scMeta['featured_small_image_size'][0] : "medium" );
+                $customSmallImgSize = ( ! empty( $scMeta['custom_small_image_size'] ) ? $scMeta['custom_small_image_size'] : [] );
 
 				$arg['scID']  = $scID;
 				$arg['items'] = isset( $scMeta['item_fields'] ) ? ( $scMeta['item_fields'] ? $scMeta['item_fields'] : array() ) : array();
@@ -929,6 +932,9 @@ if ( ! class_exists( 'rtTPGShortCode' ) ):
 							$arg['imgSrc'] = ! $fImg ? rtTPG()->getFeatureImageSrc( $pID, $fImgSize, $mediaSource,
 								$defaultImgId,
 								$customImgSize ) : null;
+                            $arg['smallImgSrc'] = ! $fImg ? rtTPG()->getFeatureImageSrc( $pID, $fSmallImgSize, $mediaSource,
+                                $defaultImgId,
+                                $customSmallImgSize ) : null;
 							$html          .= rtTPG()->render( 'layouts/' . $layout, $arg, true );
 						}
 						$offLoop ++;

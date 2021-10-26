@@ -922,7 +922,7 @@ if ( ! class_exists( 'rtTPGOptions' ) ):
 				],
 			];
 
-			return $fields;
+			return apply_filters('rt_tpg_sc_image_settings', $fields);
 		}
 
 		function rtTPGSCExcerptSettings() {

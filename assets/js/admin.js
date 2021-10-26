@@ -232,6 +232,7 @@
     rtTPGlayoutType();
     detailLinkEffect();
     customImageSize();
+    customSmallImageSize();
     preLoaderEffect();
     featureImageEffect();
     tpgOrderByEffect();
@@ -254,6 +255,10 @@
 
     $("#featured_image_size").on('change', function () {
         customImageSize();
+    });
+
+    $("#featured_small_image_size").on('change', function () {
+        customSmallImageSize();
     });
 
     $("#tpg_load_script").on('change', function () {
@@ -279,6 +284,16 @@
         }
     }
 
+    function customSmallImageSize() {
+        /* custom image size jquery */
+        var fImageSize = $("#featured_small_image_size").val();
+        if (fImageSize == "rt_custom") {
+            $(".rt-sc-custom-small-image-size-holder").show();
+        } else {
+            $(".rt-sc-custom-small-image-size-holder").hide();
+        }
+    }
+
     function rtTPGlayoutType() {
         var $layout = $("#rttpg-layout input[name=layout]:checked"),
             layoutType = $layout.parent('.radio-image').attr('data-type'),
@@ -299,6 +314,14 @@
             layout_type_value = layout_type.val(),
             selector = ".rt-tpg-radio-layout." + layout_type_value;
         $('#rttpg-layout .rt-tpg-radio-layout').hide();
+
+        if (layout_type_value == 'grid_hover') {
+            $('#featured_small_image_size_holder').show();
+            customSmallImageSize();
+        } else {
+            $('#featured_small_image_size_holder').hide();
+            $('.rt-sc-custom-small-image-size-holder').hide();
+        }
 
         if( ! layout_type_value ) {
             var selectChildByValue = $("#rttpg-layout input[name=layout]:checked"),
