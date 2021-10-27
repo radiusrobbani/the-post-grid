@@ -1018,13 +1018,13 @@ if (!class_exists('rtTPGHelper')):
                 $ocp = rtTPG()->rtHex2rgba($primaryColor,
                     !empty($scMeta['overlay_opacity'][0]) ? absint($scMeta['overlay_opacity'][0]) / 10 : .8);
                 $css .= "#{$layoutID} .layout5 .rt-holder .overlay, #{$layoutID} .isotope2 .rt-holder .overlay, #{$layoutID} .carousel2 .rt-holder .overlay,#{$layoutID} .layout15 .rt-holder h3, #{$layoutID} .isotope11 .rt-holder h3, #{$layoutID} .carousel11 .rt-holder h3, #{$layoutID} .layout16 .rt-holder h3,
-					#{$layoutID} .isotope12 .rt-holder h3, #{$layoutID} .carousel12 .rt-holder h3,#{$layoutID} .rt-post-overlay .post-img > a:first-of-type::after {";
+					#{$layoutID} .isotope12 .rt-holder h3, #{$layoutID} .carousel12 .rt-holder h3 {";
                 $css .= "background-color:" . $ocp . ";";
                 $css .= "}";
 
-                $css .= "#{$layoutID} .rt-post-overlay .post-img > a:first-of-type::after {";
+               /* $css .= "#{$layoutID} .rt-post-overlay .post-img > a:first-of-type::after {";
                 $css .= "background-image: none;";
-                $css .= "}";
+                $css .= "}";*/
 
             }
 
