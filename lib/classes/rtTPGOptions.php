@@ -1013,7 +1013,7 @@ if ( ! class_exists( 'rtTPGOptions' ) ):
 				],
 				'button_active_bg_color'  => [
 					"type"        => "text",
-					"label"       => "Active Background",
+					"label"       => "Active Background (Isotop)",
 					"class"       => "rt-color",
 				],
 				'button_text_bg_color'    => [

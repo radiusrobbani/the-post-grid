@@ -103,7 +103,6 @@ if ( ! class_exists( 'rtTPGShortCode' ) ):
 			$scID = $atts['id'];
 			if ( $scID && ! is_null( get_post( $scID ) ) ) {
 				$scMeta = get_post_meta( $scID );
-
 				$layout = ( isset( $scMeta['layout'][0] ) ? $scMeta['layout'][0] : 'layout1' );
 				if ( ! in_array( $layout, array_keys( rtTPG()->rtTPGLayouts() ) ) ) {
 					$layout = 'layout1';

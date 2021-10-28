@@ -501,6 +501,11 @@ body.rt-model-open,
     margin: 20px 0px 15px;
 }
 
+.rt-tpg-container .offset-big .cat-above-title {
+    margin-bottom: -15px;
+    padding-top: 10px;
+}
+
 .rt-tpg-container .owl-controls .owl-dots {
     margin-top: 15px;
 }
@@ -1184,6 +1189,10 @@ body > .rt-tooltip .rt-tooltip-bottom:after {
     line-height: 1.3;
 }
 
+.rt-tpg-container .rt-holder {
+    overflow: hidden;
+}
+
 /*********************************************************************
 /********************************* Layout 1  *************************/
 /**********************************************************************/
@@ -1264,7 +1273,11 @@ body > .rt-tooltip .rt-tooltip-bottom:after {
 .rt-tpg-container .carousel1 .rt-holder .rt-detail.rt-with-title h2,
 .rt-tpg-container .carousel1 .rt-holder .rt-detail.rt-with-title h3,
 .rt-tpg-container .carousel1 .rt-holder .rt-detail.rt-with-title h4 {
-    margin-bottom: 5px;
+    margin-bottom: 15px;
+}
+
+.rt-tpg-container .rt-holder .rt-detail.rt-with-title {
+    padding-top: 0;
 }
 
 .rt-tpg-container .layout1 .rt-detail .tpg-excerpt,
@@ -2397,4 +2410,26 @@ body > .rt-tooltip .rt-tooltip-bottom:after {
 .post-meta-user .meta-data > span:last-child:after,
 .post-meta-user > span:last-child:after {
     content: none;
+}
+
+/*Image ZoomIn Effect*/
+.rt-img-holder {
+    overflow: hidden;
+}
+
+.img_zoom_out .rt-holder img.rt-img-responsive,
+.img_zoom_in .rt-holder img.rt-img-responsive {
+    transition: all 1s !important;
+}
+
+.img_zoom_in .rt-holder:hover img.rt-img-responsive {
+    transform: scale(1.2) !important;
+}
+
+.img_zoom_out .rt-holder img.rt-img-responsive {
+    transform: scale(1.2) !important;
+}
+
+.img_zoom_out .rt-holder:hover img.rt-img-responsive {
+    transform: scale(1) !important;
 }
