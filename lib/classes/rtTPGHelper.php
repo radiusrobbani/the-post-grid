@@ -1317,7 +1317,7 @@ if (!class_exists('rtTPGHelper')):
             }
             // Image border
             if (isset($image_border_radius) || trim($image_border_radius) !== '') {
-                $css .= "#{$layoutID} .rt-img-holder img.rt-img-responsive {";
+                $css .= "#{$layoutID} .rt-img-holder img.rt-img-responsive,#{$layoutID} .rt-post-overlay .post-img,#{$layoutID} .rt-post-grid .post-img {";
                 $css .= "border-radius:" . $image_border_radius . "px;";
                 $css .= "}";
             }
@@ -1335,6 +1335,8 @@ if (!class_exists('rtTPGHelper')):
                 #{$layoutID} .rt-holder .rt-woo-info h4 a,
                 #{$layoutID} .rt-post-overlay .post-img + .post-content .post-title,
                 #{$layoutID} .rt-post-overlay .post-img + .post-content .post-title a,
+                #{$layoutID} .rt-post-grid .post-content .post-title,
+                #{$layoutID} .rt-post-grid .post-content .post-title a,
                 #{$layoutID} .rt-holder .rt-woo-info h2,
                 #{$layoutID} .rt-holder .rt-woo-info h3,
                 #{$layoutID} .rt-holder .rt-woo-info h4{";
@@ -1361,6 +1363,7 @@ if (!class_exists('rtTPGHelper')):
 						#{$layoutID} .{$layout} .rt-holder h3.entry-title a:hover,
 						#{$layoutID} .{$layout} .rt-holder h4.entry-title a:hover,
 						#{$layoutID} .rt-post-overlay .post-img + .post-content .post-title a:hover,
+						#{$layoutID} .rt-post-grid .post-content .post-title a:hover,
 						#{$layoutID} .rt-holder .rt-woo-info h2 a:hover,
 						#{$layoutID} .rt-holder .rt-woo-info h3 a:hover,
 						#{$layoutID} .rt-holder .rt-woo-info h4 a:hover,
@@ -1372,7 +1375,7 @@ if (!class_exists('rtTPGHelper')):
             }
             // Excerpt decoration
             if ($excerpt_color || $excerpt_size || $excerpt_weight || $excerpt_alignment) {
-                $css .= "#{$layoutID} .{$layout} .rt-holder .tpg-excerpt,#{$layoutID} .{$layout} .rt-holder .post-content,#{$layoutID} .rt-holder .rt-woo-info p,#{$layoutID} .rt-post-overlay .post-img + .post-content p{";
+                $css .= "#{$layoutID} .{$layout} .rt-holder .tpg-excerpt,#{$layoutID} .{$layout} .rt-holder .post-content,#{$layoutID} .rt-holder .rt-woo-info p,#{$layoutID} .rt-post-overlay .post-img + .post-content p,#{$layoutID} .rt-post-grid .post-content p{";
                 if ($excerpt_color) {
                     $css .= "color:" . $excerpt_color . ";";
                 }
@@ -1395,7 +1398,7 @@ if (!class_exists('rtTPGHelper')):
                     $css .= "}";
                 }
 
-                $css .= "#{$layoutID} .{$layout} .rt-holder .post-meta-user,#{$layoutID} .{$layout} .rt-holder .post-meta-user .meta-data, #{$layoutID} .{$layout} .rt-holder .post-meta-user a, #{$layoutID} .{$layout} .rt-holder .rt-detail .post-meta .rt-tpg-social-share,#{$layoutID} .rt-post-overlay .post-meta-user span,#{$layoutID} .rt-post-overlay .post-meta-user a,.rt-post-overlay .post-meta-user span.author a {";
+                $css .= "#{$layoutID} .{$layout} .rt-holder .post-meta-user,#{$layoutID} .{$layout} .rt-holder .post-meta-user .meta-data, #{$layoutID} .{$layout} .rt-holder .post-meta-user a, #{$layoutID} .{$layout} .rt-holder .rt-detail .post-meta .rt-tpg-social-share,#{$layoutID} .rt-post-overlay .post-meta-user span,#{$layoutID} .rt-post-overlay .post-meta-user, #{$layoutID} .rt-post-overlay .post-meta-user a,#{$layoutID} .rt-post-grid .post-meta-user,#{$layoutID} .rt-post-grid .post-meta-user a {";
                 if ($meta_data_color) {
                     $css .= "color:" . $meta_data_color . ";";
                 }
@@ -1416,7 +1419,7 @@ if (!class_exists('rtTPGHelper')):
                 $css .= "background-color:" . $catBg . ";";
                 $css .= "}";
 
-                $css .= "#{$layoutID} .cat-above-title.style3 .categories-links a:after,.cat-over-image.style3 .categories-links a:after,#{$layoutID} .rt-tpg-category > a {";
+                $css .= "#{$layoutID} .cat-above-title.style3 .categories-links a:after,.cat-over-image.style3 .categories-links a:after,#{$layoutID} .rt-tpg-category > a,#{$layoutID} .rt-tpg-category.style3 > a:after {";
                 $css .= "border-top-color:" . $catBg . ";";
                 $css .= "}";
             }
