@@ -871,6 +871,8 @@ if ( ! class_exists( 'rtTPGShortCode' ) ):
 					$l             = $offLoop = 0;
 					$offsetBigHtml = $offsetSmallHtml = null;
                     $gridPostCount = 0;
+                    $arg['totalPost'] = $gridQuery->post_count;
+
 					while ( $gridQuery->have_posts() ) : $gridQuery->the_post();
 						if ( $colStore == $l ) {
 							if ( $this->l4toggle ) {
@@ -911,7 +913,9 @@ if ( ! class_exists( 'rtTPGShortCode' ) ):
 							$arg['comment'] = "{$cc->total_comments}";
 						}
 						$imgSrc = null;
-
+                        $arg['smallImgSrc'] = ! $fImg ? rtTPG()->getFeatureImageSrc( $pID, $fSmallImgSize, $mediaSource,
+                            $defaultImgId,
+                            $customSmallImgSize ) : null;
 						if ( $isOffset ) {
 							if ( $offLoop == 0 ) {
 								$arg['imgSrc'] = ! $fImg ? rtTPG()->getFeatureImageSrc( $pID, $fImgSize, $mediaSource,
@@ -932,9 +936,6 @@ if ( ! class_exists( 'rtTPGShortCode' ) ):
 							$arg['imgSrc'] = ! $fImg ? rtTPG()->getFeatureImageSrc( $pID, $fImgSize, $mediaSource,
 								$defaultImgId,
 								$customImgSize ) : null;
-                            $arg['smallImgSrc'] = ! $fImg ? rtTPG()->getFeatureImageSrc( $pID, $fSmallImgSize, $mediaSource,
-                                $defaultImgId,
-                                $customSmallImgSize ) : null;
 							$html          .= rtTPG()->render( 'layouts/' . $layout, $arg, true );
 						}
 						$offLoop ++;
