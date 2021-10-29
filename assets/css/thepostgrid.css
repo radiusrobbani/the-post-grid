@@ -612,7 +612,7 @@ span.more-loading {
 }
 
 .rt-tpg-container .rt-holder .read-more a {
-    padding: 8px 15px;
+    /*padding: 8px 15px;*/
     font-size: 15px;
     display: inline-block;
     line-height: 1.5;
@@ -705,6 +705,12 @@ span.more-loading {
     padding: 3px 6px;
     margin-right: 0px;
     outline: none;
+}
+.rt-tpg-social-share a:first-child {
+    padding-left: 0;
+}
+.rt-tpg-social-share a:first-child {
+    padding-right: 0;
 }
 
 .rt-tpg-social-share a i {
@@ -1152,7 +1158,7 @@ body > .rt-tooltip .rt-tooltip-content {
 
 body > .rt-tooltip,
 body > .rt-tooltip .rt-tooltip-bottom:after {
-    background: #666;
+    background: #000;
     border-radius: 2px;
 }
 
@@ -1384,7 +1390,6 @@ body > .rt-tooltip .rt-tooltip-bottom:after {
 }
 
 .rt-tpg-container .layout2 .rt-holder .rt-detail .read-more a {
-    padding: 8px 15px;
     line-height: 1.8;
     border-radius: 5px;
     display: inline-block;
@@ -1448,13 +1453,14 @@ body > .rt-tooltip .rt-tooltip-bottom:after {
 }
 
 .rt-tpg-container .layout3 .rt-holder .rt-detail .read-more a {
-    padding: 8px 15px;
     line-height: 1.8;
     display: inline-block;
 }
 
+.rt-tpg-container .layout3 .rt-holder .rt-img-holder,
 .rt-tpg-container .layout3 .rt-holder .rt-img-holder > a.rounded img {
     border-radius: 50%;
+    overflow: hidden;
 }
 
 .rt-tpg-container .layout3 .rt-holder .rt-detail .read-more {
