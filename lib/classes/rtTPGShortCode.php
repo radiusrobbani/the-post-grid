@@ -948,7 +948,10 @@ if ( ! class_exists( 'rtTPGShortCode' ) ):
 						if ( $layout == "offset03" || $layout == "offset04" ) {
 							$oDCol['big'] = $oTCol['big'] = $oDCol['small'] = $oTCol['small'] = 6;
 							$oMCol['big'] = $oMCol['small'] = 12;
-						}
+						} else if($layout == "offset06") {
+						    $oDCol['big'] = 7;
+                            $oDCol['small'] = 5;
+                        }
 						$html .= "<div class='rt-col-md-{$oDCol['big']} rt-col-sm-{$oTCol['big']} rt-col-xs-{$oMCol['big']}'><div class='rt-row'>{$offsetBigHtml}</div></div>";
 						$html .= "<div class='rt-col-md-{$oDCol['small']} rt-col-sm-{$oTCol['small']} rt-col-xs-{$oMCol['small']}'><div class='rt-row offset-small-wrap'>{$offsetSmallHtml}</div></div>";
 					}

@@ -1059,6 +1059,7 @@ if (!class_exists('rtTPGHelper')):
 							#{$layoutID} .rt-filter-item-wrap.rt-filter-button-wrap span.rt-filter-button-item,
 							#{$layoutID}.rt-tpg-container .rt-pagination-wrap  .rt-loadmore-btn,
 							#{$layoutID}.rt-tpg-container .rt-pagination-wrap .rt-cb-page-prev-next > *,
+							#{$layoutID} .rt-read-more,
 							#rt-tooltip-{$id}, #rt-tooltip-{$id} .rt-tooltip-bottom:after{";
                 $css .= "background-color:" . $button_bg_color . ";";
                 $css .= "}";
@@ -1112,6 +1113,7 @@ if (!class_exists('rtTPGHelper')):
 						#{$layoutID}.rt-tpg-container .rt-pagination-wrap .rt-page-numbers .paginationjs .paginationjs-pages ul li>a:hover,
 						#{$layoutID}.rt-tpg-container .rt-pagination-wrap .rt-cb-page-prev-next > *:hover,
 						#{$layoutID}.rt-tpg-container .rt-pagination-wrap  .rt-loadmore-btn:hover,
+						#{$layoutID} .rt-read-more:hover,
 						#{$layoutID} .rt-tpg-utility .rt-tpg-load-more button:hover{";
                 $css .= "background-color:" . $button_hover_bg_color . ";";
                 $css .= "}";
@@ -1152,6 +1154,7 @@ if (!class_exists('rtTPGHelper')):
 				#{$layoutID}.rt-tpg-container .rt-pagination-wrap .rt-page-numbers .paginationjs .paginationjs-pages ul li>a,
 				#{$layoutID}.rt-tpg-container .rt-pagination-wrap .rt-cb-page-prev-next > *,
 				#{$layoutID}.rt-tpg-container .rt-pagination-wrap  .rt-loadmore-btn,
+				#{$layoutID} .rt-read-more,
 				#rt-tooltip-{$id} .rt-tooltip-bottom:after{";
                 $css .= "color:" . $button_text_color . ";";
                 $css .= "}";
@@ -1169,6 +1172,7 @@ if (!class_exists('rtTPGHelper')):
 						#{$layoutID} .rt-filter-item-wrap.rt-filter-button-wrap span.rt-filter-button-item.selected,
 						#{$layoutID} .rt-layout-filter-container .rt-filter-wrap .rt-filter-item-wrap.rt-sort-order-action,
 						#{$layoutID}.rt-tpg-container .rt-pagination-wrap  .rt-loadmore-btn:hover,
+						#{$layoutID} .rt-read-more:hover,
 						#{$layoutID}.rt-tpg-container .rt-pagination-wrap .rt-page-numbers .paginationjs .paginationjs-pages ul li.active>a{";
                 $css .= "color:" . $button_hover_text_color . ";";
                 $css .= "}";
