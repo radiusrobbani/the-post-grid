@@ -1327,6 +1327,14 @@ if (!class_exists('rtTPGHelper')):
             }
 
             // Title decoration
+            if ($title_color) {
+                $css .= "#{$layoutID} .post-content .post-title a {";
+                $css .= "background-image: linear-gradient(to bottom, $title_color 0%, $title_color 98%);";
+                $css .= "}";
+                $css .= "#{$layoutID} .post-content .post-title a:hover {";
+                $css .= "background-image: linear-gradient(to bottom, $title_color 0%, $title_color 98%)";
+                $css .= "}";
+            }
             if ($title_color || $title_size || $title_weight || $title_alignment) {
                 $css .= "#{$layoutID} .{$layout} .rt-holder h2.entry-title,
                 #{$layoutID} .{$layout} .rt-holder h3.entry-title,
@@ -1337,10 +1345,8 @@ if (!class_exists('rtTPGHelper')):
                 #{$layoutID} .rt-holder .rt-woo-info h2 a,
                 #{$layoutID} .rt-holder .rt-woo-info h3 a,
                 #{$layoutID} .rt-holder .rt-woo-info h4 a,
-                #{$layoutID} .rt-post-overlay .post-img + .post-content .post-title,
-                #{$layoutID} .rt-post-overlay .post-img + .post-content .post-title a,
-                #{$layoutID} .rt-post-grid .post-content .post-title,
-                #{$layoutID} .rt-post-grid .post-content .post-title a,
+                #{$layoutID} .post-content .post-title,
+                #{$layoutID} .post-content .post-title a,
                 #{$layoutID} .rt-holder .rt-woo-info h2,
                 #{$layoutID} .rt-holder .rt-woo-info h3,
                 #{$layoutID} .rt-holder .rt-woo-info h4{";
@@ -1360,14 +1366,16 @@ if (!class_exists('rtTPGHelper')):
             }
             // Title hover color
             if ($title_hover_color) {
+                $css .= "#{$layoutID} .post-content .post-title a {";
+                $css .= "background-image: linear-gradient(to bottom, $title_hover_color 0%, $title_hover_color 98%);";
+                $css .= "}";
                 $css .= "#{$layoutID} .{$layout} .rt-holder h2.entry-title:hover,
                         #{$layoutID} .{$layout} .rt-holder h3.entry-title:hover,
                         #{$layoutID} .{$layout} .rt-holder h4.entry-title:hover,
 						#{$layoutID} .{$layout} .rt-holder h2.entry-title a:hover,
 						#{$layoutID} .{$layout} .rt-holder h3.entry-title a:hover,
 						#{$layoutID} .{$layout} .rt-holder h4.entry-title a:hover,
-						#{$layoutID} .rt-post-overlay .post-img + .post-content .post-title a:hover,
-						#{$layoutID} .rt-post-grid .post-content .post-title a:hover,
+						#{$layoutID} .post-content .post-title a:hover,
 						#{$layoutID} .rt-holder .rt-woo-info h2 a:hover,
 						#{$layoutID} .rt-holder .rt-woo-info h3 a:hover,
 						#{$layoutID} .rt-holder .rt-woo-info h4 a:hover,
@@ -1375,11 +1383,12 @@ if (!class_exists('rtTPGHelper')):
 						#{$layoutID} .rt-holder .rt-woo-info h3:hover,
 						#{$layoutID} .rt-holder .rt-woo-info h4:hover{";
                 $css .= "color:" . $title_hover_color . " !important;";
+                $css .= "background-image: linear-gradient(to bottom, $title_hover_color 0%, $title_hover_color 98%)";
                 $css .= "}";
             }
             // Excerpt decoration
             if ($excerpt_color || $excerpt_size || $excerpt_weight || $excerpt_alignment) {
-                $css .= "#{$layoutID} .{$layout} .rt-holder .tpg-excerpt,#{$layoutID} .{$layout} .rt-holder .post-content,#{$layoutID} .rt-holder .rt-woo-info p,#{$layoutID} .rt-post-overlay .post-img + .post-content p,#{$layoutID} .rt-post-grid .post-content p{";
+                $css .= "#{$layoutID} .{$layout} .rt-holder .tpg-excerpt,#{$layoutID} .{$layout} .rt-holder .post-content,#{$layoutID} .rt-holder .rt-woo-info p,#{$layoutID} .post-content p {";
                 if ($excerpt_color) {
                     $css .= "color:" . $excerpt_color . ";";
                 }
@@ -1402,7 +1411,7 @@ if (!class_exists('rtTPGHelper')):
                     $css .= "}";
                 }
 
-                $css .= "#{$layoutID} .{$layout} .rt-holder .post-meta-user,#{$layoutID} .{$layout} .rt-holder .post-meta-user .meta-data, #{$layoutID} .{$layout} .rt-holder .post-meta-user a, #{$layoutID} .{$layout} .rt-holder .rt-detail .post-meta .rt-tpg-social-share,#{$layoutID} .rt-post-overlay .post-meta-user span,#{$layoutID} .rt-post-overlay .post-meta-user, #{$layoutID} .rt-post-overlay .post-meta-user a,#{$layoutID} .rt-post-grid .post-meta-user,#{$layoutID} .rt-post-grid .post-meta-user a {";
+                $css .= "#{$layoutID} .{$layout} .rt-holder .post-meta-user,#{$layoutID} .{$layout} .rt-holder .post-meta-user .meta-data, #{$layoutID} .{$layout} .rt-holder .post-meta-user a, #{$layoutID} .{$layout} .rt-holder .rt-detail .post-meta .rt-tpg-social-share,#{$layoutID} .rt-post-overlay .post-meta-user span,#{$layoutID} .rt-post-overlay .post-meta-user, #{$layoutID} .rt-post-overlay .post-meta-user a,#{$layoutID} .rt-post-grid .post-meta-user,#{$layoutID} .rt-post-grid .post-meta-user a,#{$layoutID} .rt-post-box-media-style .post-meta-user,#{$layoutID} .rt-post-box-media-style .post-meta-user a {";
                 if ($meta_data_color) {
                     $css .= "color:" . $meta_data_color . ";";
                 }
