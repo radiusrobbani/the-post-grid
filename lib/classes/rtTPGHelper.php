@@ -1354,7 +1354,9 @@ if (!class_exists('rtTPGHelper')):
                     $css .= "color:" . $title_color . ";";
                 }
                 if ($title_size) {
+                    $lineHeight = $title_size + 10;
                     $css .= "font-size:" . $title_size . "px;";
+                    $css .= "line-height:" . $lineHeight . "px;";
                 }
                 if ($title_weight) {
                     $css .= "font-weight:" . $title_weight . ";";
@@ -1368,6 +1370,9 @@ if (!class_exists('rtTPGHelper')):
             if ($title_hover_color) {
                 $css .= "#{$layoutID} .post-content .post-title a {";
                 $css .= "background-image: linear-gradient(to bottom, $title_hover_color 0%, $title_hover_color 98%);";
+                $css .= "}";
+                $css .= "#{$layoutID} .post-content .post-title a:hover {";
+                $css .= "background-image: linear-gradient(to bottom, $title_hover_color 0%, $title_hover_color 98%)";
                 $css .= "}";
                 $css .= "#{$layoutID} .{$layout} .rt-holder h2.entry-title:hover,
                         #{$layoutID} .{$layout} .rt-holder h3.entry-title:hover,
@@ -1383,7 +1388,6 @@ if (!class_exists('rtTPGHelper')):
 						#{$layoutID} .rt-holder .rt-woo-info h3:hover,
 						#{$layoutID} .rt-holder .rt-woo-info h4:hover{";
                 $css .= "color:" . $title_hover_color . " !important;";
-                $css .= "background-image: linear-gradient(to bottom, $title_hover_color 0%, $title_hover_color 98%)";
                 $css .= "}";
             }
             // Excerpt decoration
