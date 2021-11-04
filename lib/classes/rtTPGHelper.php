@@ -1321,7 +1321,7 @@ if (!class_exists('rtTPGHelper')):
             }
             // Image border
             if (isset($image_border_radius) || trim($image_border_radius) !== '') {
-                $css .= "#{$layoutID} .rt-img-holder img.rt-img-responsive,#{$layoutID} .rt-post-overlay .post-img,#{$layoutID} .rt-post-grid .post-img {";
+                $css .= "#{$layoutID} .rt-img-holder img.rt-img-responsive,#{$layoutID} .rt-post-overlay .post-img,#{$layoutID} .rt-post-grid .post-img,#{$layoutID} .post-img img {";
                 $css .= "border-radius:" . $image_border_radius . "px;";
                 $css .= "}";
             }
@@ -1392,7 +1392,7 @@ if (!class_exists('rtTPGHelper')):
             }
             // Excerpt decoration
             if ($excerpt_color || $excerpt_size || $excerpt_weight || $excerpt_alignment) {
-                $css .= "#{$layoutID} .{$layout} .rt-holder .tpg-excerpt,#{$layoutID} .{$layout} .rt-holder .post-content,#{$layoutID} .rt-holder .rt-woo-info p,#{$layoutID} .post-content p {";
+                $css .= "#{$layoutID} .{$layout} .rt-holder .tpg-excerpt,#{$layoutID} .{$layout} .tpg-excerpt,#{$layoutID} .{$layout} .rt-holder .post-content,#{$layoutID} .rt-holder .rt-woo-info p,#{$layoutID} .post-content p {";
                 if ($excerpt_color) {
                     $css .= "color:" . $excerpt_color . ";";
                 }
@@ -1415,7 +1415,7 @@ if (!class_exists('rtTPGHelper')):
                     $css .= "}";
                 }
 
-                $css .= "#{$layoutID} .{$layout} .rt-holder .post-meta-user,#{$layoutID} .{$layout} .rt-holder .post-meta-user .meta-data, #{$layoutID} .{$layout} .rt-holder .post-meta-user a, #{$layoutID} .{$layout} .rt-holder .rt-detail .post-meta .rt-tpg-social-share,#{$layoutID} .rt-post-overlay .post-meta-user span,#{$layoutID} .rt-post-overlay .post-meta-user, #{$layoutID} .rt-post-overlay .post-meta-user a,#{$layoutID} .rt-post-grid .post-meta-user,#{$layoutID} .rt-post-grid .post-meta-user a,#{$layoutID} .rt-post-box-media-style .post-meta-user,#{$layoutID} .rt-post-box-media-style .post-meta-user a {";
+                $css .= "#{$layoutID} .{$layout} .rt-holder .post-meta-user,#{$layoutID} .{$layout} .rt-holder .post-meta-user .meta-data, #{$layoutID} .{$layout} .rt-holder .post-meta-user a, #{$layoutID} .{$layout} .rt-holder .rt-detail .post-meta .rt-tpg-social-share,#{$layoutID} .rt-post-overlay .post-meta-user span,#{$layoutID} .rt-post-overlay .post-meta-user, #{$layoutID} .rt-post-overlay .post-meta-user a,#{$layoutID} .rt-post-grid .post-meta-user,#{$layoutID} .rt-post-grid .post-meta-user a,#{$layoutID} .rt-post-box-media-style .post-meta-user,#{$layoutID} .rt-post-box-media-style .post-meta-user a,#{$layoutID} .{$layout} .post-meta-user,#{$layoutID} .{$layout} .post-meta-user a {";
                 if ($meta_data_color) {
                     $css .= "color:" . $meta_data_color . ";";
                 }
