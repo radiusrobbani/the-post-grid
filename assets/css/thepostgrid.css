@@ -1150,7 +1150,7 @@ body > .rt-tooltip .rt-tooltip-bottom:after {
 .rt-tpg-container .isotope1 .rt-holder .rt-detail,
 .rt-tpg-container .carousel1 .rt-holder .rt-detail {
     background: #fff;
-    padding: 15px 0 0;
+    padding: 15px;
 }
 
 .rt-tpg-container .layout1 .rt-holder .rt-detail h2,
