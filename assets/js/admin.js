@@ -107,12 +107,13 @@
         tpgOrderByEffect();
     });
 
-    $("#rt-tpg-sc-layout").on("change", function (e) {
+    /*$("#rt-tpg-sc-layout").on("change", function (e) {
         tlpShowHideScMeta();
-    });
+    });*/
 
     $("#rttpg-layout_type input[name=layout_type]").on('change', function () {
         $('#layout_holder').show();
+        tlpShowHideScMeta();
         rtTPGSelectedlayoutType();
     });
 
@@ -380,7 +381,9 @@
 
     function tlpShowHideScMeta() {
         tpgTaxonomyFilterTrigger();
-        var layout = $("#rt-tpg-sc-layout").val(),
+        //var layout = $("#rt-tpg-sc-layout").val(),
+        var layout_type = $("#rttpg-layout_type input[name=layout_type]:checked"),
+            layout = layout_type.val(),
             isIsotope = false,
             isCarousel = false,
             isWc = false,
@@ -388,6 +391,7 @@
             isWcCarousel = false,
             isGrid = false,
             isLOffset = false;
+
         if (layout) {
             isGrid = layout.match(/^layout/i);
             isCarousel = layout.match(/^carousel/i);

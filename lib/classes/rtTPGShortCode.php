@@ -373,11 +373,11 @@ if ( ! class_exists( 'rtTPGShortCode' ) ):
 				$preLoader = $preLoaderHtml = null;
 				if ( $isIsotope ) {
 					$arg_class[] = 'isotope-item';
-					$preLoader   = 'tpg-pre-loader';
+					//$preLoader   = 'tpg-pre-loader';
 				}
 				if ( $isCarousel ) {
-					$arg_class[] = 'carousel-item';
-					$preLoader   = 'tpg-pre-loader';
+					$arg_class[] = 'swiper-slide';
+					//$preLoader   = 'tpg-pre-loader';
 				}
 				if ( $preLoader && rtTPG()->hasPro() ) {
 					$preLoaderHtml = '<div class="rt-loading-overlay"></div><div class="rt-loading rt-ball-clip-rotate"><div></div></div>';
@@ -798,7 +798,7 @@ if ( ! class_exists( 'rtTPGShortCode' ) ):
 							"autoHeight"      => in_array( 'autoHeight', $cOpt ),
 							"rtl"             => in_array( 'rtl', $cOpt )
 						), $scMeta );
-						$html              .= sprintf( '<div class="rt-carousel-holder"  data-rtowl-options="%s">',
+						$html              .= sprintf( '<div class="rt-swiper-holder swiper"  data-rtowl-options="%s"><div class="swiper-wrapper">',
 							htmlspecialchars( wp_json_encode( $slider_js_options ) ) );
 					}
 					$isotope_filter = null;
@@ -957,6 +957,9 @@ if ( ! class_exists( 'rtTPGShortCode' ) ):
 					}
 					if ( $isIsotope || $isCarousel ) {
 						$html .= '</div>'; // End isotope / Carousel item holder
+                        $html .= '<div class="swiper-pagination"></div>';
+                        $html .= '</div>';
+                        $html .= '<div class="swiper-navigation"><div class="slider-btn swiper-button-prev"></div><div class="slider-btn swiper-button-next"></div></div>';
 					}
 
 				} else {
