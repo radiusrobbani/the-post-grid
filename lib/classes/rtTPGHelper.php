@@ -1032,6 +1032,7 @@ if (!class_exists('rtTPGHelper')):
             if ($button_border_color) {
                 $css .= "#{$layoutID} .rt-filter-item-wrap.rt-filter-button-wrap span.rt-filter-button-item,
 							#{$layoutID} .rt-layout-filter-container .rt-filter-sub-tax.sub-button-group .rt-filter-button-item,
+							#{$layoutID}.rt-tpg-container .swiper-navigation .slider-btn,
 							#{$layoutID} .rt-layout-filter-container .rt-filter-wrap .rt-filter-item-wrap.rt-sort-order-action,
 							#{$layoutID} .rt-layout-filter-container .rt-filter-wrap .rt-filter-item-wrap.rt-filter-dropdown-wrap .rt-filter-dropdown .rt-filter-dropdown-item,
 							#{$layoutID} .rt-layout-filter-container .rt-filter-wrap .rt-filter-item-wrap.rt-filter-dropdown-wrap{";
@@ -1045,8 +1046,8 @@ if (!class_exists('rtTPGHelper')):
 							#{$layoutID} .rt-tpg-isotope-buttons button, 
 							#{$layoutID} .rt-holder .read-more a,
 							#{$layoutID} .rt-tpg-utility .rt-tpg-load-more button,
-							#{$layoutID} .owl-theme .owl-controls .owl-nav > div,
-							#{$layoutID} .owl-theme .owl-controls .owl-dots .owl-dot span,
+							#{$layoutID}.rt-tpg-container .swiper-navigation .slider-btn,
+							#{$layoutID}.rt-tpg-container .swiper-pagination-bullet,
 							#{$layoutID} .wc1 .rt-holder .rt-img-holder .overlay .product-more ul li a,
 							#{$layoutID} .wc2 .rt-detail .rt-wc-add-to-cart,
 							#{$layoutID} .wc3 .rt-detail .rt-wc-add-to-cart,
@@ -1080,7 +1081,7 @@ if (!class_exists('rtTPGHelper')):
 						#{$layoutID} .rt-filter-item-wrap.rt-filter-button-wrap span.rt-filter-button-item.selected, 
 						#{$layoutID} .rt-layout-filter-container .rt-filter-sub-tax.sub-button-group .rt-filter-button-item.selected,
 						#{$layoutID}.rt-tpg-container .rt-pagination-wrap .rt-page-numbers .paginationjs .paginationjs-pages ul li.active>a, 
-						#{$layoutID} .owl-theme .owl-controls .owl-dots .owl-dot.active span{";
+						#{$layoutID}.rt-tpg-container .swiper-pagination-bullet.swiper-pagination-bullet-active-main{";
                 $css .= "background-color:" . $button_active_bg_color . ";";
                 $css .= "}";
 
@@ -1098,8 +1099,8 @@ if (!class_exists('rtTPGHelper')):
 						#{$layoutID} .rt-tpg-isotope-buttons button:hover,
 						#{$layoutID} .rt-holder .read-more a:hover,
 						#{$layoutID} .rt-tpg-utility .rt-tpg-load-more button:hover,
-						#{$layoutID} .owl-theme .owl-controls .owl-dots .owl-dot:hover span,
-						#{$layoutID} .owl-theme .owl-controls .owl-nav > div:hover,
+						#{$layoutID}.rt-tpg-container .swiper-pagination-bullet:hover,
+						#{$layoutID}.rt-tpg-container .swiper-navigation .slider-btn:hover,
 						#{$layoutID} .wc1 .rt-holder .rt-img-holder .overlay .product-more ul li a:hover,
 						#{$layoutID} .wc2 .rt-detail .rt-wc-add-to-cart:hover,
 						#{$layoutID} .wc3 .rt-detail .rt-wc-add-to-cart:hover,
@@ -1120,6 +1121,7 @@ if (!class_exists('rtTPGHelper')):
 
                 $css .= "#{$layoutID} .rt-filter-item-wrap.rt-filter-button-wrap span.rt-filter-button-item:hover,
 						#{$layoutID} .rt-layout-filter-container .rt-filter-sub-tax.sub-button-group .rt-filter-button-item:hover,
+						#{$layoutID}.rt-tpg-container .swiper-navigation .slider-btn:hover,
 						#{$layoutID}.rt-tpg-container .rt-pagination-wrap .rt-page-numbers .paginationjs .paginationjs-pages ul li>a:hover{";
                 $css .= "border-color:" . $button_hover_bg_color . ";";
                 $css .= "}";
@@ -1134,8 +1136,8 @@ if (!class_exists('rtTPGHelper')):
                 #{$layoutID} .pagination li a,
 				#{$layoutID} .rt-tpg-isotope-buttons button,
 				#{$layoutID} .rt-holder .read-more a,
-				#{$layoutID} .rt-tpg-utility .rt-tpg-load-more button, 
-				#{$layoutID} .owl-theme .owl-controls .owl-nav > div,
+				#{$layoutID} .rt-tpg-utility .rt-tpg-load-more button,
+				#{$layoutID}.rt-tpg-container .swiper-navigation .slider-btn,
 				#{$layoutID} .wc1 .rt-holder .rt-img-holder .overlay .product-more ul li a,
 				#{$layoutID} .edd1 .rt-holder .rt-img-holder .overlay .product-more ul li a,
 				#{$layoutID} .wc2 .rt-detail .rt-wc-add-to-cart,
@@ -1164,6 +1166,7 @@ if (!class_exists('rtTPGHelper')):
             if ($button_hover_text_color) {
                 $css .= "#{$layoutID} .rt-filter-item-wrap.rt-filter-button-wrap span.rt-filter-button-item:hover,
                         #{$layoutID} .rt-holder .read-more a:hover,
+                        #{$layoutID}.rt-tpg-container .swiper-navigation .slider-btn:hover,
 						#{$layoutID} .rt-layout-filter-container .rt-filter-sub-tax.sub-button-group .rt-filter-button-item:hover,
 						#{$layoutID} .rt-layout-filter-container .rt-filter-wrap .rt-filter-item-wrap.rt-filter-dropdown-wrap .rt-filter-dropdown .rt-filter-dropdown-item:hover,
 						#{$layoutID} .rt-layout-filter-container .rt-filter-wrap .rt-filter-item-wrap.rt-filter-dropdown-wrap .rt-filter-dropdown .rt-filter-dropdown-item.selected,

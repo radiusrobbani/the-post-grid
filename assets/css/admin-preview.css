@@ -25,3 +25,6 @@
     font-size: 30px;
     font-weight: bold;
 }
+#rttpg_sc_preview_meta {
+    overflow: hidden;
+}

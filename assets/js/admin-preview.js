@@ -172,7 +172,7 @@
                 isIsotop = $(".rt-tpg-isotope", container),
                 IsoButton = $(".rt-tpg-isotope-buttons", container),
                 IsoDropdownFilter = $("select.isotope-dropdown-filter", container),
-                isCarousel = $('.rt-carousel-holder', container),
+                isCarousel = $('.rt-swiper-holder', container),
                 placeholder_loading = function () {
                     if (loader.find('.rt-loading-overlay').length == 0) {
                         loader.addClass('tpg-pre-loader');
@@ -464,7 +464,7 @@
 
                 if (isCarousel.length) {
                     isCarousel.imagesLoaded(function () {
-                        var item = parseInt(isCarousel.data('item'), 10),
+                        /*var item = parseInt(isCarousel.data('item'), 10),
                             dItem = parseInt(container.attr('data-desktop-col'), 10),
                             tItem = parseInt(container.attr('data-tab-col'), 10),
                             mItem = parseInt(container.attr('data-tab-col'), 10),
@@ -494,7 +494,64 @@
                                 }
                             }
                         });
-                        remove_placeholder_loading();
+                        remove_placeholder_loading();*/
+                        $(".rt-swiper-holder").each(function() {
+
+                            var rtSwiperSlider = $(this).get(0),
+                                prevButton = $(this).parent().children().find(".swiper-button-prev").get(0),
+                                nextButton = $(this).parent().children().find(".swiper-button-next").get(0),
+                                dotPagination = $(this).parent().children().find(".swiper-pagination").get(0),
+                                dItem = parseInt(container.attr('data-desktop-col'), 10),
+                                tItem = parseInt(container.attr('data-tab-col'), 10),
+                                mItem = parseInt(container.attr('data-mobile-col'), 10),
+                                options = isCarousel.data('rtowl-options'),
+                                rtSwiperData = {
+                                    slidesPerView: mItem ? mItem : 1,
+                                    spaceBetween: 24,
+                                    loop: options.loop,
+                                    slideToClickedSlide: true,
+                                    speed: options.speed,
+                                    breakpoints: {
+                                        0: {
+                                            slidesPerView: mItem ? mItem : 1,
+                                        },
+                                        768: {
+                                            slidesPerView: tItem ? tItem : 2,
+                                        },
+                                        992: {
+                                            slidesPerView: dItem ? dItem : 3,
+                                        },
+                                    }
+                                };
+
+                            if (options.autoPlay) {
+                                Object.assign(rtSwiperData, {
+                                    autoplay: {
+                                        delay: options.autoPlayTimeOut,
+                                    }
+                                });
+                            }
+                            if (options.nav) {
+                                Object.assign(rtSwiperData, {
+                                    navigation: {
+                                        nextEl: nextButton,
+                                        prevEl: prevButton,
+                                    }
+                                });
+                            }
+                            if (options.dots) {
+                                Object.assign(rtSwiperData, {
+                                    pagination: {
+                                        el: dotPagination,
+                                        clickable: true,
+                                        dynamicBullets: true,
+                                    }
+                                });
+                            }
+
+                            new Swiper(rtSwiperSlider, rtSwiperData);
+                            remove_placeholder_loading();
+                        });
                     });
                 } else if (isIsotop.length) {
                     var IsoURL = IsoButton.attr('data-url'),
