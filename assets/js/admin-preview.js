@@ -2,11 +2,11 @@
     'use strict';
 
     $(window).resize(function () {
-        tgpHeightResize();
+        //tgpHeightResize();
         overlayIconResizeTpg();
     });
     $(window).load(function () {
-        tgpHeightResize();
+        //tgpHeightResize();
         overlayIconResizeTpg();
     });
     $("#tpg-preview-container").on('click', 'a.tpg-zoom', function (e) {
@@ -658,7 +658,7 @@
     }
 
     function preFunction() {
-        tgpHeightResize();
+        //tgpHeightResize();
         overlayIconResizeTpg();
     }
 

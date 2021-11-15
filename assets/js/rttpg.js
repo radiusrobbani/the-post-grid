@@ -100,7 +100,7 @@
 
     $(window).on('load resize', function () {
         tpgBottomScriptLoader();
-        HeightResize();
+        //HeightResize();
         overlayIconResizeTpg();
     });
 
@@ -165,7 +165,7 @@
     }
 
     function preFunction() {
-        HeightResize();
+        //HeightResize();
         overlayIconResizeTpg();
     }
 

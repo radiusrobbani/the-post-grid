@@ -364,7 +364,8 @@ if ( ! class_exists( 'rtTPGShortCode' ) ):
                 }
 
 				$masonryG = null;
-				if ( $gridType == "even" ) {
+
+				if ( $gridType == "even" && ! $isIsotope && ! $isCarousel ) {
 					$masonryG = " tpg-even";
 				} else if ( $gridType == "masonry" && ! $isIsotope && ! $isCarousel ) {
 					$masonryG = " tpg-masonry";
