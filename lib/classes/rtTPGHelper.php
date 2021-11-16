@@ -1380,11 +1380,6 @@ if ( ! class_exists( 'rtTPGHelper' ) ):
 			}
 			// Post meta decoration
 			if ( $meta_data_color || $meta_data_size || $meta_data_weight || $meta_data_alignment ) {
-				if ( $meta_data_color ) {
-					$css .= "#{$layoutID} .rt-detail i{";
-					$css .= "color:" . $meta_data_color . ";";
-					$css .= "}";
-				}
 
 				$css .= "#{$layoutID} .{$layout} .rt-holder .post-meta-user,#{$layoutID} .{$layout} .rt-holder .post-meta-user .meta-data, #{$layoutID} .{$layout} .rt-holder .post-meta-user a, #{$layoutID} .{$layout} .rt-holder .rt-detail .post-meta .rt-tpg-social-share {";
 				if ( $meta_data_color ) {

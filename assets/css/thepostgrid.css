@@ -604,11 +604,17 @@ span.more-loading {
     margin: 30px 0 20px;
 }
 
-.post-meta-user, .post-meta-tags {
+.post-meta-user,
+.post-meta-tags {
     padding: 0px;
     margin-bottom: 10px;
     line-height: 1.5;
     font-size: 95%;
+}
+
+.rt-content-loader.layout14 .post-meta-user,
+.rt-content-loader.layout14 .post-meta-tags {
+    margin-bottom: 0;
 }
 
 .post-meta-user span, .post-meta-tags span {
@@ -788,6 +794,10 @@ span.more-loading {
 
 .rt-tpg-container .rt-tpg-social-share a.linkedin i {
     color: #007bb6;
+}
+
+.rt-tpg-container .layout16 .rt-tpg-social-share a.linkedin i {
+    color: #289bd3;
 }
 
 .rt-tpg-container .rt-tpg-social-share a.linkedin:hover i {
@@ -1197,6 +1207,7 @@ body > .rt-tooltip {
     padding: 5px 10px;
     border-width: 2px;
     opacity: 0;
+    pointer-events: none;
     -webkit-transition: opacity 1s ease-in-out;
     -moz-transition: opacity 1s ease-in-out;
     -ms-transition: opacity 1s ease-in-out;
@@ -2356,6 +2367,7 @@ body > .rt-tooltip .rt-tooltip-bottom:after {
     line-height: 1.4;
     padding: 5px 15px;
 }
+
 .tpg-widget-heading-wrapper.heading-style2 .tpg-widget-heading a,
 .tpg-widget-heading-wrapper.heading-style3 .tpg-widget-heading a {
     color: inherit;
