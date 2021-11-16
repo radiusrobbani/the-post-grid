@@ -100,16 +100,14 @@
     $("#rt-tpg-feature-image").on('change', function () {
         featureImageEffect();
     });
+
     $("#tgp_filter-_taxonomy_filter").on('change', function () {
         tpgTaxonomyFilterTrigger();
     });
+
     $("#order_by").on('change', function () {
         tpgOrderByEffect();
     });
-
-    /*$("#rt-tpg-sc-layout").on("change", function (e) {
-        tlpShowHideScMeta();
-    });*/
 
     $("#rttpg-layout_type input[name=layout_type]").on('change', function () {
         $('#layout_holder').show();
@@ -808,5 +806,3 @@
     }
 
 })(this, jQuery);
-
-
