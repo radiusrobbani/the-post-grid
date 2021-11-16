@@ -2356,6 +2356,10 @@ body > .rt-tooltip .rt-tooltip-bottom:after {
     line-height: 1.4;
     padding: 5px 15px;
 }
+.tpg-widget-heading-wrapper.heading-style2 .tpg-widget-heading a,
+.tpg-widget-heading-wrapper.heading-style3 .tpg-widget-heading a {
+    color: inherit;
+}
 
 .tpg-widget-heading-wrapper.center {
     justify-content: center;

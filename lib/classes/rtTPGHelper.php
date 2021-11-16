@@ -1016,12 +1016,16 @@ if ( ! class_exists( 'rtTPGHelper' ) ):
 			}
 
 			// Button color
+
 			if ( $button_border_color ) {
 				$css .= "#{$layoutID} .rt-filter-item-wrap.rt-filter-button-wrap span.rt-filter-button-item,
 							#{$layoutID} .rt-layout-filter-container .rt-filter-sub-tax.sub-button-group .rt-filter-button-item,
 							#{$layoutID} .rt-layout-filter-container .rt-filter-wrap .rt-filter-item-wrap.rt-sort-order-action,
 							#{$layoutID} .rt-layout-filter-container .rt-filter-wrap .rt-filter-item-wrap.rt-filter-dropdown-wrap .rt-filter-dropdown .rt-filter-dropdown-item,
 							#{$layoutID} .rt-layout-filter-container .rt-filter-wrap .rt-filter-item-wrap.rt-filter-dropdown-wrap{";
+				$css .= "border-color:" . $button_border_color . " !important;";
+				$css .= "}";
+				$css .= "#{$layoutID} .rt-holder .read-more a {";
 				$css .= "border-color:" . $button_border_color . ";";
 				$css .= "}";
 			}
@@ -1056,13 +1060,10 @@ if ( ! class_exists( 'rtTPGHelper' ) ):
 				$css .= "color:" . $button_bg_color . ";";
 				$css .= "}";
 
+				$css .= "#{$layoutID} .rt-holder .read-more a {";
+				$css .= "background-color:" . $button_bg_color . ";padding: 8px 15px;";
+				$css .= "}";
 
-				$css .= <<<EOD
-#{$layoutID} .rt-holder .read-more a {
-background-color:{$button_bg_color};
-padding: 8px 15px;
-}
-EOD;
 			}
 
 			// button active color

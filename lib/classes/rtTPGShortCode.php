@@ -104,6 +104,7 @@ if ( ! class_exists( 'rtTPGShortCode' ) ):
 			if ( $scID && ! is_null( get_post( $scID ) ) ) {
 				$scMeta = get_post_meta( $scID );
 				$layout = ( isset( $scMeta['layout'][0] ) ? $scMeta['layout'][0] : 'layout1' );
+				$gridStyle = ( isset( $scMeta['grid_style'][0] ) ? $scMeta['grid_style'][0] : 'even' );
 				if ( ! in_array( $layout, array_keys( rtTPG()->rtTPGLayouts() ) ) ) {
 					$layout = 'layout1';
 				}
@@ -319,7 +320,7 @@ if ( ! class_exists( 'rtTPGShortCode' ) ):
 
 				// Validation
 				$containerDataAttr = null;
-				$containerDataAttr .= " data-layout='{$layout}' data-desktop-col='{$dCol}'  data-tab-col='{$tCol}'  data-mobile-col='{$mCol}'";
+				$containerDataAttr .= " data-layout='{$layout}' data-grid-style='{$gridStyle}' data-desktop-col='{$dCol}'  data-tab-col='{$tCol}'  data-mobile-col='{$mCol}'";
 
 				$dCol = $dCol == 5 ? '24' : round( 12 / $dCol );
 				$tCol = $dCol == 5 ? '24' : round( 12 / $tCol );
