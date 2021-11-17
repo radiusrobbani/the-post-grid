@@ -113,13 +113,6 @@ if (!class_exists('rtTPGInit')):
             );
 
             $scripts[] = array(
-                'handle'  => 'rt-actual-height-js',
-                'src'     => rtTPG()->assetsUrl . "vendor/actual-height/jquery.actual.min.js",
-                'deps'    => array('jquery'),
-                'footer'  => true,
-                'version' => '1.0.19'
-            );
-            $scripts[] = array(
                 'handle' => 'rt-tpg',
                 'src'    => rtTPG()->assetsUrl . "js/rttpg.js",
                 'deps'   => array('jquery'),

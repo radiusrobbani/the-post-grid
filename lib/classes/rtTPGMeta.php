@@ -60,7 +60,6 @@ if ( ! class_exists( 'rtTPGMeta' ) ):
 				$select2Id,
 				'rt-image-load-js',
 				'rt-isotope-js',
-				'rt-actual-height-js',
 				'rt-tpg-admin',
 				'rt-tpg-admin-preview',
 			) );

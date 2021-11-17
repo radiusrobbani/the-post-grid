@@ -541,8 +541,6 @@ body.rt-model-open,
     margin: 20px 0px 15px;
 }
 
-<<<<<<< HEAD
-=======
 .rt-tpg-container .offset-big .cat-above-title {
     margin-bottom: -15px;
     padding-top: 10px;
@@ -552,14 +550,14 @@ body.rt-model-open,
     margin-top: 15px;
 }
 
->>>>>>> tab-arrange
 /**********************************************************************/
 /********************************* End Grid  *************************/
 /**********************************************************************/
 
 /************************ Common ***************************/
 
-.rt-tpg-container .rt-equal-height, .rt-tpg-container .masonry-grid-item, .rt-tpg-container .even-grid-item {
+.rt-tpg-container .masonry-grid-item,
+.rt-tpg-container .even-grid-item {
     margin-bottom: 30px;
 }
 

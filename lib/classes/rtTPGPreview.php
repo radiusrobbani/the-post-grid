@@ -305,9 +305,6 @@ if ( ! class_exists( 'rtTPGPreview' ) ):
 				}
 				$gridType    = ! empty( $scMeta['grid_style'] ) ? $scMeta['grid_style'] : 'even';
 				$arg_class   = [];
-                if (!$isIsotope && !rtTPG()->hasPro()) {
-                    $arg_class[] = 'rt-equal-height';
-                }
 				$arg_class[] = " rt-grid-item";
 				if ( ! $isCarousel && ! $isOffset ) {
 					$arg_class[] = $gridType . "-grid-item";

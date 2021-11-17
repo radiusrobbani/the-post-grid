@@ -51,7 +51,6 @@ if ( ! class_exists( 'rtTPGShortCode' ) ):
 				array_push( $script, 'rt-image-load-js' );
 				array_push( $script, 'rt-isotope-js' );
 				array_push( $style, 'rt-fontawsome' );
-				array_push( $script, 'rt-actual-height-js' );
 				array_push( $script, 'rt-tpg' );
 
 				if (isset($settings['tpg_load_script'])) {
@@ -340,9 +339,6 @@ if ( ! class_exists( 'rtTPGShortCode' ) ):
 					$arg['content_area'] = "rt-col-md-6 rt-col-sm-12 rt-col-xs-12 ";
 				}
 				$arg_class = [];
-				if ( ! $isIsotope && ! rtTPG()->hasPro() ) {
-					$arg_class[] = 'rt-equal-height';
-				}
 				$gridType = ! empty( $scMeta['grid_style'][0] ) ? $scMeta['grid_style'][0] : 'even';
 				if ( $isIsotope && ! rtTPG()->hasPro() ) {
 					$arg_class[] = "masonry-grid-item";
