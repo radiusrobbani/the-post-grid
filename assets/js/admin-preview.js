@@ -464,37 +464,6 @@
 
                 if (isCarousel.length) {
                     isCarousel.imagesLoaded(function () {
-                        /*var item = parseInt(isCarousel.data('item'), 10),
-                            dItem = parseInt(container.attr('data-desktop-col'), 10),
-                            tItem = parseInt(container.attr('data-tab-col'), 10),
-                            mItem = parseInt(container.attr('data-tab-col'), 10),
-                            options = isCarousel.data('rtowl-options');
-                        isCarousel.owlCarousel({
-                            nav: options.nav,
-                            dots: options.dots,
-                            autoplay: options.autoPlay,
-                            autoplayHoverPause: options.stopOnHover,
-                            loop: options.loop,
-                            autoHeight: options.autoHeight,
-                            lazyLoad: options.lazyLoad,
-                            rtl: options.rtl,
-                            navText: ["<i class=\'fa fa-chevron-left\'></i>", "<i class=\'fa fa-chevron-right\'></i>"],
-                            responsiveClass: true,
-                            autoplayTimeout: options.autoPlayTimeOut,
-                            smartSpeed: options.speed,
-                            responsive: {
-                                0: {
-                                    items: mItem ? mItem : 1
-                                },
-                                767: {
-                                    items: tItem ? tItem : 2
-                                },
-                                991: {
-                                    items: dItem ? dItem : 3
-                                }
-                            }
-                        });
-                        remove_placeholder_loading();*/
                         $(".rt-swiper-holder").each(function() {
 
                             var rtSwiperSlider = $(this).get(0),
