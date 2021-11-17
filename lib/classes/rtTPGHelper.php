@@ -1188,9 +1188,11 @@ if ( ! class_exists( 'rtTPGHelper' ) ):
                 } else if (in_array($layout, array('offset03', 'carousel5'))) {
                     $css .= "#{$layoutID} .{$layout} .rt-holder .overlay{";
                 } else {
+                    $css .= "#{$layoutID} .rt-post-overlay .post-img > a:first-of-type::after,";
                     $css .= "#{$layoutID} .rt-holder .overlay:hover{";
                 }
                 if ($overlay_color) {
+                    $css .= "background-image: none;";
                     $css .= "background-color:" . $overlay_color . ";";
                 }
                 if ($overlay_padding) {
@@ -1202,14 +1204,14 @@ if ( ! class_exists( 'rtTPGHelper' ) ):
             /* gutter */
             if ($gutter) {
                 $css .= "#{$layoutID} [class*='rt-col-'] {";
-                $css .= "padding-left : {$gutter}px;";
-                $css .= "padding-right : {$gutter}px;";
+                $css .= "padding-left : {$gutter}px !important;";
+                $css .= "padding-right : {$gutter}px !important;";
                 $css .= "margin-top : {$gutter}px;";
                 $css .= "margin-bottom : {$gutter}px;";
                 $css .= "}";
                 $css .= "#{$layoutID} .rt-row{";
-                $css .= "margin-left : -{$gutter}px;";
-                $css .= "margin-right : -{$gutter}px;";
+                $css .= "margin-left : -{$gutter}px !important;";
+                $css .= "margin-right : -{$gutter}px !important;";
                 $css .= "}";
                 $css .= "#{$layoutID}.rt-container-fluid,#{$layoutID}.rt-container{";
                 $css .= "padding-left : {$gutter}px;";
@@ -1242,7 +1244,7 @@ if ( ! class_exists( 'rtTPGHelper' ) ):
             }
             // Box
             if($boxBg) {
-                $css .= "#{$layoutID} .rt-holder, #{$layoutID} .rt-holder .rt-detail,#{$layoutID} .rt-post-overlay.rt-post-overlay-xl .post-img + .post-content {";
+                $css .= "#{$layoutID} .rt-holder, #{$layoutID} .rt-holder .rt-detail,#{$layoutID} .rt-post-overlay .post-img + .post-content {";
                 $css .= "background-color:" . $boxBg . ";";
                 $css .= "}";
             }
