@@ -387,6 +387,9 @@ if ( ! class_exists( 'rtTPGPreview' ) ):
 				$parentClass   = ( ! empty( $scMeta['parent_class'] ) ? trim( $scMeta['parent_class'] ) : null );
 				$defaultImgId  = ( ! empty( $scMeta['default_preview_image'] ) ? absint( $scMeta['default_preview_image'] ) : null );
 				$customImgSize = ( ! empty( $scMeta['custom_image_size'] ) ? $scMeta['custom_image_size'] : array() );
+                // Grid Hover Layout
+                $fSmallImgSize = ( isset( $scMeta['featured_small_image_size'] ) ? $scMeta['featured_small_image_size'] : "medium" );
+                $customSmallImgSize = ( ! empty( $scMeta['custom_small_image_size'] ) ? $scMeta['custom_small_image_size'] : [] );
 
 				$arg['items'] = isset( $scMeta['item_fields'] ) ? ( $scMeta['item_fields'] ? $scMeta['item_fields'] : array() ) : array();
                 $arg['scID'] = $scID = $scMeta['sc_id'];
@@ -868,7 +871,9 @@ if ( ! class_exists( 'rtTPGPreview' ) ):
 							$arg['comment'] = "{$cc->total_comments}";
 						}
 						$imgSrc = null;
-
+                        $arg['smallImgSrc'] = ! $fImg ? rtTPG()->getFeatureImageSrc( $pID, $fSmallImgSize, $mediaSource,
+                            $defaultImgId,
+                            $customSmallImgSize ) : null;
 						if ( $isOffset ) {
 							if ( $offLoop == 0 ) {
 								$arg['imgSrc'] = ! $fImg ? rtTPG()->getFeatureImageSrc( $pID, $fImgSize, $mediaSource,
