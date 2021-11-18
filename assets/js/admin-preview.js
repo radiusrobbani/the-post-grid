@@ -480,6 +480,7 @@
                                     loop: options.loop,
                                     slideToClickedSlide: true,
                                     speed: options.speed,
+                                    autoHeight: options.autoHeight,
                                     breakpoints: {
                                         0: {
                                             slidesPerView: mItem ? mItem : 1,
