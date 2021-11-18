@@ -1001,7 +1001,7 @@ if ( ! class_exists( 'rtTPGHelper' ) ):
 				$css .= "background-color:" . $primaryColor . ";";
 				$css .= "}";
 
-				$css .= "#{$layoutID} .rt-detail i,
+				$css .= "#{$layoutID} .rt-detail .post-meta-user i,
                         #{$layoutID} .rt-detail .post-meta-user a,
                         #{$layoutID} .rt-detail .post-meta-category a{";
 				$css .= "color:" . $primaryColor . ";";
