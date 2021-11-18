@@ -1,13 +1,15 @@
 <?php
+
 if ( ! class_exists( 'rtTPGShortCode' ) ):
 
-    class rtTPGShortCode {
-		private $scA = array();
+	class rtTPGShortCode {
+
+		private $scA = [];
 		private $l4toggle = false;
 
 		function __construct() {
-			add_shortcode( 'the-post-grid', array( $this, 'the_post_grid_short_code' ) );
-			add_action( 'pre_get_posts', array( $this, 'make_sticky_work' ) );
+			add_shortcode( 'the-post-grid', [ $this, 'the_post_grid_short_code' ] );
+			add_action( 'pre_get_posts', [ $this, 'make_sticky_work' ] );
 		}
 
 		function make_sticky_work( $q ) {
@@ -17,12 +19,11 @@ if ( ! class_exists( 'rtTPGShortCode' ) ):
 		}
 
 		function register_sc_scripts() {
-
-            $settings = get_option(rtTPG()->options['settings']);
+			$settings = get_option( rtTPG()->options['settings'] );
 
 			$caro   = $isSinglePopUp = false;
-			$script = array();
-			$style  = array();
+			$script = [];
+			$style  = [];
 			array_push( $script, 'jquery' );
 			$ajaxurl = '';
 			if ( in_array( 'sitepress-multilingual-cms/sitepress.php', get_option( 'active_plugins' ) ) ) {
@@ -30,11 +31,11 @@ if ( ! class_exists( 'rtTPGShortCode' ) ):
 			} else {
 				$ajaxurl .= admin_url( 'admin-ajax.php' );
 			}
-			$variables = array(
+			$variables = [
 				'nonceID' => rtTPG()->nonceId(),
 				'nonce'   => wp_create_nonce( rtTPG()->nonceText() ),
-				'ajaxurl' => $ajaxurl
-			);
+				'ajaxurl' => $ajaxurl,
+			];
 			foreach ( $this->scA as $sc ) {
 				if ( isset( $sc ) && is_array( $sc ) ) {
 					if ( $sc['isSinglePopUp'] ) {
@@ -53,13 +54,13 @@ if ( ! class_exists( 'rtTPGShortCode' ) ):
 				array_push( $style, 'rt-fontawsome' );
 				array_push( $script, 'rt-tpg' );
 
-				if (isset($settings['tpg_load_script'])) {
-                    wp_enqueue_style('rt-tpg');
-                    $css = isset($settings['custom_css']) ? stripslashes($settings['custom_css']) : null;
-                    if ($css) {
-                        wp_add_inline_style('rt-tpg', $css);
-                    }
-                }
+				if ( isset( $settings['tpg_load_script'] ) ) {
+					wp_enqueue_style( 'rt-tpg' );
+					$css = isset( $settings['custom_css'] ) ? stripslashes( $settings['custom_css'] ) : null;
+					if ( $css ) {
+						wp_add_inline_style( 'rt-tpg', $css );
+					}
+				}
 
 				if ( is_rtl() ) {
 					array_push( $style, 'rt-tpg-rtl' );
@@ -69,7 +70,6 @@ if ( ! class_exists( 'rtTPGShortCode' ) ):
 				wp_localize_script( 'rt-tpg', 'rttpg', $variables );
 
 				do_action( 'tpg_after_script', $isSinglePopUp );
-
 			}
 
 			if ( $isSinglePopUp && rtTPG()->hasPro() ) {
@@ -95,14 +95,14 @@ if ( ! class_exists( 'rtTPGShortCode' ) ):
 			$layoutID = "rt-tpg-container-" . $rand;
 
 			$html = null;
-			$arg  = array();
-			$atts = shortcode_atts( array(
-				'id' => null
-			), $atts, 'the-post-grid' );
+			$arg  = [];
+			$atts = shortcode_atts( [
+				'id' => null,
+			], $atts, 'the-post-grid' );
 			$scID = $atts['id'];
 			if ( $scID && ! is_null( get_post( $scID ) ) ) {
-				$scMeta = get_post_meta( $scID );
-				$layout = ( isset( $scMeta['layout'][0] ) ? $scMeta['layout'][0] : 'layout1' );
+				$scMeta    = get_post_meta( $scID );
+				$layout    = ( isset( $scMeta['layout'][0] ) ? $scMeta['layout'][0] : 'layout1' );
 				$gridStyle = ( isset( $scMeta['grid_style'][0] ) ? $scMeta['grid_style'][0] : 'even' );
 				if ( ! in_array( $layout, array_keys( rtTPG()->rtTPGLayouts() ) ) ) {
 					$layout = 'layout1';
@@ -133,7 +133,7 @@ if ( ! class_exists( 'rtTPGShortCode' ) ):
 					$tCol = ( $tCol < 3 ? 2 : $tCol );
 					$mCol = ( $mCol < 3 ? 1 : $mCol );
 				}
-				$arg                        = array();
+				$arg                        = [];
 				$fImg                       = ( ! empty( $scMeta['feature_image'][0] ) ? true : false );
 				$fImgSize                   = ( isset( $scMeta['featured_image_size'][0] ) ? $scMeta['featured_image_size'][0] : "medium" );
 				$mediaSource                = ( isset( $scMeta['media_source'][0] ) ? $scMeta['media_source'][0] : "feature_image" );
@@ -142,22 +142,27 @@ if ( ! class_exists( 'rtTPGShortCode' ) ):
 				$arg['excerpt_limit']       = ( isset( $scMeta['excerpt_limit'][0] ) ? absint( $scMeta['excerpt_limit'][0] ) : 0 );
 				$arg['title_limit']         = ( isset( $scMeta['tpg_title_limit'][0] ) ? absint( $scMeta['tpg_title_limit'][0] ) : 0 );
 				$arg['excerpt_more_text']   = ( isset( $scMeta['tgp_excerpt_more_text'][0] ) ? $scMeta['tgp_excerpt_more_text'][0] : null );
-				$arg['read_more_text']      = ( ! empty( $scMeta['tgp_read_more_text'][0] ) ? $scMeta['tgp_read_more_text'][0] : __( 'Read More',
-					'the-post-grid' ) );
-				$arg['show_all_text']       = ( ! empty( $scMeta['tpg_show_all_text'][0] ) ? $scMeta['tpg_show_all_text'][0] : __( 'Show all',
-					'the-post-grid' ) );
+				$arg['read_more_text']      = ( ! empty( $scMeta['tgp_read_more_text'][0] )
+					? $scMeta['tgp_read_more_text'][0]
+					: __( 'Read More',
+						'the-post-grid' ) );
+				$arg['show_all_text']       = ( ! empty( $scMeta['tpg_show_all_text'][0] )
+					? $scMeta['tpg_show_all_text'][0]
+					: __( 'Show all',
+						'the-post-grid' ) );
 				$arg['tpg_title_position']  = isset( $scMeta['tpg_title_position'][0] ) && ! empty( $scMeta['tpg_title_position'][0] ) ? $scMeta['tpg_title_position'][0] : null;
-				$arg['btn_alignment_class'] = isset( $scMeta['tpg_read_more_button_alignment'][0] ) && ! empty( $scMeta['tpg_read_more_button_alignment'][0] ) ? $scMeta['tpg_read_more_button_alignment'][0] : '';
-                // Category Settings
-                $arg['category_position'] = isset($scMeta['tpg_category_position'][0]) ? $scMeta['tpg_category_position'][0] : null;
-                $arg['category_style'] = !empty($scMeta['tpg_category_style'][0]) ? $scMeta['tpg_category_style'][0] : '';
-                $arg['catIcon'] = isset($scMeta['tpg_category_icon'][0]) ? $scMeta['tpg_category_icon'][0] : true;
-                // Meta Settings
-                $arg['metaPosition'] = isset($scMeta['tpg_meta_position'][0]) ? $scMeta['tpg_meta_position'][0] : null;
-                $arg['metaIcon'] = isset($scMeta['tpg_meta_icon'][0]) ? $scMeta['tpg_meta_icon'][0] : true;
-                $arg['metaSeparator'] = !empty($scMeta['tpg_meta_separator'][0]) ? $scMeta['tpg_meta_separator'][0] : '';
+				$arg['btn_alignment_class'] = isset( $scMeta['tpg_read_more_button_alignment'][0] ) && ! empty( $scMeta['tpg_read_more_button_alignment'][0] )
+					? $scMeta['tpg_read_more_button_alignment'][0] : '';
+				// Category Settings
+				$arg['category_position'] = isset( $scMeta['tpg_category_position'][0] ) ? $scMeta['tpg_category_position'][0] : null;
+				$arg['category_style']    = ! empty( $scMeta['tpg_category_style'][0] ) ? $scMeta['tpg_category_style'][0] : '';
+				$arg['catIcon']           = isset( $scMeta['tpg_category_icon'][0] ) ? $scMeta['tpg_category_icon'][0] : true;
+				// Meta Settings
+				$arg['metaPosition']  = isset( $scMeta['tpg_meta_position'][0] ) ? $scMeta['tpg_meta_position'][0] : null;
+				$arg['metaIcon']      = isset( $scMeta['tpg_meta_icon'][0] ) ? $scMeta['tpg_meta_icon'][0] : true;
+				$arg['metaSeparator'] = ! empty( $scMeta['tpg_meta_separator'][0] ) ? $scMeta['tpg_meta_separator'][0] : '';
 				/* Argument create */
-				$args     = array();
+				$args     = [];
 				$postType = ( isset( $scMeta['tpg_post_type'][0] ) ? $scMeta['tpg_post_type'][0] : 'post' );
 				if ( $postType ) {
 					$args['post_type'] = $postType;
@@ -193,23 +198,22 @@ if ( ! class_exists( 'rtTPGShortCode' ) ):
 				$adv_filter        = get_post_meta( $scID, 'post_filter' );
 				$taxFilter         = get_post_meta( $scID, 'tgp_filter_taxonomy', true );
 				$taxHierarchical   = get_post_meta( $scID, 'tgp_filter_taxonomy_hierarchical', true );
-				$taxFilterTerms    = array();
+				$taxFilterTerms    = [];
 				$taxFilterOperator = "IN";
 				// Taxonomy
-				$taxQ = array();
+				$taxQ = [];
 				if ( in_array( 'tpg_taxonomy', $adv_filter ) && isset( $scMeta['tpg_taxonomy'] ) ) {
-
 					if ( is_array( $scMeta['tpg_taxonomy'] ) && ! empty( $scMeta['tpg_taxonomy'] ) ) {
 						foreach ( $scMeta['tpg_taxonomy'] as $taxonomy ) {
-							$terms = ( isset( $scMeta[ 'term_' . $taxonomy ] ) ? $scMeta[ 'term_' . $taxonomy ] : array() );
+							$terms = ( isset( $scMeta[ 'term_' . $taxonomy ] ) ? $scMeta[ 'term_' . $taxonomy ] : [] );
 							if ( is_array( $terms ) && ! empty( $terms ) ) {
 								$operator = ( isset( $scMeta[ 'term_operator_' . $taxonomy ][0] ) ? $scMeta[ 'term_operator_' . $taxonomy ][0] : "IN" );
-								$taxQ[]   = array(
+								$taxQ[]   = [
 									'taxonomy' => $taxonomy,
 									'field'    => 'term_id',
 									'terms'    => $terms,
 									'operator' => $operator,
-								);
+								];
 								if ( $taxonomy == $taxFilter ) {
 									$taxFilterOperator = $operator;
 								}
@@ -248,22 +252,22 @@ if ( ! class_exists( 'rtTPGShortCode' ) ):
 
 				// Status
 				if ( in_array( 'tpg_post_status', $adv_filter ) ) {
-					$post_status = ( isset( $scMeta['tpg_post_status'] ) ? $scMeta['tpg_post_status'] : array() );
+					$post_status = ( isset( $scMeta['tpg_post_status'] ) ? $scMeta['tpg_post_status'] : [] );
 					if ( ! empty( $post_status ) ) {
 						$args['post_status'] = $post_status;
 					}
 				} else {
-                    $args['post_status'] = 'publish';
-                }
+					$args['post_status'] = 'publish';
+				}
 				// Author
-				$author        = ( isset( $scMeta['author'] ) ? $scMeta['author'] : array() );
-				$filterAuthors = array();
+				$author        = ( isset( $scMeta['author'] ) ? $scMeta['author'] : [] );
+				$filterAuthors = [];
 				if ( in_array( 'author', $adv_filter ) && ! empty( $author ) ) {
 					$filterAuthors = $args['author__in'] = $author;
 				}
 
 				// Search
-				$s = ( isset( $scMeta['s'][0] ) ? $scMeta['s'][0] : array() );
+				$s = ( isset( $scMeta['s'][0] ) ? $scMeta['s'][0] : [] );
 				if ( in_array( 's', $adv_filter ) && ! empty( $s ) ) {
 					$args['s'] = $s;
 				}
@@ -273,13 +277,13 @@ if ( ! class_exists( 'rtTPGShortCode' ) ):
 					$startDate = ( ! empty( $scMeta['date_range_start'][0] ) ? $scMeta['date_range_start'][0] : null );
 					$endDate   = ( ! empty( $scMeta['date_range_end'][0] ) ? $scMeta['date_range_end'][0] : null );
 					if ( $startDate && $endDate ) {
-						$args['date_query'] = array(
-							array(
+						$args['date_query'] = [
+							[
 								'after'     => $startDate,
 								'before'    => $endDate,
 								'inclusive' => true,
-							),
-						);
+							],
+						];
 					}
 				}
 
@@ -290,7 +294,6 @@ if ( ! class_exists( 'rtTPGShortCode' ) ):
 				$oLayoutSearch   = ! empty( $settings['template_search'] ) ? $settings['template_search'] : null;
 				$dataArchive     = null;
 				if ( ( is_category() && $oLayoutCategory ) || ( is_search() && $oLayoutSearch ) || ( is_tag() && $oLayoutTag ) || ( is_author() && $oLayoutAuthor ) ) {
-
 					unset( $args['post_type'] );
 					unset( $args['tax_query'] );
 					unset( $args['author__in'] );
@@ -301,15 +304,15 @@ if ( ! class_exists( 'rtTPGShortCode' ) ):
 							$aValue = $args['tag'] = $obj->slug;
 							$aType  = 'tag';
 						}
-					} else if ( $oLayoutCategory && is_category() ) {
+					} elseif ( $oLayoutCategory && is_category() ) {
 						if ( ! empty( $obj->slug ) ) {
 							$aValue = $args['category_name'] = $obj->slug;
 						}
 						$aType = 'category';
-					} else if ( $oLayoutAuthor && is_author() ) {
+					} elseif ( $oLayoutAuthor && is_author() ) {
 						$aValue = $args['author'] = $obj->ID;
 						$aType  = 'author';
-					} else if ( $oLayoutSearch && is_search() ) {
+					} elseif ( $oLayoutSearch && is_search() ) {
 						$aValue = $args['s'] = get_search_query();
 						$aType  = 'search';
 					}
@@ -334,37 +337,37 @@ if ( ! class_exists( 'rtTPGShortCode' ) ):
 					$cCol                = 12 - $iCol;
 					$arg['image_area']   = "rt-col-sm-{$iCol} rt-col-xs-12 ";
 					$arg['content_area'] = "rt-col-sm-{$cCol} rt-col-xs-12 ";
-				} else if ( $layout == 'layout4' ) {
+				} elseif ( $layout == 'layout4' ) {
 					$arg['image_area']   = "rt-col-md-6 rt-col-sm-12 rt-col-xs-12 ";
 					$arg['content_area'] = "rt-col-md-6 rt-col-sm-12 rt-col-xs-12 ";
 				}
 				$arg_class = [];
-				$gridType = ! empty( $scMeta['grid_style'][0] ) ? $scMeta['grid_style'][0] : 'even';
+				$gridType  = ! empty( $scMeta['grid_style'][0] ) ? $scMeta['grid_style'][0] : 'even';
 				if ( $isIsotope && ! rtTPG()->hasPro() ) {
 					$arg_class[] = "masonry-grid-item";
-				} else if ( ! $isCarousel && ! $isOffset ) {
+				} elseif ( ! $isCarousel && ! $isOffset ) {
 					$arg_class[] = $gridType . "-grid-item";
 				}
 				$arg_class[] = "rt-grid-item";
 				if ( $isOffset ) {
 					$arg_class[] = "rt-offset-item";
 				}
-                // Category class
-                $catHaveBg = (isset($scMeta['tpg_category_bg'][0]) ? $scMeta['tpg_category_bg'][0] : '');
-				if (!empty($catHaveBg)) {
-                    $arg_class[] = 'category-have-bg';
-                }
-                // Image animation type
-                $imgAnimationType = isset( $scMeta['tpg_image_animation'][0] ) ? $scMeta['tpg_image_animation'][0] : '';
-                if (!empty($imgAnimationType)) {
-                    $arg_class[] = $imgAnimationType;
-                }
+				// Category class
+				$catHaveBg = ( isset( $scMeta['tpg_category_bg'][0] ) ? $scMeta['tpg_category_bg'][0] : '' );
+				if ( ! empty( $catHaveBg ) ) {
+					$arg_class[] = 'category-have-bg';
+				}
+				// Image animation type
+				$imgAnimationType = isset( $scMeta['tpg_image_animation'][0] ) ? $scMeta['tpg_image_animation'][0] : '';
+				if ( ! empty( $imgAnimationType ) ) {
+					$arg_class[] = $imgAnimationType;
+				}
 
 				$masonryG = null;
 
 				if ( $gridType == "even" && ! $isIsotope && ! $isCarousel ) {
 					$masonryG = " tpg-even";
-				} else if ( $gridType == "masonry" && ! $isIsotope && ! $isCarousel ) {
+				} elseif ( $gridType == "masonry" && ! $isIsotope && ! $isCarousel ) {
 					$masonryG = " tpg-masonry";
 				}
 				$preLoader = $preLoaderHtml = null;
@@ -389,9 +392,9 @@ if ( ! class_exists( 'rtTPGShortCode' ) ):
 				}
 				$arg['class']       = implode( " ", $arg_class );
 				$arg['anchorClass'] = $arg['link_target'] = null;
-				$link               = isset($scMeta['link_to_detail_page'][0] ) ? $scMeta['link_to_detail_page'][0] : '1';
-				$link               = ($link == 'yes') ? '1' : $link;
-				if (!$link) {
+				$link               = isset( $scMeta['link_to_detail_page'][0] ) ? $scMeta['link_to_detail_page'][0] : '1';
+				$link               = ( $link == 'yes' ) ? '1' : $link;
+				if ( ! $link ) {
 					$arg['anchorClass'] = ' disabled';
 				}
 				$isSinglePopUp = false;
@@ -412,21 +415,21 @@ if ( ! class_exists( 'rtTPGShortCode' ) ):
 
 				$parentClass   = ( ! empty( $scMeta['parent_class'][0] ) ? trim( $scMeta['parent_class'][0] ) : null );
 				$defaultImgId  = ( ! empty( $scMeta['default_preview_image'][0] ) ? absint( $scMeta['default_preview_image'][0] ) : null );
-				$customImgSize = ( ! empty( $scMeta['custom_image_size'] ) ? $scMeta['custom_image_size'] : array() );
-                // Grid Hover Layout
-                $fSmallImgSize = ( isset( $scMeta['featured_small_image_size'][0] ) ? $scMeta['featured_small_image_size'][0] : "medium" );
-                $customSmallImgSize = ( ! empty( $scMeta['custom_small_image_size'] ) ? $scMeta['custom_small_image_size'] : [] );
+				$customImgSize = ( ! empty( $scMeta['custom_image_size'] ) ? $scMeta['custom_image_size'] : [] );
+				// Grid Hover Layout
+				$fSmallImgSize      = ( isset( $scMeta['featured_small_image_size'][0] ) ? $scMeta['featured_small_image_size'][0] : "medium" );
+				$customSmallImgSize = ( ! empty( $scMeta['custom_small_image_size'] ) ? $scMeta['custom_small_image_size'] : [] );
 
 				$arg['scID']  = $scID;
-				$arg['items'] = isset( $scMeta['item_fields'] ) ? ( $scMeta['item_fields'] ? $scMeta['item_fields'] : array() ) : array();
+				$arg['items'] = isset( $scMeta['item_fields'] ) ? ( $scMeta['item_fields'] ? $scMeta['item_fields'] : [] ) : [];
 				if ( in_array( 'cf', $arg['items'] ) ) {
-					$arg['cf_group'] = array();
+					$arg['cf_group'] = [];
 					$arg['cf_group'] = get_post_meta( $scID, 'cf_group' );
-					$arg['format']   = array(
+					$arg['format']   = [
 						'hide_empty'       => get_post_meta( $scID, 'cf_hide_empty_value', true ),
 						'show_value'       => get_post_meta( $scID, 'cf_show_only_value', true ),
-						'hide_group_title' => get_post_meta( $scID, 'cf_hide_group_title', true )
-					);
+						'hide_group_title' => get_post_meta( $scID, 'cf_hide_group_title', true ),
+					];
 				}
 
 				// Set readmore false if excerpt type = full content
@@ -439,7 +442,7 @@ if ( ! class_exists( 'rtTPGShortCode' ) ):
 					$args['wp_tpg_is_home'] = true;
 				}
 
-				$filters         = ! empty( $scMeta['tgp_filter'] ) ? $scMeta['tgp_filter'] : array();
+				$filters         = ! empty( $scMeta['tgp_filter'] ) ? $scMeta['tgp_filter'] : [];
 				$action_term     = ! empty( $scMeta['tgp_default_filter'][0] ) ? absint( $scMeta['tgp_default_filter'][0] ) : 0;
 				$hide_all_button = ! empty( $scMeta['tpg_hide_all_button'][0] ) ? true : false;
 				if ( $taxHierarchical ) {
@@ -454,13 +457,13 @@ if ( ! class_exists( 'rtTPGShortCode' ) ):
 					}
 				}
 				if ( in_array( '_taxonomy_filter', $filters ) && $taxFilter && $action_term ) {
-					$args['tax_query'] = array(
-						array(
+					$args['tax_query'] = [
+						[
 							'taxonomy' => $taxFilter,
 							'field'    => 'term_id',
-							'terms'    => array( $action_term ),
-						)
-					);
+							'terms'    => [ $action_term ],
+						],
+					];
 				}
 
 				if ( $limit != - 1 && $pagination ) {
@@ -474,12 +477,13 @@ if ( ! class_exists( 'rtTPGShortCode' ) ):
 					}
 				}
 
-                if ($pagination && $queryOffset && isset($args['paged']) ) {
-                    $queryOffset = ($posts_per_page * ($args['paged'] - 1)) + $queryOffset;
-                }
-                $args['offset'] = $queryOffset;
+				if ( $pagination && $queryOffset && isset( $args['paged'] ) ) {
+					$queryOffset = ( $posts_per_page * ( $args['paged'] - 1 ) ) + $queryOffset;
+				}
+				$args['offset'] = $queryOffset;
 
-                $arg['title_tag'] = (!empty($scMeta['title_tag'][0]) && in_array($scMeta['title_tag'][0], array_keys(rtTPG()->getTitleTags()))) ? esc_attr($scMeta['title_tag'][0]) : 'h3';
+				$arg['title_tag'] = ( ! empty( $scMeta['title_tag'][0] ) && in_array( $scMeta['title_tag'][0], array_keys( rtTPG()->getTitleTags() ) ) )
+					? esc_attr( $scMeta['title_tag'][0] ) : 'h3';
 
 				$gridQuery = new WP_Query( apply_filters( 'tpg_sc_query_args', $args, $scMeta ) );
 
@@ -488,27 +492,27 @@ if ( ! class_exists( 'rtTPGShortCode' ) ):
 				$containerDataAttr .= " data-sc-id='{$scID}'";
 				$html              .= "<div class='rt-container-fluid rt-tpg-container {$parentClass}' id='{$layoutID}' {$dataArchive} {$containerDataAttr}>";
 
-                // widget heading
-                $heading_tag = isset($scMeta['tpg_heading_tag'][0]) ? $scMeta['tpg_heading_tag'][0] : 'h2';
-                $heading_style = isset($scMeta['tpg_heading_style'][0]) && !empty($scMeta['tpg_heading_style'][0]) ? $scMeta['tpg_heading_style'][0] : 'style1';
-                $heading_alignment = isset($scMeta['tpg_heading_alignment'][0]) ? $scMeta['tpg_heading_alignment'][0] : '';
-                $heading_link = isset($scMeta['tpg_heading_link'][0]) ? $scMeta['tpg_heading_link'][0] : '';
+				// widget heading
+				$heading_tag       = isset( $scMeta['tpg_heading_tag'][0] ) ? $scMeta['tpg_heading_tag'][0] : 'h2';
+				$heading_style     = isset( $scMeta['tpg_heading_style'][0] ) && ! empty( $scMeta['tpg_heading_style'][0] ) ? $scMeta['tpg_heading_style'][0] : 'style1';
+				$heading_alignment = isset( $scMeta['tpg_heading_alignment'][0] ) ? $scMeta['tpg_heading_alignment'][0] : '';
+				$heading_link      = isset( $scMeta['tpg_heading_link'][0] ) ? $scMeta['tpg_heading_link'][0] : '';
 
-                if(!empty($arg['items']) && in_array('heading', $arg['items'])) {
-                    $html .= sprintf('<div class="tpg-widget-heading-wrapper heading-%1$s %2$s">', $heading_style, $heading_alignment);
-	                $html .= '<span class="tpg-widget-heading-line line-left"></span>';
-                        if ($heading_link) {
-                            $html .= sprintf('<%1$s class="tpg-widget-heading"><a href="%2$s" title="%3$s">%3$s</a></%1$s>', $heading_tag, $heading_link, get_the_title());
-                        } else {
-                            $html .= sprintf('<%1$s class="tpg-widget-heading">%2$s</%1$s>', $heading_tag, get_the_title());
-                        }
-                        $html .= '<span class="tpg-widget-heading-line"></span>';
-                    $html .= '</div>';
-                }
+				if ( ! empty( $arg['items'] ) && in_array( 'heading', $arg['items'] ) ) {
+					$html .= sprintf( '<div class="tpg-widget-heading-wrapper heading-%1$s %2$s">', $heading_style, $heading_alignment );
+					$html .= '<span class="tpg-widget-heading-line line-left"></span>';
+					if ( $heading_link ) {
+						$html .= sprintf( '<%1$s class="tpg-widget-heading"><a href="%2$s" title="%3$s">%3$s</a></%1$s>', $heading_tag, $heading_link, get_the_title() );
+					} else {
+						$html .= sprintf( '<%1$s class="tpg-widget-heading">%2$s</%1$s>', $heading_tag, get_the_title() );
+					}
+					$html .= '<span class="tpg-widget-heading-line"></span>';
+					$html .= '</div>';
+				}
 
-				if ( !$isCarousel && isset($settings['tpg_load_script']) && isset($settings['tpg_enable_preloader'])) {
-                    $html .= '<div id="bottom-script-loader"><div class="rt-ball-clip-rotate"><div></div></div></div>';
-                }
+				if ( ! $isCarousel && isset( $settings['tpg_load_script'] ) && isset( $settings['tpg_enable_preloader'] ) ) {
+					$html .= '<div id="bottom-script-loader"><div class="rt-ball-clip-rotate"><div></div></div></div>';
+				}
 				if ( ! empty( $filters ) && ( $isGrid || $isOffset || $isWooCom || $isEdd ) ) {
 					$html                      .= "<div class='rt-layout-filter-container rt-clear'><div class='rt-filter-wrap'>";
 					$selectedSubTermsForButton = null;
@@ -591,7 +595,8 @@ if ( ! class_exists( 'rtTPGShortCode' ) ):
 								}
 							}
 							if ( ! $hide_all_button ) {
-								$htmlButton = "<span class='term-dropdown-item rt-filter-dropdown-item' data-term='all'><span class='rt-text'>" . $allText . "{$pAllCount}</span></span>" . $htmlButton;
+								$htmlButton = "<span class='term-dropdown-item rt-filter-dropdown-item' data-term='all'><span class='rt-text'>" . $allText
+								              . "{$pAllCount}</span></span>" . $htmlButton;
 							}
 							$htmlButton = sprintf( '<span class="term-dropdown rt-filter-dropdown">%s</span>', $htmlButton );
 
@@ -639,7 +644,6 @@ if ( ! class_exists( 'rtTPGShortCode' ) ):
 												$bItems .= "<span class='term-button-item rt-filter-button-item {$termSelected}' data-term='{$id}'>{$term['name']}{$postCount}{$sT}</span>";
 											}
 										}
-
 									} else {
 										$bItems .= "<span class='term-button-item rt-filter-button-item {$termSelected}' data-term='{$id}'>{$term['name']}{$postCount}{$sT}</span>";
 									}
@@ -659,7 +663,7 @@ if ( ! class_exists( 'rtTPGShortCode' ) ):
 					if ( in_array( '_author_filter', $filters ) ) {
 						$filterType = ( ! empty( $scMeta['tgp_filter_type'][0] ) ? $scMeta['tgp_filter_type'][0] : null );
 						$post_count = ( ! empty( $scMeta['tpg_post_count'][0] ) ? $scMeta['tpg_post_count'][0] : null );
-						$users      = get_users( apply_filters( 'tpg_author_arg', array() ) );
+						$users      = get_users( apply_filters( 'tpg_author_arg', [] ) );
 
 						$allSelect      = " selected";
 						$isTermSelected = false;
@@ -780,10 +784,9 @@ if ( ! class_exists( 'rtTPGShortCode' ) ):
 						'the-post-grid' ) . "' class='rt-row rt-content-loader {$layout}{$masonryG} {$preLoader}'>";
 
 				if ( $gridQuery->have_posts() ) {
-
 					if ( $isCarousel ) {
-						$cOpt              = ! empty( $scMeta['carousel_property'] ) ? $scMeta['carousel_property'] : array();
-						$slider_js_options = apply_filters( 'rttpg_slider_js_options', array(
+						$cOpt              = ! empty( $scMeta['carousel_property'] ) ? $scMeta['carousel_property'] : [];
+						$slider_js_options = apply_filters( 'rttpg_slider_js_options', [
 							"speed"           => ! empty( $scMeta['tpg_carousel_speed'][0] ) ? absint( $scMeta['tpg_carousel_speed'][0] ) : 250,
 							"autoPlayTimeOut" => ! empty( $scMeta['tpg_carousel_autoplay_timeout'][0] ) ? absint( $scMeta['tpg_carousel_autoplay_timeout'][0] ) : 5000,
 							"autoPlay"        => in_array( 'auto_play', $cOpt ),
@@ -792,29 +795,34 @@ if ( ! class_exists( 'rtTPGShortCode' ) ):
 							"dots"            => in_array( 'pagination', $cOpt ),
 							"loop"            => in_array( 'loop', $cOpt ),
 							"lazyLoad"        => in_array( 'lazyLoad', $cOpt ),
-							"autoHeight"      => in_array( 'autoHeight', $cOpt ),
-							"rtl"             => in_array( 'rtl', $cOpt )
-						), $scMeta );
-						$html              .= sprintf( '<div class="rt-swiper-holder swiper"  data-rtowl-options="%s"><div class="swiper-wrapper">',
-							htmlspecialchars( wp_json_encode( $slider_js_options ) ) );
+							"autoHeight"      => in_array( 'auto_height', $cOpt ),
+							"rtl"             => in_array( 'rtl', $cOpt ) ? 'rtl' : 'ltr',
+						], $scMeta );
+						$html              .= sprintf( '<div class="rt-swiper-holder swiper"  data-rtowl-options="%s" dir="%s"><div class="swiper-wrapper">',
+							htmlspecialchars( wp_json_encode( $slider_js_options ) ),
+							$slider_js_options['rtl']
+						);
 					}
 					$isotope_filter = null;
 					if ( $isIsotope ) {
 						$isotope_filter          = isset( $scMeta['isotope_filter'][0] ) ? $scMeta['isotope_filter'][0] : null;
 						$isotope_dropdown_filter = isset( $scMeta['isotope_filter_dropdown'][0] ) ? $scMeta['isotope_filter_dropdown'][0] : null;
-						$selectedTerms           = array();
-						if ( isset( $scMeta['post_filter'] ) && in_array( 'tpg_taxonomy',
-								$scMeta['post_filter'] ) && isset( $scMeta['tpg_taxonomy'] ) && in_array( $isotope_filter,
+						$selectedTerms           = [];
+						if ( isset( $scMeta['post_filter'] )
+						     && in_array( 'tpg_taxonomy',
+								$scMeta['post_filter'] )
+						     && isset( $scMeta['tpg_taxonomy'] )
+						     && in_array( $isotope_filter,
 								$scMeta['tpg_taxonomy'] )
 						) {
-							$selectedTerms = ( isset( $scMeta[ 'term_' . $isotope_filter ] ) ? $scMeta[ 'term_' . $isotope_filter ] : array() );
+							$selectedTerms = ( isset( $scMeta[ 'term_' . $isotope_filter ] ) ? $scMeta[ 'term_' . $isotope_filter ] : [] );
 						}
 						$termArgs = [
 							'taxonomy'   => $isotope_filter,
 							'orderby'    => 'meta_value_num',
 							'order'      => 'ASC',
 							'hide_empty' => false,
-							'include'    => $selectedTerms
+							'include'    => $selectedTerms,
 						];
 						if ( rtTPG()->hasPro() ) {
 							$termArgs['meta_key'] = '_rt_order';
@@ -849,7 +857,8 @@ if ( ! class_exists( 'rtTPGShortCode' ) ):
 						}
 						$filter_count = ! empty( $scMeta['isotope_filter_count'][0] ) ? true : false;
 						$filter_url   = ! empty( $scMeta['isotope_filter_url'][0] ) ? true : false;
-						$htmlButton   = "<div id='iso-button-{$rand}' class='rt-tpg-isotope-buttons button-group filter-button-group option-set' data-url='{$filter_url}' data-count='{$filter_count}'>{$htmlButton}</div>";
+						$htmlButton
+						              = "<div id='iso-button-{$rand}' class='rt-tpg-isotope-buttons button-group filter-button-group option-set' data-url='{$filter_url}' data-count='{$filter_count}'>{$htmlButton}</div>";
 
 						if ( $isotope_dropdown_filter ) {
 							$html .= "<select class='isotope-dropdown-filter'>{$drop}</select>";
@@ -865,10 +874,10 @@ if ( ! class_exists( 'rtTPGShortCode' ) ):
 						$html .= "<div class='rt-tpg-isotope' id='iso-tpg-{$rand}'>";
 					}
 
-					$l             = $offLoop = 0;
-					$offsetBigHtml = $offsetSmallHtml = null;
-                    $gridPostCount = 0;
-                    $arg['totalPost'] = $gridQuery->post_count;
+					$l                = $offLoop = 0;
+					$offsetBigHtml    = $offsetSmallHtml = null;
+					$gridPostCount    = 0;
+					$arg['totalPost'] = $gridQuery->post_count;
 
 					while ( $gridQuery->have_posts() ) : $gridQuery->the_post();
 						if ( $colStore == $l ) {
@@ -879,22 +888,23 @@ if ( ! class_exists( 'rtTPGShortCode' ) ):
 							}
 							$l = 0;
 						}
-						$arg['postCount'] = $gridPostCount++;
-						$pID               = get_the_ID();
-						$arg['pID']        = $pID;
-						$arg['title']      = rtTPG()->get_the_title( $pID, $arg );
-						$arg['pLink']      = get_permalink();
-						$arg['toggle']     = $this->l4toggle;
-						$arg['layoutID']   = $layoutID;
-						$arg['author']     = apply_filters( 'rttpg_author_link', sprintf( '<a href="%s">%s</a>', get_author_posts_url( get_the_author_meta( 'ID' ) ), get_the_author() ) );
-						$cc                = wp_count_comments( $pID );
-						$arg['date']       = get_the_date();
-						$arg['excerpt']    = rtTPG()->get_the_excerpt( $pID, $arg );
-						$arg['categories'] = get_the_term_list( $pID, 'category', null, '<span class="rt-separator">,</span>' );
-						$arg['tags']       = get_the_term_list( $pID, 'post_tag', null, '<span class="rt-separator">,</span>' );
-                        $arg['responsiveCol'] = array( $dCol, $tCol, $mCol );
+						$arg['postCount']     = $gridPostCount ++;
+						$pID                  = get_the_ID();
+						$arg['pID']           = $pID;
+						$arg['title']         = rtTPG()->get_the_title( $pID, $arg );
+						$arg['pLink']         = get_permalink();
+						$arg['toggle']        = $this->l4toggle;
+						$arg['layoutID']      = $layoutID;
+						$arg['author']        = apply_filters( 'rttpg_author_link',
+							sprintf( '<a href="%s">%s</a>', get_author_posts_url( get_the_author_meta( 'ID' ) ), get_the_author() ) );
+						$cc                   = wp_count_comments( $pID );
+						$arg['date']          = get_the_date();
+						$arg['excerpt']       = rtTPG()->get_the_excerpt( $pID, $arg );
+						$arg['categories']    = get_the_term_list( $pID, 'category', null, '<span class="rt-separator">,</span>' );
+						$arg['tags']          = get_the_term_list( $pID, 'post_tag', null, '<span class="rt-separator">,</span>' );
+						$arg['responsiveCol'] = [ $dCol, $tCol, $mCol ];
 						if ( $isIsotope ) {
-							$termAs    = wp_get_post_terms( $pID, $isotope_filter, array( "fields" => "all" ) );
+							$termAs    = wp_get_post_terms( $pID, $isotope_filter, [ "fields" => "all" ] );
 							$isoFilter = [];
 							if ( ! empty( $termAs ) ) {
 								foreach ( $termAs as $term ) {
@@ -909,10 +919,10 @@ if ( ! class_exists( 'rtTPGShortCode' ) ):
 						} else {
 							$arg['comment'] = "{$cc->total_comments}";
 						}
-						$imgSrc = null;
-                        $arg['smallImgSrc'] = ! $fImg ? rtTPG()->getFeatureImageSrc( $pID, $fSmallImgSize, $mediaSource,
-                            $defaultImgId,
-                            $customSmallImgSize ) : null;
+						$imgSrc             = null;
+						$arg['smallImgSrc'] = ! $fImg ? rtTPG()->getFeatureImageSrc( $pID, $fSmallImgSize, $mediaSource,
+							$defaultImgId,
+							$customSmallImgSize ) : null;
 						if ( $isOffset ) {
 							if ( $offLoop == 0 ) {
 								$arg['imgSrc'] = ! $fImg ? rtTPG()->getFeatureImageSrc( $pID, $fImgSize, $mediaSource,
@@ -922,7 +932,7 @@ if ( ! class_exists( 'rtTPGShortCode' ) ):
 								$offsetBigHtml = rtTPG()->render( 'layouts/' . $layout, $arg, true );
 							} else {
 								$arg['offset']    = 'small';
-								$arg['offsetCol'] = array( $dCol, $tCol, $mCol );
+								$arg['offsetCol'] = [ $dCol, $tCol, $mCol ];
 								$arg['imgSrc']    = ! $fImg ? rtTPG()->getFeatureImageSrc( $pID, 'thumbnail',
 									$mediaSource,
 									$defaultImgId,
@@ -945,28 +955,28 @@ if ( ! class_exists( 'rtTPGShortCode' ) ):
 						if ( $layout == "offset03" || $layout == "offset04" ) {
 							$oDCol['big'] = $oTCol['big'] = $oDCol['small'] = $oTCol['small'] = 6;
 							$oMCol['big'] = $oMCol['small'] = 12;
-						} else if($layout == "offset06") {
-						    $oDCol['big'] = 7;
-                            $oDCol['small'] = 5;
-                        }
+						} elseif ( $layout == "offset06" ) {
+							$oDCol['big']   = 7;
+							$oDCol['small'] = 5;
+						}
 						$html .= "<div class='rt-col-md-{$oDCol['big']} rt-col-sm-{$oTCol['big']} rt-col-xs-{$oMCol['big']}'><div class='rt-row'>{$offsetBigHtml}</div></div>";
 						$html .= "<div class='rt-col-md-{$oDCol['small']} rt-col-sm-{$oTCol['small']} rt-col-xs-{$oMCol['small']}'><div class='rt-row offset-small-wrap'>{$offsetSmallHtml}</div></div>";
 					}
 					if ( $isIsotope || $isCarousel ) {
 						$html .= '</div>'; // End isotope / Carousel item holder
-                        if ($isCarousel) {
-                            if (in_array( 'pagination', $cOpt )) {
-                                $html .= '<div class="swiper-pagination"></div>';
-                            }
-                            $html .= '</div>';
-                            if (in_array( 'nav_button', $cOpt )) {
-                                $html .= '<div class="swiper-navigation"><div class="slider-btn swiper-button-prev"></div><div class="slider-btn swiper-button-next"></div></div>';
-                            }
-                        }
+						if ( $isCarousel ) {
+							if ( in_array( 'pagination', $cOpt ) ) {
+								$html .= '<div class="swiper-pagination"></div>';
+							}
+							$html .= '</div>';
+							if ( in_array( 'nav_button', $cOpt ) ) {
+								$html .= '<div class="swiper-navigation"><div class="slider-btn swiper-button-prev"></div><div class="slider-btn swiper-button-next"></div></div>';
+							}
+						}
 					}
-
 				} else {
-					$not_found_text = isset( $scMeta['tgp_not_found_text'][0] ) && ! empty( $scMeta['tgp_not_found_text'][0] ) ? esc_attr( $scMeta['tgp_not_found_text'][0] ) : __( 'No post found', 'the-post-grid' );
+					$not_found_text = isset( $scMeta['tgp_not_found_text'][0] ) && ! empty( $scMeta['tgp_not_found_text'][0] ) ? esc_attr( $scMeta['tgp_not_found_text'][0] )
+						: __( 'No post found', 'the-post-grid' );
 					$html           .= sprintf( '<p>%s</p>',
 						apply_filters( 'tpg_not_found_text', $not_found_text, $args, $scMeta )
 					);
@@ -995,7 +1005,6 @@ if ( ! class_exists( 'rtTPGShortCode' ) ):
 											<span class='rt-loadmore-text'>" . __( 'Load More', 'the-post-grid' ) . "</span>
 											<div class='rt-loadmore-loading rt-ball-scale-multiple rt-2x'><div></div><div></div><div></div></div>
 										</div>";
-
 						} elseif ( $posts_loading_type == "load_on_scroll" && rtTPG()->hasPro() ) {
 							$htmlUtility .= "<div class='rt-infinite-action'>	
 												<div class='rt-infinite-loading la-fire la-2x'>
@@ -1013,14 +1022,15 @@ if ( ! class_exists( 'rtTPGShortCode' ) ):
 					if ( $layout == "layout4" ) {
 						$l4toggle = "data-l4toggle='{$this->l4toggle}'";
 					}
-					$html .= "<div class='rt-pagination-wrap' data-total-pages='{$gridQuery->max_num_pages}' data-posts-per-page='{$args['posts_per_page']}' data-type='{$posts_loading_type}' {$l4toggle} >" . $htmlUtility . "</div>";
+					$html .= "<div class='rt-pagination-wrap' data-total-pages='{$gridQuery->max_num_pages}' data-posts-per-page='{$args['posts_per_page']}' data-type='{$posts_loading_type}' {$l4toggle} >"
+					         . $htmlUtility . "</div>";
 				}
 
 				$html .= "</div>"; // container rt-tpg
 
 				wp_reset_postdata();
 
-				$scriptGenerator                  = array();
+				$scriptGenerator                  = [];
 				$scriptGenerator['layout']        = $layoutID;
 				$scriptGenerator['rand']          = $rand;
 				$scriptGenerator['scMeta']        = $scMeta;
@@ -1028,13 +1038,13 @@ if ( ! class_exists( 'rtTPGShortCode' ) ):
 				$scriptGenerator['isSinglePopUp'] = $isSinglePopUp;
 				$scriptGenerator['isWooCom']      = $isWooCom;
 				$this->scA[]                      = $scriptGenerator;
-				add_action( 'wp_footer', array( $this, 'register_sc_scripts' ) );
+				add_action( 'wp_footer', [ $this, 'register_sc_scripts' ] );
 			} else {
 				$html .= "<p>" . __( "No shortCode found", "the-post-grid" ) . "</p>";
 			}
 
 			//restriction issue
-			$restriction = ( ! empty( $scMeta['restriction_user_role'] ) ? $scMeta['restriction_user_role'] : array() );
+			$restriction = ( ! empty( $scMeta['restriction_user_role'] ) ? $scMeta['restriction_user_role'] : [] );
 			if ( ! empty( $restriction ) ) {
 				if ( is_user_logged_in() ) {
 					$currentUserRoles = rtTPG()->getCurrentUserRoles();
@@ -1048,7 +1058,6 @@ if ( ! class_exists( 'rtTPGShortCode' ) ):
 									"the-post-grid" ) . "</p>";
 						}
 					}
-
 				} else {
 					$html = "<p>" . __( "This is a restricted content, you need to logged in to view this content.",
 							"the-post-grid" ) . "</p>";
@@ -1064,5 +1073,6 @@ if ( ! class_exists( 'rtTPGShortCode' ) ):
 
 			return $args;
 		}
+
 	}
 endif;

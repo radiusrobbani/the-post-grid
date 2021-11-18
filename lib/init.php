@@ -51,7 +51,7 @@ if ( ! class_exists( 'rtTPG' ) ) {
 				),
 				'custom_css'         => null
 			);
-
+			add_filter( 'wp_calculate_image_srcset', '__return_false' );
             add_action('admin_footer', array($this, 'pro_alert_html'));
 
 		}

@@ -483,6 +483,7 @@ if ( ! class_exists( 'rtTPGHelper' ) ):
 
 			$imgSize = [];
 			if ( ! empty( $sizes ) ) {
+				$imgSize[ 'full' ] = __("Full Size", 'the-post-grid');
 				foreach ( $sizes as $key => $img ) {
 					$imgSize[ $key ] = ucfirst( $key ) . " ({$img['width']}*{$img['height']})";
 				}
