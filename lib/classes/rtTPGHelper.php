@@ -1218,6 +1218,11 @@ if ( ! class_exists( 'rtTPGHelper' ) ):
                 $css .= "padding-left : {$gutter}px;";
                 $css .= "padding-right : {$gutter}px;";
                 $css .= "}";
+
+                // remove inner row margin
+                $css .= "#{$layoutID} .rt-row .rt-row [class*='rt-col-'] {";
+                $css .= "margin-top : 0;";
+                $css .= "}";
             }
 
             // Read more button border radius

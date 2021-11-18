@@ -520,6 +520,7 @@ if ( ! class_exists( 'rtTPGOptions' ) ):
 					"label"       => "Pagination",
 					'holderClass' => "pagination",
 					"id"          => "rt-tpg-pagination",
+                    "description" => "Pagination not allow in Grid Hover layout",
 					"option"      => 'Enable',
 				],
 				'posts_per_page'                   => [
