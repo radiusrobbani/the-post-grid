@@ -1332,10 +1332,10 @@ if ( ! class_exists( 'rtTPGHelper' ) ):
 
             // Title decoration
             if ($title_color) {
-                $css .= "#{$layoutID} .post-content .post-title a {";
+                $css .= "#{$layoutID} .post-content .post-title a,#{$layoutID} .rt-post-grid .post-title a {";
                 $css .= "background-image: linear-gradient(to bottom, $title_color 0%, $title_color 98%);";
                 $css .= "}";
-                $css .= "#{$layoutID} .post-content .post-title a:hover {";
+                $css .= "#{$layoutID} .post-content .post-title a:hover,#{$layoutID} .rt-post-grid .post-title a:hover {";
                 $css .= "background-image: linear-gradient(to bottom, $title_color 0%, $title_color 98%)";
                 $css .= "}";
             }
@@ -1350,6 +1350,8 @@ if ( ! class_exists( 'rtTPGHelper' ) ):
                 #{$layoutID} .rt-holder .rt-woo-info h3 a,
                 #{$layoutID} .rt-holder .rt-woo-info h4 a,
                 #{$layoutID} .post-content .post-title,
+                #{$layoutID} .rt-post-grid .post-title,
+                #{$layoutID} .rt-post-grid .post-title a,
                 #{$layoutID} .post-content .post-title a,
                 #{$layoutID} .rt-holder .rt-woo-info h2,
                 #{$layoutID} .rt-holder .rt-woo-info h3,
@@ -1385,6 +1387,7 @@ if ( ! class_exists( 'rtTPGHelper' ) ):
 						#{$layoutID} .{$layout} .rt-holder h3.entry-title a:hover,
 						#{$layoutID} .{$layout} .rt-holder h4.entry-title a:hover,
 						#{$layoutID} .post-content .post-title a:hover,
+                        #{$layoutID} .rt-post-grid .post-title a:hover,
 						#{$layoutID} .rt-holder .rt-woo-info h2 a:hover,
 						#{$layoutID} .rt-holder .rt-woo-info h3 a:hover,
 						#{$layoutID} .rt-holder .rt-woo-info h4 a:hover,
