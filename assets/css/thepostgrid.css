@@ -630,6 +630,25 @@ span.more-loading {
     padding-right: 8px;
 }
 
+.offset06 .post-meta-user span,
+.offset06 .post-meta-tags span {
+    text-transform: uppercase;
+    font-weight: 500;
+    padding-right: 15px;
+    font-size: .75rem;
+    color: #A5A6AA;
+}
+
+.offset06 .post-meta-user span a,
+.offset06 .post-meta-tags span a {
+    color: #444444;
+}
+
+.offset06 .post-meta-user span a:hover,
+.offset06 .post-meta-tags span a:hover {
+    color: #2962ff;
+}
+
 .post-meta-user span.rt-separator, .post-meta-tags span.rt-separator {
     display: inline-block;
     padding-right: 5px;
