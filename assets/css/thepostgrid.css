@@ -2489,3 +2489,129 @@ body > .rt-tooltip .rt-tooltip-bottom:after {
 .img_zoom_out .rt-holder:hover img.rt-img-responsive {
     transform: scale(1) !important;
 }
+
+/*TPG EVEN Style */
+
+.tpg-even {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+}
+
+.tpg-even .rt-holder {
+    display: flex;
+    height: 100%;
+}
+
+.tpg-even.layout12 .rt-holder,
+.tpg-even.edd1 .rt-holder,
+.tpg-even.layout1 .rt-holder,
+.tpg-even.offset02 .offset-big .rt-holder,
+.tpg-even.offset01 .offset-big .rt-holder {
+    flex-direction: column;
+}
+
+.tpg-even .rt-holder .rt-img-holder,
+.tpg-even .rt-holder .rt-img-holder *:not(.cat-over-image) {
+    height: 100%;
+}
+
+.tpg-even.layout1 .rt-holder .rt-img-holder,
+.tpg-even.edd1 .rt-holder .rt-img-holder,
+.tpg-even.layout11 .rt-holder .rt-img-holder,
+.tpg-even.layout11 .rt-holder .rt-img-holder * {
+    height: auto;
+}
+
+@media (max-width: 991px) {
+    .tpg-even .even-grid-item {
+        width: 100%;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+    .tpg-even.layout4 .even-grid-item:nth-of-type(4n+2) .rt-holder [class*='rt-col']:first-child {
+        order: 2;
+    }
+
+    .tpg-even.layout4 .even-grid-item:nth-of-type(4n+3) .rt-holder [class*='rt-col']:first-child {
+        order: 2;
+    }
+}
+
+@media (max-width: 767px) {
+    .tpg-even .rt-holder {
+        flex-direction: column;
+    }
+
+    .tpg-even.layout4 .even-grid-item .rt-holder .layoutInner-img {
+        order: -1 !important;
+    }
+}
+
+.rt-tpg-container .rt-holder .overlay,
+.rt-tpg-container .rt-holder .overlay > a[data-id],
+.rt-tpg-container .rt-holder > a[data-id] {
+    width: 100%;
+}
+
+.rt-tpg-container .layout5 .rt-holder .overlay,
+.rt-tpg-container .carousel12 .rt-holder .post-info,
+.rt-tpg-container .carousel11 .rt-holder .post-info,
+.rt-tpg-container .carousel7 .rt-holder .overlay .post-info,
+.rt-tpg-container .carousel5 .rt-holder .overlay,
+.rt-tpg-container .carousel2 .rt-holder .overlay,
+.rt-tpg-container .isotope12 .rt-holder .post-info,
+.rt-tpg-container .isotope9 .rt-holder .overlay .post-info,
+.rt-tpg-container .isotope7 .rt-holder .post-info,
+.rt-tpg-container .isotope5 .rt-holder .overlay,
+.rt-tpg-container .isotope2 .rt-holder:hover .overlay,
+.rt-tpg-container .layout16 .rt-holder .overlay .post-info,
+.rt-tpg-container .layout15 .rt-holder .overlay .post-info,
+.rt-tpg-container .isotope11 .rt-holder .overlay .post-info,
+.rt-tpg-container .carousel11 .rt-holder .overlay .post-info
+.rt-tpg-container .layout13 .rt-holder .overlay .post-info,
+.rt-tpg-container .layout10 .rt-holder .overlay .post-info,
+.rt-tpg-container .layout8 .rt-holder .overlay {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.rt-tpg-container .carousel9 .rt-holder .overlay .post-info .read-more a,
+.rt-tpg-container .isotope5 .rt-holder .overlay .post-meta .read-more a,
+.rt-tpg-container .isotope4 .rt-holder .post-meta .read-more a,
+.rt-tpg-container .isotope2 .rt-holder .overlay .post-meta .read-more a,
+.rt-tpg-container .layout5 .rt-holder .overlay .read-more a,
+.rt-tpg-container .carousel12 .rt-holder .post-info .read-more a,
+.rt-tpg-container .carousel11 .rt-holder .post-info .read-more a,
+.rt-tpg-container .carousel7 .rt-holder .overlay .post-info .read-more a,
+.rt-tpg-container .carousel5 .rt-holder .overlay .post-info .read-more a,
+.rt-tpg-container .carousel4 .rt-holder .read-more a,
+.rt-tpg-container .carousel2 .rt-holder .overlay .read-more a,
+.rt-tpg-container .isotope12 .rt-holder .post-info .read-more a,
+.rt-tpg-container .isotope11 .rt-holder .overlay .post-info .read-more a,
+.rt-tpg-container .isotope9 .rt-holder .overlay .post-info .read-more a,
+.rt-tpg-container .offset03 .rt-holder .post-meta .read-more a,
+.rt-tpg-container .layout16 .rt-holder .read-more a,
+.rt-tpg-container .layout15 .rt-holder .read-more a,
+.rt-tpg-container .layout13 .rt-holder .read-more a,
+.rt-tpg-container .layout10 .rt-holder .read-more a,
+.rt-tpg-container .layout8 .rt-holder .read-more a,
+.rt-tpg-container .layout7 .rt-holder .read-more a,
+.rt-tpg-container .layout6 .rt-holder .overlay .read-more a,
+.rt-tpg-container .isotope3 .rt-holder .overlay .read-more a,
+.rt-tpg-container .carousel3 .rt-holder .overlay .read-more a {
+    border: 1px solid rgba(255, 255, 255, .4);
+    padding: 8px 15px;
+}
+
+.rt-tpg-container .isotope12 .rt-holder .post-info .post-meta .rt-tpg-social-share,
+.rt-tpg-container .layout6 .rt-holder .overlay .post-meta,
+.rt-tpg-container .isotope3 .rt-holder .overlay .post-meta,
+.rt-tpg-container .carousel3 .rt-holder .overlay .post-meta {
+    color: #ffffff;
+    text-align: center;
+    overflow: hidden;
+}

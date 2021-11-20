@@ -931,13 +931,14 @@ if ( ! class_exists( 'rtTPGOptions' ) ):
 				'excerpt_limit'         => [
 					"type"        => "number",
 					"label"       => esc_html__( "Excerpt limit", 'the-post-grid' ),
+                    "default"       => 15,
 					"description" => esc_html__( "Excerpt limit only integer number is allowed, Leave it blank for full excerpt.", 'the-post-grid' ),
 				],
 				'tgp_excerpt_type'      => [
 					"type"      => "radio",
 					"label"     => esc_html__( "Excerpt Type", 'the-post-grid' ),
 					"alignment" => "vertical",
-					"default"   => 'character',
+					"default"   => 'word',
 					"options"   => $this->get_limit_type( 'content' ),
 				],
 				'tgp_excerpt_more_text' => [

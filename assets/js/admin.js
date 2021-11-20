@@ -381,6 +381,7 @@
         tpgTaxonomyFilterTrigger();
         //var layout = $("#rt-tpg-sc-layout").val(),
         var layout_type = $("#rttpg-layout_type input[name=layout_type]:checked"),
+            selectedLayout = $("#rttpg-layout input[name=layout]:checked").val(),
             layout = layout_type.val(),
             isIsotope = false,
             isCarousel = false,
@@ -391,7 +392,7 @@
             isLOffset = false;
 
         if (layout) {
-            isGrid = layout.match(/^layout/i);
+            isGrid = selectedLayout.match(/^layout/i);
             isCarousel = layout.match(/^carousel/i);
             isIsotope = layout.match(/^isotope/i);
             isWc = layout.match(/^wc/i) || layout.match(/^edd/i);
@@ -409,10 +410,11 @@
         var plType = $("#posts_loading_type");
         plType.find("label[for='posts_loading_type-pagination'],label[for='posts_loading_type-pagination_ajax']").show();
         $("#tgp_layout2_image_column_holder").hide();
+
         if (isGrid || (isWc && !isWcCarousel && !isWcIsotope)) {
             $("#tgp_filter_holder").show();
             taxonomyFilterEffect();
-            if (layout == "layout2" || layout == "layout3") {
+            if (selectedLayout == "layout2" || selectedLayout == "layout3") {
                 $("#tgp_layout2_image_column_holder").show();
             }
             $(".field-holder.isotope-item").hide();
@@ -788,6 +790,15 @@
     function rtTgpFilter() {
         $("#post_filter input[type=checkbox]:checked").each(function () {
             var id = $(this).val();
+            if (id == 'tpg_taxonomy') {
+                if (this.checked) {
+                    rtTPGTaxonomyListByPostType(postType, $(this));
+                } else {
+                    $('.rt-tpg-filter.taxonomy > .taxonomy-field').hide('slow').html('');
+                    $('.rt-tpg-filter.taxonomy > .rt-tpg-filter-item .term-filter-holder').hide('slow').html('');
+                    $('.rt-tpg-filter.taxonomy > .rt-tpg-filter-item .term-filter-item-relation').hide('slow');
+                }
+            }
             $(".rt-tpg-filter." + id).show();
         });
 
