@@ -28,3 +28,4 @@ define( 'RT_THE_POST_GRID_PLUGIN_SLUG', basename( dirname( __FILE__ ) ) );
 define( 'RT_THE_POST_GRID_LANGUAGE_PATH', dirname( plugin_basename( __FILE__ ) ) . '/languages' );
 
 require( 'lib/init.php' );
+

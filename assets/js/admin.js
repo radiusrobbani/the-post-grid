@@ -354,7 +354,6 @@
         });
     }
 
-
     function tpgTaxonomyFilterTrigger() {
         var target = $(".field-holder.sc-tpg-filter");
         if ($("#tgp_filter-_taxonomy_filter").is(':checked')) {

@@ -689,7 +689,7 @@ msgstr ""
 msgid "You are not permitted to view this content."
 msgstr ""
 
-#: ../lib/models/rtTPGField.php:80
+#: ../lib/models/rtTPGField.php:82
 msgid "Premium Option"
 msgstr ""
 

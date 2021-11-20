@@ -4,7 +4,7 @@ Donate link:
 Tags: post grid, content grid, post display, post format, post view, blog display, news display, post
 Requires at least: 4.5
 Tested up to: 5.8.1
-Stable tag: 3.0.4
+Stable tag: 3.0.5
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -12,7 +12,7 @@ Fast & Easy way to display WordPress post in Grid, List & Isotope view ( filter 
 
 == Description ==
 
-[Plugin Demo](https://www.radiustheme.com/demo/plugins/the-post-grid/) | [Documentation](https://radiustheme.com/how-to-setup-configure-the-post-grid-free-version-for-wordpress/) | [Get Pro](https://www.radiustheme.com/the-post-grid-pro-for-wordpress/)
+[Plugin Demo](https://www.radiustheme.com/demo/plugins/the-post-grid/) | [Documentation](https://radiustheme.com/how-to-setup-configure-the-post-grid-free-version-for-wordpress/) | [Get Pro](https://www.radiustheme.com/downloads/the-post-grid-pro-for-wordpress/)
 
 The Post Grid is a fully Responsive & Mobile friendly plugin to display your page/post in Grid, List and Isotope View without any line of coding. It is fast and easy to generate grid from admin end and insert into page/post. You can Display posts by any category(s), tag(s), author(s), keyword(s) also Order posts by Id, Title, Created date, Modified date and Menu order.
 
@@ -85,7 +85,7 @@ For any bug or suggestion please mail support@radiustheme.com
 * Social Share on popup.
 * Override default page template (Category, Tag, Search)
 
-[Get The PRO](https://www.radiustheme.com/downloads/the-post-grid-pro-for-wordpress/) [PRO Version Demo](http://radiustheme.com/demo/wordpress/thepostgridpro/)
+[Get The PRO](https://www.radiustheme.com/downloads/the-post-grid-pro-for-wordpress/) [PRO Version Demo](https://www.radiustheme.com/demo/plugins/the-post-grid/)
 
 For any bug or suggestion please mail support@radiustheme.com
 
@@ -140,6 +140,9 @@ For any bug or suggestion please mail support@radiustheme.com
 
 
 == Changelog ==
+
+= 3.0.5 =
+* Updated missing URL
 
 = 3.0.4 =
 * Fixed file readability issue
