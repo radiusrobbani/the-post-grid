@@ -2512,11 +2512,6 @@ body > .rt-tooltip .rt-tooltip-bottom:after {
     flex-direction: column;
 }
 
-.tpg-even .rt-holder .rt-img-holder,
-.tpg-even .rt-holder .rt-img-holder *:not(.cat-over-image) {
-    height: 100%;
-}
-
 .tpg-even.layout1 .rt-holder .rt-img-holder,
 .tpg-even.edd1 .rt-holder .rt-img-holder,
 .tpg-even.layout11 .rt-holder .rt-img-holder,
