@@ -830,9 +830,9 @@ if ( ! class_exists( 'rtTPGPreview' ) ):
 					if ( $layout == 'layout4' ) {
 						$tgCol = round( 12 / $dCol );
 					}
-                    $gridPostCount = 0;
-                    $arg['totalPost'] = $gridQuery->post_count;
-					
+					$gridPostCount    = 0;
+					$arg['totalPost'] = $gridQuery->post_count;
+
 					while ( $gridQuery->have_posts() ) : $gridQuery->the_post();
 						if ( $tgCol == $l ) {
 							if ( $this->l4toggle ) {
@@ -911,23 +911,25 @@ if ( ! class_exists( 'rtTPGPreview' ) ):
 						if ( $layout == "offset03" || $layout == "offset04" ) {
 							$oDCol['big'] = $oTCol['big'] = $oDCol['small'] = $oTCol['small'] = 6;
 							$oMCol['big'] = $oMCol['small'] = 12;
+						} elseif ( $layout == "offset06" ) {
+							$oDCol['big']   = 7;
+							$oDCol['small'] = 5;
 						}
 						$data .= "<div class='rt-col-md-{$oDCol['big']} rt-col-sm-{$oTCol['big']} rt-col-xs-{$oMCol['big']}'><div class='rt-row'>{$offsetBigHtml}</div></div>";
 						$data .= "<div class='rt-col-md-{$oDCol['small']} rt-col-sm-{$oTCol['small']} rt-col-xs-{$oMCol['small']}'><div class='rt-row offset-small-wrap'>{$offsetSmallHtml}</div></div>";
 					}
-                    if ( $isIsotope || $isCarousel ) {
-                        $data .= '</div>'; // End isotope / Carousel item holder
-                        if ($isCarousel) {
-                            if (in_array( 'pagination', $cOpt )) {
-                                $data .= '<div class="swiper-pagination"></div>';
-                            }
-                            $data .= '</div>';
-                            if (in_array( 'nav_button', $cOpt )) {
-                                $data .= '<div class="swiper-navigation"><div class="slider-btn swiper-button-prev"></div><div class="slider-btn swiper-button-next"></div></div>';
-                            }
-                        }
-                    }
-
+					if ( $isIsotope || $isCarousel ) {
+						$data .= '</div>'; // End isotope / Carousel item holder
+						if ( $isCarousel ) {
+							if ( in_array( 'pagination', $cOpt ) ) {
+								$data .= '<div class="swiper-pagination"></div>';
+							}
+							$data .= '</div>';
+							if ( in_array( 'nav_button', $cOpt ) ) {
+								$data .= '<div class="swiper-navigation"><div class="slider-btn swiper-button-prev"></div><div class="slider-btn swiper-button-next"></div></div>';
+							}
+						}
+					}
 				} else {
 					$not_found_text = isset( $scMeta['tgp_not_found_text'] ) && ! empty( $scMeta['tgp_not_found_text'] ) ? esc_attr( $scMeta['tgp_not_found_text'] )
 						: __( 'No post found', 'the-post-grid' );

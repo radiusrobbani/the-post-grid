@@ -483,7 +483,7 @@ if ( ! class_exists( 'rtTPGHelper' ) ):
 
 			$imgSize = [];
 			if ( ! empty( $sizes ) ) {
-				$imgSize[ 'full' ] = __("Full Size", 'the-post-grid');
+				$imgSize['full'] = __( "Full Size", 'the-post-grid' );
 				foreach ( $sizes as $key => $img ) {
 					$imgSize[ $key ] = ucfirst( $key ) . " ({$img['width']}*{$img['height']})";
 				}
@@ -1029,7 +1029,7 @@ if ( ! class_exists( 'rtTPGHelper' ) ):
 				$css .= "border-color:" . $button_border_color . ";";
 				$css .= "}";
 			}
-			
+
 			if ( $button_bg_color ) {
 				$css .= "#{$layoutID} .pagination-list li a,
 				            {$layoutID} .pagination-list li span, 
@@ -1065,7 +1065,6 @@ if ( ! class_exists( 'rtTPGHelper' ) ):
 				$css .= "#{$layoutID} .rt-holder .read-more a {";
 				$css .= "background-color:" . $button_bg_color . ";padding: 8px 15px;";
 				$css .= "}";
-
 			}
 
 			// button active color
@@ -1077,8 +1076,8 @@ if ( ! class_exists( 'rtTPGHelper' ) ):
 						#{$layoutID} .rt-layout-filter-container .rt-filter-sub-tax.sub-button-group .rt-filter-button-item.selected,
 						#{$layoutID}.rt-tpg-container .rt-pagination-wrap .rt-page-numbers .paginationjs .paginationjs-pages ul li.active>a, 
 						#{$layoutID}.rt-tpg-container .swiper-pagination-bullet.swiper-pagination-bullet-active-main{";
-                $css .= "background-color:" . $button_active_bg_color . ";";
-                $css .= "}";
+				$css .= "background-color:" . $button_active_bg_color . ";";
+				$css .= "}";
 
 				$css .= "#{$layoutID} .rt-filter-item-wrap.rt-filter-button-wrap span.rt-filter-button-item.selected,
 						#{$layoutID} .rt-layout-filter-container .rt-filter-sub-tax.sub-button-group .rt-filter-button-item.selected,
@@ -1171,176 +1170,176 @@ if ( ! class_exists( 'rtTPGHelper' ) ):
 						#{$layoutID}.rt-tpg-container .rt-pagination-wrap  .rt-loadmore-btn:hover,
 						#{$layoutID} .rt-read-more:hover,
 						#{$layoutID}.rt-tpg-container .rt-pagination-wrap .rt-page-numbers .paginationjs .paginationjs-pages ul li.active>a{";
-                $css .= "color:" . $button_hover_text_color . ";";
-                $css .= "}";
+				$css .= "color:" . $button_hover_text_color . ";";
+				$css .= "}";
+			}
 
-            }
+			if ( $overlay_color || $overlay_padding ) {
+				if ( in_array( $layout, [ 'layout15', 'isotope11', 'carousel11' ] ) ) {
+					$css .= "#{$layoutID} .{$layout} .rt-holder:hover .overlay .post-info{";
+				} elseif ( in_array( $layout,
+					[ 'layout10', 'isotope7', 'carousel6', 'carousel7', 'layout9', 'offset04' ] )
+				) {
+					$css .= "#{$layoutID} .{$layout} .rt-holder .post-info{";
+				} elseif ( in_array( $layout, [ 'layout7', 'isotope4', 'carousel4' ] ) ) {
+					$css .= "#{$layoutID} .{$layout} .rt-holder .overlay:hover{";
+				} elseif ( in_array( $layout, [ 'layout16', 'isotope12', 'carousel12' ] ) ) {
+					$css .= "#{$layoutID} .{$layout} .rt-holder .overlay .post-info {";
+				} elseif ( in_array( $layout, [ 'offset03', 'carousel5' ] ) ) {
+					$css .= "#{$layoutID} .{$layout} .rt-holder .overlay{";
+				} else {
+					$css .= "#{$layoutID} .rt-post-overlay .post-img > a:first-of-type::after,";
+					$css .= "#{$layoutID} .rt-holder .overlay:hover{";
+				}
+				if ( $overlay_color ) {
+					$css .= "background-image: none;";
+					$css .= "background-color:" . $overlay_color . ";";
+				}
+				if ( $overlay_padding ) {
+					$css .= "padding-top:" . $overlay_padding . "%;";
+				}
+				$css .= "}";
+			}
 
-            if ($overlay_color || $overlay_padding) {
-                if (in_array($layout, array('layout15', 'isotope11', 'carousel11'))) {
-                    $css .= "#{$layoutID} .{$layout} .rt-holder:hover .overlay .post-info{";
-                } else if (in_array($layout,
-                    array('layout10', 'isotope7', 'carousel6', 'carousel7', 'layout9', 'offset04'))) {
-                    $css .= "#{$layoutID} .{$layout} .rt-holder .post-info{";
-                } else if (in_array($layout, array('layout7', 'isotope4', 'carousel4'))) {
-                    $css .= "#{$layoutID} .{$layout} .rt-holder .overlay:hover{";
-                } else if (in_array($layout, array('layout16', 'isotope12', 'carousel12'))) {
-                    $css .= "#{$layoutID} .{$layout} .rt-holder .overlay .post-info {";
-                } else if (in_array($layout, array('offset03', 'carousel5'))) {
-                    $css .= "#{$layoutID} .{$layout} .rt-holder .overlay{";
-                } else {
-                    $css .= "#{$layoutID} .rt-post-overlay .post-img > a:first-of-type::after,";
-                    $css .= "#{$layoutID} .rt-holder .overlay:hover{";
-                }
-                if ($overlay_color) {
-                    $css .= "background-image: none;";
-                    $css .= "background-color:" . $overlay_color . ";";
-                }
-                if ($overlay_padding) {
-                    $css .= "padding-top:" . $overlay_padding . "%;";
-                }
-                $css .= "}";
-            }
+			/* gutter */
+			if ( $gutter ) {
+				$css .= "#{$layoutID} [class*='rt-col-'] {";
+				$css .= "padding-left : {$gutter}px !important;";
+				$css .= "padding-right : {$gutter}px !important;";
+				$css .= "margin-top : {$gutter}px;";
+				$css .= "margin-bottom : {$gutter}px;";
+				$css .= "}";
+				$css .= "#{$layoutID} .rt-row{";
+				$css .= "margin-left : -{$gutter}px !important;";
+				$css .= "margin-right : -{$gutter}px !important;";
+				$css .= "}";
+				$css .= "#{$layoutID}.rt-container-fluid,#{$layoutID}.rt-container{";
+				$css .= "padding-left : {$gutter}px;";
+				$css .= "padding-right : {$gutter}px;";
+				$css .= "}";
 
-            /* gutter */
-            if ($gutter) {
-                $css .= "#{$layoutID} [class*='rt-col-'] {";
-                $css .= "padding-left : {$gutter}px !important;";
-                $css .= "padding-right : {$gutter}px !important;";
-                $css .= "margin-top : {$gutter}px;";
-                $css .= "margin-bottom : {$gutter}px;";
-                $css .= "}";
-                $css .= "#{$layoutID} .rt-row{";
-                $css .= "margin-left : -{$gutter}px !important;";
-                $css .= "margin-right : -{$gutter}px !important;";
-                $css .= "}";
-                $css .= "#{$layoutID}.rt-container-fluid,#{$layoutID}.rt-container{";
-                $css .= "padding-left : {$gutter}px;";
-                $css .= "padding-right : {$gutter}px;";
-                $css .= "}";
+				// remove inner row margin
+				$css .= "#{$layoutID} .rt-row .rt-row [class*='rt-col-'] {";
+				$css .= "margin-top : 0;";
+				$css .= "}";
+			}
 
-                // remove inner row margin
-                $css .= "#{$layoutID} .rt-row .rt-row [class*='rt-col-'] {";
-                $css .= "margin-top : 0;";
-                $css .= "}";
-            }
+			// Read more button border radius
+			if ( isset( $read_more_button_border_radius ) || trim( $read_more_button_border_radius ) !== '' ) {
+				$css .= "#{$layoutID} .read-more a{";
+				$css .= "border-radius:" . $read_more_button_border_radius . "px;";
+				$css .= "}";
+			}
 
-            // Read more button border radius
-            if (isset($read_more_button_border_radius) || trim($read_more_button_border_radius) !== '') {
-                $css .= "#{$layoutID} .read-more a{";
-                $css .= "border-radius:" . $read_more_button_border_radius . "px;";
-                $css .= "}";
-            }
+			// Section
+			if ( $sectionBg ) {
+				$css .= "#{$layoutID}.rt-tpg-container {";
+				$css .= "background:" . $sectionBg . ";";
+				$css .= "}";
+			}
+			if ( $sectionMargin ) {
+				$css .= "#{$layoutID}.rt-tpg-container {";
+				$css .= "margin:" . $sectionMargin . "px;";
+				$css .= "}";
+			}
+			if ( $sectionPadding ) {
+				$css .= "#{$layoutID}.rt-tpg-container {";
+				$css .= "padding:" . $sectionPadding . "px;";
+				$css .= "}";
+			}
+			// Box
+			if ( $boxBg ) {
+				$css .= "#{$layoutID} .rt-holder, #{$layoutID} .rt-holder .rt-detail,#{$layoutID} .rt-post-overlay .post-img + .post-content {";
+				$css .= "background-color:" . $boxBg . ";";
+				$css .= "}";
+			}
+			if ( $boxBorderColor ) {
+				$css .= "#{$layoutID} .rt-holder {";
+				$css .= "border-color:" . $boxBorderColor . ";";
+				$css .= "}";
+			}
+			if ( $boxBorder ) {
+				$css .= "#{$layoutID} .rt-holder {";
+				$css .= "border-style: solid;";
+				$css .= "border-width:" . $boxBorder . "px;";
+				$css .= "}";
+			}
+			if ( $boxBorderRadius ) {
+				$css .= "#{$layoutID} .rt-holder {";
+				$css .= "border-radius:" . $boxBorderRadius . "px;";
+				$css .= "}";
+			}
+			if ( $boxPadding ) {
+				$css .= "#{$layoutID} .rt-holder {";
+				$css .= "padding:" . $boxPadding . "px;";
+				$css .= "}";
+			}
+			if ( $contentPadding ) {
+				$css .= "#{$layoutID} .rt-holder .rt-detail {";
+				$css .= "padding:" . $contentPadding . "px;";
+				$css .= "}";
+			}
+			// Widget heading
+			if ( $headingBg ) {
+				$css .= "#{$layoutID} .tpg-widget-heading-wrapper.heading-style1 .tpg-widget-heading, #{$layoutID} .tpg-widget-heading-wrapper.heading-style2 .tpg-widget-heading, #{$layoutID} .tpg-widget-heading-wrapper.heading-style3 .tpg-widget-heading {";
+				$css .= "background:" . $headingBg . ";";
+				$css .= "}";
 
-            // Section
-            if ($sectionBg) {
-                $css .= "#{$layoutID}.rt-tpg-container {";
-                $css .= "background:" . $sectionBg . ";";
-                $css .= "}";
-            }
-            if ($sectionMargin) {
-                $css .= "#{$layoutID}.rt-tpg-container {";
-                $css .= "margin:" . $sectionMargin . "px;";
-                $css .= "}";
-            }
-            if ($sectionPadding) {
-                $css .= "#{$layoutID}.rt-tpg-container {";
-                $css .= "padding:" . $sectionPadding . "px;";
-                $css .= "}";
-            }
-            // Box
-            if($boxBg) {
-                $css .= "#{$layoutID} .rt-holder, #{$layoutID} .rt-holder .rt-detail,#{$layoutID} .rt-post-overlay .post-img + .post-content {";
-                $css .= "background-color:" . $boxBg . ";";
-                $css .= "}";
-            }
-            if($boxBorderColor) {
-                $css .= "#{$layoutID} .rt-holder {";
-                $css .= "border-color:" . $boxBorderColor . ";";
-                $css .= "}";
-            }
-            if($boxBorder) {
-                $css .= "#{$layoutID} .rt-holder {";
-                $css .= "border-style: solid;";
-                $css .= "border-width:" . $boxBorder . "px;";
-                $css .= "}";
-            }
-            if($boxBorderRadius) {
-                $css .= "#{$layoutID} .rt-holder {";
-                $css .= "border-radius:" . $boxBorderRadius . "px;";
-                $css .= "}";
-            }
-            if($boxPadding) {
-                $css .= "#{$layoutID} .rt-holder {";
-                $css .= "padding:" . $boxPadding . "px;";
-                $css .= "}";
-            }
-            if($contentPadding) {
-                $css .= "#{$layoutID} .rt-holder .rt-detail {";
-                $css .= "padding:" . $contentPadding . "px;";
-                $css .= "}";
-            }
-            // Widget heading
-            if ($headingBg) {
-                $css .= "#{$layoutID} .tpg-widget-heading-wrapper.heading-style1 .tpg-widget-heading, #{$layoutID} .tpg-widget-heading-wrapper.heading-style2 .tpg-widget-heading, #{$layoutID} .tpg-widget-heading-wrapper.heading-style3 .tpg-widget-heading {";
-                $css .= "background:" . $headingBg . ";";
-                $css .= "}";
+				$css .= "#{$layoutID} .tpg-widget-heading-wrapper.heading-style2 .tpg-widget-heading::after {";
+				$css .= "border-top-color:" . $headingBg . ";";
+				$css .= "}";
+			}
+			if ( $headingColor ) {
+				$css .= "#{$layoutID} .tpg-widget-heading-wrapper.heading-style1 .tpg-widget-heading, #{$layoutID} .tpg-widget-heading-wrapper.heading-style1 .tpg-widget-heading a, #{$layoutID} .tpg-widget-heading-wrapper.heading-style2 .tpg-widget-heading, #{$layoutID} .tpg-widget-heading-wrapper.heading-style2 .tpg-widget-heading a, #{$layoutID} .tpg-widget-heading-wrapper.heading-style3 .tpg-widget-heading, #{$layoutID} .tpg-widget-heading-wrapper.heading-style3 .tpg-widget-heading a  {";
+				$css .= "color:" . $headingColor . ";";
+				$css .= "}";
+				$css .= "#{$layoutID} .tpg-widget-heading-wrapper.heading-style1 .tpg-widget-heading::before  {";
+				$css .= "background-color:" . $headingColor . ";";
+				$css .= "}";
+			}
+			if ( $headingBorderSize ) {
+				$css .= "#{$layoutID} .tpg-widget-heading-wrapper.heading-style1, #{$layoutID} .tpg-widget-heading-wrapper.heading-style2, #{$layoutID} .tpg-widget-heading-wrapper.heading-style3 {";
+				//                $css .= "border-bottom-style: solid;";
+				$css .= "border-bottom-width:" . $headingBorderSize . "px;";
+				$css .= "}";
 
-	            $css .= "#{$layoutID} .tpg-widget-heading-wrapper.heading-style2 .tpg-widget-heading::after {";
-	            $css .= "border-top-color:" . $headingBg . ";";
-	            $css .= "}";
-            }
-            if ($headingColor) {
-                $css .= "#{$layoutID} .tpg-widget-heading-wrapper.heading-style1 .tpg-widget-heading, #{$layoutID} .tpg-widget-heading-wrapper.heading-style1 .tpg-widget-heading a, #{$layoutID} .tpg-widget-heading-wrapper.heading-style2 .tpg-widget-heading, #{$layoutID} .tpg-widget-heading-wrapper.heading-style2 .tpg-widget-heading a, #{$layoutID} .tpg-widget-heading-wrapper.heading-style3 .tpg-widget-heading, #{$layoutID} .tpg-widget-heading-wrapper.heading-style3 .tpg-widget-heading a  {";
-                $css .= "color:" . $headingColor . ";";
-                $css .= "}";
-                $css .= "#{$layoutID} .tpg-widget-heading-wrapper.heading-style1 .tpg-widget-heading::before  {";
-                $css .= "background-color:" . $headingColor . ";";
-                $css .= "}";
-            }
-            if ($headingBorderSize) {
-                $css .= "#{$layoutID} .tpg-widget-heading-wrapper.heading-style1, #{$layoutID} .tpg-widget-heading-wrapper.heading-style2, #{$layoutID} .tpg-widget-heading-wrapper.heading-style3 {";
-//                $css .= "border-bottom-style: solid;";
-                $css .= "border-bottom-width:" . $headingBorderSize . "px;";
-                $css .= "}";
+				$css .= "#{$layoutID} .tpg-widget-heading-wrapper.heading-style1 .tpg-widget-heading-line {";
+				$css .= "border-width:" . $headingBorderSize . "px 0;";
+				$css .= "}";
+			}
+			if ( $headingBorderColor ) {
+				$css .= "#{$layoutID} .tpg-widget-heading-wrapper.heading-style1 .tpg-widget-heading-line, #{$layoutID} .tpg-widget-heading-wrapper.heading-style2, #{$layoutID} .tpg-widget-heading-wrapper.heading-style3  {";
+				$css .= "border-color:" . $headingBorderColor . ";";
+				$css .= "}";
+			}
+			if ( $headingMargin ) {
+				$css .= "#{$layoutID} .tpg-widget-heading-wrapper {";
+				$css .= "margin:" . $headingMargin . "px;";
+				$css .= "}";
+			}
+			if ( $headingPadding ) {
+				$css .= "#{$layoutID} .tpg-widget-heading-wrapper .tpg-widget-heading {";
+				$css .= "padding:" . $headingPadding . "px;";
+				$css .= "}";
+			}
+			// Image border
+			if ( isset( $image_border_radius ) || trim( $image_border_radius ) !== '' ) {
+				$css .= "#{$layoutID} .rt-img-holder img.rt-img-responsive,#{$layoutID} .rt-img-holder,#{$layoutID} .rt-post-overlay .post-img,#{$layoutID} .rt-post-grid .post-img,#{$layoutID} .post-img img {";
+				$css .= "border-radius:" . $image_border_radius . "px;";
+				$css .= "}";
+			}
 
-                $css .= "#{$layoutID} .tpg-widget-heading-wrapper.heading-style1 .tpg-widget-heading-line {";
-                $css .= "border-width:" . $headingBorderSize . "px 0;";
-                $css .= "}";
-            }
-            if ($headingBorderColor) {
-                $css .= "#{$layoutID} .tpg-widget-heading-wrapper.heading-style1 .tpg-widget-heading-line, #{$layoutID} .tpg-widget-heading-wrapper.heading-style2, #{$layoutID} .tpg-widget-heading-wrapper.heading-style3  {";
-                $css .= "border-color:" . $headingBorderColor . ";";
-                $css .= "}";
-            }
-            if ($headingMargin) {
-                $css .= "#{$layoutID} .tpg-widget-heading-wrapper {";
-                $css .= "margin:" . $headingMargin . "px;";
-                $css .= "}";
-            }
-            if ($headingPadding) {
-                $css .= "#{$layoutID} .tpg-widget-heading-wrapper .tpg-widget-heading {";
-                $css .= "padding:" . $headingPadding . "px;";
-                $css .= "}";
-            }
-            // Image border
-            if (isset($image_border_radius) || trim($image_border_radius) !== '') {
-                $css .= "#{$layoutID} .rt-img-holder img.rt-img-responsive,#{$layoutID} .rt-img-holder,#{$layoutID} .rt-post-overlay .post-img,#{$layoutID} .rt-post-grid .post-img,#{$layoutID} .post-img img {";
-                $css .= "border-radius:" . $image_border_radius . "px;";
-                $css .= "}";
-            }
-
-            // Title decoration
-            if ($title_color) {
-                $css .= "#{$layoutID} .post-content .post-title a,#{$layoutID} .rt-post-grid .post-title a {";
-                $css .= "background-image: linear-gradient(to bottom, $title_color 0%, $title_color 98%);";
-                $css .= "}";
-                $css .= "#{$layoutID} .post-content .post-title a:hover,#{$layoutID} .rt-post-grid .post-title a:hover {";
-                $css .= "background-image: linear-gradient(to bottom, $title_color 0%, $title_color 98%)";
-                $css .= "}";
-            }
-            if ($title_color || $title_size || $title_weight || $title_alignment) {
-                $css .= "#{$layoutID} .{$layout} .rt-holder h2.entry-title,
+			// Title decoration
+			if ( $title_color ) {
+				$css .= "#{$layoutID} .post-content .post-title a,#{$layoutID} .rt-post-grid .post-title a {";
+				$css .= "background-image: linear-gradient(to bottom, $title_color 0%, $title_color 98%);";
+				$css .= "}";
+				$css .= "#{$layoutID} .post-content .post-title a:hover,#{$layoutID} .rt-post-grid .post-title a:hover {";
+				$css .= "background-image: linear-gradient(to bottom, $title_color 0%, $title_color 98%)";
+				$css .= "}";
+			}
+			if ( $title_color || $title_size || $title_weight || $title_alignment ) {
+				$css .= "#{$layoutID} .{$layout} .rt-holder h2.entry-title,
                 #{$layoutID} .{$layout} .rt-holder h3.entry-title,
                 #{$layoutID} .{$layout} .rt-holder h4.entry-title,
                 #{$layoutID} .{$layout} .rt-holder h2.entry-title a,
@@ -1356,31 +1355,42 @@ if ( ! class_exists( 'rtTPGHelper' ) ):
                 #{$layoutID} .rt-holder .rt-woo-info h2,
                 #{$layoutID} .rt-holder .rt-woo-info h3,
                 #{$layoutID} .rt-holder .rt-woo-info h4{";
-                if ($title_color) {
-                    $css .= "color:" . $title_color . ";";
-                }
-                if ($title_size) {
-                    $lineHeight = $title_size + 10;
-                    $css .= "font-size:" . $title_size . "px;";
-                    $css .= "line-height:" . $lineHeight . "px;";
-                }
-                if ($title_weight) {
-                    $css .= "font-weight:" . $title_weight . ";";
-                }
-                if ($title_alignment) {
-                    $css .= "text-align:" . $title_alignment . ";";
-                }
-                $css .= "}";
-            }
-            // Title hover color
-            if ($title_hover_color) {
-                $css .= "#{$layoutID} .post-content .post-title a {";
-                $css .= "background-image: linear-gradient(to bottom, $title_hover_color 0%, $title_hover_color 98%);";
-                $css .= "}";
-                $css .= "#{$layoutID} .post-content .post-title a:hover {";
-                $css .= "background-image: linear-gradient(to bottom, $title_hover_color 0%, $title_hover_color 98%)";
-                $css .= "}";
-                $css .= "#{$layoutID} .{$layout} .rt-holder h2.entry-title:hover,
+				if ( $title_color ) {
+					$css .= "color:" . $title_color . ";";
+				}
+				if ( $title_size ) {
+					$lineHeight = $title_size + 10;
+					$css        .= "font-size:" . $title_size . "px;";
+					$css        .= "line-height:" . $lineHeight . "px;";
+				}
+				if ( $title_weight ) {
+					$css .= "font-weight:" . $title_weight . ";";
+				}
+				if ( $title_alignment ) {
+					$css .= "text-align:" . $title_alignment . ";";
+				}
+				$css .= "}";
+				if ( $title_size ) {
+					$css .= "#{$layoutID} .post-grid-lg-style-1 .post-title,
+						#{$layoutID} .post-grid-lg-style-1 .post-title a, 
+						#{$layoutID} .big-layout .post-title,
+						#{$layoutID} .big-layout .post-title a, 
+						#{$layoutID} .post-grid-lg-style-1 .post-title,
+						#{$layoutID} .post-grid-lg-style-1 .post-title a {";
+					$css .= "font-size:" . ( $title_size + 8 ) . "px;";
+					$css .= "line-height:" . ( $lineHeight + 8 ) . "px;";
+					$css .= "}";
+				}
+			}
+			// Title hover color
+			if ( $title_hover_color ) {
+				$css .= "#{$layoutID} .post-content .post-title a {";
+				$css .= "background-image: linear-gradient(to bottom, $title_hover_color 0%, $title_hover_color 98%);";
+				$css .= "}";
+				$css .= "#{$layoutID} .post-content .post-title a:hover {";
+				$css .= "background-image: linear-gradient(to bottom, $title_hover_color 0%, $title_hover_color 98%)";
+				$css .= "}";
+				$css .= "#{$layoutID} .{$layout} .rt-holder h2.entry-title:hover,
                         #{$layoutID} .{$layout} .rt-holder h3.entry-title:hover,
                         #{$layoutID} .{$layout} .rt-holder h4.entry-title:hover,
 						#{$layoutID} .{$layout} .rt-holder h2.entry-title a:hover,
@@ -1394,98 +1404,97 @@ if ( ! class_exists( 'rtTPGHelper' ) ):
 						#{$layoutID} .rt-holder .rt-woo-info h2:hover,
 						#{$layoutID} .rt-holder .rt-woo-info h3:hover,
 						#{$layoutID} .rt-holder .rt-woo-info h4:hover{";
-                $css .= "color:" . $title_hover_color . " !important;";
-                $css .= "}";
-            }
-            // Excerpt decoration
-            if ($excerpt_color || $excerpt_size || $excerpt_weight || $excerpt_alignment) {
-                $css .= "#{$layoutID} .{$layout} .rt-holder .tpg-excerpt,#{$layoutID} .{$layout} .tpg-excerpt,#{$layoutID} .{$layout} .rt-holder .post-content,#{$layoutID} .rt-holder .rt-woo-info p,#{$layoutID} .post-content p {";
-                if ($excerpt_color) {
-                    $css .= "color:" . $excerpt_color . ";";
-                }
-                if ($excerpt_size) {
-                    $css .= "font-size:" . $excerpt_size . "px;";
-                }
-                if ($excerpt_weight) {
-                    $css .= "font-weight:" . $excerpt_weight . ";";
-                }
-                if ($excerpt_alignment) {
-                    $css .= "text-align:" . $excerpt_alignment . ";";
-                }
-                $css .= "}";
-            }
-            // Post meta decoration
-            if ($meta_data_color || $meta_data_size || $meta_data_weight || $meta_data_alignment) {
+				$css .= "color:" . $title_hover_color . " !important;";
+				$css .= "}";
+			}
+			// Excerpt decoration
+			if ( $excerpt_color || $excerpt_size || $excerpt_weight || $excerpt_alignment ) {
+				$css .= "#{$layoutID} .{$layout} .rt-holder .tpg-excerpt,#{$layoutID} .{$layout} .tpg-excerpt,#{$layoutID} .{$layout} .rt-holder .post-content,#{$layoutID} .rt-holder .rt-woo-info p,#{$layoutID} .post-content p {";
+				if ( $excerpt_color ) {
+					$css .= "color:" . $excerpt_color . ";";
+				}
+				if ( $excerpt_size ) {
+					$css .= "font-size:" . $excerpt_size . "px;";
+				}
+				if ( $excerpt_weight ) {
+					$css .= "font-weight:" . $excerpt_weight . ";";
+				}
+				if ( $excerpt_alignment ) {
+					$css .= "text-align:" . $excerpt_alignment . ";";
+				}
+				$css .= "}";
+			}
+			// Post meta decoration
+			if ( $meta_data_color || $meta_data_size || $meta_data_weight || $meta_data_alignment ) {
+				$css .= "#{$layoutID} .{$layout} .rt-holder .post-meta-user,#{$layoutID} .{$layout} .rt-meta,#{$layoutID} .{$layout} .rt-meta a,#{$layoutID} .{$layout} .rt-holder .post-meta-user .meta-data, #{$layoutID} .{$layout} .rt-holder .post-meta-user a, #{$layoutID} .{$layout} .rt-holder .rt-detail .post-meta .rt-tpg-social-share,#{$layoutID} .rt-post-overlay .post-meta-user span,#{$layoutID} .rt-post-overlay .post-meta-user, #{$layoutID} .rt-post-overlay .post-meta-user a,#{$layoutID} .rt-post-grid .post-meta-user,#{$layoutID} .rt-post-grid .post-meta-user a,#{$layoutID} .rt-post-box-media-style .post-meta-user,#{$layoutID} .rt-post-box-media-style .post-meta-user a,#{$layoutID} .{$layout} .post-meta-user,#{$layoutID} .{$layout} .post-meta-user a {";
+				if ( $meta_data_color ) {
+					$css .= "color:" . $meta_data_color . ";";
+				}
+				if ( $meta_data_size ) {
+					$css .= "font-size:" . $meta_data_size . "px;";
+				}
+				if ( $meta_data_weight ) {
+					$css .= "font-weight:" . $meta_data_weight . ";";
+				}
+				if ( $meta_data_alignment ) {
+					$css .= "text-align:" . $meta_data_alignment . ";";
+				}
+				$css .= "}";
+			}
+			// Category
+			if ( $catBg ) {
+				$css .= "#{$layoutID} .cat-over-image.style2 .categories-links a,#{$layoutID} .cat-over-image.style3 .categories-links a,#{$layoutID} .cat-above-title.style2 .categories-links a,#{$layoutID} .cat-above-title.style3 .categories-links a,#{$layoutID} .rt-tpg-category > a {";
+				$css .= "background-color:" . $catBg . ";";
+				$css .= "}";
 
-                $css .= "#{$layoutID} .{$layout} .rt-holder .post-meta-user,#{$layoutID} .{$layout} .rt-meta,#{$layoutID} .{$layout} .rt-meta a,#{$layoutID} .{$layout} .rt-holder .post-meta-user .meta-data, #{$layoutID} .{$layout} .rt-holder .post-meta-user a, #{$layoutID} .{$layout} .rt-holder .rt-detail .post-meta .rt-tpg-social-share,#{$layoutID} .rt-post-overlay .post-meta-user span,#{$layoutID} .rt-post-overlay .post-meta-user, #{$layoutID} .rt-post-overlay .post-meta-user a,#{$layoutID} .rt-post-grid .post-meta-user,#{$layoutID} .rt-post-grid .post-meta-user a,#{$layoutID} .rt-post-box-media-style .post-meta-user,#{$layoutID} .rt-post-box-media-style .post-meta-user a,#{$layoutID} .{$layout} .post-meta-user,#{$layoutID} .{$layout} .post-meta-user a {";
-                if ($meta_data_color) {
-                    $css .= "color:" . $meta_data_color . ";";
-                }
-                if ($meta_data_size) {
-                    $css .= "font-size:" . $meta_data_size . "px;";
-                }
-                if ($meta_data_weight) {
-                    $css .= "font-weight:" . $meta_data_weight . ";";
-                }
-                if ($meta_data_alignment) {
-                    $css .= "text-align:" . $meta_data_alignment . ";";
-                }
-                $css .= "}";
-            }
-            // Category
-            if ($catBg) {
-                $css .= "#{$layoutID} .cat-over-image.style2 .categories-links a,#{$layoutID} .cat-over-image.style3 .categories-links a,#{$layoutID} .cat-above-title.style2 .categories-links a,#{$layoutID} .cat-above-title.style3 .categories-links a,#{$layoutID} .rt-tpg-category > a {";
-                $css .= "background-color:" . $catBg . ";";
-                $css .= "}";
+				$css .= "#{$layoutID} .cat-above-title.style3 .categories-links a:after,.cat-over-image.style3 .categories-links a:after,#{$layoutID} .rt-tpg-category > a,#{$layoutID} .rt-tpg-category.style3 > a:after {";
+				$css .= "border-top-color:" . $catBg . ";";
+				$css .= "}";
+			}
+			if ( $catTextColor ) {
+				$css .= "#{$layoutID} .cat-over-image .categories-links a,#{$layoutID} .cat-above-title .categories-links a,#{$layoutID} .rt-tpg-category > a {";
+				$css .= "color:" . $catTextColor . ";";
+				$css .= "}";
+			}
+			if ( $catBorderRadius ) {
+				$css .= "#{$layoutID} .cat-over-image .categories-links a,#{$layoutID} .cat-above-title .categories-links a,#{$layoutID} .rt-tpg-category > a{";
+				$css .= "border-radius:" . $catBorderRadius . "px;";
+				$css .= "}";
+			}
+			if ( $catPadding ) {
+				$css .= "#{$layoutID} .cat-over-image .categories-links a,#{$layoutID} .cat-above-title .categories-links a,#{$layoutID} .rt-tpg-category > a{";
+				$css .= "padding:" . $catPadding . "px;";
+				$css .= "}";
+			}
+			if ( $catMargin ) {
+				$css .= "#{$layoutID} .categories-links,#{$layoutID} .rt-tpg-category > a{";
+				$css .= "margin:" . $catMargin . "px;";
+				$css .= "}";
+			}
+			if ( $categorySize ) {
+				$css .= "#{$layoutID} .categories-links,#{$layoutID} .rt-tpg-category > a {";
+				$css .= "font-size:" . $categorySize . "px;";
+				$css .= "}";
+			}
 
-                $css .= "#{$layoutID} .cat-above-title.style3 .categories-links a:after,.cat-over-image.style3 .categories-links a:after,#{$layoutID} .rt-tpg-category > a,#{$layoutID} .rt-tpg-category.style3 > a:after {";
-                $css .= "border-top-color:" . $catBg . ";";
-                $css .= "}";
-            }
-            if ($catTextColor) {
-                $css .= "#{$layoutID} .cat-over-image .categories-links a,#{$layoutID} .cat-above-title .categories-links a,#{$layoutID} .rt-tpg-category > a {";
-                $css .= "color:" . $catTextColor . ";";
-                $css .= "}";
-            }
-            if($catBorderRadius) {
-                $css .= "#{$layoutID} .cat-over-image .categories-links a,#{$layoutID} .cat-above-title .categories-links a,#{$layoutID} .rt-tpg-category > a{";
-                $css .= "border-radius:" . $catBorderRadius . "px;";
-                $css .= "}";
-            }
-            if ($catPadding) {
-                $css .= "#{$layoutID} .cat-over-image .categories-links a,#{$layoutID} .cat-above-title .categories-links a,#{$layoutID} .rt-tpg-category > a{";
-                $css .= "padding:" . $catPadding . "px;";
-                $css .= "}";
-            }
-            if ($catMargin) {
-                $css .= "#{$layoutID} .categories-links,#{$layoutID} .rt-tpg-category > a{";
-                $css .= "margin:" . $catMargin . "px;";
-                $css .= "}";
-            }
-            if ($categorySize) {
-                $css .= "#{$layoutID} .categories-links,#{$layoutID} .rt-tpg-category > a {";
-                $css .= "font-size:" . $categorySize . "px;";
-                $css .= "}";
-            }
+			$css .= "</style>";
 
-            $css .= "</style>";
+			return $css;
+		}
 
-            return $css;
-        }
+		function get_meta_keys( $post_type ) {
+			//			$cache     = get_transient( 'tpg_' . $post_type . '_meta_keys' );
+			//			$meta_keys = $cache ? $cache : $this->generate_meta_keys( $post_type );
+			$meta_keys = $this->generate_meta_keys( $post_type );
 
-        function get_meta_keys($post_type) {
-//			$cache     = get_transient( 'tpg_' . $post_type . '_meta_keys' );
-//			$meta_keys = $cache ? $cache : $this->generate_meta_keys( $post_type );
-            $meta_keys = $this->generate_meta_keys($post_type);
+			return $meta_keys;
+		}
 
-            return $meta_keys;
-        }
-
-        function generate_meta_keys($post_type) {
-            $meta_keys = array();
-            if ($post_type) {
-                global $wpdb;
-                $query = "SELECT DISTINCT($wpdb->postmeta.meta_key) 
+		function generate_meta_keys( $post_type ) {
+			$meta_keys = [];
+			if ( $post_type ) {
+				global $wpdb;
+				$query     = "SELECT DISTINCT($wpdb->postmeta.meta_key) 
 			        FROM $wpdb->posts 
 			        LEFT JOIN $wpdb->postmeta 
 			        ON $wpdb->posts.ID = $wpdb->postmeta.post_id 
