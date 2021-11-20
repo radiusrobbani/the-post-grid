@@ -931,13 +931,14 @@ if ( ! class_exists( 'rtTPGOptions' ) ):
 				'excerpt_limit'         => [
 					"type"        => "number",
 					"label"       => esc_html__( "Excerpt limit", 'the-post-grid' ),
+                    "default"       => 15,
 					"description" => esc_html__( "Excerpt limit only integer number is allowed, Leave it blank for full excerpt.", 'the-post-grid' ),
 				],
 				'tgp_excerpt_type'      => [
 					"type"      => "radio",
 					"label"     => esc_html__( "Excerpt Type", 'the-post-grid' ),
 					"alignment" => "vertical",
-					"default"   => 'character',
+					"default"   => 'word',
 					"options"   => $this->get_limit_type( 'content' ),
 				],
 				'tgp_excerpt_more_text' => [
@@ -1476,8 +1477,8 @@ if ( ! class_exists( 'rtTPGOptions' ) ):
                         <li>Enable/Disable Pagination.</li>
                         <li>AJAX Pagination (Load more and Load on Scrolling)</li>
                     </ol>
-                <a href="https://www.radiustheme.com/the-post-grid-pro-for-wordpress/" class="rt-admin-btn" target="_blank">' . __( "Get Pro Version", "the-post-grid" ) . '</a>';
-		}
+                <a href="https://www.radiustheme.com/downloads/the-post-grid-pro-for-wordpress/" class="rt-admin-btn" target="_blank">' . __("Get Pro Version", "the-post-grid") . '</a>';
+        }
 
 	}
 
