@@ -109,7 +109,7 @@
         tpgOrderByEffect();
     });
 
-    $("#rttpg-layout_type input[name=layout_type]").on('change', function () {
+    $("#rttpg-layout_type input[name=layout_type], #rttpg-layout input[name=layout]").on('change', function () {
         $('#layout_holder').show();
         tlpShowHideScMeta();
         rtTPGSelectedlayoutType();
@@ -381,18 +381,24 @@
         tpgTaxonomyFilterTrigger();
         //var layout = $("#rt-tpg-sc-layout").val(),
         var layout_type = $("#rttpg-layout_type input[name=layout_type]:checked"),
-            selectedLayout = $("#rttpg-layout input[name=layout]:checked").val(),
             layout = layout_type.val(),
+            selectedLayout = '',
             isIsotope = false,
             isCarousel = false,
             isWc = false,
             isWcIsotope = false,
             isWcCarousel = false,
             isGrid = false,
+            isList = false,
             isLOffset = false;
 
+        if ($("#rttpg-layout input[name=layout]").length) {
+            selectedLayout = $("#rttpg-layout input[name=layout]:checked").val();
+        }
+
         if (layout) {
-            isGrid = selectedLayout.match(/^layout/i);
+            isGrid = layout.match(/^grid/i);
+            isList = layout.match(/^list/i);
             isCarousel = layout.match(/^carousel/i);
             isIsotope = layout.match(/^isotope/i);
             isWc = layout.match(/^wc/i) || layout.match(/^edd/i);
@@ -411,7 +417,7 @@
         plType.find("label[for='posts_loading_type-pagination'],label[for='posts_loading_type-pagination_ajax']").show();
         $("#tgp_layout2_image_column_holder").hide();
 
-        if (isGrid || (isWc && !isWcCarousel && !isWcIsotope)) {
+        if (isGrid || isList || (isWc && !isWcCarousel && !isWcIsotope)) {
             $("#tgp_filter_holder").show();
             taxonomyFilterEffect();
             if (selectedLayout == "layout2" || selectedLayout == "layout3") {
@@ -464,7 +470,7 @@
         }
 
         var pagination = $("#rt-tpg-pagination").is(':checked');
-        if (pagination && (isGrid || isIsotope)) {
+        if (pagination && (isGrid || isList || isIsotope)) {
             $(".field-holder.pagination-item").show();
         } else if (pagination && (isLOffset)) {
             $(".field-holder.posts-per-page").show();
