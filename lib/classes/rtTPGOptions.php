@@ -1338,6 +1338,12 @@ if ( ! class_exists( 'rtTPGOptions' ) ):
                     'layout_link'    => 'https://www.radiustheme.com/demo/plugins/the-post-grid/',
                     'img' => rtTPG()->assetsUrl . 'images/layouts/grid1.png',
                 ),
+                'layout5' => array(
+                    'title' => __( "Grid Hover 1", "the-post-grid" ),
+                    'layout' => 'grid_hover',
+                    'layout_link'    => 'https://www.radiustheme.com/demo/plugins/the-post-grid/layout-5/',
+                    'img' => rtTPG()->assetsUrl . 'images/layouts/grid3.png'
+                ),
                 'layout2' => array(
                     'title' => __( "List Layout 1", "the-post-grid" ),
                     'layout' => 'list',

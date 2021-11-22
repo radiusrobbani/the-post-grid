@@ -1566,6 +1566,172 @@ body > .rt-tooltip .rt-tooltip-bottom:after {
 }
 
 /**********************************************************************/
+/********************************* Layout 5  *************************/
+/**********************************************************************/
+
+.rt-tpg-container .layout5 .rt-holder,
+.rt-tpg-container .isotope2 .rt-holder,
+.rt-tpg-container .carousel2 .rt-holder,
+.rt-tpg-container .offset03 .rt-holder {
+    position: relative;
+    overflow: hidden;
+}
+
+.rt-tpg-container .layout5 .rt-holder .overlay,
+.rt-tpg-container .isotope2 .rt-holder .overlay,
+.rt-tpg-container .carousel2 .rt-holder .overlay,
+.rt-tpg-container .offset03 .rt-holder .overlay {
+    left: 0;
+    bottom: 0;
+    display: block;
+    background: rgba(235, 0, 0, 0.8);
+    position: absolute;
+    z-index: 1;
+    opacity: 1;
+    padding: 20px;
+    width: 100%;
+    height: 25%;
+    transition: all 1s ease;
+    min-height: 150px;
+}
+
+.rt-tpg-container .layout5 .rt-holder .overlay .rt-detail,
+.rt-tpg-container .isotope2 .rt-holder .overlay .rt-detail,
+.rt-tpg-container .carousel2 .rt-holder .overlay .rt-detail {
+    opacity: 0;
+    visibility: hidden;
+    padding: 0;
+    color: #fff;
+    transition: all 0.8s ease-in-out;
+    max-height: 0;
+}
+
+.rt-tpg-container .layout5 .rt-holder:hover .overlay .rt-detail,
+.rt-tpg-container .isotope2 .rt-holder:hover .overlay .rt-detail,
+.rt-tpg-container .carousel2 .rt-holder:hover .overlay .rt-detail {
+    max-height: 450px;
+    transition: all 1.2s ease-in-out 0.2s;
+}
+
+.rt-tpg-container .offset03 .rt-holder .overlay .rt-detail {
+    padding: 0 0 15px;
+    color: #fff;
+}
+
+.rt-tpg-container .offset03 .rt-holder .overlay .rt-detail > *:not(.post-meta-user) {
+    opacity: 0;
+    visibility: hidden;
+}
+
+.rt-tpg-container .offset03 .rt-holder:hover .overlay .rt-detail > *:not(.post-meta-user) {
+    opacity: 1;
+    visibility: visible;
+}
+
+.rt-tpg-container .layout5 .rt-holder .overlay .post-meta-user,
+.rt-tpg-container .layout5 .rt-holder .overlay .post-meta-user a,
+.rt-tpg-container .isotope2 .rt-holder .overlay .post-meta-user,
+.rt-tpg-container .isotope2 .rt-holder .overlay .post-meta-user a,
+.rt-tpg-container .offset03 .rt-holder .overlay .post-meta-user,
+.rt-tpg-container .offset03 .rt-holder .overlay .post-meta-user a,
+.rt-tpg-container .carousel2 .rt-holder .overlay .post-meta-user,
+.rt-tpg-container .carousel2 .rt-holder .overlay .post-meta-user a {
+    color: #fff;
+}
+
+.rt-tpg-container .layout5 .rt-holder .overlay h2,
+.rt-tpg-container .layout5 .rt-holder .overlay h3,
+.rt-tpg-container .layout5 .rt-holder .overlay h4,
+.rt-tpg-container .isotope2 .rt-holder .overlay h2,
+.rt-tpg-container .isotope2 .rt-holder .overlay h3,
+.rt-tpg-container .isotope2 .rt-holder .overlay h4,
+.rt-tpg-container .offset03 .rt-holder .overlay h2,
+.rt-tpg-container .offset03 .rt-holder .overlay h3,
+.rt-tpg-container .offset03 .rt-holder .overlay h4,
+.rt-tpg-container .carousel2 .rt-holder .overlay h2,
+.rt-tpg-container .carousel2 .rt-holder .overlay h3,
+.rt-tpg-container .carousel2 .rt-holder .overlay h4 {
+    font-size: 22px;
+    line-height: 1.3;
+    color: #ffffff;
+    margin: 0px 0 10px;
+    font-weight: 400;
+}
+
+.rt-tpg-container .layout5 .rt-holder .overlay h2 a,
+.rt-tpg-container .layout5 .rt-holder .overlay h3 a,
+.rt-tpg-container .layout5 .rt-holder .overlay h4 a,
+.rt-tpg-container .isotope2 .rt-holder .overlay h2 a,
+.rt-tpg-container .isotope2 .rt-holder .overlay h3 a,
+.rt-tpg-container .isotope2 .rt-holder .overlay h4 a,
+.rt-tpg-container .offset03 .rt-holder .overlay h2 a,
+.rt-tpg-container .offset03 .rt-holder .overlay h3 a,
+.rt-tpg-container .offset03 .rt-holder .overlay h4 a,
+.rt-tpg-container .carousel2 .rt-holder .overlay h2 a,
+.rt-tpg-container .carousel2 .rt-holder .overlay h3 a,
+.rt-tpg-container .carousel2 .rt-holder .overlay h4 a {
+    color: #ffffff;
+}
+
+.rt-tpg-container .layout5 .rt-holder:hover .overlay,
+.rt-tpg-container .isotope2 .rt-holder:hover .overlay,
+.rt-tpg-container .offset03 .rt-holder:hover .overlay,
+.rt-tpg-container .carousel2 .rt-holder:hover .overlay {
+    width: 100%;
+    height: 100%;
+}
+
+.rt-tpg-container .layout5 .rt-holder:hover .overlay .rt-detail,
+.rt-tpg-container .isotope2 .rt-holder:hover .overlay .rt-detail,
+.rt-tpg-container .offset03 .rt-holder:hover .overlay .rt-detail,
+.rt-tpg-container .carousel2 .rt-holder:hover .overlay .rt-detail {
+    opacity: 1;
+    visibility: visible;
+}
+
+
+.rt-tpg-container .layout5 .rt-holder .overlay .post-meta-user,
+.rt-tpg-container .isotope2 .rt-holder .overlay .post-meta-user,
+.rt-tpg-container .offset03 .rt-holder .overlay .post-meta-user,
+.rt-tpg-container .carousel2 .rt-holder .overlay .post-meta-user {
+    display: block;
+}
+
+.rt-tpg-container .isotope2 .rt-holder .post-meta .rt-tpg-social-share,
+.rt-tpg-container .isotope2 .rt-holder .post-meta {
+    text-align: center;
+}
+
+.rt-tpg-container .isotope2 .rt-holder .post-meta.left {
+    text-align: left;
+}
+
+.rt-tpg-container .layout7 .rt-holder .overlay > *:not(.entry-title),
+.rt-tpg-container .layout5 .rt-holder .overlay .rt-detail,
+.rt-tpg-container .carousel4 .rt-holder .overlay > *:not(.entry-title) {
+    overflow: hidden;
+    max-height: 0;
+    transition: 0.6s !important;
+    opacity: 0;
+}
+
+.rt-tpg-container .layout7 .rt-holder:hover .overlay > *:not(.entry-title),
+.rt-tpg-container .layout5 .rt-holder:hover .overlay .rt-detail,
+.rt-tpg-container .carousel4 .rt-holder:hover .overlay > *:not(.entry-title) {
+    max-height: 300px;
+    opacity: 1;
+}
+
+.rt-tpg-container .layout5 .rt-holder {
+    min-height: 265px;
+}
+
+.rt-tpg-container .layout5 .rt-holder .rt-img-responsive {
+    height: 100%;
+    object-fit: cover;
+}
+
+/**********************************************************************/
 /********************************* pagination *************************/
 /**********************************************************************/
 .rt-tpg-container .rt-pagination-wrap .rt-cb-page-prev-next > * {
