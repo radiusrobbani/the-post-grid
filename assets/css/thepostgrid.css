@@ -416,7 +416,10 @@ body.rt-model-open,
     display: table;
 }
 
-.clearfix:after, .rt-container:after, .rt-container-fluid:after, .rt-row:after {
+.clearfix:after,
+.rt-container:after,
+.rt-container-fluid:after,
+.rt-row:after {
     clear: both;
 }
 
