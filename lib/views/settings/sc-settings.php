@@ -5,7 +5,9 @@
     </div>
 </div>
 <div class="field-holder">
-    <div class="field-label"><?php _e('Category', 'the-post-grid'); ?></div>
+    <div class="field-label">
+        <label><?php esc_html_e('Category', 'the-post-grid'); ?></label>
+    </div>
     <div class="field">
         <?php echo rtTPG()->rtFieldGenerator(rtTPG()->rtTPGSCCategorySettings(), true); ?>
     </div>
