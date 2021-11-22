@@ -633,6 +633,12 @@ span.more-loading {
     font-size: 95%;
 }
 
+.list_layout2 .post-meta-user,
+.list_layout2 .post-meta-tags {
+    font-size: 14px;
+    color: #A5A6AA;
+}
+
 .rt-content-loader.layout14 .post-meta-user,
 .rt-content-loader.layout14 .post-meta-tags {
     margin-bottom: 0;
