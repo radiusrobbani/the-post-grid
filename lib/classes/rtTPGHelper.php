@@ -1443,16 +1443,30 @@ if ( ! class_exists( 'rtTPGHelper' ) ):
 			}
 			// Category
 			if ( $catBg ) {
-				$css .= "#{$layoutID} .cat-over-image.style2 .categories-links a,#{$layoutID} .cat-over-image.style3 .categories-links a,#{$layoutID} .cat-above-title.style2 .categories-links a,#{$layoutID} .cat-above-title.style3 .categories-links a,#{$layoutID} .rt-tpg-category > a {";
-				$css .= "background-color:" . $catBg . ";";
-				$css .= "}";
+				$css .= "#{$layoutID} .cat-over-image.style2 .categories-links a,
+				#{$layoutID} .cat-over-image.style3 .categories-links a,
+				#{$layoutID} .cat-above-title.style2 .categories-links a,
+				#{$layoutID} .cat-above-title.style3 .categories-links a,
+				#{$layoutID} .rt-tpg-category > a {
+					background-color: {$catBg};
+				}";
 
-				$css .= "#{$layoutID} .cat-above-title.style3 .categories-links a:after,.cat-over-image.style3 .categories-links a:after,#{$layoutID} .rt-tpg-category > a,#{$layoutID} .rt-tpg-category.style3 > a:after {";
-				$css .= "border-top-color:" . $catBg . ";";
-				$css .= "}";
+				$css .= "#{$layoutID} .cat-above-title.style3 .categories-links a:after,
+				.cat-over-image.style3 .categories-links a:after,
+				#{$layoutID} .rt-tpg-category > a,
+				#{$layoutID} .rt-tpg-category.style3 > a:after {
+					border-top-color: {$catBg} ;
+				}";
+
+				$css .= "#{$layoutID} .rt-tpg-category:not(style1) i {
+					color: {$catBg};
+				}";
 			}
 			if ( $catTextColor ) {
-				$css .= "#{$layoutID} .cat-over-image .categories-links a,#{$layoutID} .cat-above-title .categories-links a,#{$layoutID} .rt-tpg-category > a {";
+				$css .= "#{$layoutID} .cat-over-image .categories-links a,
+				#{$layoutID} .cat-above-title .categories-links a,
+				#{$layoutID} .rt-tpg-category.style1 > i,
+				#{$layoutID} .rt-tpg-category > a {";
 				$css .= "color:" . $catTextColor . ";";
 				$css .= "}";
 			}
