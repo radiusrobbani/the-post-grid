@@ -27,23 +27,7 @@
     </div>
 </div>
 
-<div class="field-holder content-style-wrapper">
-    <div class="field-label"><?php _e( 'Content Wrap', 'the-post-grid' ); ?></div>
-    <div class="field">
-        <div class="tpg-multiple-field-group">
-			<?php echo rtTPG()->rtFieldGenerator( rtTPG()->rtTPGStyleContentWrap(), true ); ?>
-        </div>
-    </div>
-</div>
-
-<div class="field-holder category-style-wrapper">
-    <div class="field-label"><?php _e( 'Category', 'the-post-grid' ); ?></div>
-    <div class="field">
-        <div class="tpg-multiple-field-group">
-			<?php echo rtTPG()->rtFieldGenerator( rtTPG()->rtTPGStyleCategory(), true ); ?>
-        </div>
-    </div>
-</div>
+<?php do_action('rt_tpg_sc_style_group_field'); ?>
 
 <?php echo rtTPG()->rtSmartStyle( rtTPG()->extraStyle() ); ?>
 

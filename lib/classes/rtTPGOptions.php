@@ -748,6 +748,7 @@ if ( ! class_exists( 'rtTPGOptions' ) ):
 				'tpg_category_position' => [
 					"type"    => "select",
 					"class"   => "rt-select2",
+                    "holderClass" => "pro-field",
 					"label"   => esc_html__( "Position", "the-post-grid" ),
 					"blank"   => esc_html__( "Default", "the-post-grid" ),
 					"options" => [
@@ -762,6 +763,7 @@ if ( ! class_exists( 'rtTPGOptions' ) ):
 				'tpg_category_style'    => [
 					"type"    => "select",
 					"class"   => "rt-select2",
+                    "holderClass" => "pro-field",
 					"label"   => esc_html__( "Style", "the-post-grid" ),
 					"blank"   => esc_html__( "Default", "the-post-grid" ),
 					"options" => [
@@ -773,6 +775,7 @@ if ( ! class_exists( 'rtTPGOptions' ) ):
                 'tpg_category_icon'      => [
                     "type"    => "switch",
                     "label"   => esc_html__( "Icon", "the-post-grid" ),
+                    "holderClass" => "pro-field",
                     "default" => true,
                 ],
 			];
@@ -889,7 +892,7 @@ if ( ! class_exists( 'rtTPGOptions' ) ):
 				],
 				'tgp_layout2_image_column' => [
 					'type'        => 'select',
-					'label'       => __( 'Image column', 'the-post-grid' ),
+					'label'       => esc_html__( 'Image column', 'the-post-grid' ),
 					'class'       => 'rt-select2',
 					'holderClass' => "holder-layout2-image-column tpg-hidden",
 					'default'     => 4,
@@ -898,7 +901,7 @@ if ( ! class_exists( 'rtTPGOptions' ) ):
 				],
 				'tpg_image_type'           => [
 					"type"        => "radio",
-					"label"       => __( "Type", 'the-post-grid' ),
+					"label"       => esc_html__( "Type", 'the-post-grid' ),
 					"alignment"   => "vertical",
 					'holderClass' => "rt-feature-image-option tpg-hidden pro-field",
 					"default"     => 'normal',
@@ -906,20 +909,21 @@ if ( ! class_exists( 'rtTPGOptions' ) ):
 				],
 				'tpg_image_animation'      => [
 					"type"    => "select",
-					"label"   => __( 'Hover Animation', 'the-post-grid' ),
+					"label"   => esc_html__( 'Hover Animation', 'the-post-grid' ),
 					"class"   => "rt-select2",
 					"blank"   => esc_html__( "Default", "the-post-grid" ),
 					"options" => [
-						'img_zoom_in'   => __( 'Zoom in', 'the-post-grid' ),
-						'img_zoom_out'  => __( 'Zoom out', 'the-post-grid' ),
-						'img_no_effect' => __( 'None', 'the-post-grid' ),
+						'img_zoom_in'   => esc_html__( 'Zoom in', 'the-post-grid' ),
+						'img_zoom_out'  => esc_html__( 'Zoom out', 'the-post-grid' ),
+						'img_no_effect' => esc_html__( 'None', 'the-post-grid' ),
 					],
 				],
 				'tpg_image_border_radius'  => [
 					"type"        => "number",
 					"class"       => "small-text",
+                    'holderClass' => "pro-field",
 					"label"       => esc_html__( "Border radius", "the-post-grid" ),
-					"description" => __( "Leave it blank for default", 'the-post-grid' ),
+					"description" => esc_html__( "Leave it blank for default", 'the-post-grid' ),
 				],
 			];
 
