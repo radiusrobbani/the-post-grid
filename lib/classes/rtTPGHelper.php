@@ -1324,7 +1324,11 @@ if ( ! class_exists( 'rtTPGHelper' ) ):
 			}
 			// Image border
 			if ( isset( $image_border_radius ) || trim( $image_border_radius ) !== '' ) {
-				$css .= "#{$layoutID} .rt-img-holder img.rt-img-responsive,#{$layoutID} .rt-img-holder,#{$layoutID} .rt-post-overlay .post-img,#{$layoutID} .rt-post-grid .post-img,#{$layoutID} .post-img img {";
+				$css .= "#{$layoutID} .rt-img-holder img.rt-img-responsive,#{$layoutID} .rt-img-holder,
+				#{$layoutID} .rt-post-overlay .post-img,
+				#{$layoutID} .post-sm .post-img,
+				#{$layoutID} .rt-post-grid .post-img,
+				#{$layoutID} .post-img img {";
 				$css .= "border-radius:" . $image_border_radius . "px;";
 				$css .= "}";
 			}
