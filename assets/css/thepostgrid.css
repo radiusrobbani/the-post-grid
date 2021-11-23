@@ -2855,18 +2855,3 @@ body > .rt-tooltip .rt-tooltip-bottom:after {
     text-align: center;
     overflow: hidden;
 }
-
-.site-header .main-navigation ul li.new a::after {
-    content: "New";
-    position: relative;
-    font-size: 9px;
-    background: red;
-    line-height: 12px;
-    padding: 2px 4px;
-    border-radius: 3px;
-    color: #fff;
-    text-transform: uppercase;
-    margin-left: 5px;
-    display: inline-block;
-    top: -8px;
-}
