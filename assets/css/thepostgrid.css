@@ -525,13 +525,13 @@ body.rt-model-open,
 }
 
 .rt-tpg-container .offset-small-wrap .rt-holder .rt-img-responsive {
-    height: 200px;
+    height: auto;
     width: 100%;
     object-fit: cover;
 }
 
 .rt-tpg-container .offset-small-wrap .rt-col-md-6 .rt-holder .rt-img-responsive {
-    height: 120px;
+    height: auto;
 }
 
 .rt-tpg-container .offset-small-wrap .rt-holder .overlay h3 a {
@@ -624,6 +624,10 @@ body.rt-model-open,
     max-width: 100%;
     display: block;
     height: auto;
+}
+
+.layout3 .rt-img-responsive {
+    display: inline-block;
 }
 
 @media (max-width: 991px) {
