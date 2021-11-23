@@ -1363,6 +1363,14 @@ body > .rt-tooltip .rt-tooltip-bottom:after {
     transform: scale(1);
 }
 
+.rt-tpg-container .layout1 .rt-holder,
+.rt-tpg-container .isotope1 .rt-holder,
+.rt-tpg-container .carousel1 .rt-holder {
+    box-shadow: 0px 0px 2px 0px rgba(0,0,0,0.3);
+    -webkit-box-shadow: 0px 0px 2px 0px rgba(0,0,0,0.3);
+    -moz-box-shadow: 0px 0px 2px 0px rgba(0,0,0,0.3);
+}
+
 .rt-tpg-container .layout1 .rt-holder .rt-detail,
 .rt-tpg-container .isotope1 .rt-holder .rt-detail,
 .rt-tpg-container .carousel1 .rt-holder .rt-detail {
@@ -1719,7 +1727,6 @@ body > .rt-tooltip .rt-tooltip-bottom:after {
     opacity: 1;
     visibility: visible;
 }
-
 
 .rt-tpg-container .layout5 .rt-holder .overlay .post-meta-user,
 .rt-tpg-container .isotope2 .rt-holder .overlay .post-meta-user,
@@ -2753,7 +2760,7 @@ body > .rt-tooltip .rt-tooltip-bottom:after {
     height: auto;
 }
 
-@media (max-width: 991px) {
+@media (max-width: 767px) {
     .tpg-even .even-grid-item {
         width: 100%;
     }

@@ -1201,6 +1201,12 @@ if ( ! class_exists( 'rtTPGHelper' ) ):
 				$css .= "}";
 			}
 
+			if ($boxShadow) {
+				$css .= "#{$layoutID} .{$layout} .rt-holder {";
+				$css .= "box-shadow : 0px 0px 2px 0px {$boxShadow};";
+				$css .= "}";
+			}
+
 			/* gutter */
 			if ( $gutter ) {
 				$css .= "#{$layoutID} [class*='rt-col-'] {";
