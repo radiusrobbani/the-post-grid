@@ -35,6 +35,7 @@ if ( ! class_exists( 'rtTPGPreview' ) ):
 				$isGrid     = preg_match( '/layout/', $layout );
 				$isWooCom   = preg_match( '/wc/', $layout );
 				$isOffset   = preg_match( '/offset/', $layout );
+				$isGridHover    = preg_match( '/grid_hover/', $layout );
 
 				$dCol = ( isset( $scMeta['column'] ) ? absint( $scMeta['column'] ) : 3 );
 				$tCol = ( isset( $scMeta['tpg_tab_column'] ) ? absint( $scMeta['tpg_tab_column'] ) : 2 );
@@ -941,7 +942,7 @@ if ( ! class_exists( 'rtTPGPreview' ) ):
 				$data        .= "</div>"; // End row
 				$htmlUtility = null;
 				if ( $pagination && ! $isCarousel ) {
-					if ( $isOffset ) {
+					if ( $isOffset || $isGridHover ) {
 						$posts_loading_type = "page_prev_next";
 						$htmlUtility        .= "<div class='rt-cb-page-prev-next'>
 											<span class='rt-cb-prev-btn'><i class='fa fa-angle-left' aria-hidden='true'></i></span>
