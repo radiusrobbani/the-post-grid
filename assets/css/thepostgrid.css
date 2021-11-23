@@ -2713,6 +2713,12 @@ body > .rt-tooltip .rt-tooltip-bottom:after {
     overflow: hidden;
 }
 
+.layout4 .rt-img-holder,
+.layout4 .rt-img-holder a,
+.layout4 .rt-img-holder img {
+    height: 100%;
+}
+
 .img_zoom_out img.rt-img-responsive,
 .img_zoom_in img.rt-img-responsive {
     transition: all 1s !important;

@@ -1002,11 +1002,6 @@ if ( ! class_exists( 'rtTPGHelper' ) ):
 				$css .= "background-color:" . $primaryColor . ";";
 				$css .= "}";
 
-				$css .= "#{$layoutID} .rt-detail .post-meta-user i,
-                        #{$layoutID} .rt-detail .post-meta-user a,
-                        #{$layoutID} .rt-detail .post-meta-category a{";
-				$css .= "color:" . $primaryColor . ";";
-				$css .= "}";
 
 				$ocp = rtTPG()->rtHex2rgba( $primaryColor,
 					! empty( $scMeta['overlay_opacity'][0] ) ? absint( $scMeta['overlay_opacity'][0] ) / 10 : .8 );
@@ -1201,7 +1196,7 @@ if ( ! class_exists( 'rtTPGHelper' ) ):
 				$css .= "}";
 			}
 
-			if ($boxShadow) {
+			if ( $boxShadow ) {
 				$css .= "#{$layoutID} .{$layout} .rt-holder {";
 				$css .= "box-shadow : 0px 0px 2px 0px {$boxShadow};";
 				$css .= "}";
@@ -1436,7 +1431,23 @@ if ( ! class_exists( 'rtTPGHelper' ) ):
 			}
 			// Post meta decoration
 			if ( $meta_data_color || $meta_data_size || $meta_data_weight || $meta_data_alignment ) {
-				$css .= "#{$layoutID} .{$layout} .rt-holder .post-meta-user,#{$layoutID} .{$layout} .rt-meta,#{$layoutID} .{$layout} .rt-meta a,#{$layoutID} .{$layout} .rt-holder .post-meta-user .meta-data, #{$layoutID} .{$layout} .rt-holder .post-meta-user a, #{$layoutID} .{$layout} .rt-holder .rt-detail .post-meta .rt-tpg-social-share,#{$layoutID} .rt-post-overlay .post-meta-user span,#{$layoutID} .rt-post-overlay .post-meta-user, #{$layoutID} .rt-post-overlay .post-meta-user a,#{$layoutID} .rt-post-grid .post-meta-user,#{$layoutID} .rt-post-grid .post-meta-user a,#{$layoutID} .rt-post-box-media-style .post-meta-user,#{$layoutID} .rt-post-box-media-style .post-meta-user a,#{$layoutID} .{$layout} .post-meta-user,#{$layoutID} .{$layout} .post-meta-user a {";
+				$css .= "#{$layoutID} .{$layout} .rt-holder .post-meta-user,
+						#{$layoutID} .{$layout} .rt-meta,
+						#{$layoutID} .{$layout} .rt-meta a,
+						#{$layoutID} .{$layout} .rt-holder .post-meta-user .meta-data,
+						#{$layoutID} .{$layout} .rt-holder .post-meta-user a,
+						#{$layoutID} .{$layout} .rt-holder .rt-detail .post-meta .rt-tpg-social-share,
+						#{$layoutID} .rt-post-overlay .post-meta-user span,
+						#{$layoutID} .rt-post-overlay .post-meta-user,
+						#{$layoutID} .rt-post-overlay .post-meta-user a,
+						#{$layoutID} .rt-post-grid .post-meta-user,
+						#{$layoutID} .rt-post-grid .post-meta-user a,
+						#{$layoutID} .rt-post-box-media-style .post-meta-user,
+						#{$layoutID} .rt-post-box-media-style .post-meta-user a,
+						#{$layoutID} .{$layout} .post-meta-user i,
+						#{$layoutID} .rt-detail .post-meta-category a,
+						#{$layoutID} .{$layout} .post-meta-user a
+						#{$layoutID} .{$layout} .post-meta-user a {";
 				if ( $meta_data_color ) {
 					$css .= "color:" . $meta_data_color . ";";
 				}
