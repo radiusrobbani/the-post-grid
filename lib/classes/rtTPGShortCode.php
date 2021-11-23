@@ -108,12 +108,13 @@ if ( ! class_exists( 'rtTPGShortCode' ) ):
 					$layout = 'layout1';
 				}
 
-				$isIsotope  = preg_match( '/isotope/', $layout );
-				$isCarousel = preg_match( '/carousel/', $layout );
-				$isGrid     = preg_match( '/layout/', $layout );
-				$isWooCom   = preg_match( '/wc/', $layout );
-				$isEdd      = preg_match( '/edd/', $layout );
-				$isOffset   = preg_match( '/offset/', $layout );
+				$isIsotope      = preg_match( '/isotope/', $layout );
+				$isCarousel     = preg_match( '/carousel/', $layout );
+				$isGrid         = preg_match( '/layout/', $layout );
+				$isWooCom       = preg_match( '/wc/', $layout );
+				$isEdd          = preg_match( '/edd/', $layout );
+				$isOffset       = preg_match( '/offset/', $layout );
+				$isGridHover    = preg_match( '/grid_hover/', $layout );
 
 				$colStore = $dCol = ( isset( $scMeta['column'][0] ) ? absint( $scMeta['column'][0] ) : 3 );
 				$tCol     = ( isset( $scMeta['tpg_tab_column'][0] ) ? absint( $scMeta['tpg_tab_column'][0] ) : 2 );
@@ -984,7 +985,7 @@ if ( ! class_exists( 'rtTPGShortCode' ) ):
 				$html        .= "</div>"; // End row
 				$htmlUtility = null;
 				if ( $pagination && ! $isCarousel ) {
-					if ( $isOffset ) {
+					if ( $isOffset || $isGridHover ) {
 						$posts_loading_type = "page_prev_next";
 						$htmlUtility        .= "<div class='rt-cb-page-prev-next'>
 											<span class='rt-cb-prev-btn'><i class='fa fa-angle-left' aria-hidden='true'></i></span>
