@@ -477,7 +477,9 @@ if ( ! class_exists( 'rtTPGShortCode' ) ):
 				if ( $pagination && $queryOffset && isset( $args['paged'] ) ) {
 					$queryOffset = ( $posts_per_page * ( $args['paged'] - 1 ) ) + $queryOffset;
 				}
-				$args['offset'] = $queryOffset;
+				if ($queryOffset) {
+                    $args['offset'] = $queryOffset;
+                }
 
 				$arg['title_tag'] = ( ! empty( $scMeta['title_tag'][0] ) && in_array( $scMeta['title_tag'][0], array_keys( rtTPG()->getTitleTags() ) ) )
 					? esc_attr( $scMeta['title_tag'][0] ) : 'h3';
