@@ -1874,6 +1874,8 @@ body > .rt-tooltip .rt-tooltip-bottom:after {
 .rt-tpg-container .rt-pagination-wrap {
     text-align: center;
     margin-top: 10px;
+    display: inline-block;
+    width: 100%;
 }
 
 .rt-tpg-container .rt-pagination-wrap .rt-loadmore-style {
