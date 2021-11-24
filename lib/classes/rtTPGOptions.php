@@ -682,6 +682,7 @@ if ( ! class_exists( 'rtTPGOptions' ) ):
 				'feature_img' => 'Feature Image',
 				'content'     => 'Content',
 			];
+			unset( $fields['heading'] );
 			unset( $fields['excerpt'] );
 			unset( $fields['read_more'] );
 			unset( $fields['comment_count'] );
