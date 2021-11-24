@@ -42,7 +42,15 @@ if ( ! class_exists( 'rtTPGField' ) ):
 					if ( $this->multiple ) {
 						$this->value = get_post_meta( $post_id, $this->name );
 					} else {
-						$this->value = get_post_meta( $post_id, $this->name, true );
+						if ( 'switch' != $this->type ) {
+							$this->value = get_post_meta( $post_id, $this->name, true );
+						} else {
+							if (metadata_exists('post', $post_id, $this->name)) {
+								$this->value = get_post_meta( $post_id, $this->name, true );
+							} else {
+								$this->value = $this->default;
+							}
+						}
 					}
 				}
 			}
@@ -344,7 +352,7 @@ if ( ! class_exists( 'rtTPGField' ) ):
 
         private function switchField() {
             $h = null;
-            $checked = ( $this->value ? "checked" : null );
+	        $checked = $this->value ? "checked" : null;
             $h .= "<label class='rttm-switch'><input type='checkbox' {$checked} id='{$this->id}' name='{$this->name}' value='1' /><span class='rttm-switch-slider round'></span></label>";
 
             return $h;

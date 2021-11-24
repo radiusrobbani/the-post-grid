@@ -3,9 +3,9 @@ $html = $htmlDetail = $iTitle = $catHtml = $postMetaTop = $postMetaMid = null;
 
 if(in_array('categories', $items) && $categories) {
     $catHtml .= "<span class='categories-links'>";
-    if ($catIcon) {
-        $catHtml .= "<i class='fas fa-folder-open'></i>";
-    }
+	if ($catIcon) {
+		$catHtml .= "<i class='fas fa-folder-open'></i>";
+	}
     $catHtml .= "{$categories}</span>";
 }
 if(in_array('author', $items)){
@@ -22,9 +22,7 @@ if(in_array('post_date', $items) && $date){
     }
     $postMetaTop .= "{$date}</span>";
 }
-if(empty($category_position)) {
-    $postMetaTop .= $catHtml;
-}
+$postMetaTop .= $catHtml;
 if(in_array('tags', $items) && $tags){
     $postMetaTop .= "<span class='post-tags-links'>";
     if ($metaIcon) {
@@ -46,9 +44,6 @@ if(in_array('title', $items)){
 $html .= sprintf('<div class="%s" data-id="%d">', esc_attr(implode(" ", array_filter([$grid, $class, $isoFilter]))), $pID);
     $html .= '<div class="rt-holder">';
             if($tpg_title_position == 'above'){
-                if ($category_position == 'above_title') {
-                    $html .= sprintf('<div class="cat-above-title %s">%s</div>', $category_style, $catHtml);
-                }
                 if (!empty($postMetaTop) && $metaPosition == 'above_title') {
                     $html .= "<div class='post-meta-user {$metaPosition} {$metaSeparator}'>{$postMetaTop}</div>";
                 }
@@ -57,13 +52,7 @@ $html .= sprintf('<div class="%s" data-id="%d">', esc_attr(implode(" ", array_fi
             if($imgSrc) {
                 $html .= '<div class="rt-img-holder">';
                 $html .= sprintf('<a data-id="%s" class="%s" href="%s"%s>%s</a>', $pID, $anchorClass, $pLink, $link_target, $imgSrc);
-                if (!empty($category_position) && $category_position != 'above_title') {
-                    $html .= sprintf('<div class="cat-over-image %s %s">%s</div>', $category_position, $category_style, $catHtml);
-                }
                 $html .= '</div>';
-            }
-            if ($category_position == 'above_title' && $tpg_title_position != 'above') {
-                $htmlDetail .= sprintf('<div class="cat-above-title %s">%s</div>', $category_style, $catHtml);
             }
 
             if (!empty($postMetaTop) && $metaPosition == 'above_title' && $tpg_title_position != 'above') {

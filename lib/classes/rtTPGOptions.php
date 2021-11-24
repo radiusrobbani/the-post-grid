@@ -775,7 +775,6 @@ if ( ! class_exists( 'rtTPGOptions' ) ):
                 'tpg_category_icon'      => [
                     "type"    => "switch",
                     "label"   => esc_html__( "Icon", "the-post-grid" ),
-                    "holderClass" => "pro-field",
                     "default" => true,
                 ],
 			];

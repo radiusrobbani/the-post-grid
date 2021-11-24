@@ -3,9 +3,9 @@ $html = $metaHtml = $titleHtml = $contentHtml = $catHtml = null;
 
 if(in_array('categories', $items) && $categories) {
     $catHtml .= "<span class='categories-links'>";
-    if ($catIcon) {
-        $catHtml .= "<i class='fas fa-folder-open'></i>";
-    }
+	if ($catIcon) {
+		$catHtml .= "<i class='fas fa-folder-open'></i>";
+	}
     $catHtml .= "{$categories}</span>";
 }
 if(in_array('post_date', $items) && $date) {
@@ -22,9 +22,7 @@ if(in_array('author', $items)) {
     }
     $metaHtml .= "{$author}</span>";
 }
-if (empty($category_position)) {
-    $metaHtml .= $catHtml;
-}
+$metaHtml .= $catHtml;
 if(in_array('tags', $items) && $tags) {
     $metaHtml .= "<span class='post-tags-links'>";
     if ($metaIcon) {
@@ -42,9 +40,6 @@ if(in_array('comment_count', $items)) {
 if(in_array('title', $items)) {
     if (!empty($metaHtml) && $metaPosition == 'above_title') {
         $titleHtml .="<div class='post-meta-user {$metaSeparator}'>$metaHtml</div>";
-    }
-    if ($category_position == 'above_title') {
-        $titleHtml .= sprintf('<div class="cat-above-title %s">%s</div>', $category_style, $catHtml);
     }
     $titleHtml .= sprintf('<%1$s class="entry-title"><a data-id="%2$s" class="%3$s" href="%4$s"%5$s>%6$s</a></%1$s>', $title_tag,$pID,$anchorClass,$pLink,$link_target,$title);
 }
@@ -77,9 +72,6 @@ $html .= sprintf('<div class="%s" data-id="%d">', esc_attr(implode(" ", [$grid, 
         $html .= '</div> ';
 	if($imgSrc) {
 		$html .= "<a data-id='{$pID}' class='{$anchorClass}' href='{$pLink}'{$link_target}>{$imgSrc}</a>";
-        if (!empty($category_position) && $category_position != 'above_title') {
-            $html .= sprintf('<div class="cat-over-image %s %s">%s</div>', $category_position, $category_style, $catHtml);
-        }
 	}
     $html .= '</div>';
 $html .='</div>';
