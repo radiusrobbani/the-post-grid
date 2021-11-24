@@ -61,7 +61,7 @@ msgstr ""
 msgid "Select Short code"
 msgstr ""
 
-#: ../lib/classes/rtTPGAjaxResponse.php:207, ../lib/classes/rtTPGOptions.php:719, ../lib/classes/rtTPGOptions.php:730, ../lib/classes/rtTPGOptions.php:753, ../lib/classes/rtTPGOptions.php:768, ../lib/classes/rtTPGOptions.php:793, ../lib/classes/rtTPGOptions.php:834, ../lib/classes/rtTPGOptions.php:850, ../lib/classes/rtTPGOptions.php:914, ../lib/classes/rtTPGOptions.php:970
+#: ../lib/classes/rtTPGAjaxResponse.php:207, ../lib/classes/rtTPGOptions.php:719, ../lib/classes/rtTPGOptions.php:730, ../lib/classes/rtTPGOptions.php:753, ../lib/classes/rtTPGOptions.php:768, ../lib/classes/rtTPGOptions.php:792, ../lib/classes/rtTPGOptions.php:833, ../lib/classes/rtTPGOptions.php:849, ../lib/classes/rtTPGOptions.php:913, ../lib/classes/rtTPGOptions.php:969
 msgid "Default"
 msgstr ""
 
@@ -209,7 +209,7 @@ msgstr ""
 msgid "ID"
 msgstr ""
 
-#: ../lib/classes/rtTPGOptions.php:57, ../lib/classes/rtTPGOptions.php:1373, ../lib/views/settings/sc-settings.php:16
+#: ../lib/classes/rtTPGOptions.php:57, ../lib/classes/rtTPGOptions.php:1372, ../lib/views/settings/sc-settings.php:16
 msgid "Title"
 msgstr ""
 
@@ -337,19 +337,19 @@ msgstr ""
 msgid "Style 3"
 msgstr ""
 
-#: ../lib/classes/rtTPGOptions.php:729, ../lib/classes/rtTPGOptions.php:969
+#: ../lib/classes/rtTPGOptions.php:729, ../lib/classes/rtTPGOptions.php:968
 msgid "Alignment"
 msgstr ""
 
-#: ../lib/classes/rtTPGOptions.php:732, ../lib/classes/rtTPGOptions.php:972
+#: ../lib/classes/rtTPGOptions.php:732, ../lib/classes/rtTPGOptions.php:971
 msgid "Left"
 msgstr ""
 
-#: ../lib/classes/rtTPGOptions.php:733, ../lib/classes/rtTPGOptions.php:973
+#: ../lib/classes/rtTPGOptions.php:733, ../lib/classes/rtTPGOptions.php:972
 msgid "Right"
 msgstr ""
 
-#: ../lib/classes/rtTPGOptions.php:734, ../lib/classes/rtTPGOptions.php:974
+#: ../lib/classes/rtTPGOptions.php:734, ../lib/classes/rtTPGOptions.php:973
 msgid "Center"
 msgstr ""
 
@@ -357,11 +357,11 @@ msgstr ""
 msgid "Link"
 msgstr ""
 
-#: ../lib/classes/rtTPGOptions.php:752, ../lib/classes/rtTPGOptions.php:831
+#: ../lib/classes/rtTPGOptions.php:752, ../lib/classes/rtTPGOptions.php:830
 msgid "Position"
 msgstr ""
 
-#: ../lib/classes/rtTPGOptions.php:755, ../lib/classes/rtTPGOptions.php:836
+#: ../lib/classes/rtTPGOptions.php:755, ../lib/classes/rtTPGOptions.php:835
 msgid "Above Title"
 msgstr ""
 
@@ -385,279 +385,279 @@ msgstr ""
 msgid "Over image (Center)"
 msgstr ""
 
-#: ../lib/classes/rtTPGOptions.php:777, ../lib/classes/rtTPGOptions.php:843
+#: ../lib/classes/rtTPGOptions.php:777, ../lib/classes/rtTPGOptions.php:842
 msgid "Icon"
 msgstr ""
 
-#: ../lib/classes/rtTPGOptions.php:790
+#: ../lib/classes/rtTPGOptions.php:789
 msgid "Title Position (Above or Below image)"
 msgstr ""
 
-#: ../lib/classes/rtTPGOptions.php:795
+#: ../lib/classes/rtTPGOptions.php:794
 msgid "Above image"
 msgstr ""
 
-#: ../lib/classes/rtTPGOptions.php:796
+#: ../lib/classes/rtTPGOptions.php:795
 msgid "Below image"
 msgstr ""
 
-#: ../lib/classes/rtTPGOptions.php:798
+#: ../lib/classes/rtTPGOptions.php:797
 msgid "<span style='color:red'>Only Layout 1, Layout 12, Layout 14, Isotope1, Isotope8, Isotope10, Carousel Layout 1, Carousel Layout 8, Carousel Layout 10</span>"
 msgstr ""
 
-#: ../lib/classes/rtTPGOptions.php:804
+#: ../lib/classes/rtTPGOptions.php:803
 msgid "Title tag"
 msgstr ""
 
-#: ../lib/classes/rtTPGOptions.php:812
+#: ../lib/classes/rtTPGOptions.php:811
 msgid "Title limit"
 msgstr ""
 
-#: ../lib/classes/rtTPGOptions.php:813
+#: ../lib/classes/rtTPGOptions.php:812
 msgid "Title limit only integer number is allowed, Leave it blank for full title."
 msgstr ""
 
-#: ../lib/classes/rtTPGOptions.php:817
+#: ../lib/classes/rtTPGOptions.php:816
 msgid "Title limit type"
 msgstr ""
 
-#: ../lib/classes/rtTPGOptions.php:837
+#: ../lib/classes/rtTPGOptions.php:836
 msgid "Above excerpt"
 msgstr ""
 
-#: ../lib/classes/rtTPGOptions.php:838
+#: ../lib/classes/rtTPGOptions.php:837
 msgid "Below excerpt"
 msgstr ""
 
-#: ../lib/classes/rtTPGOptions.php:849
+#: ../lib/classes/rtTPGOptions.php:848
 msgid "Separator"
 msgstr ""
 
-#: ../lib/classes/rtTPGOptions.php:852
+#: ../lib/classes/rtTPGOptions.php:851
 msgid "Dot ( . )"
 msgstr ""
 
-#: ../lib/classes/rtTPGOptions.php:853
+#: ../lib/classes/rtTPGOptions.php:852
 msgid "Single Slash ( / )"
 msgstr ""
 
-#: ../lib/classes/rtTPGOptions.php:854
+#: ../lib/classes/rtTPGOptions.php:853
 msgid "Double Slash ( // )"
 msgstr ""
 
-#: ../lib/classes/rtTPGOptions.php:855
+#: ../lib/classes/rtTPGOptions.php:854
 msgid "Hypen ( - )"
 msgstr ""
 
-#: ../lib/classes/rtTPGOptions.php:856
+#: ../lib/classes/rtTPGOptions.php:855
 msgid "Vertical Pipe ( | )"
 msgstr ""
 
-#: ../lib/classes/rtTPGOptions.php:895
+#: ../lib/classes/rtTPGOptions.php:894
 msgid "Image column"
 msgstr ""
 
-#: ../lib/classes/rtTPGOptions.php:904
+#: ../lib/classes/rtTPGOptions.php:903
 msgid "Type"
 msgstr ""
 
-#: ../lib/classes/rtTPGOptions.php:912
+#: ../lib/classes/rtTPGOptions.php:911
 msgid "Hover Animation"
 msgstr ""
 
-#: ../lib/classes/rtTPGOptions.php:916
+#: ../lib/classes/rtTPGOptions.php:915
 msgid "Zoom in"
 msgstr ""
 
-#: ../lib/classes/rtTPGOptions.php:917
+#: ../lib/classes/rtTPGOptions.php:916
 msgid "Zoom out"
 msgstr ""
 
-#: ../lib/classes/rtTPGOptions.php:918
+#: ../lib/classes/rtTPGOptions.php:917
 msgid "None"
 msgstr ""
 
-#: ../lib/classes/rtTPGOptions.php:925, ../lib/classes/rtTPGOptions.php:963
+#: ../lib/classes/rtTPGOptions.php:924, ../lib/classes/rtTPGOptions.php:962
 msgid "Border radius"
 msgstr ""
 
-#: ../lib/classes/rtTPGOptions.php:926, ../lib/classes/rtTPGOptions.php:964, ../lib/classes/rtTPGOptions.php:1061, ../lib/classes/rtTPGOptions.php:1125, ../lib/classes/rtTPGOptions.php:1165
+#: ../lib/classes/rtTPGOptions.php:925, ../lib/classes/rtTPGOptions.php:963, ../lib/classes/rtTPGOptions.php:1060, ../lib/classes/rtTPGOptions.php:1124, ../lib/classes/rtTPGOptions.php:1164
 msgid "Leave it blank for default"
 msgstr ""
 
-#: ../lib/classes/rtTPGOptions.php:937
+#: ../lib/classes/rtTPGOptions.php:936
 msgid "Excerpt limit"
 msgstr ""
 
-#: ../lib/classes/rtTPGOptions.php:939
+#: ../lib/classes/rtTPGOptions.php:938
 msgid "Excerpt limit only integer number is allowed, Leave it blank for full excerpt."
 msgstr ""
 
-#: ../lib/classes/rtTPGOptions.php:943
+#: ../lib/classes/rtTPGOptions.php:942
 msgid "Excerpt Type"
 msgstr ""
 
-#: ../lib/classes/rtTPGOptions.php:1045, ../lib/classes/rtTPGOptions.php:1109, ../lib/classes/rtTPGOptions.php:1154
+#: ../lib/classes/rtTPGOptions.php:1044, ../lib/classes/rtTPGOptions.php:1108, ../lib/classes/rtTPGOptions.php:1153
 msgid "Background Color"
 msgstr ""
 
-#: ../lib/classes/rtTPGOptions.php:1050, ../lib/classes/rtTPGOptions.php:1159
+#: ../lib/classes/rtTPGOptions.php:1049, ../lib/classes/rtTPGOptions.php:1158
 msgid "Text Color"
 msgstr ""
 
-#: ../lib/classes/rtTPGOptions.php:1055, ../lib/classes/rtTPGOptions.php:1119
+#: ../lib/classes/rtTPGOptions.php:1054, ../lib/classes/rtTPGOptions.php:1118
 msgid "Border Color"
 msgstr ""
 
-#: ../lib/classes/rtTPGOptions.php:1060
+#: ../lib/classes/rtTPGOptions.php:1059
 msgid "Border Size"
 msgstr ""
 
-#: ../lib/classes/rtTPGOptions.php:1066, ../lib/classes/rtTPGOptions.php:1090, ../lib/classes/rtTPGOptions.php:1170
+#: ../lib/classes/rtTPGOptions.php:1065, ../lib/classes/rtTPGOptions.php:1089, ../lib/classes/rtTPGOptions.php:1169
 msgid "Margin"
 msgstr ""
 
-#: ../lib/classes/rtTPGOptions.php:1067, ../lib/classes/rtTPGOptions.php:1091, ../lib/classes/rtTPGOptions.php:1097, ../lib/classes/rtTPGOptions.php:1136, ../lib/classes/rtTPGOptions.php:1142, ../lib/classes/rtTPGOptions.php:1171, ../lib/classes/rtTPGOptions.php:1177
+#: ../lib/classes/rtTPGOptions.php:1066, ../lib/classes/rtTPGOptions.php:1090, ../lib/classes/rtTPGOptions.php:1096, ../lib/classes/rtTPGOptions.php:1135, ../lib/classes/rtTPGOptions.php:1141, ../lib/classes/rtTPGOptions.php:1170, ../lib/classes/rtTPGOptions.php:1176
 msgid "Multiple value allowed separated by comma 12,0,5,10"
 msgstr ""
 
-#: ../lib/classes/rtTPGOptions.php:1072, ../lib/classes/rtTPGOptions.php:1096, ../lib/classes/rtTPGOptions.php:1176
+#: ../lib/classes/rtTPGOptions.php:1071, ../lib/classes/rtTPGOptions.php:1095, ../lib/classes/rtTPGOptions.php:1175
 msgid "Padding"
 msgstr ""
 
-#: ../lib/classes/rtTPGOptions.php:1073
+#: ../lib/classes/rtTPGOptions.php:1072
 msgid "Leave it blank for default, multiple value allowed separated by comma 12,0,5,10"
 msgstr ""
 
-#: ../lib/classes/rtTPGOptions.php:1085
+#: ../lib/classes/rtTPGOptions.php:1084
 msgid "Background"
 msgstr ""
 
-#: ../lib/classes/rtTPGOptions.php:1114
+#: ../lib/classes/rtTPGOptions.php:1113
 msgid "Box Shadow Color"
 msgstr ""
 
-#: ../lib/classes/rtTPGOptions.php:1124
+#: ../lib/classes/rtTPGOptions.php:1123
 msgid "Border Width"
 msgstr ""
 
-#: ../lib/classes/rtTPGOptions.php:1130, ../lib/classes/rtTPGOptions.php:1164
+#: ../lib/classes/rtTPGOptions.php:1129, ../lib/classes/rtTPGOptions.php:1163
 msgid "Border Radius"
 msgstr ""
 
-#: ../lib/classes/rtTPGOptions.php:1135
+#: ../lib/classes/rtTPGOptions.php:1134
 msgid "Box Padding"
 msgstr ""
 
-#: ../lib/classes/rtTPGOptions.php:1141
+#: ../lib/classes/rtTPGOptions.php:1140
 msgid "Content Padding"
 msgstr ""
 
-#: ../lib/classes/rtTPGOptions.php:1182
+#: ../lib/classes/rtTPGOptions.php:1181
 msgid "Font Size"
 msgstr ""
 
-#: ../lib/classes/rtTPGOptions.php:1265
+#: ../lib/classes/rtTPGOptions.php:1264
 msgid "Character"
 msgstr ""
 
-#: ../lib/classes/rtTPGOptions.php:1266
+#: ../lib/classes/rtTPGOptions.php:1265
 msgid "Word"
 msgstr ""
 
-#: ../lib/classes/rtTPGOptions.php:1269
+#: ../lib/classes/rtTPGOptions.php:1268
 msgid "Full Content"
 msgstr ""
 
-#: ../lib/classes/rtTPGOptions.php:1288
+#: ../lib/classes/rtTPGOptions.php:1287
 msgid "Taxonomy filter"
 msgstr ""
 
-#: ../lib/classes/rtTPGOptions.php:1289
+#: ../lib/classes/rtTPGOptions.php:1288
 msgid "Author filter"
 msgstr ""
 
-#: ../lib/classes/rtTPGOptions.php:1290
+#: ../lib/classes/rtTPGOptions.php:1289
 msgid "Order - Sort retrieved posts by parameter"
 msgstr ""
 
-#: ../lib/classes/rtTPGOptions.php:1291
+#: ../lib/classes/rtTPGOptions.php:1290
 msgid "Sort Order - Designates the ascending or descending order of the \"orderby\" parameter"
 msgstr ""
 
-#: ../lib/classes/rtTPGOptions.php:1292
+#: ../lib/classes/rtTPGOptions.php:1291
 msgid "Search filter"
 msgstr ""
 
-#: ../lib/classes/rtTPGOptions.php:1313
+#: ../lib/classes/rtTPGOptions.php:1312
 msgid "Grid"
 msgstr ""
 
-#: ../lib/classes/rtTPGOptions.php:1317
+#: ../lib/classes/rtTPGOptions.php:1316
 msgid "Grid Hover"
 msgstr ""
 
-#: ../lib/classes/rtTPGOptions.php:1321
+#: ../lib/classes/rtTPGOptions.php:1320
 msgid "List"
 msgstr ""
 
-#: ../lib/classes/rtTPGOptions.php:1325
+#: ../lib/classes/rtTPGOptions.php:1324
 msgid "Isotope"
 msgstr ""
 
-#: ../lib/classes/rtTPGOptions.php:1336
+#: ../lib/classes/rtTPGOptions.php:1335
 msgid "Grid Layout 1"
 msgstr ""
 
-#: ../lib/classes/rtTPGOptions.php:1342
+#: ../lib/classes/rtTPGOptions.php:1341
 msgid "Grid Hover 1"
 msgstr ""
 
-#: ../lib/classes/rtTPGOptions.php:1348
+#: ../lib/classes/rtTPGOptions.php:1347
 msgid "List Layout 1"
 msgstr ""
 
-#: ../lib/classes/rtTPGOptions.php:1354
+#: ../lib/classes/rtTPGOptions.php:1353
 msgid "List Layout 2"
 msgstr ""
 
-#: ../lib/classes/rtTPGOptions.php:1360
+#: ../lib/classes/rtTPGOptions.php:1359
 msgid "Isotope Layout 1"
 msgstr ""
 
-#: ../lib/classes/rtTPGOptions.php:1372, ../lib/views/settings/sc-settings.php:2, ../lib/views/settings/style.php:13
+#: ../lib/classes/rtTPGOptions.php:1371, ../lib/views/settings/sc-settings.php:2, ../lib/views/settings/style.php:13
 msgid "Widget Heading"
 msgstr ""
 
-#: ../lib/classes/rtTPGOptions.php:1374, ../lib/views/settings/sc-settings.php:34
+#: ../lib/classes/rtTPGOptions.php:1373, ../lib/views/settings/sc-settings.php:34
 msgid "Excerpt"
 msgstr ""
 
-#: ../lib/classes/rtTPGOptions.php:1375, ../lib/classes/rtTPGPreview.php:69, ../lib/classes/rtTPGShortCode.php:146
+#: ../lib/classes/rtTPGOptions.php:1374, ../lib/classes/rtTPGPreview.php:69, ../lib/classes/rtTPGShortCode.php:146
 msgid "Read More"
 msgstr ""
 
-#: ../lib/classes/rtTPGOptions.php:1376
+#: ../lib/classes/rtTPGOptions.php:1375
 msgid "Post Date"
 msgstr ""
 
-#: ../lib/classes/rtTPGOptions.php:1377
+#: ../lib/classes/rtTPGOptions.php:1376
 msgid "Author"
 msgstr ""
 
-#: ../lib/classes/rtTPGOptions.php:1378
+#: ../lib/classes/rtTPGOptions.php:1377
 msgid "Categories"
 msgstr ""
 
-#: ../lib/classes/rtTPGOptions.php:1379
+#: ../lib/classes/rtTPGOptions.php:1378
 msgid "Tags"
 msgstr ""
 
-#: ../lib/classes/rtTPGOptions.php:1380
+#: ../lib/classes/rtTPGOptions.php:1379
 msgid "Comment count"
 msgstr ""
 
-#: ../lib/classes/rtTPGOptions.php:1490
+#: ../lib/classes/rtTPGOptions.php:1489
 msgid "Get Pro Version"
 msgstr ""
 
@@ -701,19 +701,19 @@ msgstr ""
 msgid "You are not permitted to view this content."
 msgstr ""
 
-#: ../lib/models/rtTPGField.php:82
+#: ../lib/models/rtTPGField.php:90
 msgid "Premium Option"
 msgstr ""
 
-#: ../lib/models/rtTPGField.php:497
+#: ../lib/models/rtTPGField.php:505
 msgid "If \"Meta value\", \"Meta value Number\" or \"Meta value datetime\" is chosen then meta key is required."
 msgstr ""
 
-#: ../lib/models/rtTPGField.php:687
+#: ../lib/models/rtTPGField.php:695
 msgid "Start"
 msgstr ""
 
-#: ../lib/models/rtTPGField.php:696
+#: ../lib/models/rtTPGField.php:704
 msgid "End"
 msgstr ""
 
