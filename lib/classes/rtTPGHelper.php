@@ -894,7 +894,7 @@ if ( ! class_exists( 'rtTPGHelper' ) ):
 				$catMargin       = $this->formatSpacing( $catMargin );
 				$catPadding      = ( isset( $scMeta['tpg_category_padding'][0] ) ? $scMeta['tpg_category_padding'][0] : null );
 				$catPadding      = $this->formatSpacing( $catPadding );
-				$categorySize    = ( ! empty( $scMeta['tpg_category_font_size'][0] ) ? absint( $scMeta['tpg_category_font_size'][0] ) : null );
+				$categorySize    = ( ! empty( $scMeta['rt_tpg_category_font_size'][0] ) ? absint( $scMeta['rt_tpg_category_font_size'][0] ) : null );
 				// Image
 				$image_border_radius = isset( $scMeta['tpg_image_border_radius'][0] ) ? $scMeta['tpg_image_border_radius'][0] : '';
 				// Title
@@ -960,7 +960,7 @@ if ( ! class_exists( 'rtTPGHelper' ) ):
 				$catBorderRadius = ( isset( $scMeta['tpg_category_border_radius'] ) ? $scMeta['tpg_category_border_radius'] : null );
 				$catMargin       = ( isset( $scMeta['tpg_category_margin'] ) ? $scMeta['tpg_category_margin'] : null );
 				$catPadding      = ( isset( $scMeta['tpg_category_padding'] ) ? $scMeta['tpg_category_padding'] : null );
-				$categorySize    = ( ! empty( $scMeta['tpg_category_font_size'] ) ? absint( $scMeta['tpg_category_font_size'] ) : null );
+				$categorySize    = ( ! empty( $scMeta['rt_tpg_category_font_size'] ) ? absint( $scMeta['rt_tpg_category_font_size'] ) : null );
 				// Image
 				$image_border_radius = isset( $scMeta['tpg_image_border_radius'] ) ? $scMeta['tpg_image_border_radius'] : '';
 				// Title

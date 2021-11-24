@@ -1175,12 +1175,12 @@ if ( ! class_exists( 'rtTPGOptions' ) ):
 					"label"       => esc_html__( "Padding", "the-post-grid" ),
                     "description" => __( "Multiple value allowed separated by comma 12,0,5,10", 'the-post-grid' ),
 				],
-				'tpg_category_font_size'     => [
-					"type"    => "select",
-					"class"   => "rt-select2",
-					"label"   => esc_html__( "Font Size", "the-post-grid" ),
-					"default" => '14',
-					"options" => rtTPG()->scFontSize(),
+				'rt_tpg_category_font_size'     => [
+					"type"      => "select",
+					"class"     => "rt-select2",
+					"label"     => esc_html__( "Font Size", "the-post-grid" ),
+					"blank"     => 'Default',
+					"options"   => rtTPG()->scFontSize(),
 				],
 			];
 
