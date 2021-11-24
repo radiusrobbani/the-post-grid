@@ -428,6 +428,11 @@ body.rt-model-open,
     margin-right: -15px;
 }
 
+.rt-row > .rt-row {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
 .grid_hover6.rt-row {
     margin-left: -2px;
     margin-right: -2px;

@@ -1335,14 +1335,6 @@ if ( ! class_exists( 'rtTPGHelper' ) ):
 			}
 
 			// Title decoration
-			if ( $title_color ) {
-				$css .= "#{$layoutID} .post-content .post-title a,#{$layoutID} .rt-post-grid .post-title a {";
-				$css .= "background-image: linear-gradient(to bottom, $title_color 0%, $title_color 98%);";
-				$css .= "}";
-				$css .= "#{$layoutID} .post-content .post-title a:hover,#{$layoutID} .rt-post-grid .post-title a:hover {";
-				$css .= "background-image: linear-gradient(to bottom, $title_color 0%, $title_color 98%)";
-				$css .= "}";
-			}
 			if ( $title_color || $title_size || $title_weight || $title_alignment ) {
 				$css .= "#{$layoutID} .{$layout} .rt-holder h2.entry-title,
                 #{$layoutID} .{$layout} .rt-holder h3.entry-title,
@@ -1389,12 +1381,7 @@ if ( ! class_exists( 'rtTPGHelper' ) ):
 			}
 			// Title hover color
 			if ( $title_hover_color ) {
-				$css .= "#{$layoutID} .post-content .post-title a {";
-				$css .= "background-image: linear-gradient(to bottom, $title_hover_color 0%, $title_hover_color 98%);";
-				$css .= "}";
-				$css .= "#{$layoutID} .post-content .post-title a:hover {";
-				$css .= "background-image: linear-gradient(to bottom, $title_hover_color 0%, $title_hover_color 98%)";
-				$css .= "}";
+
 				$css .= "#{$layoutID} .{$layout} .rt-holder h2.entry-title:hover,
                         #{$layoutID} .{$layout} .rt-holder h3.entry-title:hover,
                         #{$layoutID} .{$layout} .rt-holder h4.entry-title:hover,
