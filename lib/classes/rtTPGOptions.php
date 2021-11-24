@@ -67,14 +67,6 @@ if ( ! class_exists( 'rtTPGOptions' ) ):
 			$settings = get_option( rtTPG()->options['settings'] );
 
 			return [
-				"custom_css"              => [
-					"label"       => __( "Custom CSS", 'the-post-grid' ),
-					'type'        => 'textarea',
-					'holderClass' => 'rt-script-wrapper full',
-					'id'          => 'custom-css',
-					'description' => 'Depricated Field, Use Customiser Additional CSS Appearance->Customize->Additional CSS',
-					'value'       => isset( $settings['custom_css'] ) ? stripslashes( $settings['custom_css'] ) : null,
-				],
 				"script_before_item_load" => [
 					"label"       => __( "Script before item load", 'the-post-grid' ),
 					'type'        => 'textarea',
