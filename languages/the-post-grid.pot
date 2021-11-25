@@ -622,7 +622,7 @@ msgid "Isotope Layout 1"
 msgstr ""
 
 #: ../lib/classes/rtTPGOptions.php:1382, ../lib/views/settings/sc-settings.php:2, ../lib/views/settings/style.php:13
-msgid "Widget Heading"
+msgid "ShortCode Heading"
 msgstr ""
 
 #: ../lib/classes/rtTPGOptions.php:1384, ../lib/views/settings/sc-settings.php:34

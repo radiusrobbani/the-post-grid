@@ -143,7 +143,7 @@ For any bug or suggestion please mail support@radiustheme.com
 
 = 3.1.0 =
 * Updated UI
-* Added New Layout
+* Added 4 New Layout
 * Added New Settings
 * Added Offset Option
 
