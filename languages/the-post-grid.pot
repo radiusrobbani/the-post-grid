@@ -65,7 +65,7 @@ msgstr ""
 msgid "Default"
 msgstr ""
 
-#: ../lib/classes/rtTPGHelper.php:486
+#: ../lib/classes/rtTPGHelper.php:487
 msgid "Full Size"
 msgstr ""
 
@@ -209,7 +209,7 @@ msgstr ""
 msgid "ID"
 msgstr ""
 
-#: ../lib/classes/rtTPGOptions.php:57, ../lib/classes/rtTPGOptions.php:1365, ../lib/views/settings/sc-settings.php:16
+#: ../lib/classes/rtTPGOptions.php:57, ../lib/classes/rtTPGOptions.php:1383, ../lib/views/settings/sc-settings.php:16
 msgid "Title"
 msgstr ""
 
@@ -605,55 +605,55 @@ msgstr ""
 msgid "Grid Layout 1"
 msgstr ""
 
-#: ../lib/classes/rtTPGOptions.php:1334
+#: ../lib/classes/rtTPGOptions.php:1340
 msgid "Grid Hover 1"
 msgstr ""
 
-#: ../lib/classes/rtTPGOptions.php:1340
+#: ../lib/classes/rtTPGOptions.php:1358
 msgid "List Layout 1"
 msgstr ""
 
-#: ../lib/classes/rtTPGOptions.php:1346
+#: ../lib/classes/rtTPGOptions.php:1364
 msgid "List Layout 2"
 msgstr ""
 
-#: ../lib/classes/rtTPGOptions.php:1352
+#: ../lib/classes/rtTPGOptions.php:1370
 msgid "Isotope Layout 1"
 msgstr ""
 
-#: ../lib/classes/rtTPGOptions.php:1364, ../lib/views/settings/sc-settings.php:2, ../lib/views/settings/style.php:13
+#: ../lib/classes/rtTPGOptions.php:1382, ../lib/views/settings/sc-settings.php:2, ../lib/views/settings/style.php:13
 msgid "Widget Heading"
 msgstr ""
 
-#: ../lib/classes/rtTPGOptions.php:1366, ../lib/views/settings/sc-settings.php:34
+#: ../lib/classes/rtTPGOptions.php:1384, ../lib/views/settings/sc-settings.php:34
 msgid "Excerpt"
 msgstr ""
 
-#: ../lib/classes/rtTPGOptions.php:1367, ../lib/classes/rtTPGPreview.php:69, ../lib/classes/rtTPGShortCode.php:146
+#: ../lib/classes/rtTPGOptions.php:1385, ../lib/classes/rtTPGPreview.php:69, ../lib/classes/rtTPGShortCode.php:146
 msgid "Read More"
 msgstr ""
 
-#: ../lib/classes/rtTPGOptions.php:1368
+#: ../lib/classes/rtTPGOptions.php:1386
 msgid "Post Date"
 msgstr ""
 
-#: ../lib/classes/rtTPGOptions.php:1369
+#: ../lib/classes/rtTPGOptions.php:1387
 msgid "Author"
 msgstr ""
 
-#: ../lib/classes/rtTPGOptions.php:1370
+#: ../lib/classes/rtTPGOptions.php:1388
 msgid "Categories"
 msgstr ""
 
-#: ../lib/classes/rtTPGOptions.php:1371
+#: ../lib/classes/rtTPGOptions.php:1389
 msgid "Tags"
 msgstr ""
 
-#: ../lib/classes/rtTPGOptions.php:1372
+#: ../lib/classes/rtTPGOptions.php:1390
 msgid "Comment count"
 msgstr ""
 
-#: ../lib/classes/rtTPGOptions.php:1482
+#: ../lib/classes/rtTPGOptions.php:1500
 msgid "Get Pro Version"
 msgstr ""
 

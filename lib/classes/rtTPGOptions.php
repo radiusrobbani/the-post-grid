@@ -1333,7 +1333,7 @@ if ( ! class_exists( 'rtTPGOptions' ) ):
                 'layout12' => array(
 	                'title' => esc_html__( "Grid Layout 2", "the-post-grid-pro" ),
 	                'layout' => 'grid',
-	                'layout_link'    => 'https://www.radiustheme.com/demo/plugins/the-post-grid/grid-layout-4/',
+	                'layout_link'    => 'https://www.radiustheme.com/demo/plugins/the-post-grid/grid-layout-2/',
 	                'img' => rtTPG()->assetsUrl . 'images/layouts/grid10.png'
                 ),
                 'layout5' => array(
