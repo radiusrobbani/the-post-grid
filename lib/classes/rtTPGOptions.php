@@ -1330,11 +1330,29 @@ if ( ! class_exists( 'rtTPGOptions' ) ):
                     'layout_link'    => 'https://www.radiustheme.com/demo/plugins/the-post-grid/',
                     'img' => rtTPG()->assetsUrl . 'images/layouts/grid1.png',
                 ),
+                'layout12' => array(
+	                'title' => esc_html__( "Grid Layout 2", "the-post-grid-pro" ),
+	                'layout' => 'grid',
+	                'layout_link'    => 'https://www.radiustheme.com/demo/plugins/the-post-grid/grid-layout-4/',
+	                'img' => rtTPG()->assetsUrl . 'images/layouts/grid10.png'
+                ),
                 'layout5' => array(
                     'title' => __( "Grid Hover 1", "the-post-grid" ),
                     'layout' => 'grid_hover',
                     'layout_link'    => 'https://www.radiustheme.com/demo/plugins/the-post-grid/hover-layout-1/',
                     'img' => rtTPG()->assetsUrl . 'images/layouts/grid3.png'
+                ),
+                'layout6' => array(
+	                'title' => esc_html__( "Grid Hover 2", "the-post-grid-pro" ),
+	                'layout' => 'grid_hover',
+	                'layout_link'    => 'https://www.radiustheme.com/demo/plugins/the-post-grid/hover-layout-2/',
+	                'img' => rtTPG()->assetsUrl . 'images/layouts/grid4.png'
+                ),
+                'layout7' => array(
+	                'title' => esc_html__( "Grid Hover 3", "the-post-grid-pro" ),
+	                'layout' => 'grid_hover',
+	                'layout_link'    => 'https://www.radiustheme.com/demo/plugins/the-post-grid/hover-layout-3/',
+	                'img' => rtTPG()->assetsUrl . 'images/layouts/grid5.png'
                 ),
                 'layout2' => array(
                     'title' => __( "List Layout 1", "the-post-grid" ),
