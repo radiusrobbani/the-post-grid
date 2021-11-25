@@ -685,10 +685,9 @@ span.more-loading {
 
 .offset06 .post-meta-user span,
 .offset06 .post-meta-tags span {
-    text-transform: uppercase;
     font-weight: 500;
     padding-right: 15px;
-    font-size: .75rem;
+    font-size: 14px;
     color: #A5A6AA;
 }
 
