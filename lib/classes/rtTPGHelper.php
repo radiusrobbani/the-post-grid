@@ -28,6 +28,7 @@ if ( ! class_exists( 'rtTPGHelper' ) ):
 				rtTPG()->rtTPGLayoutSettingFields(),
 				rtTPG()->responsiveSettingsColumn(),
 				rtTPG()->layoutMiscSettings(),
+				rtTPG()->stickySettings(),
 				// settings
 				rtTPG()->rtTPGSCHeadingSettings(),
 				rtTPG()->rtTPGSCCategorySettings(),

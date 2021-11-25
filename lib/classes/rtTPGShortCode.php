@@ -434,7 +434,7 @@ if ( ! class_exists( 'rtTPGShortCode' ) ):
 				if ( isset( $arg['excerpt_type'] ) && $arg['excerpt_type'] === 'full' && ( $key = array_search( 'read_more', $arg['items'] ) ) !== false ) {
 					unset( $arg['items'][ $key ] );
 				}
-				if ( ! empty( $scMeta['ignore_sticky_posts'][0] ) ) {
+				if ( empty( $scMeta['ignore_sticky_posts'][0] ) ) {
 					$args['ignore_sticky_posts'] = true;
 				} else {
 					$args['wp_tpg_is_home'] = true;
