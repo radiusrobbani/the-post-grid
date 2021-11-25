@@ -36,7 +36,7 @@ if ( ! class_exists( 'rtTPGNotice' ) ):
                          height="74px" style="grid-row: 1 / 4; align-self: center;justify-self: center"/>
                     <h3 style="margin:0;"><?php echo sprintf( '%s Black Friday Deal!!', $plugin_name ) ?></h3>
                     <p style="margin:0 0 2px;">Don't miss out on our biggest sale of the year! Get your
-                        <b><?php echo $plugin_name; ?> plan</b> with <b>50% OFF</b>! Limited time offer expires on
+                        <b><?php echo $plugin_name; ?> plan</b> with <b>UPTO 50% OFF</b>! Limited time offer expires on
                         December 5.
                     </p>
                     <p style="margin:0;">

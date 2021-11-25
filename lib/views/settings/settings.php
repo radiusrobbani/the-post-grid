@@ -3,7 +3,7 @@
     <h2><?php _e( 'The Post Grid Settings', 'the-post-grid' ); ?></h2>
     <h3><?php _e( 'General settings', 'the-post-grid' ); ?>
         <a style="margin-left: 15px; font-size: 15px;"
-           href="https://www.radiustheme.com/how-to-setup-configure-the-post-grid-free-version-for-wordpress/"
+           href="https://www.radiustheme.com/docs/the-post-grid/"
            target="_blank"><?php _e( 'Documentation', 'the-post-grid' ) ?></a>
     </h3>
 

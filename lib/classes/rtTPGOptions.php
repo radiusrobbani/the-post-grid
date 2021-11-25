@@ -1379,7 +1379,7 @@ if ( ! class_exists( 'rtTPGOptions' ) ):
 
 		function rtTPGItemFields() {
 			$items = [
-				'heading'       => __( "Widget Heading", "the-post-grid" ),
+				'heading'       => __( "ShortCode Heading", "the-post-grid" ),
 				'title'         => __( "Title", "the-post-grid" ),
 				'excerpt'       => __( "Excerpt", "the-post-grid" ),
 				'read_more'     => __( "Read More", "the-post-grid" ),

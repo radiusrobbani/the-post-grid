@@ -1,5 +1,5 @@
 <div class="field-holder">
-    <div class="field-label"><?php _e('Widget Heading', 'the-post-grid'); ?></div>
+    <div class="field-label"><?php _e('ShortCode Heading', 'the-post-grid'); ?></div>
     <div class="field">
         <?php echo rtTPG()->rtFieldGenerator(rtTPG()->rtTPGSCHeadingSettings(), true); ?>
     </div>

@@ -10,7 +10,7 @@
 </div>
 
 <div class="field-holder widget-heading-stle-wrapper">
-    <div class="field-label"><?php _e( 'Widget Heading', 'the-post-grid' ); ?></div>
+    <div class="field-label"><?php _e( 'ShortCode Heading', 'the-post-grid' ); ?></div>
     <div class="field">
         <div class="tpg-multiple-field-group">
 			<?php echo rtTPG()->rtFieldGenerator( rtTPG()->rtTPGStyleHeading(), true ); ?>

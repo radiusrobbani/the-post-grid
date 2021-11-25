@@ -189,7 +189,7 @@ if (!class_exists('rtTPGInit')):
 
         function rt_post_grid_marketing($links) {
             $links[] = '<a target="_blank" href="' . esc_url('https://www.radiustheme.com/demo/plugins/the-post-grid/') . '">Demo</a>';
-            $links[] = '<a target="_blank" href="' . esc_url('https://www.radiustheme.com/how-to-setup-configure-the-post-grid-free-version-for-wordpress/') . '">Documentation</a>';
+            $links[] = '<a target="_blank" href="' . esc_url('https://www.radiustheme.com/docs/the-post-grid/') . '">Documentation</a>';
             if (!rtTPG()->hasPro()) {
                 $links[] = '<a target="_blank" style="color: #39b54a;font-weight: 700;" href="' . esc_url('https://www.radiustheme.com/downloads/the-post-grid-pro-for-wordpress/') . '">Get Pro</a>';
             }

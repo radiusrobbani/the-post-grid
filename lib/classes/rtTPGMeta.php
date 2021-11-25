@@ -127,7 +127,7 @@ if ( ! class_exists( 'rtTPGMeta' ) ):
 							<div class="rt-box-content">
                     			<h3 class="rt-box-title">%1$s</h3>
                     				<p>%2$s</p>
-                        			<a href="https://radiustheme.com/how-to-setup-configure-the-post-grid-free-version-for-wordpress/" target="_blank" class="rt-admin-btn">%1$s</a>
+                        			<a href="https://www.radiustheme.com/docs/the-post-grid/" target="_blank" class="rt-admin-btn">%1$s</a>
                 			</div>
 						</div>',
                 __("Documentation", 'the-post-grid'),
