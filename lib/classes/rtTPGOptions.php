@@ -543,8 +543,8 @@ if ( ! class_exists( 'rtTPGOptions' ) ):
 					"alignment"   => "vertical",
 					"default"     => "new_page",
 					"options"     => [
-						'popup'    => "PopUp",
 						'new_page' => "New Page",
+						'popup'    => "PopUp",
 					],
 				],
 				'popup_type'                       => [
@@ -631,6 +631,7 @@ if ( ! class_exists( 'rtTPGOptions' ) ):
 					'alignment'   => 'vertical',
 					'multiple'    => true,
 					'options'     => rtTPG()->detailAvailableFields(),
+					'default'     => array_keys(rtTPG()->detailAvailableFields()),
 					'value'       => isset( $settings['popup_fields'] ) ? $settings['popup_fields'] : [],
 				],
 			];

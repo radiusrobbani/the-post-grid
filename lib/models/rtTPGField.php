@@ -40,16 +40,16 @@ if ( ! class_exists( 'rtTPGField' ) ):
                     $this->value = $this->default;
 				} else {
 					if ( $this->multiple ) {
-						$this->value = get_post_meta( $post_id, $this->name );
+						if (metadata_exists('post', $post_id, $this->name)) {
+							$this->value = get_post_meta( $post_id, $this->name );
+						} else {
+							$this->value = $this->default;
+						}
 					} else {
-						if ( 'switch' != $this->type ) {
+						if (metadata_exists('post', $post_id, $this->name)) {
 							$this->value = get_post_meta( $post_id, $this->name, true );
 						} else {
-							if (metadata_exists('post', $post_id, $this->name)) {
-								$this->value = get_post_meta( $post_id, $this->name, true );
-							} else {
-								$this->value = $this->default;
-							}
+							$this->value = $this->default;
 						}
 					}
 				}
