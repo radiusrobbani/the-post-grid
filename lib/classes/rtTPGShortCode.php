@@ -504,7 +504,7 @@ if ( ! class_exists( 'rtTPGShortCode' ) ):
 					if ( $heading_link ) {
 						$html .= sprintf( '<%1$s class="tpg-widget-heading"><a href="%2$s" title="%3$s">%3$s</a></%1$s>', $heading_tag, $heading_link, get_the_title() );
 					} else {
-						$html .= sprintf( '<%1$s class="tpg-widget-heading">%2$s</%1$s>', $heading_tag, get_the_title() );
+						$html .= sprintf( '<%1$s class="tpg-widget-heading">%2$s</%1$s>', $heading_tag, get_the_title($scID) );
 					}
 					$html .= '<span class="tpg-widget-heading-line"></span>';
 					$html .= '</div>';
@@ -735,11 +735,12 @@ if ( ! class_exists( 'rtTPGShortCode' ) ):
 						}
 					}
 
-					if ( in_array( '_sort_order', $filters ) ) {
-						$action_order = ( ! empty( $args['order'] ) ? strtoupper( trim( $args['order'] ) ) : "DESC" );
-						$html         .= '<div class="rt-filter-item-wrap rt-sort-order-action">';
-						$html         .= "<span class='rt-sort-order-action-arrow' data-sort-order='{$action_order}'>&nbsp;<span></span></span>";
-						$html         .= '</div>';
+					if ( in_array( '_search', $filters ) ) {
+						$html .= '<div class="rt-filter-item-wrap rt-search-filter-wrap">';
+						$html .= sprintf( '<input type="text" class="rt-search-input" placeholder="%s">', esc_html__( "Search...", 'the-post-grid' ) );
+						$html .= "<span class='rt-action'>&#128269;</span>";
+						$html .= "<span class='rt-loading'></span>";
+						$html .= '</div>';
 					}
 
 					if ( in_array( '_order_by', $filters ) ) {
@@ -770,13 +771,13 @@ if ( ! class_exists( 'rtTPGShortCode' ) ):
 						$html .= '</div>';
 					}
 
-					if ( in_array( '_search', $filters ) ) {
-						$html .= '<div class="rt-filter-item-wrap rt-search-filter-wrap">';
-						$html .= sprintf( '<input type="text" class="rt-search-input" placeholder="%s">', esc_html__( "Search...", 'the-post-grid' ) );
-						$html .= "<span class='rt-action'>&#128269;</span>";
-						$html .= "<span class='rt-loading'></span>";
-						$html .= '</div>';
+					if ( in_array( '_sort_order', $filters ) ) {
+						$action_order = ( ! empty( $args['order'] ) ? strtoupper( trim( $args['order'] ) ) : "DESC" );
+						$html         .= '<div class="rt-filter-item-wrap rt-sort-order-action">';
+						$html         .= "<span class='rt-sort-order-action-arrow' data-sort-order='{$action_order}'>&nbsp;<span></span></span>";
+						$html         .= '</div>';
 					}
+
 					$html .= "</div>$selectedSubTermsForButton</div>";
 				}
 

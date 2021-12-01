@@ -687,11 +687,12 @@ if ( ! class_exists( 'rtTPGPreview' ) ):
 						}
 					}
 
-					if ( in_array( '_sort_order', $filters ) ) {
-						$action_order = ( ! empty( $args['order'] ) ? strtoupper( trim( $args['order'] ) ) : "DESC" );
-						$data         .= '<div class="rt-filter-item-wrap rt-sort-order-action">';
-						$data         .= "<span class='rt-sort-order-action-arrow' data-sort-order='{$action_order}'>&nbsp;<span></span></span>";
-						$data         .= '</div>';
+					if ( in_array( '_search', $filters ) ) {
+						$data .= '<div class="rt-filter-item-wrap rt-search-filter-wrap">';
+						$data .= sprintf( '<input type="text" class="rt-search-input" placeholder="%s">', esc_html__( "Search...", 'the-post-grid' ) );
+						$data .= "<span class='rt-action'>&#128269;</span>";
+						$data .= "<span class='rt-loading'></span>";
+						$data .= '</div>';
 					}
 
 					if ( in_array( '_order_by', $filters ) ) {
@@ -722,13 +723,13 @@ if ( ! class_exists( 'rtTPGPreview' ) ):
 						$data .= '</div>';
 					}
 
-					if ( in_array( '_search', $filters ) ) {
-						$data .= '<div class="rt-filter-item-wrap rt-search-filter-wrap">';
-						$data .= sprintf( '<input type="text" class="rt-search-input" placeholder="%s">', esc_html__( "Search...", 'the-post-grid' ) );
-						$data .= "<span class='rt-action'>&#128269;</span>";
-						$data .= "<span class='rt-loading'></span>";
-						$data .= '</div>';
+					if ( in_array( '_sort_order', $filters ) ) {
+						$action_order = ( ! empty( $args['order'] ) ? strtoupper( trim( $args['order'] ) ) : "DESC" );
+						$data         .= '<div class="rt-filter-item-wrap rt-sort-order-action">';
+						$data         .= "<span class='rt-sort-order-action-arrow' data-sort-order='{$action_order}'>&nbsp;<span></span></span>";
+						$data         .= '</div>';
 					}
+
 					$data .= "</div>$selectedSubTermsForButton</div>";
 				}
 
