@@ -160,9 +160,8 @@ if ( ! class_exists( 'rtTPGField' ) ):
 
 		private function text() {
             $holderClass = explode(' ', $this->holderClass);
-            $atts = (in_array('pro-field', $holderClass)) && !rtTPG()->hasPro() ? 'disabled="true"' : '';
 			$h = null;
-			$h .= "<input {$atts}
+			$h .= "<input
                     type='text'
                     class='{$this->class}'
                     id='{$this->id}'
@@ -215,9 +214,8 @@ if ( ! class_exists( 'rtTPGField' ) ):
 
 		private function number() {
             $holderClass = explode(' ', $this->holderClass);
-            $atts = (in_array('pro-field', $holderClass)) && !rtTPG()->hasPro() ? 'disabled="true"' : '';
 			$h = null;
-			$h .= "<input {$atts}
+			$h .= "<input
                     type='number'
                     class='{$this->class}'
                     id='{$this->id}'
@@ -232,7 +230,6 @@ if ( ! class_exists( 'rtTPGField' ) ):
 
 		private function select() {
             $holderClass = explode(' ', $this->holderClass);
-            $atts = (in_array('pro-field', $holderClass)) && !rtTPG()->hasPro() ? 'disabled="true"' : '';
 			$h = null;
 			if ( $this->multiple ) {
 				$this->attr  = " style='min-width:160px;'";
@@ -243,7 +240,7 @@ if ( ! class_exists( 'rtTPGField' ) ):
 				$this->value = array( $this->value );
 			}
 
-			$h .= "<select {$atts} name='{$this->name}' id='{$this->id}' class='{$this->class}' {$this->attr}>";
+			$h .= "<select name='{$this->name}' id='{$this->id}' class='{$this->class}' {$this->attr}>";
 			if ( $this->blank ) {
 				$h .= "<option value=''>{$this->blank}</option>";
 			}
@@ -260,9 +257,8 @@ if ( ! class_exists( 'rtTPGField' ) ):
 
 		private function textArea() {
             $holderClass = explode(' ', $this->holderClass);
-            $atts = (in_array('pro-field', $holderClass)) && !rtTPG()->hasPro() ? 'disabled="true"' : '';
 			$h = null;
-			$h .= "<textarea {$atts}
+			$h .= "<textarea
                     class='{$this->class} rt-textarea'
                     id='{$this->id}'
                     name='{$this->name}'
@@ -324,7 +320,7 @@ if ( ! class_exists( 'rtTPGField' ) ):
 
 		private function checkbox() {
             $holderClass = explode(' ', $this->holderClass);
-            $atts = (in_array('pro-field', $holderClass)) && !rtTPG()->hasPro() ? 'disabled="true"' : '';
+			$this->alignment .= (in_array('pro-field', $holderClass)) && !rtTPG()->hasPro() ? ' disabled' : '';
 			$h = null;
 			if ( $this->multiple ) {
 				$this->name  = $this->name . "[]";
@@ -337,7 +333,7 @@ if ( ! class_exists( 'rtTPGField' ) ):
 						$checked = ( in_array( $key, $this->value ) ? "checked" : null );
 
 						$h       .= "<label for='{$this->id}-{$key}'>
-                                <input {$atts} type='checkbox' id='{$this->id}-{$key}' {$checked} name='{$this->name}' value='{$key}'>{$value}
+                                <input type='checkbox' id='{$this->id}-{$key}' {$checked} name='{$this->name}' value='{$key}'>{$value}
                                 </label>";
 					}
 				}
@@ -366,7 +362,7 @@ if ( ! class_exists( 'rtTPGField' ) ):
             $advFilters = rtTPG()->rtTPAdvanceFilters();
 
             $holderClass = explode(' ', $this->holderClass);
-            $atts = (in_array('pro-field', $holderClass)) && !rtTPG()->hasPro() ? 'disabled="true"' : '';
+
             $h = null;
             if ( $this->multiple ) {
                 $this->name  = $this->name . "[]";
@@ -381,7 +377,7 @@ if ( ! class_exists( 'rtTPGField' ) ):
                         $h .= '<div class="checkbox-filter-field">';
 
                         $h       .= "<label for='{$this->id}-{$key}'>
-                                <input {$atts} type='checkbox' id='{$this->id}-{$key}' {$checked} name='{$this->name}' value='{$key}'>{$value}
+                                <input type='checkbox' id='{$this->id}-{$key}' {$checked} name='{$this->name}' value='{$key}'>{$value}
                                 </label>";
 
                         //foreach($advFilters['post_filter']['options'] as $key => $filter){
@@ -623,7 +619,7 @@ if ( ! class_exists( 'rtTPGField' ) ):
 
 		private function radioField() {
             $holderClass = explode(' ', $this->holderClass);
-            $atts = (in_array('pro-field', $holderClass)) && !rtTPG()->hasPro() ? 'disabled="true"' : '';
+			$this->alignment .= (in_array('pro-field', $holderClass)) && !rtTPG()->hasPro() ? ' disabled' : '';
 			$h = null;
 			$h .= "<div class='radio-group {$this->alignment}' id='{$this->id}'>";
 			if ( is_array( $this->options ) && ! empty( $this->options ) ) {
@@ -633,7 +629,7 @@ if ( ! class_exists( 'rtTPGField' ) ):
                         $checked = ( $key == $this->default ? "checked" : null );
                     }*/
 					$h       .= "<label for='{$this->name}-{$key}'>
-                            <input {$atts} type='radio' id='{$this->id}-{$key}' {$checked} name='{$this->name}' value='{$key}'>{$value}
+                            <input type='radio' id='{$this->id}-{$key}' {$checked} name='{$this->name}' value='{$key}'>{$value}
                             </label>";
 				}
 			}

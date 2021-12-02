@@ -370,6 +370,10 @@ body .meta-box-sortables .field-holder select {
     width: 100%;
 }
 
+.rt-tab-content .field-holder .disabled input {
+    opacity: 0.7;
+}
+
 .rt-tpg-filter.taxonomy {
     background: var(--rt-primary-color) 3 b;
 }
