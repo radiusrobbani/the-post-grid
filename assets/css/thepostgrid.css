@@ -2270,6 +2270,18 @@ body > .rt-tooltip .rt-tooltip-bottom:after {
     color: #000;
 }
 
+.rt-tpg-container .layout12 .rt-holder:hover .entry-title a,
+.rt-tpg-container .isotope8 .rt-holder:hover .entry-title a,
+.rt-tpg-container .carousel8 .rt-holder:hover .entry-title a {
+    color: #fff !important;
+}
+
+.rt-tpg-container .layout12 .rt-holder:hover .rt-detail .tpg-excerpt,
+.rt-tpg-container .isotope8 .rt-holder:hover .rt-detail .tpg-excerpt,
+.rt-tpg-container .carousel8 .rt-holder:hover .rt-detail .tpg-excerpt {
+    color: #fff !important;
+}
+
 .rt-tpg-container .layout12 .rt-holder .rt-detail h2 a:hover,
 .rt-tpg-container .layout12 .rt-holder .rt-detail h3 a:hover,
 .rt-tpg-container .layout12 .rt-holder .rt-detail h4 a:hover,
@@ -2286,7 +2298,7 @@ body > .rt-tooltip .rt-tooltip-bottom:after {
 .rt-tpg-container .isotope8 .rt-holder:hover .rt-detail,
 .rt-tpg-container .carousel8 .rt-holder:hover .rt-detail {
     background: #0850d0;
-    color: #fff;
+    color: #fff !important;
 }
 
 .rt-tpg-container .layout12 .rt-holder .rt-detail .read-more,
