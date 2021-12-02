@@ -1484,7 +1484,8 @@ if ( ! class_exists( 'rtTPGOptions' ) ):
 		function get_pro_feature_list() {
 			return '<ol>
                         <li>Fully responsive and mobile friendly.</li>
-                        <li>55 Different Layouts</li>
+                        <li>62 Different Layouts</li>
+                        <li>12 New Layouts</li>
                         <li>Even and Masonry Grid.</li>
                         <li>WooCommerce supported.</li>
                         <li>Custom Post Type Supported</li>
@@ -1495,6 +1496,9 @@ if ( ! class_exists( 'rtTPGOptions' ) ):
                         <li>Query Post with Relation.</li>
                         <li>Fields Selection.</li>
                         <li>All Text and Color control.</li>
+                        <li>Meta Position Control.</li>
+                        <li>Category Position Control.</li>
+                        <li>Content Wrapper Style Control.</li>
                         <li>Enable/Disable Pagination.</li>
                         <li>AJAX Pagination (Load more and Load on Scrolling)</li>
                     </ol>

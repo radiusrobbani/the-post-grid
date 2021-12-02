@@ -22,7 +22,8 @@ By using The Post Grid plugin you can display your post in Grid List & Isotope v
 
 = Features =
 * Fully responsive and mobile friendly.
-* 4 Different Layouts
+* 8 Different Layouts
+* 4 New Layouts
 * Generate Unlimited grid.
 * Excerpt limit in word or characters
 * User define excerpt ending(... )
@@ -35,7 +36,12 @@ By using The Post Grid plugin you can display your post in Grid List & Isotope v
 * Display image size (thumbnail, medium, large, full)
 * Isotope filter for any taxonomy ie. categories, tags...
 * Query Post with Relation.
+* Offset Field, to skip post from first.
 * Fields Selection.
+* Meta Icon Control.
+* Meta Separation Control.
+* ShortCode Title Control.
+* Section Color Control.
 * Primary and Button Color control.
 * Enable/Disable Pagination.
 * Pagination Supported
@@ -64,7 +70,8 @@ For any bug or suggestion please mail support@radiustheme.com
 
 = PRO Features =
 * Fully responsive and mobile friendly.
-* 55 Different Layouts
+* 62 Different Layouts
+* 12 New Layouts
 * Even and Masonry Grid.
 * WooCommerce supported.
 * Custom Post Type Supported
@@ -79,6 +86,9 @@ For any bug or suggestion please mail support@radiustheme.com
 * Popup page Fields Selection.
 * Default image set option in Shortcode generator settings.
 * All Text color, size and Button Color control.
+* Meta Position Control
+* Category Position Control
+* Content Wrapper Style Control
 * Overlay color and opacity.
 * AJAX Pagination (Number, Load more and Load on Scrolling))
 * Single popup and Popup with next preview.
