@@ -230,6 +230,7 @@ if ( ! class_exists( 'rtTPGField' ) ):
 
 		private function select() {
             $holderClass = explode(' ', $this->holderClass);
+			$atts = (in_array('pro-field', $holderClass)) && !rtTPG()->hasPro() ? 'disabled="true"' : '';
 			$h = null;
 			if ( $this->multiple ) {
 				$this->attr  = " style='min-width:160px;'";
@@ -240,7 +241,7 @@ if ( ! class_exists( 'rtTPGField' ) ):
 				$this->value = array( $this->value );
 			}
 
-			$h .= "<select name='{$this->name}' id='{$this->id}' class='{$this->class}' {$this->attr}>";
+			$h .= "<select {$atts} name='{$this->name}' id='{$this->id}' class='{$this->class}' {$this->attr}>";
 			if ( $this->blank ) {
 				$h .= "<option value=''>{$this->blank}</option>";
 			}
