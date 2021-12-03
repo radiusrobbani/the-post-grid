@@ -653,7 +653,7 @@ msgstr ""
 msgid "Comment count"
 msgstr ""
 
-#: ../lib/classes/rtTPGOptions.php:1501
+#: ../lib/classes/rtTPGOptions.php:1505
 msgid "Get Pro Version"
 msgstr ""
 

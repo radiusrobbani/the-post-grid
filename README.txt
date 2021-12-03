@@ -16,7 +16,7 @@ Fast & Easy way to display WordPress post in Grid, List & Isotope view ( filter 
 
 The Post Grid is a fully Responsive & Mobile friendly plugin to display your page/post in Grid, List and Isotope View without any line of coding. It is fast and easy to generate grid from admin end and insert into page/post. You can Display posts by any category(s), tag(s), author(s), keyword(s) also Order posts by Id, Title, Created date, Modified date and Menu order.
 
-[youtube https://www.youtube.com/watch?v=V651fm6eaV4]
+[youtube https://www.youtube.com/watch?v=_xZBDU4kgKk]
 
 By using The Post Grid plugin you can display your post in Grid List & Isotope view in minutes, without any line of Coding...
 
