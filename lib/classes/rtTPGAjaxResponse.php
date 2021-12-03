@@ -118,6 +118,7 @@ if (!class_exists('rtTPGAjaxResponse')):
                                 'label'    => 'Taxonomy',
                                 'id'       => 'post-taxonomy',
                                 "multiple" => true,
+                                "value"=> isset($_REQUEST['taxonomy']) ? $_REQUEST['taxonomy'] : [],
                                 'options'  => $taxonomies
                             )
                         )
