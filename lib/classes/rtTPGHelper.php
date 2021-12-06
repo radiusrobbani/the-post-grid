@@ -525,7 +525,13 @@ if ( ! class_exists( 'rtTPGHelper' ) ):
 					$imgSrc = $matches[1][0];
 					$size   = '';
 
-					$imgAbs = str_replace( trailingslashit( site_url() ), ABSPATH, $imgSrc );
+					if (strpos($imgSrc, site_url()) !== false) {
+						$imgAbs = str_replace( trailingslashit( site_url() ), ABSPATH, $imgSrc );
+					} else {
+						$imgAbs = ABSPATH.$imgSrc;
+					}
+
+					$imgAbs = apply_filters('rt_tpg_sc_first_image_src', $imgAbs);
 
 					if ( file_exists( $imgAbs ) ) {
 						$info = getimagesize( $imgAbs );

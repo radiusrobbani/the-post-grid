@@ -45,23 +45,23 @@ msgstr ""
 msgid "Settings successfully updated"
 msgstr ""
 
-#: ../lib/classes/rtTPGAjaxResponse.php:130, ../lib/classes/rtTPGAjaxResponse.php:149, ../lib/classes/rtTPGAjaxResponse.php:190
+#: ../lib/classes/rtTPGAjaxResponse.php:131, ../lib/classes/rtTPGAjaxResponse.php:150, ../lib/classes/rtTPGAjaxResponse.php:191
 msgid "Security error"
 msgstr ""
 
-#: ../lib/classes/rtTPGAjaxResponse.php:126
+#: ../lib/classes/rtTPGAjaxResponse.php:127
 msgid "<div class=\"field-holder\">No Taxonomy found</div>"
 msgstr ""
 
-#: ../lib/classes/rtTPGAjaxResponse.php:216
+#: ../lib/classes/rtTPGAjaxResponse.php:217
 msgid "No shortCode found."
 msgstr ""
 
-#: ../lib/classes/rtTPGAjaxResponse.php:205
+#: ../lib/classes/rtTPGAjaxResponse.php:206
 msgid "Select Short code"
 msgstr ""
 
-#: ../lib/classes/rtTPGAjaxResponse.php:207, ../lib/classes/rtTPGOptions.php:713, ../lib/classes/rtTPGOptions.php:724, ../lib/classes/rtTPGOptions.php:747, ../lib/classes/rtTPGOptions.php:762, ../lib/classes/rtTPGOptions.php:786, ../lib/classes/rtTPGOptions.php:827, ../lib/classes/rtTPGOptions.php:843, ../lib/classes/rtTPGOptions.php:907, ../lib/classes/rtTPGOptions.php:963
+#: ../lib/classes/rtTPGAjaxResponse.php:208, ../lib/classes/rtTPGOptions.php:713, ../lib/classes/rtTPGOptions.php:724, ../lib/classes/rtTPGOptions.php:747, ../lib/classes/rtTPGOptions.php:762, ../lib/classes/rtTPGOptions.php:786, ../lib/classes/rtTPGOptions.php:827, ../lib/classes/rtTPGOptions.php:843, ../lib/classes/rtTPGOptions.php:907, ../lib/classes/rtTPGOptions.php:963
 msgid "Default"
 msgstr ""
 
