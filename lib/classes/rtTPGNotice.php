@@ -148,8 +148,8 @@ if ( ! class_exists( 'rtTPGNotice' ) ):
 
 				echo '<style> 
             .rttpg-review-button--cta {
-                --e-button-context-color: #4C6FFF;
-                --e-button-context-color-dark: #4C6FFF;
+                --e-button-context-color: #5d3dfd;
+                --e-button-context-color-dark: #5d3dfd;
                 --e-button-context-tint: rgb(75 47 157/4%);
                 --e-focus-color: rgb(75 47 157/40%);
             } 
@@ -172,7 +172,8 @@ if ( ! class_exists( 'rtTPGNotice' ) ):
                 left: -4px;
                 display: block;
                 width: 4px;
-                background: var(--rt-primary-color);
+                background: -webkit-linear-gradient(bottom, #5d3dfd 0%, #6939c6 100%);
+                background: linear-gradient(0deg, #5d3dfd 0%, #6939c6 100%);
                 content: "";
             } 
             .rttpg-review-notice_content {
@@ -204,7 +205,7 @@ if ( ! class_exists( 'rtTPGNotice' ) ):
                 padding: 0.4375rem 0.75rem;
                 border: 0;
                 border-radius: 3px;;
-                background: var(--rt-primary-color);
+                background: var(--e-button-context-color);
                 color: #fff;
                 vertical-align: middle;
                 text-align: center;
@@ -212,19 +213,19 @@ if ( ! class_exists( 'rtTPGNotice' ) ):
                 white-space: nowrap; 
             }
             .rttpg-review-button:active {
-                background: var(--rt-primary-color);
+                background: var(--e-button-context-color-dark);
                 color: #fff;
                 text-decoration: none;
             }
             .rttpg-review-button:focus {
                 outline: 0;
-                background: var(--rt-primary-color);
+                background: var(--e-button-context-color-dark);
                 box-shadow: 0 0 0 2px var(--e-focus-color);
                 color: #fff;
                 text-decoration: none;
             }
             .rttpg-review-button:hover {
-                background: var(--rt-primary-color);
+                background: var(--e-button-context-color-dark);
                 color: #fff;
                 text-decoration: none;
             } 
