@@ -673,27 +673,27 @@ msgstr ""
 msgid "Loading ..."
 msgstr ""
 
-#: ../lib/classes/rtTPGPreview.php:939, ../lib/classes/rtTPGShortCode.php:980
+#: ../lib/classes/rtTPGPreview.php:939, ../lib/classes/rtTPGShortCode.php:981, ../lib/classes/rtTPGShortCode.php:967
 msgid "No post found"
 msgstr ""
 
-#: ../lib/classes/rtTPGPreview.php:823, ../lib/classes/rtTPGShortCode.php:870
+#: ../lib/classes/rtTPGPreview.php:823, ../lib/classes/rtTPGShortCode.php:869
 msgid "Search"
 msgstr ""
 
-#: ../lib/classes/rtTPGPreview.php:973, ../lib/classes/rtTPGPreview.php:968, ../lib/classes/rtTPGShortCode.php:1006
+#: ../lib/classes/rtTPGPreview.php:973, ../lib/classes/rtTPGPreview.php:968, ../lib/classes/rtTPGShortCode.php:1007
 msgid "Load More"
 msgstr ""
 
-#: ../lib/classes/rtTPGShortCode.php:1044
+#: ../lib/classes/rtTPGShortCode.php:1045
 msgid "No shortCode found"
 msgstr ""
 
-#: ../lib/classes/rtTPGShortCode.php:1063
+#: ../lib/classes/rtTPGShortCode.php:1064
 msgid "This is a restricted content, you need to logged in to view this content."
 msgstr ""
 
-#: ../lib/classes/rtTPGShortCode.php:1058
+#: ../lib/classes/rtTPGShortCode.php:1059
 msgid "You are not permitted to view this content."
 msgstr ""
 

@@ -4,7 +4,7 @@ Donate link:
 Tags: post grid, content grid, post display, post format, post view, blog display, news display, post
 Requires at least: 4.5
 Tested up to: 5.8.2
-Stable tag: 3.1.1
+Stable tag: 3.1.2
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -150,6 +150,9 @@ For any bug or suggestion please mail support@radiustheme.com
 
 
 == Changelog ==
+
+= 3.1.2 =
+* Added: No post found message in Isotope
 
 = 3.1.1 =
 * Fixed Grid Column Issue in Small Device
