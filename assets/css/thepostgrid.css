@@ -3405,3 +3405,11 @@ body > .rt-tooltip .rt-tooltip-bottom:after {
     text-align: center;
     overflow: hidden;
 }
+
+.isotope-term-no-post {
+    min-height: 30px;
+}
+.isotope-term-no-post p {
+    margin-bottom: 0;
+    display: none;
+}

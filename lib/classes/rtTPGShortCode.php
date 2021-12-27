@@ -858,8 +858,7 @@ if ( ! class_exists( 'rtTPGShortCode' ) ):
 						}
 						$filter_count = ! empty( $scMeta['isotope_filter_count'][0] ) ? true : false;
 						$filter_url   = ! empty( $scMeta['isotope_filter_url'][0] ) ? true : false;
-						$htmlButton
-						              = "<div id='iso-button-{$rand}' class='rt-tpg-isotope-buttons button-group filter-button-group option-set' data-url='{$filter_url}' data-count='{$filter_count}'>{$htmlButton}</div>";
+						$htmlButton   = "<div id='iso-button-{$rand}' class='rt-tpg-isotope-buttons button-group filter-button-group option-set' data-url='{$filter_url}' data-count='{$filter_count}'>{$htmlButton}</div>";
 
 						if ( $isotope_dropdown_filter ) {
 							$html .= "<select class='isotope-dropdown-filter'>{$drop}</select>";
@@ -871,7 +870,6 @@ if ( ! class_exists( 'rtTPGShortCode' ) ):
 									'the-post-grid' ) . "' /></div>";
 						}
 						$html .= '</div>';
-
 						$html .= "<div class='rt-tpg-isotope' id='iso-tpg-{$rand}'>";
 					}
 
@@ -965,6 +963,9 @@ if ( ! class_exists( 'rtTPGShortCode' ) ):
 					}
 					if ( $isIsotope || $isCarousel ) {
 						$html .= '</div>'; // End isotope / Carousel item holder
+						if ($isIsotope) {
+							$html .= '<div class="isotope-term-no-post"><p>'.esc_html__('No post found', 'the-post-grid').'</p></div>';
+						}
 						if ( $isCarousel ) {
 							if ( in_array( 'pagination', $cOpt ) ) {
 								$html .= '<div class="swiper-pagination"></div>';

@@ -148,8 +148,8 @@ if ( ! class_exists( 'rtTPGNotice' ) ):
 
 				echo '<style> 
             .rttpg-review-button--cta {
-                --e-button-context-color: #5d3dfd;
-                --e-button-context-color-dark: #5d3dfd;
+                --e-button-context-color: #4C6FFF;
+                --e-button-context-color-dark: #4C6FFF;
                 --e-button-context-tint: rgb(75 47 157/4%);
                 --e-focus-color: rgb(75 47 157/40%);
             } 
@@ -172,8 +172,8 @@ if ( ! class_exists( 'rtTPGNotice' ) ):
                 left: -4px;
                 display: block;
                 width: 4px;
-                background: -webkit-linear-gradient(bottom, #5d3dfd 0%, #6939c6 100%);
-                background: linear-gradient(0deg, #5d3dfd 0%, #6939c6 100%);
+                background: -webkit-linear-gradient(bottom, #4C6FFF 0%, #6939c6 100%);
+                background: linear-gradient(0deg, #4C6FFF 0%, #6939c6 100%);
                 content: "";
             } 
             .rttpg-review-notice_content {

@@ -104,6 +104,18 @@
         overlayIconResizeTpg();
     });
 
+    $('.rt-tpg-isotope-buttons').on('click', 'button', function () {
+        setTimeout(
+            function() {
+                if($(".rt-tpg-isotope .isotope-item").is(":visible")) {
+                    $('.isotope-term-no-post p').slideUp();
+                } else {
+                    $('.isotope-term-no-post p').slideDown();
+                }
+            },
+            500);
+    });
+
     function tpgBottomScriptLoader() {
         $( "#bottom-script-loader" ).fadeOut(500, function() {
             // fadeOut complete. Remove the loading div
