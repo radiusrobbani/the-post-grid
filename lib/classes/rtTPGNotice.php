@@ -172,8 +172,7 @@ if ( ! class_exists( 'rtTPGNotice' ) ):
                 left: -4px;
                 display: block;
                 width: 4px;
-                background: -webkit-linear-gradient(bottom, #4C6FFF 0%, #6939c6 100%);
-                background: linear-gradient(0deg, #4C6FFF 0%, #6939c6 100%);
+                background: var(--rt-primary-color);
                 content: "";
             } 
             .rttpg-review-notice_content {
@@ -205,7 +204,7 @@ if ( ! class_exists( 'rtTPGNotice' ) ):
                 padding: 0.4375rem 0.75rem;
                 border: 0;
                 border-radius: 3px;;
-                background: var(--e-button-context-color);
+                background: var(--rt-primary-color);
                 color: #fff;
                 vertical-align: middle;
                 text-align: center;
@@ -213,19 +212,19 @@ if ( ! class_exists( 'rtTPGNotice' ) ):
                 white-space: nowrap; 
             }
             .rttpg-review-button:active {
-                background: var(--e-button-context-color-dark);
+                background: var(--rt-primary-color);
                 color: #fff;
                 text-decoration: none;
             }
             .rttpg-review-button:focus {
                 outline: 0;
-                background: var(--e-button-context-color-dark);
+                background: var(--rt-primary-color);
                 box-shadow: 0 0 0 2px var(--e-focus-color);
                 color: #fff;
                 text-decoration: none;
             }
             .rttpg-review-button:hover {
-                background: var(--e-button-context-color-dark);
+                background: var(--rt-primary-color);
                 color: #fff;
                 text-decoration: none;
             } 
