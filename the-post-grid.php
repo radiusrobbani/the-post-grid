@@ -13,19 +13,17 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-$plugin_data = get_file_data( __FILE__, array(
-	'name'    => 'Plugin Name',
-	'version' => 'Version',
-	'author'  => 'Author'
-), false );
-define( 'RT_THE_POST_GRID_VERSION', $plugin_data['version'] );
-define( 'RT_THE_POST_GRID_AUTHOR', $plugin_data['author'] );
-define( 'RT_THE_POST_GRID_NAME', $plugin_data['name'] );
+define('RT_THE_POST_GRID_VERSION', '3.1.2');
+define( 'RT_THE_POST_GRID_AUTHOR', 'RadiusTheme' );
+define( 'RT_THE_POST_GRID_NAME', 'The Post Grid' );
+define( 'RT_THE_POST_GRID_PLUGIN_FILE', __FILE__ );
 define( 'RT_THE_POST_GRID_PLUGIN_PATH', dirname( __FILE__ ) );
 define( 'RT_THE_POST_GRID_PLUGIN_ACTIVE_FILE_NAME', plugin_basename(__FILE__));
 define( 'RT_THE_POST_GRID_PLUGIN_URL', plugins_url( '', __FILE__ ) );
 define( 'RT_THE_POST_GRID_PLUGIN_SLUG', basename( dirname( __FILE__ ) ) );
 define( 'RT_THE_POST_GRID_LANGUAGE_PATH', dirname( plugin_basename( __FILE__ ) ) . '/languages' );
 
-require( 'lib/init.php' );
+if (!class_exists('rtTPG')) {
+	require_once 'app/RtTpg.php';
+}
 

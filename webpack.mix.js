@@ -17,6 +17,7 @@ if (process.env.NODE_ENV === 'package') {
         // Select All file then paste on list
         let includes = [
             'assets',
+            'assets',
             'languages',
             'lib',
             'index.html',
