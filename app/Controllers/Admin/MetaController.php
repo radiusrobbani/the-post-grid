@@ -238,7 +238,7 @@ class MetaController {
 			return $post_id;
 		}
 
-		if ( ! rtTPG()->verifyNonce() ) {
+		if ( ! Fns::verifyNonce() ) {
 			return $post_id;
 		}
 
@@ -246,10 +246,10 @@ class MetaController {
 			return $post_id;
 		}
 
-		$mates = rtTPG()->rtAllOptionFields();
+		$mates = Fns::rtAllOptionFields();
 		foreach ( $mates as $metaKey => $field ) {
 			$rValue = ! empty( $_REQUEST[ $metaKey ] ) ? $_REQUEST[ $metaKey ] : null;
-			$value  = rtTPG()->sanitize( $field, $rValue );
+			$value  = Fns::sanitize( $field, $rValue );
 			if ( empty( $field['multiple'] ) ) {
 				update_post_meta( $post_id, $metaKey, $value );
 			} else {
@@ -263,7 +263,7 @@ class MetaController {
 		}
 
 		$post_filter = ( isset( $_REQUEST['post_filter'] ) ? $_REQUEST['post_filter'] : array() );
-		$advFilter   = rtTPG()->rtTPAdvanceFilters();
+		$advFilter   = Options::rtTPAdvanceFilters();
 		foreach ( $advFilter['post_filter']['options'] as $filter => $fValue ) {
 			if ( $filter == 'tpg_taxonomy' ) {
 				delete_post_meta( $post_id, $filter );
@@ -326,7 +326,7 @@ class MetaController {
 						update_post_meta( $post_id, 'order_by', sanitize_text_field( trim( $order_by ) ) );
 					}
 					$tpg_meta_key = isset( $_REQUEST['tpg_meta_key'] ) ? $_REQUEST['tpg_meta_key'] : null;
-					if ( in_array( $order_by, array_keys( rtTPG()->rtMetaKeyType() ) ) && $tpg_meta_key && in_array( 'order', $post_filter ) ) {
+					if ( in_array( $order_by, array_keys( Options::rtMetaKeyType() ) ) && $tpg_meta_key && in_array( 'order', $post_filter ) ) {
 						update_post_meta( $post_id, 'tpg_meta_key', sanitize_text_field( trim( $tpg_meta_key ) ) );
 					} else {
 						delete_post_meta( $post_id, 'tpg_meta_key' );
@@ -351,7 +351,7 @@ class MetaController {
 
 		// Extra css
 
-		$extraFields = rtTPG()->extraStyle();
+		$extraFields = Options::extraStyle();
 		$extraTypes  = array( 'color', 'size', 'weight', 'alignment' );
 
 		foreach ( $extraFields as $key => $title ) {

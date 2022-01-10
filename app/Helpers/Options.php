@@ -1,8 +1,6 @@
 <?php
 
-
 namespace RT\ThePostGrid\Helpers;
-
 
 class Options {
 	public static function rtPostTypes() {
@@ -45,7 +43,7 @@ class Options {
 		];
 	}
 
-	function rtMetaKeyType() {
+	public static function rtMetaKeyType() {
 		return [
 			'meta_value'          => __( 'Meta value', 'the-post-grid' ),
 			'meta_value_num'      => __( 'Meta value number', 'the-post-grid' ),
@@ -65,7 +63,7 @@ class Options {
 		return apply_filters( 'rt_tpg_post_orderby', $orderBy, $isWoCom, $metaOrder );
 	}
 
-	function rtTPGSettingsCustomScriptFields() {
+	public static function rtTPGSettingsCustomScriptFields() {
 		$settings = get_option( rtTPG()->options['settings'] );
 
 		return [
@@ -93,7 +91,7 @@ class Options {
 		];
 	}
 
-	function rtTPGSettingsOtherSettingsFields() {
+	public static function rtTPGSettingsOtherSettingsFields() {
 		$settings = get_option( rtTPG()->options['settings'] );
 
 		return [
@@ -126,7 +124,7 @@ class Options {
 				'holderClass' => 'pro-field',
 				'class'       => 'select2',
 				'blank'       => 'Select a layout',
-				'options'     => rtTPG()->getTPGShortCodeList(),
+				'options'     => Fns::getTPGShortCodeList(),
 				'value'       => isset( $settings['template_author'] ) ? $settings['template_author'] : [],
 			],
 			'template_category'    => [
@@ -137,7 +135,7 @@ class Options {
 				'holderClass' => 'pro-field',
 				'class'       => 'select2',
 				'blank'       => 'Select a layout',
-				'options'     => rtTPG()->getTPGShortCodeList(),
+				'options'     => Fns::getTPGShortCodeList(),
 				'value'       => isset( $settings['template_category'] ) ? $settings['template_category'] : [],
 			],
 			'template_search'      => [
@@ -148,7 +146,7 @@ class Options {
 				'holderClass' => 'pro-field',
 				'class'       => 'select2',
 				'blank'       => 'Select a layout',
-				'options'     => rtTPG()->getTPGShortCodeList(),
+				'options'     => Fns::getTPGShortCodeList(),
 				'value'       => isset( $settings['template_search'] ) ? $settings['template_search'] : [],
 			],
 			'template_tag'         => [
@@ -159,7 +157,7 @@ class Options {
 				'holderClass' => 'pro-field',
 				'class'       => 'select2',
 				'blank'       => 'Select a layout',
-				'options'     => rtTPG()->getTPGShortCodeList(),
+				'options'     => Fns::getTPGShortCodeList(),
 				'value'       => isset( $settings['template_tag'] ) ? $settings['template_tag'] : [],
 			],
 			'template_class'       => [
@@ -173,7 +171,7 @@ class Options {
 		];
 	}
 
-	function rtTPGLicenceField() {
+	public static function rtTPGLicenceField() {
 		$settings       = get_option( rtTPG()->options['settings'] );
 		$status         = ! empty( $settings['license_status'] ) && $settings['license_status'] === 'valid' ? true : false;
 		$license_status = ! empty( $settings['license_key'] ) ? sprintf( "<span class='license-status'>%s</span>",
@@ -197,7 +195,7 @@ class Options {
 		];
 	}
 
-	function rtTPGSettingsSocialShareFields() {
+	public static function rtTPGSettingsSocialShareFields() {
 		$settings = get_option( rtTPG()->options['settings'] );
 
 		return [
@@ -209,13 +207,13 @@ class Options {
 				'holderClass' => 'pro-field',
 				'alignment'   => 'vertical',
 				'multiple'    => true,
-				'options'     => rtTPG()->socialShareItemList(),
+				'options'     => Options::socialShareItemList(),
 				'value'       => isset( $settings['social_share_items'] ) ? $settings['social_share_items'] : [],
 			],
 		];
 	}
 
-	function socialShareItemList() {
+	public static function socialShareItemList() {
 		return [
 			'facebook'  => 'Facebook',
 			'twitter'   => 'Twitter',
@@ -226,7 +224,7 @@ class Options {
 		];
 	}
 
-	function templateOverrideItemList() {
+	public static function templateOverrideItemList() {
 		return [
 			'category-archive' => "Category archive",
 			'tag-archive'      => "Tag archive",
@@ -621,7 +619,7 @@ class Options {
 		];
 	}
 
-	function rtTpgSettingsDetailFieldSelection() {
+	public static function rtTpgSettingsDetailFieldSelection() {
 		$settings = get_option( rtTPG()->options['settings'] );
 
 		$fields = [
@@ -632,8 +630,8 @@ class Options {
 				'holderClass' => 'pro-field',
 				'alignment'   => 'vertical',
 				'multiple'    => true,
-				'options'     => rtTPG()->detailAvailableFields(),
-				'default'     => array_keys(rtTPG()->detailAvailableFields()),
+				'options'     => Options::detailAvailableFields(),
+				'default'     => array_keys(Options::detailAvailableFields()),
 				'value'       => isset( $settings['popup_fields'] ) ? $settings['popup_fields'] : [],
 			],
 		];
@@ -679,7 +677,7 @@ class Options {
 		return $fields;
 	}
 
-	function detailAvailableFields() {
+	public static function detailAvailableFields() {
 		$fields   = self::rtTPGItemFields();
 		$inserted = [
 			'feature_img' => 'Feature Image',
@@ -869,7 +867,7 @@ class Options {
 				"label"       => "Feature Image Size",
 				"class"       => "rt-select2",
 				'holderClass' => "rt-feature-image-option tpg-hidden",
-				"options"     => rtTPG()->get_image_sizes(),
+				"options"     => Fns::get_image_sizes(),
 			],
 			'custom_image_size'        => [
 				"type"        => "image_size",
@@ -1176,7 +1174,7 @@ class Options {
 				"class"     => "rt-select2",
 				"label"     => esc_html__( "Font Size", "the-post-grid" ),
 				"blank"     => 'Default',
-				"options"   => rtTPG()->scFontSize(),
+				"options"   => self::scFontSize(),
 			],
 		];
 

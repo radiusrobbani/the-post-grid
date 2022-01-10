@@ -1,3 +1,6 @@
 <?php
 
-echo rtTPG()->rtFieldGenerator( rtTPG()->itemFields() );
+use RT\ThePostGrid\Helpers\Fns;
+use RT\ThePostGrid\Helpers\Options;
+
+echo Fns::rtFieldGenerator( Options::itemFields() );

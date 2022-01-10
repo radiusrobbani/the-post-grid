@@ -153,29 +153,29 @@ class Fns {
 
 	public static function rtAllOptionFields() {
 		$fields = array_merge(
-			rtTPG()->rtTPGCommonFilterFields(),
-			rtTPG()->rtTPGLayoutSettingFields(),
-			rtTPG()->responsiveSettingsColumn(),
-			rtTPG()->layoutMiscSettings(),
-			rtTPG()->stickySettings(),
+			Options::rtTPGCommonFilterFields(),
+			Options::rtTPGLayoutSettingFields(),
+			Options::responsiveSettingsColumn(),
+			Options::layoutMiscSettings(),
+			Options::stickySettings(),
 			// settings
-			rtTPG()->rtTPGSCHeadingSettings(),
-			rtTPG()->rtTPGSCCategorySettings(),
-			rtTPG()->rtTPGSCTitleSettings(),
-			rtTPG()->rtTPGSCMetaSettings(),
-			rtTPG()->rtTPGSCImageSettings(),
-			rtTPG()->rtTPGSCExcerptSettings(),
-			rtTPG()->rtTPGSCButtonSettings(),
+			Options::rtTPGSCHeadingSettings(),
+			Options::rtTPGSCCategorySettings(),
+			Options::rtTPGSCTitleSettings(),
+			Options::rtTPGSCMetaSettings(),
+			Options::rtTPGSCImageSettings(),
+			Options::rtTPGSCExcerptSettings(),
+			Options::rtTPGSCButtonSettings(),
 			// style
-			rtTPG()->rtTPGStyleFields(),
-			rtTPG()->rtTPGStyleHeading(),
-			rtTPG()->rtTPGStyleFullArea(),
-			rtTPG()->rtTPGStyleContentWrap(),
-			rtTPG()->rtTPGStyleCategory(),
-			rtTPG()->rtTPGPostType(),
-			rtTPG()->rtTPGStyleButtonColorFields(),
-			rtTPG()->rtTPAdvanceFilters(),
-			rtTPG()->itemFields()
+			Options::rtTPGStyleFields(),
+			Options::rtTPGStyleHeading(),
+			Options::rtTPGStyleFullArea(),
+			Options::rtTPGStyleContentWrap(),
+			Options::rtTPGStyleCategory(),
+			Options::rtTPGPostType(),
+			Options::rtTPGStyleButtonColorFields(),
+			Options::rtTPAdvanceFilters(),
+			Options::itemFields()
 		);
 
 		return $fields;
@@ -404,7 +404,7 @@ class Fns {
 	public static function rtFieldGeneratorBackup( $fields = [], $multi = false ) {
 		$html = null;
 		if ( is_array( $fields ) && ! empty( $fields ) ) {
-			$rtField = new rtTPGField();
+			$rtField = new Field();
 			if ( $multi ) {
 				foreach ( $fields as $field ) {
 					$html .= $rtField->Field( $field );
@@ -443,7 +443,7 @@ class Fns {
 				$h      .= "<div class='field-inner-container size'>";
 				$h      .= "<span class='label'>Font size</span>";
 				$h      .= "<select {$atts} name='{$key}_size' class='rt-select2'>";
-				$fSizes = rtTPG()->scFontSize();
+				$fSizes = Options::scFontSize();
 				$sValue = get_post_meta( get_the_ID(), $key . "_size", true );
 				$h      .= "<option value=''>Default</option>";
 				foreach ( $fSizes as $size => $sizeLabel ) {
@@ -461,7 +461,7 @@ class Fns {
 				$h       .= "<span class='label'>Weight</span>";
 				$h       .= "<select {$atts} name='{$key}_weight' class='rt-select2'>";
 				$h       .= "<option value=''>Default</option>";
-				$weights = rtTPG()->scTextWeight();
+				$weights = Options::scTextWeight();
 				$wValue  = get_post_meta( get_the_ID(), $key . "_weight", true );
 				foreach ( $weights as $weight => $weightLabel ) {
 					$wSlt = ( $weight == $wValue ? "selected" : null );
@@ -478,7 +478,7 @@ class Fns {
 				$h      .= "<span class='label'>Alignment</span>";
 				$h      .= "<select {$atts} name='{$key}_alignment' class='rt-select2'>";
 				$h      .= "<option value=''>Default</option>";
-				$aligns = rtTPG()->scAlignment();
+				$aligns = Options::scAlignment();
 				$aValue = get_post_meta( get_the_ID(), $key . "_alignment", true );
 				foreach ( $aligns as $align => $alignLabel ) {
 					$aSlt = ( $align == $aValue ? "selected" : null );
@@ -992,7 +992,7 @@ class Fns {
 				: ( isset( $scMeta['button_text_color'][0] ) ? $scMeta['button_text_color'][0] : null ) );
 			$button_hover_text_color        = ( isset( $scMeta['button_hover_text_color'][0] ) ? $scMeta['button_hover_text_color'][0] : null );
 			$button_border_color            = ( isset( $scMeta['button_border_color'][0] ) ? $scMeta['button_border_color'][0] : null );
-			$overlay_color                  = ( ! empty( $scMeta['overlay_color'][0] ) ? rtTPG()->rtHex2rgba( $scMeta['overlay_color'][0],
+			$overlay_color                  = ( ! empty( $scMeta['overlay_color'][0] ) ? Fns::rtHex2rgba( $scMeta['overlay_color'][0],
 				! empty( $scMeta['overlay_opacity'][0] ) ? absint( $scMeta['overlay_opacity'][0] ) / 10 : .8 ) : null );
 			$overlay_padding                = ( ! empty( $scMeta['overlay_padding'][0] ) ? absint( $scMeta['overlay_padding'][0] ) : null );
 			$gutter                         = ! empty( $scMeta['tgp_gutter'][0] ) ? absint( $scMeta['tgp_gutter'][0] ) : null;
@@ -1060,7 +1060,7 @@ class Fns {
 				: ( ! empty( $btn_text_color ) ? $btn_text_color : null ) );
 			$button_border_color            = ( isset( $scMeta['button_border_color'] ) ? $scMeta['button_border_color'] : null );
 			$button_hover_text_color        = ( isset( $scMeta['button_hover_text_color'] ) ? $scMeta['button_hover_text_color'] : null );
-			$overlay_color                  = ( ! empty( $scMeta['overlay_color'] ) ? rtTPG()->rtHex2rgba( $scMeta['overlay_color'],
+			$overlay_color                  = ( ! empty( $scMeta['overlay_color'] ) ? Fns::rtHex2rgba( $scMeta['overlay_color'],
 				! empty( $scMeta['overlay_opacity'] ) ? absint( $scMeta['overlay_opacity'] ) / 10 : .8 ) : null );
 			$overlay_padding                = ( ! empty( $scMeta['overlay_padding'] ) ? absint( $scMeta['overlay_padding'] ) : null );
 			$gutter                         = ! empty( $scMeta['tgp_gutter'] ) ? absint( $scMeta['tgp_gutter'] ) : null;
@@ -1139,7 +1139,7 @@ class Fns {
 			$css .= "}";
 
 
-			$ocp = rtTPG()->rtHex2rgba( $primaryColor,
+			$ocp = Fns::rtHex2rgba( $primaryColor,
 				! empty( $scMeta['overlay_opacity'][0] ) ? absint( $scMeta['overlay_opacity'][0] ) / 10 : .8 );
 			$css .= "#{$layoutID} .layout5 .rt-holder .overlay, #{$layoutID} .isotope2 .rt-holder .overlay, #{$layoutID} .carousel2 .rt-holder .overlay,#{$layoutID} .layout15 .rt-holder h3, #{$layoutID} .isotope11 .rt-holder h3, #{$layoutID} .carousel11 .rt-holder h3, #{$layoutID} .layout16 .rt-holder h3,
 					#{$layoutID} .isotope12 .rt-holder h3, #{$layoutID} .carousel12 .rt-holder h3 {";

@@ -2,6 +2,7 @@
 
 namespace RT\ThePostGrid\Widgets;
 
+use RT\ThePostGrid\Helpers\Fns;
 use WP_Widget;
 
 /**
@@ -39,7 +40,7 @@ class TPGWidget extends WP_Widget {
 
 	function form( $instance ) {
 
-		$scList   = rtTPG()->getAllTPGShortCodeList();
+		$scList   = Fns::getAllTPGShortCodeList();
 		$defaults = array(
 			'title' => "The Post Grid",
 			'id'    => null

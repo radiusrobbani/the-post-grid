@@ -310,7 +310,7 @@ class Field {
 		$h        .= "<div class='rt-image-size-crop rt-image-size'>";
 		$h        .= "<label>Crop</label>";
 		$h        .= "<select name='{$this->name}[]' class='rt-select2'>";
-		$cropList = rtTPG()->imageCropType();
+		$cropList = Options::imageCropType();
 		foreach ( $cropList as $crop => $cropLabel ) {
 			$cSl = ( $crop == $cropV ? "selected" : null );
 			$h   .= "<option value='{$crop}' {$cSl}>{$cropLabel}</option>";

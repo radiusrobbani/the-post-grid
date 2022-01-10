@@ -71,9 +71,8 @@ if ( ! class_exists( RtTpg::class ) ) {
 
 
 		protected function __init() {
-
+			new PostTypeController();
 			if ( is_admin() ) {
-				new PostTypeController();
 				new AdminAjaxController();
 				new NoticeController();
 				new MetaController();
@@ -86,7 +85,6 @@ if ( ! class_exists( RtTpg::class ) ) {
 			FilterHooks::init();
 			ActionHooks::init();
 
-			( new ScriptController() )->init();
 			( new SettingsController() )->init();
 			new ElementorController();
 			new GutenBergController();

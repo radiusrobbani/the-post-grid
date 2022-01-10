@@ -77,6 +77,7 @@ class PostTypeController {
 			'deps'   => array( 'jquery' ),
 			'footer' => true
 		);
+
 		// register acf styles
 		$styles['rt-fontawsome'] = rtTPG()->get_assets_uri('vendor/font-awesome/css/font-awesome.min.css');
 		$styles['rt-tpg']        = rtTPG()->get_assets_uri('css/thepostgrid.css');

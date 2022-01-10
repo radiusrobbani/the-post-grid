@@ -1,3 +1,7 @@
+<?php
+use RT\ThePostGrid\Helpers\Fns;
+use RT\ThePostGrid\Helpers\Options;
+?>
 <div class="wrap rttpg-wrapper">
     <div id="upf-icon-edit-pages" class="icon32 icon32-posts-page"><br/></div>
     <h2><?php _e( 'The Post Grid Settings', 'the-post-grid' ); ?></h2>
@@ -38,19 +42,19 @@
 			$html .= '</ul>';
 
 			$html .= sprintf( '<div id="popup-fields" class="rt-tab-content"%s>', $last_tab == "popup-fields" ? ' style="display:block"' : '' );
-			$html .= rtTPG()->rtFieldGenerator( rtTPG()->rtTpgSettingsDetailFieldSelection() );
+			$html .= Fns::rtFieldGenerator( Options::rtTpgSettingsDetailFieldSelection() );
 			$html .= '</div>';
 
 			$html .= sprintf( '<div id="social-share" class="rt-tab-content"%s>', $last_tab == "social-share" ? ' style="display:block"' : '' );
-			$html .= rtTPG()->rtFieldGenerator( rtTPG()->rtTPGSettingsSocialShareFields() );
+			$html .= Fns::rtFieldGenerator( Options::rtTPGSettingsSocialShareFields() );
 			$html .= '</div>';
 
 			$html .= sprintf( '<div id="custom-script" class="rt-tab-content"%s>', $last_tab == "custom-script" ? ' style="display:block"' : '' );
-			$html .= rtTPG()->rtFieldGenerator( rtTPG()->rtTPGSettingsCustomScriptFields() );
+			$html .= Fns::rtFieldGenerator( Options::rtTPGSettingsCustomScriptFields() );
 			$html .= '</div>';
 
 			$html .= sprintf( '<div id="other-settings" class="rt-tab-content"%s>', $last_tab == "other-settings" ? ' style="display:block"' : '' );
-			$html .= rtTPG()->rtFieldGenerator( rtTPG()->rtTPGSettingsOtherSettingsFields(), true );
+			$html .= Fns::rtFieldGenerator( Options::rtTPGSettingsOtherSettingsFields() );
 			$html .= '</div>';
 
 			ob_start();

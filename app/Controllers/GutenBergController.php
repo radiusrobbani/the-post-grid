@@ -4,6 +4,8 @@
 namespace RT\ThePostGrid\Controllers;
 
 
+use RT\ThePostGrid\Helpers\Fns;
+
 class GutenBergController {
 	function __construct() {
 		add_action('enqueue_block_assets', array($this, 'block_assets'));
@@ -36,7 +38,7 @@ class GutenBergController {
 			true
 		);
 		wp_localize_script('rt-tpg-cgb-block-js', 'rttpgGB', array(
-			'short_codes' => rtTPG()->getAllTPGShortCodeList(),
+			'short_codes' => Fns::getAllTPGShortCodeList(),
 			'icon' => rtTPG()->get_assets_uri('images/icon-16x16.png'),
 		));
 		wp_enqueue_style('wp-edit-blocks');

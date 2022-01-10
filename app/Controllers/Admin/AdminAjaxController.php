@@ -3,6 +3,7 @@
 namespace RT\ThePostGrid\Controllers\Admin;
 
 use RT\ThePostGrid\Helpers\Fns;
+use RT\ThePostGrid\Helpers\Options;
 
 class AdminAjaxController {
 	private $l4togglePreviewAjax = false;
@@ -26,7 +27,7 @@ class AdminAjaxController {
 			$layoutID = "rt-tpg-container-" . $rand;
 
 			$layout = ( isset( $scMeta['layout'] ) ? $scMeta['layout'] : 'layout1' );
-			if ( ! in_array( $layout, array_keys( rtTPG()->rtTPGLayouts() ) ) ) {
+			if ( ! in_array( $layout, array_keys( Options::rtTPGLayouts() ) ) ) {
 				$layout = 'layout1';
 			}
 
@@ -40,13 +41,13 @@ class AdminAjaxController {
 			$dCol = ( isset( $scMeta['column'] ) ? absint( $scMeta['column'] ) : 3 );
 			$tCol = ( isset( $scMeta['tpg_tab_column'] ) ? absint( $scMeta['tpg_tab_column'] ) : 2 );
 			$mCol = ( isset( $scMeta['tpg_mobile_column'] ) ? absint( $scMeta['tpg_mobile_column'] ) : 1 );
-			if ( ! in_array( $dCol, array_keys( rtTPG()->scColumns() ) ) ) {
+			if ( ! in_array( $dCol, array_keys( Options::scColumns() ) ) ) {
 				$dCol = 3;
 			}
-			if ( ! in_array( $tCol, array_keys( rtTPG()->scColumns() ) ) ) {
+			if ( ! in_array( $tCol, array_keys( Options::scColumns() ) ) ) {
 				$tCol = 2;
 			}
-			if ( ! in_array( $dCol, array_keys( rtTPG()->scColumns() ) ) ) {
+			if ( ! in_array( $dCol, array_keys( Options::scColumns() ) ) ) {
 				$mCol = 1;
 			}
 
@@ -177,7 +178,7 @@ class AdminAjaxController {
 				if ( $order_by ) {
 					$args['orderby'] = $order_by;
 					$meta_key        = ! empty( $scMeta['tpg_meta_key'] ) ? trim( $scMeta['tpg_meta_key'] ) : null;
-					if ( in_array( $order_by, array_keys( rtTPG()->rtMetaKeyType() ) ) && $meta_key ) {
+					if ( in_array( $order_by, array_keys( Options::rtMetaKeyType() ) ) && $meta_key ) {
 						$args['orderby']  = $order_by;
 						$args['meta_key'] = $meta_key;
 					}
@@ -404,9 +405,9 @@ class AdminAjaxController {
 			$action_term     = ! empty( $scMeta['tgp_default_filter'] ) ? absint( $scMeta['tgp_default_filter'] ) : 0;
 			$hide_all_button = ! empty( $scMeta['tpg_hide_all_button'] ) ? true : false;
 			if ( $taxHierarchical ) {
-				$terms = rtTPG()->rt_get_all_term_by_taxonomy( $taxFilter, true, 0 );
+				$terms = Fns::rt_get_all_term_by_taxonomy( $taxFilter, true, 0 );
 			} else {
-				$terms = rtTPG()->rt_get_all_term_by_taxonomy( $taxFilter, true );
+				$terms = Fns::rt_get_all_term_by_taxonomy( $taxFilter, true );
 			}
 			if ( $hide_all_button && ! $action_term ) {
 				if ( ! empty( $terms ) ) {
@@ -432,12 +433,12 @@ class AdminAjaxController {
 				$args['offset'] = $queryOffset;
 			}
 
-			$arg['title_tag'] = ( ! empty( $scMeta['title_tag'] ) && in_array( $scMeta['title_tag'], array_keys( rtTPG()->getTitleTags() ) ) )
+			$arg['title_tag'] = ( ! empty( $scMeta['title_tag'] ) && in_array( $scMeta['title_tag'], array_keys( Options::getTitleTags() ) ) )
 				? esc_attr( $scMeta['title_tag'] ) : 'h3';
 
-			$gridQuery = new WP_Query( $args );
+			$gridQuery = new \WP_Query( $args );
 			// Start layout
-			$data              .= rtTPG()->layoutStyle( $layoutID, $scMeta, $layout );
+			$data              .= Fns::layoutStyle( $layoutID, $scMeta, $layout );
 			$containerDataAttr .= "";
 			$data              .= "<div class='rt-container-fluid rt-tpg-container {$parentClass}' id='{$layoutID}' {$dataArchive} {$containerDataAttr}>";
 			// widget heading
@@ -487,7 +488,7 @@ class AdminAjaxController {
 								$pCount = $pCount + $term['count'];
 								$sT     = null;
 								if ( $taxHierarchical ) {
-									$subTerms = rtTPG()->rt_get_all_term_by_taxonomy( $taxFilter, true, $id );
+									$subTerms = Fns::rt_get_all_term_by_taxonomy( $taxFilter, true, $id );
 									if ( ! empty( $subTerms ) ) {
 										$count = 0;
 										$item  = $allCount = null;
@@ -562,7 +563,7 @@ class AdminAjaxController {
 								$bCount = $bCount + absint( $term['count'] );
 								$sT     = null;
 								if ( $taxHierarchical ) {
-									$subTerms = rtTPG()->rt_get_all_term_by_taxonomy( $taxFilter, true, $id );
+									$subTerms = Fns::rt_get_all_term_by_taxonomy( $taxFilter, true, $id );
 									if ( ! empty( $subTerms ) ) {
 										$sT .= "<div class='rt-filter-sub-tax sub-button-group'>";
 										foreach ( $subTerms as $stId => $t ) {
@@ -693,11 +694,11 @@ class AdminAjaxController {
 
 				if ( in_array( '_order_by', $filters ) ) {
 					$wooFeature     = ( $postType == "product" ? true : false );
-					$orders         = rtTPG()->rtPostOrderBy( $wooFeature );
+					$orders         = Options::rtPostOrderBy( $wooFeature );
 					$action_orderby = ( ! empty( $args['orderby'] ) ? trim( $args['orderby'] ) : "none" );
 					if ( $action_orderby == 'none' ) {
 						$action_orderby_label = __( "Sort By None", "the-post-grid" );
-					} elseif ( in_array( $action_orderby, array_keys( rtTPG()->rtMetaKeyType() ) ) ) {
+					} elseif ( in_array( $action_orderby, array_keys( Options::rtMetaKeyType() ) ) ) {
 						$action_orderby_label = __( "Meta value", "the-post-grid" );
 					} else {
 						$action_orderby_label = $orders[ $action_orderby ];
@@ -845,13 +846,13 @@ class AdminAjaxController {
 					$arg['postCount']     = $gridPostCount ++;
 					$pID                  = get_the_ID();
 					$arg['pID']           = $pID;
-					$arg['title']         = rtTPG()->get_the_title( $pID, $arg );
+					$arg['title']         = Fns::get_the_title( $pID, $arg );
 					$arg['pLink']         = get_permalink();
 					$arg['toggle']        = $this->l4toggle;
 					$arg['author']        = '<a href="' . get_author_posts_url( get_the_author_meta( 'ID' ) ) . '">' . get_the_author() . '</a>';
 					$cc                   = wp_count_comments( $pID );
 					$arg['date']          = get_the_date();
-					$arg['excerpt']       = rtTPG()->get_the_excerpt( $pID, $arg );
+					$arg['excerpt']       = Fns::get_the_excerpt( $pID, $arg );
 					$arg['categories']    = get_the_term_list( $pID, 'category', null, ', ' );
 					$arg['tags']          = get_the_term_list( $pID, 'post_tag', null, ', ' );
 					$arg['responsiveCol'] = [ $dCol, $tCol, $mCol ];
@@ -878,12 +879,12 @@ class AdminAjaxController {
 						$arg['comment'] = "{$cc->total_comments}";
 					}
 					$imgSrc             = null;
-					$arg['smallImgSrc'] = ! $fImg ? rtTPG()->getFeatureImageSrc( $pID, $fSmallImgSize, $mediaSource,
+					$arg['smallImgSrc'] = ! $fImg ? Fns::getFeatureImageSrc( $pID, $fSmallImgSize, $mediaSource,
 						$defaultImgId,
 						$customSmallImgSize ) : null;
 					if ( $isOffset ) {
 						if ( $offLoop == 0 ) {
-							$arg['imgSrc'] = ! $fImg ? rtTPG()->getFeatureImageSrc( $pID, $fImgSize, $mediaSource,
+							$arg['imgSrc'] = ! $fImg ? Fns::getFeatureImageSrc( $pID, $fImgSize, $mediaSource,
 								$defaultImgId,
 								$customImgSize ) : null;
 							$arg['offset'] = 'big';
@@ -891,13 +892,13 @@ class AdminAjaxController {
 						} else {
 							$arg['offset']    = 'small';
 							$arg['offsetCol'] = [ $dCol, $tCol, $mCol ];
-							$arg['imgSrc']    = ! $fImg ? rtTPG()->getFeatureImageSrc( $pID, 'thumbnail', $mediaSource,
+							$arg['imgSrc']    = ! $fImg ? Fns::getFeatureImageSrc( $pID, 'thumbnail', $mediaSource,
 								$defaultImgId,
 								$customImgSize ) : null;
 							$offsetSmallHtml  .= Fns::get_template_html( 'layouts/' . $layout, $arg );
 						}
 					} else {
-						$arg['imgSrc'] = ! $fImg ? rtTPG()->getFeatureImageSrc( $pID, $fImgSize, $mediaSource, $defaultImgId,
+						$arg['imgSrc'] = ! $fImg ? Fns::getFeatureImageSrc( $pID, $fImgSize, $mediaSource, $defaultImgId,
 							$customImgSize ) : null;
 						$data          .= Fns::get_template_html( 'layouts/' . $layout, $arg );
 					}
@@ -905,9 +906,9 @@ class AdminAjaxController {
 					$l ++;
 				endwhile;
 				if ( $isOffset ) {
-					$oDCol = rtTPG()->get_offset_col( $dCol );
-					$oTCol = rtTPG()->get_offset_col( $tCol );
-					$oMCol = rtTPG()->get_offset_col( $mCol );
+					$oDCol = Fns::get_offset_col( $dCol );
+					$oTCol = Fns::get_offset_col( $tCol );
+					$oMCol = Fns::get_offset_col( $mCol );
 					if ( $layout == "offset03" || $layout == "offset04" ) {
 						$oDCol['big'] = $oTCol['big'] = $oDCol['small'] = $oTCol['small'] = 6;
 						$oMCol['big'] = $oMCol['small'] = 12;
@@ -948,14 +949,14 @@ class AdminAjaxController {
 				} else {
 					if ( $posts_loading_type == "pagination" ) {
 						if ( $isGrid && empty( $filters ) ) {
-							$htmlUtility .= rtTPG()->rt_pagination( $gridQuery->max_num_pages,
+							$htmlUtility .= Fns::rt_pagination( $gridQuery->max_num_pages,
 								$args['posts_per_page'] );
 						}
 					} elseif ( $posts_loading_type == "pagination_ajax" && ! $isIsotope ) {
 						if ( $isGrid ) {
 							$htmlUtility .= "<div class='rt-page-numbers'></div>";
 						} else {
-							$htmlUtility .= rtTPG()->rt_pagination( $gridQuery->max_num_pages,
+							$htmlUtility .= Fns::rt_pagination( $gridQuery->max_num_pages,
 								$args['posts_per_page'], true );
 						}
 					} elseif ( $posts_loading_type == "load_more" ) {

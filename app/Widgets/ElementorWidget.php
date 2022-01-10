@@ -3,6 +3,7 @@
 namespace RT\ThePostGrid\Widgets;
 
 use Elementor\Widget_Base;
+use RT\ThePostGrid\Helpers\Fns;
 
 class ElementorWidget extends Widget_Base {
 
@@ -37,7 +38,7 @@ class ElementorWidget extends Widget_Base {
 				'type'    => \Elementor\Controls_Manager::SELECT2,
 				'id'      => 'style',
 				'label'   => __( 'Post Grid', 'the-post-grid' ),
-				'options' => rtTPG()->getAllTPGShortCodeList()
+				'options' => Fns::getAllTPGShortCodeList()
 			)
 		);
 

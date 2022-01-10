@@ -1,8 +1,9 @@
 <?php
 
-
 namespace RT\ThePostGrid\Controllers;
 
+use RT\ThePostGrid\Helpers\Fns;
+use RT\ThePostGrid\Helpers\Options;
 
 class AjaxController {
 	function __construct() {
@@ -35,7 +36,7 @@ class AjaxController {
 					"options"     => Fns::get_groups_by_post_type( $post_type, $cf )
 				);
 				$error              = false;
-				$data               = rtTPG()->rtFieldGenerator( $fields );
+				$data               = Fns::rtFieldGenerator( $fields );
 			}
 		} else {
 			$msg = __( 'Server Error !!', 'the-post-grid' );
@@ -51,10 +52,10 @@ class AjaxController {
 
 	function defaultFilterItem() {
 
-		rtTPG()->rtTPGSettingFields();
+		//rtTPG()->rtTPGSettingFields();
 		$error = true;
 		$data  = $msg = null;
-		if ( rtTPG()->verifyNonce() ) {
+		if ( Fns::verifyNonce() ) {
 			if ( $filter = $_REQUEST['filter'] ) {
 				$include = [];
 				if ( isset( $_REQUEST['include'] ) && $term = $_REQUEST['include'] ) {
@@ -63,7 +64,7 @@ class AjaxController {
 				$error = false;
 				$msg   = __( 'Success', 'the-post-grid' );
 				$data  .= "<option value=''>" . __( 'Show All', 'the-post-grid' ) . "</option>";
-				$items = rtTPG()->rt_get_selected_term_by_taxonomy( $filter, $include, '', 0 );
+				$items = Fns::rt_get_selected_term_by_taxonomy( $filter, $include, '', 0 );
 				if ( ! empty( $items ) ) {
 					foreach ( $items as $id => $item ) {
 						$data .= "<option value='{$id}'>{$item}</option>";
@@ -84,9 +85,9 @@ class AjaxController {
 
 	function rtTPGSaveSettings() {
 
-		rtTPG()->rtTPGSettingFields();
+		//rtTPG()->rtTPGSettingFields();
 		$error = true;
-		if ( rtTPG()->verifyNonce() ) {
+		if ( Fns::verifyNonce() ) {
 			unset( $_REQUEST['action'] );
 			unset( $_REQUEST[ rtTPG()->nonceId() ] );
 			unset( $_REQUEST['_wp_http_referer'] );
@@ -109,11 +110,11 @@ class AjaxController {
 
 		$error = true;
 		$msg   = $data = null;
-		if ( rtTPG()->verifyNonce() ) {
+		if ( Fns::verifyNonce() ) {
 			$error      = false;
-			$taxonomies = rtTPG()->rt_get_all_taxonomy_by_post_type( isset( $_REQUEST['post_type'] ) ? $_REQUEST['post_type'] : null );
+			$taxonomies = Fns::rt_get_all_taxonomy_by_post_type( isset( $_REQUEST['post_type'] ) ? $_REQUEST['post_type'] : null );
 			if ( is_array( $taxonomies ) && ! empty( $taxonomies ) ) {
-				$data .= rtTPG()->rtFieldGenerator(
+				$data .= Fns::rtFieldGenerator(
 					array(
 						'tpg_taxonomy' => array(
 							'type'     => 'checkbox',
@@ -140,9 +141,9 @@ class AjaxController {
 
 		$error = true;
 		$msg   = $data = null;
-		if ( rtTPG()->verifyNonce() ) {
+		if ( Fns::verifyNonce() ) {
 			$error      = false;
-			$taxonomies = rtTPG()->rt_get_taxonomy_for_filter( isset( $_REQUEST['post_type'] ) ? $_REQUEST['post_type'] : null );
+			$taxonomies = Fns::rt_get_taxonomy_for_filter( isset( $_REQUEST['post_type'] ) ? $_REQUEST['post_type'] : null );
 			if ( is_array( $taxonomies ) && ! empty( $taxonomies ) ) {
 				foreach ( $taxonomies as $tKey => $tax ) {
 					$data .= "<option value='{$tKey}'>{$tax}</option>";
@@ -159,11 +160,11 @@ class AjaxController {
 
 		$error = true;
 		$msg   = $data = null;
-		if ( rtTPG()->verifyNonce() ) {
+		if ( Fns::verifyNonce() ) {
 			$error    = false;
 			$taxonomy = isset( $_REQUEST['taxonomy'] ) ? $_REQUEST['taxonomy'] : null;
 			$data     .= "<div class='term-filter-item-container {$taxonomy}'>";
-			$data     .= rtTPG()->rtFieldGenerator(
+			$data     .= Fns::rtFieldGenerator(
 				array(
 					'term_' . $taxonomy => array(
 						'type'        => 'select',
@@ -173,18 +174,18 @@ class AjaxController {
 						'holderClass' => "term-filter-item {$taxonomy}",
 						'value'       => null,
 						"multiple"    => true,
-						'options'     => rtTPG()->rt_get_all_term_by_taxonomy( $taxonomy )
+						'options'     => Fns::rt_get_all_term_by_taxonomy( $taxonomy )
 					)
 				)
 			);
-			$data     .= rtTPG()->rtFieldGenerator(
+			$data     .= Fns::rtFieldGenerator(
 				array(
 					'term_operator_' . $taxonomy => array(
 						'type'        => 'select',
 						'label'       => 'Operator',
 						'class'       => 'rt-select2 full',
 						'holderClass' => "term-filter-item-operator {$taxonomy}",
-						'options'     => rtTPG()->rtTermOperators()
+						'options'     => Options::rtTermOperators()
 					)
 				)
 			);
