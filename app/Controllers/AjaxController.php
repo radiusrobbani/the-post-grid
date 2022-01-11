@@ -199,7 +199,7 @@ class AjaxController {
 
 	function shortCodeList() {
 		$html = null;
-		$scQ  = new WP_Query( apply_filters( 'tpg_sc_list_query_args',
+		$scQ  = new \WP_Query( apply_filters( 'tpg_sc_list_query_args',
 			array( 'post_type'      => rtTPG()->post_type,
 			       'order_by'       => 'title',
 			       'order'          => 'DESC',

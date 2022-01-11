@@ -22,7 +22,7 @@ class ShortcodeController {
 
 	public function register_sc_scripts() {
 		$settings = get_option( rtTPG()->options['settings'] );
-		
+
 		$caro   = $isSinglePopUp = false;
 		$script = [];
 		$style  = [];
@@ -38,6 +38,7 @@ class ShortcodeController {
 			'nonce'   => wp_create_nonce( rtTPG()->nonceText() ),
 			'ajaxurl' => $ajaxurl,
 		];
+
 		foreach ( $this->scA as $sc ) {
 			if ( isset( $sc ) && is_array( $sc ) ) {
 				if ( $sc['isSinglePopUp'] ) {
@@ -471,7 +472,7 @@ class ShortcodeController {
 				$tempArgs['posts_per_page'] = $limit;
 				$tempArgs['paged']          = 1;
 				$tempArgs['fields']         = 'ids';
-				$tempQ                      = new WP_Query( $tempArgs );
+				$tempQ                      = new \WP_Query( $tempArgs );
 				if ( ! empty( $tempQ->posts ) ) {
 					$args['post__in'] = $tempQ->posts;
 				}
