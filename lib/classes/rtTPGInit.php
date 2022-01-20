@@ -162,11 +162,19 @@ if (!class_exists('rtTPGInit')):
                 $this,
                 'rttpg_settings'
             ));
+	        add_submenu_page('edit.php?post_type=' . rtTPG()->post_type, __('Get Help'), __('Get Help', "the-post-grid"), 'administrator', 'rttpg_get_help', array(
+		        $this,
+		        'get_help'
+	        ));
         }
 
         function rttpg_settings() {
             rtTPG()->render_view('settings.settings');
         }
+
+	    function get_help() {
+		    rtTPG()->render_view('pages.help');
+	    }
 
         public function the_post_grid_load_text_domain() {
             load_plugin_textdomain('the-post-grid', false, RT_THE_POST_GRID_LANGUAGE_PATH);
