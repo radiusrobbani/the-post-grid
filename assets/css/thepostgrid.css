@@ -548,7 +548,7 @@ body.rt-model-open,
 }
 
 @media (max-width: 991px) {
-    .rt-tpg-container h3.entry-title a {
+    .rt-post-overlay .post-img + .post-content .post-title a {
         overflow: hidden !important;
         text-overflow: ellipsis !important;
         display: -webkit-box !important;
@@ -748,7 +748,7 @@ span.more-loading {
 }
 
 @media (max-width: 991px) {
-    .rt-tpg-container .rt-holder .tpg-excerpt {
+    .rt-tpg-container .rt-post-overlay .post-img + .post-content .tpg-excerpt {
         overflow: hidden !important;
         text-overflow: ellipsis !important;
         display: -webkit-box !important;
