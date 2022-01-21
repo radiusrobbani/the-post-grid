@@ -525,7 +525,7 @@ if ( ! class_exists( 'rtTPGOptions' ) ):
 				'posts_loading_type'               => [
 					"type"        => "radio",
 					"label"       => "Pagination Type",
-					'holderClass' => "pagination-item posts-loading-type tpg-hidden pro-field",
+					'holderClass' => "pagination-item posts-loading-type tpg-hidden",
 					"alignment"   => "vertical",
 					"default"     => 'pagination',
 					"options"     => $this->postLoadingType(),
@@ -1395,12 +1395,9 @@ if ( ! class_exists( 'rtTPGOptions' ) ):
 		}
 
 		function postLoadingType() {
-			return [
-				'pagination'      => "Pagination",
-				'pagination_ajax' => "Ajax Number Pagination ( Only for Grid )",
-				'load_more'       => "Load more button (by ajax loading)",
-				'load_on_scroll'  => "Load more on scroll (by ajax loading)",
-			];
+			return apply_filters('rttpg_pagination_type', [
+				'pagination'      => __("Pagination", "the-post-grid")
+			]);
 		}
 
 		function scGridOpt() {
