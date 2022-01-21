@@ -37,6 +37,10 @@ if (!class_exists('rtTPGInit')):
                     'remove_all_meta_boxes_tgp_sc'
                 ));
             }
+	        if ( get_option('rttpg_activation_redirect', false) ) {
+		        delete_option('rttpg_activation_redirect');
+		        wp_redirect( admin_url('edit.php?post_type=rttpg&page=rttpg_get_help') );
+	        }
         }
 
         function remove_all_meta_boxes_tgp_sc() {
@@ -182,6 +186,7 @@ if (!class_exists('rtTPGInit')):
 
         function activate() {
             $this->insertDefaultData();
+	        add_option('rttpg_activation_redirect', true);
         }
 
         function deactivate() {

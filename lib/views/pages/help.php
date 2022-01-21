@@ -73,13 +73,36 @@ if ( ! defined( 'ABSPATH' ) ) {
             font-weight: 600;
             margin: 8px 0 5px;
         }
+        .rttpg-call-to-action {
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            height: 150px;
+            color: #ffffff;
+            margin: 30px 0;
+        }
+        .rttpg-call-to-action a {
+            color: inherit;
+            display: flex;
+            width: 100%;
+            height: 100%;
+            flex: 1;
+            justify-content: center;
+            align-items: center;
+            font-size: 28px;
+            font-weight: 700;
+            text-decoration: none;
+        }
+        .rttpg-call-to-action:hover a {
+            text-decoration: underline;
+        }
 	</style>
 	<div class="rttpg-help-wrapper" >
 		<div class="rttpg-help-section rt-document-box">
 			<div class="rt-box-icon"><i class="dashicons dashicons-media-document"></i></div>
 			<div class="rt-box-content">
 				<h3 class="rt-box-title">Thank you for installing The Post Grid</h3>
-				<iframe width="611" height="360" src="https://www.youtube.com/embed/_xZBDU4kgKk" title="The Post Grid" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+				<iframe width="800" height="450" src="https://www.youtube.com/embed/_xZBDU4kgKk" title="The Post Grid" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 			</div>
 		</div>
         <div class="rt-document-box">
@@ -100,11 +123,13 @@ if ( ! defined( 'ABSPATH' ) ) {
                     <li><i class="dashicons dashicons-saved"></i> Fields Selection.</li>
                     <li><i class="dashicons dashicons-saved"></i> All Text and Color control.</li>
                 </ul>
-                <a href="https://www.radiustheme.com/downloads/the-post-grid-pro-for-wordpress/" class="rt-admin-btn" target="_blank">More Features</a>';
+                <a href="https://www.radiustheme.com/downloads/the-post-grid-pro-for-wordpress/" class="rt-admin-btn" target="_blank">More Features</a>
             </div>
         </div>
-        <div class="rt-document-box rt-update-pro-btn-wrap">
-            <a href="https://www.radiustheme.com/downloads/the-post-grid-pro-for-wordpress/" target="_blank" class="rt-update-pro-btn">Update Pro To Get More Features</a>
+        <div class="rttpg-call-to-action" style="background-image: url('<?php echo rtTPG()->assetsUrl; ?>images/admin/banner.png')">
+            <a href="https://www.radiustheme.com/downloads/the-post-grid-pro-for-wordpress/" target="_blank" class="rt-update-pro-btn">
+                <span>Update Pro To Get More Features</span>
+            </a>
         </div>
         <div class="rt-document-box">
             <div class="rt-box-icon"><i class="dashicons dashicons-thumbs-up"></i></div>
@@ -170,7 +195,7 @@ if ( ! defined( 'ABSPATH' ) ) {
                 <div class="rt-box-content">
                     <h3 class="rt-box-title">Happy Our Work?</h3>
                     <p>If you happy with <strong>The Post Grid</strong> plugin, please add a rating. It would be glad to us.</p>
-                    <a href="https://wordpress.org/support/plugin/review-schema/reviews/?filter=5#new-post" class="rt-admin-btn" target="_blank">Add Rating</a>
+                    <a href="https://wordpress.org/support/plugin/the-post-grid/reviews/?filter=5#new-post" class="rt-admin-btn" target="_blank">Post Review</a>
                 </div>
             </div>
         </div>
