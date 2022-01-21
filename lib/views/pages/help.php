@@ -32,6 +32,7 @@ if ( ! defined( 'ABSPATH' ) ) {
         }
         .rttpg-pro-feature-content {
             display: flex;
+            flex-wrap: wrap;
         }
         .rttpg-pro-feature-content .rt-document-box + .rt-document-box {
             margin-left: 30px;
@@ -84,6 +85,7 @@ if ( ! defined( 'ABSPATH' ) ) {
         .rttpg-call-to-action a {
             color: inherit;
             display: flex;
+            flex-wrap: wrap;
             width: 100%;
             height: 100%;
             flex: 1;
@@ -95,6 +97,61 @@ if ( ! defined( 'ABSPATH' ) ) {
         }
         .rttpg-call-to-action:hover a {
             text-decoration: underline;
+        }
+        @media all and (max-width: 1199px) {
+            .rttpg-help-wrapper {
+                width: 80%;
+            }
+            .rttpg-help-section iframe {
+                max-width: 100%;
+                height: 320px;
+            }
+        }
+        @media all and (max-width: 991px) {
+            .rttpg-help-wrapper {
+                width: calc(100% - 40px);
+            }
+            .rttpg-pro-feature-content .rt-document-box {
+                flex: 0 0 calc(50% - 55px)
+            }
+            .rttpg-pro-feature-content .rt-document-box + .rt-document-box + .rt-document-box {
+                margin-left: 0;
+            }
+        }
+        @media all and (max-width: 600px) {
+            .rt-document-box .rt-box-content .rt-box-title {
+                line-height: 28px;
+            }
+            .rttpg-help-section iframe {
+               height: 250px;
+            }
+            .rttpg-feature-list ul {
+                display: block;
+            }
+            .rttpg-feature-list ul li {
+                width: 100%;
+            }
+            .rttpg-call-to-action a {
+                padding-left: 25px;
+                padding-right: 25px;
+                font-size: 20px;
+                line-height: 28px;
+                width: 80%;
+            }
+            .rttpg-testimonials {
+                display: block;
+            }
+            .rttpg-testimonials .rttpg-testimonial + .rttpg-testimonial {
+                margin-left: 0;
+                margin-top: 30px;
+            }
+            .rttpg-pro-feature-content .rt-document-box {
+                width: 100%;
+                flex: auto;
+            }
+            .rttpg-pro-feature-content .rt-document-box + .rt-document-box {
+                margin-left: 0;
+            }
         }
 	</style>
 	<div class="rttpg-help-wrapper" >
@@ -128,7 +185,7 @@ if ( ! defined( 'ABSPATH' ) ) {
         </div>
         <div class="rttpg-call-to-action" style="background-image: url('<?php echo rtTPG()->assetsUrl; ?>images/admin/banner.png')">
             <a href="https://www.radiustheme.com/downloads/the-post-grid-pro-for-wordpress/" target="_blank" class="rt-update-pro-btn">
-                <span>Update Pro To Get More Features</span>
+                Update Pro To Get More Features
             </a>
         </div>
         <div class="rt-document-box">
@@ -153,9 +210,9 @@ if ( ! defined( 'ABSPATH' ) ) {
                         </div>
                     </div>
                     <div class="rttpg-testimonial">
-                        <p>I am a photographer and I'm using the plugin for my website and i find it useful.</p>
+                        <p>The post grid is a fantastic plugin! It’s very easy to figure out without having to read any documentation. That is the mark of an excellent developer who knows how to make the user interface easy for people to use. I love that I can take my simple theme, and jazz it up with a nice grid, without having to go to a page builder. I am now teaching this to all my WordPress students 🙂 Hats off to this amazing plugin!</p>
                         <div class="client-info">
-                            <img src="<?php echo rtTPG()->assetsUrl; ?>images/admin/client2.png">
+                            <img src="<?php echo rtTPG()->assetsUrl; ?>images/admin/client2.jpeg">
                             <div>
                                 <div class="rttpg-star">
                                     <i class="dashicons dashicons-star-filled"></i>
@@ -164,8 +221,7 @@ if ( ! defined( 'ABSPATH' ) ) {
                                     <i class="dashicons dashicons-star-filled"></i>
                                     <i class="dashicons dashicons-star-filled"></i>
                                 </div>
-                                <span class="client-name">Sergi Albir</span>
-                                <span class="client-designation">Professional photographer</span>
+                                <span class="client-name">Christina Hills</span>
                             </div>
                         </div>
                     </div>
