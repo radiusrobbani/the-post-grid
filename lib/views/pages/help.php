@@ -11,6 +11,9 @@ if ( ! defined( 'ABSPATH' ) ) {
             width: 60%;
             margin: 0 auto;
         }
+        .rttpg-help-section iframe {
+            max-width: 100%;
+        }
         .rttpg-help-wrapper .rt-document-box .rt-box-title {
             margin-bottom: 30px;
         }
@@ -98,7 +101,7 @@ if ( ! defined( 'ABSPATH' ) ) {
         .rttpg-call-to-action:hover a {
             text-decoration: underline;
         }
-        @media all and (max-width: 1199px) {
+        @media all and (max-width: 1400px) {
             .rttpg-help-wrapper {
                 width: 80%;
             }
@@ -168,19 +171,18 @@ if ( ! defined( 'ABSPATH' ) ) {
                 <h3 class="rt-box-title">Pro Features</h3>
                 <ul>
                     <li><i class="dashicons dashicons-saved"></i> Custom Post Type Supported.</li>
-                    <li><i class="dashicons dashicons-saved"></i> AJAX Pagination (Load more and Load on Scrolling).</li>
                     <li><i class="dashicons dashicons-saved"></i> Advanced Post Filter.</li>
                     <li><i class="dashicons dashicons-saved"></i> Single or Multi Popup.</li>
                     <li><i class="dashicons dashicons-saved"></i> Custom Image Size.</li>
                     <li><i class="dashicons dashicons-saved"></i> Meta Position Control.</li>
                     <li><i class="dashicons dashicons-saved"></i> Social Share.</li>
                     <li><i class="dashicons dashicons-saved"></i> 62 Different Layouts.</li>
-                    <li><i class="dashicons dashicons-saved"></i> Special Layout for WooCommerce.</li>
                     <li><i class="dashicons dashicons-saved"></i> Slider Layout.</li>
                     <li><i class="dashicons dashicons-saved"></i> Fields Selection.</li>
                     <li><i class="dashicons dashicons-saved"></i> All Text and Color control.</li>
+                    <li><i class="dashicons dashicons-saved"></i> AJAX Pagination (Load more and Load on Scrolling).</li>
+                    <li><i class="dashicons dashicons-saved"></i> More Features...</li>
                 </ul>
-                <a href="https://www.radiustheme.com/downloads/the-post-grid-pro-for-wordpress/" class="rt-admin-btn" target="_blank">More Features</a>
             </div>
         </div>
         <div class="rttpg-call-to-action" style="background-image: url('<?php echo rtTPG()->assetsUrl; ?>images/admin/banner.png')">
