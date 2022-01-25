@@ -586,7 +586,7 @@ class Options {
 		return $options;
 	}
 
-	function scMarginOpt() {
+	public static function scMarginOpt() {
 		return [
 			'default' => "Bootstrap default",
 			'no'      => "No Margin",
