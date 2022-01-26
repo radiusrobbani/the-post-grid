@@ -5,11 +5,11 @@ namespace RT\ThePostGrid\Helpers;
 
 
 class Install {
-	function activate() {
+	public static function activate() {
 		self::insertDefaultData();
 	}
 
-	function deactivate() {
+	public static function deactivate() {
 
 	}
 

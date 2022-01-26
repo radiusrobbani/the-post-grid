@@ -73,7 +73,7 @@ class Fns {
 		$located = apply_filters( 'rttpg_get_template', $located, $template_name, $args );
 
 		do_action( 'rttpg_before_template_part', $template_name, $located, $args );
-		
+
 		include $located;
 
 		do_action( 'rttpg_after_template_part', $template_name, $located, $args );
@@ -928,13 +928,6 @@ class Fns {
 
 		//Return rgb(a) color string
 		return $output;
-	}
-
-	public static function doFlush() {
-		if ( get_option( rtTPG()->options['flash'] ) ) {
-			rtTPG()->flush_rewrite();
-			update_option( rtTPG()->options['flash'], false );
-		}
 	}
 
 	public static function meta_exist( $post_id = null, $meta_key, $type = "post" ) {

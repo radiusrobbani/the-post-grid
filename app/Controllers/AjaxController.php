@@ -14,7 +14,6 @@ class AjaxController {
 		add_action( 'wp_ajax_rtTPGTermListByTaxonomy', array( $this, 'rtTPGTermListByTaxonomy' ) );
 		add_action( 'wp_ajax_defaultFilterItem', array( $this, 'defaultFilterItem' ) );
 		add_action( 'wp_ajax_getCfGroupListAsField', array( $this, 'getCfGroupListAsField' ) );
-		//add_action('wp_ajax_rtTPGLayout', [rtTPG(), 'rtTPGLayouts']);
 	}
 
 	function getCfGroupListAsField() {
@@ -52,7 +51,6 @@ class AjaxController {
 
 	function defaultFilterItem() {
 
-		//rtTPG()->rtTPGSettingFields();
 		$error = true;
 		$data  = $msg = null;
 		if ( Fns::verifyNonce() ) {
@@ -85,7 +83,6 @@ class AjaxController {
 
 	function rtTPGSaveSettings() {
 
-		//rtTPG()->rtTPGSettingFields();
 		$error = true;
 		if ( Fns::verifyNonce() ) {
 			unset( $_REQUEST['action'] );
