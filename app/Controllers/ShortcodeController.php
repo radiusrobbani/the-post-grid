@@ -59,10 +59,10 @@ class ShortcodeController {
 
 			if ( isset( $settings['tpg_load_script'] ) ) {
 				wp_enqueue_style( 'rt-tpg' );
-				$css = isset( $settings['custom_css'] ) ? stripslashes( $settings['custom_css'] ) : null;
+				/*$css = isset( $settings['custom_css'] ) ? stripslashes( $settings['custom_css'] ) : null;
 				if ( $css ) {
 					wp_add_inline_style( 'rt-tpg', $css );
-				}
+				}*/
 			}
 
 			if ( is_rtl() ) {

@@ -40,8 +40,7 @@ if ( ! class_exists( RtTpg::class ) ) {
 				'facebook',
 				'twitter',
 				'linkedin'
-			],
-			'custom_css'         => null
+			]
 		];
 
 		protected static $_instance;

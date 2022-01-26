@@ -5,6 +5,7 @@ namespace RT\ThePostGrid\Helpers;
 
 
 use RT\ThePostGrid\Models\Field;
+use RT\ThePostGrid\Models\ReSizer;
 
 class Fns {
 
@@ -680,7 +681,7 @@ class Fns {
 			$h = ( ! empty( $customImgSize[1] ) ? absint( $customImgSize[1] ) : null );
 			$c = ( ! empty( $customImgSize[2] ) && $customImgSize[2] == 'soft' ? false : true );
 			if ( $w && $h ) {
-				$imgSrc = rtTPG()->rtImageReSize( $imgSrc, $w, $h, $c );
+				$imgSrc = Fns::rtImageReSize( $imgSrc, $w, $h, $c );
 				$image  = "<img class='{$img_class}' src='{$imgSrc}' width='{$w}' height='{$h}' alt='{$alt}'>";
 			}
 		}
@@ -884,7 +885,7 @@ class Fns {
 	 * @throws Rt_Exception
 	 */
 	public static function rtImageReSize( $url, $width = null, $height = null, $crop = null, $single = true, $upscale = false ) {
-		$rtResize = new rtTPGReSizer();
+		$rtResize = new ReSizer();
 
 		return $rtResize->process( $url, $width, $height, $crop, $single, $upscale );
 	}

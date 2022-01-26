@@ -1043,10 +1043,6 @@ body .rt-admin-btn:hover {
     text-decoration: none;
 }
 
-#custom_css_holder .description {
-    color: red;
-}
-
 #rt-tpg-settings-form .rtSaveButton {
     background-color: var(--rt-primary-color);
     padding: 8px 15px;
