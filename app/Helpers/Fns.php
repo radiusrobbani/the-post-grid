@@ -73,7 +73,7 @@ class Fns {
 		$located = apply_filters( 'rttpg_get_template', $located, $template_name, $args );
 
 		do_action( 'rttpg_before_template_part', $template_name, $located, $args );
-
+		
 		include $located;
 
 		do_action( 'rttpg_after_template_part', $template_name, $located, $args );
@@ -112,7 +112,7 @@ class Fns {
 		}
 
 		if ( ! $default_path ) {
-			$default_path = rtTPG()->plugin_path() . '/templates/';
+			$default_path = rtTPG()->default_template_path() . '/templates/';
 		}
 		// Look within passed path within the theme - this is priority.
 		$template_files   = [];
@@ -124,7 +124,6 @@ class Fns {
 		if ( ! $template ) {
 			$template = trailingslashit( $default_path ) . $template_name;
 		}
-
 		return apply_filters( 'rttpg_locate_template', $template, $template_name );
 	}
 

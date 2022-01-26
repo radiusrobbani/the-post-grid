@@ -130,11 +130,14 @@ if ( ! class_exists( RtTpg::class ) ) {
 			return untrailingslashit( plugin_dir_path( RT_THE_POST_GRID_PLUGIN_FILE ) );
 		}
 
-
 		public function plugin_template_path() {
 			$plugin_template = $this->plugin_path() . '/templates/';
 
 			return apply_filters( 'tlp_tpg_template_path', $plugin_template );
+		}
+
+		public function default_template_path() {
+			return apply_filters('rttpg_default_template_path', untrailingslashit( plugin_dir_path( RT_THE_POST_GRID_PLUGIN_FILE ) ));
 		}
 
 		public static function nonceText() {
@@ -167,7 +170,7 @@ if ( ! class_exists( RtTpg::class ) ) {
 
 
 		public function hasPro() {
-			return class_exists( 'rtTPGP' );
+			return class_exists( 'RtTpgPro' );
 		}
 
 	}
