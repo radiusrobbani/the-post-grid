@@ -16,10 +16,12 @@ if (process.env.NODE_ENV === 'package') {
         let copyto = path.resolve(`${bundledir}`);
         // Select All file then paste on list
         let includes = [
-            'assets',
+            'app',
             'assets',
             'languages',
-            'lib',
+            'resources',
+            'templates',
+            'vendor',
             'index.html',
             'README.txt',
             `${bundledir}.php`
