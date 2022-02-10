@@ -20,13 +20,13 @@ class Fns {
 
 
 	/**
-	 * @param       $viewName
-	 * @param array $args
-	 * @param bool $return
+	 * @param         $viewName
+	 * @param  array  $args
+	 * @param  bool   $return
 	 *
 	 * @return string|void
 	 */
-	public static function view( $viewName, $args = array(), $return = false ) {
+	public static function view( $viewName, $args = [], $return = false ) {
 		$file     = str_replace( ".", "/", $viewName );
 		$file     = ltrim( $file, '/' );
 		$viewFile = trailingslashit( RT_THE_POST_GRID_PLUGIN_PATH . '/resources' ) . $file . '.php';
@@ -48,13 +48,12 @@ class Fns {
 	/**
 	 * Template Content
 	 *
-	 * @param string $template_name Template name.
-	 * @param array $args Arguments. (default: array).
-	 * @param string $template_path Template path. (default: '').
-	 * @param string $default_path Default path. (default: '').
+	 * @param  string  $template_name  Template name.
+	 * @param  array   $args           Arguments. (default: array).
+	 * @param  string  $template_path  Template path. (default: '').
+	 * @param  string  $default_path   Default path. (default: '').
 	 */
 	static function get_template( $template_name, $args = null, $template_path = '', $default_path = '' ) {
-
 		if ( ! empty( $args ) && is_array( $args ) ) {
 			extract( $args ); // @codingStandardsIgnoreLine
 		}
@@ -77,16 +76,15 @@ class Fns {
 		include $located;
 
 		do_action( 'rttpg_after_template_part', $template_name, $located, $args );
-
 	}
 
 	/**
 	 * Get template content and return
 	 *
-	 * @param string $template_name Template name.
-	 * @param array $args Arguments. (default: array).
-	 * @param string $template_path Template path. (default: '').
-	 * @param string $default_path Default path. (default: '').
+	 * @param  string  $template_name  Template name.
+	 * @param  array   $args           Arguments. (default: array).
+	 * @param  string  $template_path  Template path. (default: '').
+	 * @param  string  $default_path   Default path. (default: '').
 	 *
 	 * @return string
 	 */
@@ -95,13 +93,12 @@ class Fns {
 		self::get_template( $template_name, $args, $template_path, $default_path );
 
 		return ob_get_clean();
-
 	}
 
 	/**
-	 * @param        $template_name
-	 * @param string $template_path
-	 * @param string $default_path
+	 * @param          $template_name
+	 * @param  string  $template_path
+	 * @param  string  $default_path
 	 *
 	 * @return mixed|void
 	 */
@@ -124,6 +121,7 @@ class Fns {
 		if ( ! $template ) {
 			$template = trailingslashit( $default_path ) . $template_name;
 		}
+
 		return apply_filters( 'rttpg_locate_template', $template, $template_name );
 	}
 
@@ -321,8 +319,8 @@ class Fns {
 	/**
 	 * Sanitize field value
 	 *
-	 * @param array $field
-	 * @param null $value
+	 * @param  array  $field
+	 * @param  null   $value
 	 *
 	 * @return array|null
 	 * @internal param $value
@@ -648,7 +646,8 @@ class Fns {
 				$imgSrc = ! empty( $imgSrc ) ? $imgSrc[0] : $imgSrc;
 			}
 		} elseif ( $mediaSource == 'first_image' ) {
-			if ( $img = preg_match_all( '/<img.+src=[\'"]([^\'"]+)[\'"].*>/i', get_the_content( $post_id ),
+			if ( $img = preg_match_all( '/<img.+src=[\'"]([^\'"]+)[\'"].*>/i',
+				get_the_content( $post_id ),
 				$matches )
 			) {
 				$imgSrc = $matches[1][0];
@@ -873,11 +872,11 @@ class Fns {
 	 * Call the Image resize model for resize function
 	 *
 	 * @param              $url
-	 * @param null $width
-	 * @param null $height
-	 * @param null $crop
-	 * @param bool|true $single
-	 * @param bool|false $upscale
+	 * @param  null        $width
+	 * @param  null        $height
+	 * @param  null        $crop
+	 * @param  bool|true   $single
+	 * @param  bool|false  $upscale
 	 *
 	 * @return array|bool|string
 	 * @throws Exception
@@ -1510,7 +1509,6 @@ class Fns {
 		}
 		// Title hover color
 		if ( $title_hover_color ) {
-
 			$css .= "#{$layoutID} .{$layout} .rt-holder h2.entry-title:hover,
                         #{$layoutID} .{$layout} .rt-holder h3.entry-title:hover,
                         #{$layoutID} .{$layout} .rt-holder h4.entry-title:hover,
@@ -1730,4 +1728,410 @@ class Fns {
 
 		return $groups;
 	}
+
+	/**
+	 * Elementor Functionality
+	 *************************************************
+	 */
+
+	/**
+	 * Get Post Link
+	 *
+	 * @param $data
+	 * @param $pID
+	 *
+	 * @return array
+	 */
+	public static function get_post_link( $pID, $data ) {
+		$link_class = $link_start = $link_end = $readmore_link_start = $readmore_link_end = null;
+		if ( 'default' == $data['post_link_type'] ) {
+			$link_class = "tpg-post-link";
+			$link_start = $readmore_link_start = sprintf( '<a data-id="%s" href="%s" class="%s" target="%s">',
+				esc_attr( $pID ),
+				esc_attr( esc_url( get_permalink() ) ),
+				$link_class,
+				$data['link_target'] );
+			$link_end   = $readmore_link_end = "</a>";
+		} elseif ( 'popup' == $data['post_link_type'] ) {
+			$link_class = "tpg-single-popup tpg-post-link";
+			$link_start = $readmore_link_start = sprintf( '<a data-id="%s" href="%s" class="%s" target="%s">',
+				esc_attr( $pID ),
+				esc_url( get_permalink() ),
+				$link_class,
+				$data['link_target'] );
+			$link_end   = $readmore_link_end = "</a>";
+		} elseif ( 'multi_popup' == $data['post_link_type'] ) {
+			$link_class = "tpg-multi-popup tpg-post-link";
+			$link_start = $readmore_link_start = sprintf( '<a data-id="%s" href="%s" class="%s" target="%s">',
+				esc_attr( $pID ),
+				esc_attr( esc_url( get_permalink() ) ),
+				$link_class,
+				$data['link_target'] );
+			$link_end   = $readmore_link_end = "</a>";
+		} else {
+			$link_class          = "tpg-post-link";
+			$readmore_link_start = sprintf( '<a data-id="%s" href="%s" class="%s" target="%s">',
+				esc_attr( $pID ),
+				esc_attr( esc_url( get_permalink() ) ),
+				$link_class,
+				$data['link_target'] );
+			$readmore_link_end   = "</a>";
+		}
+
+		return [
+			'link_start'          => $link_start,
+			'link_end'            => $link_end,
+			'readmore_link_start' => $readmore_link_start,
+			'readmore_link_end'   => $readmore_link_end,
+		];
+	}
+
+	/**
+	 * Get Post TYpe
+	 *
+	 * @return string[]|\WP_Post_Type[]
+	 */
+	public static function get_post_types() {
+		$post_types = get_post_types( [ 'public' => true, 'show_in_nav_menus' => true ], 'objects' );
+		$post_types = wp_list_pluck( $post_types, 'label', 'name' );
+
+		return array_diff_key( $post_types, [ 'elementor_library', 'attachment' ] );
+	}
+
+	/**
+	 * Get Post Meta HTML for Elementor
+	 *
+	 * @param $data
+	 *
+	 * @return html markup
+	 */
+	public static function get_post_meta_html( $post_id, $data ) {
+		$author_id = get_the_author_meta( 'ID' );
+		$author    = apply_filters( 'rttpg_author_link', sprintf( '<a href="%s">%s</a>', get_author_posts_url( $author_id ), get_the_author() ) );
+		$cc        = wp_count_comments( $post_id );
+		$date      = get_the_date();
+
+		//Category and Tags Management
+		$_cat_id        = $data['post_type'] . '_taxonomy';
+		$_tag_id        = $data['post_type'] . '_tags';
+		$categories     = get_the_term_list( $post_id, $data[ $_cat_id ], null, '<span class="rt-separator">,</span>' );
+		$tags           = get_the_term_list( $post_id, $data[ $_tag_id ], null, '<span class="rt-separator">,</span>' );
+		$meta_separator = ( $data['meta_separator'] && $data['meta_separator'] !== 'default' ) ? sprintf( "<span class='separator'>%s</span>", $data['meta_separator'] ) : null;
+
+		//Author Meta
+
+
+		if ( '' !== $data['show_author'] ) {
+			$is_author_avatar = null;
+
+			if ( '' !== $data['show_author_image'] ) {
+				$is_author_avatar = 'has-author-avatar';
+			}
+			?>
+            <span class='author <?php echo esc_attr( $is_author_avatar ); ?>'>
+
+                <?php
+                if ( '' !== $data['show_author_image'] ) {
+	                echo get_avatar( get_the_author_meta( 'ID' ), 30 );
+                } else {
+	                if ( $data['show_meta_icon'] === 'yes' ) {
+		                if ( isset( $data['user_icon']['value'] ) && $data['user_icon']['value'] ) {
+			                \Elementor\Icons_Manager::render_icon( $data['user_icon'], [ 'aria-hidden' => 'true' ] );
+		                } else {
+			                echo "<i class='fa fa-user'></i>";
+		                }
+	                }
+                }
+
+                if ( $data['author_prefix'] ) {
+	                echo "<span class='author-prefix'>" . esc_html( $data['author_prefix'] ) . "</span>";
+                }
+                echo $author;
+                ?>
+            </span>
+			<?php echo $meta_separator;
+		}
+
+		//Category Meta
+		if ( $categories && '' !== $data['show_category']
+		     && 'default' == $data['category_position']
+		     && ! in_array( $data['layout'],
+				[
+					'grid-layout4',
+					'grid-layout5',
+					'grid-layout6',
+					'list-layout4',
+					'list-layout5',
+					'grid_hover-layout5',
+					'grid_hover-layout6',
+					'grid_hover-layout7',
+					'grid_hover-layout8',
+					'grid_hover-layout9',
+					'grid_hover-layout10',
+					'slider-layout5',
+					'slider-layout6',
+					'slider-layout7',
+					'slider-layout8',
+					'slider-layout9',
+					'slider-layout11',
+					'slider-layout12',
+				] )
+		) {
+			?>
+            <span class='categories-links'>
+                <?php
+                if ( $data['show_meta_icon'] === 'yes' ) {
+	                if ( isset( $data['cat_icon']['value'] ) && $data['cat_icon']['value'] ) {
+		                \Elementor\Icons_Manager::render_icon( $data['cat_icon'], [ 'aria-hidden' => 'true' ] );
+	                } else {
+		                echo "<i class='fa fa-user'></i>";
+	                }
+                }
+                echo $categories;
+                ?>
+			</span>
+			<?php
+			echo $meta_separator;
+		}
+
+		//Date Meta
+		if ( '' !== $data['show_date'] ) {
+			?>
+            <span class='date'>
+                <?php
+                if ( $data['show_meta_icon'] === 'yes' ) {
+	                if ( isset( $data['date_icon']['value'] ) && $data['date_icon']['value'] ) {
+		                \Elementor\Icons_Manager::render_icon( $data['date_icon'], [ 'aria-hidden' => 'true' ] );
+	                } else {
+		                echo "<i class='fa fa-user'></i>";
+	                }
+                }
+                echo $date;
+                ?>
+            </span>
+			<?php
+			echo $meta_separator;
+		}
+
+		//Tags Meta
+		if ( $tags && 'show' == $data['show_tags'] ) {
+			?>
+            <span class='post-tags-links'>
+                <?php
+                if ( $data['show_meta_icon'] === 'yes' ) {
+	                if ( isset( $data['tag_icon']['value'] ) && $data['tag_icon']['value'] ) {
+		                \Elementor\Icons_Manager::render_icon( $data['tag_icon'], [ 'aria-hidden' => 'true' ] );
+	                } else {
+		                echo "<i class='fa fa-user'></i>";
+	                }
+                }
+                echo $tags;
+                ?>
+            </span>
+			<?php
+			echo $meta_separator;
+		}
+
+		//Comment Meta
+		if ( 'show' == $data['show_comment_count'] ) {
+			?>
+            <span class="comment-count">
+                <?php
+                if ( $data['show_meta_icon'] === 'yes' ) {
+	                if ( isset( $data['comment_icon']['value'] ) && $data['comment_icon']['value'] ) {
+		                \Elementor\Icons_Manager::render_icon( $data['comment_icon'], [ 'aria-hidden' => 'true' ] );
+	                } else {
+		                echo "<i class='fa fa-user'></i>";
+	                }
+                }
+                echo $cc->total_comments;
+                ?>
+            </span>
+			<?php
+			echo $meta_separator;
+		}
+	}
+
+	/**
+	 * Custom wp_kses
+	 *
+	 * @param $string
+	 *
+	 * @return string
+	 */
+	public static function wp_kses( $string ) {
+		$allowed_html = [
+			'a'      => [
+				'href'    => [],
+				'title'   => [],
+				'data-id' => [],
+				'target'  => [],
+				'class'   => [],
+			],
+			'strong' => [],
+			'b'      => [],
+			'br'     => [ [] ],
+		];
+
+		return wp_kses( $string, $allowed_html );
+	}
+
+
+	/**
+	 * Get Elementor Post Title for Elementor
+	 *
+	 * @param $title_tag
+	 * @param $title
+	 * @param $link_start
+	 * @param $link_end
+	 */
+	public static function get_el_post_title( $title_tag, $title, $link_start, $link_end, $data ) {
+		echo '<div class="entry-title-wrapper">';
+		if ( 'above_title' === $data['category_position']
+		     || ( 'default' === $data['category_position']
+		          && in_array( $data['layout'],
+					[
+						'grid-layout5',
+						'grid-layout6',
+						'list-layout4',
+						'list-layout5',
+						'grid_hover-layout5',
+						'grid_hover-layout6',
+						'grid_hover-layout7',
+						'grid_hover-layout8',
+						'grid_hover-layout9',
+						'grid_hover-layout10',
+						'slider-layout5',
+						'slider-layout6',
+						'slider-layout7',
+						'slider-layout8',
+						'slider-layout9',
+						'slider-layout11',
+						'slider-layout12',
+					] ) )
+		) {
+			self::get_el_thumb_cat( $data, 'cat-above-title' );
+		}
+		printf( '<%s class="entry-title">', esc_attr( $title_tag ) );
+		echo self::wp_kses( $link_start );
+		echo self::wp_kses( $title );
+		echo self::wp_kses( $link_end );
+		printf( '</%s>', esc_attr( $title_tag ) );
+		echo '</div>';
+	}
+
+	static function get_el_thumb_cat( $data, $class = 'cat-over-image' ) {
+		if ( 'hide' === $data['show_category'] ) {
+			return;
+		}
+		$pID               = get_the_ID();
+		$_cat_id           = $data['post_type'] . '_taxonomy';
+		$_tag_id           = $data['post_type'] . '_tags';
+		$categories        = get_the_term_list( $pID, $data[ $_cat_id ], null, '<span class="rt-separator">,</span>' );
+		$tags              = get_the_term_list( $pID, $data[ $_tag_id ], null, '<span class="rt-separator">,</span>' );
+		$category_position = $data['category_position'];
+		if ( in_array( $data['layout'], [ 'grid-layout4' ] ) && 'default' === $data['category_position'] ) {
+			$category_position = 'top_left';
+		}
+		?>
+        <div class="tpg-separate-category <?php echo esc_attr( $data['category_style'] . ' ' . $category_position . ' ' . $class ); ?>">
+            <span class='categories-links'>
+            <?php echo ( $data['show_cat_icon'] === 'yes' ) ? "<i class='fas fa-folder-open'></i>" : null; ?>
+            <?php echo $categories; ?>
+            </span>
+        </div>
+		<?php
+	}
+
+	/**
+	 * Get first image from the content
+	 *
+	 * @param $post_id
+	 *
+	 * @return string
+	 */
+	public static function get_content_first_image( $post_id, $type = 'markup' ) {
+		if ( $img = preg_match_all( '/<img.+src=[\'"]([^\'"]+)[\'"].*>/i',
+			get_the_content( $post_id ),
+			$matches )
+		) {
+			$imgSrc = $matches[1][0];
+			$size   = '';
+
+			$imgAbs = str_replace( trailingslashit( site_url() ), ABSPATH, $imgSrc );
+
+			if ( file_exists( $imgAbs ) ) {
+				$info = getimagesize( $imgAbs );
+				$size = isset( $info[3] ) ? $info[3] : '';
+			}
+			$alt = get_the_title( $post_id );
+
+			if ( $type == 'markup' ) {
+				return "<img class='rt-img-responsive' src='{$imgSrc}' {$size} alt='{$alt}'>";
+			} else {
+				return $imgSrc;
+			}
+		}
+	}
+
+	public static function get_post_thumbnail( $pID, $data, $link_start, $link_end, $offset_size = false ) {
+		$thumb_cat_condition = ( ! ( 'above_title' === $data['category_position'] || 'default' === $data['category_position'] ) );
+		if ( 'grid-layout4' === $data['layout'] && 'default' === $data['category_position'] ) {
+			$thumb_cat_condition = true;
+		} elseif ( in_array( $data['layout'], [ 'grid-layout4', 'grid_hover-layout11' ] ) && 'default' === $data['category_position'] ) {
+			$thumb_cat_condition = true;
+		}
+
+		if ( $thumb_cat_condition ) {
+			self::get_el_thumb_cat( $data );
+		}
+		$img_link = get_the_post_thumbnail_url( $pID, 'full' );
+
+		$img_size_key = 'image';
+		if ( $offset_size ) {
+			$img_size_key = 'image_offset';
+		}
+
+
+		//Start Post Thumb
+		echo $data['is_thumb_linked'] === 'yes' ? self::wp_kses( $link_start ) : null;
+		if ( has_post_thumbnail() && 'feature_image' === $data['media_source'] ) {
+			if ( $offset_size ) {
+				echo get_the_post_thumbnail( $pID, $data['image_offset'] );
+			} else {
+				$data['image'] = [
+					'id' => get_post_thumbnail_id(),
+				];
+				echo \Elementor\Group_Control_Image_Size::get_attachment_image_html( $data, 'image' );
+			}
+		} elseif ( 'first_image' === $data['media_source'] && self::get_content_first_image( $pID ) ) {
+			echo self::get_content_first_image( $pID );
+			$img_link = self::get_content_first_image( $pID, 'url' );
+		} elseif ( 'yes' === $data['is_default_img'] ) {
+			echo \Elementor\Group_Control_Image_Size::get_attachment_image_html( $data, $img_size_key, 'default_image' );
+			$img_link = \Elementor\Group_Control_Image_Size::get_attachment_image_src( $data, $img_size_key, 'default_image' );
+		}
+		echo $data['is_thumb_linked'] === 'yes' ? self::wp_kses( $link_end ) : null;
+		//End Post Thumb
+		?>
+
+		<?php if ( 'show' === $data['is_thumb_lightbox']
+		           || ( in_array( $data['layout'], [ 'grid-layout7', 'slider-layout4' ] ) && in_array( $data['is_thumb_lightbox'], [ 'default', 'show' ] ) )
+		) :
+			?>
+            <a
+                    class="tpg-zoom"
+                    data-elementor-open-lightbox="yes"
+                    data-elementor-lightbox-slideshow="<?php echo esc_attr( $data['layout'] ); ?>"
+                    title="<?php echo esc_attr( get_the_title() ); ?>"
+                    href="<?php echo esc_url( $img_link ) ?>">
+                <i class="fa fa-plus" aria-hidden="true"></i>
+            </a>
+		<?php endif; ?>
+
+		<?php if ( true ) : ?>
+            <div class="overlay grid-hover-content"></div>
+		<?php endif;
+	}
+
 }

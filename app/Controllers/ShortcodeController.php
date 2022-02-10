@@ -58,6 +58,7 @@ class ShortcodeController {
 			array_push( $script, 'rt-tpg' );
 
 			if ( isset( $settings['tpg_load_script'] ) ) {
+				wp_enqueue_style( 'rt-tpg-common' );
 				wp_enqueue_style( 'rt-tpg' );
 				/*$css = isset( $settings['custom_css'] ) ? stripslashes( $settings['custom_css'] ) : null;
 				if ( $css ) {
@@ -66,8 +67,10 @@ class ShortcodeController {
 			}
 
 			if ( is_rtl() ) {
+				array_push( $style, 'rt-tpg-common-rtl' );
 				array_push( $style, 'rt-tpg-rtl' );
 			}
+
 			wp_enqueue_style( $style );
 			wp_enqueue_script( $script );
 			wp_localize_script( 'rt-tpg', 'rttpg', $variables );

@@ -60,14 +60,6 @@
                             container.trigger('tpg_item_after_load');
                         }, 100);
                     });
-
-                    IsotopeWrap.on('arrangeComplete', function (event, filteredItems) {
-                        if ($(".isotope-item", IsotopeWrap).is(":visible")) {
-                            IsotopeWrap.parent().find('.isotope-term-no-post p').hide();
-                        } else {
-                            IsotopeWrap.parent().find('.isotope-term-no-post p').show();
-                        }
-                    });
                     // use value of search field to filter
                     var $quicksearch = container.find('.iso-search-input').keyup(debounce(function () {
                         qsRegex = new RegExp($quicksearch.val(), 'gi');
@@ -83,7 +75,6 @@
                             IsotopeWrap.isotope();
                             $(this).parent().find('.selected').removeClass('selected');
                             $(this).addClass('selected');
-
                         }
                     });
                     if (IsoURL) {
@@ -112,10 +103,11 @@
         overlayIconResizeTpg();
     });
 
+
     function tpgBottomScriptLoader() {
-        $( "#bottom-script-loader" ).fadeOut(500, function() {
+        $("#bottom-script-loader").fadeOut(500, function () {
             // fadeOut complete. Remove the loading div
-            $( "#bottom-script-loader" ).remove(); //makes page more lightweight
+            $("#bottom-script-loader").remove(); //makes page more lightweight
         });
     }
 
@@ -173,6 +165,7 @@
     }
 
     function preFunction() {
+        //HeightResize();
         overlayIconResizeTpg();
     }
 
@@ -180,6 +173,42 @@
         $(this).prop("disabled", true);
         $(this).removeAttr("href");
     });
+
+    function HeightResize() {
+        var wWidth = $(window).width();
+        tpgFixLazyLoad();
+        $(".rt-tpg-container").each(function () {
+            var self = $(this),
+                dCol = self.data('desktop-col'),
+                tCol = self.data('tab-col'),
+                mCol = self.data('mobile-col'),
+                target = $(this).find('.rt-row.rt-content-loader.tpg-even');
+            if ((wWidth >= 992 && dCol > 1) || (wWidth >= 768 && tCol > 1) || (wWidth < 768 && mCol > 1)) {
+                target.imagesLoaded(function () {
+                    var tlpMaxH = 0;
+                    target.find('.even-grid-item').height('auto');
+                    target.find('.even-grid-item').each(function () {
+                        var $thisH = $(this).outerHeight();
+                        if ($thisH > tlpMaxH) {
+                            tlpMaxH = $thisH;
+                        }
+                    });
+                    target.find('.even-grid-item').height(tlpMaxH + "px");
+                });
+            } else {
+                target.find('.even-grid-item').height('auto');
+            }
+
+        });
+        if ($(".rt-row.rt-content-loader.layout4").length) {
+            equalHeight4Layout4();
+        }
+
+        function equalHeight4Layout4() {
+            var $maxH = $(".rt-row.rt-content-loader.layout4 .layout4item").height();
+            $(".rt-row.rt-content-loader.layout4 .layout4item .layoutInner .rt-img-holder img,.rt-row.rt-content-loader.layout4 .layout4item .layoutInner.layoutInner-content").height($maxH + "px");
+        }
+    }
 
     function overlayIconResizeTpg() {
         $('.overlay').each(function () {
