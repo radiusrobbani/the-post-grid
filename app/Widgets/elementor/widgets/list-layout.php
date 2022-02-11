@@ -11,7 +11,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-class TPGGridHoverLayout extends Custom_Widget_Base {
+class TPGListLayout extends Custom_Widget_Base {
 
 	/**
 	 * GridLayout constructor.
@@ -24,23 +24,35 @@ class TPGGridHoverLayout extends Custom_Widget_Base {
 
 	public function __construct( $data = [], $args = null ) {
 		parent::__construct( $data, $args );
-		$this->prefix   = 'grid_hover';
-		$this->tpg_name = esc_html__( 'TPG - Grid Hover Layout', 'the-post-grid' );
-		$this->tpg_base = 'tpg-grid-hover-layout';
-		$this->tpg_icon = 'eicon-image-rollover tpg-grid-icon'; //.tpg-grid-icon class for just style
+		$this->prefix   = 'list';
+		$this->tpg_name = esc_html__( 'TPG - List Layout', 'the-post-grid' );
+		$this->tpg_base = 'tpg-list-layout';
+		$this->tpg_icon = 'eicon-post-list tpg-grid-icon'; //.tpg-grid-icon class for just style
 	}
 
 	protected function _register_controls() {
-		/** Style TAB **/
+		/**
+		 * Content Tabs
+		 * ===========
+		 */
 		//Query
 		rtTPGElementorHelper::query( $this );
 
 		//Layout
-		rtTPGElementorHelper::grid_layouts( $this, $this->prefix );
+		rtTPGElementorHelper::list_layouts( $this );
+
+		//Filter  Settings
+		rtTPGElementorHelper::filter_settings( $this );
+
+		//Pagination Settings
+		rtTPGElementorHelper::pagination_settings( $this );
+
+		//Links
+		rtTPGElementorHelper::links( $this );
 
 		/**
-		 * Settings
-		 * ===========
+		 * Settings Tabs
+		 * =============
 		 */
 
 		//Field Selection
@@ -64,13 +76,11 @@ class TPGGridHoverLayout extends Custom_Widget_Base {
 		//Readmore Settings
 		rtTPGElementorHelper::post_readmore_settings( $this );
 
-		//Pagination Settings
-		rtTPGElementorHelper::pagination_settings( $this );
 
-		//Links
-		rtTPGElementorHelper::links( $this );
-
-		/** Style TAB **/
+		/**
+		 * Style Tabs
+		 * ===========
+		 */
 
 		//Section Title
 		rtTPGElementorHelper::sectionTitle( $this );
@@ -103,10 +113,10 @@ class TPGGridHoverLayout extends Custom_Widget_Base {
 		rtTPGElementorHelper::articlBoxSettings( $this );
 	}
 
+
 	protected function render() {
 		$data    = $this->get_settings();
 		$_prefix = $this->prefix;
-
 		if ( rtTPG()->hasPro() && ( 'popup' == $data['post_link_type'] || 'multi_popup' == $data['post_link_type'] ) ) {
 			wp_enqueue_style( 'rt-scrollbar' );
 			wp_enqueue_style( 'rt-magnific-popup' );
@@ -116,24 +126,27 @@ class TPGGridHoverLayout extends Custom_Widget_Base {
 		}
 
 		if ( 'masonry' === $data[ $_prefix . '_layout_style' ]
-		     && ! in_array( $data[ $_prefix . '_layout' ], [ $this->prefix . '-layout2', $this->prefix . '-layout5', $this->prefix . '-layout6' ] )
+		     && ! in_array( $data[ $_prefix . '_layout' ], [ $_prefix . '-layout2', $_prefix . '-layout5', $_prefix . '-layout6' ] )
 		) {
 			wp_enqueue_script( 'jquery-masonry' );
 			wp_enqueue_script( 'rt-image-load-js' );
 		}
 
-		//Query
 		$query_args     = rtTPGElementorQuery::post_query( $data, $_prefix );
 		$query          = new WP_Query( $query_args );
 		$rand           = mt_rand();
 		$layoutID       = "rt-tpg-container-" . $rand;
 		$posts_per_page = $data['display_per_page'] ? $data['display_per_page'] : $data['post_limit'];
 
+		/**
+		 * TODO: Get Post Data for render post
+		 */
 
-		//TODO: Get Post Data for render post
 		$post_data = $this->get_render_data_set( $data, $query->max_num_pages, $posts_per_page );
 
-		//Post type render
+		/**
+		 * Post type render
+		 */
 		$post_types = Fns::get_post_types();
 		foreach ( $post_types as $post_type => $label ) {
 			$_taxonomies = get_object_taxonomies( $post_type, 'object' );
@@ -143,35 +156,32 @@ class TPGGridHoverLayout extends Custom_Widget_Base {
 			$post_data[ $data['post_type'] . '_taxonomy' ] = $data[ $data['post_type'] . '_taxonomy' ];
 			$post_data[ $data['post_type'] . '_tags' ]     = $data[ $data['post_type'] . '_tags' ];
 		}
+
 		$template_path = $this->tpg_template_path($post_data);
 		?>
-
         <div class="rt-container-fluid rt-tpg-container tpg-el-main-wrapper"
+             data-sc-id="elementor"
              id="<?php echo esc_attr( $layoutID ); ?>"
              data-layout="<?php echo esc_attr( $data[ $_prefix . '_layout' ] ); ?>"
              data-grid-style="<?php echo esc_attr( $data[ $_prefix . '_layout_style' ] ); ?>"
-             data-sc-id="elementor"
              data-el-settings='<?php echo htmlspecialchars( wp_json_encode( $post_data ) ); ?>'
              data-el-query='<?php echo htmlspecialchars( wp_json_encode( $query_args ) ); ?>'
              data-el-path='<?php echo esc_attr( $template_path ); ?>'
         >
 			<?php
-			$_layout       = $data[ $_prefix . '_layout' ];
-			$_layout_style = $data[ $_prefix . '_layout_style' ];
-			$wrapper_class = [];
-			if ( in_array( $_layout, [ 'grid_hover-layout6', 'grid_hover-layout7', 'grid_hover-layout8', 'grid_hover-layout9', 'grid_hover-layout10', 'grid_hover-layout11' ] ) ) {
-				$wrapper_class[] = 'grid_hover-layout5';
-			}
+			$_layout         = $data[ $_prefix . '_layout' ];
+			$_layout_style   = $data[ $_prefix . '_layout_style' ];
+			$wrapper_class   = [];
 			$wrapper_class[] = $_layout;
-			$wrapper_class[] = 'tpg-even grid-behaviour';
-			$wrapper_class[] = $_prefix . '_layout_wrapper';
-			if ( 'masonry' === $_layout_style && ! in_array( $_layout, [ $this->prefix . '-layout2', $this->prefix . '-layout5', $this->prefix . '-layout6' ] ) ) {
+			$wrapper_class[] = 'tpg-even list-behaviour';
+			$wrapper_class[] = $_prefix . '-layout-wrapper';
+			if ( 'masonry' === $_layout_style && ! in_array( $_layout, [ 'list-layout2', 'list-layout3' ] ) ) {
 				$wrapper_class[] = 'tpg-masonry';
 			}
 
 			//section title settings
 			$is_carousel = '';
-			if('carousel' == $data['filter_btn_style'] && 'button' == $data['filter_type']){
+			if ( 'carousel' == $data['filter_btn_style'] && 'button' == $data['filter_type'] ) {
 				$is_carousel = 'carousel';
 			}
 			echo "<div class='tpg-header-wrapper {$is_carousel}'>";
@@ -203,6 +213,7 @@ class TPGGridHoverLayout extends Custom_Widget_Base {
             </div>
 
 			<?php echo $this->get_pagination_markup( $query, $data ); ?>
+
         </div>
 		<?php
 	}

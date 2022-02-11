@@ -324,6 +324,9 @@ class rtTPGElementorHelper {
 				$prefix . '-layout4'  => [
 					'title' => __( 'Layout 4', 'the-post-grid' ),
 				],
+				$prefix . '-layout4-2'  => [
+					'title' => __( 'Layout 5', 'the-post-grid' ),
+				],
 				$prefix . '-layout5'  => [
 					'title' => __( 'Layout 5', 'the-post-grid' ),
 				],
@@ -406,11 +409,6 @@ class rtTPGElementorHelper {
 				'classes'        => 'tpg-image-select ' . $layout_class . ' ' . $ref->is_post_layout,
 			]
 		);
-
-		//TODO: Front End Filter
-		if ( 'slider' !== $prefix ) {
-			self::frontEndFilterSettings( $ref );
-		}
 
 		$ref->add_control(
 			'layout_options_heading',
@@ -557,43 +555,6 @@ class rtTPGElementorHelper {
 			]
 		);
 
-		//				$default_p_order = 'reverse';
-		//				if ( 'grid_hover' === $prefix ) {
-		//					$default_p_order = 'default';
-		//				}
-		//				if ( 'slider' === $prefix ) {
-		//					$default_p_order = 'default';
-		//				}
-
-		$ref->add_control(
-			$prefix . '_post_order',
-			[
-				'label'        => __( 'layout Invert', 'the-post-grid' ),
-				'type'         => \Elementor\Controls_Manager::SELECT,
-				'default'      => 'default',
-				'options'      => [
-					'default' => __( 'Default', 'the-post-grid' ),
-					'reverse' => __( 'Reverse', 'the-post-grid' ),
-				],
-				'render_type'  => 'template',
-				'prefix_class' => 'tpg-post-order-',
-				'condition'    => [
-					$prefix . '_layout' => [
-						'grid-layout5',
-						'grid-layout6',
-						'list-layout2',
-						'list-layout3',
-						'grid_hover-layout4',
-						'grid_hover-layout5',
-						'grid_hover-layout6',
-						'grid_hover-layout7',
-						'grid_hover-layout9',
-					],
-				],
-			]
-		);
-
-
 		$ref->add_responsive_control(
 			$prefix . '_offset_col_width',
 			[
@@ -621,6 +582,7 @@ class rtTPGElementorHelper {
 						'grid-layout5',
 						'grid-layout6',
 						'grid_hover-layout4',
+						'grid_hover-layout4-2',
 						'grid_hover-layout5',
 						'grid_hover-layout6',
 						'grid_hover-layout7',
@@ -688,6 +650,354 @@ class rtTPGElementorHelper {
 
 
 	/**
+	 * Front-end Filter Settings
+	 *
+	 * @param $ref
+	 */
+	public static function filter_settings( $ref, $prefix = null ) {
+		if ( ! $prefix ) {
+			$prefix = $ref->prefix;
+		}
+		$ref->start_controls_section(
+			$prefix . '_filter_settings',
+			[
+				'label' => __( 'Filter', 'the-post-grid' ),
+				'tab'   => Controls_Manager::TAB_CONTENT,
+			]
+		);
+
+		$ref->add_control(
+			'show_taxonomy_filter',
+			[
+				'label'        => __( 'Taxonomy Filter', 'the-post-grid' ),
+				'type'         => \Elementor\Controls_Manager::SWITCHER,
+				'label_on'     => __( 'Show', 'the-post-grid' ),
+				'label_off'    => __( 'Hide', 'the-post-grid' ),
+				'return_value' => 'show',
+				'default'      => 'hide',
+			]
+		);
+
+		$ref->add_control(
+			'show_author_filter',
+			[
+				'label'        => __( 'Author filter', 'the-post-grid' ),
+				'type'         => \Elementor\Controls_Manager::SWITCHER,
+				'label_on'     => __( 'Show', 'the-post-grid' ),
+				'label_off'    => __( 'Hide', 'the-post-grid' ),
+				'return_value' => 'show',
+				'default'      => 'hide',
+			]
+		);
+
+		$ref->add_control(
+			'show_order_by',
+			[
+				'label'        => __( 'Order By Filter', 'the-post-grid' ),
+				'type'         => \Elementor\Controls_Manager::SWITCHER,
+				'label_on'     => __( 'Show', 'the-post-grid' ),
+				'label_off'    => __( 'Hide', 'the-post-grid' ),
+				'return_value' => 'show',
+				'default'      => 'hide',
+			]
+		);
+
+		$ref->add_control(
+			'show_sort_order',
+			[
+				'label'        => __( 'Sort Order Filter', 'the-post-grid' ),
+				'type'         => \Elementor\Controls_Manager::SWITCHER,
+				'label_on'     => __( 'Show', 'the-post-grid' ),
+				'label_off'    => __( 'Hide', 'the-post-grid' ),
+				'return_value' => 'show',
+				'default'      => 'hide',
+			]
+		);
+
+		$ref->add_control(
+			'show_search',
+			[
+				'label'        => __( 'Search filter', 'the-post-grid' ),
+				'type'         => \Elementor\Controls_Manager::SWITCHER,
+				'label_on'     => __( 'Show', 'the-post-grid' ),
+				'label_off'    => __( 'Hide', 'the-post-grid' ),
+				'return_value' => 'show',
+				'default'      => 'hide',
+			]
+		);
+
+		//TODO: Filter Settings
+		//======================================================
+
+		$front_end_filter_condition = [
+			'relation' => 'or',
+			'terms'    => [
+				[
+					'name'     => 'show_taxonomy_filter',
+					'operator' => '==',
+					'value'    => 'show',
+				],
+				[
+					'name'     => 'show_author_filter',
+					'operator' => '==',
+					'value'    => 'show',
+				],
+				[
+					'name'     => 'show_order_by',
+					'operator' => '==',
+					'value'    => 'show',
+				],
+				[
+					'name'     => 'show_sort_order',
+					'operator' => '==',
+					'value'    => 'show',
+				],
+				[
+					'name'     => 'show_search',
+					'operator' => '==',
+					'value'    => 'show',
+				],
+			],
+		];
+
+
+		$ref->add_control(
+			'filter_type',
+			[
+				'label'        => __( 'Filter Type', 'the-post-grid' ),
+				'type'         => \Elementor\Controls_Manager::SELECT,
+				'default'      => 'dropdown',
+				'options'      => [
+					'dropdown' => __( 'Dropdown', 'the-post-grid' ),
+					'button'   => __( 'Button', 'the-post-grid' ),
+				],
+				'render_type'  => 'template',
+				'prefix_class' => 'tpg-filter-type-',
+				'conditions'   => $front_end_filter_condition,
+				'separator'    => 'before',
+			]
+		);
+
+		$ref->add_control(
+			'filter_btn_style',
+			[
+				'label'       => __( 'Filter Style', 'the-post-grid' ),
+				'type'        => \Elementor\Controls_Manager::SELECT,
+				'default'     => 'default',
+				'options'     => [
+					'default'  => __( 'Default', 'the-post-grid' ),
+					'carousel' => __( 'Collapsable', 'the-post-grid' ),
+				],
+				'condition'   => [
+					'filter_type' => 'button',
+				],
+				'conditions'  => $front_end_filter_condition,
+				'description' => __( 'If you use collapsable then only category section show on the filter', 'the-post-grid' ),
+			]
+		);
+
+		$ref->add_responsive_control(
+			'filter_btn_item_per_page',
+			[
+				'label'          => __( 'Button Item Per Slider', 'the-post-grid' ),
+				'type'           => \Elementor\Controls_Manager::SELECT,
+				'options'        => [
+					'auto' => __( 'Auto', 'the-post-grid' ),
+					'2'    => __( '2', 'the-post-grid' ),
+					'3'    => __( '3', 'the-post-grid' ),
+					'4'    => __( '4', 'the-post-grid' ),
+					'5'    => __( '5', 'the-post-grid' ),
+					'6'    => __( '6', 'the-post-grid' ),
+					'7'    => __( '7', 'the-post-grid' ),
+					'8'    => __( '8', 'the-post-grid' ),
+					'9'    => __( '9', 'the-post-grid' ),
+					'10'   => __( '10', 'the-post-grid' ),
+					'11'   => __( '11', 'the-post-grid' ),
+					'12'   => __( '12', 'the-post-grid' ),
+				],
+				'default'        => 'auto',
+				'tablet_default' => 'auto',
+				'mobile_default' => 'auto',
+				'condition'      => [
+					'filter_type' => 'button',
+				],
+				'conditions'     => $front_end_filter_condition,
+				'description'    => __( 'If you use carousel then only category section show on the filter', 'the-post-grid' ),
+			]
+		);
+
+
+		$post_types = Fns::get_post_types();
+		foreach ( $post_types as $post_type => $label ) {
+			$_taxonomies = get_object_taxonomies( $post_type, 'object' );
+			if ( empty( $_taxonomies ) ) {
+				continue;
+			}
+			$taxonomies_list = [];
+			foreach ( $_taxonomies as $tax ) {
+				if ( in_array( $tax->name, [ 'post_format', 'elementor_library_type', 'product_visibility', 'product_shipping_class' ] ) ) {
+					continue;
+				}
+				$taxonomies_list[ $tax->name ] = $tax->label;
+			}
+
+			if ( 'post' === $post_type ) {
+				$default_cat = 'category';
+			} elseif ( 'product' === $post_type ) {
+				$default_cat = 'product_cat';
+			} elseif ( 'download' === $post_type ) {
+				$default_cat = 'download_category';
+			} elseif ( 'docs' === $post_type ) {
+				$default_cat = 'doc_category';
+			} elseif ( 'lp_course' === $post_type ) {
+				$default_cat = 'course_category';
+			} else {
+				$taxonomie_keys = array_keys( $_taxonomies );
+				$filter_cat     = array_filter(
+					$taxonomie_keys,
+					function ( $item ) {
+						return strpos( $item, 'cat' ) !== false;
+					}
+				);
+
+				if ( is_array( $filter_cat ) && ! empty( $filter_cat ) ) {
+					$default_cat = array_shift( $filter_cat );
+				}
+			}
+
+			$ref->add_control(
+				$post_type . '_filter_taxonomy',
+				[
+					'label'       => __( 'Choose Taxonomy', 'the-post-grid' ),
+					'type'        => \Elementor\Controls_Manager::SELECT,
+					'default'     => $default_cat,
+					'options'     => $taxonomies_list,
+					'condition'   => [
+						'post_type'            => $post_type,
+						'show_taxonomy_filter' => 'show',
+					],
+					'description' => __( 'Select a taxonomy for showing in filter', 'the-post-grid' ),
+				]
+			);
+
+			foreach ( $_taxonomies as $tax ) {
+				if ( in_array( $tax->name, [ 'post_format', 'elementor_library_type', 'product_visibility', 'product_shipping_class' ] ) ) {
+					continue;
+				}
+
+				$term_first = [ '0' => __( '--Select--', 'the-post-grid' ) ];
+				$term_lists = get_terms(
+					[
+						'taxonomy'   => $tax->name, //Custom taxonomy name
+						'hide_empty' => true,
+						'fields'     => "id=>name",
+					]
+				);
+
+				$term_lists = $term_first + $term_lists;
+
+				$ref->add_control(
+					$tax->name . '_default_terms',
+					[
+						'label'     => __( 'Default ', 'the-post-grid' ) . $tax->label,
+						'type'      => \Elementor\Controls_Manager::SELECT,
+						'default'   => '0',
+						'options'   => $term_lists,
+						'condition' => [
+							$post_type . '_filter_taxonomy' => $tax->name,
+							'post_type'                     => $post_type,
+							'show_taxonomy_filter'          => 'show',
+						],
+					]
+				);
+			}
+		}
+
+		$front_end_filter_tax_condition = [
+			'relation' => 'or',
+			'terms'    => [
+				[
+					'name'     => 'show_taxonomy_filter',
+					'operator' => '==',
+					'value'    => 'show',
+				],
+				[
+					'name'     => 'show_author_filter',
+					'operator' => '==',
+					'value'    => 'show',
+				],
+			],
+		];
+
+		$ref->add_control(
+			'filter_post_count',
+			[
+				'label'      => __( 'Filter Post Count', 'the-post-grid' ),
+				'type'       => \Elementor\Controls_Manager::SELECT,
+				'default'    => 'no',
+				'options'    => [
+					'yes' => __( 'Yes', 'the-post-grid' ),
+					'no'  => __( 'No', 'the-post-grid' ),
+				],
+				'conditions' => $front_end_filter_tax_condition,
+			]
+		);
+
+
+		$ref->add_control(
+			'tgp_filter_taxonomy_hierarchical',
+			[
+				'label'        => __( 'Tax Hierarchical', 'the-post-grid' ),
+				'type'         => \Elementor\Controls_Manager::SWITCHER,
+				'label_on'     => __( 'Yes', 'the-post-grid' ),
+				'label_off'    => __( 'No', 'the-post-grid' ),
+				'return_value' => 'yes',
+				'default'      => 'yes',
+				'conditions'   => $front_end_filter_tax_condition,
+			]
+		);
+
+		$ref->add_control(
+			'tpg_hide_all_button',
+			[
+				'label'        => __( 'Hide All (Show all) button', 'the-post-grid' ),
+				'type'         => \Elementor\Controls_Manager::SWITCHER,
+				'label_on'     => __( 'Show', 'the-post-grid' ),
+				'label_off'    => __( 'Hide', 'the-post-grid' ),
+				'return_value' => 'yes',
+				'default'      => 'yes',
+				'conditions'   => $front_end_filter_tax_condition,
+			]
+		);
+
+		$ref->add_control(
+			'tax_filter_all_text',
+			[
+				'label'       => __( 'All Taxonomy Text', 'the-post-grid' ),
+				'type'        => \Elementor\Controls_Manager::TEXT,
+				'placeholder' => __( 'Enter All Category Text Here..', 'the-post-grid' ),
+				'conditions'  => $front_end_filter_tax_condition,
+			]
+		);
+		$ref->add_control(
+			'author_filter_all_text',
+			[
+				'label'       => __( 'All Users Text', 'the-post-grid' ),
+				'type'        => \Elementor\Controls_Manager::TEXT,
+				'placeholder' => __( 'Enter All Users Text Here..', 'the-post-grid' ),
+				'condition'   => [
+					'show_author_filter' => 'show',
+					'filter_btn_style'   => 'default',
+				],
+			]
+		);
+
+
+		$ref->end_controls_section();
+	}
+
+
+	/**
 	 * List Layout Settings
 	 *
 	 * @param $ref
@@ -730,8 +1040,6 @@ class rtTPGElementorHelper {
 				'classes'        => 'tpg-image-select list-layout ' . $ref->is_post_layout,
 			]
 		);
-
-		self::frontEndFilterSettings( $ref );
 
 		$ref->add_control(
 			'layout_options_heading2',
@@ -783,25 +1091,6 @@ class rtTPGElementorHelper {
 				//				'condition' => [
 				//					'list_layout!' => [ 'list-layout4' ],
 				//				],
-			]
-		);
-
-
-		$ref->add_responsive_control(
-			$ref->prefix . '_layout_order',
-			[
-				'label'        => __( 'Layout Invert', 'the-post-grid' ),
-				'type'         => \Elementor\Controls_Manager::SELECT,
-				'default'      => 'default',
-				'options'      => [
-					'default' => __( 'Default', 'the-post-grid' ),
-					'reverse' => __( 'Reverse', 'the-post-grid' ),
-				],
-				'condition'    => [
-					'list_layout!' => [ 'list-layout4' ],
-				],
-				'render_type'  => 'template',
-				'prefix_class' => 'tpg-post-order-',
 			]
 		);
 
@@ -1442,7 +1731,7 @@ class rtTPGElementorHelper {
 		if ( $ref->prefix === 'grid_hover' ) {
 			$thumb_condition = [
 				'media_source'      => 'feature_image',
-				'grid_hover_layout' => [ 'grid_hover-layout4', 'grid_hover-layout5', 'grid_hover-layout6', 'grid_hover-layout7', 'grid_hover-layout9' ],
+				'grid_hover_layout' => [ 'grid_hover-layout4', 'grid_hover-layout4-2', 'grid_hover-layout5', 'grid_hover-layout6', 'grid_hover-layout7', 'grid_hover-layout9' ],
 			];
 		}
 		if ( $ref->prefix === 'slider' ) {
@@ -2952,7 +3241,7 @@ class rtTPGElementorHelper {
 
 		if ( $ref->prefix === 'grid_hover' ) {
 			$title_condition = [
-				'grid_hover_layout' => [ 'grid_hover-layout4', 'grid_hover-layout5', 'grid_hover-layout6', 'grid_hover-layout7', 'grid_hover-layout9' ],
+				'grid_hover_layout' => [ 'grid_hover-layout4', 'grid_hover-layout4-2', 'grid_hover-layout5', 'grid_hover-layout6', 'grid_hover-layout7', 'grid_hover-layout9' ],
 			];
 		}
 
@@ -5192,7 +5481,56 @@ class rtTPGElementorHelper {
 			]
 		);
 
+		if ( 'list' === $prefix ) {
+			$ref->add_responsive_control(
+				$ref->prefix . '_layout_order',
+				[
+					'label'        => __( 'Layout Invert', 'the-post-grid' ),
+					'type'         => \Elementor\Controls_Manager::SELECT,
+					'default'      => 'default',
+					'options'      => [
+						'default' => __( 'Default', 'the-post-grid' ),
+						'reverse' => __( 'Reverse', 'the-post-grid' ),
+					],
+					'condition'    => [
+						'list_layout!' => [ 'list-layout4' ],
+					],
+					'render_type'  => 'template',
+					'prefix_class' => 'tpg-post-order-',
+				]
+			);
+		}
+
 		if ( 'slider' !== $prefix ) {
+			$ref->add_control(
+				$prefix . '_post_order',
+				[
+					'label'        => __( 'layout Invert', 'the-post-grid' ),
+					'type'         => \Elementor\Controls_Manager::SELECT,
+					'default'      => 'default',
+					'options'      => [
+						'default' => __( 'Default', 'the-post-grid' ),
+						'reverse' => __( 'Reverse', 'the-post-grid' ),
+					],
+					'render_type'  => 'template',
+					'prefix_class' => 'tpg-post-order-',
+					'condition'    => [
+						$prefix . '_layout' => [
+							'grid-layout5',
+							'grid-layout6',
+							'list-layout2',
+							'list-layout3',
+							'grid_hover-layout4',
+							'grid_hover-layout4-2',
+							'grid_hover-layout5',
+							'grid_hover-layout6',
+							'grid_hover-layout7',
+							'grid_hover-layout9',
+						],
+					],
+				]
+			);
+
 			$ref->add_responsive_control(
 				'box_margin',
 				[
@@ -5431,343 +5769,6 @@ class rtTPGElementorHelper {
 		//TODO: End Tab
 
 		$ref->end_controls_section();
-	}
-
-	static function frontEndFilterSettings( $ref ) {
-		$ref->add_control(
-			'filter_heading',
-			[
-				'label'     => __( 'Filter Options:', 'the-post-grid' ),
-				'type'      => \Elementor\Controls_Manager::HEADING,
-				'separator' => 'before',
-			]
-		);
-
-		$ref->add_control(
-			'show_taxonomy_filter',
-			[
-				'label'        => __( 'Taxonomy Filter', 'the-post-grid' ),
-				'type'         => \Elementor\Controls_Manager::SWITCHER,
-				'label_on'     => __( 'Show', 'the-post-grid' ),
-				'label_off'    => __( 'Hide', 'the-post-grid' ),
-				'return_value' => 'show',
-				'default'      => 'hide',
-			]
-		);
-
-
-		$ref->add_control(
-			'show_author_filter',
-			[
-				'label'        => __( 'Author filter', 'the-post-grid' ),
-				'type'         => \Elementor\Controls_Manager::SWITCHER,
-				'label_on'     => __( 'Show', 'the-post-grid' ),
-				'label_off'    => __( 'Hide', 'the-post-grid' ),
-				'return_value' => 'show',
-				'default'      => 'hide',
-				'default'      => 'hide',
-			]
-		);
-
-		$ref->add_control(
-			'show_order_by',
-			[
-				'label'        => __( 'Order By Filter', 'the-post-grid' ),
-				'type'         => \Elementor\Controls_Manager::SWITCHER,
-				'label_on'     => __( 'Show', 'the-post-grid' ),
-				'label_off'    => __( 'Hide', 'the-post-grid' ),
-				'return_value' => 'show',
-				'default'      => 'hide',
-			]
-		);
-
-		$ref->add_control(
-			'show_sort_order',
-			[
-				'label'        => __( 'Sort Order Filter', 'the-post-grid' ),
-				'type'         => \Elementor\Controls_Manager::SWITCHER,
-				'label_on'     => __( 'Show', 'the-post-grid' ),
-				'label_off'    => __( 'Hide', 'the-post-grid' ),
-				'return_value' => 'show',
-				'default'      => 'hide',
-			]
-		);
-
-		$ref->add_control(
-			'show_search',
-			[
-				'label'        => __( 'Search filter', 'the-post-grid' ),
-				'type'         => \Elementor\Controls_Manager::SWITCHER,
-				'label_on'     => __( 'Show', 'the-post-grid' ),
-				'label_off'    => __( 'Hide', 'the-post-grid' ),
-				'return_value' => 'show',
-				'default'      => 'hide',
-			]
-		);
-
-		//TODO: Filter Settings
-		//======================================================
-
-		$front_end_filter_condition = [
-			'relation' => 'or',
-			'terms'    => [
-				[
-					'name'     => 'show_taxonomy_filter',
-					'operator' => '==',
-					'value'    => 'show',
-				],
-				[
-					'name'     => 'show_author_filter',
-					'operator' => '==',
-					'value'    => 'show',
-				],
-				[
-					'name'     => 'show_order_by',
-					'operator' => '==',
-					'value'    => 'show',
-				],
-				[
-					'name'     => 'show_sort_order',
-					'operator' => '==',
-					'value'    => 'show',
-				],
-				[
-					'name'     => 'show_search',
-					'operator' => '==',
-					'value'    => 'show',
-				],
-			],
-		];
-
-
-		$ref->add_control(
-			'filter_type',
-			[
-				'label'        => __( 'Filter Type', 'the-post-grid' ),
-				'type'         => \Elementor\Controls_Manager::SELECT,
-				'default'      => 'dropdown',
-				'options'      => [
-					'dropdown' => __( 'Dropdown', 'the-post-grid' ),
-					'button'   => __( 'Button', 'the-post-grid' ),
-				],
-				'render_type'  => 'template',
-				'prefix_class' => 'tpg-filter-type-',
-				'conditions'   => $front_end_filter_condition,
-				'separator'    => 'before',
-			]
-		);
-
-		$ref->add_control(
-			'filter_btn_style',
-			[
-				'label'       => __( 'Filter Style', 'the-post-grid' ),
-				'type'        => \Elementor\Controls_Manager::SELECT,
-				'default'     => 'default',
-				'options'     => [
-					'default'  => __( 'Default', 'the-post-grid' ),
-					'carousel' => __( 'Collapsable', 'the-post-grid' ),
-				],
-				'condition'   => [
-					'filter_type' => 'button',
-				],
-				'description' => __( 'If you use collapsable then only category section show on the filter', 'the-post-grid' ),
-			]
-		);
-
-		$ref->add_responsive_control(
-			'filter_btn_item_per_page',
-			[
-				'label'          => __( 'Button Item Per Slider', 'the-post-grid' ),
-				'type'           => \Elementor\Controls_Manager::SELECT,
-				'options'        => [
-					'auto' => __( 'Auto', 'the-post-grid' ),
-					'2'    => __( '2', 'the-post-grid' ),
-					'3'    => __( '3', 'the-post-grid' ),
-					'4'    => __( '4', 'the-post-grid' ),
-					'5'    => __( '5', 'the-post-grid' ),
-					'6'    => __( '6', 'the-post-grid' ),
-					'7'    => __( '7', 'the-post-grid' ),
-					'8'    => __( '8', 'the-post-grid' ),
-					'9'    => __( '9', 'the-post-grid' ),
-					'10'   => __( '10', 'the-post-grid' ),
-					'11'   => __( '11', 'the-post-grid' ),
-					'12'   => __( '12', 'the-post-grid' ),
-				],
-				'default'        => 'auto',
-				'tablet_default' => 'auto',
-				'mobile_default' => 'auto',
-				'condition'      => [
-					'filter_type' => 'button',
-				],
-				'description'    => __( 'If you use carousel then only category section show on the filter', 'the-post-grid' ),
-			]
-		);
-
-
-		$post_types = Fns::get_post_types();
-		foreach ( $post_types as $post_type => $label ) {
-			$_taxonomies = get_object_taxonomies( $post_type, 'object' );
-			if ( empty( $_taxonomies ) ) {
-				continue;
-			}
-			$taxonomies_list = [];
-			foreach ( $_taxonomies as $tax ) {
-				if ( in_array( $tax->name, [ 'post_format', 'elementor_library_type', 'product_visibility', 'product_shipping_class' ] ) ) {
-					continue;
-				}
-				$taxonomies_list[ $tax->name ] = $tax->label;
-			}
-
-			if ( 'post' === $post_type ) {
-				$default_cat = 'category';
-			} elseif ( 'product' === $post_type ) {
-				$default_cat = 'product_cat';
-			} elseif ( 'download' === $post_type ) {
-				$default_cat = 'download_category';
-			} elseif ( 'docs' === $post_type ) {
-				$default_cat = 'doc_category';
-			} elseif ( 'lp_course' === $post_type ) {
-				$default_cat = 'course_category';
-			} else {
-				$taxonomie_keys = array_keys( $_taxonomies );
-				$filter_cat     = array_filter(
-					$taxonomie_keys,
-					function ( $item ) {
-						return strpos( $item, 'cat' ) !== false;
-					}
-				);
-
-				if ( is_array( $filter_cat ) && ! empty( $filter_cat ) ) {
-					$default_cat = array_shift( $filter_cat );
-				}
-			}
-
-			$ref->add_control(
-				$post_type . '_filter_taxonomy',
-				[
-					'label'       => __( 'Choose Taxonomy', 'the-post-grid' ),
-					'type'        => \Elementor\Controls_Manager::SELECT,
-					'default'     => $default_cat,
-					'options'     => $taxonomies_list,
-					'condition'   => [
-						'post_type'            => $post_type,
-						'show_taxonomy_filter' => 'show',
-					],
-					'description' => __( 'Select a taxonomy for showing in filter', 'the-post-grid' ),
-				]
-			);
-
-			foreach ( $_taxonomies as $tax ) {
-				if ( in_array( $tax->name, [ 'post_format', 'elementor_library_type', 'product_visibility', 'product_shipping_class' ] ) ) {
-					continue;
-				}
-
-				$term_first = [ '0' => __( '--Select--', 'the-post-grid' ) ];
-				$term_lists = get_terms(
-					[
-						'taxonomy'   => $tax->name, //Custom taxonomy name
-						'hide_empty' => true,
-						'fields'     => "id=>name",
-					]
-				);
-
-				$term_lists = $term_first + $term_lists;
-
-				$ref->add_control(
-					$tax->name . '_default_terms',
-					[
-						'label'     => __( 'Default ', 'the-post-grid' ) . $tax->label,
-						'type'      => \Elementor\Controls_Manager::SELECT,
-						'default'   => '0',
-						'options'   => $term_lists,
-						'condition' => [
-							$post_type . '_filter_taxonomy' => $tax->name,
-							'post_type'                     => $post_type,
-							'show_taxonomy_filter'          => 'show',
-						],
-					]
-				);
-			}
-		}
-
-		$front_end_filter_tax_condition = [
-			'relation' => 'or',
-			'terms'    => [
-				[
-					'name'     => 'show_taxonomy_filter',
-					'operator' => '==',
-					'value'    => 'show',
-				],
-				[
-					'name'     => 'show_author_filter',
-					'operator' => '==',
-					'value'    => 'show',
-				],
-			],
-		];
-
-		$ref->add_control(
-			'filter_post_count',
-			[
-				'label'      => __( 'Filter Post Count', 'the-post-grid' ),
-				'type'       => \Elementor\Controls_Manager::SELECT,
-				'default'    => 'no',
-				'options'    => [
-					'yes' => __( 'Yes', 'the-post-grid' ),
-					'no'  => __( 'No', 'the-post-grid' ),
-				],
-				'conditions' => $front_end_filter_tax_condition,
-			]
-		);
-
-
-		$ref->add_control(
-			'tgp_filter_taxonomy_hierarchical',
-			[
-				'label'        => __( 'Tax Hierarchical', 'the-post-grid' ),
-				'type'         => \Elementor\Controls_Manager::SWITCHER,
-				'label_on'     => __( 'Yes', 'the-post-grid' ),
-				'label_off'    => __( 'No', 'the-post-grid' ),
-				'return_value' => 'yes',
-				'default'      => 'yes',
-				'conditions'   => $front_end_filter_tax_condition,
-			]
-		);
-
-		$ref->add_control(
-			'tpg_hide_all_button',
-			[
-				'label'        => __( 'Hide All (Show all) button', 'the-post-grid' ),
-				'type'         => \Elementor\Controls_Manager::SWITCHER,
-				'label_on'     => __( 'Show', 'the-post-grid' ),
-				'label_off'    => __( 'Hide', 'the-post-grid' ),
-				'return_value' => 'yes',
-				'default'      => 'yes',
-				'conditions'   => $front_end_filter_tax_condition,
-			]
-		);
-
-		$ref->add_control(
-			'tax_filter_all_text',
-			[
-				'label'       => __( 'All Taxonomy Text', 'the-post-grid' ),
-				'type'        => \Elementor\Controls_Manager::TEXT,
-				'placeholder' => __( 'Enter All Category Text Here..', 'the-post-grid' ),
-				'conditions'  => $front_end_filter_tax_condition,
-			]
-		);
-		$ref->add_control(
-			'author_filter_all_text',
-			[
-				'label'       => __( 'All Users Text', 'the-post-grid' ),
-				'type'        => \Elementor\Controls_Manager::TEXT,
-				'placeholder' => __( 'Enter All Users Text Here..', 'the-post-grid' ),
-				'condition'   => [
-					'show_author_filter' => 'show',
-					'filter_btn_style'   => 'default',
-				],
-			]
-		);
 	}
 
 

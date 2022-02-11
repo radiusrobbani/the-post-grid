@@ -8,6 +8,10 @@
     line-height: 14px;
 }
 
+.elementor-choices input:checked+.elementor-choices-label {
+    color: inherit !important;
+}
+
 #elementor-panel .elementor-control.elementor-control-separator-after:after {
     bottom: 10px;
 }
@@ -357,30 +361,34 @@ body .elementor-panel .elementor-tab-control-settings a:before {
 }
 
 .tpg-image-select.grid-hover-layout .elementor-choices .elementor-choices-label:nth-of-type(5) {
-    background-image: url("../images/layouts/grid_hover10.png");
+    background-image: url("../images/layouts/grid16-2.png");
 }
 
 .tpg-image-select.grid-hover-layout .elementor-choices .elementor-choices-label:nth-of-type(6) {
-    background-image: url("../images/layouts/grid_hover11.png");
+    background-image: url("../images/layouts/grid_hover10.png");
 }
 
 .tpg-image-select.grid-hover-layout .elementor-choices .elementor-choices-label:nth-of-type(7) {
-    background-image: url("../images/layouts/grid_hover12.png");
+    background-image: url("../images/layouts/grid_hover11.png");
 }
 
 .tpg-image-select.grid-hover-layout .elementor-choices .elementor-choices-label:nth-of-type(8) {
-    background-image: url("../images/layouts/grid_hover13.png");
+    background-image: url("../images/layouts/grid_hover12.png");
 }
 
 .tpg-image-select.grid-hover-layout .elementor-choices .elementor-choices-label:nth-of-type(9) {
-    background-image: url("../images/layouts/grid_hover9.png");
+    background-image: url("../images/layouts/grid_hover13.png");
 }
 
 .tpg-image-select.grid-hover-layout .elementor-choices .elementor-choices-label:nth-of-type(10) {
-    background-image: url("../images/layouts/grid_hover15.png");
+    background-image: url("../images/layouts/grid_hover9.png");
 }
 
 .tpg-image-select.grid-hover-layout .elementor-choices .elementor-choices-label:nth-of-type(11) {
+    background-image: url("../images/layouts/grid_hover15.png");
+}
+
+.tpg-image-select.grid-hover-layout .elementor-choices .elementor-choices-label:nth-of-type(12) {
     background-image: url("../images/layouts/grid_hover16.png");
 }
 

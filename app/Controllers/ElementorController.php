@@ -102,14 +102,14 @@ if ( ! class_exists( 'ElementorController' ) ):
 				'default'           => 'RtElementorWidget',
 			];
 
-			foreach ( $widgets as $dirname => $class ) {
-				$template_name = 'the-post-grid/elementor-custom/' . $dirname . '/settings.php';
+			foreach ( $widgets as $file_name => $class ) {
+				$template_name = 'the-post-grid/elementor-custom/' . $file_name . '.php';
 				if ( file_exists( STYLESHEETPATH . $template_name ) ) {
 					$file = STYLESHEETPATH . $template_name;
 				} elseif ( file_exists( TEMPLATEPATH . $template_name ) ) {
 					$file = TEMPLATEPATH . $template_name;
 				} else {
-					$file = RT_THE_POST_GRID_PLUGIN_PATH . '/app/Widgets/elementor/widgets/' . $dirname . '/settings.php';
+					$file = RT_THE_POST_GRID_PLUGIN_PATH . '/app/Widgets/elementor/widgets/' . $file_name . '.php';
 				}
 				require_once $file;
 

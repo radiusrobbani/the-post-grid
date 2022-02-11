@@ -143,7 +143,7 @@ class rtTPGElementorQuery {
 						$_posts_per_page = 5;
 					}
 				} elseif ( 'grid_hover' === $prefix ) {
-					if ( $data['grid_hover_layout'] == 'grid_hover-layout4' ) {
+					if ( in_array( $data['grid_hover_layout'], [ 'grid_hover-layout4', 'grid_hover-layout4-2' ] ) ) {
 						$_posts_per_page = 7;
 					} elseif ( in_array( $data['grid_hover_layout'], [ 'grid_hover-layout5', 'grid_hover-layout9' ] ) ) {
 						$_posts_per_page = 3;

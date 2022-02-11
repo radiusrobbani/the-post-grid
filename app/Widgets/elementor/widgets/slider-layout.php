@@ -31,16 +31,23 @@ class TPGSliderLayout extends Custom_Widget_Base {
 	}
 
 	protected function _register_controls() {
-		/** Style TAB **/
+		/**
+		 * Content Tabs
+		 * =============
+		 */
+
 		//Query
 		rtTPGElementorHelper::query( $this );
 
 		//Layout
 		rtTPGElementorHelper::grid_layouts( $this );
 
+		//Links
+		rtTPGElementorHelper::links( $this );
+
 		/**
-		 * Settings
-		 * ===========
+		 * Settings Tabs
+		 * =============
 		 */
 
 		//Field Selection
@@ -67,10 +74,10 @@ class TPGSliderLayout extends Custom_Widget_Base {
 		//Slider Settings
 		rtTPGElementorHelper::slider_settings( $this );
 
-		//Links
-		rtTPGElementorHelper::links( $this );
-
-		/** Style TAB **/
+		/**
+		 * Style Tabs
+		 * =============
+		 */
 
 
 		//Section Title
@@ -122,8 +129,6 @@ class TPGSliderLayout extends Custom_Widget_Base {
 			wp_enqueue_script( 'rt-magnific-popup' );
 			add_action( 'wp_footer', [ $this, 'get_modal_markup' ], 1 );
 		}
-
-//		wp_enqueue_style( 'rt-swiper' );
 
 
 		//Query

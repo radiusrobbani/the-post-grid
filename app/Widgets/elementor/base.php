@@ -71,18 +71,19 @@ abstract class Custom_Widget_Base extends Widget_Base {
 		return [ $this->tpg_category ];
 	}
 
+
+
 	public function tpg_template( $data ) {
-		$template_name = DIRECTORY_SEPARATOR . 'the-post-grid' . DIRECTORY_SEPARATOR . 'elementor-custom' . DIRECTORY_SEPARATOR . basename( $this->tpg_dir ) . DIRECTORY_SEPARATOR
-		                 . $data['layout'] . '.php';
+		$template_name = '/the-post-grid/elementor-custom/' . $data['layout'] . '.php';
 		if ( file_exists( STYLESHEETPATH . $template_name ) ) {
 			$file = STYLESHEETPATH . $template_name;
 		} elseif ( file_exists( TEMPLATEPATH . $template_name ) ) {
 			$file = TEMPLATEPATH . $template_name;
 		} else {
-		    $file = $this->tpg_dir . DIRECTORY_SEPARATOR . $data['layout'] . '.php';
+		    $file = RT_THE_POST_GRID_PLUGIN_PATH . '/templates/elementor/' . $data['layout'] . '.php';
 			if ( ! file_exists( $file ) ) {
 				if ( rtTPG()->hasPro() ) {
-					$file = RT_THE_POST_GRID_PRO_PLUGIN_PATH . '/app/Widgets/elementor/widgets/' . basename( $this->tpg_dir ) . DIRECTORY_SEPARATOR . $data['layout'] . '.php';
+					$file = RT_THE_POST_GRID_PRO_PLUGIN_PATH . '/templates/elementor/' . $data['layout'] . '.php';
 				} else {
 					$layout = substr( $data['layout'], 0, - 1 );
 					$layout = strpos( $layout, '1' ) ? str_replace( '1', '', $layout ) : $layout;
@@ -96,20 +97,38 @@ abstract class Custom_Widget_Base extends Widget_Base {
 		echo ob_get_clean();
 	}
 
+//
+//	public function tpg_template_path_( $data ) {
+//		$template_path = DIRECTORY_SEPARATOR . 'the-post-grid' . DIRECTORY_SEPARATOR . 'elementor-custom' . DIRECTORY_SEPARATOR . basename( $this->tpg_dir ) . DIRECTORY_SEPARATOR
+//		                 . $data['layout'] . '.php';
+//		$path   = $this->tpg_dir;
+//		if ( file_exists( STYLESHEETPATH . $template_path ) ) {
+//			$path = STYLESHEETPATH . DIRECTORY_SEPARATOR . 'the-post-grid' . DIRECTORY_SEPARATOR . 'elementor-custom' . DIRECTORY_SEPARATOR . basename( $this->tpg_dir );
+//		} elseif ( file_exists( TEMPLATEPATH . $template_path ) ) {
+//			$path = TEMPLATEPATH . DIRECTORY_SEPARATOR . 'the-post-grid' . DIRECTORY_SEPARATOR . 'elementor-custom' . DIRECTORY_SEPARATOR . basename( $this->tpg_dir );
+//		} else {
+//			$template_path = $this->tpg_dir . DIRECTORY_SEPARATOR . $data['layout'] . '.php';
+//            if ( ! file_exists($template_path) && rtTPG()->hasPro() ) {
+//                $path = RT_THE_POST_GRID_PRO_PLUGIN_PATH . '/templates/elementor/' . basename( $this->tpg_dir );
+//            }
+//		}
+//
+//		return $path;
+//	}
 
 	public function tpg_template_path( $data ) {
-		$template_path = DIRECTORY_SEPARATOR . 'the-post-grid' . DIRECTORY_SEPARATOR . 'elementor-custom' . DIRECTORY_SEPARATOR . basename( $this->tpg_dir ) . DIRECTORY_SEPARATOR
-		                 . $data['layout'] . '.php';
-		$path   = $this->tpg_dir;
-		if ( file_exists( STYLESHEETPATH . $template_path ) ) {
-			$path = STYLESHEETPATH . DIRECTORY_SEPARATOR . 'the-post-grid' . DIRECTORY_SEPARATOR . 'elementor-custom' . DIRECTORY_SEPARATOR . basename( $this->tpg_dir );
-		} elseif ( file_exists( TEMPLATEPATH . $template_path ) ) {
-			$path = TEMPLATEPATH . DIRECTORY_SEPARATOR . 'the-post-grid' . DIRECTORY_SEPARATOR . 'elementor-custom' . DIRECTORY_SEPARATOR . basename( $this->tpg_dir );
+		$template_name = '/the-post-grid/elementor-custom/' . $data['layout'] . '.php';
+		$path = RT_THE_POST_GRID_PLUGIN_PATH . '/templates/elementor/';
+		if ( file_exists( STYLESHEETPATH . $template_name ) ) {
+			$path = STYLESHEETPATH . '/the-post-grid/elementor-custom/';
+		} elseif ( file_exists( TEMPLATEPATH . $template_name ) ) {
+			$path = TEMPLATEPATH . '/the-post-grid/elementor-custom/';
 		} else {
-			$template_path = $this->tpg_dir . DIRECTORY_SEPARATOR . $data['layout'] . '.php';
-            if ( ! file_exists($template_path) && rtTPG()->hasPro() ) {
-                $path = RT_THE_POST_GRID_PRO_PLUGIN_PATH . '/lib/vendor/elementor/widgets/' . basename( $this->tpg_dir );
-            }
+			$template_path = RT_THE_POST_GRID_PLUGIN_PATH . '/templates/elementor/' . $data['layout'] . '.php';
+
+			if ( ! file_exists($template_path) && rtTPG()->hasPro() ) {
+				$path = RT_THE_POST_GRID_PRO_PLUGIN_PATH . '/templates/elementor/';
+			}
 		}
 
 		return $path;

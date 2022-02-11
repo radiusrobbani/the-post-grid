@@ -1803,6 +1803,8 @@ body .readmore-btn-only-text .rt-tpg-container .tpg-post-holder .read-more a {
 .rt-tpg-container .grid_hover-layout4 .offset-left .rt-holder .rt-el-post-meta {
     max-height: inherit;
     margin-bottom: 7px;
+    opacity: 1;
+    visibility: visible;
 }
 
 .author-visibility-default .tpg-el-main-wrapper .grid_hover-layout4 .offset-right .author,
@@ -1816,10 +1818,10 @@ body .readmore-btn-only-text .rt-tpg-container .tpg-post-holder .read-more a {
     max-height: 30px;
 }
 
+.rt-tpg-container .grid_hover-layout4-2,
 .tpg-post-order-reverse .grid_hover_layout_wrapper {
     flex-direction: row-reverse;
 }
-
 
 /*********************************
 # Grid Hover Layout 5 - Offset
@@ -1931,6 +1933,10 @@ body .readmore-btn-only-text .rt-tpg-container .tpg-post-holder .read-more a {
     grid-auto-rows: 280px;
     margin-bottom: 5px;
     width: 100%;
+}
+
+.rt-tpg-container .grid_hover-layout8 .display-grid-wrapper .rt-grid-item {
+    padding: 0;
 }
 
 @media (min-width: 992px) {

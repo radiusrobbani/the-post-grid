@@ -6,6 +6,11 @@
 
 
 /***************************** Common Grid Style ******************************/
+
+.tpg-el-main-wrapper .rt-grid-item {
+    padding: 0 15px;
+}
+
 .rt-tpg-container a {
     text-decoration: none;
 }
@@ -992,7 +997,7 @@ Ajax Loader
 .rt-tpg-container .rt-loading {
     color: #fb4c35;
     position: absolute;
-    top: 60px;
+    top: 40%;
     left: 50%;
     margin-left: -16px;
     z-index: 2;
