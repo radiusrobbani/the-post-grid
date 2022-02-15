@@ -614,29 +614,32 @@ class rtTPGElementorHelper {
 			]
 		);
 
-		$layout_style_opt = [
-			'tpg-even' => __( 'Grid', 'the-post-grid' ),
-		];
-		if ( rtTPG()->hasPro() ) {
-			$layout_style_new_opt = [
-				'masonry' => __( 'Masonry', 'the-post-grid' ),
-			];
-			$layout_style_opt     = array_merge( $layout_style_opt, $layout_style_new_opt );
-		}
 
-		$ref->add_control(
-			$prefix . '_layout_style',
-			[
-				'label'       => __( 'Layout Style', 'the-post-grid' ) . $ref->pro_label,
-				'type'        => \Elementor\Controls_Manager::SELECT,
-				'default'     => 'tpg-even',
-				'options'     => $layout_style_opt,
-				'description' => $ref->get_pro_message( "masonry layout" ),
-				'condition'   => [
-					$prefix . '_layout!' => [ 'grid-layout2', 'grid-layout5', 'grid-layout6', 'grid-layout7' ],
-				],
-			]
-		);
+		if ( in_array( $prefix, [ 'grid' ] ) ) {
+			$layout_style_opt = [
+				'tpg-even' => __( 'Grid', 'the-post-grid' ),
+			];
+			if ( rtTPG()->hasPro() ) {
+				$layout_style_new_opt = [
+					'masonry' => __( 'Masonry', 'the-post-grid' ),
+				];
+				$layout_style_opt     = array_merge( $layout_style_opt, $layout_style_new_opt );
+			}
+
+			$ref->add_control(
+				$prefix . '_layout_style',
+				[
+					'label'       => __( 'Layout Style', 'the-post-grid' ) . $ref->pro_label,
+					'type'        => \Elementor\Controls_Manager::SELECT,
+					'default'     => 'tpg-even',
+					'options'     => $layout_style_opt,
+					'description' => $ref->get_pro_message( "masonry layout" ),
+					'condition'   => [
+						$prefix . '_layout!' => [ 'grid-layout2', 'grid-layout5', 'grid-layout5-2', 'grid-layout6', 'grid-layout6-2', 'grid-layout7', 'grid-layout7-2' ],
+					],
+				]
+			);
+		}
 
 		$ref->add_control(
 			'full_wrapper_align',

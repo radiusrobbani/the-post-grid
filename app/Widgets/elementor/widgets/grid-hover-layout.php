@@ -148,7 +148,6 @@ class TPGGridHoverLayout extends Custom_Widget_Base {
 		}
 		$template_path = $this->tpg_template_path( $post_data );
 		$_layout       = $data[ $_prefix . '_layout' ];
-		$_layout_style = $data[ $_prefix . '_layout_style' ];
 		?>
 
         <div class="rt-container-fluid rt-tpg-container tpg-el-main-wrapper <?php echo esc_attr( $_layout . '-main' ); ?>"

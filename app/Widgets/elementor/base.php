@@ -730,7 +730,7 @@ abstract class Custom_Widget_Base extends Widget_Base {
 			'pagination_type'          => 'slider' === $_prefix ? 'slider' : $data['pagination_type'],
 			'total_pages'              => $total_pages,
 			'posts_per_page'           => $posts_per_page,
-			'layout_style'             => $data[ $_prefix . '_layout_style' ],
+			'layout_style'             => isset($data[ $_prefix . '_layout_style' ]) ? $data[ $_prefix . '_layout_style' ] : '',
 			'show_title'               => $data['show_title'],
 			'excerpt_type'             => $data['excerpt_type'],
 			'excerpt_limit'            => $data['excerpt_limit'],
