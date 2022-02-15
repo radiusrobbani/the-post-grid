@@ -8,7 +8,7 @@
     line-height: 14px;
 }
 
-.elementor-choices input:checked+.elementor-choices-label {
+.elementor-choices input:checked + .elementor-choices-label {
     color: inherit !important;
 }
 
@@ -65,7 +65,7 @@
     margin-right: 2px;
     border: 1px solid #d4d9df !important;
     position: relative;
-    padding-top: 18.2%;
+    padding-top: 18%;
     margin-bottom: 22px;
     overflow: initial;
     border-radius: 0;
@@ -306,10 +306,18 @@ body .elementor-panel .elementor-tab-control-settings a:before {
 }
 
 .tpg-image-select.grid-layout .elementor-choices .elementor-choices-label:nth-of-type(6) {
-    background-image: url("../images/layouts/grid_layout10.png");
+    background-image: url("../images/layouts/grid_layout9-2.png");
 }
 
 .tpg-image-select.grid-layout .elementor-choices .elementor-choices-label:nth-of-type(7) {
+    background-image: url("../images/layouts/grid_layout10.png");
+}
+
+.tpg-image-select.grid-layout .elementor-choices .elementor-choices-label:nth-of-type(8) {
+    background-image: url("../images/layouts/grid_layout10-2.png");
+}
+
+.tpg-image-select.grid-layout .elementor-choices .elementor-choices-label:nth-of-type(9) {
     background-image: url("../images/layouts/gallery.png");
 }
 
@@ -329,14 +337,22 @@ body .elementor-panel .elementor-tab-control-settings a:before {
 }
 
 .tpg-image-select.list-layout .elementor-choices .elementor-choices-label:nth-of-type(3) {
-    background-image: url("../images/layouts/list4.png");
+    background-image: url("../images/layouts/list3-2.png");
 }
 
 .tpg-image-select.list-layout .elementor-choices .elementor-choices-label:nth-of-type(4) {
-    background-image: url("../images/layouts/list_layout1.png");
+    background-image: url("../images/layouts/list4.png");
 }
 
 .tpg-image-select.list-layout .elementor-choices .elementor-choices-label:nth-of-type(5) {
+    background-image: url("../images/layouts/list4-2.png");
+}
+
+.tpg-image-select.list-layout .elementor-choices .elementor-choices-label:nth-of-type(6) {
+    background-image: url("../images/layouts/list_layout1.png");
+}
+
+.tpg-image-select.list-layout .elementor-choices .elementor-choices-label:nth-of-type(7) {
     background-image: url("../images/layouts/list_layout2.png");
 }
 
@@ -369,26 +385,42 @@ body .elementor-panel .elementor-tab-control-settings a:before {
 }
 
 .tpg-image-select.grid-hover-layout .elementor-choices .elementor-choices-label:nth-of-type(7) {
-    background-image: url("../images/layouts/grid_hover11.png");
+    background-image: url("../images/layouts/grid_hover10-2.png");
 }
 
 .tpg-image-select.grid-hover-layout .elementor-choices .elementor-choices-label:nth-of-type(8) {
-    background-image: url("../images/layouts/grid_hover12.png");
+    background-image: url("../images/layouts/grid_hover11.png");
 }
 
 .tpg-image-select.grid-hover-layout .elementor-choices .elementor-choices-label:nth-of-type(9) {
-    background-image: url("../images/layouts/grid_hover13.png");
+    background-image: url("../images/layouts/grid_hover11-2.png");
 }
 
 .tpg-image-select.grid-hover-layout .elementor-choices .elementor-choices-label:nth-of-type(10) {
-    background-image: url("../images/layouts/grid_hover9.png");
+    background-image: url("../images/layouts/grid_hover12.png");
 }
 
 .tpg-image-select.grid-hover-layout .elementor-choices .elementor-choices-label:nth-of-type(11) {
-    background-image: url("../images/layouts/grid_hover15.png");
+    background-image: url("../images/layouts/grid_hover12-2.png");
 }
 
 .tpg-image-select.grid-hover-layout .elementor-choices .elementor-choices-label:nth-of-type(12) {
+    background-image: url("../images/layouts/grid_hover13.png");
+}
+
+.tpg-image-select.grid-hover-layout .elementor-choices .elementor-choices-label:nth-of-type(13) {
+    background-image: url("../images/layouts/grid_hover9.png");
+}
+
+.tpg-image-select.grid-hover-layout .elementor-choices .elementor-choices-label:nth-of-type(14) {
+    background-image: url("../images/layouts/grid_hover9-2.png");
+}
+
+.tpg-image-select.grid-hover-layout .elementor-choices .elementor-choices-label:nth-of-type(15) {
+    background-image: url("../images/layouts/grid_hover15.png");
+}
+
+.tpg-image-select.grid-hover-layout .elementor-choices .elementor-choices-label:nth-of-type(16) {
     background-image: url("../images/layouts/grid_hover16.png");
 }
 
@@ -441,35 +473,36 @@ body .elementor-panel .elementor-tab-control-settings a:before {
 .tpg-image-select.slider-layout .elementor-choices .elementor-choices-label:nth-of-type(11) {
     background-image: url("../images/layouts/slider_layout11.png");
 }
+
 .tpg-image-select.slider-layout .elementor-choices .elementor-choices-label:nth-of-type(12) {
     background-image: url("../images/layouts/slider_layout12.png");
 }
+
 .tpg-image-select.slider-layout .elementor-choices .elementor-choices-label:nth-of-type(13) {
     background-image: url("../images/layouts/slider_layout13.png");
 }
+
 .tpg-image-select.slider-layout .elementor-choices .elementor-choices-label:nth-of-type(14) {
     background-image: url("../images/layouts/slider_layout14.png");
 }
 
 
-
-
-
-
+/*Pro layout style*/
 .the-post-grid-pro-needed.tpg-image-select.slider-layout .elementor-choices .elementor-choices-label:nth-of-type(n+1),
 .the-post-grid-pro-needed.tpg-image-select.grid-hover-layout .elementor-choices .elementor-choices-label:nth-of-type(n+4),
-.the-post-grid-pro-needed.tpg-image-select.list-layout .elementor-choices .elementor-choices-label:nth-of-type(n+3),
+.the-post-grid-pro-needed.tpg-image-select.list-layout .elementor-choices .elementor-choices-label:nth-of-type(n+4),
 .the-post-grid-pro-needed.tpg-image-select.grid-layout .elementor-choices .elementor-choices-label:nth-of-type(n+3) {
     pointer-events: none;
 }
+
 .the-post-grid-pro-needed.tpg-image-select.slider-layout .elementor-choices .elementor-choices-label:nth-of-type(n+2)::before,
 .the-post-grid-pro-needed.tpg-image-select.grid-hover-layout .elementor-choices .elementor-choices-label:nth-of-type(n+4)::before,
-.the-post-grid-pro-needed.tpg-image-select.list-layout .elementor-choices .elementor-choices-label:nth-of-type(n+3)::before,
+.the-post-grid-pro-needed.tpg-image-select.list-layout .elementor-choices .elementor-choices-label:nth-of-type(n+4)::before,
 .the-post-grid-pro-needed.tpg-image-select.grid-layout .elementor-choices .elementor-choices-label:nth-of-type(n+3)::before {
     content: "";
     width: 100%;
     height: 100%;
-    background: rgba(255,255,255,.3);
+    background: rgba(255, 255, 255, .3);
     position: absolute;
     left: 0;
     top: 0;
@@ -480,7 +513,7 @@ body .elementor-panel .elementor-tab-control-settings a:before {
 
 .the-post-grid-pro-needed.tpg-image-select.slider-layout .elementor-choices .elementor-choices-label:nth-of-type(n+1)::after,
 .the-post-grid-pro-needed.tpg-image-select.grid-hover-layout .elementor-choices .elementor-choices-label:nth-of-type(n+4)::after,
-.the-post-grid-pro-needed.tpg-image-select.list-layout .elementor-choices .elementor-choices-label:nth-of-type(n+3)::after,
+.the-post-grid-pro-needed.tpg-image-select.list-layout .elementor-choices .elementor-choices-label:nth-of-type(n+4)::after,
 .the-post-grid-pro-needed.tpg-image-select.grid-layout .elementor-choices .elementor-choices-label:nth-of-type(n+3)::after {
     content: "Pro";
     position: absolute;

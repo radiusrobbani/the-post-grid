@@ -153,8 +153,10 @@ class TPGGridLayout extends Custom_Widget_Base {
 			}
 		}
 		$template_path = $this->tpg_template_path($post_data);
+		$_layout       = $data[ $_prefix . '_layout' ];
+		$_layout_style = $data[ $_prefix . '_layout_style' ];
 		?>
-        <div class="rt-container-fluid rt-tpg-container tpg-el-main-wrapper"
+        <div class="rt-container-fluid rt-tpg-container tpg-el-main-wrapper <?php echo esc_attr( $_layout . '-main' ); ?>"
              id="<?php echo esc_attr( $layoutID ); ?>"
              data-layout="<?php echo esc_attr( $data[ $_prefix . '_layout' ] ); ?>"
              data-grid-style="<?php echo esc_attr( $data[ $_prefix . '_layout_style' ] ); ?>"
@@ -164,11 +166,9 @@ class TPGGridLayout extends Custom_Widget_Base {
              data-el-path='<?php echo esc_attr( $template_path ); ?>'
         >
 			<?php
-			$_layout       = $data[ $_prefix . '_layout' ];
-			$_layout_style = $data[ $_prefix . '_layout_style' ];
 
 			$wrapper_class   = [];
-			$wrapper_class[] = $_layout;
+			$wrapper_class[] = str_replace('-2', null, $_layout);
 			$wrapper_class[] = 'tpg-even grid-behaviour';
 			$wrapper_class[] = $_prefix . '_layout_wrapper';
 			if ( 'masonry' === $_layout_style && ! in_array( $_layout, [ $this->prefix . '-layout2', $this->prefix . '-layout5', $this->prefix . '-layout6' ] ) ) {

@@ -125,13 +125,6 @@ class TPGGridHoverLayout extends Custom_Widget_Base {
 			add_action( 'wp_footer', [ $this, 'get_modal_markup' ] );
 		}
 
-		if ( 'masonry' === $data[ $_prefix . '_layout_style' ]
-		     && ! in_array( $data[ $_prefix . '_layout' ], [ $this->prefix . '-layout2', $this->prefix . '-layout5', $this->prefix . '-layout6' ] )
-		) {
-			wp_enqueue_script( 'jquery-masonry' );
-			wp_enqueue_script( 'rt-image-load-js' );
-		}
-
 		//Query
 		$query_args     = rtTPGElementorQuery::post_query( $data, $_prefix );
 		$query          = new WP_Query( $query_args );
@@ -154,9 +147,11 @@ class TPGGridHoverLayout extends Custom_Widget_Base {
 			$post_data[ $data['post_type'] . '_tags' ]     = $data[ $data['post_type'] . '_tags' ];
 		}
 		$template_path = $this->tpg_template_path( $post_data );
+		$_layout       = $data[ $_prefix . '_layout' ];
+		$_layout_style = $data[ $_prefix . '_layout_style' ];
 		?>
 
-        <div class="rt-container-fluid rt-tpg-container tpg-el-main-wrapper"
+        <div class="rt-container-fluid rt-tpg-container tpg-el-main-wrapper <?php echo esc_attr( $_layout . '-main' ); ?>"
              id="<?php echo esc_attr( $layoutID ); ?>"
              data-layout="<?php echo esc_attr( $data[ $_prefix . '_layout' ] ); ?>"
              data-grid-style="<?php echo esc_attr( $data[ $_prefix . '_layout_style' ] ); ?>"
@@ -166,18 +161,13 @@ class TPGGridHoverLayout extends Custom_Widget_Base {
              data-el-path='<?php echo esc_attr( $template_path ); ?>'
         >
 			<?php
-			$_layout       = $data[ $_prefix . '_layout' ];
-			$_layout_style = $data[ $_prefix . '_layout_style' ];
 			$wrapper_class = [];
-			if ( in_array( $_layout, [ 'grid_hover-layout6', 'grid_hover-layout7', 'grid_hover-layout8', 'grid_hover-layout9', 'grid_hover-layout10', 'grid_hover-layout11' ] ) ) {
+			if ( in_array( $_layout, [ 'grid_hover-layout6', 'grid_hover-layout7', 'grid_hover-layout8', 'grid_hover-layout9', 'grid_hover-layout10', 'grid_hover-layout11', 'grid_hover-layout5-2', 'grid_hover-layout6-2', 'grid_hover-layout7-2', 'grid_hover-layout9-2', ] ) ) {
 				$wrapper_class[] = 'grid_hover-layout5';
 			}
-			$wrapper_class[] = $_layout;
+			$wrapper_class[] = str_replace('-2', null, $_layout);
 			$wrapper_class[] = 'tpg-even grid-behaviour';
 			$wrapper_class[] = $_prefix . '_layout_wrapper';
-			if ( 'masonry' === $_layout_style && ! in_array( $_layout, [ $this->prefix . '-layout2', $this->prefix . '-layout5', $this->prefix . '-layout6' ] ) ) {
-				$wrapper_class[] = 'tpg-masonry';
-			}
 
 			//section title settings
 			$is_carousel = '';

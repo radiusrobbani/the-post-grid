@@ -182,7 +182,7 @@ class TPGSliderLayout extends Custom_Widget_Base {
 		}
 
 		?>
-        <div class="rt-container-fluid rt-tpg-container tpg-el-main-wrapper slider-layout-main <?php echo esc_attr( $data[ $_prefix . '_layout' ] . '-main' ); ?>"
+        <div class="rt-container-fluid rt-tpg-container tpg-el-main-wrapper slider-layout-main <?php echo esc_attr( $_layout . '-main' ); ?>"
              id="<?php echo esc_attr( $layoutID ); ?>"
              data-layout="<?php echo esc_attr( $data[ $_prefix . '_layout' ] ); ?>"
              data-grid-style="<?php echo esc_attr( $data[ $_prefix . '_layout_style' ] ); ?>"

@@ -848,21 +848,18 @@ body .readmore-btn-only-text .rt-tpg-container .tpg-post-holder .read-more a {
 .tpg-el-main-wrapper .grid-layout5 .offset-right .offset-item {
     margin-bottom: 20px;
 }
-
 /*Layout-5 and Layout-6 column order*/
-.tpg-post-order-reverse .tpg-el-main-wrapper .grid-layout5,
-.tpg-post-order-reverse .tpg-el-main-wrapper .grid-layout6 {
+.tpg-el-main-wrapper.grid-layout5-2-main .grid-layout5,
+.tpg-el-main-wrapper.grid-layout6-2-main .grid-layout6 {
     display: flex;
     flex-direction: row-reverse;
 }
 
-.tpg-post-order-default .rt-tpg-container .grid-layout5 .offset-right .rt-holder .rt-el-content-wrapper {
+.rt-tpg-container .grid-layout5 .offset-right .rt-holder .rt-el-content-wrapper {
     flex-direction: row;
 }
 
-.tpg-post-order-reverse .tpg-el-main-wrapper .grid-layout5 .offset-right .tpg-el-image-wrap {
-    margin: 0 0 0 15px;
-}
+
 
 /*End Layout-5 and Layout-6 column order*/
 
@@ -968,7 +965,7 @@ body .readmore-btn-only-text .rt-tpg-container .tpg-post-holder .read-more a {
         position: relative;
     }
 
-    .tpg-post-order-reverse .tpg-el-main-wrapper .grid-layout6 .offset-right {
+    .tpg-el-main-wrapper.grid-layout6-2-main .grid-layout6 .offset-right {
         padding-right: 80px;
         padding-left: 15px;
     }
@@ -983,7 +980,7 @@ body .readmore-btn-only-text .rt-tpg-container .tpg-post-holder .read-more a {
         background-color: #dddddd;
     }
 
-    .tpg-post-order-reverse .tpg-el-main-wrapper .grid-layout6 .offset-right::before {
+    .tpg-el-main-wrapper.grid-layout6-2-main .grid-layout6 .offset-right::before {
         right: 32px;
         left: auto;
     }
@@ -1053,7 +1050,7 @@ body .readmore-btn-only-text .rt-tpg-container .tpg-post-holder .read-more a {
     padding: 0;
 }
 
-.tpg-post-order-reverse .tpg-el-main-wrapper .list-layout1 .rt-holder .rt-el-content-wrapper {
+.tpg-el-main-wrapper.list-layout1-2-main .list-layout1 .rt-holder .rt-el-content-wrapper {
     flex-direction: row-reverse;
 }
 
@@ -1062,7 +1059,7 @@ body .readmore-btn-only-text .rt-tpg-container .tpg-post-holder .read-more a {
     flex: 0 0 260px;
 }
 
-.tpg-post-order-reverse .rt-tpg-container .list-layout1 .rt-holder .tpg-el-image-wrap {
+.tpg-el-main-wrapper.list-layout1-2-main .list-layout1 .rt-holder .tpg-el-image-wrap {
     margin: 0 0 0 30px;
 }
 
@@ -1126,9 +1123,9 @@ body .readmore-btn-only-text .rt-tpg-container .tpg-post-holder .read-more a {
     font-size: 20px;
 }
 
-.tpg-post-order-reverse .tpg-el-main-wrapper .list-layout5 .rt-holder .rt-el-content-wrapper,
-.tpg-post-order-reverse .tpg-el-main-wrapper .list-layout2,
-.tpg-post-order-reverse .tpg-el-main-wrapper .list-layout3 {
+.tpg-el-main-wrapper.list-layout5-2-main .list-layout5 .rt-holder .rt-el-content-wrapper,
+.tpg-el-main-wrapper.list-layout2-2-main .list-layout2,
+.tpg-el-main-wrapper.list-layout3-2-main .list-layout3 {
     flex-direction: row-reverse;
 }
 
@@ -1252,7 +1249,7 @@ body .readmore-btn-only-text .rt-tpg-container .tpg-post-holder .read-more a {
     padding-left: 20px;
 }
 
-.tpg-post-order-reverse .rt-tpg-container .list-layout5 .post-right-content {
+.tpg-el-main-wrapper.list-layout5-2-main .list-layout5 .post-right-content {
     padding-left: 0;
     padding-right: 20px;
 }
@@ -1818,8 +1815,7 @@ body .readmore-btn-only-text .rt-tpg-container .tpg-post-holder .read-more a {
     max-height: 30px;
 }
 
-.rt-tpg-container .grid_hover-layout4-2,
-.tpg-post-order-reverse .grid_hover_layout_wrapper {
+.tpg-el-main-wrapper.grid_hover-layout4-2-main .grid_hover-layout4 {
     flex-direction: row-reverse;
 }
 
@@ -1917,9 +1913,19 @@ body .readmore-btn-only-text .rt-tpg-container .tpg-post-holder .read-more a {
     font-size: 20px;
 }
 
-.tpg-post-order-reverse .tpg-el-main-wrapper .grid_hover-layout5 {
+.tpg-el-main-wrapper.grid_hover-layout5-2-main .grid_hover-layout5 {
     flex-direction: row-reverse;
 }
+
+
+/*********************************
+# Grid Hover Layout 7
+**********************************/
+
+.tpg-el-main-wrapper.grid_hover-layout7-2-main .grid_hover-layout7 {
+    flex-direction: row-reverse;
+}
+
 
 
 /*********************************
@@ -2003,7 +2009,7 @@ body .readmore-btn-only-text .rt-tpg-container .tpg-post-holder .read-more a {
     flex-direction: row-reverse;
 }
 
-.tpg-post-order-reverse .tpg-el-main-wrapper .grid_hover-layout9 {
+.tpg-el-main-wrapper.grid_hover-layout9-2-main .grid_hover-layout9 {
     flex-direction: row;
 }
 
