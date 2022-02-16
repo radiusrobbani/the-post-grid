@@ -30,7 +30,7 @@ abstract class Custom_Widget_Base extends Widget_Base {
 	public function __construct( $data = [], $args = null ) {
 		$this->tpg_category    = RT_THE_POST_GRID_PLUGIN_SLUG . '-elements'; // Category /@dev
 		$this->tpg_icon        = 'eicon-gallery-grid tpg-grid-icon';
-		$this->tpg_dir = dirname( ( new ReflectionClass( $this ) )->getFileName() );
+		$this->tpg_dir         = dirname( ( new ReflectionClass( $this ) )->getFileName() );
 		$this->tpg_pro_dir     = null;
 		$this->pro_label       = null;
 		$this->is_post_layout  = null;
@@ -72,16 +72,15 @@ abstract class Custom_Widget_Base extends Widget_Base {
 	}
 
 
-
 	public function tpg_template( $data ) {
-	    $layout = str_replace('-2', null, $data['layout']);
+		$layout        = str_replace( '-2', null, $data['layout'] );
 		$template_name = '/the-post-grid/elementor-custom/' . $layout . '.php';
 		if ( file_exists( STYLESHEETPATH . $template_name ) ) {
 			$file = STYLESHEETPATH . $template_name;
 		} elseif ( file_exists( TEMPLATEPATH . $template_name ) ) {
 			$file = TEMPLATEPATH . $template_name;
 		} else {
-		    $file = RT_THE_POST_GRID_PLUGIN_PATH . '/templates/elementor/' . $layout . '.php';
+			$file = RT_THE_POST_GRID_PLUGIN_PATH . '/templates/elementor/' . $layout . '.php';
 			if ( ! file_exists( $file ) ) {
 				if ( rtTPG()->hasPro() ) {
 					$file = RT_THE_POST_GRID_PRO_PLUGIN_PATH . '/templates/elementor/' . $layout . '.php';
@@ -100,9 +99,9 @@ abstract class Custom_Widget_Base extends Widget_Base {
 
 
 	public function tpg_template_path( $data ) {
-		$layout = str_replace('-2', null, $data['layout']);
+		$layout        = str_replace( '-2', null, $data['layout'] );
 		$template_name = '/the-post-grid/elementor-custom/' . $layout . '.php';
-		$path = RT_THE_POST_GRID_PLUGIN_PATH . '/templates/elementor/';
+		$path          = RT_THE_POST_GRID_PLUGIN_PATH . '/templates/elementor/';
 		if ( file_exists( STYLESHEETPATH . $template_name ) ) {
 			$path = STYLESHEETPATH . '/the-post-grid/elementor-custom/';
 		} elseif ( file_exists( TEMPLATEPATH . $template_name ) ) {
@@ -110,7 +109,7 @@ abstract class Custom_Widget_Base extends Widget_Base {
 		} else {
 			$template_path = RT_THE_POST_GRID_PLUGIN_PATH . '/templates/elementor/' . $layout . '.php';
 
-			if ( ! file_exists($template_path) && rtTPG()->hasPro() ) {
+			if ( ! file_exists( $template_path ) && rtTPG()->hasPro() ) {
 				$path = RT_THE_POST_GRID_PRO_PLUGIN_PATH . '/templates/elementor/';
 			}
 		}
@@ -598,40 +597,26 @@ abstract class Custom_Widget_Base extends Widget_Base {
 
 		$htmlUtility = null;
 
-		$isOffset           = false;
 		$posts_loading_type = $data['pagination_type'];
 		$posts_per_page     = $data['display_per_page'] ? $data['display_per_page'] : ( $data['post_limit'] ? $data['post_limit'] : get_option( 'posts_per_page' ) );
-
-		if ( $isOffset ) {
-			$posts_loading_type = "page_prev_next";
-			$htmlUtility        .= "<div class='rt-cb-page-prev-next'>
-											<span class='rt-cb-prev-btn'><i class='fa fa-angle-left' aria-hidden='true'></i></span>
-											<span class='rt-cb-next-btn'><i class='fa fa-angle-right' aria-hidden='true'></i></span>
-										</div>";
-		} else {
-			$hide = ( $query->max_num_pages < 2 ? " rt-hidden-elm" : null );
-
-			if ( $posts_loading_type == "pagination" ) {
-				//if ( $isGrid && empty( $filters ) ) {
-				$htmlUtility .= Fns::rt_pagination( $query, $posts_per_page );
-				//}
-			} elseif ( rtTPG()->hasPro() && $posts_loading_type == "pagination_ajax" ) { //&& ! $isIsotope
-				$htmlUtility .= "<div class='rt-page-numbers'></div>";
-			} elseif ( rtTPG()->hasPro() && $posts_loading_type == "load_more" ) {
-				$htmlUtility .= "<div class='rt-loadmore-btn rt-loadmore-action rt-loadmore-style{$hide}'>
+		$hide = ( $query->max_num_pages < 2 ? " rt-hidden-elm" : null );
+		if ( $posts_loading_type == "pagination" ) {
+			$htmlUtility .= Fns::rt_pagination( $query, $posts_per_page );
+		} elseif ( rtTPG()->hasPro() && $posts_loading_type == "pagination_ajax" ) { //&& ! $isIsotope
+			$htmlUtility .= "<div class='rt-page-numbers'></div>";
+		} elseif ( rtTPG()->hasPro() && $posts_loading_type == "load_more" ) {
+			$htmlUtility .= "<div class='rt-loadmore-btn rt-loadmore-action rt-loadmore-style{$hide}'>
 											<span class='rt-loadmore-text'>" . __( 'Load More', 'the-post-grid' ) . "</span>
 											<div class='rt-loadmore-loading rt-ball-scale-multiple rt-2x'><div></div><div></div><div></div></div>
 										</div>";
-			} elseif ( rtTPG()->hasPro() && $posts_loading_type == "load_on_scroll" ) {
-				$htmlUtility .= "<div class='rt-infinite-action'>	
-												<div class='rt-infinite-loading la-fire la-2x'>
-													<div></div>
-													<div></div>
-													<div></div>
-												</div>
-											</div>";
-			}
+		} elseif ( rtTPG()->hasPro() && $posts_loading_type == "load_on_scroll" ) {
+			$htmlUtility .= "<div class='rt-infinite-action'>	
+                                <div class='rt-infinite-loading la-fire la-2x'>
+                                    <div></div><div></div><div></div>
+                                </div>
+                            </div>";
 		}
+
 
 		if ( $htmlUtility ) {
 			$html = "<div class='rt-pagination-wrap' data-total-pages='{$query->max_num_pages}' data-posts-per-page='{$posts_per_page}' data-type='{$posts_loading_type}' >"
@@ -733,7 +718,7 @@ abstract class Custom_Widget_Base extends Widget_Base {
 			'pagination_type'          => 'slider' === $_prefix ? 'slider' : $data['pagination_type'],
 			'total_pages'              => $total_pages,
 			'posts_per_page'           => $posts_per_page,
-			'layout_style'             => isset($data[ $_prefix . '_layout_style' ]) ? $data[ $_prefix . '_layout_style' ] : '',
+			'layout_style'             => isset( $data[ $_prefix . '_layout_style' ] ) ? $data[ $_prefix . '_layout_style' ] : '',
 			'show_title'               => $data['show_title'],
 			'excerpt_type'             => $data['excerpt_type'],
 			'excerpt_limit'            => $data['excerpt_limit'],

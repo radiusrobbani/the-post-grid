@@ -4046,8 +4046,7 @@ class rtTPGElementorHelper {
 				'label'     => __( 'Read More', 'the-post-grid' ),
 				'tab'       => \Elementor\Controls_Manager::TAB_STYLE,
 				'condition' => [
-					'show_read_more'     => 'show',
-					$prefix . '_layout!' => [ 'grid-layout7' ],
+					'show_read_more'     => 'show'
 				],
 			]
 		);
@@ -5521,7 +5520,7 @@ class rtTPGElementorHelper {
 		$ref->start_controls_section(
 			'article_box_settings',
 			[
-				'label' => esc_html__( 'Box', 'the-post-grid' ),
+				'label' => esc_html__( 'Card', 'the-post-grid' ),
 				'tab'   => Controls_Manager::TAB_STYLE,
 			]
 		);
@@ -5579,7 +5578,7 @@ class rtTPGElementorHelper {
 			$ref->add_responsive_control(
 				'box_margin',
 				[
-					'label'       => __( 'Main Box Gap', 'the-post-grid' ),
+					'label'       => __( 'Card Gap', 'the-post-grid' ),
 					'type'        => Controls_Manager::DIMENSIONS,
 					'size_units'  => [ 'px' ],
 					'render_type' => 'template',
@@ -5631,7 +5630,7 @@ class rtTPGElementorHelper {
 		$ref->add_responsive_control(
 			'box_radius',
 			[
-				'label'      => __( 'Box Border Radius', 'the-post-grid' ),
+				'label'      => __( 'Card Border Radius', 'the-post-grid' ),
 				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => [ 'px', '%' ],
 				'selectors'  => [
@@ -5644,7 +5643,7 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'is_box_border',
 			[
-				'label'        => __( 'Box Border Option', 'the-post-grid' ),
+				'label'        => __( 'Card Border Option', 'the-post-grid' ),
 				'type'         => \Elementor\Controls_Manager::SELECT,
 				'default'      => 'enable',
 				'options'      => [
@@ -5694,6 +5693,21 @@ class rtTPGElementorHelper {
 			]
 		);
 
+		$ref->add_control(
+			'box_border',
+			[
+				'label'     => __( 'Border', 'the-post-grid' ),
+				'type'      => \Elementor\Controls_Manager::COLOR,
+				'selectors' => [
+					'{{WRAPPER}} .tpg-el-main-wrapper .tpg-post-holder' => 'border: 1px solid {{VALUE}}',
+				],
+				'condition' => [
+					'is_box_border'      => 'enable',
+					$prefix . '_layout!' => [ 'slider-layout13' ],
+				],
+			]
+		);
+
 		$ref->add_group_control(
 			\Elementor\Group_Control_Box_Shadow::get_type(),
 			[
@@ -5720,18 +5734,6 @@ class rtTPGElementorHelper {
 			]
 		);
 
-		$ref->add_group_control(
-			\Elementor\Group_Control_Border::get_type(),
-			[
-				'name'      => 'box_border',
-				'label'     => __( 'Border', 'the-post-grid' ),
-				'selector'  => '{{WRAPPER}} .tpg-el-main-wrapper .tpg-post-holder',
-				'condition' => [
-					'is_box_border'      => 'enable',
-					$prefix . '_layout!' => [ 'slider-layout13' ],
-				],
-			]
-		);
 
 		$ref->end_controls_tab();
 
@@ -5769,6 +5771,21 @@ class rtTPGElementorHelper {
 			]
 		);
 
+		$ref->add_control(
+			'box_border_hover',
+			[
+				'label'     => __( 'Border - Hover', 'the-post-grid' ),
+				'type'      => \Elementor\Controls_Manager::COLOR,
+				'selectors' => [
+					'{{WRAPPER}} .tpg-el-main-wrapper .tpg-post-holder:hover' => 'border: 1px solid {{VALUE}}',
+				],
+				'condition' => [
+					'is_box_border'      => 'enable',
+					$prefix . '_layout!' => [ 'slider-layout13' ],
+				],
+			]
+		);
+
 		$ref->add_group_control(
 			\Elementor\Group_Control_Box_Shadow::get_type(),
 			[
@@ -5781,6 +5798,7 @@ class rtTPGElementorHelper {
 				],
 			]
 		);
+
 
 		$ref->add_group_control(
 			\Elementor\Group_Control_Box_Shadow::get_type(),
@@ -5795,18 +5813,7 @@ class rtTPGElementorHelper {
 			]
 		);
 
-		$ref->add_group_control(
-			\Elementor\Group_Control_Border::get_type(),
-			[
-				'name'      => 'box_border_hover',
-				'label'     => __( 'Border - Hover', 'the-post-grid' ),
-				'selector'  => '{{WRAPPER}} .tpg-el-main-wrapper .tpg-post-holder:hover',
-				'condition' => [
-					'is_box_border'      => 'enable',
-					$prefix . '_layout!' => [ 'slider-layout13' ],
-				],
-			]
-		);
+
 
 		$ref->end_controls_tab();
 
