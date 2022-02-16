@@ -52,9 +52,7 @@ class rtTPGElementorQuery {
 		if ( $data['orderby'] ) {
 			$args['orderby'] = $data['orderby'];
 		}
-		if ( ( 'meta_value' == $data['orderby'] || 'meta_value_num' == $data['orderby'] ) && $data['meta_key'] ) {
-			$args['meta_key'] = $data['meta_key'];
-		}
+
 		if ( $data['order'] ) {
 			$args['order'] = $data['order'];
 		}
@@ -85,7 +83,7 @@ class rtTPGElementorQuery {
 				continue;
 			}
 
-			if ( $prefix !== 'slider' && 'show' === $data['show_taxonomy_filter'] ) {
+			if ( $prefix !== 'slider' && rtTPG()->hasPro() && 'show' === $data['show_taxonomy_filter'] ) {
 				if ( ( $data[ $data['post_type'] . '_filter_taxonomy' ] == $object->name ) && $data[ $object->name . '_default_terms' ] !== '0' ) {
 					$args['tax_query'][] = [
 						'taxonomy' => $data[ $data['post_type'] . '_filter_taxonomy' ],

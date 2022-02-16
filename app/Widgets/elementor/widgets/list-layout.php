@@ -117,6 +117,9 @@ class TPGListLayout extends Custom_Widget_Base {
 	protected function render() {
 		$data    = $this->get_settings();
 		$_prefix = $this->prefix;
+		if ( ! rtTPG()->hasPro() && ! in_array( $data[ $_prefix . '_layout' ], [ 'list-layout1', 'list-layout2', 'list-layout2-2' ] ) ) {
+			$data[ $_prefix . '_layout' ] = 'list-layout1';
+		}
 		if ( rtTPG()->hasPro() && ( 'popup' == $data['post_link_type'] || 'multi_popup' == $data['post_link_type'] ) ) {
 			wp_enqueue_style( 'rt-scrollbar' );
 			wp_enqueue_style( 'rt-magnific-popup' );
@@ -157,22 +160,22 @@ class TPGListLayout extends Custom_Widget_Base {
 			$post_data[ $data['post_type'] . '_tags' ]     = $data[ $data['post_type'] . '_tags' ];
 		}
 
-		$template_path = $this->tpg_template_path($post_data);
-		$_layout         = $data[ $_prefix . '_layout' ];
-		$_layout_style   = $data[ $_prefix . '_layout_style' ];
+		$template_path = $this->tpg_template_path( $post_data );
+		$_layout       = $data[ $_prefix . '_layout' ];
+		$_layout_style = $data[ $_prefix . '_layout_style' ];
 		?>
         <div class="rt-container-fluid rt-tpg-container tpg-el-main-wrapper <?php echo esc_attr( $_layout . '-main' ); ?>"
              data-sc-id="elementor"
              id="<?php echo esc_attr( $layoutID ); ?>"
              data-layout="<?php echo esc_attr( $data[ $_prefix . '_layout' ] ); ?>"
              data-grid-style="<?php echo esc_attr( $data[ $_prefix . '_layout_style' ] ); ?>"
-             data-el-settings='<?php echo htmlspecialchars( wp_json_encode( $post_data ) ); ?>'
-             data-el-query='<?php echo htmlspecialchars( wp_json_encode( $query_args ) ); ?>'
-             data-el-path='<?php echo esc_attr( $template_path ); ?>'
+             data-el-settings='<?php echo Fns::is_filter_enable( $data ) ? htmlspecialchars( wp_json_encode( $post_data ) ) : ''; ?>'
+             data-el-query='<?php echo Fns::is_filter_enable( $data ) ? htmlspecialchars( wp_json_encode( $query_args ) ) : ''; ?>'
+             data-el-path='<?php echo Fns::is_filter_enable( $data ) ? esc_attr( $template_path ) : ''; ?>'
         >
 			<?php
 			$wrapper_class   = [];
-			$wrapper_class[] = str_replace('-2', null, $_layout);
+			$wrapper_class[] = str_replace( '-2', null, $_layout );
 			$wrapper_class[] = 'tpg-even list-behaviour';
 			$wrapper_class[] = $_prefix . '-layout-wrapper';
 			if ( 'masonry' === $_layout_style && ! in_array( $_layout, [ 'list-layout2', 'list-layout3' ] ) ) {
@@ -181,7 +184,7 @@ class TPGListLayout extends Custom_Widget_Base {
 
 			//section title settings
 			$is_carousel = '';
-			if ( 'carousel' == $data['filter_btn_style'] && 'button' == $data['filter_type'] ) {
+			if ( rtTPG()->hasPro() && 'carousel' == $data['filter_btn_style'] && 'button' == $data['filter_type'] ) {
 				$is_carousel = 'carousel';
 			}
 			echo "<div class='tpg-header-wrapper {$is_carousel}'>";

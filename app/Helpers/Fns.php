@@ -1853,35 +1853,35 @@ class Fns {
 		}
 
 		//Category Meta
-		if ( $categories && '' !== $data['show_category']
-		     && 'default' == $data['category_position']
-		     && ! in_array( $data['layout'],
-				[
-					'grid-layout4',
-					'grid-layout5',
-					'grid-layout5-2',
-					'grid-layout6',
-					'grid-layout6-2',
-					'list-layout4',
-					'list-layout5',
-					'grid_hover-layout5',
-					'grid_hover-layout6',
-					'grid_hover-layout7',
-					'grid_hover-layout8',
-					'grid_hover-layout9',
-					'grid_hover-layout10',
-                    'grid_hover-layout5-2',
-					'grid_hover-layout6-2',
-					'grid_hover-layout7-2',
-					'grid_hover-layout9-2',
-					'slider-layout5',
-					'slider-layout6',
-					'slider-layout7',
-					'slider-layout8',
-					'slider-layout9',
-					'slider-layout11',
-					'slider-layout12',
-				] )
+		if ( $categories && '' !== $data['show_category'] && 'default' == $data['category_position']
+		     && ( rtTPG()->hasPro()
+		          && ! in_array( $data['layout'],
+					[
+						'grid-layout4',
+						'grid-layout5',
+						'grid-layout5-2',
+						'grid-layout6',
+						'grid-layout6-2',
+						'list-layout4',
+						'list-layout5',
+						'grid_hover-layout5',
+						'grid_hover-layout6',
+						'grid_hover-layout7',
+						'grid_hover-layout8',
+						'grid_hover-layout9',
+						'grid_hover-layout10',
+						'grid_hover-layout5-2',
+						'grid_hover-layout6-2',
+						'grid_hover-layout7-2',
+						'grid_hover-layout9-2',
+						'slider-layout5',
+						'slider-layout6',
+						'slider-layout7',
+						'slider-layout8',
+						'slider-layout9',
+						'slider-layout11',
+						'slider-layout12',
+					] ) )
 		) {
 			?>
             <span class='categories-links'>
@@ -1994,7 +1994,7 @@ class Fns {
 	public static function get_el_post_title( $title_tag, $title, $link_start, $link_end, $data ) {
 		echo '<div class="entry-title-wrapper">';
 		if ( 'above_title' === $data['category_position']
-		     || ( 'default' === $data['category_position']
+		     || ( rtTPG()->hasPro() && 'default' === $data['category_position']
 		          && in_array( $data['layout'],
 					[
 						'grid-layout5',
@@ -2144,6 +2144,26 @@ class Fns {
 		<?php if ( true ) : ?>
             <div class="overlay grid-hover-content"></div>
 		<?php endif;
+	}
+
+	public static function is_filter_enable( $data ) {
+		if ( rtTPG()->hasPro()
+		     && ( $data['show_taxonomy_filter'] == 'show'
+		          || $data['show_author_filter'] == 'show'
+		          || $data['show_order_by'] == 'show'
+		          || $data['show_sort_order'] == 'show'
+		          || $data['show_search'] == 'show'
+		          || in_array( $data['pagination_type'],
+					[
+						'pagination_ajax',
+						'load_more',
+						'load_on_scroll',
+					] ) )
+		) {
+			return true;
+		}
+
+		return false;
 	}
 
 }

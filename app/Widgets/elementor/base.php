@@ -88,7 +88,7 @@ abstract class Custom_Widget_Base extends Widget_Base {
 				} else {
 					$layout = substr( $layout, 0, - 1 );
 					$layout = strpos( $layout, '1' ) ? str_replace( '1', '', $layout ) : $layout;
-					$file   = $this->tpg_dir . DIRECTORY_SEPARATOR . $layout . '1.php';
+					$file   = RT_THE_POST_GRID_PLUGIN_PATH . '/templates/elementor/' . $layout . '1.php';
 				}
 			}
 		}
@@ -220,6 +220,9 @@ abstract class Custom_Widget_Base extends Widget_Base {
 	 * @return string
 	 */
 	public function get_frontend_filter_markup( $data ) {
+		if ( ! rtTPG()->hasPro() ) {
+			return;
+		}
 		$html             = null;
 		$wrapperContainer = $wrapperClass = $itemClass = $filter_btn_item_per_page = '';
 

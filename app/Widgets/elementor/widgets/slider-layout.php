@@ -79,7 +79,6 @@ class TPGSliderLayout extends Custom_Widget_Base {
 		 * =============
 		 */
 
-
 		//Section Title
 		rtTPGElementorHelper::sectionTitle( $this );
 
