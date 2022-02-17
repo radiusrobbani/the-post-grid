@@ -7,8 +7,12 @@
 
 /***************************** Common Grid Style ******************************/
 
-.tpg-el-main-wrapper .rt-grid-item {
+body .tpg-el-main-wrapper .rt-grid-item {
     padding: 0 15px;
+}
+
+body .elementor-section .tpg-el-main-wrapper .rt-grid-item {
+    background: none;
 }
 
 .rt-tpg-container a {
@@ -50,6 +54,14 @@ body.rt-model-open,
 
 .rt-tpg-container ul {
     margin: 0;
+}
+
+img, svg {
+    vertical-align: middle;
+}
+
+a:link, a:visited {
+    transition: all ease 0.31s;
 }
 
 .clearfix:before, .clearfix:after, .rt-container-fluid:before, .rt-container-fluid:after, .rt-row:before, .rt-row:after {
@@ -1916,6 +1928,13 @@ Common Layout Style
     margin-top: 0;
     padding-top: 0;
     margin-bottom: -1px;
+    line-height: 1;
+}
+
+@meia (max-width: 767px) {
+    .tpg-widget-heading-wrapper .tpg-widget-heading {
+        line-height: 1.2;
+    }
 }
 
 .tpg-widget-heading-wrapper.center .tpg-widget-heading {

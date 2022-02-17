@@ -29,9 +29,15 @@ if ( ! class_exists( 'ElementorController' ) ):
 				add_action( 'elementor/editor/after_enqueue_scripts', [ $this, 'el_editor_script' ] );
 				add_action( 'wp_enqueue_scripts', [ $this, 'tpg_el_scripts' ] );
 				add_action( "elementor/frontend/after_enqueue_scripts", [ $this, 'tpg_frontend_scripts' ] );
+				//add_filter( 'elementor/image_size/get_attachment_image_html', [ $this, 'el_get_attachment_image_html'], 10, 4 );
 			}
 
 			add_action( "wp_head", [ $this, 'set_primary_color' ] );
+		}
+
+		public function el_get_attachment_image_html($html, $settings, $image_size_key, $image_key) {
+			str_replace('<img ', '<img loading="lazy" ', $html);
+			return $html;
 		}
 
 		public function set_primary_color() {

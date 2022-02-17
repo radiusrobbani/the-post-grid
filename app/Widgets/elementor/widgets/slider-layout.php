@@ -114,7 +114,6 @@ class TPGSliderLayout extends Custom_Widget_Base {
 	protected function render() {
 		$data    = $this->get_settings();
 		$_prefix = $this->prefix;
-
 		if ( ! rtTPG()->hasPro() ) { ?>
             <h3 style="text-align: center"><?php echo esc_html__( 'Please upgrade to pro for slider layout!', 'the-post-grid' ) ?></h3>
 			<?php
@@ -184,7 +183,7 @@ class TPGSliderLayout extends Custom_Widget_Base {
         <div class="rt-container-fluid rt-tpg-container tpg-el-main-wrapper slider-layout-main <?php echo esc_attr( $_layout . '-main' ); ?>"
              id="<?php echo esc_attr( $layoutID ); ?>"
              data-layout="<?php echo esc_attr( $data[ $_prefix . '_layout' ] ); ?>"
-             data-grid-style="<?php echo esc_attr( $data[ $_prefix . '_layout_style' ] ); ?>"
+             data-grid-style=""
              data-desktop-col="<?php echo esc_attr( $gird_column_desktop ); ?>"
              data-tab-col="<?php echo esc_attr( $gird_column_tab ); ?>"
              data-mobile-col="<?php echo esc_attr( $gird_column_mobile ); ?>"

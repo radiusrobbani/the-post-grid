@@ -5601,9 +5601,9 @@ class rtTPGElementorHelper {
 				'size_units'         => [ 'px' ],
 				'allowed_dimensions' => 'all',
 				'selectors'          => [
-					'{{WRAPPER}} .rt-tpg-container .rt-el-content-wrapper'                                  => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}} !important;',
-					'{{WRAPPER}} .rt-tpg-container .rt-el-content-wrapper-flex .post-right-content'         => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}} !important;',
-					'{{WRAPPER}} .tpg-el-main-wrapper .rt-holder .rt-el-content-wrapper .tpg-el-image-wrap' => 'margin-left: -{{LEFT}}{{UNIT}}; margin-right: -{{RIGHT}}{{UNIT}};',
+					'body {{WRAPPER}} .rt-tpg-container .rt-el-content-wrapper'                                  => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}} !important;',
+					'body {{WRAPPER}} .rt-tpg-container .rt-el-content-wrapper-flex .post-right-content'         => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}} !important;',
+					'body {{WRAPPER}} .tpg-el-main-wrapper .rt-holder .rt-el-content-wrapper .tpg-el-image-wrap' => 'margin-left: -{{LEFT}}{{UNIT}}; margin-right: -{{RIGHT}}{{UNIT}};',
 				],
 				'condition'          => [
 					$prefix . '_layout!' => [ 'slider-layout13' ],
@@ -5619,7 +5619,7 @@ class rtTPGElementorHelper {
 				'size_units'         => [ 'px' ],
 				'allowed_dimensions' => 'all',
 				'selectors'          => [
-					'{{WRAPPER}} .rt-tpg-container .slider-layout13 .rt-holder .post-content' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}} !important;',
+					'body {{WRAPPER}} .rt-tpg-container .slider-layout13 .rt-holder .post-content' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}} !important;',
 				],
 				'condition'          => [
 					$prefix . '_layout' => [ 'slider-layout13' ],
@@ -5634,8 +5634,8 @@ class rtTPGElementorHelper {
 				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => [ 'px', '%' ],
 				'selectors'  => [
-					'{{WRAPPER}} .tpg-el-main-wrapper .tpg-post-holder'                                   => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};overflow:hidden;',
-					'{{WRAPPER}} {{WRAPPER}} .rt-tpg-container .slider-layout13 .rt-holder .post-content' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};overflow:hidden;',
+					'body {{WRAPPER}} .tpg-el-main-wrapper .tpg-post-holder'                                   => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};overflow:hidden;',
+					'body {{WRAPPER}} .rt-tpg-container .slider-layout13 .rt-holder .post-content' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};overflow:hidden;',
 				],
 			]
 		);
@@ -5673,7 +5673,7 @@ class rtTPGElementorHelper {
 				'name'      => 'box_background',
 				'label'     => __( 'Background', 'the-post-grid' ),
 				'types'     => [ 'classic', 'gradient' ],
-				'selector'  => '{{WRAPPER}} .tpg-el-main-wrapper .tpg-post-holder',
+				'selector'  => 'body {{WRAPPER}} .tpg-el-main-wrapper .tpg-post-holder',
 				'condition' => [
 					$prefix . '_layout!' => [ 'slider-layout13' ],
 				],
@@ -5686,7 +5686,7 @@ class rtTPGElementorHelper {
 				'name'      => 'box_background2',
 				'label'     => __( 'Background', 'the-post-grid' ),
 				'types'     => [ 'classic', 'gradient' ],
-				'selector'  => '{{WRAPPER}} .rt-tpg-container .slider-layout13 .rt-holder .post-content',
+				'selector'  => 'body {{WRAPPER}} .rt-tpg-container .slider-layout13 .rt-holder .post-content',
 				'condition' => [
 					$prefix . '_layout' => [ 'slider-layout13' ],
 				],
@@ -5699,7 +5699,7 @@ class rtTPGElementorHelper {
 				'label'     => __( 'Border', 'the-post-grid' ),
 				'type'      => \Elementor\Controls_Manager::COLOR,
 				'selectors' => [
-					'{{WRAPPER}} .tpg-el-main-wrapper .tpg-post-holder' => 'border: 1px solid {{VALUE}}',
+					'body {{WRAPPER}} .tpg-el-main-wrapper .tpg-post-holder' => 'border: 1px solid {{VALUE}}',
 				],
 				'condition' => [
 					'is_box_border'      => 'enable',
@@ -5713,7 +5713,7 @@ class rtTPGElementorHelper {
 			[
 				'name'      => 'box_box_shadow',
 				'label'     => __( 'Box Shadow', 'the-post-grid' ),
-				'selector'  => '{{WRAPPER}} .tpg-el-main-wrapper .tpg-post-holder',
+				'selector'  => 'body {{WRAPPER}} .tpg-el-main-wrapper .tpg-post-holder',
 				'condition' => [
 					'is_box_border'      => 'enable',
 					$prefix . '_layout!' => [ 'slider-layout13' ],
@@ -5726,7 +5726,7 @@ class rtTPGElementorHelper {
 			[
 				'name'      => 'box_box_shadow2',
 				'label'     => __( 'Box Shadow', 'the-post-grid' ),
-				'selector'  => '{{WRAPPER}} .rt-tpg-container .slider-layout13 .rt-holder .post-content',
+				'selector'  => 'body {{WRAPPER}} .rt-tpg-container .slider-layout13 .rt-holder .post-content',
 				'condition' => [
 					'is_box_border'     => 'enable',
 					$prefix . '_layout' => [ 'slider-layout13' ],
@@ -5751,7 +5751,7 @@ class rtTPGElementorHelper {
 				'name'      => 'box_background_hover',
 				'label'     => __( 'Background - Hover', 'the-post-grid' ),
 				'types'     => [ 'classic', 'gradient' ],
-				'selector'  => '{{WRAPPER}} .tpg-el-main-wrapper .tpg-post-holder:hover',
+				'selector'  => 'body {{WRAPPER}} .tpg-el-main-wrapper .tpg-post-holder:hover',
 				'condition' => [
 					$prefix . '_layout!' => [ 'slider-layout13' ],
 				],
@@ -5764,7 +5764,7 @@ class rtTPGElementorHelper {
 				'name'      => 'box_background_hover2',
 				'label'     => __( 'Background - Hover', 'the-post-grid' ),
 				'types'     => [ 'classic', 'gradient' ],
-				'selector'  => '{{WRAPPER}} .rt-tpg-container .slider-layout13 .rt-holder .post-content',
+				'selector'  => 'body {{WRAPPER}} .rt-tpg-container .slider-layout13 .rt-holder .post-content',
 				'condition' => [
 					$prefix . '_layout' => [ 'slider-layout13' ],
 				],
@@ -5777,7 +5777,7 @@ class rtTPGElementorHelper {
 				'label'     => __( 'Border - Hover', 'the-post-grid' ),
 				'type'      => \Elementor\Controls_Manager::COLOR,
 				'selectors' => [
-					'{{WRAPPER}} .tpg-el-main-wrapper .tpg-post-holder:hover' => 'border: 1px solid {{VALUE}}',
+					'body {{WRAPPER}} .tpg-el-main-wrapper .tpg-post-holder:hover' => 'border: 1px solid {{VALUE}}',
 				],
 				'condition' => [
 					'is_box_border'      => 'enable',
@@ -5791,7 +5791,7 @@ class rtTPGElementorHelper {
 			[
 				'name'      => 'box_box_shadow_hover',
 				'label'     => __( 'Box Shadow - Hover', 'the-post-grid' ),
-				'selector'  => '{{WRAPPER}} .tpg-el-main-wrapper .tpg-post-holder:hover',
+				'selector'  => 'body {{WRAPPER}} .tpg-el-main-wrapper .tpg-post-holder:hover',
 				'condition' => [
 					'is_box_border'      => 'enable',
 					$prefix . '_layout!' => [ 'slider-layout13' ],
@@ -5805,7 +5805,7 @@ class rtTPGElementorHelper {
 			[
 				'name'      => 'box_box_shadow_hover2',
 				'label'     => __( 'Box Shadow - Hover', 'the-post-grid' ),
-				'selector'  => '{{WRAPPER}} .rt-tpg-container .slider-layout13 .rt-holder .post-content',
+				'selector'  => 'body {{WRAPPER}} .rt-tpg-container .slider-layout13 .rt-holder .post-content',
 				'condition' => [
 					'is_box_border'     => 'enable',
 					$prefix . '_layout' => [ 'slider-layout13' ],
@@ -5902,8 +5902,8 @@ class rtTPGElementorHelper {
 					],
 				],
 				'selectors'  => [
-					'{{WRAPPER}} .tpg-el-main-wrapper .rt-slider-item'                          => 'padding-left: {{SIZE}}{{UNIT}};padding-right: {{SIZE}}{{UNIT}};',
-					'{{WRAPPER}} .tpg-el-main-wrapper .rt-swiper-holder'                        => 'margin-left: -{{SIZE}}{{UNIT}};margin-right: -{{SIZE}}{{UNIT}};',
+					'body {{WRAPPER}} .tpg-el-main-wrapper .rt-slider-item'                          => 'padding-left: {{SIZE}}{{UNIT}};padding-right: {{SIZE}}{{UNIT}};',
+					'body {{WRAPPER}} .tpg-el-main-wrapper .rt-swiper-holder'                        => 'margin-left: -{{SIZE}}{{UNIT}};margin-right: -{{SIZE}}{{UNIT}};',
 					'{{WRAPPER}} .rt-tpg-container .slider-column.swiper-slide .rt-slider-item' => 'padding-top: {{SIZE}}{{UNIT}}; padding-bottom: {{SIZE}}{{UNIT}};',
 				],
 				'condition'  => [
