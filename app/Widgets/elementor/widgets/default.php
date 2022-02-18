@@ -13,7 +13,7 @@ class RtElementorWidget extends \Elementor\Widget_Base {
 	}
 
 	public function get_icon() {
-		return 'eicon-gallery-grid';
+		return 'eicon-gallery-grid tpg-grid-icon';
 	}
 
 	public function get_categories() {

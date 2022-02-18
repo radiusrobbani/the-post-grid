@@ -1734,6 +1734,43 @@ class Fns {
 	 *************************************************
 	 */
 
+
+	public static function el_ignore_layout( $data ) {
+		if ( 'default' == $data['category_position']
+		     && in_array( $data['layout'],
+				[
+					'grid-layout4',
+					'grid-layout5',
+					'grid-layout5-2',
+					'grid-layout6',
+					'grid-layout6-2',
+					'list-layout4',
+					'list-layout5',
+					'grid_hover-layout5',
+					'grid_hover-layout6',
+					'grid_hover-layout7',
+					'grid_hover-layout8',
+					'grid_hover-layout9',
+					'grid_hover-layout10',
+					'grid_hover-layout5-2',
+					'grid_hover-layout6-2',
+					'grid_hover-layout7-2',
+					'grid_hover-layout9-2',
+					'slider-layout5',
+					'slider-layout6',
+					'slider-layout7',
+					'slider-layout8',
+					'slider-layout9',
+					'slider-layout11',
+					'slider-layout12',
+				] )
+		) {
+			return false;
+		}
+
+		return true;
+	}
+
 	/**
 	 * Get Post Link
 	 *
@@ -1853,37 +1890,7 @@ class Fns {
 		}
 
 		//Category Meta
-		if ( $categories && '' !== $data['show_category'] && 'default' == $data['category_position']
-		     && ( rtTPG()->hasPro()
-		          && ! in_array( $data['layout'],
-					[
-						'grid-layout4',
-						'grid-layout5',
-						'grid-layout5-2',
-						'grid-layout6',
-						'grid-layout6-2',
-						'list-layout4',
-						'list-layout5',
-						'grid_hover-layout5',
-						'grid_hover-layout6',
-						'grid_hover-layout7',
-						'grid_hover-layout8',
-						'grid_hover-layout9',
-						'grid_hover-layout10',
-						'grid_hover-layout5-2',
-						'grid_hover-layout6-2',
-						'grid_hover-layout7-2',
-						'grid_hover-layout9-2',
-						'slider-layout5',
-						'slider-layout6',
-						'slider-layout7',
-						'slider-layout8',
-						'slider-layout9',
-						'slider-layout11',
-						'slider-layout12',
-					] ) )
-		) {
-			?>
+		if ( $categories && 'show' == $data['show_category'] && self::el_ignore_layout( $data ) && in_array( $data['category_position'], [ 'default', 'with_meta' ] ) ) { ?>
             <span class='categories-links'>
                 <?php
                 if ( $data['show_meta_icon'] === 'yes' ) {
@@ -1991,37 +1998,38 @@ class Fns {
 	 * @param $link_start
 	 * @param $link_end
 	 */
+//
+//|| ( 'default' === $data['category_position']
+//&& in_array( $data['layout'],
+//[
+//'grid-layout5',
+//'grid-layout5-2',
+//'grid-layout6',
+//'grid-layout6-2',
+//'list-layout4',
+//'list-layout5',
+//'grid_hover-layout5',
+//'grid_hover-layout6',
+//'grid_hover-layout7',
+//'grid_hover-layout8',
+//'grid_hover-layout9',
+//'grid_hover-layout10',
+//'grid_hover-layout5-2',
+//'grid_hover-layout6-2',
+//'grid_hover-layout7-2',
+//'grid_hover-layout9-2',
+//'slider-layout5',
+//'slider-layout6',
+//'slider-layout7',
+//'slider-layout8',
+//'slider-layout9',
+//'slider-layout11',
+//'slider-layout12',
+//] ) )
+//    
 	public static function get_el_post_title( $title_tag, $title, $link_start, $link_end, $data ) {
 		echo '<div class="entry-title-wrapper">';
-		if ( 'above_title' === $data['category_position']
-		     || ( rtTPG()->hasPro() && 'default' === $data['category_position']
-		          && in_array( $data['layout'],
-					[
-						'grid-layout5',
-						'grid-layout5-2',
-						'grid-layout6',
-						'grid-layout6-2',
-						'list-layout4',
-						'list-layout5',
-						'grid_hover-layout5',
-						'grid_hover-layout6',
-						'grid_hover-layout7',
-						'grid_hover-layout8',
-						'grid_hover-layout9',
-						'grid_hover-layout10',
-						'grid_hover-layout5-2',
-						'grid_hover-layout6-2',
-						'grid_hover-layout7-2',
-						'grid_hover-layout9-2',
-						'slider-layout5',
-						'slider-layout6',
-						'slider-layout7',
-						'slider-layout8',
-						'slider-layout9',
-						'slider-layout11',
-						'slider-layout12',
-					] ) )
-		) {
+		if ( 'above_title' === $data['category_position'] && self::el_ignore_layout( $data ) ) {
 			self::get_el_thumb_cat( $data, 'cat-above-title' );
 		}
 		printf( '<%s class="entry-title">', esc_attr( $title_tag ) );
@@ -2094,7 +2102,7 @@ class Fns {
 			$thumb_cat_condition = true;
 		}
 
-		if ( $thumb_cat_condition ) {
+		if ( $thumb_cat_condition && 'with_meta' !== $data['category_position'] ) {
 			self::get_el_thumb_cat( $data );
 		}
 		$img_link = get_the_post_thumbnail_url( $pID, 'full' );

@@ -224,4 +224,73 @@
         });
     }
 
+
+    function RTPromoContent() {
+        parent.document.addEventListener("mousedown", function (e) {
+            var widgets = parent.document.querySelectorAll(".elementor-element--promotion");
+
+            if (widgets.length > 0) {
+                for (var i = 0; i < widgets.length; i++) {
+                    if (widgets[i].contains(e.target)) {
+                        var dialog = parent.document.querySelector("#elementor-element--promotion__dialog");
+                        var icon = widgets[i].querySelector(".icon > i");
+
+                        if (icon.classList.toString().indexOf("tss-promotional-element") >= 0) {
+                            dialog.querySelector(".dialog-buttons-action").style.visibility = "hidden";
+                            dialog.querySelector(".dialog-buttons-action").style.width = 0;
+                            dialog.querySelector(".dialog-buttons-action").style.height = 0;
+                            dialog.querySelector(".dialog-buttons-action").style.opacity = 0;
+                            dialog.querySelector(".dialog-buttons-action").style.padding = 0;
+
+                            if (dialog.querySelector(".rt-dialog-buttons-action") === null) {
+                                var button = document.createElement("a");
+                                var buttonText = document.createTextNode("Get Pro");
+
+                                button.setAttribute("href", "//www.radiustheme.com/downloads/the-post-grid-pro-for-wordpress/");
+                                button.setAttribute("target", "_blank");
+                                button.classList.add(
+                                    "dialog-button",
+                                    "dialog-action",
+                                    "dialog-buttons-action",
+                                    "elementor-button",
+                                    "elementor-button-success",
+                                    "rt-dialog-buttons-action"
+                                );
+
+                                button.appendChild(buttonText);
+
+
+                                dialog.querySelector(".dialog-buttons-action").insertAdjacentHTML("afterend", button.outerHTML);
+                            } else {
+                                dialog.querySelector(".rt-dialog-buttons-action").style.display = "";
+                            }
+                        } else {
+                            dialog.querySelector(".dialog-buttons-action").style.display = "";
+                            dialog.querySelector(".dialog-buttons-action").style.visibility = "";
+                            dialog.querySelector(".dialog-buttons-action").style.width = "";
+                            dialog.querySelector(".dialog-buttons-action").style.height = "";
+                            dialog.querySelector(".dialog-buttons-action").style.opacity = "";
+                            dialog.querySelector(".dialog-buttons-action").style.padding = "";
+
+                            if (dialog.querySelector(".rt-dialog-buttons-action") !== null) {
+                                dialog.querySelector(".rt-dialog-buttons-action").style.display = "none";
+                            }
+                        }
+
+                        break;
+                    }
+                }
+            }
+        });
+    }
+
+
+    // Elementor Frontend Load
+    $(window).on('elementor/frontend/init', function () {
+        if (elementorFrontend.isEditMode()) {
+            // Promo Content.
+            RTPromoContent();
+        }
+    });
+
 })(jQuery);

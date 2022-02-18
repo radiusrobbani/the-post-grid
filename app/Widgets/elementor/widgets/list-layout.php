@@ -128,9 +128,9 @@ class TPGListLayout extends Custom_Widget_Base {
 			add_action( 'wp_footer', [ $this, 'get_modal_markup' ] );
 		}
 
-		if ( 'masonry' === $data[ $_prefix . '_layout_style' ]
-		     && ! in_array( $data[ $_prefix . '_layout' ], [ $_prefix . '-layout2', $_prefix . '-layout5', $_prefix . '-layout6' ] )
-		) {
+		if ( 'masonry' === $data[ 'list_layout_style' ] ) {
+			wp_enqueue_script( 'imagesloaded' );
+			wp_enqueue_script( 'isotope' );
 			wp_enqueue_script( 'jquery-masonry' );
 			wp_enqueue_script( 'rt-image-load-js' );
 		}
@@ -219,6 +219,10 @@ class TPGListLayout extends Custom_Widget_Base {
 
         </div>
 		<?php
+		if ( 'masonry' === $data[ 'grid_layout_style' ] && \Elementor\Plugin::$instance->editor->is_edit_mode() ) { ?>
+            <script>jQuery('.rt-row.rt-content-loader.tpg-masonry').isotope();</script>
+			<?php
+		}
 	}
 
 }

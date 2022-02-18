@@ -123,9 +123,9 @@ class TPGGridLayout extends Custom_Widget_Base {
 			add_action( 'wp_footer', [ $this, 'get_modal_markup' ] );
 		}
 
-		if ( 'masonry' === $data[ $_prefix . '_layout_style' ]
-		     && ! in_array( $data[ $_prefix . '_layout' ], [ $this->prefix . '-layout2', $this->prefix . '-layout5', $this->prefix . '-layout6' ] )
-		) {
+		if ( 'masonry' === $data[ 'grid_layout_style' ] ) {
+			wp_enqueue_script( 'imagesloaded' );
+			wp_enqueue_script( 'rt-isotope-js' );
 			wp_enqueue_script( 'jquery-masonry' );
 			wp_enqueue_script( 'rt-image-load-js' );
 		}
@@ -161,7 +161,7 @@ class TPGGridLayout extends Custom_Widget_Base {
 		$_layout_style = $data[ $_prefix . '_layout_style' ];
 
 		?>
-        <div class="rt-container-fluid rt-tpg-container tpg-el-main-wrapper <?php echo esc_attr( $_layout . '-main' ); ?>"
+        <div class="rt-container-fluid rt-tpg-container tpg-el-main-wrapper clearfix <?php echo esc_attr( $_layout . '-main' ); ?>"
              id="<?php echo esc_attr( $layoutID ); ?>"
              data-layout="<?php echo esc_attr( $data[ $_prefix . '_layout' ] ); ?>"
              data-grid-style="<?php echo esc_attr( $data[ $_prefix . '_layout_style' ] ); ?>"
@@ -218,6 +218,11 @@ class TPGGridLayout extends Custom_Widget_Base {
 
         </div>
 		<?php
+		if ( 'masonry' === $data[ 'grid_layout_style' ] && \Elementor\Plugin::$instance->editor->is_edit_mode() ) {
+			?>
+            <script>jQuery('.rt-row.rt-content-loader.tpg-masonry').isotope();</script>
+			<?php
+		}
 	}
 
 }

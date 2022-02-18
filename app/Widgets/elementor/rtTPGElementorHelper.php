@@ -55,6 +55,7 @@ class rtTPGElementorHelper {
 				'label'     => __( 'Common Filters:', 'the-post-grid' ),
 				'type'      => \Elementor\Controls_Manager::HEADING,
 				'separator' => 'before',
+				'classes'   => 'tpg-control-type-heading',
 			]
 		);
 
@@ -105,6 +106,7 @@ class rtTPGElementorHelper {
 				'label'     => __( 'Advanced Filters:', 'the-post-grid' ),
 				'type'      => \Elementor\Controls_Manager::HEADING,
 				'separator' => 'before',
+				'classes'   => 'tpg-control-type-heading',
 			]
 		);
 
@@ -119,7 +121,7 @@ class rtTPGElementorHelper {
 				[
 					'label'     => __( "By ", 'the-post-grid' ) . $object->label,
 					'type'      => \Elementor\Controls_Manager::SELECT2,
-					//					'label_block' => true,
+					'label_block' => true,
 					'multiple'  => true,
 					'options'   => $ref->tpg_get_categories_by_id( $taxonomy ),
 					'condition' => [
@@ -135,6 +137,7 @@ class rtTPGElementorHelper {
 				'label'    => __( 'By Author', 'the-post-grid' ),
 				'type'     => \Elementor\Controls_Manager::SELECT2,
 				'multiple' => true,
+				'label_block' => true,
 				'options'  => Fns::rt_get_users(),
 			]
 		);
@@ -144,6 +147,7 @@ class rtTPGElementorHelper {
 			[
 				'label'       => __( 'By Keyword', 'the-post-grid' ),
 				'type'        => \Elementor\Controls_Manager::TEXT,
+				'label_block' => true,
 				'placeholder' => __( 'Search by keyword', 'the-post-grid' ),
 			]
 		);
@@ -427,8 +431,9 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'layout_options_heading',
 			[
-				'label' => __( 'Layout Options:', 'the-post-grid' ),
-				'type'  => \Elementor\Controls_Manager::HEADING,
+				'label'   => __( 'Layout Options:', 'the-post-grid' ),
+				'type'    => \Elementor\Controls_Manager::HEADING,
+				'classes' => 'tpg-control-type-heading',
 			]
 		);
 
@@ -979,13 +984,17 @@ class rtTPGElementorHelper {
 				'return_value' => 'yes',
 				'default'      => 'yes',
 				'conditions'   => $front_end_filter_tax_condition,
+				'condition'    => [
+					'filter_type' => 'button',
+					'filter_btn_style' => 'default',
+				],
 			]
 		);
 
 		$ref->add_control(
 			'tpg_hide_all_button',
 			[
-				'label'        => __( 'Hide All (Show all) button', 'the-post-grid' ),
+				'label'        => __( 'Hide Show all button', 'the-post-grid' ),
 				'type'         => \Elementor\Controls_Manager::SWITCHER,
 				'label_on'     => __( 'Show', 'the-post-grid' ),
 				'label_off'    => __( 'Hide', 'the-post-grid' ),
@@ -1075,8 +1084,9 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'layout_options_heading2',
 			[
-				'label' => __( 'Layout Options:', 'the-post-grid' ),
-				'type'  => \Elementor\Controls_Manager::HEADING,
+				'label'   => __( 'Layout Options:', 'the-post-grid' ),
+				'type'    => \Elementor\Controls_Manager::HEADING,
+				'classes' => 'tpg-control-type-heading',
 			]
 		);
 
@@ -1489,25 +1499,6 @@ class rtTPGElementorHelper {
 		);
 
 		$ref->add_control(
-			'show_author_image',
-			[
-				'label'        => __( 'Post Author Image', 'the-post-grid' ),
-				'type'         => \Elementor\Controls_Manager::SWITCHER,
-				'label_on'     => __( 'Show', 'the-post-grid' ),
-				'label_off'    => __( 'Hide', 'the-post-grid' ),
-				'return_value' => 'show',
-				'default'      => 'show',
-				'render_type'  => 'template',
-				'classes'      => 'tpg-padding-left',
-				'prefix_class' => 'author-image-visibility-',
-				'condition'    => [
-					'show_meta'          => 'show',
-					$prefix . '_layout!' => [ 'grid-layout7' ],
-				],
-			]
-		);
-
-		$ref->add_control(
 			'show_tags',
 			[
 				'label'        => __( 'Post Tags', 'the-post-grid' ),
@@ -1739,7 +1730,7 @@ class rtTPGElementorHelper {
 			[
 				'name'      => 'image',
 				'exclude'   => [ $thumb_exclude ],
-				'default'   => 'large',
+				'default'   => 'medium_large',
 				'label'     => $ref->get_pro_message( "custom dimension." ),
 				'condition' => [
 					'media_source' => 'feature_image',
@@ -1863,6 +1854,7 @@ class rtTPGElementorHelper {
 					'slide_to_left'  => __( 'Slide to Left', 'the-post-grid' ),
 					'img_no_effect'  => __( 'None', 'the-post-grid' ),
 				],
+				'render_type'  => 'template',
 				'prefix_class' => 'img_hover_animation_',
 			]
 		);
@@ -2336,6 +2328,7 @@ class rtTPGElementorHelper {
 			[
 				'label'     => __( 'Author Setting:', 'the-post-grid' ),
 				'type'      => \Elementor\Controls_Manager::HEADING,
+				'classes'   => 'tpg-control-type-heading',
 				'condition' => [
 					'show_author!' => '',
 				],
@@ -2350,6 +2343,24 @@ class rtTPGElementorHelper {
 				'placeholder' => __( 'By', 'the-post-grid' ),
 				'condition'   => [
 					'show_author!' => '',
+				],
+			]
+		);
+
+		$ref->add_control(
+			'show_author_image',
+			[
+				'label'        => __( 'Author Image / Icon', 'the-post-grid' ),
+				'type'         => \Elementor\Controls_Manager::SWITCHER,
+				'label_on'     => __( 'Image', 'the-post-grid' ),
+				'label_off'    => __( 'Icon', 'the-post-grid' ),
+				'return_value' => 'show',
+				'default'      => 'show',
+				'render_type'  => 'template',
+				'prefix_class' => 'author-image-visibility-',
+				'condition'    => [
+					'show_meta'          => 'show',
+					$prefix . '_layout!' => [ 'grid-layout7' ],
 				],
 			]
 		);
@@ -2410,8 +2421,67 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'category_heading',
 			[
-				'label' => __( 'Category and Tags Setting:', 'the-post-grid' ),
-				'type'  => \Elementor\Controls_Manager::HEADING,
+				'label'   => __( 'Category and Tags Setting:', 'the-post-grid' ),
+				'type'    => \Elementor\Controls_Manager::HEADING,
+				'classes' => 'tpg-control-type-heading',
+			]
+		);
+
+
+		$ref->add_control(
+			'category_position',
+			[
+				'label'     => __( 'Category Position', 'the-post-grid' ) . $ref->pro_label,
+				'type'      => \Elementor\Controls_Manager::SELECT,
+				'default'   => 'default',
+				'options'   => [
+					'default'      => __( 'Default', 'the-post-grid' ),
+					'above_title'  => __( 'Above Title', 'the-post-grid' ),
+					'with_meta'    => __( 'With Meta', 'the-post-grid' ),
+					'top_left'     => __( 'Over image (Top Left)', 'the-post-grid' ),
+					'top_right'    => __( 'Over image (Top Right)', 'the-post-grid' ),
+					'bottom_left'  => __( 'Over image (Bottom Left)', 'the-post-grid' ),
+					'bottom_right' => __( 'Over image (Bottom Right)', 'the-post-grid' ),
+					'image_center' => __( 'Over image (Center)', 'the-post-grid' ),
+				],
+				'condition' => [
+					'show_category' => 'show',
+				],
+				'divider'   => 'before',
+				'classes'   => rtTPG()->hasPro() ? '' : 'the-post-grid-field-hide tpg-should-hide-field',
+			]
+		);
+
+		$ref->add_control(
+			'category_style',
+			[
+				'label'     => __( 'Category Style', 'the-post-grid' ),
+				'type'      => \Elementor\Controls_Manager::SELECT,
+				'default'   => 'style1',
+				'options'   => [
+					'style1' => __( 'Style 1', 'the-post-grid' ),
+					'style2' => __( 'Style 2', 'the-post-grid' ),
+					'style3' => __( 'Style 3', 'the-post-grid' ),
+				],
+				'classes'   => rtTPG()->hasPro() ? '' : 'the-post-grid-field-hide',
+				'condition' => [
+					'category_position!' => 'default',
+				],
+			]
+		);
+
+		$ref->add_control(
+			'show_cat_icon',
+			[
+				'label'        => __( 'Show Category Icon', 'the-post-grid' ),
+				'type'         => \Elementor\Controls_Manager::SWITCHER,
+				'label_on'     => __( 'Show', 'the-post-grid' ),
+				'label_off'    => __( 'Hide', 'the-post-grid' ),
+				'return_value' => 'yes',
+				'default'      => false,
+				'condition'    => [
+					'category_position!' => 'default',
+				],
 			]
 		);
 
@@ -2467,13 +2537,13 @@ class rtTPGElementorHelper {
 			$ref->add_control(
 				$post_type . '_taxonomy',
 				[
-					'label'       => __( 'Select one as Category', 'the-post-grid' ),
+					'label'       => __( 'Category Source', 'the-post-grid' ),
 					'type'        => \Elementor\Controls_Manager::SELECT,
 					'default'     => $default_cat,
 					'options'     => $term_options,
 					'condition'   => [
-						'show_category!' => '',
-						'post_type'      => $post_type,
+						'show_category' => 'show',
+						'post_type'     => $post_type,
 					],
 					'description' => __( 'Select which taxonomy should sit in the place of categories. Default: Category' ),
 				]
@@ -2482,74 +2552,18 @@ class rtTPGElementorHelper {
 			$ref->add_control(
 				$post_type . '_tags',
 				[
-					'label'       => __( 'Select one as Tags', 'the-post-grid' ),
+					'label'       => __( 'Tags Source', 'the-post-grid' ),
 					'type'        => \Elementor\Controls_Manager::SELECT,
 					'default'     => $default_tag,
 					'options'     => $term_options,
 					'condition'   => [
-						'show_category!' => '',
-						'post_type'      => $post_type,
+						'show_category' => 'show',
+						'post_type'     => $post_type,
 					],
 					'description' => __( 'Select which taxonomy should sit in the place of tags. Default: Tags' ),
 				]
 			);
 		}
-
-		$ref->add_control(
-			'category_position',
-			[
-				'label'     => __( 'Category Position', 'the-post-grid' ) . $ref->pro_label,
-				'type'      => \Elementor\Controls_Manager::SELECT,
-				'default'   => 'default',
-				'options'   => [
-					'default'      => __( 'Default', 'the-post-grid' ),
-					'above_title'  => __( 'Above Title', 'the-post-grid' ),
-					'top_left'     => __( 'Over image (Top Left)', 'the-post-grid' ),
-					'top_right'    => __( 'Over image (Top Right)', 'the-post-grid' ),
-					'bottom_left'  => __( 'Over image (Bottom Left)', 'the-post-grid' ),
-					'bottom_right' => __( 'Over image (Bottom Right)', 'the-post-grid' ),
-					'image_center' => __( 'Over image (Center)', 'the-post-grid' ),
-				],
-				'condition' => [
-					'show_category!' => '',
-				],
-				'divider'   => 'before',
-				'classes'   => rtTPG()->hasPro() ? '' : 'the-post-grid-field-hide tpg-should-hide-field',
-			]
-		);
-
-		$ref->add_control(
-			'category_style',
-			[
-				'label'     => __( 'Category Style', 'the-post-grid' ),
-				'type'      => \Elementor\Controls_Manager::SELECT,
-				'default'   => 'style1',
-				'options'   => [
-					'style1' => __( 'Style 1', 'the-post-grid' ),
-					'style2' => __( 'Style 2', 'the-post-grid' ),
-					'style3' => __( 'Style 3', 'the-post-grid' ),
-				],
-				'classes'   => rtTPG()->hasPro() ? '' : 'the-post-grid-field-hide',
-				'condition' => [
-					'category_position!' => 'default',
-				],
-			]
-		);
-
-		$ref->add_control(
-			'show_cat_icon',
-			[
-				'label'        => __( 'Show Category Icon', 'the-post-grid' ),
-				'type'         => \Elementor\Controls_Manager::SWITCHER,
-				'label_on'     => __( 'Show', 'the-post-grid' ),
-				'label_off'    => __( 'Hide', 'the-post-grid' ),
-				'return_value' => 'yes',
-				'default'      => false,
-				'condition'    => [
-					'category_position!' => 'default',
-				],
-			]
-		);
 
 		$ref->end_controls_section();
 	}
@@ -3004,8 +3018,9 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'thumb_overlay_style_heading',
 			[
-				'label' => __( 'Overlay Style:', 'the-post-grid' ),
-				'type'  => \Elementor\Controls_Manager::HEADING,
+				'label'   => __( 'Overlay Style:', 'the-post-grid' ),
+				'type'    => \Elementor\Controls_Manager::HEADING,
+				'classes' => 'tpg-control-type-heading',
 			]
 		);
 
@@ -3684,34 +3699,11 @@ class rtTPGElementorHelper {
 		);
 
 		$ref->add_control(
-			'meta_separator_margin',
-			[
-				'label'              => __( 'Meta Separator Spacing', 'the-post-grid' ),
-				'type'               => Controls_Manager::DIMENSIONS,
-				'size_units'         => [ 'px', '%', 'em' ],
-				'allowed_dimensions' => 'horizontal',
-				'default'            => [
-					'top'      => '',
-					'right'    => '',
-					'bottom'   => '',
-					'left'     => '',
-					'isLinked' => false,
-				],
-				'condition'          => [
-					'meta_separator!' => 'default',
-				],
-				'selectors'          => [
-					'{{WRAPPER}} .tpg-post-meta .separator' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
-				],
-			]
-		);
-
-
-		$ref->add_control(
 			'separator_cat_heading',
 			[
 				'label'     => __( 'Separate Category', 'the-post-grid' ),
 				'type'      => \Elementor\Controls_Manager::HEADING,
+				'classes'   => 'tpg-control-type-heading',
 				'condition' => [
 					'category_position!' => 'default',
 				],
@@ -4046,7 +4038,7 @@ class rtTPGElementorHelper {
 				'label'     => __( 'Read More', 'the-post-grid' ),
 				'tab'       => \Elementor\Controls_Manager::TAB_STYLE,
 				'condition' => [
-					'show_read_more'     => 'show'
+					'show_read_more' => 'show',
 				],
 			]
 		);
@@ -4967,6 +4959,7 @@ class rtTPGElementorHelper {
 				'label'     => __( 'Sub Menu Options', 'the-post-grid' ),
 				'type'      => \Elementor\Controls_Manager::HEADING,
 				'separator' => 'before',
+				'classes'   => 'tpg-control-type-heading',
 				'condition' => [
 					'filter_type' => 'dropdown',
 				],
@@ -5132,6 +5125,7 @@ class rtTPGElementorHelper {
 				'label'     => __( 'Sub Menu Options - Hover', 'the-post-grid' ),
 				'type'      => \Elementor\Controls_Manager::HEADING,
 				'separator' => 'before',
+				'classes'   => 'tpg-control-type-heading',
 				'condition' => [
 					'filter_type' => 'dropdown',
 				],
@@ -5634,7 +5628,7 @@ class rtTPGElementorHelper {
 				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => [ 'px', '%' ],
 				'selectors'  => [
-					'body {{WRAPPER}} .tpg-el-main-wrapper .tpg-post-holder'                                   => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};overflow:hidden;',
+					'body {{WRAPPER}} .tpg-el-main-wrapper .tpg-post-holder'                       => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};overflow:hidden;',
 					'body {{WRAPPER}} .rt-tpg-container .slider-layout13 .rt-holder .post-content' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};overflow:hidden;',
 				],
 			]
@@ -5814,7 +5808,6 @@ class rtTPGElementorHelper {
 		);
 
 
-
 		$ref->end_controls_tab();
 
 		$ref->end_controls_tabs();
@@ -5902,8 +5895,8 @@ class rtTPGElementorHelper {
 					],
 				],
 				'selectors'  => [
-					'body {{WRAPPER}} .tpg-el-main-wrapper .rt-slider-item'                          => 'padding-left: {{SIZE}}{{UNIT}};padding-right: {{SIZE}}{{UNIT}};',
-					'body {{WRAPPER}} .tpg-el-main-wrapper .rt-swiper-holder'                        => 'margin-left: -{{SIZE}}{{UNIT}};margin-right: -{{SIZE}}{{UNIT}};',
+					'body {{WRAPPER}} .tpg-el-main-wrapper .rt-slider-item'                     => 'padding-left: {{SIZE}}{{UNIT}};padding-right: {{SIZE}}{{UNIT}};',
+					'body {{WRAPPER}} .tpg-el-main-wrapper .rt-swiper-holder'                   => 'margin-left: -{{SIZE}}{{UNIT}};margin-right: -{{SIZE}}{{UNIT}};',
 					'{{WRAPPER}} .rt-tpg-container .slider-column.swiper-slide .rt-slider-item' => 'padding-top: {{SIZE}}{{UNIT}}; padding-bottom: {{SIZE}}{{UNIT}};',
 				],
 				'condition'  => [
@@ -6115,6 +6108,7 @@ class rtTPGElementorHelper {
 				'label'     => __( 'Arrow Style', 'the-post-grid' ),
 				'type'      => \Elementor\Controls_Manager::HEADING,
 				'separator' => 'before',
+				'classes'   => 'tpg-control-type-heading',
 				'condition' => [
 					'arrows' => 'yes',
 				],
@@ -6380,6 +6374,7 @@ class rtTPGElementorHelper {
 				'label'     => __( 'Dots Style', 'the-post-grid' ),
 				'type'      => \Elementor\Controls_Manager::HEADING,
 				'separator' => 'before',
+				'classes'   => 'tpg-control-type-heading',
 				'condition' => [
 					'dots' => 'yes',
 				],

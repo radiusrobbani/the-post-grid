@@ -29,15 +29,10 @@ if ( ! class_exists( 'ElementorController' ) ):
 				add_action( 'elementor/editor/after_enqueue_scripts', [ $this, 'el_editor_script' ] );
 				add_action( 'wp_enqueue_scripts', [ $this, 'tpg_el_scripts' ] );
 				add_action( "elementor/frontend/after_enqueue_scripts", [ $this, 'tpg_frontend_scripts' ] );
-				//add_filter( 'elementor/image_size/get_attachment_image_html', [ $this, 'el_get_attachment_image_html'], 10, 4 );
+				add_filter( 'elementor/editor/localize_settings', [ $this, 'promotePremiumWidgets' ] );
 			}
 
 			add_action( "wp_head", [ $this, 'set_primary_color' ] );
-		}
-
-		public function el_get_attachment_image_html($html, $settings, $image_size_key, $image_key) {
-			str_replace('<img ', '<img loading="lazy" ', $html);
-			return $html;
 		}
 
 		public function set_primary_color() {
@@ -87,7 +82,6 @@ if ( ! class_exists( 'ElementorController' ) ):
 		public function el_editor_script() {
 			wp_enqueue_script( 'tgp-el-editor-scripts', rtTPG()->get_assets_uri( 'js/tpg-el-editor.js' ), [ 'jquery' ], $this->version, true );
 			wp_enqueue_style( 'tgp-el-editor-style', rtTPG()->get_assets_uri( 'css/tpg-el-editor.css' ), [], $this->version );
-			wp_enqueue_style( 'tgp-el-swiper', rtTPG()->get_assets_uri( 'css/tpg-el-swiper.css' ), [], $this->version );
 		}
 
 		public function editor_style() {
@@ -130,6 +124,33 @@ if ( ! class_exists( 'ElementorController' ) ):
 			];
 
 			Plugin::$instance->elements_manager->add_category( $id, $properties );
+		}
+
+
+		public function promotePremiumWidgets( $config ) {
+			if ( rtTPG()->hasPro() ) {
+				return $config;
+			}
+
+			if ( ! isset( $config['promotionWidgets'] ) || ! is_array( $config['promotionWidgets'] ) ) {
+				$config['promotionWidgets'] = [];
+			}
+
+			$category = RT_THE_POST_GRID_PLUGIN_SLUG . '-elements';
+
+			$pro_widgets = [
+				[
+					'name'        => 'tpg-slider-layout',
+					'title'       => __( 'TPG - Slider Layout', 'testimonial-slider-showcase' ),
+					'description' => __( 'TPG - Slider Layout', 'testimonial-slider-showcase' ),
+					'icon'        => 'eicon-post-slider tpg-grid-icon tss-promotional-element',
+					'categories'  => '[ "the-post-grid-elements" ]',
+				],
+			];
+
+			$config['promotionWidgets'] = array_merge( $config['promotionWidgets'], $pro_widgets );
+
+			return $config;
 		}
 
 
