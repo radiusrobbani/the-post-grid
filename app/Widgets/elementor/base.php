@@ -386,7 +386,7 @@ abstract class Custom_Widget_Base extends Widget_Base {
 						$id     = $term['term_id'];
 						$bCount = $bCount + absint( $term['count'] );
 						$sT     = null;
-						if ( $data['tgp_filter_taxonomy_hierarchical'] == 'yes' ) {
+						if ( $data['tgp_filter_taxonomy_hierarchical'] == 'yes' && $data['filter_btn_style'] === 'default' && $data['filter_type'] == 'button' ) {
 							$subTerms = Fns::rt_get_all_term_by_taxonomy( $taxFilter, true, $id );
 							if ( ! empty( $subTerms ) ) {
 								$sT .= "<div class='rt-filter-sub-tax sub-button-group '>";
@@ -599,7 +599,7 @@ abstract class Custom_Widget_Base extends Widget_Base {
 
 		$posts_loading_type = $data['pagination_type'];
 		$posts_per_page     = $data['display_per_page'] ? $data['display_per_page'] : ( $data['post_limit'] ? $data['post_limit'] : get_option( 'posts_per_page' ) );
-		$hide = ( $query->max_num_pages < 2 ? " rt-hidden-elm" : null );
+		$hide               = ( $query->max_num_pages < 2 ? " rt-hidden-elm" : null );
 		if ( $posts_loading_type == "pagination" ) {
 			$htmlUtility .= Fns::rt_pagination( $query, $posts_per_page );
 		} elseif ( rtTPG()->hasPro() && $posts_loading_type == "pagination_ajax" ) { //&& ! $isIsotope
@@ -709,7 +709,9 @@ abstract class Custom_Widget_Base extends Widget_Base {
 	 */
 	function get_render_data_set( $data, $total_pages, $posts_per_page ) {
 		$_prefix = $this->prefix;
-
+		echo "<pre>";
+		print_r($data);
+		echo "</pre>";
 		return [
 			'gird_column'              => $data[ $_prefix . '_column' ],
 			'gird_column_tablet'       => ( isset( $data[ $_prefix . '_column_tablet' ] ) ) ? $data[ $_prefix . '_column_tablet' ] : '0',
@@ -768,6 +770,7 @@ abstract class Custom_Widget_Base extends Widget_Base {
 			'date_icon'                => $data['date_icon'],
 			'user_icon'                => $data['user_icon'],
 			'comment_icon'             => $data['comment_icon'],
+			'image'                    => isset( $data['image'] ) ? $data['image'] : '',
 		];
 	}
 

@@ -44,7 +44,7 @@ $column_classes[] .= 'rt-grid-item';
 
 ?>
 
-<!-- TODO: Image Class will be added -> even-grid-item rt-grid-item rt-ready-animation animated fadeIn -->
+
 <div class="<?php echo esc_attr( $col_class . ' ' . implode( ' ', $column_classes ) ); ?>" data-id="<?php echo esc_attr( $pID ); ?>">
     <div class="rt-holder tpg-post-holder">
         <div class="rt-detail rt-el-content-wrapper-flex">
@@ -56,14 +56,14 @@ $column_classes[] .= 'rt-grid-item';
 			<?php endif; ?>
 
             <div class="post-right-content">
-                <!--TODO: Post Title -->
+
 				<?php
 				if ( 'show' == $data['show_title'] ) {
 					Fns::get_el_post_title( $data['title_tag'], $title, $link_start, $link_end, $data );
 				}
 				?>
 
-                <!--TODO: Post Meta -->
+
 				<?php if ( 'show' == $data['show_meta'] ) : ?>
                     <div class="post-meta-tags rt-el-post-meta">
 						<?php Fns::get_post_meta_html( $pID, $data ); ?>
@@ -71,7 +71,7 @@ $column_classes[] .= 'rt-grid-item';
 				<?php endif; ?>
 
 
-                <!--TODO: Post Excerpt -->
+
 				<?php if ( $excerpt && 'show' == $data['show_excerpt'] ) : ?>
                     <div class="tpg-excerpt tpg-el-excerpt">
 						<?php echo wp_kses_post( $excerpt ); ?>
@@ -84,7 +84,7 @@ $column_classes[] .= 'rt-grid-item';
 				}
 				?>
 
-                <!--TODO: Post Footer -->
+
 				<?php if ( 'show' === $data['show_read_more'] ) : ?>
                     <div class="post-footer">
 

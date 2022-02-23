@@ -1136,7 +1136,7 @@ Filter
 
 .section-title-style-style2 .tpg-header-wrapper.carousel .swiper,
 .section-title-style-style3 .tpg-header-wrapper.carousel .swiper {
-    height: 50px;
+    height: 51px;
 }
 
 .tpg-header-wrapper.carousel .swiper .swiper-navigation {
@@ -1692,7 +1692,7 @@ Common Layout Style
 
 
 .rt-tpg-container .rt-holder .rt-detail {
-    padding: 15px;
+    padding: 15px 15px 0;
 }
 
 .rt-tpg-container .entry-title-wrapper .entry-title {

@@ -13,7 +13,7 @@ class rtTPGElementorQuery {
 
 	public static function post_query( $data, $prefix = '' ) {
 		$args = [
-			'post_type'   => $data['post_type'],
+			'post_type'   => [ $data['post_type'] ],
 			'post_status' => $data['post_status'],
 		];
 
@@ -43,7 +43,8 @@ class rtTPGElementorQuery {
 		}
 
 		if ( $prefix !== 'slider' && 'show' === $data['show_pagination'] ) {
-			$args['paged'] = get_query_var( 'paged' ) ? absint( get_query_var( 'paged' ) ) : 1;
+			$_paged        = is_front_page() ? "page" : "paged";
+			$args['paged'] = get_query_var( $_paged ) ? absint( get_query_var( $_paged ) ) : 1;
 		}
 
 		if ( rtTPG()->hasPro() && 'yes' == $data['ignore_sticky_posts'] ) {
@@ -58,10 +59,8 @@ class rtTPGElementorQuery {
 		}
 
 		if ( $data['author'] ) {
-			//			$post_ids         = explode( ',', $data['post_id'] );
 			$args['author__in'] = $data['author'];
 		}
-
 
 		if ( $data['date_range'] ) {
 			if ( strpos( $data['date_range'], 'to' ) ) {
@@ -149,9 +148,9 @@ class rtTPGElementorQuery {
 						$_posts_per_page = 3;
 					} elseif ( in_array( $data['grid_hover_layout'], [ 'grid_hover-layout6', 'grid_hover-layout6-2', 'grid_hover-layout10', 'grid_hover-layout11' ] ) ) {
 						$_posts_per_page = 4;
-					} elseif ( in_array( $data['grid_hover_layout'], [ 'grid_hover-layout7','grid_hover-layout7-2', 'grid_hover-layout8' ] ) ) {
+					} elseif ( in_array( $data['grid_hover_layout'], [ 'grid_hover-layout7', 'grid_hover-layout7-2', 'grid_hover-layout8' ] ) ) {
 						$_posts_per_page = 5;
-					} elseif ( in_array($data['grid_hover_layout'], ['grid_hover-layout6', 'grid_hover-layout6-2']) ) {
+					} elseif ( in_array( $data['grid_hover_layout'], [ 'grid_hover-layout6', 'grid_hover-layout6-2' ] ) ) {
 						$_posts_per_page = 4;
 					}
 				}

@@ -47,6 +47,9 @@ class TPGGridLayout extends Custom_Widget_Base {
 		//Links
 		rtTPGElementorHelper::links( $this );
 
+		//Promotions
+		rtTPGElementorHelper::promotions( $this );
+
 		/**
 		 * Settings Tab
 		 * ===========
@@ -123,7 +126,7 @@ class TPGGridLayout extends Custom_Widget_Base {
 			add_action( 'wp_footer', [ $this, 'get_modal_markup' ] );
 		}
 
-		if ( 'masonry' === $data[ 'grid_layout_style' ] ) {
+		if ( 'masonry' === $data['grid_layout_style'] ) {
 			wp_enqueue_script( 'imagesloaded' );
 			wp_enqueue_script( 'rt-isotope-js' );
 			wp_enqueue_script( 'jquery-masonry' );
@@ -218,7 +221,7 @@ class TPGGridLayout extends Custom_Widget_Base {
 
         </div>
 		<?php
-		if ( 'masonry' === $data[ 'grid_layout_style' ] && \Elementor\Plugin::$instance->editor->is_edit_mode() ) {
+		if ( 'masonry' === $data[ $_prefix . '_layout_style' ] && \Elementor\Plugin::$instance->editor->is_edit_mode() ) {
 			?>
             <script>jQuery('.rt-row.rt-content-loader.tpg-masonry').isotope();</script>
 			<?php

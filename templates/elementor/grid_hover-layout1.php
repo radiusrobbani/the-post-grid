@@ -56,14 +56,14 @@ if ( 'masonry' == $data['layout_style'] ) {
 			<?php endif; ?>
 
             <div class="grid-hover-content">
-                <!--TODO: Post Title -->
+
 				<?php
 				if ( 'show' == $data['show_title'] ) {
 					Fns::get_el_post_title( $data['title_tag'], $title, $link_start, $link_end, $data );
 				}
 				?>
 
-                <!--TODO: Post Meta -->
+
 				<?php if ( 'show' == $data['show_meta'] ) : ?>
                     <div class="post-meta-tags rt-el-post-meta">
 						<?php Fns::get_post_meta_html( $pID, $data ); ?>
@@ -71,7 +71,7 @@ if ( 'masonry' == $data['layout_style'] ) {
 				<?php endif; ?>
 
 
-                <!--TODO: Post Excerpt -->
+
 				<?php if ( $excerpt && 'show' == $data['show_excerpt'] ) : ?>
                     <div class="tpg-excerpt tpg-el-excerpt">
 						<?php echo wp_kses_post( $excerpt ); ?>
@@ -84,7 +84,7 @@ if ( 'masonry' == $data['layout_style'] ) {
 				}
 				?>
 
-                <!--TODO: Post Footer -->
+
 				<?php if ( 'show' === $data['show_read_more'] ) : ?>
                     <div class="post-footer">
                         <div class="read-more">

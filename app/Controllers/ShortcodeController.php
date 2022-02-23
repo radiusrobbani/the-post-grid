@@ -902,7 +902,9 @@ class ShortcodeController {
 					$arg['layoutID']      = $layoutID;
 					$arg['author']        = apply_filters( 'rttpg_author_link',
 						sprintf( '<a href="%s">%s</a>', get_author_posts_url( get_the_author_meta( 'ID' ) ), get_the_author() ) );
-					$cc                   = wp_count_comments( $pID );
+					$comments_number = get_comments_number( $pID );
+					$comments_text   = sprintf( '(%s)', number_format_i18n( $comments_number ) );
+
 					$arg['date']          = get_the_date();
 					$arg['excerpt']       = Fns::get_the_excerpt( $pID, $arg );
 					$arg['categories']    = get_the_term_list( $pID, 'category', null, '<span class="rt-separator">,</span>' );
@@ -920,9 +922,9 @@ class ShortcodeController {
 						$arg['isoFilter'] = ! empty( $isoFilter ) ? implode( " ", $isoFilter ) : '';
 					}
 					if ( comments_open() ) {
-						$arg['comment'] = "<a href='" . get_comments_link( $pID ) . "'>{$cc->total_comments} </a>";
+						$arg['comment'] = "<a href='" . get_comments_link( $pID ) . "'>{$comments_text} </a>";
 					} else {
-						$arg['comment'] = "{$cc->total_comments}";
+						$arg['comment'] = "{$comments_text}";
 					}
 					$imgSrc             = null;
 					$arg['smallImgSrc'] = ! $fImg ? Fns::getFeatureImageSrc( $pID, $fSmallImgSize, $mediaSource,

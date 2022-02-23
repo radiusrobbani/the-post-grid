@@ -50,7 +50,7 @@ if ( $tpg_post_count != 1 ) {
 
 ?>
 
-    <!-- TODO: Image Class will be added -> even-grid-item rt-grid-item rt-ready-animation animated fadeIn -->
+
 <?php if ( $tpg_post_count == 1 || $tpg_post_count == 2 ) : ?>
     <!--Start Offset left & offset right column-->
     <div class="rt-col-xs-12 <?php echo esc_attr( 1 == $tpg_post_count ? 'rt-col-md-4 rt-col-sm-5 offset-left' : 'rt-col-md-8 rt-col-sm-7 offset-right' ); ?>">
@@ -77,12 +77,12 @@ if ( $tpg_post_count != 1 ) {
 			<?php endif; ?>
 
             <div class="post-right-content">
-                <!--TODO: Post Title -->
+
 				<?php if ( 'show' == $data['show_title'] ) {
 					Fns::get_el_post_title( $data['title_tag'], $title, $link_start, $link_end, $data );
 				} ?>
 
-                <!--TODO: Post Meta -->
+
 				<?php if ( 'show' == $data['show_meta'] ) : ?>
                     <div class="post-meta-tags rt-el-post-meta">
 						<?php Fns::get_post_meta_html( $pID, $data ); ?>
@@ -90,7 +90,7 @@ if ( $tpg_post_count != 1 ) {
 				<?php endif; ?>
 
 
-                <!--TODO: Post Excerpt -->
+
 				<?php if ( $excerpt && $tpg_post_count == 1 && 'show' == $data['show_excerpt'] ) : ?>
                     <div class="tpg-excerpt tpg-el-excerpt">
 						<?php echo wp_kses_post( $excerpt ); ?>
@@ -103,7 +103,7 @@ if ( $tpg_post_count != 1 ) {
 				}
 				?>
 
-                <!--TODO: Post Footer -->
+
 	            <?php if ( $tpg_post_count == 1 && in_array($data['show_read_more'], ['show', 'default']) ) : ?>
                 <div class="post-footer">
 

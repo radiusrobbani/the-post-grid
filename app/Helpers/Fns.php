@@ -1735,6 +1735,13 @@ class Fns {
 	 */
 
 
+	/**
+	 * Default layout style check
+	 *
+	 * @param $data
+	 *
+	 * @return bool
+	 */
 	public static function el_ignore_layout( $data ) {
 		if ( 'default' == $data['category_position']
 		     && in_array( $data['layout'],
@@ -1824,7 +1831,7 @@ class Fns {
 	}
 
 	/**
-	 * Get Post TYpe
+	 * Get Post Type
 	 *
 	 * @return string[]|\WP_Post_Type[]
 	 */
@@ -1838,6 +1845,7 @@ class Fns {
 	/**
 	 * Get Post Meta HTML for Elementor
 	 *
+	 * @param $post_id
 	 * @param $data
 	 *
 	 * @return html markup
@@ -1845,8 +1853,11 @@ class Fns {
 	public static function get_post_meta_html( $post_id, $data ) {
 		$author_id = get_the_author_meta( 'ID' );
 		$author    = apply_filters( 'rttpg_author_link', sprintf( '<a href="%s">%s</a>', get_author_posts_url( $author_id ), get_the_author() ) );
-		$cc        = wp_count_comments( $post_id );
-		$date      = get_the_date();
+
+
+		$comments_number = get_comments_number( $post_id );
+		$comments_text   = sprintf( '(%s)', number_format_i18n( $comments_number ) );
+		$date            = get_the_date();
 
 		//Category and Tags Management
 		$_cat_id        = $data['post_type'] . '_taxonomy';
@@ -1856,7 +1867,6 @@ class Fns {
 		$meta_separator = ( $data['meta_separator'] && $data['meta_separator'] !== 'default' ) ? sprintf( "<span class='separator'>%s</span>", $data['meta_separator'] ) : null;
 
 		//Author Meta
-
 
 		if ( '' !== $data['show_author'] ) {
 			$is_author_avatar = null;
@@ -1957,7 +1967,7 @@ class Fns {
 		                echo "<i class='fa fa-user'></i>";
 	                }
                 }
-                echo $cc->total_comments;
+                echo $comments_text;
                 ?>
             </span>
 			<?php
@@ -1997,39 +2007,12 @@ class Fns {
 	 * @param $title
 	 * @param $link_start
 	 * @param $link_end
+	 * @param $data
 	 */
-//
-//|| ( 'default' === $data['category_position']
-//&& in_array( $data['layout'],
-//[
-//'grid-layout5',
-//'grid-layout5-2',
-//'grid-layout6',
-//'grid-layout6-2',
-//'list-layout4',
-//'list-layout5',
-//'grid_hover-layout5',
-//'grid_hover-layout6',
-//'grid_hover-layout7',
-//'grid_hover-layout8',
-//'grid_hover-layout9',
-//'grid_hover-layout10',
-//'grid_hover-layout5-2',
-//'grid_hover-layout6-2',
-//'grid_hover-layout7-2',
-//'grid_hover-layout9-2',
-//'slider-layout5',
-//'slider-layout6',
-//'slider-layout7',
-//'slider-layout8',
-//'slider-layout9',
-//'slider-layout11',
-//'slider-layout12',
-//] ) )
-//    
+
 	public static function get_el_post_title( $title_tag, $title, $link_start, $link_end, $data ) {
 		echo '<div class="entry-title-wrapper">';
-		if ( 'above_title' === $data['category_position'] && self::el_ignore_layout( $data ) ) {
+		if ( 'above_title' === $data['category_position'] || ! self::el_ignore_layout( $data ) ) {
 			self::get_el_thumb_cat( $data, 'cat-above-title' );
 		}
 		printf( '<%s class="entry-title">', esc_attr( $title_tag ) );
@@ -2063,12 +2046,14 @@ class Fns {
 		<?php
 	}
 
+
 	/**
 	 * Get first image from the content
 	 *
-	 * @param $post_id
+	 * @param          $post_id
+	 * @param  string  $type
 	 *
-	 * @return string
+	 * @return mixed|string
 	 */
 	public static function get_content_first_image( $post_id, $type = 'markup' ) {
 		if ( $img = preg_match_all( '/<img.+src=[\'"]([^\'"]+)[\'"].*>/i',
@@ -2094,6 +2079,15 @@ class Fns {
 		}
 	}
 
+	/**
+	 * Get post thumbnail html
+	 *
+	 * @param         $pID
+	 * @param         $data
+	 * @param         $link_start
+	 * @param         $link_end
+	 * @param  false  $offset_size
+	 */
 	public static function get_post_thumbnail( $pID, $data, $link_start, $link_end, $offset_size = false ) {
 		$thumb_cat_condition = ( ! ( 'above_title' === $data['category_position'] || 'default' === $data['category_position'] ) );
 		if ( 'grid-layout4' === $data['layout'] && 'default' === $data['category_position'] ) {
@@ -2108,20 +2102,31 @@ class Fns {
 		$img_link = get_the_post_thumbnail_url( $pID, 'full' );
 
 		$img_size_key = 'image';
+
+
 		if ( $offset_size ) {
 			$img_size_key = 'image_offset';
 		}
 
-
-		//Start Post Thumb
 		echo $data['is_thumb_linked'] === 'yes' ? self::wp_kses( $link_start ) : null;
 		if ( has_post_thumbnail() && 'feature_image' === $data['media_source'] ) {
 			if ( $offset_size ) {
 				echo get_the_post_thumbnail( $pID, $data['image_offset'] );
 			} else {
+
+
+
+
+
+
 				$data['image'] = [
-					'id' => get_post_thumbnail_id(),
+					'id' => get_post_thumbnail_id($pID),
 				];
+
+
+
+
+//				$settings, 'thumbnail', 'image'
 				echo \Elementor\Group_Control_Image_Size::get_attachment_image_html( $data, 'image' );
 			}
 		} elseif ( 'first_image' === $data['media_source'] && self::get_content_first_image( $pID ) ) {
@@ -2129,31 +2134,37 @@ class Fns {
 			$img_link = self::get_content_first_image( $pID, 'url' );
 		} elseif ( 'yes' === $data['is_default_img'] ) {
 			echo \Elementor\Group_Control_Image_Size::get_attachment_image_html( $data, $img_size_key, 'default_image' );
-			$img_link = \Elementor\Group_Control_Image_Size::get_attachment_image_src( $data, $img_size_key, 'default_image' );
+			if ( ! empty( $data['default_image'] ) && isset( $data['default_image']['url'] ) ) {
+				$img_link = $data['default_image']['url'];
+			}
 		}
 		echo $data['is_thumb_linked'] === 'yes' ? self::wp_kses( $link_end ) : null;
-		//End Post Thumb
 		?>
 
 		<?php if ( 'show' === $data['is_thumb_lightbox']
 		           || ( in_array( $data['layout'], [ 'grid-layout7', 'slider-layout4' ] ) && in_array( $data['is_thumb_lightbox'], [ 'default', 'show' ] ) )
 		) :
 			?>
-            <a
-                    class="tpg-zoom"
-                    data-elementor-open-lightbox="yes"
-                    data-elementor-lightbox-slideshow="<?php echo esc_attr( $data['layout'] ); ?>"
-                    title="<?php echo esc_attr( get_the_title() ); ?>"
-                    href="<?php echo esc_url( $img_link ) ?>">
+            <a class="tpg-zoom"
+               data-elementor-open-lightbox="yes"
+               data-elementor-lightbox-slideshow="<?php echo esc_attr( $data['layout'] ); ?>"
+               title="<?php echo esc_attr( get_the_title() ); ?>"
+               href="<?php echo esc_url( $img_link ) ?>">
                 <i class="fa fa-plus" aria-hidden="true"></i>
             </a>
 		<?php endif; ?>
-
-		<?php if ( true ) : ?>
-            <div class="overlay grid-hover-content"></div>
-		<?php endif;
+        <div class="overlay grid-hover-content"></div>
+		<?php
 	}
 
+
+	/**
+	 * Check is filter enable or not
+	 *
+	 * @param $data
+	 *
+	 * @return bool
+	 */
 	public static function is_filter_enable( $data ) {
 		if ( rtTPG()->hasPro()
 		     && ( $data['show_taxonomy_filter'] == 'show'
@@ -2161,12 +2172,7 @@ class Fns {
 		          || $data['show_order_by'] == 'show'
 		          || $data['show_sort_order'] == 'show'
 		          || $data['show_search'] == 'show'
-		          || in_array( $data['pagination_type'],
-					[
-						'pagination_ajax',
-						'load_more',
-						'load_on_scroll',
-					] ) )
+		          || ( $data['show_pagination'] == 'show' && $data['pagination_type'] != 'pagination' ) )
 		) {
 			return true;
 		}

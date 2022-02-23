@@ -6,9 +6,11 @@ use RT\ThePostGrid\Helpers\Fns;
 use RT\ThePostGrid\Helpers\Options;
 
 class AdminAjaxController {
+
 	private $l4togglePreviewAjax = false;
 	private $l4togglePreview = false;
 	private $l4toggle = false;
+
 	public function __construct() {
 		add_action( 'wp_ajax_tpgPreviewAjaxCall', [ $this, 'tpgPreviewAjaxCall' ] );
 	}
@@ -31,12 +33,12 @@ class AdminAjaxController {
 				$layout = 'layout1';
 			}
 
-			$isIsotope  = preg_match( '/isotope/', $layout );
-			$isCarousel = preg_match( '/carousel/', $layout );
-			$isGrid     = preg_match( '/layout/', $layout );
-			$isWooCom   = preg_match( '/wc/', $layout );
-			$isOffset   = preg_match( '/offset/', $layout );
-			$isGridHover    = preg_match( '/grid_hover/', $layout );
+			$isIsotope   = preg_match( '/isotope/', $layout );
+			$isCarousel  = preg_match( '/carousel/', $layout );
+			$isGrid      = preg_match( '/layout/', $layout );
+			$isWooCom    = preg_match( '/wc/', $layout );
+			$isOffset    = preg_match( '/offset/', $layout );
+			$isGridHover = preg_match( '/grid_hover/', $layout );
 
 			$dCol = ( isset( $scMeta['column'] ) ? absint( $scMeta['column'] ) : 3 );
 			$tCol = ( isset( $scMeta['tpg_tab_column'] ) ? absint( $scMeta['tpg_tab_column'] ) : 2 );
@@ -429,7 +431,7 @@ class AdminAjaxController {
 			if ( $pagination && $queryOffset && isset( $args['paged'] ) ) {
 				$queryOffset = ( $posts_per_page * ( $args['paged'] - 1 ) ) + $queryOffset;
 			}
-			if ($queryOffset) {
+			if ( $queryOffset ) {
 				$args['offset'] = $queryOffset;
 			}
 
@@ -735,18 +737,20 @@ class AdminAjaxController {
 			if ( $gridQuery->have_posts() ) {
 				if ( $isCarousel ) {
 					$cOpt              = ! empty( $scMeta['carousel_property'] ) ? $scMeta['carousel_property'] : [];
-					$slider_js_options = apply_filters( 'rttpg_slider_js_options', [
-						"speed"           => ! empty( $scMeta['tpg_carousel_speed'] ) ? absint( $scMeta['tpg_carousel_speed'] ) : 250,
-						"autoPlayTimeOut" => ! empty( $scMeta['tpg_carousel_autoplay_timeout'] ) ? absint( $scMeta['tpg_carousel_autoplay_timeout'] ) : 5000,
-						"autoPlay"        => in_array( 'auto_play', $cOpt ) ? true : false,
-						"stopOnHover"     => in_array( 'stop_hover', $cOpt ) ? true : false,
-						"nav"             => in_array( 'nav_button', $cOpt ) ? true : false,
-						"dots"            => in_array( 'pagination', $cOpt ) ? true : false,
-						"loop"            => in_array( 'loop', $cOpt ) ? true : false,
-						"lazyLoad"        => in_array( 'lazyLoad', $cOpt ) ? true : false,
-						"autoHeight"      => in_array( 'auto_height', $cOpt ) ? true : false,
-						"rtl"             => in_array( 'rtl', $cOpt ) ? true : false,
-					], $scMeta );
+					$slider_js_options = apply_filters( 'rttpg_slider_js_options',
+						[
+							"speed"           => ! empty( $scMeta['tpg_carousel_speed'] ) ? absint( $scMeta['tpg_carousel_speed'] ) : 250,
+							"autoPlayTimeOut" => ! empty( $scMeta['tpg_carousel_autoplay_timeout'] ) ? absint( $scMeta['tpg_carousel_autoplay_timeout'] ) : 5000,
+							"autoPlay"        => in_array( 'auto_play', $cOpt ) ? true : false,
+							"stopOnHover"     => in_array( 'stop_hover', $cOpt ) ? true : false,
+							"nav"             => in_array( 'nav_button', $cOpt ) ? true : false,
+							"dots"            => in_array( 'pagination', $cOpt ) ? true : false,
+							"loop"            => in_array( 'loop', $cOpt ) ? true : false,
+							"lazyLoad"        => in_array( 'lazyLoad', $cOpt ) ? true : false,
+							"autoHeight"      => in_array( 'auto_height', $cOpt ) ? true : false,
+							"rtl"             => in_array( 'rtl', $cOpt ) ? true : false,
+						],
+						$scMeta );
 					$data              .= sprintf( '<div class="rt-swiper-holder swiper"  data-rtowl-options="%s"><div class="swiper-wrapper">',
 						htmlspecialchars( wp_json_encode( $slider_js_options ) ) );
 				}
@@ -766,20 +770,22 @@ class AdminAjaxController {
 					}
 					global $wp_version;
 					if ( version_compare( $wp_version, '4.5', '>=' ) ) {
-						$terms = get_terms( $isotope_filter, [
-							'meta_key'   => '_rt_order',
-							'orderby'    => 'meta_value_num',
-							'order'      => 'ASC',
-							'hide_empty' => false,
-							'include'    => $selectedTerms,
-						] );
+						$terms = get_terms( $isotope_filter,
+							[
+								'meta_key'   => '_rt_order',
+								'orderby'    => 'meta_value_num',
+								'order'      => 'ASC',
+								'hide_empty' => false,
+								'include'    => $selectedTerms,
+							] );
 					} else {
-						$terms = get_terms( $isotope_filter, [
-							'orderby'    => 'name',
-							'order'      => 'ASC',
-							'hide_empty' => false,
-							'include'    => $selectedTerms,
-						] );
+						$terms = get_terms( $isotope_filter,
+							[
+								'orderby'    => 'name',
+								'order'      => 'ASC',
+								'hide_empty' => false,
+								'include'    => $selectedTerms,
+							] );
 					}
 					$data           .= '<div class="tpg-iso-filter">';
 					$htmlButton     = $drop = null;
@@ -850,7 +856,8 @@ class AdminAjaxController {
 					$arg['pLink']         = get_permalink();
 					$arg['toggle']        = $this->l4toggle;
 					$arg['author']        = '<a href="' . get_author_posts_url( get_the_author_meta( 'ID' ) ) . '">' . get_the_author() . '</a>';
-					$cc                   = wp_count_comments( $pID );
+					$comments_number      = get_comments_number( $pID );
+					$comments_text        = sprintf( '(%s)', number_format_i18n( $comments_number ) );
 					$arg['date']          = get_the_date();
 					$arg['excerpt']       = Fns::get_the_excerpt( $pID, $arg );
 					$arg['categories']    = get_the_term_list( $pID, 'category', null, ', ' );
@@ -874,17 +881,21 @@ class AdminAjaxController {
 						}
 					}
 					if ( comments_open() ) {
-						$arg['comment'] = "<a href='" . get_comments_link( $pID ) . "'>{$cc->total_comments} </a>";
+						$arg['comment'] = "<a href='" . get_comments_link( $pID ) . "'>{$comments_text} </a>";
 					} else {
-						$arg['comment'] = "{$cc->total_comments}";
+						$arg['comment'] = "{$comments_text}";
 					}
 					$imgSrc             = null;
-					$arg['smallImgSrc'] = ! $fImg ? Fns::getFeatureImageSrc( $pID, $fSmallImgSize, $mediaSource,
+					$arg['smallImgSrc'] = ! $fImg ? Fns::getFeatureImageSrc( $pID,
+						$fSmallImgSize,
+						$mediaSource,
 						$defaultImgId,
 						$customSmallImgSize ) : null;
 					if ( $isOffset ) {
 						if ( $offLoop == 0 ) {
-							$arg['imgSrc'] = ! $fImg ? Fns::getFeatureImageSrc( $pID, $fImgSize, $mediaSource,
+							$arg['imgSrc'] = ! $fImg ? Fns::getFeatureImageSrc( $pID,
+								$fImgSize,
+								$mediaSource,
 								$defaultImgId,
 								$customImgSize ) : null;
 							$arg['offset'] = 'big';
@@ -892,13 +903,18 @@ class AdminAjaxController {
 						} else {
 							$arg['offset']    = 'small';
 							$arg['offsetCol'] = [ $dCol, $tCol, $mCol ];
-							$arg['imgSrc']    = ! $fImg ? Fns::getFeatureImageSrc( $pID, 'thumbnail', $mediaSource,
+							$arg['imgSrc']    = ! $fImg ? Fns::getFeatureImageSrc( $pID,
+								'thumbnail',
+								$mediaSource,
 								$defaultImgId,
 								$customImgSize ) : null;
 							$offsetSmallHtml  .= Fns::get_template_html( 'layouts/' . $layout, $arg );
 						}
 					} else {
-						$arg['imgSrc'] = ! $fImg ? Fns::getFeatureImageSrc( $pID, $fImgSize, $mediaSource, $defaultImgId,
+						$arg['imgSrc'] = ! $fImg ? Fns::getFeatureImageSrc( $pID,
+							$fImgSize,
+							$mediaSource,
+							$defaultImgId,
 							$customImgSize ) : null;
 						$data          .= Fns::get_template_html( 'layouts/' . $layout, $arg );
 					}
@@ -957,7 +973,8 @@ class AdminAjaxController {
 							$htmlUtility .= "<div class='rt-page-numbers'></div>";
 						} else {
 							$htmlUtility .= Fns::rt_pagination( $gridQuery->max_num_pages,
-								$args['posts_per_page'], true );
+								$args['posts_per_page'],
+								true );
 						}
 					} elseif ( $posts_loading_type == "load_more" ) {
 						if ( $isGrid ) {
@@ -1014,4 +1031,5 @@ class AdminAjaxController {
 		] );
 		die();
 	}
+
 }

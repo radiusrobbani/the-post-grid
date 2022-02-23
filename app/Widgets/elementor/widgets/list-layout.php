@@ -111,6 +111,9 @@ class TPGListLayout extends Custom_Widget_Base {
 
 		//Box Settings
 		rtTPGElementorHelper::articlBoxSettings( $this );
+
+		//Promotions
+		rtTPGElementorHelper::promotions( $this );
 	}
 
 
@@ -128,7 +131,7 @@ class TPGListLayout extends Custom_Widget_Base {
 			add_action( 'wp_footer', [ $this, 'get_modal_markup' ] );
 		}
 
-		if ( 'masonry' === $data[ 'list_layout_style' ] ) {
+		if ( 'masonry' === $data['list_layout_style'] ) {
 			wp_enqueue_script( 'imagesloaded' );
 			wp_enqueue_script( 'isotope' );
 			wp_enqueue_script( 'jquery-masonry' );
@@ -137,6 +140,7 @@ class TPGListLayout extends Custom_Widget_Base {
 
 		$query_args     = rtTPGElementorQuery::post_query( $data, $_prefix );
 		$query          = new WP_Query( $query_args );
+
 		$rand           = mt_rand();
 		$layoutID       = "rt-tpg-container-" . $rand;
 		$posts_per_page = $data['display_per_page'] ? $data['display_per_page'] : $data['post_limit'];
@@ -219,7 +223,7 @@ class TPGListLayout extends Custom_Widget_Base {
 
         </div>
 		<?php
-		if ( 'masonry' === $data[ 'grid_layout_style' ] && \Elementor\Plugin::$instance->editor->is_edit_mode() ) { ?>
+		if ( 'masonry' === $data[ $_prefix . '_layout_style' ] && \Elementor\Plugin::$instance->editor->is_edit_mode() ) { ?>
             <script>jQuery('.rt-row.rt-content-loader.tpg-masonry').isotope();</script>
 			<?php
 		}

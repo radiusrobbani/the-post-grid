@@ -109,6 +109,9 @@ class TPGSliderLayout extends Custom_Widget_Base {
 
 		//Box Settings
 		rtTPGElementorHelper::articlBoxSettings( $this );
+
+		//Promotions
+		rtTPGElementorHelper::promotions( $this );
 	}
 
 	protected function render() {

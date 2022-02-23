@@ -119,12 +119,12 @@ class rtTPGElementorHelper {
 			$ref->add_control(
 				$taxonomy . '_ids',
 				[
-					'label'     => __( "By ", 'the-post-grid' ) . $object->label,
-					'type'      => \Elementor\Controls_Manager::SELECT2,
+					'label'       => __( "By ", 'the-post-grid' ) . $object->label,
+					'type'        => \Elementor\Controls_Manager::SELECT2,
 					'label_block' => true,
-					'multiple'  => true,
-					'options'   => $ref->tpg_get_categories_by_id( $taxonomy ),
-					'condition' => [
+					'multiple'    => true,
+					'options'     => $ref->tpg_get_categories_by_id( $taxonomy ),
+					'condition'   => [
 						'post_type' => $object->object_type,
 					],
 				]
@@ -134,11 +134,11 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'author',
 			[
-				'label'    => __( 'By Author', 'the-post-grid' ),
-				'type'     => \Elementor\Controls_Manager::SELECT2,
-				'multiple' => true,
+				'label'       => __( 'By Author', 'the-post-grid' ),
+				'type'        => \Elementor\Controls_Manager::SELECT2,
+				'multiple'    => true,
 				'label_block' => true,
-				'options'  => Fns::rt_get_users(),
+				'options'     => Fns::rt_get_users(),
 			]
 		);
 
@@ -222,6 +222,9 @@ class rtTPGElementorHelper {
 					'DESC' => __( 'DESC', 'the-post-grid' ),
 				],
 				'default' => 'DESC',
+				'condition' => [
+					'orderby!' => 'menu_order',
+				],
 			]
 		);
 
@@ -985,7 +988,7 @@ class rtTPGElementorHelper {
 				'default'      => 'yes',
 				'conditions'   => $front_end_filter_tax_condition,
 				'condition'    => [
-					'filter_type' => 'button',
+					'filter_type'      => 'button',
 					'filter_btn_style' => 'default',
 				],
 			]
@@ -1723,6 +1726,7 @@ class rtTPGElementorHelper {
 		if ( ! rtTPG()->hasPro() ) {
 			$thumb_exclude = 'custom';
 		}
+
 
 		//Default Image
 		$ref->add_group_control(
@@ -2796,6 +2800,39 @@ class rtTPGElementorHelper {
 				'label_off'    => __( 'No', 'the-post-grid' ),
 				'return_value' => 'yes',
 				'default'      => 'yes',
+			]
+		);
+
+		$ref->end_controls_section();
+	}
+
+
+	/**
+	 * Promotions
+	 *
+	 * @param $ref
+	 */
+	public static function promotions( $ref ) {
+		if ( rtTPG()->hasPro() ) {
+			return;
+		}
+		$pro_url = "//www.radiustheme.com/downloads/the-post-grid-pro-for-wordpress/";
+
+		$ref->start_controls_section(
+			'tpg_pro_alert',
+			[
+				'label' => sprintf(
+					'<span style="color: #f54">%s</span>',
+					__( 'Go Premium for More Features', 'testimonial-slider-showcase' )
+				),
+			]
+		);
+
+		$ref->add_control(
+			'tpg_control_get_pro',
+			[
+				'type' => Controls_Manager::RAW_HTML,
+				'raw'  => '<div class="elementor-nerd-box"><div class="elementor-nerd-box-title" style="margin-top: 0; margin-bottom: 20px;">Unlock more possibilities</div><div class="elementor-nerd-box-message"><span class="pro-feature" style="font-size: 13px;"> Get the <a href="'.$pro_url.'" target="_blank" style="color: #f54">Pro version</a> for more stunning layouts and customization options.</span></div><a class="elementor-nerd-box-link elementor-button elementor-button-default elementor-button-go-pro" href="'.$pro_url.'" target="_blank">Get Pro</a></div>',
 			]
 		);
 

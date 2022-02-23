@@ -19,6 +19,17 @@
     padding-bottom: 20px;
 }
 
+.elementor-nerd-box-title {
+    margin-top: 20px;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 1.4;
+}
+
+.elementor-control-tpg_pro_alert .elementor-section-toggle i {
+    color: #f54;
+}
+
 .elementor-control.elementor-control-hidden-label.should-show-title > * > * > .elementor-control-title,
 .elementor-control.elementor-control-hidden-label.should-show-title > * > .elementor-control-title, .elementor-control.elementor-hidden-control {
     display: block;
