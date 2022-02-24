@@ -2110,24 +2110,38 @@ class Fns {
 
 		echo $data['is_thumb_linked'] === 'yes' ? self::wp_kses( $link_start ) : null;
 		if ( has_post_thumbnail() && 'feature_image' === $data['media_source'] ) {
+			$fImgSize = $data['image_size'];
 			if ( $offset_size ) {
 				echo get_the_post_thumbnail( $pID, $data['image_offset'] );
 			} else {
 
+				if ( $data['image_size'] !== 'custom' ) {
+					echo get_the_post_thumbnail( $pID, $fImgSize );
+				} else {
+					$fImgSize      = 'rt_custom';
+					$mediaSource   = 'feature_image';
+					$defaultImgId  = null;
+					$customImgSize = [];
 
 
+					if ( isset( $data['image_custom_dimension'] ) ) {
+						$post_thumb_id           = get_post_thumbnail_id( $pID );
+						$default_image_dimension = wp_get_attachment_image_src( $post_thumb_id, 'full' );
+						if ( $default_image_dimension[1] <= $data['image_custom_dimension']['width'] || $default_image_dimension[2] <= $data['image_custom_dimension']['height'] ) {
+							$customImgSize = [];
+						} else {
+							$customImgSize[0] = $data['image_custom_dimension']['width'];
+							$customImgSize[1] = $data['image_custom_dimension']['height'];
+							$customImgSize[2] = $data['img_crop_style'];
+						}
+					}
+					$imageHtml = Fns::getFeatureImageSrc( $pID, $fImgSize, $mediaSource, $defaultImgId, $customImgSize );
+					echo $imageHtml;
+					//echo get_the_post_thumbnail( $pID, $data['image_size'] );
+				}
+				//echo \Elementor\Group_Control_Image_Size::get_attachment_image_html( $data, 'image' );
 
 
-
-				$data['image'] = [
-					'id' => get_post_thumbnail_id($pID),
-				];
-
-
-
-
-//				$settings, 'thumbnail', 'image'
-				echo \Elementor\Group_Control_Image_Size::get_attachment_image_html( $data, 'image' );
 			}
 		} elseif ( 'first_image' === $data['media_source'] && self::get_content_first_image( $pID ) ) {
 			echo self::get_content_first_image( $pID );

@@ -709,9 +709,7 @@ abstract class Custom_Widget_Base extends Widget_Base {
 	 */
 	function get_render_data_set( $data, $total_pages, $posts_per_page ) {
 		$_prefix = $this->prefix;
-		echo "<pre>";
-		print_r($data);
-		echo "</pre>";
+
 		return [
 			'gird_column'              => $data[ $_prefix . '_column' ],
 			'gird_column_tablet'       => ( isset( $data[ $_prefix . '_column_tablet' ] ) ) ? $data[ $_prefix . '_column_tablet' ] : '0',
@@ -770,7 +768,8 @@ abstract class Custom_Widget_Base extends Widget_Base {
 			'date_icon'                => $data['date_icon'],
 			'user_icon'                => $data['user_icon'],
 			'comment_icon'             => $data['comment_icon'],
-			'image'                    => isset( $data['image'] ) ? $data['image'] : '',
+			'image_custom_dimension'   => ( $data['image_size'] == 'custom' && isset( $data['image_custom_dimension'] ) ) ? $data['image_custom_dimension'] : '',
+			'img_crop_style'           => ( $data['image_size'] == 'custom' && isset( $data['img_crop_style'] ) ) ? $data['img_crop_style'] : '',
 		];
 	}
 

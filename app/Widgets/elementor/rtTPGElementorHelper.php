@@ -1742,6 +1742,25 @@ class rtTPGElementorHelper {
 			]
 		);
 
+		$ref->add_control(
+			'img_crop_style',
+			[
+				'label'   => __( 'Image Crop Style', 'the-post-grid' ),
+				'type'    => \Elementor\Controls_Manager::SELECT,
+				'default' => 'hard',
+				'options' => [
+					'soft'  => __( 'Soft Crop', 'the-post-grid' ),
+					'hard' => __( 'Hard Crop', 'the-post-grid' ),
+				],
+				'condition' => [
+					'image_size' => 'custom',
+					'media_source' => 'feature_image',
+				],
+			]
+		);
+
+
+
 		$thumb_condition = [
 			'media_source' => 'feature_image',
 			'grid_layout'  => [ 'grid-layout5', 'grid-layout6' ],

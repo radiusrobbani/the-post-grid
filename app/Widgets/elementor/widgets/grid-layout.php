@@ -143,6 +143,7 @@ class TPGGridLayout extends Custom_Widget_Base {
 		/**
 		 * TODO: Get Post Data for render post
 		 */
+
 		$post_data = $this->get_render_data_set( $data, $query->max_num_pages, $posts_per_page );
 
 		/**

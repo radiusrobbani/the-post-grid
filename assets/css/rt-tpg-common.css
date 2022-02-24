@@ -1990,6 +1990,7 @@ Common Layout Style
     color: #fff;
     line-height: 1.4;
     padding: 5px 15px;
+    margin-bottom: 0;
 }
 
 .tpg-widget-heading-wrapper.heading-style2 .tpg-widget-heading a,
