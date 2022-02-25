@@ -2108,6 +2108,7 @@ class Fns {
 			$img_size_key = 'image_offset';
 		}
 
+
 		echo $data['is_thumb_linked'] === 'yes' ? self::wp_kses( $link_start ) : null;
 		if ( has_post_thumbnail() && 'feature_image' === $data['media_source'] ) {
 			$fImgSize = $data['image_size'];
@@ -2135,8 +2136,7 @@ class Fns {
 							$customImgSize[2] = $data['img_crop_style'];
 						}
 					}
-					$imageHtml = Fns::getFeatureImageSrc( $pID, $fImgSize, $mediaSource, $defaultImgId, $customImgSize );
-					echo $imageHtml;
+					echo Fns::getFeatureImageSrc( $pID, $fImgSize, $mediaSource, $defaultImgId, $customImgSize );
 					//echo get_the_post_thumbnail( $pID, $data['image_size'] );
 				}
 				//echo \Elementor\Group_Control_Image_Size::get_attachment_image_html( $data, 'image' );

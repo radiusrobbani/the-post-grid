@@ -11,7 +11,9 @@
 .rt-tpg-container .rt-detail .tpg-excerpt {
     margin-top: -5px;
 }
-
+.tpg-el-main-wrapper .slider_layout_wrapper .tpg-post-holder {
+    margin-top: 1px;
+}
 .tpg-el-main-wrapper .slider_layout_wrapper .tpg-post-holder,
 .tpg-el-main-wrapper .grid-layout5 .tpg-post-holder,
 .tpg-el-main-wrapper .grid-layout6 .tpg-post-holder {
@@ -1355,6 +1357,7 @@ body .readmore-btn-only-text .rt-tpg-container .tpg-post-holder .read-more a {
     padding: 0;
     position: relative;
     overflow: hidden;
+    height: 100%;
 }
 
 .rt-tpg-container .rt-grid-hover-item .rt-holder .grid-hover-content {
@@ -1372,7 +1375,7 @@ body .readmore-btn-only-text .rt-tpg-container .tpg-post-holder .read-more a {
     min-height: 56px;
 }
 
-.rt-tpg-container .rt-grid-hover-item .rt-holder:hover .grid-hover-content{
+.rt-tpg-container .rt-grid-hover-item .rt-holder:hover .grid-hover-content {
     padding-bottom: 15px;
 }
 
@@ -1423,6 +1426,11 @@ body .readmore-btn-only-text .rt-tpg-container .tpg-post-holder .read-more a {
 
 .rt-tpg-container .rt-grid-hover-item .rt-holder .tpg-el-image-wrap {
     margin: 0;
+}
+
+.rt-grid-hover-item .tpg-el-image-wrap {
+    height: 100%;
+    background-color: #e4eaf1;
 }
 
 /*Hover animation
@@ -1684,7 +1692,7 @@ body .readmore-btn-only-text .rt-tpg-container .tpg-post-holder .read-more a {
     max-height: inherit;
 }
 
-.rt-tpg-container .grid_hover-layout1 .rt-holder .tpg-el-image-wrap img {
+.rt-tpg-container .grid_hover-layout1 .rt-holder .tpg-el-image-wrap {
     height: 300px;
 }
 
@@ -1769,7 +1777,7 @@ body .readmore-btn-only-text .rt-tpg-container .tpg-post-holder .read-more a {
 # Grid Hover Layout 3
 **********************************/
 
-.rt-tpg-container .grid_hover-layout3 .tpg-el-image-wrap img {
+.rt-tpg-container .grid_hover-layout3 .tpg-el-image-wrap {
     height: 300px;
 }
 
@@ -1806,8 +1814,21 @@ body .readmore-btn-only-text .rt-tpg-container .tpg-post-holder .read-more a {
     transition: 0.4s;
 }
 
-/*End Title Border style */
+.tpg-title-border-show.title-alignment-justify .rt-tpg-container .rt-holder .entry-title-wrapper .entry-title::before,
+.tpg-title-border-show.title-alignment-left .rt-tpg-container .rt-holder .entry-title-wrapper .entry-title::before,
+.tpg-title-border-show.tpg-wrapper-align-left .rt-tpg-container .rt-holder .entry-title-wrapper .entry-title::before {
+    left: 0;
+    transform: none;
+}
 
+.tpg-title-border-show.title-alignment-right .rt-tpg-container .rt-holder .entry-title-wrapper .entry-title::before,
+.tpg-title-border-show.tpg-wrapper-align-right .rt-tpg-container .rt-holder .entry-title-wrapper .entry-title::before {
+    right: 0;
+    transform: none;
+}
+
+
+/*End Title Border style */
 
 /*********************************
 # Grid Hover Layout 4 - Offset
@@ -1835,11 +1856,12 @@ body .readmore-btn-only-text .rt-tpg-container .tpg-post-holder .read-more a {
     object-fit: cover;
     min-height: 170px;
 }
+
 .tpg-el-main-wrapper .offset-right .rt-list-item .tpg-el-image-wrap img {
     min-height: inherit;
 }
 
- .tpg-el-main-wrapper .offset-left .tpg-el-image-wrap {
+.tpg-el-main-wrapper .offset-left .tpg-el-image-wrap {
     height: 589px;
 }
 
@@ -1913,6 +1935,7 @@ body .elementor-section .rt-tpg-container .grid_hover-layout5 [class*='rt-col'] 
 .grid-hover-overlay-height-default .grid_hover-layout5 .rt-holder .grid-hover-content .post-meta-tags {
     margin-top: -7px;
 }
+
 .grid-hover-overlay-height-default .grid_hover-layout5 .rt-holder .rt-detail .entry-title-wrapper .tpg-separate-category {
     margin-bottom: 0;
 }
@@ -2116,9 +2139,11 @@ body .elementor-section .rt-tpg-container .grid_hover-layout5 [class*='rt-col'] 
         height: 300px;
     }
 }
+
 .rt-tpg-container .grid_hover-layout11 .entry-title-wrapper {
     margin-top: -13px;
 }
+
 .rt-tpg-container .grid_hover-layout11 .entry-title-wrapper .entry-title {
     font-size: 26px;
     line-height: 1.4;
@@ -2548,6 +2573,7 @@ body .tpg-el-main-wrapper .slider-layout12 .rt-swiper-holder {
 
 .rt-tpg-container .slider-layout13 .rt-holder .tpg-el-image-wrap {
     height: 650px;
+    background-color: #e4eaf1;
 }
 
 .tpg-el-main-wrapper.slider-layout11-main .rt-grid-hover-item .rt-holder .rt-el-content-wrapper,

@@ -53,7 +53,7 @@ class Options {
 
 	public static function rtPostOrderBy( $isWoCom = false, $metaOrder = false ) {
 		$orderBy = [
-			"ID"         => __( "ID", 'the-post-grid' ),
+//			"ID"         => __( "ID", 'the-post-grid' ),
 			"title"      => __( "Title", 'the-post-grid' ),
 			"date"       => __( "Created date", 'the-post-grid' ),
 			"modified"   => __( "Modified date", 'the-post-grid' ),
