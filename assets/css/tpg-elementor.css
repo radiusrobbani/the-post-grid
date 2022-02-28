@@ -1,5 +1,16 @@
 /************************* The Post Grid **************************/
 /*Elementor CSS */
+
+.tpg-even.grid-behaviour {
+    align-items: flex-start;
+}
+
+
+.tpg-full-height,
+.grid-layout2.tpg-even {
+    align-items: inherit;
+}
+
 .tpg-el-main-wrapper .tpg-post-holder {
     height: 100%;
 }
@@ -11,9 +22,11 @@
 .rt-tpg-container .rt-detail .tpg-excerpt {
     margin-top: -5px;
 }
+
 .tpg-el-main-wrapper .slider_layout_wrapper .tpg-post-holder {
     margin-top: 1px;
 }
+
 .tpg-el-main-wrapper .slider_layout_wrapper .tpg-post-holder,
 .tpg-el-main-wrapper .grid-layout5 .tpg-post-holder,
 .tpg-el-main-wrapper .grid-layout6 .tpg-post-holder {
@@ -29,6 +42,7 @@
 .tpg-separate-category .categories-links,
 .tpg-separate-category .categories-links i,
 .rt-tpg-social-share a i,
+.rt-tpg-container .tpg-post-holder .read-more a i,
 .rt-tpg-container .tpg-post-holder .read-more a,
 .tpg-el-main-wrapper .tpg-el-image-wrap img,
 .tpg-el-main-wrapper .post-meta-tags span,
@@ -43,13 +57,8 @@
 }
 
 .tpg-el-main-wrapper .rt-content-loader [class*='rt-col'] {
-    padding-bottom: 15px;
+    padding-bottom: 30px;
     margin-top: 0;
-}
-
-.grid-layout1-main.tpg-el-main-wrapper .rt-content-loader [class*='rt-col'],
-.grid-layout3-main.tpg-el-main-wrapper .rt-content-loader [class*='rt-col'] {
-    margin-bottom: 15px;
 }
 
 .tpg-el-main-wrapper .entry-title a {
@@ -911,6 +920,11 @@ body .readmore-btn-only-text .rt-tpg-container .tpg-post-holder .read-more a {
 # Grid Layout 6
 **********************************/
 
+.tpg-wrapper-align-left .rt-tpg-container .grid-layout6 .offset-left .offset-content,
+.tpg-wrapper-align-right .rt-tpg-container .grid-layout6 .offset-left .offset-content {
+    padding: 0;
+}
+
 .rt-tpg-container .grid-layout6 .offset-right .offset-item {
     margin-bottom: 15px;
 }
@@ -1088,6 +1102,7 @@ body .readmore-btn-only-text .rt-tpg-container .tpg-post-holder .read-more a {
     display: flex;
     flex-direction: row;
     padding: 0;
+    height: 100%;
 }
 
 .tpg-el-main-wrapper.list-layout1-2-main .list-layout1 .rt-holder .rt-el-content-wrapper {
@@ -1118,10 +1133,6 @@ body .readmore-btn-only-text .rt-tpg-container .tpg-post-holder .read-more a {
     color: #fff;
     background-color: var(--tpg-secondary-color);
     border-color: var(--tpg-secondary-color);
-}
-
-.tpg-el-main-wrapper .list-layout1 [class*='rt-col'] {
-    padding-bottom: 40px;
 }
 
 .tags-visibility-default .list-layout1 .post-tags-links,
@@ -1167,6 +1178,11 @@ body .readmore-btn-only-text .rt-tpg-container .tpg-post-holder .read-more a {
 .tpg-el-main-wrapper.list-layout2-2-main .list-layout2,
 .tpg-el-main-wrapper.list-layout3-2-main .list-layout3 {
     flex-direction: row-reverse;
+}
+
+
+.tpg-el-main-wrapper .list-layout-wrapper.list-layout2 .rt-holder .rt-el-content-wrapper {
+    align-items: flex-start;
 }
 
 /*End List Offset common */

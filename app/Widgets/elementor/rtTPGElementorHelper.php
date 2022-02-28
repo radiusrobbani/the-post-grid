@@ -451,13 +451,13 @@ class rtTPGElementorHelper {
 
 		if ( 'grid' === $prefix ) {
 			$grid_column_condition = [
-				'grid_layout!' => [ 'grid-layout5', 'grid-layout6' ],
+				'grid_layout!' => [ 'grid-layout5', 'grid-layout5-2', 'grid-layout6', 'grid-layout6-2' ],
 			];
 		}
 
 		if ( 'grid_hover' === $prefix ) {
 			$grid_column_condition = [
-				'grid_hover_layout!' => [ '' ],
+				'grid_hover_layout!' => [ 'grid_hover-layout8' ],
 			];
 		}
 
@@ -472,7 +472,7 @@ class rtTPGElementorHelper {
 				'6' => __( '6 Columns', 'the-post-grid' ),
 			];
 			$grid_column_condition = [
-				'slider_layout!' => [ 'slider-layout10', 'slider-layout11', 'slider-layout12' ],
+				'slider_layout!' => [ 'slider-layout10', 'slider-layout11', 'slider-layout12', 'slider-layout13' ],
 			];
 		}
 
@@ -487,94 +487,6 @@ class rtTPGElementorHelper {
 				'mobile_default' => '0',
 				'description'    => __( 'Choose Column for layout.', 'the-post-grid' ),
 				'condition'      => $grid_column_condition,
-			]
-		);
-
-
-		if ( $prefix !== 'slider' ) {
-			$layout_align_css = [
-				'{{WRAPPER}} .tpg-el-main-wrapper .grid-behaviour .rt-holder .rt-el-content-wrapper'                  => 'justify-content: {{VALUE}};height:100%;',
-				'{{WRAPPER}} .tpg-el-main-wrapper .grid-behaviour .rt-holder .rt-el-content-wrapper .gallery-content' => 'justify-content: {{VALUE}};height:100%;',
-				'{{WRAPPER}} .tpg-el-main-wrapper .grid-behaviour .rt-holder .rt-el-content-wrapper-flex'             => 'align-items: {{VALUE}};',
-			];
-
-			if ( $prefix === 'grid_hover' ) {
-				$layout_align_css = [
-					'{{WRAPPER}} .rt-tpg-container .rt-grid-hover-item .rt-holder .grid-hover-content' => 'justify-content: {{VALUE}};',
-				];
-			}
-
-			//Grid layout
-			$ref->add_control(
-				$prefix . '_layout_alignment',
-				[
-					'label'     => __( 'Vertical Align', 'the-post-grid' ),
-					'type'      => \Elementor\Controls_Manager::SELECT,
-					'options'   => [
-						''              => __( 'Default', 'the-post-grid' ),
-						'flex-start'    => __( 'Start', 'the-post-grid' ),
-						'center'        => __( 'Center', 'the-post-grid' ),
-						'flex-end'      => __( 'End', 'the-post-grid' ),
-						'space-around'  => __( 'Space Around', 'the-post-grid' ),
-						'space-between' => __( 'Space Between', 'the-post-grid' ),
-					],
-					'condition' => [
-						$prefix . '_layout!' => [ 'grid-layout7' ],
-					],
-					'selectors' => $layout_align_css,
-				]
-			);
-		}
-
-		if ( $prefix === 'slider' ) {
-			//Grid layout
-			$ref->add_control(
-				$prefix . '_layout_alignment_2',
-				[
-					'label'     => __( 'Vertical Align', 'the-post-grid' ),
-					'type'      => \Elementor\Controls_Manager::SELECT,
-					'options'   => [
-						''              => __( 'Default', 'the-post-grid' ),
-						'flex-start'    => __( 'Start', 'the-post-grid' ),
-						'center'        => __( 'Center', 'the-post-grid' ),
-						'flex-end'      => __( 'End', 'the-post-grid' ),
-						'space-around'  => __( 'Space Around', 'the-post-grid' ),
-						'space-between' => __( 'Space Between', 'the-post-grid' ),
-					],
-					'condition' => [
-						$prefix . '_layout!' => [ 'slider-layout1', 'slider-layout2', 'slider-layout3', 'slider-layout13', 'grid-layout7' ],
-					],
-					'selectors' => [
-						'{{WRAPPER}} .tpg-el-main-wrapper .grid-behaviour .rt-holder .rt-el-content-wrapper .gallery-content' => 'justify-content: {{VALUE}};height:100%;',
-						'{{WRAPPER}} .rt-tpg-container .rt-grid-hover-item .rt-holder .grid-hover-content'                    => 'justify-content: {{VALUE}};',
-					],
-				]
-			);
-		}
-
-		$ref->add_responsive_control(
-			$prefix . '_left_side_width',
-			[
-				'label'      => __( 'Image Wrapper Width', 'the-post-grid' ),
-				'type'       => Controls_Manager::SLIDER,
-				'size_units' => [ 'px', '%' ],
-				'range'      => [
-					'px' => [
-						'min'  => 0,
-						'max'  => 700,
-						'step' => 5,
-					],
-					'%'  => [
-						'min' => 0,
-						'max' => 100,
-					],
-				],
-				'selectors'  => [
-					'{{WRAPPER}} .rt-tpg-container .grid-layout2 .rt-holder .tpg-el-image-wrap' => 'flex: 0 0 {{SIZE}}{{UNIT}}; max-width: {{SIZE}}{{UNIT}};',
-				],
-				'condition'  => [
-					$prefix . '_layout' => [ 'grid-layout2' ],
-				],
 			]
 		);
 
@@ -603,7 +515,9 @@ class rtTPGElementorHelper {
 				'condition'  => [
 					$prefix . '_layout' => [
 						'grid-layout5',
+						'grid-layout5-2',
 						'grid-layout6',
+						'grid-layout6-2',
 						'grid_hover-layout4',
 						'grid_hover-layout4-2',
 						'grid_hover-layout5',
@@ -620,9 +534,10 @@ class rtTPGElementorHelper {
 		);
 
 
-		if ( in_array( $prefix, [ 'grid' ] ) ) {
+		if ( 'grid' === $prefix ) {
 			$layout_style_opt = [
-				'tpg-even' => __( 'Grid', 'the-post-grid' ),
+				'tpg-even'        => __( 'Grid', 'the-post-grid' ),
+				'tpg-full-height' => __( 'Grid Equal Height', 'the-post-grid' ),
 			];
 			if ( rtTPG()->hasPro() ) {
 				$layout_style_new_opt = [
@@ -638,10 +553,81 @@ class rtTPGElementorHelper {
 					'type'        => \Elementor\Controls_Manager::SELECT,
 					'default'     => 'tpg-even',
 					'options'     => $layout_style_opt,
-					'description' => $ref->get_pro_message( "masonry layout" ),
+					'description' => __( 'If you use card border then equal height will work. ', 'the-post-grid' ) . $ref->get_pro_message( "masonry layout" ),
 					'classes'     => rtTPG()->hasPro() ? '' : 'tpg-should-hide-field',
 					'condition'   => [
 						$prefix . '_layout!' => [ 'grid-layout2', 'grid-layout5', 'grid-layout5-2', 'grid-layout6', 'grid-layout6-2', 'grid-layout7', 'grid-layout7-2' ],
+					],
+				]
+			);
+		}
+
+		if ( $prefix !== 'slider' ) {
+			$layout_align_css = [
+				'{{WRAPPER}} .rt-tpg-container .grid-layout2 .rt-holder .post-right-content' => 'justify-content: {{VALUE}};',
+			];
+
+			if ( $prefix === 'grid_hover' ) {
+				$layout_align_css = [
+					'{{WRAPPER}} .rt-tpg-container .rt-grid-hover-item .rt-holder .grid-hover-content' => 'justify-content: {{VALUE}};',
+				];
+			}
+
+			//Grid layout
+			$ref->add_control(
+				$prefix . '_layout_alignment',
+				[
+					'label'     => __( 'Vertical Align', 'the-post-grid' ),
+					'type'      => \Elementor\Controls_Manager::SELECT,
+					'options'   => [
+						''              => __( 'Default', 'the-post-grid' ),
+						'flex-start'    => __( 'Start', 'the-post-grid' ),
+						'center'        => __( 'Center', 'the-post-grid' ),
+						'flex-end'      => __( 'End', 'the-post-grid' ),
+						'space-around'  => __( 'Space Around', 'the-post-grid' ),
+						'space-between' => __( 'Space Between', 'the-post-grid' ),
+					],
+					'condition' => [
+						$prefix . '_layout!' => [
+							'grid-layout1',
+							'grid-layout3',
+							'grid-layout4',
+							'grid-layout5',
+							'grid-layout5-2',
+							'grid-layout6',
+							'grid-layout6-2',
+							'grid-layout7',
+							'grid_hover-layout2',
+							'grid_hover-layout4',
+							'grid_hover-layout4-2',
+						],
+					],
+					'selectors' => $layout_align_css,
+				]
+			);
+		}
+
+		if ( $prefix === 'slider' ) {
+			//Grid layout
+			$ref->add_control(
+				$prefix . '_layout_alignment_2',
+				[
+					'label'     => __( 'Vertical Align', 'the-post-grid' ),
+					'type'      => \Elementor\Controls_Manager::SELECT,
+					'options'   => [
+						''              => __( 'Default', 'the-post-grid' ),
+						'flex-start'    => __( 'Start', 'the-post-grid' ),
+						'center'        => __( 'Center', 'the-post-grid' ),
+						'flex-end'      => __( 'End', 'the-post-grid' ),
+						'space-around'  => __( 'Space Around', 'the-post-grid' ),
+						'space-between' => __( 'Space Between', 'the-post-grid' ),
+					],
+					'condition' => [
+						$prefix . '_layout!' => [ 'slider-layout1', 'slider-layout2', 'slider-layout3', 'slider-layout13', 'grid-layout7' ],
+					],
+					'selectors' => [
+						'{{WRAPPER}} .tpg-el-main-wrapper .grid-behaviour .rt-holder .rt-el-content-wrapper .gallery-content' => 'justify-content: {{VALUE}};height:100%;',
+						'{{WRAPPER}} .rt-tpg-container .rt-grid-hover-item .rt-holder .grid-hover-content'                    => 'justify-content: {{VALUE}};',
 					],
 				]
 			);
@@ -1044,8 +1030,9 @@ class rtTPGElementorHelper {
 	 * @param $ref
 	 */
 	public static function list_layouts( $ref ) {
+		$prefix = $ref->prefix;
 		$ref->start_controls_section(
-			$ref->prefix . '_layout_settings',
+			'list_layout_settings',
 			[
 				'label' => esc_html__( 'Layout', 'the-post-grid' ),
 				'tab'   => Controls_Manager::TAB_CONTENT,
@@ -1053,36 +1040,36 @@ class rtTPGElementorHelper {
 		);
 
 		$ref->add_control(
-			$ref->prefix . '_layout',
+			'list_layout',
 			[
 				'label'          => __( 'Choose Layout', 'the-post-grid' ),
 				'type'           => \Elementor\Controls_Manager::CHOOSE,
 				'label_block'    => true,
 				'options'        => [
-					$ref->prefix . '-layout1'   => [
+					'list-layout1'   => [
 						'title' => __( 'Layout 1', 'the-post-grid' ),
 					],
-					$ref->prefix . '-layout2'   => [
+					'list-layout2'   => [
 						'title' => __( 'Layout 2', 'the-post-grid' ),
 					],
-					$ref->prefix . '-layout2-2' => [
+					'list-layout2-2' => [
 						'title' => __( 'Layout 3', 'the-post-grid' ),
 					],
-					$ref->prefix . '-layout3'   => [
+					'list-layout3'   => [
 						'title' => __( 'Layout 4', 'the-post-grid' ),
 					],
-					$ref->prefix . '-layout3-2' => [
+					'list-layout3-2' => [
 						'title' => __( 'Layout 5', 'the-post-grid' ),
 					],
-					$ref->prefix . '-layout4'   => [
+					'list-layout4'   => [
 						'title' => __( 'Layout 6', 'the-post-grid' ),
 					],
-					$ref->prefix . '-layout5'   => [
+					'list-layout5'   => [
 						'title' => __( 'Layout 7', 'the-post-grid' ),
 					],
 				],
 				'toggle'         => false,
-				'default'        => $ref->prefix . '-layout1',
+				'default'        => 'list-layout1',
 				'style_transfer' => true,
 				'classes'        => 'tpg-image-select list-layout ' . $ref->is_post_layout,
 			]
@@ -1098,7 +1085,7 @@ class rtTPGElementorHelper {
 		);
 
 		$ref->add_responsive_control(
-			$ref->prefix . '_column',
+			'list_column',
 			[
 				'label'          => esc_html__( 'Column', 'the-post-grid' ),
 				'type'           => Controls_Manager::SELECT,
@@ -1114,14 +1101,14 @@ class rtTPGElementorHelper {
 				'mobile_default' => '0',
 				'description'    => __( 'Choose Column for layout', 'the-post-grid' ),
 				'condition'      => [
-					'list_layout!' => [ 'list-layout4' ],
+					'list_layout!' => [ 'list-layout2', 'list-layout2-2', 'list-layout4' ],
 				],
 			]
 		);
 
 
 		$ref->add_responsive_control(
-			$ref->prefix . '_layout_alignment',
+			'list_layout_alignment',
 			[
 				'label'     => __( 'Vertical Alignment', 'the-post-grid' ),
 				'type'      => \Elementor\Controls_Manager::SELECT,
@@ -1136,14 +1123,14 @@ class rtTPGElementorHelper {
 				'selectors' => [
 					'{{WRAPPER}} .tpg-el-main-wrapper .list-behaviour .rt-holder .rt-el-content-wrapper' => 'align-items: {{VALUE}};',
 				],
-				//				'condition' => [
-				//					'list_layout!' => [ 'list-layout4' ],
-				//				],
+				'condition' => [
+					'list_layout!' => [ 'list-layout2', 'list-layout2-2' ],
+				],
 			]
 		);
 
 		$ref->add_responsive_control(
-			$ref->prefix . '_image_side_width',
+			'list_image_side_width',
 			[
 				'label'      => __( 'List Image Width', 'the-post-grid' ),
 				'type'       => Controls_Manager::SLIDER,
@@ -1169,7 +1156,7 @@ class rtTPGElementorHelper {
 		);
 
 		$ref->add_responsive_control(
-			$ref->prefix . '_left_side_width',
+			'list_left_side_width',
 			[
 				'label'      => __( 'Offset Width', 'the-post-grid' ),
 				'type'       => Controls_Manager::SLIDER,
@@ -1207,7 +1194,7 @@ class rtTPGElementorHelper {
 		}
 
 		$ref->add_control(
-			$ref->prefix . '_layout_style',
+			'list_layout_style',
 			[
 				'label'       => __( 'Layout Style', 'the-post-grid' ),
 				'type'        => \Elementor\Controls_Manager::SELECT,
@@ -1215,7 +1202,8 @@ class rtTPGElementorHelper {
 				'options'     => $layout_style_opt,
 				'description' => $ref->get_pro_message( "masonry layout" ),
 				'condition'   => [
-					'list_layout' => [ 'list-layout1', 'list-layout5' ],
+					'list_layout'  => [ 'list-layout1', 'list-layout5' ],
+					'list_column!' => [ '0', '12' ],
 				],
 			]
 		);
@@ -1766,7 +1754,7 @@ class rtTPGElementorHelper {
 
 		$thumb_condition = [
 			'media_source' => 'feature_image',
-			'grid_layout'  => [ 'grid-layout5', 'grid-layout6' ],
+			'grid_layout'  => [ 'grid-layout5', 'grid-layout5-2', 'grid-layout6', 'grid-layout6-2' ],
 		];
 
 		if ( $ref->prefix === 'list' ) {
@@ -2960,6 +2948,7 @@ class rtTPGElementorHelper {
 	 * @param $ref
 	 */
 	public static function thumbnailStyle( $ref ) {
+		$prefix = $ref->prefix;
 		// Thumbnail style
 		//========================================================
 		$ref->start_controls_section(
@@ -3107,17 +3096,21 @@ class rtTPGElementorHelper {
 			]
 		);
 
-//		$ref->add_control(
-//			'grid_hover_overlay_padding',
-//			[
-//				'label'      => __( 'Overlay Padding', 'the-post-grid' ),
-//				'type'       => Controls_Manager::DIMENSIONS,
-//				'size_units' => [ 'px' ],
-//				'selectors'  => [
-//					'{{WRAPPER}} .rt-tpg-container .rt-grid-hover-item .rt-holder .grid-hover-content' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
-//				],
-//			]
-//		);
+		//		$ref->add_control(
+		//			'grid_hover_overlay_padding',
+		//			[
+		//				'label'      => __( 'Overlay Padding', 'the-post-grid' ),
+		//				'type'       => Controls_Manager::DIMENSIONS,
+		//				'size_units' => [ 'px' ],
+		//				'selectors'  => [
+		//					'{{WRAPPER}} .rt-tpg-container .rt-grid-hover-item .rt-holder .grid-hover-content' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+		//					'{{WRAPPER}} .tpg-el-main-wrapper .offset-left .offset-content'                    => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+		//				],
+		//				'condition'  => [
+		//					$prefix . '_layout' => [ 'grid-layout5', 'grid-layout5-2' ],
+		//				],
+		//			]
+		//		);
 
 
 		//TODO: Tab normal
@@ -3143,19 +3136,19 @@ class rtTPGElementorHelper {
 			]
 		);
 
-//		$ref->add_responsive_control(
-//			'grid_hover_overlay_margin',
-//			[
-//				'label'      => __( 'Overlay Margin', 'the-post-grid' ),
-//				'type'       => Controls_Manager::DIMENSIONS,
-//				'size_units' => [ 'px' ],
-//				'selectors'  => [
-//					'{{WRAPPER}} .rt-tpg-container .rt-grid-hover-item .rt-holder .grid-hover-content'                                                                                                                                                                                             => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}}; width: calc( 100% - ( {{LEFT}}{{UNIT}} + {{RIGHT}}{{UNIT}} ) );',
-//					'{{WRAPPER}}.hover-overlay-height-full .rt-tpg-container .rt-content-loader .rt-grid-hover-item .rt-holder:hover .grid-hover-content, {{WRAPPER}}.hover-overlay-height-default .rt-tpg-container .grid_hover-layout1 .rt-grid-hover-item .rt-holder:hover .grid-hover-content' => 'min-height: calc( 100% - ( {{TOP}}{{UNIT}} + {{BOTTOM}}{{UNIT}} ) );',
-//					'{{WRAPPER}}.grid-hover-overlay-height-full .rt-tpg-container .rt-content-loader .rt-grid-hover-item .rt-holder .grid-hover-content'                                                                                                                                           => 'min-height: calc( 100% - ( {{TOP}}{{UNIT}} + {{BOTTOM}}{{UNIT}} ) );',
-//				],
-//			]
-//		);
+		//		$ref->add_responsive_control(
+		//			'grid_hover_overlay_margin',
+		//			[
+		//				'label'      => __( 'Overlay Margin', 'the-post-grid' ),
+		//				'type'       => Controls_Manager::DIMENSIONS,
+		//				'size_units' => [ 'px' ],
+		//				'selectors'  => [
+		//					'{{WRAPPER}} .rt-tpg-container .rt-grid-hover-item .rt-holder .grid-hover-content'                                                                                                                                                                                             => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}}; width: calc( 100% - ( {{LEFT}}{{UNIT}} + {{RIGHT}}{{UNIT}} ) );',
+		//					'{{WRAPPER}}.hover-overlay-height-full .rt-tpg-container .rt-content-loader .rt-grid-hover-item .rt-holder:hover .grid-hover-content, {{WRAPPER}}.hover-overlay-height-default .rt-tpg-container .grid_hover-layout1 .rt-grid-hover-item .rt-holder:hover .grid-hover-content' => 'min-height: calc( 100% - ( {{TOP}}{{UNIT}} + {{BOTTOM}}{{UNIT}} ) );',
+		//					'{{WRAPPER}}.grid-hover-overlay-height-full .rt-tpg-container .rt-content-loader .rt-grid-hover-item .rt-holder .grid-hover-content'                                                                                                                                           => 'min-height: calc( 100% - ( {{TOP}}{{UNIT}} + {{BOTTOM}}{{UNIT}} ) );',
+		//				],
+		//			]
+		//		);
 
 		$ref->add_control(
 			'thumb_lightbox_bg',
@@ -3205,20 +3198,20 @@ class rtTPGElementorHelper {
 				'exclude'  => [ 'image' ],
 			]
 		);
-//
-//		$ref->add_responsive_control(
-//			'grid_hover_overlay_margin_hover',
-//			[
-//				'label'      => __( 'Overlay Margin - Hover', 'the-post-grid' ),
-//				'type'       => Controls_Manager::DIMENSIONS,
-//				'size_units' => [ 'px' ],
-//				'selectors'  => [
-//					'{{WRAPPER}} .rt-tpg-container .rt-grid-hover-item .rt-holder:hover .grid-hover-content'                                                                                                                                                                                       => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}}; width: calc( 100% - ( {{LEFT}}{{UNIT}} + {{RIGHT}}{{UNIT}} ) );',
-//					'{{WRAPPER}}.hover-overlay-height-full .rt-tpg-container .rt-content-loader .rt-grid-hover-item .rt-holder:hover .grid-hover-content, {{WRAPPER}}.hover-overlay-height-default .rt-tpg-container .grid_hover-layout1 .rt-grid-hover-item .rt-holder:hover .grid-hover-content' => 'min-height: calc( 100% - ( {{TOP}}{{UNIT}} + {{BOTTOM}}{{UNIT}} ) );',
-//					'{{WRAPPER}}.grid-hover-overlay-height-full .rt-tpg-container .rt-content-loader .rt-grid-hover-item .rt-holder:hover .grid-hover-content'                                                                                                                                     => 'min-height: calc( 100% - ( {{TOP}}{{UNIT}} + {{BOTTOM}}{{UNIT}} ) );',
-//				],
-//			]
-//		);
+		//
+		//		$ref->add_responsive_control(
+		//			'grid_hover_overlay_margin_hover',
+		//			[
+		//				'label'      => __( 'Overlay Margin - Hover', 'the-post-grid' ),
+		//				'type'       => Controls_Manager::DIMENSIONS,
+		//				'size_units' => [ 'px' ],
+		//				'selectors'  => [
+		//					'{{WRAPPER}} .rt-tpg-container .rt-grid-hover-item .rt-holder:hover .grid-hover-content'                                                                                                                                                                                       => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}}; width: calc( 100% - ( {{LEFT}}{{UNIT}} + {{RIGHT}}{{UNIT}} ) );',
+		//					'{{WRAPPER}}.hover-overlay-height-full .rt-tpg-container .rt-content-loader .rt-grid-hover-item .rt-holder:hover .grid-hover-content, {{WRAPPER}}.hover-overlay-height-default .rt-tpg-container .grid_hover-layout1 .rt-grid-hover-item .rt-holder:hover .grid-hover-content' => 'min-height: calc( 100% - ( {{TOP}}{{UNIT}} + {{BOTTOM}}{{UNIT}} ) );',
+		//					'{{WRAPPER}}.grid-hover-overlay-height-full .rt-tpg-container .rt-content-loader .rt-grid-hover-item .rt-holder:hover .grid-hover-content'                                                                                                                                     => 'min-height: calc( 100% - ( {{TOP}}{{UNIT}} + {{BOTTOM}}{{UNIT}} ) );',
+		//				],
+		//			]
+		//		);
 
 		$ref->add_control(
 			'thumb_lightbox_bg_hover',
@@ -3258,7 +3251,7 @@ class rtTPGElementorHelper {
 
 
 	/**
-	 * Title Style
+	 * Post Title Style
 	 *
 	 * @param $ref
 	 */
@@ -3286,7 +3279,7 @@ class rtTPGElementorHelper {
 		);
 
 		$title_condition = [
-			'grid_layout' => [ 'grid-layout5', 'grid-layout6' ],
+			'grid_layout' => [ 'grid-layout5', 'grid-layout5-2', 'grid-layout6', 'grid-layout6-2' ],
 		];
 
 		if ( $ref->prefix === 'list' ) {
@@ -5639,56 +5632,7 @@ class rtTPGElementorHelper {
 			]
 		);
 
-		//		if ( 'list' === $prefix ) {
-		//			$ref->add_responsive_control(
-		//				$ref->prefix . '_layout_order',
-		//				[
-		//					'label'        => __( 'Layout Invert', 'the-post-grid' ),
-		//					'type'         => \Elementor\Controls_Manager::SELECT,
-		//					'default'      => 'default',
-		//					'options'      => [
-		//						'default' => __( 'Default', 'the-post-grid' ),
-		//						'reverse' => __( 'Reverse', 'the-post-grid' ),
-		//					],
-		//					'condition'    => [
-		//						'list_layout!' => [ 'list-layout4' ],
-		//					],
-		//					'render_type'  => 'template',
-		//					'prefix_class' => 'tpg-post-order-',
-		//				]
-		//			);
-		//		}
-
 		if ( 'slider' !== $prefix ) {
-			//			$ref->add_control(
-			//				$prefix . '_post_order',
-			//				[
-			//					'label'        => __( 'layout Invert', 'the-post-grid' ),
-			//					'type'         => \Elementor\Controls_Manager::SELECT,
-			//					'default'      => 'default',
-			//					'options'      => [
-			//						'default' => __( 'Default', 'the-post-grid' ),
-			//						'reverse' => __( 'Reverse', 'the-post-grid' ),
-			//					],
-			//					'render_type'  => 'template',
-			//					'prefix_class' => 'tpg-post-order-',
-			//					'condition'    => [
-			//						$prefix . '_layout' => [
-			//							'grid-layout5',
-			//							'grid-layout6',
-			//							'list-layout2',
-			//							'list-layout3',
-			//							'grid_hover-layout4',
-			//							'grid_hover-layout4-2',
-			//							'grid_hover-layout5',
-			//							'grid_hover-layout6',
-			//							'grid_hover-layout7',
-			//							'grid_hover-layout9',
-			//						],
-			//					],
-			//				]
-			//			);
-
 			$ref->add_responsive_control(
 				'box_margin',
 				[
@@ -5697,33 +5641,80 @@ class rtTPGElementorHelper {
 					'size_units'  => [ 'px' ],
 					'render_type' => 'template',
 					'selectors'   => [
-						'{{WRAPPER}} .tpg-el-main-wrapper .rt-row [class*="rt-col"]'              => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}} !important;',
+						'{{WRAPPER}} .tpg-el-main-wrapper .rt-row [class*="rt-col"]'              => 'padding-left: {{LEFT}}{{UNIT}} !important; padding-right: {{RIGHT}}{{UNIT}} !important; padding-bottom: calc(2 * {{BOTTOM}}{{UNIT}}) !important;',
 						'{{WRAPPER}} .tpg-el-main-wrapper .rt-row'                                => 'margin-left: -{{LEFT}}{{UNIT}}; margin-right: -{{RIGHT}}{{UNIT}}',
-						'{{WRAPPER}} .tpg-el-main-wrapper .rt-row .rt-row'                        => 'margin-top: -{{LEFT}}{{UNIT}}; margin-bottom: -{{RIGHT}}{{UNIT}}',
+						'{{WRAPPER}} .tpg-el-main-wrapper .rt-row .rt-row'                        => 'margin-bottom: -{{RIGHT}}{{UNIT}}',
 						'{{WRAPPER}} .rt-tpg-container .grid_hover-layout8 .display-grid-wrapper' => 'grid-gap: {{TOP}}{{UNIT}};margin-bottom: {{TOP}}{{UNIT}}',
+					],
+					'condition'   => [
+						$prefix . '_layout!' => [
+							'grid-layout2',
+							'grid-layout5',
+							'grid-layout5-2',
+							'grid-layout6',
+							'grid-layout6-2',
+							'list-layout4',
+						],
 					],
 				]
 			);
 		}
 
 
-		$ref->add_responsive_control(
-			'content_box_padding',
-			[
-				'label'              => __( 'Content Padding', 'the-post-grid' ),
-				'type'               => Controls_Manager::DIMENSIONS,
-				'size_units'         => [ 'px' ],
-				'allowed_dimensions' => 'all',
-				'selectors'          => [
-					'body {{WRAPPER}} .rt-tpg-container .rt-el-content-wrapper'                                  => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}} !important;',
-					'body {{WRAPPER}} .rt-tpg-container .rt-el-content-wrapper-flex .post-right-content'         => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}} !important;',
-					'body {{WRAPPER}} .tpg-el-main-wrapper .rt-holder .rt-el-content-wrapper .tpg-el-image-wrap' => 'margin-left: -{{LEFT}}{{UNIT}}; margin-right: -{{RIGHT}}{{UNIT}};',
-				],
-				'condition'          => [
-					$prefix . '_layout!' => [ 'slider-layout13' ],
-				],
-			]
-		);
+		if ( in_array( $prefix, [ 'grid', 'list' ] ) ) {
+			$ref->add_responsive_control(
+				'content_box_padding',
+				[
+					'label'              => __( 'Content Padding', 'the-post-grid' ),
+					'type'               => Controls_Manager::DIMENSIONS,
+					'size_units'         => [ 'px' ],
+					'allowed_dimensions' => 'all',
+					'selectors'          => [
+						'body {{WRAPPER}} .rt-tpg-container .rt-el-content-wrapper'                                  => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}} !important;',
+						'body {{WRAPPER}} .rt-tpg-container .rt-el-content-wrapper-flex .post-right-content'         => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}} !important;',
+						'body {{WRAPPER}} .tpg-el-main-wrapper .rt-holder .rt-el-content-wrapper .tpg-el-image-wrap' => 'margin-left: -{{LEFT}}{{UNIT}}; margin-right: -{{RIGHT}}{{UNIT}};',
+					],
+					'condition'          => [
+						$prefix . '_layout!' => [
+							'grid-layout5',
+							'grid-layout5-2',
+							'grid-layout6',
+							'grid-layout6-2',
+							'grid-layout7',
+							'list-layout1',
+							'list-layout2',
+							'list-layout2-2',
+							'list-layout3',
+							'list-layout3-2',
+							'list-layout4',
+							'list-layout5',
+						],
+					],
+				]
+			);
+
+
+			$ref->add_responsive_control(
+				'content_box_padding_offset',
+				[
+					'label'              => __( 'Content Padding', 'the-post-grid' ),
+					'type'               => Controls_Manager::DIMENSIONS,
+					'size_units'         => [ 'px' ],
+					'allowed_dimensions' => 'all',
+					'selectors'          => [
+						'body {{WRAPPER}} .tpg-el-main-wrapper .offset-left .tpg-post-holder .offset-content' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}} !important;',
+						'{{WRAPPER}} .rt-tpg-container .list-layout4 .post-right-content'                     => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}} !important;',
+					],
+					'condition'          => [
+						$prefix . '_layout' => [
+							'grid-layout5',
+							'grid-layout5-2',
+							'list-layout4',
+						],
+					],
+				]
+			);
+		}
 
 		$ref->add_responsive_control(
 			'content_box_padding_2',
@@ -5751,187 +5742,234 @@ class rtTPGElementorHelper {
 					'body {{WRAPPER}} .tpg-el-main-wrapper .tpg-post-holder'                       => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};overflow:hidden;',
 					'body {{WRAPPER}} .rt-tpg-container .slider-layout13 .rt-holder .post-content' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};overflow:hidden;',
 				],
-			]
-		);
-
-		$ref->add_control(
-			'is_box_border',
-			[
-				'label'        => __( 'Card Border Option', 'the-post-grid' ),
-				'type'         => \Elementor\Controls_Manager::SELECT,
-				'default'      => 'enable',
-				'options'      => [
-					'enable'  => __( 'Enable', 'the-post-grid' ),
-					'disable' => __( 'Disable', 'the-post-grid' ),
-				],
-				'prefix_class' => 'tpg-el-box-border-',
-			]
-		);
-
-		//TODO: Start Tab
-		$ref->start_controls_tabs(
-			'box_style_tabs'
-		);
-
-		//TODO: Normal Tab
-		$ref->start_controls_tab(
-			'box_style_normal_tab',
-			[
-				'label' => __( 'Normal', 'the-post-grid' ),
-			]
-		);
-
-		$ref->add_group_control(
-			\Elementor\Group_Control_Background::get_type(),
-			[
-				'name'      => 'box_background',
-				'label'     => __( 'Background', 'the-post-grid' ),
-				'types'     => [ 'classic', 'gradient' ],
-				'selector'  => 'body {{WRAPPER}} .tpg-el-main-wrapper .tpg-post-holder',
-				'condition' => [
-					$prefix . '_layout!' => [ 'slider-layout13' ],
+				'condition'  => [
+					$prefix . '_layout!' => [
+						'list-layout2',
+						'list-layout2-2',
+						'list-layout3',
+						'list-layout3-2',
+						'list-layout4',
+						'list-layout4-2',
+						'list-layout5',
+						'list-layout5-2',
+						'slider-layout11',
+						'slider-layout12',
+						'slider-layout13',
+					],
 				],
 			]
 		);
 
-		$ref->add_group_control(
-			\Elementor\Group_Control_Background::get_type(),
-			[
-				'name'      => 'box_background2',
-				'label'     => __( 'Background', 'the-post-grid' ),
-				'types'     => [ 'classic', 'gradient' ],
-				'selector'  => 'body {{WRAPPER}} .rt-tpg-container .slider-layout13 .rt-holder .post-content',
-				'condition' => [
-					$prefix . '_layout' => [ 'slider-layout13' ],
-				],
-			]
-		);
+		if ( in_array( $prefix, [ 'grid', 'list' ] ) ) {
+			$ref->add_control(
+				'is_box_border',
+				[
+					'label'        => __( 'Enable Border & Box Shadow', 'the-post-grid' ),
+					'type'         => \Elementor\Controls_Manager::SELECT,
+					'default'      => 'enable',
+					'options'      => [
+						'enable'  => __( 'Enable', 'the-post-grid' ),
+						'disable' => __( 'Disable', 'the-post-grid' ),
+					],
+					'prefix_class' => 'tpg-el-box-border-',
+					'condition'    => [
+						$prefix . '_layout!' => [
+							'slider-layout11',
+							'slider-layout12',
+							'slider-layout13',
+						],
+					],
+				]
+			);
+		}
 
-		$ref->add_control(
-			'box_border',
-			[
-				'label'     => __( 'Border', 'the-post-grid' ),
-				'type'      => \Elementor\Controls_Manager::COLOR,
-				'selectors' => [
-					'body {{WRAPPER}} .tpg-el-main-wrapper .tpg-post-holder' => 'border: 1px solid {{VALUE}}',
-				],
-				'condition' => [
-					'is_box_border'      => 'enable',
-					$prefix . '_layout!' => [ 'slider-layout13' ],
-				],
-			]
-		);
+		if ( 'grid_hover' !== $prefix ) {
+			//TODO: Start Tab
+			$ref->start_controls_tabs(
+				'box_style_tabs'
+			);
 
-		$ref->add_group_control(
-			\Elementor\Group_Control_Box_Shadow::get_type(),
-			[
-				'name'      => 'box_box_shadow',
-				'label'     => __( 'Box Shadow', 'the-post-grid' ),
-				'selector'  => 'body {{WRAPPER}} .tpg-el-main-wrapper .tpg-post-holder',
-				'condition' => [
-					'is_box_border'      => 'enable',
-					$prefix . '_layout!' => [ 'slider-layout13' ],
-				],
-			]
-		);
+			//TODO: Normal Tab
+			$ref->start_controls_tab(
+				'box_style_normal_tab',
+				[
+					'label' => __( 'Normal', 'the-post-grid' ),
+				]
+			);
 
-		$ref->add_group_control(
-			\Elementor\Group_Control_Box_Shadow::get_type(),
-			[
-				'name'      => 'box_box_shadow2',
-				'label'     => __( 'Box Shadow', 'the-post-grid' ),
-				'selector'  => 'body {{WRAPPER}} .rt-tpg-container .slider-layout13 .rt-holder .post-content',
-				'condition' => [
-					'is_box_border'     => 'enable',
-					$prefix . '_layout' => [ 'slider-layout13' ],
-				],
-			]
-		);
+			$ref->add_group_control(
+				\Elementor\Group_Control_Background::get_type(),
+				[
+					'name'      => 'box_background',
+					'label'     => __( 'Background', 'the-post-grid' ),
+					'types'     => [ 'classic', 'gradient' ],
+					'selector'  => 'body {{WRAPPER}} .tpg-el-main-wrapper .tpg-post-holder',
+					'condition' => [
+						$prefix . '_layout!' => [ 'slider-layout13' ],
+					],
+				]
+			);
 
+			$ref->add_group_control(
+				\Elementor\Group_Control_Background::get_type(),
+				[
+					'name'      => 'box_background2',
+					'label'     => __( 'Background', 'the-post-grid' ),
+					'types'     => [ 'classic', 'gradient' ],
+					'selector'  => 'body {{WRAPPER}} .rt-tpg-container .slider-layout13 .rt-holder .post-content',
+					'condition' => [
+						$prefix . '_layout' => [ 'slider-layout13' ],
+					],
+				]
+			);
 
-		$ref->end_controls_tab();
-
-		//TODO: Hover Tab
-		$ref->start_controls_tab(
-			'box_style_hover_tab',
-			[
-				'label' => __( 'Hover', 'the-post-grid' ),
-			]
-		);
-
-		$ref->add_group_control(
-			\Elementor\Group_Control_Background::get_type(),
-			[
-				'name'      => 'box_background_hover',
-				'label'     => __( 'Background - Hover', 'the-post-grid' ),
-				'types'     => [ 'classic', 'gradient' ],
-				'selector'  => 'body {{WRAPPER}} .tpg-el-main-wrapper .tpg-post-holder:hover',
-				'condition' => [
-					$prefix . '_layout!' => [ 'slider-layout13' ],
-				],
-			]
-		);
-
-		$ref->add_group_control(
-			\Elementor\Group_Control_Background::get_type(),
-			[
-				'name'      => 'box_background_hover2',
-				'label'     => __( 'Background - Hover', 'the-post-grid' ),
-				'types'     => [ 'classic', 'gradient' ],
-				'selector'  => 'body {{WRAPPER}} .rt-tpg-container .slider-layout13 .rt-holder .post-content',
-				'condition' => [
-					$prefix . '_layout' => [ 'slider-layout13' ],
-				],
-			]
-		);
-
-		$ref->add_control(
-			'box_border_hover',
-			[
-				'label'     => __( 'Border - Hover', 'the-post-grid' ),
-				'type'      => \Elementor\Controls_Manager::COLOR,
-				'selectors' => [
-					'body {{WRAPPER}} .tpg-el-main-wrapper .tpg-post-holder:hover' => 'border: 1px solid {{VALUE}}',
-				],
-				'condition' => [
-					'is_box_border'      => 'enable',
-					$prefix . '_layout!' => [ 'slider-layout13' ],
-				],
-			]
-		);
-
-		$ref->add_group_control(
-			\Elementor\Group_Control_Box_Shadow::get_type(),
-			[
-				'name'      => 'box_box_shadow_hover',
-				'label'     => __( 'Box Shadow - Hover', 'the-post-grid' ),
-				'selector'  => 'body {{WRAPPER}} .tpg-el-main-wrapper .tpg-post-holder:hover',
-				'condition' => [
-					'is_box_border'      => 'enable',
-					$prefix . '_layout!' => [ 'slider-layout13' ],
-				],
-			]
-		);
+			if ( in_array( $prefix, [ 'grid', 'list' ] ) ) {
+				$ref->add_control(
+					'box_border',
+					[
+						'label'     => __( 'Border Color', 'the-post-grid' ),
+						'type'      => \Elementor\Controls_Manager::COLOR,
+						'selectors' => [
+							'body {{WRAPPER}} .tpg-el-main-wrapper .tpg-post-holder' => 'border: 1px solid {{VALUE}}',
+						],
+						'condition' => [
+							'is_box_border'      => 'enable',
+							$prefix . '_layout!' => [
+								'slider-layout11',
+								'slider-layout12',
+								'slider-layout13',
+							],
+						],
+					]
+				);
 
 
-		$ref->add_group_control(
-			\Elementor\Group_Control_Box_Shadow::get_type(),
-			[
-				'name'      => 'box_box_shadow_hover2',
-				'label'     => __( 'Box Shadow - Hover', 'the-post-grid' ),
-				'selector'  => 'body {{WRAPPER}} .rt-tpg-container .slider-layout13 .rt-holder .post-content',
-				'condition' => [
-					'is_box_border'     => 'enable',
-					$prefix . '_layout' => [ 'slider-layout13' ],
-				],
-			]
-		);
+				$ref->add_group_control(
+					\Elementor\Group_Control_Box_Shadow::get_type(),
+					[
+						'name'      => 'box_box_shadow',
+						'label'     => __( 'Box Shadow', 'the-post-grid' ),
+						'selector'  => 'body {{WRAPPER}} .tpg-el-main-wrapper .tpg-post-holder',
+						'condition' => [
+							'is_box_border'      => 'enable',
+							$prefix . '_layout!' => [
+								'slider-layout11',
+								'slider-layout12',
+								'slider-layout13',
+							],
+						],
+					]
+				);
+			}
+
+			$ref->add_group_control(
+				\Elementor\Group_Control_Box_Shadow::get_type(),
+				[
+					'name'      => 'box_box_shadow2',
+					'label'     => __( 'Box Shadow', 'the-post-grid' ),
+					'selector'  => 'body {{WRAPPER}} .rt-tpg-container .slider-layout13 .rt-holder .post-content',
+					'condition' => [
+						$prefix . '_layout' => [ 'slider-layout13' ],
+					],
+				]
+			);
 
 
-		$ref->end_controls_tab();
+			$ref->end_controls_tab();
 
-		$ref->end_controls_tabs();
-		//TODO: End Tab
+
+			//TODO: Hover Tab
+			$ref->start_controls_tab(
+				'box_style_hover_tab',
+				[
+					'label' => __( 'Hover', 'the-post-grid' ),
+				]
+			);
+
+			$ref->add_group_control(
+				\Elementor\Group_Control_Background::get_type(),
+				[
+					'name'      => 'box_background_hover',
+					'label'     => __( 'Background - Hover', 'the-post-grid' ),
+					'types'     => [ 'classic', 'gradient' ],
+					'selector'  => 'body {{WRAPPER}} .tpg-el-main-wrapper .tpg-post-holder:hover',
+					'condition' => [
+						$prefix . '_layout!' => [ 'slider-layout13' ],
+					],
+				]
+			);
+
+			$ref->add_group_control(
+				\Elementor\Group_Control_Background::get_type(),
+				[
+					'name'      => 'box_background_hover2',
+					'label'     => __( 'Background - Hover', 'the-post-grid' ),
+					'types'     => [ 'classic', 'gradient' ],
+					'selector'  => 'body {{WRAPPER}} .rt-tpg-container .slider-layout13 .rt-holder .post-content',
+					'condition' => [
+						$prefix . '_layout' => [ 'slider-layout13' ],
+					],
+				]
+			);
+
+			if ( in_array( $prefix, [ 'grid', 'list' ] ) ) {
+				$ref->add_control(
+					'box_border_hover',
+					[
+						'label'     => __( 'Border Color - Hover', 'the-post-grid' ),
+						'type'      => \Elementor\Controls_Manager::COLOR,
+						'selectors' => [
+							'body {{WRAPPER}} .tpg-el-main-wrapper .tpg-post-holder:hover' => 'border: 1px solid {{VALUE}}',
+						],
+						'condition' => [
+							'is_box_border'      => 'enable',
+							$prefix . '_layout!' => [
+								'slider-layout11',
+								'slider-layout12',
+								'slider-layout13',
+							],
+						],
+					]
+				);
+
+				$ref->add_group_control(
+					\Elementor\Group_Control_Box_Shadow::get_type(),
+					[
+						'name'      => 'box_box_shadow_hover',
+						'label'     => __( 'Box Shadow - Hover', 'the-post-grid' ),
+						'selector'  => 'body {{WRAPPER}} .tpg-el-main-wrapper .tpg-post-holder:hover',
+						'condition' => [
+							'is_box_border'      => 'enable',
+							$prefix . '_layout!' => [
+								'slider-layout11',
+								'slider-layout12',
+								'slider-layout13',
+							],
+						],
+					]
+				);
+			}
+
+
+			$ref->add_group_control(
+				\Elementor\Group_Control_Box_Shadow::get_type(),
+				[
+					'name'      => 'box_box_shadow_hover2',
+					'label'     => __( 'Box Shadow - Hover', 'the-post-grid' ),
+					'selector'  => 'body {{WRAPPER}} .rt-tpg-container .slider-layout13 .rt-holder .post-content',
+					'condition' => [
+						$prefix . '_layout' => [ 'slider-layout13' ],
+					],
+				]
+			);
+
+
+			$ref->end_controls_tab();
+
+			$ref->end_controls_tabs();
+			//TODO: End Tab
+
+		}
 
 		$ref->end_controls_section();
 	}
@@ -5953,20 +5991,6 @@ class rtTPGElementorHelper {
 			]
 		);
 
-		/*
-		$ref->add_control(
-			'carousel_effect',
-			[
-				'label'        => __( 'Slider Effect', 'the-post-grid' ),
-				'type'         => \Elementor\Controls_Manager::SELECT,
-				'default'      => 'slide',
-				'options'      => [
-					'slide'     => __( 'Slide', 'the-post-grid' ),
-					'fade'      => __( 'fade', 'the-post-grid' ),
-				],
-			]
-		);
-		*/
 
 		$ref->add_control(
 			'carousel_overflow',

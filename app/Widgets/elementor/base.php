@@ -74,7 +74,7 @@ abstract class Custom_Widget_Base extends Widget_Base {
 
 	public function tpg_template( $data ) {
 		$layout        = str_replace( '-2', null, $data['layout'] );
-		$template_name = '/the-post-grid/elementor-custom/' . $layout . '.php';
+		$template_name = '/the-post-grid/elementor/' . $layout . '.php';
 		if ( file_exists( STYLESHEETPATH . $template_name ) ) {
 			$file = STYLESHEETPATH . $template_name;
 		} elseif ( file_exists( TEMPLATEPATH . $template_name ) ) {
@@ -100,12 +100,12 @@ abstract class Custom_Widget_Base extends Widget_Base {
 
 	public function tpg_template_path( $data ) {
 		$layout        = str_replace( '-2', null, $data['layout'] );
-		$template_name = '/the-post-grid/elementor-custom/' . $layout . '.php';
+		$template_name = '/the-post-grid/elementor/' . $layout . '.php';
 		$path          = RT_THE_POST_GRID_PLUGIN_PATH . '/templates/elementor/';
 		if ( file_exists( STYLESHEETPATH . $template_name ) ) {
-			$path = STYLESHEETPATH . '/the-post-grid/elementor-custom/';
+			$path = STYLESHEETPATH . '/the-post-grid/elementor/';
 		} elseif ( file_exists( TEMPLATEPATH . $template_name ) ) {
-			$path = TEMPLATEPATH . '/the-post-grid/elementor-custom/';
+			$path = TEMPLATEPATH . '/the-post-grid/elementor/';
 		} else {
 			$template_path = RT_THE_POST_GRID_PLUGIN_PATH . '/templates/elementor/' . $layout . '.php';
 

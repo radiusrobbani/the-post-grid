@@ -41,6 +41,7 @@ class TPGListLayout extends Custom_Widget_Base {
 		//Layout
 		rtTPGElementorHelper::list_layouts( $this );
 
+
 		//Filter  Settings
 		rtTPGElementorHelper::filter_settings( $this );
 

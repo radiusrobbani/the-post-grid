@@ -32,6 +32,7 @@ class TPGGridLayout extends Custom_Widget_Base {
 
 	protected function _register_controls() {
 		/** Content TAB **/
+
 		//Query
 		rtTPGElementorHelper::query( $this );
 
@@ -178,7 +179,8 @@ class TPGGridLayout extends Custom_Widget_Base {
 
 			$wrapper_class   = [];
 			$wrapper_class[] = str_replace( '-2', null, $_layout );
-			$wrapper_class[] = 'tpg-even grid-behaviour';
+			$wrapper_class[] = 'grid-behaviour';
+			$wrapper_class[] = (in_array($_layout, ['grid-layout2'])) ? "tpg-even" : $_layout_style;
 			$wrapper_class[] = $_prefix . '_layout_wrapper';
 			if ( 'masonry' === $_layout_style && ! in_array( $_layout, [ $this->prefix . '-layout2', $this->prefix . '-layout5', $this->prefix . '-layout6' ] ) ) {
 				$wrapper_class[] = 'tpg-masonry';

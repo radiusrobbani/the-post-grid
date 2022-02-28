@@ -37,10 +37,11 @@ class TPGSliderLayout extends Custom_Widget_Base {
 		 */
 
 		//Query
-		rtTPGElementorHelper::query( $this );
+
 
 		//Layout
 		rtTPGElementorHelper::grid_layouts( $this );
+		rtTPGElementorHelper::query( $this );
 
 		//Links
 		rtTPGElementorHelper::links( $this );

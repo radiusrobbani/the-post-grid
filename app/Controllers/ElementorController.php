@@ -103,7 +103,7 @@ if ( ! class_exists( 'ElementorController' ) ):
 			];
 
 			foreach ( $widgets as $file_name => $class ) {
-				$template_name = 'the-post-grid/elementor-custom/' . $file_name . '.php';
+				$template_name = 'the-post-grid/elementor/' . $file_name . '.php';
 				if ( file_exists( STYLESHEETPATH . $template_name ) ) {
 					$file = STYLESHEETPATH . $template_name;
 				} elseif ( file_exists( TEMPLATEPATH . $template_name ) ) {
