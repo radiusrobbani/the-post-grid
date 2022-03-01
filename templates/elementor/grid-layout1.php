@@ -44,7 +44,6 @@ if ( 'masonry' == $data['layout_style'] ) {
 
 ?>
 
-
 <div <?php post_class( esc_attr( $col_class . ' ' . implode( ' ', $column_classes ) ) ); ?> data-id="<?php echo esc_attr( $pID ); ?>">
     <div class="rt-holder tpg-post-holder">
         <div class="rt-detail rt-el-content-wrapper">
@@ -55,20 +54,17 @@ if ( 'masonry' == $data['layout_style'] ) {
                 </div>
 			<?php endif; ?>
 
-
 			<?php
 			if ( 'show' == $data['show_title'] ) {
 				Fns::get_el_post_title( $data['title_tag'], $title, $link_start, $link_end, $data );
 			}
 			?>
 
-
 			<?php if ( 'show' == $data['show_meta'] ) : ?>
                 <div class="post-meta-tags rt-el-post-meta">
 					<?php Fns::get_post_meta_html( $pID, $data ); ?>
                 </div>
 			<?php endif; ?>
-
 
 
 			<?php if ( $excerpt && 'show' == $data['show_excerpt'] ) : ?>
@@ -82,7 +78,6 @@ if ( 'masonry' == $data['layout_style'] ) {
 				echo \RT\ThePostGridPro\Helpers\Functions::rtShare( $pID );
 			}
 			?>
-
 
 			<?php if ( 'show' === $data['show_read_more'] ) : ?>
                 <div class="post-footer">

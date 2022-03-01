@@ -625,15 +625,19 @@ class Fns {
 		$fImgSize = 'medium',
 		$mediaSource = 'feature_image',
 		$defaultImgId = null,
-		$customImgSize = []
+		$customImgSize = [],
+		$img_Class = ''
 	) {
 		global $post;
 		$imgSrc    = null;
-		$img_class = "rt-img-responsive";
-		$post_id   = ( $post_id ? absint( $post_id ) : $post->ID );
-		$alt       = get_the_title( $post_id );
-		$image     = null;
-		$cSize     = false;
+		$img_class = "rt-img-responsive ";
+		if ( $img_Class ) {
+			$img_class = $img_Class;
+		}
+		$post_id = ( $post_id ? absint( $post_id ) : $post->ID );
+		$alt     = get_the_title( $post_id );
+		$image   = null;
+		$cSize   = false;
 		if ( $fImgSize == 'rt_custom' ) {
 			$fImgSize = 'full';
 			$cSize    = true;
@@ -680,7 +684,11 @@ class Fns {
 			$c = ( ! empty( $customImgSize[2] ) && $customImgSize[2] == 'soft' ? false : true );
 			if ( $w && $h ) {
 				$imgSrc = Fns::rtImageReSize( $imgSrc, $w, $h, $c );
-				$image  = "<img class='{$img_class}' src='{$imgSrc}' width='{$w}' height='{$h}' alt='{$alt}'>";
+				if ( $img_Class !== 'swiper-lazy' ) {
+					$image = "<img class='{$img_class}' src='{$imgSrc}' width='{$w}' height='{$h}' alt='{$alt}'>";
+				} else {
+					$image = "<img class='{$img_class}' data-src='{$imgSrc}'>";
+				}
 			}
 		}
 
@@ -2055,7 +2063,7 @@ class Fns {
 	 *
 	 * @return mixed|string
 	 */
-	public static function get_content_first_image( $post_id, $type = 'markup' ) {
+	public static function get_content_first_image( $post_id, $type = 'markup', $imgClass = '' ) {
 		if ( $img = preg_match_all( '/<img.+src=[\'"]([^\'"]+)[\'"].*>/i',
 			get_the_content( $post_id ),
 			$matches )
@@ -2072,7 +2080,11 @@ class Fns {
 			$alt = get_the_title( $post_id );
 
 			if ( $type == 'markup' ) {
-				return "<img class='rt-img-responsive' src='{$imgSrc}' {$size} alt='{$alt}'>";
+				if ( $imgClass !== 'swiper-lazy' ) {
+					return "<img class='rt-img-responsive' src='{$imgSrc}' {$size} alt='{$alt}'>";
+				} else {
+					return "<img class='{$imgClass}' data-src='{$imgSrc}'>";
+				}
 			} else {
 				return $imgSrc;
 			}
@@ -2107,7 +2119,11 @@ class Fns {
 		if ( $offset_size ) {
 			$img_size_key = 'image_offset';
 		}
-
+		$lazy_load  = ( $data['prefix'] == 'slider' && $data['lazy_load'] == 'yes' ) ? true : false;
+		$lazy_class = 'rt-img-responsive';
+		if ( $lazy_load ) {
+			$lazy_class = 'swiper-lazy';
+		}
 
 		echo $data['is_thumb_linked'] === 'yes' ? self::wp_kses( $link_start ) : null;
 		if ( has_post_thumbnail() && 'feature_image' === $data['media_source'] ) {
@@ -2115,9 +2131,17 @@ class Fns {
 			if ( $offset_size ) {
 				echo get_the_post_thumbnail( $pID, $data['image_offset'] );
 			} else {
-
 				if ( $data['image_size'] !== 'custom' ) {
-					echo get_the_post_thumbnail( $pID, $fImgSize );
+					$thumb_id   = get_post_thumbnail_id( $pID );
+					$thumb_info = wp_get_attachment_image_src( $thumb_id, $fImgSize );
+					if ( $lazy_load ) {
+						?><img data-src="<?php echo esc_url( $thumb_info[0] ); ?>" class="<?php echo esc_attr( $lazy_class ); ?>"><?php
+					} else {
+						?><img src="<?php echo esc_url( $thumb_info[0] ); ?>" class="<?php echo esc_attr( $lazy_class ); ?>"><?php
+					}
+					?>
+
+					<?php
 				} else {
 					$fImgSize      = 'rt_custom';
 					$mediaSource   = 'feature_image';
@@ -2136,7 +2160,7 @@ class Fns {
 							$customImgSize[2] = $data['img_crop_style'];
 						}
 					}
-					echo Fns::getFeatureImageSrc( $pID, $fImgSize, $mediaSource, $defaultImgId, $customImgSize );
+					echo Fns::getFeatureImageSrc( $pID, $fImgSize, $mediaSource, $defaultImgId, $customImgSize, $lazy_class );
 					//echo get_the_post_thumbnail( $pID, $data['image_size'] );
 				}
 				//echo \Elementor\Group_Control_Image_Size::get_attachment_image_html( $data, 'image' );
@@ -2144,7 +2168,7 @@ class Fns {
 
 			}
 		} elseif ( 'first_image' === $data['media_source'] && self::get_content_first_image( $pID ) ) {
-			echo self::get_content_first_image( $pID );
+			echo self::get_content_first_image( $pID, 'markup', $lazy_class );
 			$img_link = self::get_content_first_image( $pID, 'url' );
 		} elseif ( 'yes' === $data['is_default_img'] ) {
 			echo \Elementor\Group_Control_Image_Size::get_attachment_image_html( $data, $img_size_key, 'default_image' );
@@ -2152,8 +2176,13 @@ class Fns {
 				$img_link = $data['default_image']['url'];
 			}
 		}
-		echo $data['is_thumb_linked'] === 'yes' ? self::wp_kses( $link_end ) : null;
+
 		?>
+		<?php if ( $lazy_load ) : ?>
+            <div class="swiper-lazy-preloader swiper-lazy-preloader-white"></div>
+		<?php endif; ?>
+
+		<?php echo $data['is_thumb_linked'] === 'yes' ? self::wp_kses( $link_end ) : null; ?>
 
 		<?php if ( 'show' === $data['is_thumb_lightbox']
 		           || ( in_array( $data['layout'], [ 'grid-layout7', 'slider-layout4' ] ) && in_array( $data['is_thumb_lightbox'], [ 'default', 'show' ] ) )

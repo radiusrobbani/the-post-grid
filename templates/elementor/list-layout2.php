@@ -53,7 +53,7 @@ if ( $tpg_post_count != 1 ) {
 
 <?php if ( $tpg_post_count == 1 || $tpg_post_count == 2 ) : ?>
     <!--Start Offset left & offset right column-->
-    <div class="rt-col-xs-12 <?php echo esc_attr( 1 == $tpg_post_count ? 'rt-col-md-4 rt-col-sm-5 offset-left' : 'rt-col-md-8 rt-col-sm-7 offset-right' ); ?>">
+    <div class="rt-col-xs-12 <?php echo esc_attr( 1 == $tpg_post_count ? 'rt-col-md-4 rt-col-sm-5 offset-left-wrap offset-left' : 'rt-col-md-8 rt-col-sm-7 offset-right' ); ?>">
 <?php endif; ?>
 
 <?php if ( $tpg_post_count == 2 ) { ?>

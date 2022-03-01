@@ -472,7 +472,7 @@ class rtTPGElementorHelper {
 				'6' => __( '6 Columns', 'the-post-grid' ),
 			];
 			$grid_column_condition = [
-				'slider_layout!' => [ 'slider-layout10', 'slider-layout11', 'slider-layout12', 'slider-layout13' ],
+				'slider_layout!' => [ 'slider-layout10', 'slider-layout11', 'slider-layout13' ],
 			];
 		}
 
@@ -1827,7 +1827,6 @@ class rtTPGElementorHelper {
 				]
 			);
 
-
 			$ref->add_responsive_control(
 				'offset_image_height',
 				[
@@ -2100,17 +2099,22 @@ class rtTPGElementorHelper {
 			]
 		);
 
+		$excerpt_type = [
+			'character' => __( 'Character', 'the-post-grid' ),
+			'word'      => __( 'Word', 'the-post-grid' ),
+		];
+
+		if ( in_array( $prefix, [ 'grid', 'list' ] ) ) {
+			$excerpt_type['full'] = __( 'Full Content', 'the-post-grid' );
+		}
+
 		$ref->add_control(
 			'excerpt_type',
 			[
 				'label'   => __( 'Excerpt Type', 'the-post-grid' ),
 				'type'    => \Elementor\Controls_Manager::SELECT,
 				'default' => 'word',
-				'options' => [
-					'character' => __( 'Character', 'the-post-grid' ),
-					'word'      => __( 'Word', 'the-post-grid' ),
-					'full'      => __( 'Full Content', 'the-post-grid' ),
-				],
+				'options' => $excerpt_type,
 			]
 		);
 
@@ -3274,46 +3278,40 @@ class rtTPGElementorHelper {
 			\Elementor\Group_Control_Typography::get_type(),
 			[
 				'name'     => 'title_typography',
-				'selector' => '{{WRAPPER}} .tpg-el-main-wrapper .entry-title',
+				'selector' => '{{WRAPPER}} .tpg-el-main-wrapper .entry-title-wrapper .entry-title',
 			]
 		);
-
-		$title_condition = [
-			'grid_layout' => [ 'grid-layout5', 'grid-layout5-2', 'grid-layout6', 'grid-layout6-2' ],
-		];
-
-		if ( $ref->prefix === 'list' ) {
-			$title_condition = [
-				'list_layout' => [ 'list-layout2', 'list-layout3', 'list-layout2-2', 'list-layout3-2' ],
-			];
-		}
-
-		if ( $ref->prefix === 'grid_hover' ) {
-			$title_condition = [
-				'grid_hover_layout' => [
-					'grid_hover-layout4',
-					'grid_hover-layout4-2',
-					'grid_hover-layout5',
-					'grid_hover-layout5-2',
-					'grid_hover-layout6',
-					'grid_hover-layout6-2',
-					'grid_hover-layout7',
-					'grid_hover-layout7-2',
-					'grid_hover-layout9',
-					'grid_hover-layout9-2',
-				],
-			];
-		}
-
 
 		//Offset Title
 		$ref->add_group_control(
 			\Elementor\Group_Control_Typography::get_type(),
 			[
-				'name'      => 'title_offset_typography',
-				'selector'  => '{{WRAPPER}} .tpg-el-main-wrapper .offset-right .entry-title',
-				'condition' => $title_condition,
-				'classes'   => 'tpg-offset-title',
+				'name'        => 'title_offset_typography',
+				'selector'    => '{{WRAPPER}} .tpg-el-main-wrapper .offset-left .entry-title-wrapper .entry-title',
+				'classes'     => 'tpg-offset-title',
+				'description' => __( 'You can overwrite offset title font style', 'the-post-grid' ),
+				'condition'   => [
+					$prefix . '_layout' => [
+						'grid-layout5',
+						'grid-layout5-2',
+						'grid-layout6',
+						'grid-layout6-2',
+						'list-layout2',
+						'list-layout3',
+						'list-layout2-2',
+						'list-layout3-2',
+						'grid_hover-layout4',
+						'grid_hover-layout4-2',
+						'grid_hover-layout5',
+						'grid_hover-layout5-2',
+						'grid_hover-layout6',
+						'grid_hover-layout6-2',
+						'grid_hover-layout7',
+						'grid_hover-layout7-2',
+						'grid_hover-layout9',
+						'grid_hover-layout9-2',
+					],
+				],
 			]
 		);
 
@@ -5991,40 +5989,6 @@ class rtTPGElementorHelper {
 			]
 		);
 
-
-		$ref->add_control(
-			'carousel_overflow',
-			[
-				'label'        => __( 'Slider Overflow', 'the-post-grid' ),
-				'type'         => \Elementor\Controls_Manager::SELECT,
-				'default'      => 'hidden',
-				'options'      => [
-					'hidden' => __( 'Hidden', 'the-post-grid' ),
-					'none'   => __( 'None', 'the-post-grid' ),
-				],
-				'render_type'  => 'template',
-				'prefix_class' => 'is-carousel-overflow-',
-			]
-		);
-
-		$ref->add_control(
-			'enable_2_rows',
-			[
-				'label'        => __( 'Enable 2 Rows', 'the-post-grid' ),
-				'type'         => \Elementor\Controls_Manager::SWITCHER,
-				'label_on'     => __( 'Show', 'the-post-grid' ),
-				'label_off'    => __( 'Hide', 'the-post-grid' ),
-				'return_value' => 'yes',
-				'default'      => false,
-				'prefix_class' => 'enable-two-rows-',
-				'description'  => __( 'If you use 2 rows then you have to put an even number for post limit' ),
-				'condition'    => [
-					$prefix . '_layout!' => [ 'slider-layout10', 'slider-layout11', 'slider-layout12' ],
-				],
-			]
-		);
-
-
 		$ref->add_control(
 			'slider_gap',
 			[
@@ -6080,6 +6044,7 @@ class rtTPGElementorHelper {
 				],
 				'condition'    => [
 					'arrows' => 'yes',
+					$prefix . '_layout!' => [ 'slider-layout10', 'slider-layout11', 'slider-layout12' ],
 				],
 				'prefix_class' => 'slider-arrow-position-',
 			]
@@ -6114,6 +6079,7 @@ class rtTPGElementorHelper {
 				],
 				'condition'    => [
 					'dots' => 'yes',
+					$prefix . '_layout!' => [ 'slider-layout10', 'slider-layout11', 'slider-layout12' ],
 				],
 				'prefix_class' => 'slider-dots-style-',
 			]
@@ -6161,9 +6127,9 @@ class rtTPGElementorHelper {
 				'label'     => __( 'Autoplay Speed', 'the-post-grid' ),
 				'type'      => \Elementor\Controls_Manager::NUMBER,
 				'min'       => 1000,
-				'max'       => 5000,
+				'max'       => 10000,
 				'step'      => 500,
-				'default'   => 1000,
+				'default'   => 3000,
 				'condition' => [
 					'autoplay' => 'yes',
 				],
@@ -6194,6 +6160,7 @@ class rtTPGElementorHelper {
 				'label_off'    => __( 'No', 'the-post-grid' ),
 				'return_value' => 'yes',
 				'default'      => false,
+				'prefix_class' => 'is-lazy-load-',
 			]
 		);
 
@@ -6206,6 +6173,42 @@ class rtTPGElementorHelper {
 				'max'     => 3000,
 				'step'    => 100,
 				'default' => 500,
+			]
+		);
+
+		$ref->add_control(
+			'enable_2_rows',
+			[
+				'label'        => __( 'Enable 2 Rows', 'the-post-grid' ),
+				'type'         => \Elementor\Controls_Manager::SWITCHER,
+				'label_on'     => __( 'Show', 'the-post-grid' ),
+				'label_off'    => __( 'Hide', 'the-post-grid' ),
+				'return_value' => 'yes',
+				'default'      => false,
+				'prefix_class' => 'enable-two-rows-',
+				'render_type'  => 'template',
+				'description'  => __( 'If you use 2 rows then you have to put an even number for post limit' ),
+				'condition'    => [
+					$prefix . '_layout!' => [ 'slider-layout10', 'slider-layout11', 'slider-layout12' ],
+				],
+			]
+		);
+
+		$ref->add_control(
+			'carousel_overflow',
+			[
+				'label'        => __( 'Slider Overflow', 'the-post-grid' ),
+				'type'         => \Elementor\Controls_Manager::SELECT,
+				'default'      => 'hidden',
+				'options'      => [
+					'hidden' => __( 'Hidden', 'the-post-grid' ),
+					'none'   => __( 'None', 'the-post-grid' ),
+				],
+				'render_type'  => 'template',
+				'prefix_class' => 'is-carousel-overflow-',
+				'condition'    => [
+					'lazyLoad!' => 'yes',
+				],
 			]
 		);
 
@@ -6968,28 +6971,6 @@ class rtTPGElementorHelper {
 
 		$ref->end_controls_section();
 	}
-
-
-
-	/**
-	 *  Settings
-	 *
-	 * @param $ref
-	 */
-
-	//	public static function SSSSS_settings( $ref ) {
-	//		$ref->start_controls_section(
-	//			'SSSSS_settings',
-	//			[
-	//				'label' => esc_html__( 'Filter Settings', 'the-post-grid' ),
-	//				'tab'   => Controls_Manager::TAB_STYLE,
-	//			]
-	//		);
-	//
-	//
-	//		$ref->end_controls_section();
-	//	}
-
 
 	//End the class
 }

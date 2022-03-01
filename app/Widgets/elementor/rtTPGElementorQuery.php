@@ -144,9 +144,9 @@ class rtTPGElementorQuery {
 				} elseif ( 'grid_hover' === $prefix ) {
 					if ( in_array( $data['grid_hover_layout'], [ 'grid_hover-layout4', 'grid_hover-layout4-2' ] ) ) {
 						$_posts_per_page = 7;
-					} elseif ( in_array( $data['grid_hover_layout'], [ 'grid_hover-layout5', 'grid_hover-layout5-2', 'grid_hover-layout9', 'grid_hover-layout9-2' ] ) ) {
+					} elseif ( in_array( $data['grid_hover_layout'], [ 'grid_hover-layout5', 'grid_hover-layout5-2' ] ) ) {
 						$_posts_per_page = 3;
-					} elseif ( in_array( $data['grid_hover_layout'], [ 'grid_hover-layout6', 'grid_hover-layout6-2', 'grid_hover-layout10', 'grid_hover-layout11' ] ) ) {
+					} elseif ( in_array( $data['grid_hover_layout'], [ 'grid_hover-layout6', 'grid_hover-layout6-2', 'grid_hover-layout9', 'grid_hover-layout9-2', 'grid_hover-layout10', 'grid_hover-layout11' ] ) ) {
 						$_posts_per_page = 4;
 					} elseif ( in_array( $data['grid_hover_layout'], [ 'grid_hover-layout7', 'grid_hover-layout7-2', 'grid_hover-layout8' ] ) ) {
 						$_posts_per_page = 5;

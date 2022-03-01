@@ -37,11 +37,10 @@ class TPGSliderLayout extends Custom_Widget_Base {
 		 */
 
 		//Query
-
+		rtTPGElementorHelper::query( $this );
 
 		//Layout
 		rtTPGElementorHelper::grid_layouts( $this );
-		rtTPGElementorHelper::query( $this );
 
 		//Links
 		rtTPGElementorHelper::links( $this );
@@ -121,7 +120,7 @@ class TPGSliderLayout extends Custom_Widget_Base {
 		if ( ! rtTPG()->hasPro() ) { ?>
             <h3 style="text-align: center"><?php echo esc_html__( 'Please upgrade to pro for slider layout!', 'the-post-grid' ) ?></h3>
 			<?php
-            return;
+			return;
 		}
 
 		if ( rtTPG()->hasPro() && ( 'popup' == $data['post_link_type'] || 'multi_popup' == $data['post_link_type'] ) ) {
@@ -145,6 +144,8 @@ class TPGSliderLayout extends Custom_Widget_Base {
 		 */
 		$post_data = $this->get_render_data_set( $data, $query->max_num_pages, $posts_per_page );
 		$_layout   = $data[ $_prefix . '_layout' ];
+
+		$post_data['lazy_load'] = $data['lazyLoad'];
 
 		/**
 		 * Post type render
@@ -179,7 +180,7 @@ class TPGSliderLayout extends Custom_Widget_Base {
 		$gird_column_mobile  = '0' !== $post_data['gird_column_mobile'] ? $post_data['gird_column_mobile'] : $default_gird_column_mobile;
 
 
-		if ( in_array( $_layout, [ 'slider-layout10', 'slider-layout11', 'slider-layout12' ] ) ) {
+		if ( in_array( $_layout, [ 'slider-layout10', 'slider-layout11' ] ) ) {
 			$gird_column_desktop = $gird_column_tab = $gird_column_mobile = '1';
 		}
 
@@ -269,9 +270,7 @@ class TPGSliderLayout extends Custom_Widget_Base {
 								if ( $_layout == 'slider-layout10' && $pCount == 5 ) {
 									$pCount = 0;
 								}
-
 								$pCount ++;
-								//rtTPGElementorHelper::tpg_template($data, $this->tpg_dir);
 							}
 						} else {
 							if ( $data['no_posts_found_text'] ) {

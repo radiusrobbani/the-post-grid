@@ -547,9 +547,9 @@ abstract class Custom_Widget_Base extends Widget_Base {
 			} else {
 				$action_orderby_label = $orders[ $action_orderby ];
 			}
-//			if ( $action_orderby !== 'none' ) {
-//				$orders['none'] = __( "Sort By", "the-post-grid" );
-//			}
+			//			if ( $action_orderby !== 'none' ) {
+			//				$orders['none'] = __( "Sort By", "the-post-grid" );
+			//			}
 			$html .= '<div class="rt-filter-item-wrap rt-order-by-action rt-filter-dropdown-wrap" data-filter="orderby">';
 			$html .= "<span class='order-by-default rt-filter-dropdown-default' data-order-by='{$action_orderby}'>
 							                        <span class='rt-text-order-by'>{$action_orderby_label}</span>
@@ -711,6 +711,7 @@ abstract class Custom_Widget_Base extends Widget_Base {
 		$_prefix = $this->prefix;
 
 		return [
+			'prefix'                   => $_prefix,
 			'gird_column'              => $data[ $_prefix . '_column' ],
 			'gird_column_tablet'       => ( isset( $data[ $_prefix . '_column_tablet' ] ) ) ? $data[ $_prefix . '_column_tablet' ] : '0',
 			'gird_column_mobile'       => ( isset( $data[ $_prefix . '_column_mobile' ] ) ) ? $data[ $_prefix . '_column_mobile' ] : '0',
