@@ -144,15 +144,15 @@ i.tpg-grid-icon {
     -webkit-text-fill-color: transparent;
 }
 
-#elementor-panel-category-the-post-grid-elements .elementor-element-wrapper {
+#elementor-panel-category-the-post-grid-elements .elementor-element-wrapper .elementor-element {
     position: relative;
 }
 
-#elementor-panel-category-the-post-grid-elements .elementor-element-wrapper::before {
+#elementor-panel-category-the-post-grid-elements .elementor-element-wrapper .elementor-element::before {
     content: "TPG";
     position: absolute;
     top: 6px;
-    right: 6px;
+    left: 6px;
     color: #404349;
     z-index: 10;
     background: #cdcfd2;

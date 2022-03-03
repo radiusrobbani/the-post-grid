@@ -4819,7 +4819,7 @@ class rtTPGElementorHelper {
 			[
 				'name'     => 'front_filter_typography',
 				'label'    => __( 'Filter Typography', 'the-post-grid' ),
-				'selector' => '{{WRAPPER}} .text',
+				'selector' => '{{WRAPPER}} .rt-layout-filter-container .rt-filter-wrap .rt-filter-item-wrap, {{WRAPPER}} .tpg-header-wrapper.carousel .rt-filter-item-wrap.swiper-wrapper .swiper-slide',
 			]
 		);
 

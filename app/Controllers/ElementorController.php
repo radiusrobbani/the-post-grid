@@ -103,6 +103,9 @@ if ( ! class_exists( 'ElementorController' ) ):
 			];
 
 			foreach ( $widgets as $file_name => $class ) {
+				if(!rtTPG()->hasPro() && 'slider-layout' == $file_name ){
+					continue;
+				}
 				$template_name = 'the-post-grid/elementor/' . $file_name . '.php';
 				if ( file_exists( STYLESHEETPATH . $template_name ) ) {
 					$file = STYLESHEETPATH . $template_name;

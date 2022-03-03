@@ -442,7 +442,7 @@ class AdminAjaxController {
 			// Start layout
 			$data              .= Fns::layoutStyle( $layoutID, $scMeta, $layout );
 			$containerDataAttr .= "";
-			$data              .= "<div class='rt-container-fluid rt-tpg-container {$parentClass}' id='{$layoutID}' {$dataArchive} {$containerDataAttr}>";
+			$data              .= "<div class='rt-container-fluid rt-tpg-container tpg-shortcode-main-wrapper {$parentClass}' id='{$layoutID}' {$dataArchive} {$containerDataAttr}>";
 			// widget heading
 			$heading_tag       = isset( $scMeta['tpg_heading_tag'] ) ? $scMeta['tpg_heading_tag'] : 'h2';
 			$heading_style     = isset( $scMeta['tpg_heading_style'] ) && ! empty( $scMeta['tpg_heading_style'] ) ? $scMeta['tpg_heading_style'] : 'style1';

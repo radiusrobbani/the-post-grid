@@ -547,9 +547,9 @@ abstract class Custom_Widget_Base extends Widget_Base {
 			} else {
 				$action_orderby_label = $orders[ $action_orderby ];
 			}
-			//			if ( $action_orderby !== 'none' ) {
-			//				$orders['none'] = __( "Sort By", "the-post-grid" );
-			//			}
+						if ( $action_orderby !== 'none' ) {
+							$orders['none'] = __( "Sort By", "the-post-grid" );
+						}
 			$html .= '<div class="rt-filter-item-wrap rt-order-by-action rt-filter-dropdown-wrap" data-filter="orderby">';
 			$html .= "<span class='order-by-default rt-filter-dropdown-default' data-order-by='{$action_orderby}'>
 							                        <span class='rt-text-order-by'>{$action_orderby_label}</span>

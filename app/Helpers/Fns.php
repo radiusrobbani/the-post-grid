@@ -2077,13 +2077,18 @@ class Fns {
 				$info = getimagesize( $imgAbs );
 				$size = isset( $info[3] ) ? $info[3] : '';
 			}
-			$alt = get_the_title( $post_id );
+			$attachment_id = attachment_url_to_postid( $imgSrc );
+			$alt_text      = null;
+			if ( ! empty( $attachment_id ) ) {
+				$alt_text = trim( wp_strip_all_tags( get_post_meta( $attachment_id, '_wp_attachment_image_alt', true ) ) );
+			}
+			$alt = $alt_text ? $alt_text : get_the_title( $post_id );
 
 			if ( $type == 'markup' ) {
 				if ( $imgClass !== 'swiper-lazy' ) {
 					return "<img class='rt-img-responsive' src='{$imgSrc}' {$size} alt='{$alt}'>";
 				} else {
-					return "<img class='{$imgClass}' data-src='{$imgSrc}'>";
+					return "<img class='{$imgClass}' data-src='{$imgSrc}' alt='{$alt}'>";
 				}
 			} else {
 				return $imgSrc;
@@ -2132,12 +2137,19 @@ class Fns {
 				echo get_the_post_thumbnail( $pID, $data['image_offset'] );
 			} else {
 				if ( $data['image_size'] !== 'custom' ) {
-					$thumb_id   = get_post_thumbnail_id( $pID );
-					$thumb_info = wp_get_attachment_image_src( $thumb_id, $fImgSize );
-					if ( $lazy_load ) {
-						?><img data-src="<?php echo esc_url( $thumb_info[0] ); ?>" class="<?php echo esc_attr( $lazy_class ); ?>"><?php
-					} else {
-						?><img src="<?php echo esc_url( $thumb_info[0] ); ?>" class="<?php echo esc_attr( $lazy_class ); ?>"><?php
+					$attachment_id = get_post_thumbnail_id( $pID );
+					$thumb_info    = wp_get_attachment_image_src( $attachment_id, $fImgSize );
+					$thumb_alt     = trim( wp_strip_all_tags( get_post_meta( $attachment_id, '_wp_attachment_image_alt', true ) ) );
+					if ( $lazy_load ) { ?>
+                        <img data-src="<?php echo esc_url( $thumb_info[0] ); ?>"
+                             class="<?php echo esc_attr( $lazy_class ); ?>"
+                             alt="<?php echo esc_attr( $thumb_alt ? $thumb_alt : the_title() ) ?>">
+						<?php
+					} else { ?>
+                        <img src="<?php echo esc_url( $thumb_info[0] ); ?>"
+                             class="<?php echo esc_attr( $lazy_class ); ?>"
+                             alt="<?php echo esc_attr( $thumb_alt ? $thumb_alt : the_title() ) ?>">
+						<?php
 					}
 					?>
 
@@ -2161,11 +2173,7 @@ class Fns {
 						}
 					}
 					echo Fns::getFeatureImageSrc( $pID, $fImgSize, $mediaSource, $defaultImgId, $customImgSize, $lazy_class );
-					//echo get_the_post_thumbnail( $pID, $data['image_size'] );
 				}
-				//echo \Elementor\Group_Control_Image_Size::get_attachment_image_html( $data, 'image' );
-
-
 			}
 		} elseif ( 'first_image' === $data['media_source'] && self::get_content_first_image( $pID ) ) {
 			echo self::get_content_first_image( $pID, 'markup', $lazy_class );

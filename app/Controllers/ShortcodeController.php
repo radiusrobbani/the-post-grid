@@ -496,7 +496,7 @@ class ShortcodeController {
 			// Start layout
 			$html              .= Fns::layoutStyle( $layoutID, $scMeta, $layout, $scID );
 			$containerDataAttr .= " data-sc-id='{$scID}'";
-			$html              .= "<div class='rt-container-fluid rt-tpg-container {$parentClass}' id='{$layoutID}' {$dataArchive} {$containerDataAttr}>";
+			$html              .= "<div class='rt-container-fluid rt-tpg-container tpg-shortcode-main-wrapper {$parentClass}' id='{$layoutID}' {$dataArchive} {$containerDataAttr}>";
 
 			// widget heading
 			$heading_tag       = isset( $scMeta['tpg_heading_tag'][0] ) ? $scMeta['tpg_heading_tag'][0] : 'h2';
