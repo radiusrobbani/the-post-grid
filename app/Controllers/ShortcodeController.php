@@ -971,9 +971,10 @@ class ShortcodeController {
 				}
 				if ( $isIsotope || $isCarousel ) {
 					$html .= '</div>'; // End isotope / Carousel item holder
-					if ($isIsotope) {
-						$html .= '<div class="isotope-term-no-post"><p>'.esc_html__('No post found', 'the-post-grid').'</p></div>';
-					}
+
+//					if ($isIsotope) {
+//						$html .= '<div class="isotope-term-no-post"><p>'.esc_html__('No post found', 'the-post-grid').'</p></div>';
+//					}
 					if ( $isCarousel ) {
 						if ( in_array( 'pagination', $cOpt ) ) {
 							$html .= '<div class="swiper-pagination"></div>';
