@@ -8,6 +8,7 @@
  */
 
 use RT\ThePostGrid\Helpers\Fns;
+use RT\ThePostGridPro\Helpers\Functions;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -78,6 +79,11 @@ if ( 'masonry' == $data['layout_style'] ) {
 				echo \RT\ThePostGridPro\Helpers\Functions::rtShare( $pID );
 			}
 			?>
+
+
+	        <?php
+	        //echo Functions::get_cf_formatted_fields($cf_group, $format);
+            ?>
 
 			<?php if ( 'show' === $data['show_read_more'] ) : ?>
                 <div class="post-footer">

@@ -15,6 +15,11 @@ body .elementor-section .tpg-el-main-wrapper .rt-grid-item {
     background: none;
 }
 
+body .elementor-section .tpg-el-main-wrapper .offset-left,
+body .elementor-section .tpg-el-main-wrapper .offset-right {
+    padding-bottom: 0;
+}
+
 .rt-tpg-container a {
     text-decoration: none;
 }
@@ -1318,7 +1323,6 @@ Filter
     padding: 8px 10px;
     cursor: pointer;
     position: relative;
-    border: 1px solid transparent;
     user-select: none;
     -webkit-user-select: none;
     -moz-user-select: none;
@@ -1990,7 +1994,7 @@ Common Layout Style
     color: #fff;
     line-height: 1.4;
     padding: 5px 15px;
-    margin-bottom: 0;
+    margin-bottom: -.5px;
 }
 
 .tpg-widget-heading-wrapper.heading-style2 .tpg-widget-heading a,
@@ -2187,7 +2191,7 @@ TPG EVEN Style
     display: flex;
     flex-direction: row;
     justify-content: center;
-    margin-top: 40px;
+    margin-top: 30px;
 }
 
 .rt-tpg-container .rt-pagination-wrap .rt-loadmore-style {
@@ -2424,7 +2428,7 @@ TPG EVEN Style
 }
 
 .rt-tpg-container .swiper-navigation .slider-btn {
-    position: static;
+    position: absolute;
     font-size: 14px;
     color: #2962ff;
     background-color: #fff;
@@ -2446,6 +2450,12 @@ TPG EVEN Style
     -webkit-transition: all 0.3s ease;
     -moz-transition: all 0.3s ease;
     -ms-transition: all 0.3s ease;
+}
+
+.rt-tpg-container .tpg-header-wrapper .swiper-navigation .slider-btn,
+.slider-arrow-position-top-left .rt-tpg-container .swiper-navigation .slider-btn,
+.slider-arrow-position-top-right .rt-tpg-container .swiper-navigation .slider-btn {
+    position: static;
 }
 
 .rt-tpg-container .swiper-navigation .slider-btn:hover {
