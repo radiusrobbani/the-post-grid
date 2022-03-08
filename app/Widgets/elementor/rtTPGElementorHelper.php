@@ -6118,7 +6118,7 @@ class rtTPGElementorHelper {
 					'{{WRAPPER}} .rt-tpg-container .slider-column.swiper-slide .rt-slider-item' => 'padding-top: {{SIZE}}{{UNIT}}; padding-bottom: {{SIZE}}{{UNIT}};',
 				],
 				'condition'  => [
-					$prefix . '_layout!' => [ 'slider-layout10', 'slider-layout11', 'slider-layout12' ],
+					$prefix . '_layout!' => [ 'slider-layout10', 'slider-layout11', 'slider-layout12','slider-layout13' ],
 				],
 			]
 		);
