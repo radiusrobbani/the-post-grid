@@ -547,9 +547,9 @@ abstract class Custom_Widget_Base extends Widget_Base {
 			} else {
 				$action_orderby_label = $orders[ $action_orderby ];
 			}
-						if ( $action_orderby !== 'none' ) {
-							$orders['none'] = __( "Sort By", "the-post-grid" );
-						}
+			if ( $action_orderby !== 'none' ) {
+				$orders['none'] = __( "Sort By", "the-post-grid" );
+			}
 			$html .= '<div class="rt-filter-item-wrap rt-order-by-action rt-filter-dropdown-wrap" data-filter="orderby">';
 			$html .= "<span class='order-by-default rt-filter-dropdown-default' data-order-by='{$action_orderby}'>
 							                        <span class='rt-text-order-by'>{$action_orderby_label}</span>
@@ -710,7 +710,7 @@ abstract class Custom_Widget_Base extends Widget_Base {
 	function get_render_data_set( $data, $total_pages, $posts_per_page ) {
 		$_prefix = $this->prefix;
 
-		return [
+		$data_set = [
 			'prefix'                   => $_prefix,
 			'gird_column'              => $data[ $_prefix . '_column' ],
 			'gird_column_tablet'       => ( isset( $data[ $_prefix . '_column_tablet' ] ) ) ? $data[ $_prefix . '_column_tablet' ] : '0',
@@ -772,6 +772,17 @@ abstract class Custom_Widget_Base extends Widget_Base {
 			'image_custom_dimension'   => ( $data['image_size'] == 'custom' && isset( $data['image_custom_dimension'] ) ) ? $data['image_custom_dimension'] : '',
 			'img_crop_style'           => ( $data['image_size'] == 'custom' && isset( $data['img_crop_style'] ) ) ? $data['img_crop_style'] : '',
 		];
+
+		$cf = Fns::checkWhichCustomMetaPluginIsInstalled();
+		if ( $cf ) {
+			$data_set['show_acf']            = $data['show_acf'];
+			$data_set['cf_group']            = $data['cf_group'];
+			$data_set['cf_hide_empty_value'] = $data['cf_hide_empty_value'];
+			$data_set['cf_show_only_value']  = $data['cf_show_only_value'] == 'yes' ? '' : '1';
+			$data_set['cf_hide_group_title'] = $data['cf_hide_group_title'] == 'yes' ? '' : '1';
+		}
+
+		return $data_set;
 	}
 
 

@@ -6,6 +6,7 @@ namespace RT\ThePostGrid\Helpers;
 
 use RT\ThePostGrid\Models\Field;
 use RT\ThePostGrid\Models\ReSizer;
+use RT\ThePostGridPro\Helpers\Functions;
 
 class Fns {
 
@@ -2206,6 +2207,34 @@ class Fns {
 		<?php endif; ?>
         <div class="overlay grid-hover-content"></div>
 		<?php
+	}
+
+
+	/**
+	 * Get ACF data for elementor
+	 *
+	 * @param $data
+	 * @param $pID
+	 *
+	 * @return bool
+	 */
+	public static function tpg_get_acf_data_elementor( $data, $pID ) {
+		if ( ! rtTPG()->hasPro() || 'show' !== $data['show_acf'] ) {
+			return;
+		}
+
+		$cf_group = $data['cf_group'];
+		$format   = [
+			'hide_empty'       => $data['cf_hide_empty_value'],
+			'show_value'       => $data['cf_show_only_value'],
+			'hide_group_title' => $data['cf_hide_group_title'],
+		];
+
+		if ( ! empty( $cf_group ) ) {
+			echo "<div class='acf-custom-field-wrap'>";
+			echo Functions::get_cf_formatted_fields( $cf_group, $format, $pID );
+			echo "</div>";
+		}
 	}
 
 

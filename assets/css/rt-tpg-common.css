@@ -2478,3 +2478,55 @@ TPG EVEN Style
 .rt-tpg-container .swiper-navigation .swiper-button-prev:after {
     font-size: inherit;
 }
+
+/*ACF Style*/
+
+.rt-tpg-container .tpg-cf-group-title {
+    font-size: 16px;
+    margin-bottom: 0;
+}
+
+.rt-tpg-container .tpg-cf-fields {
+    margin-top: 0;
+    font-size: 95%;
+    line-height: 1.6;
+}
+
+.tpg-el-main-wrapper .tpg-cf-wrap {
+   margin: 10px 0 0;
+}
+
+.rt-tpg-container .tpg-cf-wrap:empty {
+    margin: 0;
+}
+
+.act-label-style-inline .tgp-cf-field-label {
+    margin-right: 8px;
+    min-width: inherit;
+}
+
+.act-label-style-inline .tgp-cf-field-label::after {
+    content: ":";
+}
+
+.act-label-style-block .tgp-cf-field-label {
+    margin-right: 0;
+    float: none;
+    display: block !important;
+    min-width: inherit;
+}
+
+.act-label-style-block .tpg-cf-fields {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.rt-tpg-container .rt-holder .tgp-cf-field-value * {
+    color: inherit;
+    transition: none;
+    margin: 0;
+    display: inline;
+}
+
+
+/*End ACF Style*/

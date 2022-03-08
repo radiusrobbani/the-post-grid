@@ -77,38 +77,44 @@ class TPGListLayout extends Custom_Widget_Base {
 		//Readmore Settings
 		rtTPGElementorHelper::post_readmore_settings( $this );
 
+		//Advanced Custom Field ACF Settings
+		rtTPGElementorHelper::tpg_acf_settings( $this );
+
 
 		/**
 		 * Style Tabs
 		 * ===========
 		 */
 
-		//Section Title
+		//Section Title Style
 		rtTPGElementorHelper::sectionTitle( $this );
 
-		// Title Style Tab
+		// Title Style
 		rtTPGElementorHelper::titleStyle( $this );
 
-		//Thumbnail Style Tab
+		//Thumbnail Style
 		rtTPGElementorHelper::thumbnailStyle( $this );
 
-		// Content Style Tab
+		// Content Style
 		rtTPGElementorHelper::contentStyle( $this );
 
-		// Meta Info Style Tab
+		// Meta Info Style
 		rtTPGElementorHelper::metaInfoStyle( $this );
 
-		//Pagination - Loadmore Style Tab
+		//Pagination - Loadmore Style
 		rtTPGElementorHelper::readmoreStyle( $this );
 
-		//Pagination - Loadmore Style Tab
+		//Pagination - Loadmore Style
 		rtTPGElementorHelper::paginationStyle( $this );
 
-		//Box Settings
+		//Box Style
 		rtTPGElementorHelper::frontEndFilter( $this );
 
-		//Box Settings
+		//Box Style
 		rtTPGElementorHelper::socialShareStyle( $this );
+
+		//ACF Style
+		rtTPGElementorHelper::tpg_acf_style( $this );
 
 		//Box Settings
 		rtTPGElementorHelper::articlBoxSettings( $this );

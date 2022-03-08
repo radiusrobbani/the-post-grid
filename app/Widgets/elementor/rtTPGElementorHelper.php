@@ -1583,6 +1583,27 @@ class rtTPGElementorHelper {
 			]
 		);
 
+		$cf = Fns::checkWhichCustomMetaPluginIsInstalled();
+		if ( $cf ) {
+			$ref->add_control(
+				'show_acf',
+				[
+					'label'        => __( 'Advanced Custom Field', 'the-post-grid' ) . $ref->pro_label,
+					'type'         => \Elementor\Controls_Manager::SWITCHER,
+					'label_on'     => __( 'Show', 'the-post-grid' ),
+					'label_off'    => __( 'Hide', 'the-post-grid' ),
+					'return_value' => 'show',
+					'default'      => false,
+					'classes'      => rtTPG()->hasPro() ? '' : 'the-post-grid-field-hide',
+					'render_type'  => 'template',
+					'prefix_class' => 'social-visibility-',
+					'condition'    => [
+						$prefix . '_layout!' => [ 'grid-layout7' ],
+					],
+				]
+			);
+		}
+
 		$ref->end_controls_section();
 	}
 
@@ -2698,6 +2719,92 @@ class rtTPGElementorHelper {
 
 
 	/**
+	 *  Advanced Custom Field ACF Settings
+	 *
+	 * @param $ref
+	 */
+
+	public static function tpg_acf_settings( $ref ) {
+		$prefix = $ref->prefix;
+		$cf     = Fns::checkWhichCustomMetaPluginIsInstalled();
+
+		if ( ! $cf || ! rtTPG()->hasPro() ) {
+			return;
+		}
+
+		$ref->start_controls_section(
+			'tgp_acf_settings',
+			[
+				'label'     => esc_html__( 'ACF Settings', 'the-post-grid' ),
+				'tab'       => Controls_Manager::TAB_SETTINGS,
+				'condition' => [
+					'show_acf'           => 'show',
+					$prefix . '_layout!' => [ 'grid-layout7' ],
+				],
+			]
+		);
+
+		$ref->add_control(
+			'cf_group',
+			[
+				'label'       => __( 'Choose Advanced Custom Field (ACF)', 'the-post-grid' ),
+				'type'        => \Elementor\Controls_Manager::SELECT2,
+				'multiple'    => true,
+				'label_block' => true,
+				'options'     => Fns::get_groups_by_post_type( 'all' ),
+			]
+		);
+
+		$ref->add_control(
+			'cf_hide_empty_value',
+			[
+				'label'        => __( 'Hide field with empty value', 'the-post-grid' ),
+				'type'         => \Elementor\Controls_Manager::SWITCHER,
+				'label_on'     => __( 'Hide', 'the-post-grid' ),
+				'label_off'    => __( 'Show', 'the-post-grid' ),
+				'return_value' => 'yes',
+				'default'      => 'yes',
+				'condition'    => [
+					'cf_group!' => '',
+				],
+			]
+		);
+
+		$ref->add_control(
+			'cf_hide_group_title',
+			[
+				'label'        => __( 'Show group title', 'the-post-grid' ),
+				'type'         => \Elementor\Controls_Manager::SWITCHER,
+				'label_on'     => __( 'Show', 'the-post-grid' ),
+				'label_off'    => __( 'Hide', 'the-post-grid' ),
+				'return_value' => 'yes',
+				'default'      => 'yes',
+				'condition'    => [
+					'cf_group!' => '',
+				],
+			]
+		);
+
+		$ref->add_control(
+			'cf_show_only_value',
+			[
+				'label'        => __( 'Show label', 'the-post-grid' ),
+				'type'         => \Elementor\Controls_Manager::SWITCHER,
+				'label_on'     => __( 'Show', 'the-post-grid' ),
+				'label_off'    => __( 'Hide', 'the-post-grid' ),
+				'return_value' => 'yes',
+				'default'      => 'yes',
+				'condition'    => [
+					'cf_group!' => '',
+				],
+			]
+		);
+
+		$ref->end_controls_section();
+	}
+
+
+	/**
 	 * Links Settings
 	 *
 	 * @param $ref
@@ -3570,7 +3677,7 @@ class rtTPGElementorHelper {
 			\Elementor\Group_Control_Typography::get_type(),
 			[
 				'name'     => 'content_typography',
-				'selector' => '{{WRAPPER}} .tpg-el-main-wrapper .tpg-el-excerpt',
+				'selector' => '{{WRAPPER}} .tpg-el-main-wrapper .tpg-el-excerpt .tpg-excerpt-inner',
 			]
 		);
 
@@ -3619,7 +3726,7 @@ class rtTPGElementorHelper {
 				],
 				'toggle'    => true,
 				'selectors' => [
-					'{{WRAPPER}} .tpg-el-main-wrapper .tpg-el-excerpt' => 'text-align: {{VALUE}}',
+					'{{WRAPPER}} .tpg-el-main-wrapper .tpg-el-excerpt .tpg-excerpt-inner' => 'text-align: {{VALUE}}',
 				],
 			]
 		);
@@ -3644,7 +3751,7 @@ class rtTPGElementorHelper {
 				'label'     => __( 'Excerpt color', 'the-post-grid' ),
 				'type'      => \Elementor\Controls_Manager::COLOR,
 				'selectors' => [
-					'{{WRAPPER}} .tpg-el-main-wrapper .tpg-el-excerpt' => 'color: {{VALUE}}',
+					'{{WRAPPER}} .tpg-el-main-wrapper .tpg-el-excerpt .tpg-excerpt-inner' => 'color: {{VALUE}}',
 				],
 			]
 		);
@@ -3665,7 +3772,7 @@ class rtTPGElementorHelper {
 				'label'     => __( 'Excerpt color on hover', 'the-post-grid' ),
 				'type'      => \Elementor\Controls_Manager::COLOR,
 				'selectors' => [
-					'{{WRAPPER}} .tpg-el-main-wrapper .tpg-post-holder:hover .tpg-el-excerpt' => 'color: {{VALUE}} !important',
+					'{{WRAPPER}} .tpg-el-main-wrapper .tpg-post-holder:hover .tpg-el-excerpt .tpg-excerpt-inner' => 'color: {{VALUE}} !important',
 				],
 			]
 		);
@@ -4052,7 +4159,7 @@ class rtTPGElementorHelper {
 
 
 	/**
-	 * Read More style tab
+	 * Read More style
 	 *
 	 * @param $ref
 	 */
@@ -4065,7 +4172,8 @@ class rtTPGElementorHelper {
 				'label'     => __( 'Read More', 'the-post-grid' ),
 				'tab'       => \Elementor\Controls_Manager::TAB_STYLE,
 				'condition' => [
-					'show_read_more' => 'show',
+					'show_read_more'     => 'show',
+					$prefix . '_layout!' => [ 'grid-layout7' ],
 				],
 			]
 		);
@@ -5347,13 +5455,15 @@ class rtTPGElementorHelper {
 	 * @param $ref
 	 */
 	public static function socialShareStyle( $ref ) {
+		$prefix = $ref->prefix;
 		$ref->start_controls_section(
 			'social_share_style',
 			[
 				'label'     => esc_html__( 'Social Share Style', 'the-post-grid' ),
 				'tab'       => Controls_Manager::TAB_STYLE,
 				'condition' => [
-					'show_social_share' => 'show',
+					'show_social_share'  => 'show',
+					$prefix . '_layout!' => [ 'grid-layout7' ],
 				],
 			]
 		);
@@ -6043,7 +6153,7 @@ class rtTPGElementorHelper {
 					'show-hover' => __( 'Center (Show on hover)', 'the-post-grid' ),
 				],
 				'condition'    => [
-					'arrows' => 'yes',
+					'arrows'             => 'yes',
 					$prefix . '_layout!' => [ 'slider-layout10', 'slider-layout11', 'slider-layout12' ],
 				],
 				'prefix_class' => 'slider-arrow-position-',
@@ -6078,7 +6188,7 @@ class rtTPGElementorHelper {
 					'background' => __( 'With Background', 'the-post-grid' ),
 				],
 				'condition'    => [
-					'dots' => 'yes',
+					'dots'               => 'yes',
 					$prefix . '_layout!' => [ 'slider-layout10', 'slider-layout11', 'slider-layout12' ],
 				],
 				'prefix_class' => 'slider-dots-style-',
@@ -6914,7 +7024,7 @@ class rtTPGElementorHelper {
 				'label'     => esc_html__( 'Scroll Background Color', 'the-post-grid' ),
 				'selectors' => [
 					'{{WRAPPER}} .tpg-el-main-wrapper .slider-thumb-main-wrapper .swiper-pagination-progressbar'                 => 'background-color: {{VALUE}}',
-					'{{WRAPPER}} .tpg-el-main-wrapper .slider-layout12 .slider-thumb-main-wrapper .swiper-thumb-wrapper::before' => 'background-color: {{VALUE}}',
+					'{{WRAPPER}} .tpg-el-main-wrapper .slider-layout12 .slider-thumb-main-wrapper .swiper-thumb-wrapper::before' => 'background-color: {{VALUE}};opacity:1;',
 				],
 			]
 		);
@@ -6971,6 +7081,232 @@ class rtTPGElementorHelper {
 
 		$ref->end_controls_section();
 	}
+
+
+	/**
+	 * Advanced Custom Field ACF Style
+	 *
+	 * @param $ref
+	 */
+
+	public static function tpg_acf_style( $ref ) {
+		$cf = Fns::checkWhichCustomMetaPluginIsInstalled();
+		if ( ! $cf || ! rtTPG()->hasPro() ) {
+			return;
+		}
+
+		$prefix = $ref->prefix;
+		$ref->start_controls_section(
+			'tgp_acf_style',
+			[
+				'label'     => esc_html__( 'Advanced Custom Field', 'the-post-grid' ),
+				'tab'       => Controls_Manager::TAB_STYLE,
+				'condition' => [
+					'show_acf'           => 'show',
+					$prefix . '_layout!' => [ 'grid-layout7' ],
+				],
+			]
+		);
+
+		$ref->add_group_control(
+			\Elementor\Group_Control_Typography::get_type(),
+			[
+				'name'     => 'acf_group_title_typography',
+				'label'    => __( 'Group Title Typography', 'the-post-grid' ),
+				'selector' => '{{WRAPPER}} .rt-tpg-container .tpg-cf-group-title',
+			]
+		);
+
+		$ref->add_group_control(
+			\Elementor\Group_Control_Typography::get_type(),
+			[
+				'name'     => 'acf_typography',
+				'label'    => __( 'Group Title Typography', 'the-post-grid' ),
+				'selector' => '{{WRAPPER}} .rt-tpg-container .tpg-cf-fields',
+			]
+		);
+
+		$ref->add_control(
+			'acf_label_style',
+			[
+				'label'        => __( 'Label Style', 'the-post-grid' ),
+				'type'         => \Elementor\Controls_Manager::SELECT,
+				'default'      => 'inline',
+				'options'      => [
+					'default' => __( 'Default', 'the-post-grid' ),
+					'inline'  => __( 'Inline', 'the-post-grid' ),
+					'block'   => __( 'Block', 'the-post-grid' ),
+				],
+				'condition'    => [
+					'cf_show_only_value' => 'yes',
+				],
+				'render_type'  => 'template',
+				'prefix_class' => 'act-label-style-',
+			]
+		);
+
+		$ref->add_control(
+			'acf_label_width',
+			[
+				'label'      => __( 'Label Min Width', 'the-post-grid' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => [ 'px' ],
+				'range'      => [
+					'px' => [
+						'min'  => 0,
+						'max'  => 1000,
+						'step' => 5,
+					],
+				],
+				'condition'  => [
+					'acf_label_style' => 'default',
+				],
+				'selectors'  => [
+					'{{WRAPPER}} .tgp-cf-field-label' => 'min-width: {{SIZE}}{{UNIT}};',
+				],
+			]
+		);
+
+		$ref->add_control(
+			'acf_alignment',
+			[
+				'label'        => esc_html__( 'Text Align', 'the-post-grid' ),
+				'type'         => \Elementor\Controls_Manager::CHOOSE,
+				'options'      => [
+					'left'   => [
+						'title' => esc_html__( 'Left', 'the-post-grid' ),
+						'icon'  => 'eicon-text-align-left',
+					],
+					'center' => [
+						'title' => esc_html__( 'Center', 'the-post-grid' ),
+						'icon'  => 'eicon-text-align-center',
+					],
+					'right'  => [
+						'title' => esc_html__( 'Right', 'the-post-grid' ),
+						'icon'  => 'eicon-text-align-right',
+					],
+				],
+				'prefix_class' => 'tpg-acf-align-',
+//				'render_type'  => 'template',
+				'toggle'       => true,
+				'condition'    => [
+					$prefix . '_layout!' => [ 'grid-layout7' ],
+				],
+
+			]
+		);
+
+
+		//Start Tab
+		$ref->start_controls_tabs(
+			'acf_style_tabs'
+		);
+
+		//Normal Tab
+		$ref->start_controls_tab(
+			'acf_style_normal_tab',
+			[
+				'label' => __( 'Normal', 'the-post-grid' ),
+			]
+		);
+
+		$ref->add_control(
+			'acf_group_title_color',
+			[
+				'label'     => __( 'Group Title Color', 'the-post-grid' ),
+				'type'      => \Elementor\Controls_Manager::COLOR,
+				'selectors' => [
+					'{{WRAPPER}} .rt-tpg-container .rt-holder .tpg-cf-group-title' => 'color: {{VALUE}}',
+				],
+				'condition' => [
+					'cf_hide_group_title' => 'yes',
+				],
+			]
+		);
+
+		$ref->add_control(
+			'acf_label_color',
+			[
+				'label'     => __( 'Label Color', 'the-post-grid' ),
+				'type'      => \Elementor\Controls_Manager::COLOR,
+				'selectors' => [
+					'{{WRAPPER}} .rt-tpg-container .rt-holder .tgp-cf-field-label' => 'color: {{VALUE}}',
+				],
+				'condition' => [
+					'cf_show_only_value' => 'yes',
+				],
+			]
+		);
+
+		$ref->add_control(
+			'acf_value_color',
+			[
+				'label'     => __( 'Value Color', 'the-post-grid' ),
+				'type'      => \Elementor\Controls_Manager::COLOR,
+				'selectors' => [
+					'{{WRAPPER}} .rt-tpg-container .rt-holder .tgp-cf-field-value' => 'color: {{VALUE}}',
+				],
+			]
+		);
+
+		$ref->end_controls_tab();
+
+
+		//Hover Tab
+		$ref->start_controls_tab(
+			'acf_style_hover_tab',
+			[
+				'label' => __( 'Hover', 'the-post-grid' ),
+			]
+		);
+
+		$ref->add_control(
+			'acf_group_title_color_hover',
+			[
+				'label'     => __( 'Group Title Color - Hover', 'the-post-grid' ),
+				'type'      => \Elementor\Controls_Manager::COLOR,
+				'selectors' => [
+					'{{WRAPPER}} .rt-tpg-container .rt-holder:hover .tpg-cf-group-title' => 'color: {{VALUE}}',
+				],
+				'condition' => [
+					'cf_hide_group_title' => 'yes',
+				],
+			]
+		);
+
+		$ref->add_control(
+			'acf_label_color_hover',
+			[
+				'label'     => __( 'Label Color - Hover', 'the-post-grid' ),
+				'type'      => \Elementor\Controls_Manager::COLOR,
+				'selectors' => [
+					'{{WRAPPER}} .rt-tpg-container .rt-holder:hover .tgp-cf-field-label' => 'color: {{VALUE}}',
+				],
+				'condition' => [
+					'cf_show_only_value' => 'yes',
+				],
+			]
+		);
+
+		$ref->add_control(
+			'acf_value_color_hover',
+			[
+				'label'     => __( 'Value Color - Hover', 'the-post-grid' ),
+				'type'      => \Elementor\Controls_Manager::COLOR,
+				'selectors' => [
+					'{{WRAPPER}} .rt-tpg-container .rt-holder:hover .tgp-cf-field-value' => 'color: {{VALUE}}',
+				],
+			]
+		);
+
+		$ref->end_controls_tab();
+
+		$ref->end_controls_tabs();
+		//End Tab
+
+		$ref->end_controls_section();
+	}
+
 
 	//End the class
 }

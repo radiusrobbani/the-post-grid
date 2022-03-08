@@ -164,7 +164,7 @@ class rtTPGElementorQuery {
 		} else {
 			$slider_per_page = $data['post_limit'];
 			if ( $data['slider_layout'] == 'slider-layout10' ) {
-				$slider_reminder = ( $data['post_limit'] % 5 );
+				$slider_reminder = ( intval($data['post_limit'], 10) % 5 );
 				if ( $slider_reminder ) {
 					$slider_per_page = ( $data['post_limit'] - $slider_reminder + 5 );
 				}

@@ -74,6 +74,9 @@ class TPGSliderLayout extends Custom_Widget_Base {
 		//Slider Settings
 		rtTPGElementorHelper::slider_settings( $this );
 
+		//Advanced Custom Field ACF Settings
+		rtTPGElementorHelper::tpg_acf_settings( $this );
+
 		/**
 		 * Style Tabs
 		 * =============
@@ -82,16 +85,16 @@ class TPGSliderLayout extends Custom_Widget_Base {
 		//Section Title
 		rtTPGElementorHelper::sectionTitle( $this );
 
-		// Title Style Tab
+		// Title Style
 		rtTPGElementorHelper::titleStyle( $this );
 
-		//Thumbnail Style Tab
+		//Thumbnail Style
 		rtTPGElementorHelper::thumbnailStyle( $this );
 
-		// Content Style Tab
+		// Content Style
 		rtTPGElementorHelper::contentStyle( $this );
 
-		// Meta Info Style Tab
+		// Meta Info Style
 		rtTPGElementorHelper::metaInfoStyle( $this );
 
 		//Read more style
@@ -106,6 +109,9 @@ class TPGSliderLayout extends Custom_Widget_Base {
 
 		//Link Style
 		rtTPGElementorHelper::linkStyle( $this );
+
+		//ACF Style
+		rtTPGElementorHelper::tpg_acf_style( $this );
 
 		//Box Settings
 		rtTPGElementorHelper::articlBoxSettings( $this );

@@ -148,7 +148,7 @@ if ( ! class_exists( 'ElementorController' ) ):
 					'description' => __( 'TPG - Slider Layout', 'testimonial-slider-showcase' ),
 					'icon'        => 'eicon-post-slider tpg-grid-icon tss-promotional-element',
 					'categories'  => '[ "the-post-grid-elements" ]',
-				],
+				]
 			];
 
 			$config['promotionWidgets'] = array_merge( $config['promotionWidgets'], $pro_widgets );
