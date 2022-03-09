@@ -376,13 +376,16 @@ abstract class Custom_Widget_Base extends Widget_Base {
 				$html .= $showAllhtml . $htmlButton;
 				$html .= '</div>' . $selectedSubTerms;
 			} else {
+			    //if Button the execute
 				//$termDefaultText = $allText;
 
 				$bCount = 0;
 				$bItems = null;
 				if ( ! empty( $terms ) ) {
 					foreach ( $terms as $term_id ) {
+
 						$term   = get_term( $term_id, $taxFilter, ARRAY_A );
+
 						$id     = $term['term_id'];
 						$bCount = $bCount + absint( $term['count'] );
 						$sT     = null;

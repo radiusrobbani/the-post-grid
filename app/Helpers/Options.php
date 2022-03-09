@@ -3,10 +3,12 @@
 namespace RT\ThePostGrid\Helpers;
 
 class Options {
+
 	public static function rtPostTypes() {
-		$args = apply_filters( 'tpg_get_post_type', [
-			'_builtin' => true,
-		] );
+		$args = apply_filters( 'tpg_get_post_type',
+			[
+				'_builtin' => true,
+			] );
 
 		$post_types = get_post_types( $args );
 
@@ -53,7 +55,7 @@ class Options {
 
 	public static function rtPostOrderBy( $isWoCom = false, $metaOrder = false ) {
 		$orderBy = [
-//			"ID"         => __( "ID", 'the-post-grid' ),
+			//			"ID"         => __( "ID", 'the-post-grid' ),
 			"title"      => __( "Title", 'the-post-grid' ),
 			"date"       => __( "Created date", 'the-post-grid' ),
 			"modified"   => __( "Modified date", 'the-post-grid' ),
@@ -94,13 +96,13 @@ class Options {
 	public static function rtTPGSettingsOtherSettingsFields() {
 		$settings = get_option( rtTPG()->options['settings'] );
 
-		return [
+		$other_settings = [
 			'tpg_load_script'      => [
 				'type'        => 'switch',
 				'name'        => 'tpg_load_script',
 				'label'       => __( 'Load Script only ShortCode page', 'the-post-grid' ),
 				'description' => __( 'If you enable this, script will be loaded only ShortCode page.', 'the-post-grid' ),
-				'value'       => isset( $settings['tpg_load_script'] ) ? $settings['tpg_load_script'] : true,
+				'value'       => isset( $settings['tpg_load_script'] ) ? $settings['tpg_load_script'] : false,
 			],
 			'tpg_enable_preloader' => [
 				'type'        => 'switch',
@@ -169,6 +171,63 @@ class Options {
 				'value'       => isset( $settings['template_class'] ) ? $settings['template_class'] : '',
 			],
 		];
+
+		$plugin = Fns::checkWhichCustomMetaPluginIsInstalled();
+
+		if ( $plugin ) {
+			$acf_settings = [
+				'show_acf_details' => [
+					'type'        => 'switch',
+					'name'        => 'show_acf_details',
+					'label'       => __( 'Enable Advanced Custom Field (ACF)', 'the-post-grid' ),
+					'description' => __( "You may enable advanced custom field (ACF) on details page", 'the-post-grid' ),
+					'holderClass' => 'pro-field',
+					'value'       => isset( $settings['show_acf_details'] ) ? $settings['show_acf_details'] : false,
+				],
+
+				'cf_group_details' => [
+					'type'        => 'checkbox',
+					'name'        => 'cf_group_details',
+					'label'       => __( 'Choose ACF Group', 'the-post-grid' ),
+					'id'          => 'cf_group_details',
+					'holderClass' => 'pro-field',
+					'alignment'   => 'vertical',
+					'multiple'    => true,
+					'holderClass' => 'pro-field',
+					'options'     => Fns::get_groups_by_post_type( 'all' ),
+					'value'       => isset( $settings['cf_group_details'] ) ? $settings['cf_group_details'] : [],
+				],
+
+				'cf_hide_empty_value_details' => [
+					'type'  => 'switch',
+					'name'  => 'cf_hide_empty_value_details',
+					'label' => __( 'Hide field with empty value', 'the-post-grid' ),
+					'value' => isset( $settings['cf_hide_empty_value_details'] ) ? $settings['cf_hide_empty_value_details'] : false,
+					'holderClass' => 'pro-field',
+				],
+
+				'cf_show_only_value_details' => [
+					'type'        => 'switch',
+					'name'        => 'cf_show_only_value_details',
+					'label'       => __( 'Show only value of field', 'the-post-grid' ),
+					'description' => __( "By default both name & value of field is shown", 'the-post-grid' ),
+					'value'       => isset( $settings['cf_show_only_value_details'] ) ? $settings['cf_show_only_value_details'] : false,
+					'holderClass' => 'pro-field',
+				],
+
+				'cf_hide_group_title_details' => [
+					'type'  => 'switch',
+					'name'  => 'cf_hide_group_title_details',
+					'label' => __( 'Hide group title', 'the-post-grid' ),
+					'value' => isset( $settings['cf_hide_group_title_details'] ) ? $settings['cf_hide_group_title_details'] : false,
+					'holderClass' => 'pro-field',
+				],
+			];
+
+			$other_settings = array_merge( $other_settings, $acf_settings );
+		}
+
+		return $other_settings;
 	}
 
 	public static function rtTPGLicenceField() {
@@ -256,9 +315,9 @@ class Options {
 				"class"       => "full",
 				"description" => 'The number of posts to show. Set empty to show all found posts.',
 			],
-			'offset'        => [
+			'offset'       => [
 				"name"        => "offset",
-				"label"       => __("Offset", "the-post-grid"),
+				"label"       => __( "Offset", "the-post-grid" ),
 				"type"        => "number",
 				"class"       => "full",
 				"description" => 'The number of posts to skip from start',
@@ -279,13 +338,14 @@ class Options {
 	}
 
 	public static function rtTPAdvanceFilters() {
-		$fields = apply_filters( 'rt_tpg_advanced_filters', [
-			'tpg_taxonomy'    => "Taxonomy",
-			'order'           => "Order",
-			'author'          => "Author",
-			'tpg_post_status' => "Status",
-			's'               => "Search",
-		] );
+		$fields = apply_filters( 'rt_tpg_advanced_filters',
+			[
+				'tpg_taxonomy'    => "Taxonomy",
+				'order'           => "Order",
+				'author'          => "Author",
+				'tpg_post_status' => "Status",
+				's'               => "Search",
+			] );
 
 		return [
 			'post_filter' => [
@@ -330,13 +390,13 @@ class Options {
 		$options = [
 			'layout_type'                      => [
 				"type"    => "radio-image",
-				"label"   => __("Layout Type", "the-post-grid"),
+				"label"   => __( "Layout Type", "the-post-grid" ),
 				"id"      => "rt-tpg-sc-layout-type",
 				"options" => self::rtTPGLayoutType(),
 			],
 			'layout'                           => [
 				"type"    => "radio-image",
-				"label"   => __("Layout", "the-post-grid"),
+				"label"   => __( "Layout", "the-post-grid" ),
 				"id"      => "rt-tpg-sc-layout",
 				"class"   => "rt-select2",
 				"options" => self::rtTPGLayouts(),
@@ -403,7 +463,8 @@ class Options {
 				'holderClass' => "isotope-item sc-isotope-default-filter tpg-hidden pro-field",
 				"id"          => "rt-tpg-sc-isotope-default-filter",
 				"class"       => "rt-select2",
-				"attr"        => "data-selected='" . get_post_meta( get_the_ID(), 'isotope_default_filter',
+				"attr"        => "data-selected='" . get_post_meta( get_the_ID(),
+						'isotope_default_filter',
 						true ) . "'",
 				"options"     => [ '' => __( 'Show all', 'the-post-grid' ) ],
 			],
@@ -474,7 +535,7 @@ class Options {
 
 	public static function responsiveSettingsColumn() {
 		$options = [
-			'column'                           => [
+			'column'            => [
 				'type'        => 'select',
 				'label'       => __( 'Desktop', 'the-post-grid' ),
 				'class'       => 'rt-select2',
@@ -483,7 +544,7 @@ class Options {
 				'options'     => self::scColumns(),
 				"description" => "Desktop > 991px",
 			],
-			'tpg_tab_column'                   => [
+			'tpg_tab_column'    => [
 				'type'        => 'select',
 				'label'       => __( 'Tab', 'the-post-grid' ),
 				'class'       => 'rt-select2',
@@ -492,7 +553,7 @@ class Options {
 				'options'     => self::scColumns(),
 				"description" => "Tab < 992px",
 			],
-			'tpg_mobile_column'                => [
+			'tpg_mobile_column' => [
 				'type'        => 'select',
 				'label'       => __( 'Mobile', 'the-post-grid' ),
 				'class'       => 'rt-select2',
@@ -502,12 +563,13 @@ class Options {
 				"description" => "Mobile < 768px",
 			],
 		];
+
 		return apply_filters( 'rt_tpg_layout_column_options', $options );
 	}
 
 	public static function layoutMiscSettings() {
 		$options = [
-			'pagination'                       => [
+			'pagination'            => [
 				"type"        => "switch",
 				"label"       => "Pagination",
 				'holderClass' => "pagination",
@@ -515,14 +577,14 @@ class Options {
 				"description" => "Pagination not allow in Grid Hover layout",
 				"option"      => 'Enable',
 			],
-			'posts_per_page'                   => [
+			'posts_per_page'        => [
 				"type"        => "number",
 				"label"       => "Display per page",
 				'holderClass' => "pagination-item posts-per-page tpg-hidden",
 				"default"     => 5,
 				"description" => "If value of Limit setting is not blank (empty), this value should be smaller than Limit value.",
 			],
-			'posts_loading_type'               => [
+			'posts_loading_type'    => [
 				"type"        => "radio",
 				"label"       => "Pagination Type",
 				'holderClass' => "pagination-item posts-loading-type tpg-hidden pro-field",
@@ -530,13 +592,13 @@ class Options {
 				"default"     => 'pagination',
 				"options"     => self::postLoadingType(),
 			],
-			'link_to_detail_page'              => [
+			'link_to_detail_page'   => [
 				"type"      => "switch",
 				"label"     => "Link To Detail Page",
 				"alignment" => "vertical",
 				"default"   => true,
 			],
-			'detail_page_link_type'            => [
+			'detail_page_link_type' => [
 				"type"        => "radio",
 				"label"       => "Detail page link type",
 				'holderClass' => "detail-page-link-type tpg-hidden pro-field",
@@ -547,7 +609,7 @@ class Options {
 					'popup'    => "PopUp",
 				],
 			],
-			'popup_type'                       => [
+			'popup_type'            => [
 				"type"        => "radio",
 				"label"       => "PopUp Type",
 				'holderClass' => "popup-type tpg-hidden pro-field",
@@ -558,7 +620,7 @@ class Options {
 					'multi'  => "Multi PopUp",
 				],
 			],
-			'link_target'                      => [
+			'link_target'           => [
 				"type"        => "radio",
 				"label"       => "Link Target",
 				'holderClass' => "tpg-link-target tpg-hidden",
@@ -569,6 +631,7 @@ class Options {
 				],
 			],
 		];
+
 		return apply_filters( 'rt_tpg_layout_misc_options', $options );
 	}
 
@@ -631,7 +694,7 @@ class Options {
 				'alignment'   => 'vertical',
 				'multiple'    => true,
 				'options'     => Options::detailAvailableFields(),
-				'default'     => array_keys(Options::detailAvailableFields()),
+				'default'     => array_keys( Options::detailAvailableFields() ),
 				'value'       => isset( $settings['popup_fields'] ) ? $settings['popup_fields'] : [],
 			],
 		];
@@ -689,7 +752,9 @@ class Options {
 		unset( $fields['comment_count'] );
 		$offset                    = array_search( 'title', array_keys( $fields ) ) + 1;
 		$newFields                 = array_slice( $fields, 0, $offset, true ) + $inserted + array_slice( $fields,
-				$offset, null, true );
+				$offset,
+				null,
+				true );
 		$newFields['social_share'] = "Social Share";
 
 		return $newFields;
@@ -740,12 +805,12 @@ class Options {
 	public static function rtTPGSCCategorySettings() {
 		$fields = [
 			'tpg_category_position' => [
-				"type"    => "select",
-				"class"   => "rt-select2",
+				"type"        => "select",
+				"class"       => "rt-select2",
 				"holderClass" => "pro-field",
-				"label"   => esc_html__( "Position", "the-post-grid" ),
-				"blank"   => esc_html__( "Default", "the-post-grid" ),
-				"options" => [
+				"label"       => esc_html__( "Position", "the-post-grid" ),
+				"blank"       => esc_html__( "Default", "the-post-grid" ),
+				"options"     => [
 					'above_title'  => esc_html__( "Above Title", "the-post-grid" ),
 					'top_left'     => esc_html__( "Over image (Top Left)", "the-post-grid" ),
 					'top_right'    => esc_html__( "Over image (Top Right)", "the-post-grid" ),
@@ -755,18 +820,18 @@ class Options {
 				],
 			],
 			'tpg_category_style'    => [
-				"type"    => "select",
-				"class"   => "rt-select2",
+				"type"        => "select",
+				"class"       => "rt-select2",
 				"holderClass" => "pro-field",
-				"label"   => esc_html__( "Style", "the-post-grid" ),
-				"blank"   => esc_html__( "Default", "the-post-grid" ),
-				"options" => [
+				"label"       => esc_html__( "Style", "the-post-grid" ),
+				"blank"       => esc_html__( "Default", "the-post-grid" ),
+				"options"     => [
 					'style1' => esc_html__( "Style 1", "the-post-grid" ),
 					'style2' => esc_html__( "Style 2", "the-post-grid" ),
 					'style3' => esc_html__( "Style 3", "the-post-grid" ),
 				],
 			],
-			'tpg_category_icon'      => [
+			'tpg_category_icon'     => [
 				"type"    => "switch",
 				"label"   => esc_html__( "Icon", "the-post-grid" ),
 				"default" => true,
@@ -920,7 +985,7 @@ class Options {
 			],
 		];
 
-		return apply_filters('rt_tpg_sc_image_settings', $fields);
+		return apply_filters( 'rt_tpg_sc_image_settings', $fields );
 	}
 
 	public static function rtTPGSCExcerptSettings() {
@@ -928,7 +993,7 @@ class Options {
 			'excerpt_limit'         => [
 				"type"        => "number",
 				"label"       => esc_html__( "Excerpt limit", 'the-post-grid' ),
-				"default"       => 15,
+				"default"     => 15,
 				"description" => esc_html__( "Excerpt limit only integer number is allowed, Leave it blank for full excerpt.", 'the-post-grid' ),
 			],
 			'tgp_excerpt_type'      => [
@@ -978,13 +1043,13 @@ class Options {
 
 	public static function rtTPGStyleFields() {
 		$fields = [
-			'parent_class'            => [
+			'parent_class'  => [
 				"type"        => "text",
 				"label"       => "Parent class",
 				"class"       => "medium-text",
 				"description" => "Parent class for adding custom css",
 			],
-			'primary_color'           => [
+			'primary_color' => [
 				"type"    => "text",
 				"label"   => "Primary Color",
 				"class"   => "rt-color",
@@ -999,31 +1064,31 @@ class Options {
 		$fields = [
 
 			'button_bg_color'         => [
-				"type"        => "text",
-				"name"        => "button_bg_color",
-				"label"       => "Background",
-				"class"       => "rt-color",
+				"type"  => "text",
+				"name"  => "button_bg_color",
+				"label" => "Background",
+				"class" => "rt-color",
 			],
 			'button_hover_bg_color'   => [
-				"type"        => "text",
-				"name"        => "button_hover_bg_color",
-				"label"       => "Hover Background",
-				"class"       => "rt-color",
+				"type"  => "text",
+				"name"  => "button_hover_bg_color",
+				"label" => "Hover Background",
+				"class" => "rt-color",
 			],
 			'button_active_bg_color'  => [
-				"type"        => "text",
-				"label"       => "Active Background (Isotop)",
-				"class"       => "rt-color",
+				"type"  => "text",
+				"label" => "Active Background (Isotop)",
+				"class" => "rt-color",
 			],
 			'button_text_bg_color'    => [
-				"type"        => "text",
-				"label"       => "Text",
-				"class"       => "rt-color",
+				"type"  => "text",
+				"label" => "Text",
+				"class" => "rt-color",
 			],
 			'button_hover_text_color' => [
-				"type"        => "text",
-				"label"       => "Text Hover",
-				"class"       => "rt-color",
+				"type"  => "text",
+				"label" => "Text Hover",
+				"class" => "rt-color",
 			],
 		];
 
@@ -1169,18 +1234,19 @@ class Options {
 				"label"       => esc_html__( "Padding", "the-post-grid" ),
 				"description" => __( "Multiple value allowed separated by comma 12,0,5,10", 'the-post-grid' ),
 			],
-			'rt_tpg_category_font_size'     => [
-				"type"      => "select",
-				"class"     => "rt-select2",
-				"label"     => esc_html__( "Font Size", "the-post-grid" ),
-				"blank"     => 'Default',
-				"options"   => self::scFontSize(),
+			'rt_tpg_category_font_size'  => [
+				"type"    => "select",
+				"class"   => "rt-select2",
+				"label"   => esc_html__( "Font Size", "the-post-grid" ),
+				"blank"   => 'Default',
+				"options" => self::scFontSize(),
 			],
 		];
 
 		return apply_filters( 'tpg_category_style_fields', $fields );
 	}
 
+	/*
 	public static function itemFields() {
 		$fields = [
 			'item_fields' => [
@@ -1230,8 +1296,9 @@ class Options {
 			];
 		}
 
-		return $fields;
+		//return $fields;
 	}
+	*/
 
 	public static function getCFPluginList() {
 		return [
@@ -1302,77 +1369,77 @@ class Options {
 
 	public static function rtTPGLayoutType() {
 		$layoutType = [
-			'grid' => array(
+			'grid'       => [
 				'title' => __( "Grid", "the-post-grid" ),
-				'img' => rtTPG()->get_assets_uri('images/grid.png'),
-			),
-			'grid_hover' => array(
+				'img'   => rtTPG()->get_assets_uri( 'images/grid.png' ),
+			],
+			'grid_hover' => [
 				'title' => __( "Grid Hover", "the-post-grid" ),
-				'img' => rtTPG()->get_assets_uri('images/grid_hover.png'),
-			),
-			'list' => array(
+				'img'   => rtTPG()->get_assets_uri( 'images/grid_hover.png' ),
+			],
+			'list'       => [
 				'title' => __( "List", "the-post-grid" ),
-				'img' => rtTPG()->get_assets_uri('images/list.png'),
-			),
-			'isotope' => array(
+				'img'   => rtTPG()->get_assets_uri( 'images/list.png' ),
+			],
+			'isotope'    => [
 				'title' => __( "Isotope", "the-post-grid" ),
-				'img' => rtTPG()->get_assets_uri('images/isotope.png'),
-			),
+				'img'   => rtTPG()->get_assets_uri( 'images/isotope.png' ),
+			],
 		];
 
 		return apply_filters( 'rt_tpg_layouts_type', $layoutType );
 	}
 
 	public static function rtTPGLayouts() {
-		$layouts    = [
-			'layout1' => array(
-				'title' => __( "Grid Layout 1", "the-post-grid" ),
-				'layout' => 'grid',
-				'layout_link'    => 'https://www.radiustheme.com/demo/plugins/the-post-grid/',
-				'img' => rtTPG()->get_assets_uri('images/layouts/grid1.png'),
-			),
-			'layout12' => array(
-				'title' => esc_html__( "Grid Layout 2", "the-post-grid-pro" ),
-				'layout' => 'grid',
-				'layout_link'    => 'https://www.radiustheme.com/demo/plugins/the-post-grid/grid-layout-2/',
-				'img' => rtTPG()->get_assets_uri('images/layouts/grid10.png')
-			),
-			'layout5' => array(
-				'title' => __( "Grid Hover 1", "the-post-grid" ),
-				'layout' => 'grid_hover',
-				'layout_link'    => 'https://www.radiustheme.com/demo/plugins/the-post-grid/hover-layout-1/',
-				'img' => rtTPG()->get_assets_uri('images/layouts/grid3.png')
-			),
-			'layout6' => array(
-				'title' => esc_html__( "Grid Hover 2", "the-post-grid-pro" ),
-				'layout' => 'grid_hover',
-				'layout_link'    => 'https://www.radiustheme.com/demo/plugins/the-post-grid/hover-layout-2/',
-				'img' => rtTPG()->get_assets_uri('images/layouts/grid4.png')
-			),
-			'layout7' => array(
-				'title' => esc_html__( "Grid Hover 3", "the-post-grid-pro" ),
-				'layout' => 'grid_hover',
-				'layout_link'    => 'https://www.radiustheme.com/demo/plugins/the-post-grid/hover-layout-3/',
-				'img' => rtTPG()->get_assets_uri('images/layouts/grid5.png')
-			),
-			'layout2' => array(
-				'title' => __( "List Layout 1", "the-post-grid" ),
-				'layout' => 'list',
-				'layout_link'    => 'https://www.radiustheme.com/demo/plugins/the-post-grid/list-layout-1/',
-				'img' => rtTPG()->get_assets_uri('images/layouts/list1.png')
-			),
-			'layout3' => array(
-				'title' => __( "List Layout 2", "the-post-grid" ),
-				'layout' => 'list',
-				'layout_link'    => 'https://www.radiustheme.com/demo/plugins/the-post-grid/list-layout-rounded-image/',
-				'img' => rtTPG()->get_assets_uri('images/layouts/list2.png')
-			),
-			'isotope1' => array(
-				'title' => __( "Isotope Layout 1", "the-post-grid" ),
-				'layout' => 'isotope',
-				'layout_link'    => 'https://www.radiustheme.com/demo/plugins/the-post-grid/layout-4-filter/',
-				'img' => rtTPG()->get_assets_uri('images/layouts/isotope1.png')
-			),
+		$layouts = [
+			'layout1'  => [
+				'title'       => __( "Grid Layout 1", "the-post-grid" ),
+				'layout'      => 'grid',
+				'layout_link' => 'https://www.radiustheme.com/demo/plugins/the-post-grid/',
+				'img'         => rtTPG()->get_assets_uri( 'images/layouts/grid1.png' ),
+			],
+			'layout12' => [
+				'title'       => esc_html__( "Grid Layout 2", "the-post-grid-pro" ),
+				'layout'      => 'grid',
+				'layout_link' => 'https://www.radiustheme.com/demo/plugins/the-post-grid/grid-layout-2/',
+				'img'         => rtTPG()->get_assets_uri( 'images/layouts/grid10.png' ),
+			],
+			'layout5'  => [
+				'title'       => __( "Grid Hover 1", "the-post-grid" ),
+				'layout'      => 'grid_hover',
+				'layout_link' => 'https://www.radiustheme.com/demo/plugins/the-post-grid/hover-layout-1/',
+				'img'         => rtTPG()->get_assets_uri( 'images/layouts/grid3.png' ),
+			],
+			'layout6'  => [
+				'title'       => esc_html__( "Grid Hover 2", "the-post-grid-pro" ),
+				'layout'      => 'grid_hover',
+				'layout_link' => 'https://www.radiustheme.com/demo/plugins/the-post-grid/hover-layout-2/',
+				'img'         => rtTPG()->get_assets_uri( 'images/layouts/grid4.png' ),
+			],
+			'layout7'  => [
+				'title'       => esc_html__( "Grid Hover 3", "the-post-grid-pro" ),
+				'layout'      => 'grid_hover',
+				'layout_link' => 'https://www.radiustheme.com/demo/plugins/the-post-grid/hover-layout-3/',
+				'img'         => rtTPG()->get_assets_uri( 'images/layouts/grid5.png' ),
+			],
+			'layout2'  => [
+				'title'       => __( "List Layout 1", "the-post-grid" ),
+				'layout'      => 'list',
+				'layout_link' => 'https://www.radiustheme.com/demo/plugins/the-post-grid/list-layout-1/',
+				'img'         => rtTPG()->get_assets_uri( 'images/layouts/list1.png' ),
+			],
+			'layout3'  => [
+				'title'       => __( "List Layout 2", "the-post-grid" ),
+				'layout'      => 'list',
+				'layout_link' => 'https://www.radiustheme.com/demo/plugins/the-post-grid/list-layout-rounded-image/',
+				'img'         => rtTPG()->get_assets_uri( 'images/layouts/list2.png' ),
+			],
+			'isotope1' => [
+				'title'       => __( "Isotope Layout 1", "the-post-grid" ),
+				'layout'      => 'isotope',
+				'layout_link' => 'https://www.radiustheme.com/demo/plugins/the-post-grid/layout-4-filter/',
+				'img'         => rtTPG()->get_assets_uri( 'images/layouts/isotope1.png' ),
+			],
 		];
 
 		return apply_filters( 'tpg_layouts', $layouts );
@@ -1411,12 +1478,13 @@ class Options {
 	}
 
 	public static function extraStyle() {
-		return apply_filters( 'tpg_extra_style', [
-			'title'       => "Title",
-			'title_hover' => "Title hover",
-			'excerpt'     => "Excerpt",
-			'meta_data'   => "Meta Data",
-		] );
+		return apply_filters( 'tpg_extra_style',
+			[
+				'title'       => "Title",
+				'title_hover' => "Title hover",
+				'excerpt'     => "Excerpt",
+				'meta_data'   => "Meta Data",
+			] );
 	}
 
 	public static function scFontSize() {
@@ -1502,6 +1570,8 @@ class Options {
                         <li>Enable/Disable Pagination.</li>
                         <li>AJAX Pagination (Load more and Load on Scrolling)</li>
                     </ol>
-                <a href="https://www.radiustheme.com/downloads/the-post-grid-pro-for-wordpress/" class="rt-admin-btn" target="_blank">' . __("Get Pro Version", "the-post-grid") . '</a>';
+                <a href="https://www.radiustheme.com/downloads/the-post-grid-pro-for-wordpress/" class="rt-admin-btn" target="_blank">' . __( "Get Pro Version", "the-post-grid" )
+		       . '</a>';
 	}
+
 }

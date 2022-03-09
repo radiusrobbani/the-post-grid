@@ -88,6 +88,7 @@ class AjaxController {
 			unset( $_REQUEST['action'] );
 			unset( $_REQUEST[ rtTPG()->nonceId() ] );
 			unset( $_REQUEST['_wp_http_referer'] );
+			error_log(print_r($_REQUEST, true));
 			update_option( rtTPG()->options['settings'], $_REQUEST );
 			$response = array(
 				'error' => false,

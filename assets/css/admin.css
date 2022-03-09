@@ -361,6 +361,11 @@ body .meta-box-sortables .field-holder select {
     margin-bottom: 15px;
 }
 
+#settings-tabs .rt-tab-content .field-holder#show_acf_holder {
+    border-top: 1px solid #ddd;
+    padding-top: 20px;
+}
+
 .rt-tab-content .field-holder:first-child {
     border-top: none;
     padding-top: 15px;

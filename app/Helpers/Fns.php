@@ -174,7 +174,7 @@ class Fns {
 			Options::rtTPGPostType(),
 			Options::rtTPGStyleButtonColorFields(),
 			Options::rtTPAdvanceFilters(),
-			Options::itemFields()
+//			Options::itemFields()
 		);
 
 		return $fields;
@@ -2218,22 +2218,29 @@ class Fns {
 	 *
 	 * @return bool
 	 */
-	public static function tpg_get_acf_data_elementor( $data, $pID ) {
-		if ( ! rtTPG()->hasPro() || 'show' !== $data['show_acf'] ) {
+	public static function tpg_get_acf_data_elementor( $data, $pID, $return_type = true ) {
+		if ( ! rtTPG()->hasPro() ) {
 			return;
 		}
 
-		$cf_group = $data['cf_group'];
-		$format   = [
-			'hide_empty'       => $data['cf_hide_empty_value'],
-			'show_value'       => $data['cf_show_only_value'],
-			'hide_group_title' => $data['cf_hide_group_title'],
-		];
+		if ( isset( $data['show_acf'] ) && 'show' == $data['show_acf'] ) {
+			$cf_group = $data['cf_group'];
+			$format   = [
+				'hide_empty'       => isset($data['cf_hide_empty_value']) ? $data['cf_hide_empty_value'] : true,
+				'show_value'       => isset($data['cf_show_only_value']) ? $data['cf_show_only_value'] : true,
+				'hide_group_title' => isset($data['cf_hide_group_title']) ? $data['cf_hide_group_title'] : false,
+			];
 
-		if ( ! empty( $cf_group ) ) {
-			echo "<div class='acf-custom-field-wrap'>";
-			echo Functions::get_cf_formatted_fields( $cf_group, $format, $pID );
-			echo "</div>";
+			if ( ! empty( $cf_group ) ) {
+				$acf_html = "<div class='acf-custom-field-wrap'>";
+				$acf_html .= Functions::get_cf_formatted_fields( $cf_group, $format, $pID );
+				$acf_html .= "</div>";
+				if ( $return_type ) {
+					echo $acf_html;
+				} else {
+					return $acf_html;
+				}
+			}
 		}
 	}
 

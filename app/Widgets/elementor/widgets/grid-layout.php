@@ -48,9 +48,6 @@ class TPGGridLayout extends Custom_Widget_Base {
 		//Links
 		rtTPGElementorHelper::links( $this );
 
-		//Promotions
-		rtTPGElementorHelper::promotions( $this );
-
 		/**
 		 * Settings Tab
 		 * ===========

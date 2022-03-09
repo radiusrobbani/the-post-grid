@@ -2892,7 +2892,7 @@ class rtTPGElementorHelper {
 			[
 				'label' => sprintf(
 					'<span style="color: #f54">%s</span>',
-					__( 'Go Premium for More Features', 'testimonial-slider-showcase' )
+					__( 'Go Premium for More Features', 'the-post-grid' )
 				),
 			]
 		);
