@@ -89,26 +89,26 @@ if ( $tpg_post_count != 1 ) {
                     </div>
 				<?php endif; ?>
 
-
-
-				<?php if ( $excerpt && $tpg_post_count == 1 && 'show' == $data['show_excerpt'] ) : ?>
+				<?php if ( ( 'show' == $data['show_excerpt'] || 'show' == $data['show_acf'] ) && $tpg_post_count == 1 ) : ?>
                     <div class="tpg-excerpt tpg-el-excerpt">
-                        <div class="tpg-excerpt-inner">
-		                    <?php echo wp_kses_post( $excerpt ); ?>
-                        </div>
-	                    <?php Fns::tpg_get_acf_data_elementor($data, $pID ); ?>
+						<?php if ( $excerpt && 'show' == $data['show_excerpt'] ) : ?>
+                            <div class="tpg-excerpt-inner">
+								<?php echo wp_kses_post( $excerpt ); ?>
+                            </div>
+						<?php endif; ?>
+						<?php Fns::tpg_get_acf_data_elementor( $data, $pID ); ?>
                     </div>
 				<?php endif; ?>
 
 				<?php
-				if (  rtTPG()->hasPro() && $tpg_post_count == 1 && in_array($data['show_social_share'], ['show', 'default']) ) {
+				if ( rtTPG()->hasPro() && $tpg_post_count == 1 && in_array( $data['show_social_share'], [ 'show', 'default' ] ) ) {
 					echo \RT\ThePostGridPro\Helpers\Functions::rtShare( $pID );
 				}
 				?>
 
 
-	            <?php if ( $tpg_post_count == 1 && in_array($data['show_read_more'], ['show', 'default']) ) : ?>
-                <div class="post-footer">
+				<?php if ( $tpg_post_count == 1 && in_array( $data['show_read_more'], [ 'show', 'default' ] ) ) : ?>
+                    <div class="post-footer">
 
                         <div class="read-more">
 							<?php
@@ -124,8 +124,8 @@ if ( $tpg_post_count != 1 ) {
 							?>
                         </div>
 
-                </div>
-	            <?php endif; ?>
+                    </div>
+				<?php endif; ?>
             </div>
 
         </div>

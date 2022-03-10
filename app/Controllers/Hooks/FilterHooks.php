@@ -2,6 +2,7 @@
 
 namespace RT\ThePostGrid\Controllers\Hooks;
 
+use Cassandra\Varint;
 use RT\ThePostGrid\Helpers\Fns;
 
 class FilterHooks {
@@ -9,7 +10,11 @@ class FilterHooks {
 	public static function init() {
 		add_filter( 'tpg_author_arg', [ __CLASS__, 'filter_author_args' ], 10 );
 		add_filter( 'plugin_row_meta', [ __CLASS__, 'plugin_row_meta' ], 10, 2 );
-		add_filter( 'the_content', [ __CLASS__, 'tpg_acf_content_filter' ] );
+
+		$settings = get_option( 'rt_the_post_grid_settings' );
+		if ( isset( $settings['show_acf_details'] ) && $settings['show_acf_details'] ) {
+			add_filter( 'the_content', [ __CLASS__, 'tpg_acf_content_filter' ] );
+		}
 	}
 
 	public static function filter_author_args( $args ) {
@@ -46,7 +51,7 @@ class FilterHooks {
 				'cf_hide_group_title' => isset( $settings['cf_hide_group_title_details'] ) ? $settings['cf_hide_group_title_details'] : false,
 			];
 
-			return $content . Fns::tpg_get_acf_data_elementor( $data, null, false );;
+			return $content . Fns::tpg_get_acf_data_elementor( $data, null, false );
 		}
 
 		return $content;

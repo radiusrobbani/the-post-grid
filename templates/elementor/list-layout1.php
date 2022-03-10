@@ -70,16 +70,16 @@ if ( 'masonry' == $data['layout_style'] ) {
                     </div>
 				<?php endif; ?>
 
-
-
-				<?php if ( in_array( $data['show_excerpt'], [ 'show', 'default' ] ) ) : ?>
+	            <?php if ( 'show' == $data['show_excerpt'] || 'show' == $data['show_acf'] ) : ?>
                     <div class="tpg-excerpt tpg-el-excerpt">
-                        <div class="tpg-excerpt-inner">
-		                    <?php echo wp_kses_post( $excerpt ); ?>
-                        </div>
-	                    <?php Fns::tpg_get_acf_data_elementor($data, $pID ); ?>
+			            <?php if ( $excerpt && 'show' == $data['show_excerpt'] ) : ?>
+                            <div class="tpg-excerpt-inner">
+					            <?php echo wp_kses_post( $excerpt ); ?>
+                            </div>
+			            <?php endif; ?>
+			            <?php Fns::tpg_get_acf_data_elementor( $data, $pID ); ?>
                     </div>
-				<?php endif; ?>
+	            <?php endif; ?>
 
 				<?php
 

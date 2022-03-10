@@ -45,7 +45,6 @@
 .tpg-separate-category .categories-links,
 .tpg-separate-category .categories-links i,
 .rt-tpg-social-share a i,
-.rt-tpg-container .tpg-post-holder .read-more a i,
 .rt-tpg-container .tpg-post-holder .read-more a,
 .tpg-el-main-wrapper .tpg-el-image-wrap img,
 .tpg-el-main-wrapper .post-meta-tags span,
@@ -250,7 +249,9 @@ body .readmore-btn-only-text .rt-tpg-container .tpg-post-holder .read-more a {
     padding: 0 !important;
     background: none !important;
 }
-
+.rt-tpg-container .tpg-post-holder .read-more a i {
+    transition: margin 0.4s ease-in-out;
+}
 .rt-tpg-container .tpg-post-holder .read-more a i.left-icon {
     margin-right: 5px;
 }
@@ -2297,6 +2298,10 @@ body .elementor-section .rt-tpg-container .grid_hover-layout5 [class*='rt-col'] 
 
 .tpg-el-main-wrapper .rt-swiper-holder .tpg-el-image-wrap img {
     width: 100%;
+}
+
+.tpg-el-main-wrapper .rt-swiper-holder .tpg-el-image-wrap img[src="#none"] {
+    display: none;
 }
 
 .tpg-el-main-wrapper .rt-swiper-holder {

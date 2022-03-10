@@ -1142,6 +1142,7 @@ Filter
 .section-title-style-style2 .tpg-header-wrapper.carousel .swiper,
 .section-title-style-style3 .tpg-header-wrapper.carousel .swiper {
     height: 51px;
+    margin-bottom: -0.5px;
 }
 
 .tpg-header-wrapper.carousel .swiper .swiper-navigation {
@@ -1717,7 +1718,7 @@ Common Layout Style
     margin-bottom: 15px;
 }
 
-.rt-tpg-container .rt-detail .tpg-excerpt {
+.rt-tpg-container .rt-detail .tpg-excerpt-inner {
     margin-bottom: 15px;
 }
 

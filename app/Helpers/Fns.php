@@ -710,6 +710,28 @@ class Fns {
 		return $imgSrc;
 	}
 
+	public static function tpgCharacterLimit( $limit, $content ) {
+		$limit++;
+
+		$text = '';
+
+		if ( mb_strlen( $content ) > $limit ) {
+			$subex = mb_substr( $content, 0, $limit);
+			$exwords = explode( ' ', $subex );
+			$excut = - ( mb_strlen( $exwords[ count( $exwords ) - 1 ] ) );
+
+			if ( $excut < 0 ) {
+				$text = mb_substr( $subex, 0, $excut );
+			} else {
+				$text = $subex;
+			}
+		} else {
+			$text = $content;
+		}
+
+		return $text;
+	}
+
 	public static function get_the_excerpt( $post_id, $data = [] ) {
 		$type = $data['excerpt_type'];
 		$post = get_post( $post_id );
@@ -717,18 +739,17 @@ class Fns {
 			return '';
 		}
 		if ( $type == 'full' ) {
-			ob_start();
-			the_content();
-			$content = ob_get_clean();
-
+			$content = $post->post_content;
 			return apply_filters( 'tpg_content_full', $content, $post_id, $data );
 		} else {
+
+		    $limit   = isset( $data['excerpt_limit'] ) ? abs( $data['excerpt_limit'] ) : 0;
 			if ( class_exists( 'ET_GB_Block_Layout' ) ) {
 				$defaultExcerpt = $post->post_excerpt ?: wp_trim_words( $post->post_content, 55 );
 			} else {
-				$defaultExcerpt = get_the_excerpt( $post_id );
+				$defaultExcerpt = $limit ? $post->post_content : get_the_excerpt( $post_id );
 			}
-			$limit   = isset( $data['excerpt_limit'] ) ? abs( $data['excerpt_limit'] ) : 0;
+
 			$more    = $data['excerpt_more_text'];
 			$excerpt = preg_replace( '`\[[^\]]*\]`', '', $defaultExcerpt );
 			$excerpt = strip_shortcodes( $excerpt );
@@ -747,10 +768,13 @@ class Fns {
 						$excerpt = $rawExcerpt;
 					}
 				} else {
+				    /*
 					if ( $limit > 0 && strlen( $excerpt ) > $limit ) {
 						$excerpt = mb_substr( $excerpt, 0, $limit, "utf-8" );
 						$excerpt = preg_replace( '/\W\w+\s*(\W*)$/', '$1', $excerpt );
 					}
+					*/
+					$excerpt = self::tpgCharacterLimit( $limit, $excerpt );
 				}
 				$excerpt = stripslashes( $excerpt );
 			} else {
@@ -2143,12 +2167,17 @@ class Fns {
 					$thumb_alt     = trim( wp_strip_all_tags( get_post_meta( $attachment_id, '_wp_attachment_image_alt', true ) ) );
 					if ( $lazy_load ) { ?>
                         <img data-src="<?php echo esc_url( $thumb_info[0] ); ?>"
+                             src="#none"
                              class="<?php echo esc_attr( $lazy_class ); ?>"
+                             width="<?php echo esc_attr( $thumb_info[1] ); ?>"
+                             height="<?php echo esc_attr( $thumb_info[2] ); ?>"
                              alt="<?php echo esc_attr( $thumb_alt ? $thumb_alt : the_title() ) ?>">
 						<?php
 					} else { ?>
                         <img src="<?php echo esc_url( $thumb_info[0] ); ?>"
                              class="<?php echo esc_attr( $lazy_class ); ?>"
+                             width="<?php echo esc_attr( $thumb_info[1] ); ?>"
+                             height="<?php echo esc_attr( $thumb_info[2] ); ?>"
                              alt="<?php echo esc_attr( $thumb_alt ? $thumb_alt : the_title() ) ?>">
 						<?php
 					}
@@ -2219,7 +2248,7 @@ class Fns {
 	 * @return bool
 	 */
 	public static function tpg_get_acf_data_elementor( $data, $pID, $return_type = true ) {
-		if ( ! rtTPG()->hasPro() ) {
+		if ( ! (rtTPG()->hasPro() && Fns::checkWhichCustomMetaPluginIsInstalled()) ) {
 			return;
 		}
 

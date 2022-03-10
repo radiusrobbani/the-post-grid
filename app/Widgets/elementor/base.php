@@ -376,15 +376,14 @@ abstract class Custom_Widget_Base extends Widget_Base {
 				$html .= $showAllhtml . $htmlButton;
 				$html .= '</div>' . $selectedSubTerms;
 			} else {
-			    //if Button the execute
+				//if Button the execute
 				//$termDefaultText = $allText;
 
 				$bCount = 0;
 				$bItems = null;
 				if ( ! empty( $terms ) ) {
 					foreach ( $terms as $term_id ) {
-
-						$term   = get_term( $term_id, $taxFilter, ARRAY_A );
+						$term = get_term( $term_id, $taxFilter, ARRAY_A );
 
 						$id     = $term['term_id'];
 						$bCount = $bCount + absint( $term['count'] );
@@ -714,6 +713,7 @@ abstract class Custom_Widget_Base extends Widget_Base {
 		$_prefix = $this->prefix;
 
 		$data_set = [
+			'block_type'               => 'elementor',
 			'prefix'                   => $_prefix,
 			'gird_column'              => $data[ $_prefix . '_column' ],
 			'gird_column_tablet'       => ( isset( $data[ $_prefix . '_column_tablet' ] ) ) ? $data[ $_prefix . '_column_tablet' ] : '0',
@@ -774,11 +774,11 @@ abstract class Custom_Widget_Base extends Widget_Base {
 			'comment_icon'             => $data['comment_icon'],
 			'image_custom_dimension'   => ( $data['image_size'] == 'custom' && isset( $data['image_custom_dimension'] ) ) ? $data['image_custom_dimension'] : '',
 			'img_crop_style'           => ( $data['image_size'] == 'custom' && isset( $data['img_crop_style'] ) ) ? $data['img_crop_style'] : '',
+			'show_acf'                 => ( isset( $data['show_acf'] ) ) ? $data['show_acf'] : '',
 		];
 
 		$cf = Fns::checkWhichCustomMetaPluginIsInstalled();
-		if ( $cf ) {
-			$data_set['show_acf']            = $data['show_acf'];
+		if ( $cf && rtTPG()->hasPro() ) {
 			$data_set['cf_group']            = $data['cf_group'];
 			$data_set['cf_hide_empty_value'] = $data['cf_hide_empty_value'];
 			$data_set['cf_show_only_value']  = $data['cf_show_only_value'] == 'yes' ? '' : '1';

@@ -4310,30 +4310,6 @@ class rtTPGElementorHelper {
 			]
 		);
 
-		$ref->add_control(
-			'readmore_icon_margin',
-			[
-				'label'              => __( 'Icon Margin', 'the-post-grid' ),
-				'type'               => Controls_Manager::DIMENSIONS,
-				'size_units'         => [ 'px' ],
-				'allowed_dimensions' => 'horizontal',
-				'default'            => [
-					'top'      => '',
-					'right'    => '',
-					'bottom'   => '',
-					'left'     => '',
-					'isLinked' => false,
-				],
-				'selectors'          => [
-					'{{WRAPPER}} .rt-tpg-container .tpg-post-holder .rt-detail .read-more a i' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
-				],
-				'condition'          => [
-					'show_btn_icon' => 'yes',
-				],
-			]
-		);
-
-
 		//TODO: Button style Tabs
 		$ref->start_controls_tabs(
 			'readmore_style_tabs'
@@ -4386,6 +4362,29 @@ class rtTPGElementorHelper {
 		);
 
 		$ref->add_control(
+			'readmore_icon_margin',
+			[
+				'label'              => __( 'Icon Spacing', 'the-post-grid' ),
+				'type'               => Controls_Manager::DIMENSIONS,
+				'size_units'         => [ 'px' ],
+				'allowed_dimensions' => 'horizontal',
+				'default'            => [
+					'top'      => '',
+					'right'    => '',
+					'bottom'   => '',
+					'left'     => '',
+					'isLinked' => false,
+				],
+				'selectors'          => [
+					'{{WRAPPER}} .rt-tpg-container .tpg-post-holder .rt-detail .read-more a i' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+				],
+				'condition'          => [
+					'show_btn_icon' => 'yes',
+				],
+			]
+		);
+
+		$ref->add_control(
 			'border_radius',
 			[
 				'label'              => __( 'Border Radius', 'the-post-grid' ),
@@ -4407,6 +4406,23 @@ class rtTPGElementorHelper {
 				'name'      => 'readmore_border',
 				'label'     => __( 'Button Border', 'the-post-grid' ),
 				'selector'  => '{{WRAPPER}} .rt-tpg-container .tpg-post-holder .rt-detail .read-more a',
+				'fields_options' => [
+					'border' => [
+						'default' => 'solid',
+					],
+					'width' => [
+						'default' => [
+							'top' => '1',
+							'right' => '1',
+							'bottom' => '1',
+							'left' => '1',
+							'isLinked' => true,
+						],
+					],
+					'color' => [
+						'default' => '#D4D4D4',
+					],
+				],
 				'condition' => [
 					'readmore_btn_style' => 'default-style',
 				],
@@ -4475,7 +4491,7 @@ class rtTPGElementorHelper {
 					'right'    => '',
 					'bottom'   => '',
 					'left'     => '',
-					'isLinked' => true,
+					'isLinked' => false,
 				],
 				'selectors'          => [
 					'body {{WRAPPER}} .rt-tpg-container .tpg-post-holder .rt-detail .read-more a:hover i' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
@@ -4508,6 +4524,23 @@ class rtTPGElementorHelper {
 				'name'      => 'readmore_border_hover',
 				'label'     => __( 'Button Border - Hover', 'the-post-grid' ),
 				'selector'  => 'body {{WRAPPER}} .rt-tpg-container .tpg-post-holder .rt-detail .read-more a:hover',
+				'fields_options' => [
+					'border' => [
+						'default' => 'solid',
+					],
+					'width' => [
+						'default' => [
+							'top' => '1',
+							'right' => '1',
+							'bottom' => '1',
+							'left' => '1',
+							'isLinked' => true,
+						],
+					],
+					'color' => [
+						'default' => '#7a64f2',
+					],
+				],
 				'condition' => [
 					'readmore_btn_style' => 'default-style',
 				],
@@ -4570,6 +4603,23 @@ class rtTPGElementorHelper {
 				'name'      => 'readmore_border_box_hover',
 				'label'     => __( 'Button Border - Box Hover', 'the-post-grid' ),
 				'selector'  => '{{WRAPPER}} .rt-tpg-container .tpg-post-holder:hover .rt-detail .read-more a',
+				'fields_options' => [
+					'border' => [
+						'default' => 'solid',
+					],
+					'width' => [
+						'default' => [
+							'top' => '1',
+							'right' => '1',
+							'bottom' => '1',
+							'left' => '1',
+							'isLinked' => true,
+						],
+					],
+					'color' => [
+						'default' => '#D4D4D4',
+					],
+				],
 				'condition' => [
 					'readmore_btn_style' => 'default-style',
 				],
@@ -4730,6 +4780,7 @@ class rtTPGElementorHelper {
 				'type'      => \Elementor\Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .rt-pagination .pagination-list > li > a:not(:hover), {{WRAPPER}} .rt-pagination .pagination-list > li > span:not(:hover)' => 'color: {{VALUE}}',
+					'{{WRAPPER}} .rt-tpg-container .rt-pagination-wrap .rt-page-numbers .paginationjs .paginationjs-pages ul li > a:not(:hover)' => 'color: {{VALUE}}',
 					'{{WRAPPER}} .rt-tpg-container .rt-pagination-wrap .rt-loadmore-btn'                                                                    => 'color: {{VALUE}}',
 				],
 			]
@@ -4742,6 +4793,7 @@ class rtTPGElementorHelper {
 				'type'      => \Elementor\Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .rt-pagination .pagination-list > li > a:not(:hover), {{WRAPPER}} .rt-pagination .pagination-list > li > span:not(:hover)' => 'background-color: {{VALUE}}',
+					'{{WRAPPER}} .rt-tpg-container .rt-pagination-wrap .rt-page-numbers .paginationjs .paginationjs-pages ul li > a:not(:hover)' => 'background-color: {{VALUE}}',
 					'{{WRAPPER}} .rt-tpg-container .rt-pagination-wrap .rt-loadmore-btn'                                                                    => 'background-color: {{VALUE}}',
 				],
 
@@ -4755,6 +4807,7 @@ class rtTPGElementorHelper {
 				'type'      => \Elementor\Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .rt-pagination .pagination-list > li > a:not(:hover), {{WRAPPER}} .rt-pagination .pagination-list > li > span:not(:hover)' => 'border-color: {{VALUE}}',
+					'{{WRAPPER}} .rt-tpg-container .rt-pagination-wrap .rt-page-numbers .paginationjs .paginationjs-pages ul li > a:not(:hover)' => 'border-color: {{VALUE}}',
 					'{{WRAPPER}} .rt-tpg-container .rt-pagination-wrap .rt-loadmore-btn'                                                                    => 'border-color: {{VALUE}}',
 				],
 			]
@@ -4777,6 +4830,7 @@ class rtTPGElementorHelper {
 				'type'      => \Elementor\Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .rt-pagination .pagination-list > li > a:hover, {{WRAPPER}} .rt-pagination .pagination-list > li > span:hover' => 'color: {{VALUE}}',
+					'{{WRAPPER}} .rt-tpg-container .rt-pagination-wrap .rt-page-numbers .paginationjs .paginationjs-pages ul li > a:hover' => 'color: {{VALUE}}',
 					'{{WRAPPER}} .rt-tpg-container .rt-pagination-wrap .rt-loadmore-btn:hover'                                                  => 'color: {{VALUE}}',
 				],
 			]
@@ -4790,6 +4844,7 @@ class rtTPGElementorHelper {
 				'type'      => \Elementor\Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .rt-pagination .pagination-list > li > a:hover, {{WRAPPER}} .rt-pagination .pagination-list > li > span:hover' => 'background-color: {{VALUE}}',
+					'{{WRAPPER}} .rt-tpg-container .rt-pagination-wrap .rt-page-numbers .paginationjs .paginationjs-pages ul li > a:hover' => 'background-color: {{VALUE}}',
 					'{{WRAPPER}} .rt-tpg-container .rt-pagination-wrap .rt-loadmore-btn:hover'                                                  => 'background-color: {{VALUE}}',
 				],
 			]
@@ -4802,6 +4857,7 @@ class rtTPGElementorHelper {
 				'type'      => \Elementor\Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .rt-pagination .pagination-list > li > a:hover, {{WRAPPER}} .rt-pagination .pagination-list > li > span:hover' => 'border-color: {{VALUE}}',
+					'{{WRAPPER}} .rt-tpg-container .rt-pagination-wrap .rt-page-numbers .paginationjs .paginationjs-pages ul li > a:hover' => 'border-color: {{VALUE}}',
 					'{{WRAPPER}} .rt-tpg-container .rt-pagination-wrap .rt-loadmore-btn:hover'                                                  => 'border-color: {{VALUE}}',
 				],
 			]
@@ -4830,6 +4886,7 @@ class rtTPGElementorHelper {
 					{{WRAPPER}} .rt-pagination .pagination-list > .active > span:hover, 
 					{{WRAPPER}} .rt-pagination .pagination-list > .active > a:focus, 
 					{{WRAPPER}} .rt-pagination .pagination-list > .active > span:focus' => 'color: {{VALUE}} !important',
+					'{{WRAPPER}} .rt-tpg-container .rt-pagination-wrap .rt-page-numbers .paginationjs .paginationjs-pages ul li.active > a' => 'color: {{VALUE}}',
 				],
 			]
 		);
@@ -4847,6 +4904,7 @@ class rtTPGElementorHelper {
 					{{WRAPPER}} .rt-pagination .pagination-list > .active > span:hover, 
 					{{WRAPPER}} .rt-pagination .pagination-list > .active > a:focus, 
 					{{WRAPPER}} .rt-pagination .pagination-list > .active > span:focus' => 'background-color: {{VALUE}} !important',
+					'{{WRAPPER}} .rt-tpg-container .rt-pagination-wrap .rt-page-numbers .paginationjs .paginationjs-pages ul li.active > a' => 'background-color: {{VALUE}}',
 				],
 			]
 		);
@@ -4863,6 +4921,7 @@ class rtTPGElementorHelper {
 					{{WRAPPER}} .rt-pagination .pagination-list > .active > span:hover, 
 					{{WRAPPER}} .rt-pagination .pagination-list > .active > a:focus, 
 					{{WRAPPER}} .rt-pagination .pagination-list > .active > span:focus' => 'border-color: {{VALUE}} !important',
+					'{{WRAPPER}} .rt-tpg-container .rt-pagination-wrap .rt-page-numbers .paginationjs .paginationjs-pages ul li.active > a' => 'border-color: {{VALUE}}',
 				],
 			]
 		);
