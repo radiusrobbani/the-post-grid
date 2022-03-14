@@ -1777,7 +1777,7 @@ class Fns {
 	 */
 	public static function el_ignore_layout( $data ) {
 		if ( 'default' == $data['category_position']
-		     && in_array( $data['layout'],
+             && in_array( $data['layout'],
 				[
 					'grid-layout4',
 					'grid-layout5',

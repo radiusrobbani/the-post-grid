@@ -23,7 +23,7 @@ if ( ! class_exists( 'ElementorController' ) ):
 			$this->el_cat_id = RT_THE_POST_GRID_PLUGIN_SLUG . '-elements';
 
 			if ( did_action( 'elementor/loaded' ) ) {
-				add_action( 'elementor/widgets/widgets_registered', [ $this, 'init' ] );
+				add_action( 'elementor/widgets/widgets_registered', [ $this, 'init_widgets' ] );
 				add_action( 'elementor/elements/categories_registered', [ $this, 'widget_category' ] );
 				//add_action( 'elementor/editor/after_enqueue_styles', [ $this, 'editor_style' ] );
 				add_action( 'elementor/editor/after_enqueue_scripts', [ $this, 'el_editor_script' ] );
@@ -89,7 +89,7 @@ if ( ! class_exists( 'ElementorController' ) ):
 			wp_add_inline_style( 'elementor-editor', $css );
 		}
 
-		public function init() {
+		public function init_widgets() {
 			require_once( RT_THE_POST_GRID_PLUGIN_PATH . '/app/Widgets/elementor/base.php' );
 			require_once( RT_THE_POST_GRID_PLUGIN_PATH . '/app/Widgets/elementor/rtTPGElementorHelper.php' );
 
@@ -103,7 +103,7 @@ if ( ! class_exists( 'ElementorController' ) ):
 			];
 
 			foreach ( $widgets as $file_name => $class ) {
-				if(!rtTPG()->hasPro() && 'slider-layout' == $file_name ){
+				if ( ! rtTPG()->hasPro() && 'slider-layout' == $file_name ) {
 					continue;
 				}
 				$template_name = 'the-post-grid/elementor/' . $file_name . '.php';
@@ -120,13 +120,26 @@ if ( ! class_exists( 'ElementorController' ) ):
 			}
 		}
 
-		public function widget_category() {
-			$id         = $this->el_cat_id;
-			$properties = [
-				'title' => __( 'The Post Grid', 'the-post-grid' ),
-			];
+		public function widget_category($elements_manager) {
+//			$register_categories = [
+//				$this->el_cat_id => [ 'title' => __( 'The Post Grid', 'the-post-grid' ) ],
+//			];
 
-			Plugin::$instance->elements_manager->add_category( $id, $properties );
+			//$register_categories = apply_filters( 'rtcl_elementor_widgets_category_lists', $register_categories );
+
+//			foreach ( $register_categories as $id => $category ) {
+//				Plugin::$instance->elements_manager->add_category( $id, $category );
+//			}
+
+			$elements_manager->add_category(
+				$this->el_cat_id,
+				[
+					'title' => esc_html__( 'The Post Grid', 'plugin-name' ),
+					'icon' => 'fa fa-plug',
+				]
+			);
+
+
 		}
 
 
@@ -148,7 +161,7 @@ if ( ! class_exists( 'ElementorController' ) ):
 					'description' => __( 'TPG - Slider Layout', 'testimonial-slider-showcase' ),
 					'icon'        => 'eicon-post-slider tpg-grid-icon tss-promotional-element',
 					'categories'  => '[ "the-post-grid-elements" ]',
-				]
+				],
 			];
 
 			$config['promotionWidgets'] = array_merge( $config['promotionWidgets'], $pro_widgets );

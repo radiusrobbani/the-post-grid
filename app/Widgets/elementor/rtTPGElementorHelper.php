@@ -2516,6 +2516,7 @@ class rtTPGElementorHelper {
 					'show_category' => 'show',
 				],
 				'divider'   => 'before',
+				'prefix_class' => 'tpg-category-position-',
 				'classes'   => rtTPG()->hasPro() ? '' : 'the-post-grid-field-hide tpg-should-hide-field',
 			]
 		);

@@ -9,6 +9,7 @@
 use Elementor\Widget_Base;
 use RT\ThePostGrid\Helpers\Fns;
 use RT\ThePostGrid\Helpers\Options;
+use RT\ThePostGridPro\Traits\ListingItem;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -115,6 +116,38 @@ abstract class Custom_Widget_Base extends Widget_Base {
 		}
 
 		return $path;
+	}
+
+
+	/**
+	 *
+	 * Get last post id
+	 *
+	 * @param  string  $post_type
+	 * @param  false   $all_content
+	 *
+	 * @return int
+	 */
+
+	public function get_last_post_id( $post_type = 'post' ): int {
+		if ( is_singular( $post_type ) ) {
+			return get_the_ID();
+		}
+
+
+		global $wpdb;
+		$cache_key = 'tpg_last_post_id';
+		$_post_id  = get_transient( $cache_key );
+
+		if ( false === $_post_id || 'publish' !== get_post_status( $_post_id ) ) {
+			delete_transient( $cache_key );
+			$_post_id = $wpdb->get_var(
+				$wpdb->prepare( "SELECT MAX(ID) FROM {$wpdb->prefix}posts WHERE post_type = %s AND post_status = %s", $post_type, 'publish' )
+			);
+			set_transient( $cache_key, $_post_id, 12 * HOUR_IN_SECONDS );
+		}
+
+		return absint( $_post_id );
 	}
 
 	//post category list

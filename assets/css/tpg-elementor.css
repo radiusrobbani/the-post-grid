@@ -500,6 +500,10 @@ body .readmore-btn-only-text .rt-tpg-container .tpg-post-holder .read-more a {
     margin-right: 3px;
 }
 
+.tpg-category-position-default .grid-layout4 .rt-detail .entry-title-wrapper .tpg-separate-category {
+    display: none;
+}
+
 .tpg-is-author-icon-hide .post-meta-tags span.author i,
 .tpg-is-author-icon-hide .post-meta-tags span.author img {
     display: none;
