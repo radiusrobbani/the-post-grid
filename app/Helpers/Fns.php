@@ -174,7 +174,7 @@ class Fns {
 			Options::rtTPGPostType(),
 			Options::rtTPGStyleButtonColorFields(),
 			Options::rtTPAdvanceFilters(),
-//			Options::itemFields()
+		//			Options::itemFields()
 		);
 
 		return $fields;
@@ -711,14 +711,14 @@ class Fns {
 	}
 
 	public static function tpgCharacterLimit( $limit, $content ) {
-		$limit++;
+		$limit ++;
 
 		$text = '';
 
 		if ( mb_strlen( $content ) > $limit ) {
-			$subex = mb_substr( $content, 0, $limit);
+			$subex   = mb_substr( $content, 0, $limit );
 			$exwords = explode( ' ', $subex );
-			$excut = - ( mb_strlen( $exwords[ count( $exwords ) - 1 ] ) );
+			$excut   = - ( mb_strlen( $exwords[ count( $exwords ) - 1 ] ) );
 
 			if ( $excut < 0 ) {
 				$text = mb_substr( $subex, 0, $excut );
@@ -740,10 +740,10 @@ class Fns {
 		}
 		if ( $type == 'full' ) {
 			$content = $post->post_content;
+
 			return apply_filters( 'tpg_content_full', $content, $post_id, $data );
 		} else {
-
-		    $limit   = isset( $data['excerpt_limit'] ) ? abs( $data['excerpt_limit'] ) : 0;
+			$limit = isset( $data['excerpt_limit'] ) ? abs( $data['excerpt_limit'] ) : 0;
 			if ( class_exists( 'ET_GB_Block_Layout' ) ) {
 				$defaultExcerpt = $post->post_excerpt ?: wp_trim_words( $post->post_content, 55 );
 			} else {
@@ -768,7 +768,7 @@ class Fns {
 						$excerpt = $rawExcerpt;
 					}
 				} else {
-				    /*
+					/*
 					if ( $limit > 0 && strlen( $excerpt ) > $limit ) {
 						$excerpt = mb_substr( $excerpt, 0, $limit, "utf-8" );
 						$excerpt = preg_replace( '/\W\w+\s*(\W*)$/', '$1', $excerpt );
@@ -1776,8 +1776,11 @@ class Fns {
 	 * @return bool
 	 */
 	public static function el_ignore_layout( $data ) {
+		if ( isset( $data['category'] ) && 'category' == $data['category'] ) {
+			return true;
+		}
 		if ( 'default' == $data['category_position']
-             && in_array( $data['layout'],
+		     && in_array( $data['layout'],
 				[
 					'grid-layout4',
 					'grid-layout5',
@@ -1884,19 +1887,21 @@ class Fns {
 	 * @return html markup
 	 */
 	public static function get_post_meta_html( $post_id, $data ) {
-		$author_id = get_the_author_meta( 'ID' );
-		$author    = apply_filters( 'rttpg_author_link', sprintf( '<a href="%s">%s</a>', get_author_posts_url( $author_id ), get_the_author() ) );
-
+		global $post;
+		$author_id   = $post->post_author;
+		$author_name = get_the_author_meta( 'display_name', $post->post_author );
+		$author      = apply_filters( 'rttpg_author_link', sprintf( '<a href="%s">%s</a>', get_author_posts_url( $author_id ), $author_name ) );
 
 		$comments_number = get_comments_number( $post_id );
 		$comments_text   = sprintf( '(%s)', number_format_i18n( $comments_number ) );
 		$date            = get_the_date();
 
 		//Category and Tags Management
-		$_cat_id        = $data['post_type'] . '_taxonomy';
-		$_tag_id        = $data['post_type'] . '_tags';
-		$categories     = get_the_term_list( $post_id, $data[ $_cat_id ], null, '<span class="rt-separator">,</span>' );
-		$tags           = get_the_term_list( $post_id, $data[ $_tag_id ], null, '<span class="rt-separator">,</span>' );
+		$_cat_id    = isset( $data['post_type'] ) ? $data['post_type'] . '_taxonomy' : 'category';
+		$_tag_id    = isset( $data['post_type'] ) ? $data['post_type'] . '_tags' : 'post_tag';
+		$categories = get_the_term_list( $post_id, $data[ $_cat_id ], null, '<span class="rt-separator">,</span>' );
+		$tags       = get_the_term_list( $post_id, $data[ $_tag_id ], null, '<span class="rt-separator">,</span>' );
+
 		$meta_separator = ( $data['meta_separator'] && $data['meta_separator'] !== 'default' ) ? sprintf( "<span class='separator'>%s</span>", $data['meta_separator'] ) : null;
 
 		//Author Meta
@@ -1912,7 +1917,7 @@ class Fns {
 
                 <?php
                 if ( '' !== $data['show_author_image'] ) {
-	                echo get_avatar( get_the_author_meta( 'ID' ), 30 );
+	                echo get_avatar( $author_id, 80 );
                 } else {
 	                if ( $data['show_meta_icon'] === 'yes' ) {
 		                if ( isset( $data['user_icon']['value'] ) && $data['user_icon']['value'] ) {
@@ -2248,16 +2253,16 @@ class Fns {
 	 * @return bool
 	 */
 	public static function tpg_get_acf_data_elementor( $data, $pID, $return_type = true ) {
-		if ( ! (rtTPG()->hasPro() && Fns::checkWhichCustomMetaPluginIsInstalled()) ) {
+		if ( ! ( rtTPG()->hasPro() && Fns::checkWhichCustomMetaPluginIsInstalled() ) ) {
 			return;
 		}
 
 		if ( isset( $data['show_acf'] ) && 'show' == $data['show_acf'] ) {
 			$cf_group = $data['cf_group'];
 			$format   = [
-				'hide_empty'       => isset($data['cf_hide_empty_value']) ? $data['cf_hide_empty_value'] : true,
-				'show_value'       => isset($data['cf_show_only_value']) ? $data['cf_show_only_value'] : true,
-				'hide_group_title' => isset($data['cf_hide_group_title']) ? $data['cf_hide_group_title'] : false,
+				'hide_empty'       => isset( $data['cf_hide_empty_value'] ) ? $data['cf_hide_empty_value'] : true,
+				'show_value'       => isset( $data['cf_show_only_value'] ) ? $data['cf_show_only_value'] : true,
+				'hide_group_title' => isset( $data['cf_hide_group_title'] ) ? $data['cf_hide_group_title'] : false,
 			];
 
 			if ( ! empty( $cf_group ) ) {

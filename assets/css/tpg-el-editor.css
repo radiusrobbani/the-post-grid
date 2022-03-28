@@ -288,7 +288,7 @@ i.tpg-grid-icon {
 
 .elementor-group-control-border + .elementor-group-control-width + .elementor-group-control-border .elementor-control-content,
 .elementor-group-control-border + .elementor-group-control-width .elementor-control-content {
-    border-left: 2px solid #ddd;
+    border-left: 1px solid #ddd;
     padding-left: 12px;
 }
 
