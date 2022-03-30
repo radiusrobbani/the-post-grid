@@ -30,7 +30,7 @@ class TPGGridLayout extends Custom_Widget_Base {
 		$this->tpg_icon = 'eicon-posts-grid tpg-grid-icon'; //.tpg-grid-icon class for just style
 	}
 
-	protected function _register_controls() {
+	protected function register_controls() {
 		/** Content TAB **/
 
 		//Query

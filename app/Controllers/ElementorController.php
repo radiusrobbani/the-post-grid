@@ -10,10 +10,16 @@ if ( ! defined( 'WPINC' ) ) {
 
 use Elementor\Controls_Manager;
 use Elementor\Plugin;
+use RT\ThePostGridPro\Traits\ELTempleateBuilderTraits;
 
 if ( ! class_exists( 'ElementorController' ) ):
 
 	class ElementorController {
+
+		/**
+		 * Template builder related traits.
+		 */
+		use ELTempleateBuilderTraits;
 
 		public $el_cat_id;
 		private $version;
@@ -100,7 +106,17 @@ if ( ! class_exists( 'ElementorController' ) ):
 				'grid-hover-layout' => 'TPGGridHoverLayout',
 				'slider-layout'     => 'TPGSliderLayout',
 				'default'           => 'RtElementorWidget',
+//				'grid-layout-archive' => 'TPGGridLayoutArchive'
 			];
+
+			if ( rtTPG()->hasPro() && self::is_builder_page_single() ) {
+				$widgets['related-post'] = 'TPGRelatedPost';
+			}
+
+
+			if ( rtTPG()->hasPro() && self::is_builder_page_archive() ) {
+				$widgets['grid-layout-archive'] = 'TPGGridLayoutArchive';
+			}
 
 			foreach ( $widgets as $file_name => $class ) {
 				if ( ! rtTPG()->hasPro() && 'slider-layout' == $file_name ) {
@@ -120,26 +136,24 @@ if ( ! class_exists( 'ElementorController' ) ):
 			}
 		}
 
-		public function widget_category($elements_manager) {
-//			$register_categories = [
-//				$this->el_cat_id => [ 'title' => __( 'The Post Grid', 'the-post-grid' ) ],
-//			];
+		public function widget_category( $elements_manager ) {
+			//			$register_categories = [
+			//				$this->el_cat_id => [ 'title' => __( 'The Post Grid', 'the-post-grid' ) ],
+			//			];
 
 			//$register_categories = apply_filters( 'rtcl_elementor_widgets_category_lists', $register_categories );
 
-//			foreach ( $register_categories as $id => $category ) {
-//				Plugin::$instance->elements_manager->add_category( $id, $category );
-//			}
+			//			foreach ( $register_categories as $id => $category ) {
+			//				Plugin::$instance->elements_manager->add_category( $id, $category );
+			//			}
 
 			$elements_manager->add_category(
 				$this->el_cat_id,
 				[
 					'title' => esc_html__( 'The Post Grid', 'plugin-name' ),
-					'icon' => 'fa fa-plug',
+					'icon'  => 'fa fa-plug',
 				]
 			);
-
-
 		}
 
 

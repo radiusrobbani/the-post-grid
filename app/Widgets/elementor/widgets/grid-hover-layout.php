@@ -30,7 +30,7 @@ class TPGGridHoverLayout extends Custom_Widget_Base {
 		$this->tpg_icon = 'eicon-image-rollover tpg-grid-icon'; //.tpg-grid-icon class for just style
 	}
 
-	protected function _register_controls() {
+	protected function register_controls() {
 		/**
 		 * Content Tab
 		 * ===========

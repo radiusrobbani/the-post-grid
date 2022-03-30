@@ -20,7 +20,7 @@ class RtElementorWidget extends \Elementor\Widget_Base {
 		return [ RT_THE_POST_GRID_PLUGIN_SLUG . '-elements' ];
 	}
 
-	protected function _register_controls() {
+	protected function register_controls() {
 		$this->start_controls_section(
 			'content_section',
 			[

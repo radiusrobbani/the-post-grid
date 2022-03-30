@@ -636,7 +636,7 @@ abstract class Custom_Widget_Base extends Widget_Base {
 		$htmlUtility = null;
 
 		$posts_loading_type = $data['pagination_type'];
-		$posts_per_page     = $data['display_per_page'] ? $data['display_per_page'] : ( $data['post_limit'] ? $data['post_limit'] : get_option( 'posts_per_page' ) );
+		$posts_per_page     = (isset($data['display_per_page']) && $data['display_per_page']) ? $data['display_per_page'] : ( $data['post_limit'] ? $data['post_limit'] : get_option( 'posts_per_page' ) );
 		$hide               = ( $query->max_num_pages < 2 ? " rt-hidden-elm" : null );
 		if ( $posts_loading_type == "pagination" ) {
 			$htmlUtility .= Fns::rt_pagination( $query, $posts_per_page );
@@ -785,7 +785,7 @@ abstract class Custom_Widget_Base extends Widget_Base {
 			'show_cat_icon'            => $data['show_cat_icon'],
 			'is_thumb_linked'          => $data['is_thumb_linked'],
 			'media_source'             => $data['media_source'],
-			'no_posts_found_text'      => $data['no_posts_found_text'],
+			'no_posts_found_text'      => isset($data['no_posts_found_text']) ? $data['no_posts_found_text'] : '',
 			'image_size'               => $data['image_size'],
 			'image_offset'             => $data['image_offset_size'],
 			'is_default_img'           => $data['is_default_img'],
@@ -807,6 +807,7 @@ abstract class Custom_Widget_Base extends Widget_Base {
 			'tag_icon'                 => $data['tag_icon'],
 			'date_icon'                => $data['date_icon'],
 			'user_icon'                => $data['user_icon'],
+			'meta_ordering'            => $data['meta_ordering'],
 			'comment_icon'             => $data['comment_icon'],
 			'image_custom_dimension'   => ( $data['image_size'] == 'custom' && isset( $data['image_custom_dimension'] ) ) ? $data['image_custom_dimension'] : '',
 			'img_crop_style'           => ( $data['image_size'] == 'custom' && isset( $data['img_crop_style'] ) ) ? $data['img_crop_style'] : '',
@@ -817,8 +818,8 @@ abstract class Custom_Widget_Base extends Widget_Base {
 		if ( $cf && rtTPG()->hasPro() ) {
 			$data_set['cf_group']            = $data['cf_group'];
 			$data_set['cf_hide_empty_value'] = $data['cf_hide_empty_value'];
-			$data_set['cf_show_only_value']  = $data['cf_show_only_value'] == 'yes' ? '' : '1';
-			$data_set['cf_hide_group_title'] = $data['cf_hide_group_title'] == 'yes' ? '' : '1';
+			$data_set['cf_show_only_value']  = $data['cf_show_only_value'];
+			$data_set['cf_hide_group_title'] = $data['cf_hide_group_title'];
 		}
 
 		return $data_set;

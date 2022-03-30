@@ -1004,43 +1004,43 @@ Social share List View
     outline: none;
 }
 
-.rt-tpg-container .rt-tpg-social-share a.facebook i {
+.rt-tpg-social-share a.facebook i {
     color: #3b5998;
 }
 
-.rt-tpg-container .rt-tpg-social-share a.facebook:hover i {
+.rt-tpg-social-share a.facebook:hover i {
     color: #456dc2;
 }
 
-.rt-tpg-container .rt-tpg-social-share a.twitter i {
+.rt-tpg-social-share a.twitter i {
     color: #00aced;
 }
 
-.rt-tpg-container .rt-tpg-social-share a.twitter:hover i {
+.rt-tpg-social-share a.twitter:hover i {
     color: #1ab8f5;
 }
 
-.rt-tpg-container .rt-tpg-social-share a.linkedin i {
+.rt-tpg-social-share a.linkedin i {
     color: #007bb6;
 }
 
-.rt-tpg-container .layout16 .rt-tpg-social-share a.linkedin i {
+.layout16 .rt-tpg-social-share a.linkedin i {
     color: #289bd3;
 }
 
-.rt-tpg-container .rt-tpg-social-share a.linkedin:hover i {
+.rt-tpg-social-share a.linkedin:hover i {
     color: #289bd3;
 }
 
-.rt-tpg-container .rt-tpg-social-share a.pinterest i {
+.rt-tpg-social-share a.pinterest i {
     color: #cb2027;
 }
 
-.rt-tpg-container .rt-tpg-social-share a.reddit i {
+.rt-tpg-social-share a.reddit i {
     color: rgb(255, 69, 0);
 }
 
-.rt-tpg-container .rt-tpg-social-share a.email i {
+.rt-tpg-social-share a.email i {
     color: #0489c9;
 }
 

@@ -1906,6 +1906,10 @@ class Fns {
 
 		//Author Meta
 
+
+		$post_meta_html = [];
+
+		ob_start();
 		if ( '' !== $data['show_author'] ) {
 			$is_author_avatar = null;
 
@@ -1937,6 +1941,9 @@ class Fns {
 			<?php echo $meta_separator;
 		}
 
+		$post_meta_html['author'] = ob_get_clean();
+
+		ob_start();
 		//Category Meta
 		if ( $categories && 'show' == $data['show_category'] && self::el_ignore_layout( $data ) && in_array( $data['category_position'], [ 'default', 'with_meta' ] ) ) { ?>
             <span class='categories-links'>
@@ -1954,7 +1961,9 @@ class Fns {
 			<?php
 			echo $meta_separator;
 		}
+		$post_meta_html['category'] = ob_get_clean();
 
+		ob_start();
 		//Date Meta
 		if ( '' !== $data['show_date'] ) {
 			?>
@@ -1973,7 +1982,10 @@ class Fns {
 			<?php
 			echo $meta_separator;
 		}
+		$post_meta_html['date'] = ob_get_clean();
 
+
+		ob_start();
 		//Tags Meta
 		if ( $tags && 'show' == $data['show_tags'] ) {
 			?>
@@ -1992,7 +2004,9 @@ class Fns {
 			<?php
 			echo $meta_separator;
 		}
+		$post_meta_html['tags'] = ob_get_clean();
 
+		ob_start();
 		//Comment Meta
 		if ( 'show' == $data['show_comment_count'] ) {
 			?>
@@ -2010,6 +2024,12 @@ class Fns {
             </span>
 			<?php
 			echo $meta_separator;
+		}
+
+		$post_meta_html['comment_count'] = ob_get_clean();
+		$meta_orering                    = isset( $data['meta_ordering'] ) && is_array( $data['meta_ordering'] ) ? $data['meta_ordering'] : [];
+		foreach ( $meta_orering as $val ) {
+			echo $post_meta_html[ $val['meta_name'] ];
 		}
 	}
 
@@ -2259,10 +2279,11 @@ class Fns {
 
 		if ( isset( $data['show_acf'] ) && 'show' == $data['show_acf'] ) {
 			$cf_group = $data['cf_group'];
-			$format   = [
-				'hide_empty'       => isset( $data['cf_hide_empty_value'] ) ? $data['cf_hide_empty_value'] : true,
-				'show_value'       => isset( $data['cf_show_only_value'] ) ? $data['cf_show_only_value'] : true,
-				'hide_group_title' => isset( $data['cf_hide_group_title'] ) ? $data['cf_hide_group_title'] : false,
+
+			$format = [
+				'hide_empty'       => ( isset( $data['cf_hide_empty_value'] ) && $data['cf_hide_empty_value'] ) ? 'yes' : '',
+				'show_value'       => ( isset( $data['cf_show_only_value'] ) && $data['cf_show_only_value'] ) ? '' : 'yes',
+				'hide_group_title' => ( isset( $data['cf_hide_group_title'] ) && $data['cf_hide_group_title'] ) ? '' : 'yes',
 			];
 
 			if ( ! empty( $cf_group ) ) {
