@@ -358,6 +358,36 @@ class rtTPGElementorHelper {
 					],
 				]
 			);
+		} else {
+			$ref->add_control(
+				'post_id',
+				[
+					'label'       => __( 'Include only', 'the-post-grid' ),
+					'type'        => \Elementor\Controls_Manager::TEXT,
+					'description' => __( 'Enter the post IDs separated by comma for include', 'the-post-grid' ),
+					'placeholder' => "Eg. 10, 15, 17",
+				]
+			);
+
+			$ref->add_control(
+				'exclude',
+				[
+					'label'       => __( 'Exclude', 'the-post-grid' ),
+					'type'        => \Elementor\Controls_Manager::TEXT,
+					'description' => __( 'Enter the post IDs separated by comma for exclude', 'the-post-grid' ),
+					'placeholder' => "Eg. 12, 13",
+				]
+			);
+
+			$ref->add_control(
+				'offset',
+				[
+					'label'       => __( 'Offset', 'the-post-grid' ),
+					'type'        => \Elementor\Controls_Manager::TEXT,
+					'placeholder' => __( 'Enter Post offset', 'the-post-grid' ),
+					'description' => __( 'Number of posts to skip. The offset parameter is ignored when post limit => -1 is used.', 'the-post-grid' ),
+				]
+			);
 		}
 		$ref->end_controls_section();
 	}
@@ -805,10 +835,10 @@ class rtTPGElementorHelper {
 	 *
 	 * @param $ref
 	 */
-	public static function filter_settings( $ref, $prefix = null ) {
-		if ( ! $prefix ) {
-			$prefix = $ref->prefix;
-		}
+	public static function filter_settings( $ref ) {
+
+		$prefix = $ref->prefix;
+
 		if ( ! rtTPG()->hasPro() ) {
 			return;
 		}
@@ -1163,7 +1193,7 @@ class rtTPGElementorHelper {
 	 *
 	 * @param $ref
 	 */
-	public static function list_layouts( $ref ) {
+	public static function list_layouts( $ref, $layout_type = '' ) {
 		$prefix = $ref->prefix;
 		$ref->start_controls_section(
 			'list_layout_settings',
@@ -1375,7 +1405,7 @@ class rtTPGElementorHelper {
 	 * @param        $ref
 	 * @param  bool  $is_print
 	 */
-	public static function pagination_settings( $ref ) {
+	public static function pagination_settings( $ref, $layout_type = '' ) {
 		$ref->start_controls_section(
 			'pagination_settings',
 			[
@@ -1399,23 +1429,29 @@ class rtTPGElementorHelper {
 		);
 
 
-		$ref->add_control(
-			'display_per_page',
-			[
-				'label'       => __( 'Display Per Page', 'the-post-grid' ),
-				'type'        => \Elementor\Controls_Manager::NUMBER,
-				'default'     => 6,
-				'description' => __( 'Enter how may posts will display per page', 'the-post-grid' ),
-				'condition'   => [
-					'show_pagination' => 'show',
-				],
-			]
-		);
+		if ( 'archive' !== $layout_type ) {
+			$ref->add_control(
+				'display_per_page',
+				[
+					'label'       => __( 'Display Per Page', 'the-post-grid' ),
+					'type'        => \Elementor\Controls_Manager::NUMBER,
+					'default'     => 6,
+					'description' => __( 'Enter how may posts will display per page', 'the-post-grid' ),
+					'condition'   => [
+						'show_pagination' => 'show',
+					],
+				]
+			);
+		}
 
 
-		$pagination_type         = [
-			'pagination' => __( 'Default Pagination', 'the-post-grid' ),
-		];
+		if ( 'archive' == $layout_type ) {
+			$pagination_type = [];
+		} else {
+			$pagination_type = [
+				'pagination' => __( 'Default Pagination', 'the-post-grid' ),
+			];
+		}
 		$default_pagination_type = 'pagination';
 		if ( rtTPG()->hasPro() ) {
 			$pagination_type_pro     = [
@@ -1426,6 +1462,7 @@ class rtTPGElementorHelper {
 			$pagination_type         = array_merge( $pagination_type, $pagination_type_pro );
 			$default_pagination_type = 'pagination_ajax';
 		}
+
 
 		$ref->add_control(
 			'pagination_type',
@@ -1787,7 +1824,7 @@ class rtTPGElementorHelper {
 			$ref->add_control(
 				'section_title_source',
 				[
-					'label'   => esc_html__( 'View', 'the-post-grid' ),
+					'label'   => esc_html__( 'Title source', 'the-post-grid' ),
 					'type'    => \Elementor\Controls_Manager::HIDDEN,
 					'default' => 'custom_title',
 				]
@@ -1845,6 +1882,44 @@ class rtTPGElementorHelper {
 				],
 			]
 		);
+
+		$ref->add_control(
+			'title_prefix',
+			[
+				'label'       => __( 'Title Prefix Text', 'the-post-grid' ),
+				'type'        => \Elementor\Controls_Manager::TEXT,
+				'placeholder' => __( 'Title prefix text', 'the-post-grid' ),
+				'condition'   => [
+					'section_title_source' => 'page_title',
+				],
+			]
+		);
+
+		$ref->add_control(
+			'title_suffix',
+			[
+				'label'       => __( 'Title Suffix Text', 'the-post-grid' ),
+				'type'        => \Elementor\Controls_Manager::TEXT,
+				'placeholder' => __( 'Title suffix text', 'the-post-grid' ),
+				'condition'   => [
+					'section_title_source' => 'page_title',
+				],
+			]
+		);
+
+		if ( 'archive' == $layout_type ) {
+			$ref->add_control(
+				'show_cat_desc',
+				[
+					'label'        => __( 'Show Archive Description', 'the-post-grid' ),
+					'type'         => \Elementor\Controls_Manager::SWITCHER,
+					'label_on'     => __( 'Show', 'the-post-grid' ),
+					'label_off'    => __( 'Hide', 'the-post-grid' ),
+					'return_value' => 'yes',
+					'default'      => false,
+				]
+			);
+		}
 
 		$ref->end_controls_section();
 	}
@@ -3120,7 +3195,7 @@ class rtTPGElementorHelper {
 	 *
 	 * @param $ref
 	 */
-	public static function sectionTitle( $ref ) {
+	public static function sectionTitle( $ref, $layout_type = '' ) {
 		$ref->start_controls_section(
 			'tpg_section_title_style',
 			[
@@ -3132,13 +3207,18 @@ class rtTPGElementorHelper {
 			]
 		);
 
+		$section_title_condition = [];
+		if('archive' !== $layout_type) {
+			$section_title_condition = [
+				'filter_btn_style!' => 'carousel',
+			];
+		}
 
 		$ref->add_control(
 			'section_title_alignment',
 			[
 				'label'        => __( 'Alignment', 'the-post-grid' ),
 				'type'         => \Elementor\Controls_Manager::CHOOSE,
-				'default'      => 'left',
 				'options'      => [
 					'left'   => [
 						'title' => __( 'Left', 'the-post-grid' ),
@@ -3154,9 +3234,7 @@ class rtTPGElementorHelper {
 					],
 				],
 				'prefix_class' => 'section-title-align-',
-				'condition'    => [
-					'filter_btn_style!' => 'carousel',
-				],
+				'condition'    => $section_title_condition,
 			]
 		);
 
@@ -3251,6 +3329,116 @@ class rtTPGElementorHelper {
 			]
 		);
 
+		$ref->add_control(
+			'prefix_text_color',
+			[
+				'label'     => __( 'Prefix Color', 'the-post-grid' ),
+				'type'      => \Elementor\Controls_Manager::COLOR,
+				'selectors' => [
+					'{{WRAPPER}} .tpg-widget-heading-wrapper .tpg-widget-heading .prefix-text' => 'color: {{VALUE}}',
+				],
+				'condition' => [
+					'section_title_source' => 'page_title',
+				],
+			]
+		);
+		$ref->add_control(
+			'suffix_text_color',
+			[
+				'label'     => __( 'Suffix Color', 'the-post-grid' ),
+				'type'      => \Elementor\Controls_Manager::COLOR,
+				'selectors' => [
+					'{{WRAPPER}} .tpg-widget-heading-wrapper .tpg-widget-heading .suffix-text' => 'color: {{VALUE}}',
+				],
+				'condition' => [
+					'section_title_source' => 'page_title',
+				],
+			]
+		);
+
+
+		if ( 'archive' == $layout_type ) {
+			$ref->add_control(
+				'cat_tag_description_heading',
+				[
+					'label'     => __( 'Category / Tag Description', 'the-post-grid' ),
+					'type'      => \Elementor\Controls_Manager::HEADING,
+					'classes'   => 'tpg-control-type-heading',
+					'condition' => [
+						'show_cat_desc' => 'yes',
+					],
+				]
+			);
+
+			$ref->add_group_control(
+				\Elementor\Group_Control_Typography::get_type(),
+				[
+					'name'      => 'taxonomy_des_typography',
+					'label'     => __( 'Description Typography', 'the-post-grid' ),
+					'selector'  => '{{WRAPPER}} .tpg-category-description',
+					'condition' => [
+						'show_cat_desc' => 'yes',
+					],
+				]
+			);
+
+			$ref->add_control(
+				'taxonomy_des_alignment',
+				[
+					'label'     => __( 'Alignment', 'the-post-grid' ),
+					'type'      => \Elementor\Controls_Manager::CHOOSE,
+					'options'   => [
+						'left'   => [
+							'title' => __( 'Left', 'the-post-grid' ),
+							'icon'  => 'eicon-text-align-left',
+						],
+						'center' => [
+							'title' => __( 'Center', 'the-post-grid' ),
+							'icon'  => 'eicon-text-align-center',
+						],
+						'right'  => [
+							'title' => __( 'Right', 'the-post-grid' ),
+							'icon'  => 'eicon-text-align-right',
+						],
+					],
+					'selectors' => [
+						'{{WRAPPER}} .tpg-category-description' => 'text-align: {{VALUE}}',
+					],
+					'condition' => [
+						'show_cat_desc' => 'yes',
+					],
+				]
+			);
+
+			$ref->add_control(
+				'taxonomy_des_color',
+				[
+					'label'     => __( 'Title Color', 'the-post-grid' ),
+					'type'      => \Elementor\Controls_Manager::COLOR,
+					'selectors' => [
+						'{{WRAPPER}} .tpg-category-description' => 'color: {{VALUE}}',
+					],
+					'condition' => [
+						'show_cat_desc' => 'yes',
+					],
+				]
+			);
+
+			$ref->add_responsive_control(
+				'taxonomy_des_dimension',
+				[
+					'label'      => __( 'Padding', 'the-post-grid' ),
+					'type'       => Controls_Manager::DIMENSIONS,
+					'size_units' => [ 'px' ],
+					'selectors'  => [
+						'{{WRAPPER}} .tpg-category-description' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+					],
+					'condition'  => [
+						'show_cat_desc' => 'yes',
+					],
+				]
+			);
+		}
 
 		$ref->end_controls_section();
 	}

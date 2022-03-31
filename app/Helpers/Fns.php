@@ -831,6 +831,7 @@ class Fns {
 		if ( empty( $wpQuery ) ) {
 			$wpQuery = $wp_query;
 		}
+
 		$pages = ! empty( $wpQuery->max_num_pages ) ? $wpQuery->max_num_pages : 1;
 		$paged = ! empty( $wpQuery->query['paged'] ) ? $wpQuery->query['paged'] : 1;
 		if ( is_front_page() ) {
@@ -1966,8 +1967,13 @@ class Fns {
 		ob_start();
 		//Date Meta
 		if ( '' !== $data['show_date'] ) {
+			$archive_year  = get_the_date( 'Y' );
+			$archive_month = get_the_date( 'm' );
+			$archive_day   = get_the_date( 'j' );
+
 			?>
             <span class='date'>
+
                 <?php
                 if ( $data['show_meta_icon'] === 'yes' ) {
 	                if ( isset( $data['date_icon']['value'] ) && $data['date_icon']['value'] ) {
@@ -1976,8 +1982,10 @@ class Fns {
 		                echo "<i class='fa fa-user'></i>";
 	                }
                 }
-                echo $date;
                 ?>
+                 <a href="<?php echo esc_url( get_day_link( $archive_year, $archive_month, $archive_day ) ); ?>">
+                     <?php echo esc_html( $date ); ?>
+                 </a>
             </span>
 			<?php
 			echo $meta_separator;

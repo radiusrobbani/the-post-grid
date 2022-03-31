@@ -198,8 +198,6 @@ class rtTPGElementorQuery {
 	 * @return array
 	 */
 	public static function post_query_builder( $data, $prefix = '', $template_type = '' ): array {
-		var_dump(get_query_var('tag'));
-		var_dump(get_query_var('category'));
 		if ( 'single' === $template_type ) {
 			$rt_post_cat = wp_get_object_terms( $data['last_post_id'], $data['taxonomy_lists'], [ 'fields' => 'ids' ] );
 			$args        = [
@@ -232,13 +230,111 @@ class rtTPGElementorQuery {
 			}
 			$args['posts_per_page'] = $slider_per_page;
 		} else {
+
 			$args = [
-				'post_type'   => 'post',
-				'post_status' => 'publish',
+				'post_type'      => 'post',
+				'post_status'    => 'publish',
 				'posts_per_page' => $data['post_limit'],
 			];
+
+			$excluded_ids = null;
+
+			if ( $data['exclude'] || $data['offset'] ) {
+				$excluded_ids = [];
+				if ( $data['exclude'] ) {
+					$excluded_ids = explode( ',', $data['exclude'] );
+					$excluded_ids = array_map( 'trim', $excluded_ids );
+				}
+
+				$offset_posts = [];
+				if ( $data['offset'] ) {
+					$_temp_args = [
+						'post_type'      => 'post',
+						'posts_per_page' => $data['offset'],
+						'post_status'    => 'publish',
+						'fields'         => 'ids',
+					];
+
+					if ( is_tag() ) {
+						$_temp_args['tag'] = get_query_var( 'tag' );
+					}
+
+					if ( is_category() ) {
+						$_temp_args['cat'] = get_query_var( 'cat' );
+					}
+
+					if ( is_author() ) {
+						$_temp_args['author'] = get_query_var( 'author' );
+					}
+
+					if ( is_date() ) {
+						$year     = get_query_var('year');
+						$monthnum = get_query_var('monthnum');
+						$day      = get_query_var('day');
+
+						$_temp_args = array(
+							'date_query' => array(
+								array(
+									'year'  => $year,
+									'month' => $monthnum,
+									'day'   => $day,
+								),
+							),
+						);
+					}
+
+					$offset_posts = get_posts( $_temp_args );
+				}
+
+				$excluded_post_ids    = array_merge( $offset_posts, $excluded_ids );
+				$args['post__not_in'] = array_unique( $excluded_post_ids );
+			}
+
+			if ( $data['post_id'] ) {
+				$post_ids = explode( ',', $data['post_id'] );
+				$post_ids = array_map( 'trim', $post_ids );
+
+				$args['post__in'] = $post_ids;
+
+				if ( $excluded_ids != null && is_array( $excluded_ids ) ) {
+					$args['post__in'] = array_diff( $post_ids, $excluded_ids );
+				}
+			}
+
+			if ( 'slider' !== $prefix && 'show' === $data['show_pagination'] ) {
+				$args['paged'] = get_query_var( "paged" ) ? absint( get_query_var( "paged" ) ) : 1;
+			}
+
+			if ( is_tag() ) {
+				$args['tag'] = get_query_var( 'tag' );
+			}
+
+			if ( is_category() ) {
+				$args['cat'] = get_query_var( 'cat' );
+			}
+
+			if ( is_author() ) {
+				$args['author'] = get_query_var( 'author' );
+			}
+
+			if ( is_date() ) {
+				$year     = get_query_var('year');
+				$monthnum = get_query_var('monthnum');
+				$day      = get_query_var('day');
+
+				$args = array(
+					'date_query' => array(
+						array(
+							'year'  => $year,
+							'month' => $monthnum,
+							'day'   => $day,
+						),
+					),
+				);
+			}
 		}
 
+//		var_dump($args);
 		return $args;
 	}
 

@@ -63,7 +63,6 @@ if ( 'masonry' == $data['layout_style'] ) {
 				}
 				?>
 
-
 				<?php if ( 'show' == $data['show_meta'] ) : ?>
                     <div class="post-meta-tags rt-el-post-meta">
 						<?php Fns::get_post_meta_html( $pID, $data ); ?>

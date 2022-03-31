@@ -57,6 +57,10 @@ body.rt-model-open,
     padding-right: 15px;
 }
 
+.rt-container-fluid.slider-layout13-main {
+    padding: 0;
+}
+
 .rt-tpg-container ul {
     margin: 0;
 }

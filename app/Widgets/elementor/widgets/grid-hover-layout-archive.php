@@ -11,7 +11,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-class TPGGridHoverLayout extends Custom_Widget_Base {
+class TPGGridHoverLayoutArchive extends Custom_Widget_Base {
 
 	/**
 	 * GridLayout constructor.
@@ -24,10 +24,11 @@ class TPGGridHoverLayout extends Custom_Widget_Base {
 
 	public function __construct( $data = [], $args = null ) {
 		parent::__construct( $data, $args );
-		$this->prefix   = 'grid_hover';
-		$this->tpg_name = esc_html__( 'TPG - Grid Hover Layout', 'the-post-grid' );
-		$this->tpg_base = 'tpg-grid-hover-layout';
-		$this->tpg_icon = 'eicon-image-rollover tpg-grid-icon'; //.tpg-grid-icon class for just style
+		$this->prefix       = 'grid_hover';
+		$this->tpg_name     = esc_html__( 'TPG - Grid Hover Layout', 'the-post-grid' );
+		$this->tpg_base     = 'tpg-grid-hover-layout-archive';
+		$this->tpg_icon     = 'eicon-image-rollover tpg-grid-icon'; //.tpg-grid-icon class for just style
+		$this->tpg_category = $this->tpg_archive_category;
 	}
 
 	protected function register_controls() {
@@ -37,16 +38,16 @@ class TPGGridHoverLayout extends Custom_Widget_Base {
 		 */
 
 		//Query
-		rtTPGElementorHelper::query( $this );
+		rtTPGElementorHelper::query_builder( $this );
 
 		//Layout
-		rtTPGElementorHelper::grid_layouts( $this );
+		rtTPGElementorHelper::grid_layouts( $this, 'archive' );
 
 		//Filter  Settings
-		rtTPGElementorHelper::filter_settings( $this );
+		//rtTPGElementorHelper::filter_settings( $this );
 
 		//Pagination Settings
-		rtTPGElementorHelper::pagination_settings( $this );
+		rtTPGElementorHelper::pagination_settings( $this, 'archive' );
 
 		//Links
 		rtTPGElementorHelper::links( $this );
@@ -60,7 +61,7 @@ class TPGGridHoverLayout extends Custom_Widget_Base {
 		rtTPGElementorHelper::field_selection( $this );
 
 		//Section Title Settings
-		rtTPGElementorHelper::section_title_settings( $this );
+		rtTPGElementorHelper::section_title_settings( $this, 'archive' );
 
 		//Title Settings
 		rtTPGElementorHelper::post_title_settings( $this );
@@ -86,7 +87,7 @@ class TPGGridHoverLayout extends Custom_Widget_Base {
 		 */
 
 		//Section Title Style
-		rtTPGElementorHelper::sectionTitle( $this );
+		rtTPGElementorHelper::sectionTitle( $this, 'archive' );
 
 		// Title Style
 		rtTPGElementorHelper::titleStyle( $this );
@@ -107,7 +108,7 @@ class TPGGridHoverLayout extends Custom_Widget_Base {
 		rtTPGElementorHelper::paginationStyle( $this );
 
 		//Box Style
-		rtTPGElementorHelper::frontEndFilter( $this );
+		//rtTPGElementorHelper::frontEndFilter( $this );
 
 		//Box Style
 		rtTPGElementorHelper::socialShareStyle( $this );
@@ -125,6 +126,8 @@ class TPGGridHoverLayout extends Custom_Widget_Base {
 	protected function render() {
 		$data    = $this->get_settings();
 		$_prefix = $this->prefix;
+		$data['post_type'] = 'post';
+
 		if ( ! rtTPG()->hasPro() && ! in_array( $data[ $_prefix . '_layout' ], [ 'grid_hover-layout1', 'grid_hover-layout2', 'grid_hover-layout3' ] ) ) {
 			$data[ $_prefix . '_layout' ] = 'grid_hover-layout1';
 		}
@@ -138,11 +141,11 @@ class TPGGridHoverLayout extends Custom_Widget_Base {
 		}
 
 		//Query
-		$query_args     = rtTPGElementorQuery::post_query( $data, $_prefix );
+		$query_args     = rtTPGElementorQuery::post_query_builder( $data, $_prefix );
 		$query          = new WP_Query( $query_args );
 		$rand           = mt_rand();
 		$layoutID       = "rt-tpg-container-" . $rand;
-		$posts_per_page = $data['display_per_page'] ? $data['display_per_page'] : $data['post_limit'];
+		$posts_per_page = $data['post_limit'];
 
 
 		//TODO: Get Post Data for render post
@@ -166,27 +169,36 @@ class TPGGridHoverLayout extends Custom_Widget_Base {
              id="<?php echo esc_attr( $layoutID ); ?>"
              data-layout="<?php echo esc_attr( $data[ $_prefix . '_layout' ] ); ?>"
              data-sc-id="elementor"
-             data-el-settings='<?php echo Fns::is_filter_enable( $data ) ? htmlspecialchars( wp_json_encode( $post_data ) ) : ''; ?>'
-             data-el-query='<?php echo Fns::is_filter_enable( $data ) ? htmlspecialchars( wp_json_encode( $query_args ) ) : ''; ?>'
-             data-el-path='<?php echo Fns::is_filter_enable( $data ) ? esc_attr( $template_path ) : ''; ?>'
+             data-el-settings='<?php echo htmlspecialchars( wp_json_encode( $post_data ) ); ?>'
+             data-el-query='<?php echo htmlspecialchars( wp_json_encode( $query_args ) ); ?>'
+             data-el-path='<?php echo esc_attr( $template_path ); ?>'
         >
 			<?php
 			$wrapper_class = [];
-			if ( in_array( $_layout, [ 'grid_hover-layout6', 'grid_hover-layout7', 'grid_hover-layout8', 'grid_hover-layout9', 'grid_hover-layout10', 'grid_hover-layout11', 'grid_hover-layout5-2', 'grid_hover-layout6-2', 'grid_hover-layout7-2', 'grid_hover-layout9-2', ] ) ) {
+			if ( in_array( $_layout,
+				[
+					'grid_hover-layout6',
+					'grid_hover-layout7',
+					'grid_hover-layout8',
+					'grid_hover-layout9',
+					'grid_hover-layout10',
+					'grid_hover-layout11',
+					'grid_hover-layout5-2',
+					'grid_hover-layout6-2',
+					'grid_hover-layout7-2',
+					'grid_hover-layout9-2',
+				] )
+			) {
 				$wrapper_class[] = 'grid_hover-layout5';
 			}
-			$wrapper_class[] = str_replace('-2', null, $_layout);
+			$wrapper_class[] = str_replace( '-2', null, $_layout );
 			$wrapper_class[] = 'tpg-even grid-behaviour';
 			$wrapper_class[] = $_prefix . '_layout_wrapper';
 
 			//section title settings
-			$is_carousel = '';
-			if ( rtTPG()->hasPro() && 'carousel' == $data['filter_btn_style'] && 'button' == $data['filter_type'] ) {
-				$is_carousel = 'carousel';
-			}
-			echo "<div class='tpg-header-wrapper {$is_carousel}'>";
+
+			echo "<div class='tpg-header-wrapper'>";
 			$this->get_section_title( $data );
-			echo $this->get_frontend_filter_markup( $data );
 			echo "</div>";
 			?>
 

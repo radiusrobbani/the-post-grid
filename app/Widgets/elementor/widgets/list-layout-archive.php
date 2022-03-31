@@ -11,7 +11,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-class TPGGridHoverLayout extends Custom_Widget_Base {
+class TPGListLayoutArchive extends Custom_Widget_Base {
 
 	/**
 	 * GridLayout constructor.
@@ -24,35 +24,36 @@ class TPGGridHoverLayout extends Custom_Widget_Base {
 
 	public function __construct( $data = [], $args = null ) {
 		parent::__construct( $data, $args );
-		$this->prefix   = 'grid_hover';
-		$this->tpg_name = esc_html__( 'TPG - Grid Hover Layout', 'the-post-grid' );
-		$this->tpg_base = 'tpg-grid-hover-layout';
-		$this->tpg_icon = 'eicon-image-rollover tpg-grid-icon'; //.tpg-grid-icon class for just style
+		$this->prefix   = 'list';
+		$this->tpg_name = esc_html__( 'TPG - List Layout Archive', 'the-post-grid' );
+		$this->tpg_base = 'tpg-list-layout-archive';
+		$this->tpg_icon = 'eicon-post-list tpg-grid-icon'; //.tpg-grid-icon class for just style
+		$this->tpg_category = $this->tpg_archive_category;
 	}
 
 	protected function register_controls() {
 		/**
-		 * Content Tab
+		 * Content Tabs
 		 * ===========
 		 */
-
 		//Query
-		rtTPGElementorHelper::query( $this );
+		rtTPGElementorHelper::query_builder( $this );
 
 		//Layout
-		rtTPGElementorHelper::grid_layouts( $this );
+		rtTPGElementorHelper::list_layouts( $this, 'archive' );
+
 
 		//Filter  Settings
-		rtTPGElementorHelper::filter_settings( $this );
+		//rtTPGElementorHelper::filter_settings( $this );
 
 		//Pagination Settings
-		rtTPGElementorHelper::pagination_settings( $this );
+		rtTPGElementorHelper::pagination_settings( $this, 'archive' );
 
 		//Links
 		rtTPGElementorHelper::links( $this );
 
 		/**
-		 * Settings Tab
+		 * Settings Tabs
 		 * =============
 		 */
 
@@ -60,7 +61,7 @@ class TPGGridHoverLayout extends Custom_Widget_Base {
 		rtTPGElementorHelper::field_selection( $this );
 
 		//Section Title Settings
-		rtTPGElementorHelper::section_title_settings( $this );
+		rtTPGElementorHelper::section_title_settings( $this, 'archive' );
 
 		//Title Settings
 		rtTPGElementorHelper::post_title_settings( $this );
@@ -80,13 +81,14 @@ class TPGGridHoverLayout extends Custom_Widget_Base {
 		//Advanced Custom Field ACF Settings
 		rtTPGElementorHelper::tpg_acf_settings( $this );
 
+
 		/**
-		 * Style Tab
-		 * ==========
+		 * Style Tabs
+		 * ===========
 		 */
 
 		//Section Title Style
-		rtTPGElementorHelper::sectionTitle( $this );
+		rtTPGElementorHelper::sectionTitle( $this, 'archive' );
 
 		// Title Style
 		rtTPGElementorHelper::titleStyle( $this );
@@ -107,28 +109,30 @@ class TPGGridHoverLayout extends Custom_Widget_Base {
 		rtTPGElementorHelper::paginationStyle( $this );
 
 		//Box Style
-		rtTPGElementorHelper::frontEndFilter( $this );
+		//rtTPGElementorHelper::frontEndFilter( $this );
 
-		//Box Style
+		//Social Share Style
 		rtTPGElementorHelper::socialShareStyle( $this );
 
 		//ACF Style
 		rtTPGElementorHelper::tpg_acf_style( $this );
 
-		//Box Style
+		//Box Settings
 		rtTPGElementorHelper::articlBoxSettings( $this );
 
-		//Promotions Style
+		//Promotions
 		rtTPGElementorHelper::promotions( $this );
 	}
+
 
 	protected function render() {
 		$data    = $this->get_settings();
 		$_prefix = $this->prefix;
-		if ( ! rtTPG()->hasPro() && ! in_array( $data[ $_prefix . '_layout' ], [ 'grid_hover-layout1', 'grid_hover-layout2', 'grid_hover-layout3' ] ) ) {
-			$data[ $_prefix . '_layout' ] = 'grid_hover-layout1';
-		}
+		$data['post_type'] = 'post';
 
+		if ( ! rtTPG()->hasPro() && ! in_array( $data[ $_prefix . '_layout' ], [ 'list-layout1', 'list-layout2', 'list-layout2-2' ] ) ) {
+			$data[ $_prefix . '_layout' ] = 'list-layout1';
+		}
 		if ( rtTPG()->hasPro() && ( 'popup' == $data['post_link_type'] || 'multi_popup' == $data['post_link_type'] ) ) {
 			wp_enqueue_style( 'rt-scrollbar' );
 			wp_enqueue_style( 'rt-magnific-popup' );
@@ -137,18 +141,29 @@ class TPGGridHoverLayout extends Custom_Widget_Base {
 			add_action( 'wp_footer', [ $this, 'get_modal_markup' ] );
 		}
 
+		if ( 'masonry' === $data['list_layout_style'] ) {
+			wp_enqueue_script( 'imagesloaded' );
+			wp_enqueue_script( 'isotope' );
+			wp_enqueue_script( 'jquery-masonry' );
+			wp_enqueue_script( 'rt-image-load-js' );
+		}
+
 		//Query
-		$query_args     = rtTPGElementorQuery::post_query( $data, $_prefix );
+		$query_args     = rtTPGElementorQuery::post_query_builder( $data, $_prefix );
 		$query          = new WP_Query( $query_args );
 		$rand           = mt_rand();
 		$layoutID       = "rt-tpg-container-" . $rand;
-		$posts_per_page = $data['display_per_page'] ? $data['display_per_page'] : $data['post_limit'];
+		$posts_per_page = $data['post_limit'];
 
+		/**
+		 * TODO: Get Post Data for render post
+		 */
 
-		//TODO: Get Post Data for render post
 		$post_data = $this->get_render_data_set( $data, $query->max_num_pages, $posts_per_page );
 
-		//Post type render
+		/**
+		 * Post type render
+		 */
 		$post_types = Fns::get_post_types();
 		foreach ( $post_types as $post_type => $label ) {
 			$_taxonomies = get_object_taxonomies( $post_type, 'object' );
@@ -158,35 +173,33 @@ class TPGGridHoverLayout extends Custom_Widget_Base {
 			$post_data[ $data['post_type'] . '_taxonomy' ] = $data[ $data['post_type'] . '_taxonomy' ];
 			$post_data[ $data['post_type'] . '_tags' ]     = $data[ $data['post_type'] . '_tags' ];
 		}
+
 		$template_path = $this->tpg_template_path( $post_data );
 		$_layout       = $data[ $_prefix . '_layout' ];
+		$_layout_style = $data[ $_prefix . '_layout_style' ];
 		?>
-
         <div class="rt-container-fluid rt-tpg-container tpg-el-main-wrapper <?php echo esc_attr( $_layout . '-main' ); ?>"
+             data-sc-id="elementor"
              id="<?php echo esc_attr( $layoutID ); ?>"
              data-layout="<?php echo esc_attr( $data[ $_prefix . '_layout' ] ); ?>"
-             data-sc-id="elementor"
-             data-el-settings='<?php echo Fns::is_filter_enable( $data ) ? htmlspecialchars( wp_json_encode( $post_data ) ) : ''; ?>'
-             data-el-query='<?php echo Fns::is_filter_enable( $data ) ? htmlspecialchars( wp_json_encode( $query_args ) ) : ''; ?>'
-             data-el-path='<?php echo Fns::is_filter_enable( $data ) ? esc_attr( $template_path ) : ''; ?>'
+             data-grid-style="<?php echo esc_attr( $data[ $_prefix . '_layout_style' ] ); ?>"
+             data-el-settings='<?php echo htmlspecialchars( wp_json_encode( $post_data ) ); ?>'
+             data-el-query='<?php echo htmlspecialchars( wp_json_encode( $query_args ) ); ?>'
+             data-el-path='<?php echo esc_attr( $template_path ); ?>'
         >
 			<?php
-			$wrapper_class = [];
-			if ( in_array( $_layout, [ 'grid_hover-layout6', 'grid_hover-layout7', 'grid_hover-layout8', 'grid_hover-layout9', 'grid_hover-layout10', 'grid_hover-layout11', 'grid_hover-layout5-2', 'grid_hover-layout6-2', 'grid_hover-layout7-2', 'grid_hover-layout9-2', ] ) ) {
-				$wrapper_class[] = 'grid_hover-layout5';
+			$wrapper_class   = [];
+			$wrapper_class[] = str_replace( '-2', null, $_layout );
+			$wrapper_class[] = 'tpg-even list-behaviour';
+			$wrapper_class[] = $_prefix . '-layout-wrapper';
+			if ( 'masonry' === $_layout_style && ! in_array( $_layout, [ 'list-layout2', 'list-layout3' ] ) ) {
+				$wrapper_class[] = 'tpg-masonry';
 			}
-			$wrapper_class[] = str_replace('-2', null, $_layout);
-			$wrapper_class[] = 'tpg-even grid-behaviour';
-			$wrapper_class[] = $_prefix . '_layout_wrapper';
 
 			//section title settings
-			$is_carousel = '';
-			if ( rtTPG()->hasPro() && 'carousel' == $data['filter_btn_style'] && 'button' == $data['filter_type'] ) {
-				$is_carousel = 'carousel';
-			}
-			echo "<div class='tpg-header-wrapper {$is_carousel}'>";
+
+			echo "<div class='tpg-header-wrapper'>";
 			$this->get_section_title( $data );
-			echo $this->get_frontend_filter_markup( $data );
 			echo "</div>";
 			?>
 
@@ -213,8 +226,13 @@ class TPGGridHoverLayout extends Custom_Widget_Base {
             </div>
 
 			<?php echo $this->get_pagination_markup( $query, $data ); ?>
+
         </div>
 		<?php
+		if ( 'masonry' === $data[ $_prefix . '_layout_style' ] && \Elementor\Plugin::$instance->editor->is_edit_mode() ) { ?>
+            <script>jQuery('.rt-row.rt-content-loader.tpg-masonry').isotope();</script>
+			<?php
+		}
 	}
 
 }

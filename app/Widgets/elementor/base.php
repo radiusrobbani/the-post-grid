@@ -153,6 +153,26 @@ abstract class Custom_Widget_Base extends Widget_Base {
 		return absint( $_post_id );
 	}
 
+
+	/**
+	 * Get Last Category ID
+	 *
+	 * @return mixed
+	 */
+	public function get_last_category_id() {
+		if ( is_archive() ) {
+			return;
+		}
+		$categories = get_terms( [
+			'taxonomy'   => 'category',
+			'hide_empty' => false,
+			'number'     => 1,
+		] );
+		if ( ! empty( $categories ) && ! is_wp_error( $categories ) ) {
+			return $categories[0]->term_id;
+		}
+	}
+
 	//post category list
 	function tpg_category_list() {
 		$categories = get_categories( [ 'hide_empty' => false ] );
@@ -636,8 +656,10 @@ abstract class Custom_Widget_Base extends Widget_Base {
 		$htmlUtility = null;
 
 		$posts_loading_type = $data['pagination_type'];
-		$posts_per_page     = (isset($data['display_per_page']) && $data['display_per_page']) ? $data['display_per_page'] : ( $data['post_limit'] ? $data['post_limit'] : get_option( 'posts_per_page' ) );
+		$posts_per_page     = ( isset( $data['display_per_page'] ) && $data['display_per_page'] ) ? $data['display_per_page']
+			: ( $data['post_limit'] ? $data['post_limit'] : get_option( 'posts_per_page' ) );
 		$hide               = ( $query->max_num_pages < 2 ? " rt-hidden-elm" : null );
+
 		if ( $posts_loading_type == "pagination" ) {
 			$htmlUtility .= Fns::rt_pagination( $query, $posts_per_page );
 		} elseif ( rtTPG()->hasPro() && $posts_loading_type == "pagination_ajax" ) { //&& ! $isIsotope
@@ -684,6 +706,25 @@ abstract class Custom_Widget_Base extends Widget_Base {
 	}
 
 	/**
+	 * Get Archive page title
+	 */
+	function get_archive_title() {
+		$queried_obj = get_queried_object();
+		if ( is_tag() || is_category() ) {
+			echo esc_html( $queried_obj->name );
+		} elseif ( is_author() ) {
+			echo esc_html( $queried_obj->display_name );
+		} elseif ( is_date() ) {
+			$year        = get_query_var( 'year' );
+			$monthnum    = get_query_var( 'monthnum' );
+			$day         = get_query_var( 'day' );
+			$time_string = $year . '/' . $monthnum . '/' . $day;
+			$time_stamp  = strtotime( $time_string );
+			echo date( get_option( 'date_format' ), $time_stamp );
+		}
+	}
+
+	/**
 	 * Get Section Title
 	 *
 	 * @param $data
@@ -716,7 +757,15 @@ abstract class Custom_Widget_Base extends Widget_Base {
 
 				<?php
 				if ( 'page_title' == $data['section_title_source'] ) {
-					the_title();
+					$archive_prefix = $data['title_prefix'] ? $data['title_prefix'] . ' ' : null;
+					$archive_suffix = $data['title_suffix'] ? ' ' . $data['title_suffix'] : null;
+					printf( "<span class='prefix-text'>%s</span>", esc_html( $archive_prefix ) );
+					if ( is_archive() ) {
+						$this->get_archive_title();
+					} else {
+						the_title();
+					}
+					printf( "<span class='suffix-text'>%s</span>", esc_html( $archive_suffix ) );
 				} else {
 					?>
                     <span <?php $this->print_render_attribute_string( 'section_title_text' ); ?>>
@@ -733,8 +782,16 @@ abstract class Custom_Widget_Base extends Widget_Base {
 			<?php printf( "</%s>", $data['section_title_tag'] ); ?>
             <span class="tpg-widget-heading-line line-right"></span>
         </div>
+
+		<?php if ( isset( $data['show_cat_desc'] ) && $data['show_cat_desc'] == 'yes' && category_description( $this->get_last_category_id() ) ) : ?>
+            <div class="tpg-category-description">
+				<?php echo category_description( $this->get_last_category_id() ); ?>
+            </div>
+		<?php endif; ?>
+
 		<?php echo ob_get_clean();
 	}
+
 
 	/**
 	 * Get Post Data for render post
@@ -785,7 +842,7 @@ abstract class Custom_Widget_Base extends Widget_Base {
 			'show_cat_icon'            => $data['show_cat_icon'],
 			'is_thumb_linked'          => $data['is_thumb_linked'],
 			'media_source'             => $data['media_source'],
-			'no_posts_found_text'      => isset($data['no_posts_found_text']) ? $data['no_posts_found_text'] : '',
+			'no_posts_found_text'      => isset( $data['no_posts_found_text'] ) ? $data['no_posts_found_text'] : '',
 			'image_size'               => $data['image_size'],
 			'image_offset'             => $data['image_offset_size'],
 			'is_default_img'           => $data['is_default_img'],

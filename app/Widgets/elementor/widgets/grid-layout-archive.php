@@ -24,10 +24,10 @@ class TPGGridLayoutArchive extends Custom_Widget_Base {
 
 	public function __construct( $data = [], $args = null ) {
 		parent::__construct( $data, $args );
-		$this->prefix   = 'grid';
-		$this->tpg_name = esc_html__( 'TPG - Grid Layout Archive', 'the-post-grid' );
-		$this->tpg_base = 'tpg-grid-layout-archive';
-		$this->tpg_icon = 'eicon-posts-grid tpg-grid-icon'; //.tpg-grid-icon class for just style
+		$this->prefix       = 'grid';
+		$this->tpg_name     = esc_html__( 'TPG - Grid Layout Archive', 'the-post-grid' );
+		$this->tpg_base     = 'tpg-grid-layout-archive';
+		$this->tpg_icon     = 'eicon-posts-grid tpg-grid-icon'; //.tpg-grid-icon class for just style
 		$this->tpg_category = $this->tpg_archive_category;
 	}
 
@@ -41,10 +41,10 @@ class TPGGridLayoutArchive extends Custom_Widget_Base {
 		rtTPGElementorHelper::grid_layouts( $this, 'archive' );
 
 		//Filter  Settings
-		rtTPGElementorHelper::filter_settings( $this );
+		//rtTPGElementorHelper::filter_settings( $this, 'archive' );
 
 		//Pagination Settings
-		rtTPGElementorHelper::pagination_settings( $this );
+		rtTPGElementorHelper::pagination_settings( $this, 'archive' );
 
 		//Links
 		rtTPGElementorHelper::links( $this );
@@ -58,7 +58,7 @@ class TPGGridLayoutArchive extends Custom_Widget_Base {
 		rtTPGElementorHelper::field_selection( $this );
 
 		//Section Title Settings
-		rtTPGElementorHelper::section_title_settings( $this );
+		rtTPGElementorHelper::section_title_settings( $this, 'archive' );
 
 		//Title Settings
 		rtTPGElementorHelper::post_title_settings( $this );
@@ -82,7 +82,7 @@ class TPGGridLayoutArchive extends Custom_Widget_Base {
 		/** Style TAB **/
 
 		//Section Title Style
-		rtTPGElementorHelper::sectionTitle( $this );
+		rtTPGElementorHelper::sectionTitle( $this, 'archive' );
 
 		// Title Style
 		rtTPGElementorHelper::titleStyle( $this );
@@ -103,9 +103,9 @@ class TPGGridLayoutArchive extends Custom_Widget_Base {
 		rtTPGElementorHelper::paginationStyle( $this );
 
 		//Box Settings
-		rtTPGElementorHelper::frontEndFilter( $this );
+		//rtTPGElementorHelper::frontEndFilter( $this );
 
-		//Box Settings
+		//Social Share Settings
 		rtTPGElementorHelper::socialShareStyle( $this );
 
 		//ACF Style
@@ -119,9 +119,9 @@ class TPGGridLayoutArchive extends Custom_Widget_Base {
 	}
 
 	protected function render() {
-		$data    = $this->get_settings();
-		$_prefix = $this->prefix;
-		$data['post_type']     = 'post';
+		$data              = $this->get_settings();
+		$_prefix           = $this->prefix;
+		$data['post_type'] = 'post';
 
 		if ( ! rtTPG()->hasPro() && ! in_array( $data[ $_prefix . '_layout' ], [ 'grid-layout1', 'grid-layout2' ] ) ) {
 			$data[ $_prefix . '_layout' ] = 'grid-layout1';
@@ -143,12 +143,11 @@ class TPGGridLayoutArchive extends Custom_Widget_Base {
 		}
 
 		//Query
-
 		$query_args     = rtTPGElementorQuery::post_query_builder( $data, $_prefix );
 		$query          = new WP_Query( $query_args );
 		$rand           = mt_rand();
 		$layoutID       = "rt-tpg-container-" . $rand;
-		$posts_per_page = $data['display_per_page'] ? $data['display_per_page'] : $data['post_limit'];
+		$posts_per_page = $data['post_limit'];
 
 		/**
 		 * TODO: Get Post Data for render post
@@ -159,55 +158,51 @@ class TPGGridLayoutArchive extends Custom_Widget_Base {
 		/**
 		 * Post type render
 		 */
-		if ( 'by_id' !== $data['post_type'] ) {
-			$post_types = Fns::get_post_types();
-			foreach ( $post_types as $post_type => $label ) {
-				$_taxonomies = get_object_taxonomies( $post_type, 'object' );
-				if ( empty( $_taxonomies ) ) {
-					continue;
-				}
-				$post_data[ $data['post_type'] . '_taxonomy' ] = $data[ $data['post_type'] . '_taxonomy' ];
-				$post_data[ $data['post_type'] . '_tags' ]     = $data[ $data['post_type'] . '_tags' ];
+
+		$post_types = Fns::get_post_types();
+		foreach ( $post_types as $post_type => $label ) {
+			$_taxonomies = get_object_taxonomies( $post_type, 'object' );
+			if ( empty( $_taxonomies ) ) {
+				continue;
 			}
+			$post_data[ $data['post_type'] . '_taxonomy' ] = $data[ $data['post_type'] . '_taxonomy' ];
+			$post_data[ $data['post_type'] . '_tags' ]     = $data[ $data['post_type'] . '_tags' ];
 		}
+
 		$template_path = $this->tpg_template_path( $post_data );
 		$_layout       = $data[ $_prefix . '_layout' ];
 		$_layout_style = $data[ $_prefix . '_layout_style' ];
 
 		?>
 
-		<div class="rt-container-fluid rt-tpg-container tpg-el-main-wrapper clearfix <?php echo esc_attr( $_layout . '-main' ); ?>"
-		     id="<?php echo esc_attr( $layoutID ); ?>"
-		     data-layout="<?php echo esc_attr( $data[ $_prefix . '_layout' ] ); ?>"
-		     data-grid-style="<?php echo esc_attr( $data[ $_prefix . '_layout_style' ] ); ?>"
-		     data-sc-id="elementor"
-		     data-el-settings='<?php echo Fns::is_filter_enable( $data ) ? htmlspecialchars( wp_json_encode( $post_data ) ) : ''; ?>'
-		     data-el-query='<?php echo Fns::is_filter_enable( $data ) ? htmlspecialchars( wp_json_encode( $query_args ) ) : ''; ?>'
-		     data-el-path='<?php echo Fns::is_filter_enable( $data ) ? esc_attr( $template_path ) : ''; ?>'
-		>
+        <div class="rt-container-fluid rt-tpg-container tpg-el-main-wrapper clearfix <?php echo esc_attr( $_layout . '-main' ); ?>"
+             id="<?php echo esc_attr( $layoutID ); ?>"
+             data-layout="<?php echo esc_attr( $data[ $_prefix . '_layout' ] ); ?>"
+             data-grid-style="<?php echo esc_attr( $data[ $_prefix . '_layout_style' ] ); ?>"
+             data-sc-id="elementor"
+             data-el-settings='<?php echo htmlspecialchars( wp_json_encode( $post_data ) ); ?>'
+             data-el-query='<?php echo htmlspecialchars( wp_json_encode( $query_args ) ); ?>'
+             data-el-path='<?php echo esc_attr( $template_path ); ?>'
+        >
 			<?php
 
 			$wrapper_class   = [];
 			$wrapper_class[] = str_replace( '-2', null, $_layout );
 			$wrapper_class[] = 'grid-behaviour';
-			$wrapper_class[] = (in_array($_layout, ['grid-layout2'])) ? "tpg-even" : $_layout_style;
+			$wrapper_class[] = ( in_array( $_layout, [ 'grid-layout2' ] ) ) ? "tpg-even" : $_layout_style;
 			$wrapper_class[] = $_prefix . '_layout_wrapper';
 			if ( 'masonry' === $_layout_style && ! in_array( $_layout, [ $this->prefix . '-layout2', $this->prefix . '-layout5', $this->prefix . '-layout6' ] ) ) {
 				$wrapper_class[] = 'tpg-masonry';
 			}
 
 			//section title settings
-			$is_carousel = '';
-			if ( rtTPG()->hasPro() && 'carousel' == $data['filter_btn_style'] && 'button' == $data['filter_type'] ) {
-				$is_carousel = 'carousel';
-			}
-			echo "<div class='tpg-header-wrapper {$is_carousel}'>";
+
+			echo "<div class='tpg-header-wrapper '>";
 			$this->get_section_title( $data );
-			echo $this->get_frontend_filter_markup( $data );
 			echo "</div>";
 			?>
 
-			<div data-title="Loading ..." class="rt-row rt-content-loader <?php echo esc_attr( implode( ' ', $wrapper_class ) ) ?>">
+            <div data-title="Loading ..." class="rt-row rt-content-loader <?php echo esc_attr( implode( ' ', $wrapper_class ) ) ?>">
 				<?php
 				if ( $query->have_posts() ) {
 					$pCount = 1;
@@ -228,15 +223,14 @@ class TPGGridLayoutArchive extends Custom_Widget_Base {
 				}
 				wp_reset_postdata();
 				?>
-			</div>
+            </div>
 
 			<?php echo $this->get_pagination_markup( $query, $data ); ?>
-
-		</div>
+        </div>
 		<?php
 		if ( 'masonry' === $data[ $_prefix . '_layout_style' ] && \Elementor\Plugin::$instance->editor->is_edit_mode() ) {
 			?>
-			<script>jQuery('.rt-row.rt-content-loader.tpg-masonry').isotope();</script>
+            <script>jQuery('.rt-row.rt-content-loader.tpg-masonry').isotope();</script>
 			<?php
 		}
 	}

@@ -106,7 +106,7 @@ if ( ! class_exists( 'ElementorController' ) ):
 				'grid-hover-layout' => 'TPGGridHoverLayout',
 				'slider-layout'     => 'TPGSliderLayout',
 				'default'           => 'RtElementorWidget',
-//				'grid-layout-archive' => 'TPGGridLayoutArchive'
+				//				'grid-layout-archive' => 'TPGGridLayoutArchive'
 			];
 
 			if ( rtTPG()->hasPro() && self::is_builder_page_single() ) {
@@ -115,7 +115,10 @@ if ( ! class_exists( 'ElementorController' ) ):
 
 
 			if ( rtTPG()->hasPro() && self::is_builder_page_archive() ) {
-				$widgets['grid-layout-archive'] = 'TPGGridLayoutArchive';
+				$widgets['grid-layout-archive']       = 'TPGGridLayoutArchive';
+				$widgets['list-layout-archive']       = 'TPGListLayoutArchive';
+				$widgets['grid-hover-layout-archive'] = 'TPGGridHoverLayoutArchive';
+				$widgets['slider-layout-archive']     = 'TPGSliderLayoutArchive';
 			}
 
 			foreach ( $widgets as $file_name => $class ) {
