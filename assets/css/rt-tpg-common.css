@@ -1940,6 +1940,10 @@ Common Layout Style
     line-height: 1;
 }
 
+.search .tpg-widget-heading-wrapper .tpg-widget-heading {
+    line-height: 1.5
+}
+
 @meia (max-width: 767px) {
     .tpg-widget-heading-wrapper .tpg-widget-heading {
         line-height: 1.2;

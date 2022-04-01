@@ -230,7 +230,6 @@ class rtTPGElementorQuery {
 			}
 			$args['posts_per_page'] = $slider_per_page;
 		} else {
-
 			$args = [
 				'post_type'      => 'post',
 				'post_status'    => 'publish',
@@ -268,19 +267,19 @@ class rtTPGElementorQuery {
 					}
 
 					if ( is_date() ) {
-						$year     = get_query_var('year');
-						$monthnum = get_query_var('monthnum');
-						$day      = get_query_var('day');
+						$year     = get_query_var( 'year' );
+						$monthnum = get_query_var( 'monthnum' );
+						$day      = get_query_var( 'day' );
 
-						$_temp_args = array(
-							'date_query' => array(
-								array(
+						$_temp_args = [
+							'date_query' => [
+								[
 									'year'  => $year,
 									'month' => $monthnum,
 									'day'   => $day,
-								),
-							),
-						);
+								],
+							],
+						];
 					}
 
 					$offset_posts = get_posts( $_temp_args );
@@ -318,23 +317,27 @@ class rtTPGElementorQuery {
 			}
 
 			if ( is_date() ) {
-				$year     = get_query_var('year');
-				$monthnum = get_query_var('monthnum');
-				$day      = get_query_var('day');
+				$year     = get_query_var( 'year' );
+				$monthnum = get_query_var( 'monthnum' );
+				$day      = get_query_var( 'day' );
 
-				$args = array(
-					'date_query' => array(
-						array(
+				$args = [
+					'date_query' => [
+						[
 							'year'  => $year,
 							'month' => $monthnum,
 							'day'   => $day,
-						),
-					),
-				);
+						],
+					],
+				];
+			}
+
+			if ( is_search() ) {
+				$search = get_query_var( 's' );
+				$args['s'] = $search;
 			}
 		}
 
-//		var_dump($args);
 		return $args;
 	}
 

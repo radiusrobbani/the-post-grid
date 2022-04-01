@@ -19,6 +19,7 @@ if ( ! class_exists( 'ElementorController' ) ):
 		/**
 		 * Template builder related traits.
 		 */
+
 		use ELTempleateBuilderTraits;
 
 		public $el_cat_id;
@@ -106,13 +107,12 @@ if ( ! class_exists( 'ElementorController' ) ):
 				'grid-hover-layout' => 'TPGGridHoverLayout',
 				'slider-layout'     => 'TPGSliderLayout',
 				'default'           => 'RtElementorWidget',
-				//				'grid-layout-archive' => 'TPGGridLayoutArchive'
+				// 'grid-layout-archive' => 'TPGGridLayoutArchive'
 			];
 
 			if ( rtTPG()->hasPro() && self::is_builder_page_single() ) {
 				$widgets['related-post'] = 'TPGRelatedPost';
 			}
-
 
 			if ( rtTPG()->hasPro() && self::is_builder_page_archive() ) {
 				$widgets['grid-layout-archive']       = 'TPGGridLayoutArchive';
@@ -153,7 +153,7 @@ if ( ! class_exists( 'ElementorController' ) ):
 			$elements_manager->add_category(
 				$this->el_cat_id,
 				[
-					'title' => esc_html__( 'The Post Grid', 'plugin-name' ),
+					'title' => esc_html__( 'The Post Grid', 'the-post-grid' ),
 					'icon'  => 'fa fa-plug',
 				]
 			);

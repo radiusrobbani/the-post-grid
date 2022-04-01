@@ -15,6 +15,16 @@ class FilterHooks {
 		if ( isset( $settings['show_acf_details'] ) && $settings['show_acf_details'] ) {
 			add_filter( 'the_content', [ __CLASS__, 'tpg_acf_content_filter' ] );
 		}
+		add_filter( 'wp_head', [ __CLASS__, 'set_post_view_count' ], 9999 );
+	}
+
+	public static function set_post_view_count( $content ) {
+		if ( is_single() ) {
+			$pId            = get_the_ID();
+			Fns::update_post_views_count($pId);
+		}
+
+		return $content;
 	}
 
 	public static function filter_author_args( $args ) {

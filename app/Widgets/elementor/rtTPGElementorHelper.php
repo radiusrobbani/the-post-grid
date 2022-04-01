@@ -836,7 +836,6 @@ class rtTPGElementorHelper {
 	 * @param $ref
 	 */
 	public static function filter_settings( $ref ) {
-
 		$prefix = $ref->prefix;
 
 		if ( ! rtTPG()->hasPro() ) {
@@ -1656,9 +1655,7 @@ class rtTPGElementorHelper {
 				'label_off'    => __( 'Hide', 'the-post-grid' ),
 				'return_value' => 'show',
 				'default'      => 'show',
-				'render_type'  => 'template',
 				'classes'      => 'tpg-padding-left',
-				'prefix_class' => 'author-visibility-',
 				'condition'    => [
 					'show_meta'          => 'show',
 					$prefix . '_layout!' => [ 'grid-layout7' ],
@@ -1674,10 +1671,8 @@ class rtTPGElementorHelper {
 				'label_on'     => __( 'Show', 'the-post-grid' ),
 				'label_off'    => __( 'Hide', 'the-post-grid' ),
 				'return_value' => 'show',
-				'default'      => 'default',
-				'render_type'  => 'template',
+				'default'      => false,
 				'classes'      => 'tpg-padding-left',
-				'prefix_class' => 'tags-visibility-',
 				'condition'    => [
 					'show_meta'          => 'show',
 					$prefix . '_layout!' => [ 'grid-layout7' ],
@@ -1693,10 +1688,25 @@ class rtTPGElementorHelper {
 				'label_on'     => __( 'Show', 'the-post-grid' ),
 				'label_off'    => __( 'Hide', 'the-post-grid' ),
 				'return_value' => 'show',
-				'default'      => 'default',
-				'render_type'  => 'template',
+				'default'      => false,
 				'classes'      => 'tpg-padding-left',
-				'prefix_class' => 'comment-visibility-',
+				'condition'    => [
+					'show_meta'          => 'show',
+					$prefix . '_layout!' => [ 'grid-layout7' ],
+				],
+			]
+		);
+
+		$ref->add_control(
+			'show_post_count',
+			[
+				'label'        => __( 'Post View Count', 'the-post-grid' ),
+				'type'         => \Elementor\Controls_Manager::SWITCHER,
+				'label_on'     => __( 'Show', 'the-post-grid' ),
+				'label_off'    => __( 'Hide', 'the-post-grid' ),
+				'return_value' => 'show',
+				'default'      => false,
+				'classes'      => 'tpg-padding-left',
 				'condition'    => [
 					'show_meta'          => 'show',
 					$prefix . '_layout!' => [ 'grid-layout7' ],
@@ -1712,9 +1722,7 @@ class rtTPGElementorHelper {
 				'label_on'     => __( 'Show', 'the-post-grid' ),
 				'label_off'    => __( 'Hide', 'the-post-grid' ),
 				'return_value' => 'show',
-				'default'      => 'default',
-				'render_type'  => 'template',
-				'prefix_class' => 'readmore-visibility-',
+				'default'      => false,
 				'condition'    => [
 					$prefix . '_layout!' => [ 'grid-layout7' ],
 				],
@@ -1731,8 +1739,6 @@ class rtTPGElementorHelper {
 				'return_value' => 'show',
 				'default'      => 'default',
 				'classes'      => rtTPG()->hasPro() ? '' : 'the-post-grid-field-hide',
-				'render_type'  => 'template',
-				'prefix_class' => 'social-visibility-',
 				'condition'    => [
 					$prefix . '_layout!' => [ 'grid-layout7' ],
 				],
@@ -1751,8 +1757,6 @@ class rtTPGElementorHelper {
 				'condition'    => [
 					'post_type' => [ 'product', 'download' ],
 				],
-				'render_type'  => 'template',
-				'prefix_class' => 'woo-rating-visibility-',
 			]
 		);
 
@@ -1768,8 +1772,6 @@ class rtTPGElementorHelper {
 					'return_value' => 'show',
 					'default'      => false,
 					'classes'      => rtTPG()->hasPro() ? '' : 'the-post-grid-field-hide',
-					'render_type'  => 'template',
-					'prefix_class' => 'social-visibility-',
 					'condition'    => [
 						$prefix . '_layout!' => [ 'grid-layout7' ],
 					],
@@ -2431,6 +2433,11 @@ class rtTPGElementorHelper {
 							'operator' => '==',
 							'value'    => 'show',
 						],
+						[
+							'name'     => 'show_post_count',
+							'operator' => '==',
+							'value'    => 'show',
+						],
 					],
 				],
 				'condition'  => [
@@ -2583,6 +2590,21 @@ class rtTPGElementorHelper {
 				],
 				'condition' => [
 					'show_comment_count' => 'show',
+				],
+			]
+		);
+
+		$ref->add_control(
+			'post_count_icon',
+			[
+				'label'     => __( 'Post Count Icon', 'the-post-grid' ),
+				'type'      => \Elementor\Controls_Manager::ICONS,
+				'default'   => [
+					'value'   => 'fas fa-eye',
+					'library' => 'solid',
+				],
+				'condition' => [
+					'show_post_count' => 'show',
 				],
 			]
 		);
@@ -2880,33 +2902,41 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'meta_ordering',
 			[
-				'label'       => esc_html__( 'Meta Ordering (Drag and Drop)', 'plugin-name' ),
-				'type'        => \Elementor\Controls_Manager::REPEATER,
-				'fields'      => $repeater->get_controls(),
-				'default'     => [
+				'label'         => esc_html__( 'Meta Ordering (Drag and Drop)', 'the-post-grid' ),
+				'type'          => \Elementor\Controls_Manager::REPEATER,
+				'fields'        => $repeater->get_controls(),
+				'default'       => [
 					[
-						'meta_title' => esc_html__( 'Author', 'plugin-name' ),
+						'meta_title' => esc_html__( 'Author', 'the-post-grid' ),
 						'meta_name'  => 'author',
 					],
 					[
-						'meta_title' => esc_html__( 'Date', 'plugin-name' ),
+						'meta_title' => esc_html__( 'Date', 'the-post-grid' ),
 						'meta_name'  => 'date',
 					],
 					[
-						'meta_title' => esc_html__( 'Category', 'plugin-name' ),
+						'meta_title' => esc_html__( 'Category', 'the-post-grid' ),
 						'meta_name'  => 'category',
 					],
 					[
-						'meta_title' => esc_html__( 'Tags', 'plugin-name' ),
+						'meta_title' => esc_html__( 'Tags', 'the-post-grid' ),
 						'meta_name'  => 'tags',
 					],
 					[
-						'meta_title' => esc_html__( 'Comment Count', 'plugin-name' ),
+						'meta_title' => esc_html__( 'Comment Count', 'the-post-grid' ),
 						'meta_name'  => 'comment_count',
 					],
+					[
+						'meta_title' => esc_html__( 'Post Count', 'the-post-grid' ),
+						'meta_name'  => 'post_count',
+					],
+					[
+						'meta_title' => esc_html__( 'Post Like', 'the-post-grid' ),
+						'meta_name'  => 'post_like',
+					],
 				],
-				'classes'     => 'tpg-item-order-repeater',
-				'title_field' => '{{{ meta_title }}}',
+				'classes'       => 'tpg-item-order-repeater',
+				'title_field'   => '{{{ meta_title }}}',
 			]
 		);
 
@@ -3208,7 +3238,7 @@ class rtTPGElementorHelper {
 		);
 
 		$section_title_condition = [];
-		if('archive' !== $layout_type) {
+		if ( 'archive' !== $layout_type ) {
 			$section_title_condition = [
 				'filter_btn_style!' => 'carousel',
 			];
@@ -7057,7 +7087,7 @@ class rtTPGElementorHelper {
 			\Elementor\Group_Control_Border::get_type(),
 			[
 				'name'     => 'border',
-				'label'    => esc_html__( 'Border', 'plugin-name' ),
+				'label'    => esc_html__( 'Border', 'the-post-grid' ),
 				'selector' => '{{WRAPPER}} .rt-tpg-container .swiper-navigation .slider-btn',
 			]
 		);
@@ -7106,7 +7136,7 @@ class rtTPGElementorHelper {
 			\Elementor\Group_Control_Border::get_type(),
 			[
 				'name'     => 'border_hover',
-				'label'    => esc_html__( 'Border - Hover', 'plugin-name' ),
+				'label'    => esc_html__( 'Border - Hover', 'the-post-grid' ),
 				'selector' => '{{WRAPPER}} .rt-tpg-container .swiper-navigation .slider-btn:hover',
 			]
 		);

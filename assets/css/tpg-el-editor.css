@@ -304,6 +304,17 @@ i.tpg-grid-icon {
     margin: 0;
     text-indent: -999999px;
 }
+
+.elementor-control.tpg-item-order-repeater .elementor-repeater-fields:last-child {
+    display: none;
+    width:0;
+    height:0;
+    overflow:hidden;
+    opacity:0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
 .elementor-control.tpg-item-order-repeater .elementor-repeater-row-tools {
     height: 32px;
 }

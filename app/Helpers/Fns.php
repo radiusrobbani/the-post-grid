@@ -47,6 +47,34 @@ class Fns {
 	}
 
 	/**
+	 * @param  integer  $post_id  Listing ID
+	 */
+	static function update_post_views_count( $post_id ) {
+		if ( ! $post_id && is_admin() ) {
+			return;
+		}
+
+		$user_ip = $_SERVER['REMOTE_ADDR']; // retrieve the current IP address of the visitor
+		$key     = 'tpg_cache_' . $user_ip . '_' . $post_id;
+		$value   = [ $user_ip, $post_id ];
+		$visited = get_transient( $key );
+		if ( false === ( $visited ) ) {
+			set_transient( $key, $value, HOUR_IN_SECONDS * 12 ); // store the unique key, Post ID & IP address for 12 hours if it does not exist
+
+			// now run post views function
+			$count_key = self::get_post_view_count_meta_key();
+			$count     = get_post_meta( $post_id, $count_key, true );
+			if ( '' == $count ) {
+				update_post_meta( $post_id, $count_key, 0 );
+			} else {
+				$count = absint( $count );
+				$count ++;
+				update_post_meta( $post_id, $count_key, $count );
+			}
+		}
+	}
+
+	/**
 	 * Template Content
 	 *
 	 * @param  string  $template_name  Template name.
@@ -1764,6 +1792,18 @@ class Fns {
 	}
 
 	/**
+	 * Get Post view count meta key
+	 *
+	 * @return string
+	 */
+	public static function get_post_view_count_meta_key() {
+		$count_key = 'tpg-post-view-count';
+
+		return $count_key;
+	}
+
+
+	/**
 	 * Elementor Functionality
 	 *************************************************
 	 */
@@ -1903,6 +1943,9 @@ class Fns {
 		$categories = get_the_term_list( $post_id, $data[ $_cat_id ], null, '<span class="rt-separator">,</span>' );
 		$tags       = get_the_term_list( $post_id, $data[ $_tag_id ], null, '<span class="rt-separator">,</span>' );
 
+		$count_key      = Fns::get_post_view_count_meta_key();
+		$get_view_count = get_post_meta( $post_id, $count_key, true );
+
 		$meta_separator = ( $data['meta_separator'] && $data['meta_separator'] !== 'default' ) ? sprintf( "<span class='separator'>%s</span>", $data['meta_separator'] ) : null;
 
 		//Author Meta
@@ -2035,9 +2078,34 @@ class Fns {
 		}
 
 		$post_meta_html['comment_count'] = ob_get_clean();
-		$meta_orering                    = isset( $data['meta_ordering'] ) && is_array( $data['meta_ordering'] ) ? $data['meta_ordering'] : [];
+
+		ob_start();
+		//Comment Meta
+		if ( 'show' == $data['show_post_count'] && ! empty( $get_view_count ) ) {
+			?>
+            <span class="post-count">
+                <?php
+                if ( $data['show_meta_icon'] === 'yes' ) {
+	                if ( isset( $data['post_count_icon']['value'] ) && $data['post_count_icon']['value'] ) {
+		                \Elementor\Icons_Manager::render_icon( $data['post_count_icon'], [ 'aria-hidden' => 'true' ] );
+	                } else {
+		                echo "<i class='fa fa-eye'></i>";
+	                }
+                }
+                echo $get_view_count;
+                ?>
+            </span>
+			<?php
+			echo $meta_separator;
+		}
+
+		$post_meta_html['post_count'] = ob_get_clean();
+
+		$meta_orering = isset( $data['meta_ordering'] ) && is_array( $data['meta_ordering'] ) ? $data['meta_ordering'] : [];
 		foreach ( $meta_orering as $val ) {
-			echo $post_meta_html[ $val['meta_name'] ];
+			if ( isset( $post_meta_html[ $val['meta_name'] ] ) ) {
+				echo $post_meta_html[ $val['meta_name'] ];
+			}
 		}
 	}
 

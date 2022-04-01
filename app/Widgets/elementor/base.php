@@ -762,6 +762,8 @@ abstract class Custom_Widget_Base extends Widget_Base {
 					printf( "<span class='prefix-text'>%s</span>", esc_html( $archive_prefix ) );
 					if ( is_archive() ) {
 						$this->get_archive_title();
+					} elseif ( is_search() ) {
+						echo get_query_var( 's' );
 					} else {
 						the_title();
 					}
@@ -835,6 +837,7 @@ abstract class Custom_Widget_Base extends Widget_Base {
 			'show_date'                => $data['show_date'],
 			'show_tags'                => $data['show_tags'],
 			'show_comment_count'       => $data['show_comment_count'],
+			'show_post_count'          => $data['show_post_count'],
 			'show_excerpt'             => $data['show_excerpt'],
 			'show_read_more'           => $data['show_read_more'],
 			'show_btn_icon'            => $data['show_btn_icon'],
