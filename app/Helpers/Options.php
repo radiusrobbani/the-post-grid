@@ -1246,7 +1246,7 @@ class Options {
 		return apply_filters( 'tpg_category_style_fields', $fields );
 	}
 
-	/*
+
 	public static function itemFields() {
 		$fields = [
 			'item_fields' => [
@@ -1296,9 +1296,9 @@ class Options {
 			];
 		}
 
-		//return $fields;
+		return $fields;
 	}
-	*/
+
 
 	public static function getCFPluginList() {
 		return [

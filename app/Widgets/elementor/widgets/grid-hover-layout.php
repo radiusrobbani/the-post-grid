@@ -184,6 +184,7 @@ class TPGGridHoverLayout extends Custom_Widget_Base {
 			if ( rtTPG()->hasPro() && 'carousel' == $data['filter_btn_style'] && 'button' == $data['filter_type'] ) {
 				$is_carousel = 'carousel';
 			}
+
 			echo "<div class='tpg-header-wrapper {$is_carousel}'>";
 			$this->get_section_title( $data );
 			echo $this->get_frontend_filter_markup( $data );

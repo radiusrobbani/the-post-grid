@@ -38,7 +38,7 @@ class TPGGridHoverLayoutArchive extends Custom_Widget_Base {
 		 */
 
 		//Query
-		rtTPGElementorHelper::query_builder( $this );
+		rtTPGElementorHelper::query_builder( $this, 'archive' );
 
 		//Layout
 		rtTPGElementorHelper::grid_layouts( $this, 'archive' );
@@ -196,6 +196,7 @@ class TPGGridHoverLayoutArchive extends Custom_Widget_Base {
 			$wrapper_class[] = $_prefix . '_layout_wrapper';
 
 			//section title settings
+
 
 			echo "<div class='tpg-header-wrapper'>";
 			$this->get_section_title( $data );

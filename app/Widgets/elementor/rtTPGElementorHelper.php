@@ -292,7 +292,7 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'post_limit',
 			[
-				'label'       => __( 'Limit', 'the-post-grid' ),
+				'label'       => __( 'Posts per page', 'the-post-grid' ),
 				'type'        => \Elementor\Controls_Manager::NUMBER,
 				'description' => __( 'The number of posts to show. Enter -1 to show all found posts.', 'the-post-grid' ),
 			]
@@ -630,7 +630,7 @@ class rtTPGElementorHelper {
 				]
 			);
 
-			$ref->add_control(
+			$ref->add_responsive_control(
 				'slider_gap_2',
 				[
 					'label'      => __( 'Grid Gap', 'the-post-grid' ),
@@ -797,7 +797,7 @@ class rtTPGElementorHelper {
 			);
 		}
 
-		$ref->add_control(
+		$ref->add_responsive_control(
 			'full_wrapper_align',
 			[
 				'label'        => esc_html__( 'Text Align', 'the-post-grid' ),
@@ -1371,7 +1371,7 @@ class rtTPGElementorHelper {
 			]
 		);
 
-		$ref->add_control(
+		$ref->add_responsive_control(
 			'full_wrapper_align',
 			[
 				'label'        => esc_html__( 'Text Align', 'the-post-grid' ),
@@ -1444,31 +1444,31 @@ class rtTPGElementorHelper {
 		}
 
 
+		$default_pagination = 'pagination';
 		if ( 'archive' == $layout_type ) {
-			$pagination_type = [];
+			$pagination_type    = [];
+			$default_pagination = 'pagination_ajax';
 		} else {
 			$pagination_type = [
 				'pagination' => __( 'Default Pagination', 'the-post-grid' ),
 			];
 		}
-		$default_pagination_type = 'pagination';
+
 		if ( rtTPG()->hasPro() ) {
-			$pagination_type_pro     = [
+			$pagination_type_pro = [
 				'pagination_ajax' => __( 'Ajax Pagination ( Only for Grid )', 'the-post-grid' ),
 				'load_more'       => __( 'Load More - On Click', 'the-post-grid' ),
 				'load_on_scroll'  => __( 'Load More - On Scroll', 'the-post-grid' ),
 			];
-			$pagination_type         = array_merge( $pagination_type, $pagination_type_pro );
-			$default_pagination_type = 'pagination_ajax';
+			$pagination_type     = array_merge( $pagination_type, $pagination_type_pro );
 		}
-
 
 		$ref->add_control(
 			'pagination_type',
 			[
 				'label'       => __( 'Pagination Type', 'the-post-grid' ),
 				'type'        => \Elementor\Controls_Manager::SELECT,
-				'default'     => $default_pagination_type,
+				'default'     => $default_pagination,
 				'options'     => $pagination_type,
 				'description' => $ref->get_pro_message( 'loadmore and ajax pagination' ),
 				'condition'   => [
@@ -2117,21 +2117,6 @@ class rtTPGElementorHelper {
 			]
 		);
 
-
-		$ref->add_control(
-			'is_default_img',
-			[
-				'label'        => __( 'Enable Default Image', 'the-post-grid' ) . $ref->pro_label,
-				'type'         => \Elementor\Controls_Manager::SWITCHER,
-				'label_on'     => __( 'Show', 'the-post-grid' ),
-				'label_off'    => __( 'Hide', 'the-post-grid' ),
-				'return_value' => 'yes',
-				'default'      => false,
-				'classes'      => rtTPG()->hasPro() ? '' : 'the-post-grid-field-hide',
-			]
-		);
-
-
 		$ref->add_control(
 			'is_thumb_lightbox',
 			[
@@ -2148,6 +2133,20 @@ class rtTPGElementorHelper {
 		);
 
 		$ref->add_control(
+			'is_default_img',
+			[
+				'label'        => __( 'Enable Default Image', 'the-post-grid' ) . $ref->pro_label,
+				'type'         => \Elementor\Controls_Manager::SWITCHER,
+				'label_on'     => __( 'Show', 'the-post-grid' ),
+				'label_off'    => __( 'Hide', 'the-post-grid' ),
+				'return_value' => 'yes',
+				'default'      => false,
+				'classes'      => rtTPG()->hasPro() ? '' : 'the-post-grid-field-hide',
+			]
+		);
+
+
+		$ref->add_control(
 			'default_image',
 			[
 				'label'     => __( 'Default Image', 'the-post-grid' ) . $ref->pro_label,
@@ -2161,7 +2160,6 @@ class rtTPGElementorHelper {
 				'classes'   => rtTPG()->hasPro() ? '' : 'the-post-grid-field-hide',
 			]
 		);
-
 
 		$ref->end_controls_section();
 	}
@@ -2687,7 +2685,7 @@ class rtTPGElementorHelper {
 			]
 		);
 
-		$ref->add_control(
+		$ref->add_responsive_control(
 			'author_icon_width',
 			[
 				'label'      => __( 'Author Image Width', 'the-post-grid' ),
@@ -2759,6 +2757,7 @@ class rtTPGElementorHelper {
 				'condition'    => [
 					'show_category' => 'show',
 				],
+				'render_type'  => 'template',
 				'divider'      => 'before',
 				'prefix_class' => 'tpg-category-position-',
 				'classes'      => rtTPG()->hasPro() ? '' : 'the-post-grid-field-hide tpg-should-hide-field',
@@ -2902,10 +2901,10 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'meta_ordering',
 			[
-				'label'         => esc_html__( 'Meta Ordering (Drag and Drop)', 'the-post-grid' ),
-				'type'          => \Elementor\Controls_Manager::REPEATER,
-				'fields'        => $repeater->get_controls(),
-				'default'       => [
+				'label'       => esc_html__( 'Meta Ordering (Drag and Drop)', 'the-post-grid' ),
+				'type'        => \Elementor\Controls_Manager::REPEATER,
+				'fields'      => $repeater->get_controls(),
+				'default'     => [
 					[
 						'meta_title' => esc_html__( 'Author', 'the-post-grid' ),
 						'meta_name'  => 'author',
@@ -2935,8 +2934,8 @@ class rtTPGElementorHelper {
 						'meta_name'  => 'post_like',
 					],
 				],
-				'classes'       => 'tpg-item-order-repeater',
-				'title_field'   => '{{{ meta_title }}}',
+				'classes'     => 'tpg-item-order-repeater',
+				'title_field' => '{{{ meta_title }}}',
 			]
 		);
 
@@ -3159,8 +3158,8 @@ class rtTPGElementorHelper {
 				'type'      => \Elementor\Controls_Manager::SELECT,
 				'default'   => '_self',
 				'options'   => [
-					'_self'  => __( 'Same Window - _self', 'the-post-grid' ),
-					'_blank' => __( 'New Window - _blank', 'the-post-grid' ),
+					'_self'  => __( 'Same Window', 'the-post-grid' ),
+					'_blank' => __( 'New Window', 'the-post-grid' ),
 				],
 				'condition' => [
 					'post_link_type' => 'default',
@@ -3244,7 +3243,7 @@ class rtTPGElementorHelper {
 			];
 		}
 
-		$ref->add_control(
+		$ref->add_responsive_control(
 			'section_title_alignment',
 			[
 				'label'        => __( 'Alignment', 'the-post-grid' ),
@@ -3263,13 +3262,14 @@ class rtTPGElementorHelper {
 						'icon'  => 'eicon-text-align-right',
 					],
 				],
+				'render_type'  => 'template',
 				'prefix_class' => 'section-title-align-',
 				'condition'    => $section_title_condition,
 			]
 		);
 
 
-		$ref->add_control(
+		$ref->add_responsive_control(
 			'section_title_margin',
 			[
 				'label'              => __( 'Margin', 'the-post-grid' ),
@@ -3412,7 +3412,7 @@ class rtTPGElementorHelper {
 				]
 			);
 
-			$ref->add_control(
+			$ref->add_responsive_control(
 				'taxonomy_des_alignment',
 				[
 					'label'     => __( 'Alignment', 'the-post-grid' ),
@@ -3534,7 +3534,7 @@ class rtTPGElementorHelper {
 		);
 
 
-		$ref->add_control(
+		$ref->add_responsive_control(
 			'thumbnail_spacing',
 			[
 				'label'      => __( 'Thumbnail Margin', 'the-post-grid' ),
@@ -3628,22 +3628,6 @@ class rtTPGElementorHelper {
 			]
 		);
 
-		//		$ref->add_control(
-		//			'grid_hover_overlay_padding',
-		//			[
-		//				'label'      => __( 'Overlay Padding', 'the-post-grid' ),
-		//				'type'       => Controls_Manager::DIMENSIONS,
-		//				'size_units' => [ 'px' ],
-		//				'selectors'  => [
-		//					'{{WRAPPER}} .rt-tpg-container .rt-grid-hover-item .rt-holder .grid-hover-content' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
-		//					'{{WRAPPER}} .tpg-el-main-wrapper .offset-left .offset-content'                    => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
-		//				],
-		//				'condition'  => [
-		//					$prefix . '_layout' => [ 'grid-layout5', 'grid-layout5-2' ],
-		//				],
-		//			]
-		//		);
-
 
 		//TODO: Tab normal
 		$ref->start_controls_tabs(
@@ -3667,20 +3651,6 @@ class rtTPGElementorHelper {
 				'exclude'  => [ 'image' ],
 			]
 		);
-
-		//		$ref->add_responsive_control(
-		//			'grid_hover_overlay_margin',
-		//			[
-		//				'label'      => __( 'Overlay Margin', 'the-post-grid' ),
-		//				'type'       => Controls_Manager::DIMENSIONS,
-		//				'size_units' => [ 'px' ],
-		//				'selectors'  => [
-		//					'{{WRAPPER}} .rt-tpg-container .rt-grid-hover-item .rt-holder .grid-hover-content'                                                                                                                                                                                             => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}}; width: calc( 100% - ( {{LEFT}}{{UNIT}} + {{RIGHT}}{{UNIT}} ) );',
-		//					'{{WRAPPER}}.hover-overlay-height-full .rt-tpg-container .rt-content-loader .rt-grid-hover-item .rt-holder:hover .grid-hover-content, {{WRAPPER}}.hover-overlay-height-default .rt-tpg-container .grid_hover-layout1 .rt-grid-hover-item .rt-holder:hover .grid-hover-content' => 'min-height: calc( 100% - ( {{TOP}}{{UNIT}} + {{BOTTOM}}{{UNIT}} ) );',
-		//					'{{WRAPPER}}.grid-hover-overlay-height-full .rt-tpg-container .rt-content-loader .rt-grid-hover-item .rt-holder .grid-hover-content'                                                                                                                                           => 'min-height: calc( 100% - ( {{TOP}}{{UNIT}} + {{BOTTOM}}{{UNIT}} ) );',
-		//				],
-		//			]
-		//		);
 
 		$ref->add_control(
 			'thumb_lightbox_bg',
@@ -3730,20 +3700,7 @@ class rtTPGElementorHelper {
 				'exclude'  => [ 'image' ],
 			]
 		);
-		//
-		//		$ref->add_responsive_control(
-		//			'grid_hover_overlay_margin_hover',
-		//			[
-		//				'label'      => __( 'Overlay Margin - Hover', 'the-post-grid' ),
-		//				'type'       => Controls_Manager::DIMENSIONS,
-		//				'size_units' => [ 'px' ],
-		//				'selectors'  => [
-		//					'{{WRAPPER}} .rt-tpg-container .rt-grid-hover-item .rt-holder:hover .grid-hover-content'                                                                                                                                                                                       => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}}; width: calc( 100% - ( {{LEFT}}{{UNIT}} + {{RIGHT}}{{UNIT}} ) );',
-		//					'{{WRAPPER}}.hover-overlay-height-full .rt-tpg-container .rt-content-loader .rt-grid-hover-item .rt-holder:hover .grid-hover-content, {{WRAPPER}}.hover-overlay-height-default .rt-tpg-container .grid_hover-layout1 .rt-grid-hover-item .rt-holder:hover .grid-hover-content' => 'min-height: calc( 100% - ( {{TOP}}{{UNIT}} + {{BOTTOM}}{{UNIT}} ) );',
-		//					'{{WRAPPER}}.grid-hover-overlay-height-full .rt-tpg-container .rt-content-loader .rt-grid-hover-item .rt-holder:hover .grid-hover-content'                                                                                                                                     => 'min-height: calc( 100% - ( {{TOP}}{{UNIT}} + {{BOTTOM}}{{UNIT}} ) );',
-		//				],
-		//			]
-		//		);
+
 
 		$ref->add_control(
 			'thumb_lightbox_bg_hover',
@@ -3861,10 +3818,10 @@ class rtTPGElementorHelper {
 			]
 		);
 
-		$ref->add_control(
+		$ref->add_responsive_control(
 			'title_spacing',
 			[
-				'label'              => __( 'Title Spacing', 'the-post-grid' ),
+				'label'              => __( 'Title Margin', 'the-post-grid' ),
 				'type'               => Controls_Manager::DIMENSIONS,
 				'size_units'         => [ 'px' ],
 				'selectors'          => [
@@ -3881,7 +3838,7 @@ class rtTPGElementorHelper {
 			]
 		);
 
-		$ref->add_control(
+		$ref->add_responsive_control(
 			'title_padding',
 			[
 				'label'              => __( 'Title Padding', 'the-post-grid' ),
@@ -3894,16 +3851,12 @@ class rtTPGElementorHelper {
 			]
 		);
 
-		$ref->add_control(
+		$ref->add_responsive_control(
 			'title_alignment',
 			[
 				'label'        => __( 'Alignment', 'the-post-grid' ),
 				'type'         => \Elementor\Controls_Manager::CHOOSE,
 				'options'      => [
-					'justify' => [
-						'title' => __( 'Justify', 'the-post-grid' ),
-						'icon'  => 'eicon-text-align-justify',
-					],
 					'left'    => [
 						'title' => __( 'Left', 'the-post-grid' ),
 						'icon'  => 'eicon-text-align-left',
@@ -3915,6 +3868,10 @@ class rtTPGElementorHelper {
 					'right'   => [
 						'title' => __( 'Right', 'the-post-grid' ),
 						'icon'  => 'eicon-text-align-right',
+					],
+					'justify' => [
+						'title' => __( 'Justify', 'the-post-grid' ),
+						'icon'  => 'eicon-text-align-justify',
 					],
 				],
 				'prefix_class' => 'title-alignment-',
@@ -3940,7 +3897,7 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'title_color',
 			[
-				'label'     => __( 'Title color', 'the-post-grid' ),
+				'label'     => __( 'Title Color', 'the-post-grid' ),
 				'type'      => \Elementor\Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .tpg-el-main-wrapper .entry-title' => 'color: {{VALUE}}',
@@ -3962,7 +3919,7 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'title_border_color',
 			[
-				'label'     => __( 'Title Separator color', 'the-post-grid' ),
+				'label'     => __( 'Title Separator Color', 'the-post-grid' ),
 				'type'      => \Elementor\Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .rt-tpg-container .rt-holder .entry-title-wrapper .entry-title::before' => 'background-color: {{VALUE}}',
@@ -3977,7 +3934,7 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'title_hover_border_color',
 			[
-				'label'     => __( 'Title Hover Border color', 'the-post-grid' ),
+				'label'     => __( 'Title Hover Border Color', 'the-post-grid' ),
 				'type'      => \Elementor\Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}}' => '--tpg-primary-color: {{VALUE}}',
@@ -4001,7 +3958,7 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'title_hover_color',
 			[
-				'label'     => __( 'Title color on hover', 'the-post-grid' ),
+				'label'     => __( 'Title Color on Hover', 'the-post-grid' ),
 				'type'      => \Elementor\Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .tpg-el-main-wrapper .tpg-post-holder .entry-title:hover, {{WRAPPER}} .tpg-el-main-wrapper .tpg-post-holder .entry-title a:hover' => 'color: {{VALUE}} !important',
@@ -4102,7 +4059,7 @@ class rtTPGElementorHelper {
 			]
 		);
 
-		$ref->add_control(
+		$ref->add_responsive_control(
 			'excerpt_spacing',
 			[
 				'label'              => __( 'Excerpt Spacing', 'the-post-grid' ),
@@ -4122,16 +4079,12 @@ class rtTPGElementorHelper {
 			]
 		);
 
-		$ref->add_control(
+		$ref->add_responsive_control(
 			'content_alignment',
 			[
 				'label'     => __( 'Alignment', 'the-post-grid' ),
 				'type'      => \Elementor\Controls_Manager::CHOOSE,
 				'options'   => [
-					'justify' => [
-						'title' => __( 'Justify', 'the-post-grid' ),
-						'icon'  => 'eicon-text-align-justify',
-					],
 					'left'    => [
 						'title' => __( 'Left', 'the-post-grid' ),
 						'icon'  => 'eicon-text-align-left',
@@ -4143,6 +4096,10 @@ class rtTPGElementorHelper {
 					'right'   => [
 						'title' => __( 'Right', 'the-post-grid' ),
 						'icon'  => 'eicon-text-align-right',
+					],
+					'justify' => [
+						'title' => __( 'Justify', 'the-post-grid' ),
+						'icon'  => 'eicon-text-align-justify',
 					],
 				],
 				'toggle'    => true,
@@ -4233,7 +4190,7 @@ class rtTPGElementorHelper {
 			]
 		);
 
-		$ref->add_control(
+		$ref->add_responsive_control(
 			'meta_spacing',
 			[
 				'label'              => __( 'Meta Spacing', 'the-post-grid' ),
@@ -4293,44 +4250,8 @@ class rtTPGElementorHelper {
 			]
 		);
 
-		//		$ref->add_control(
-		//			'category_font_size',
-		//			[
-		//				'label'     => __( 'Category Font Size', 'the-post-grid' ),
-		//				'type'      => \Elementor\Controls_Manager::NUMBER,
-		//				'min'       => 10,
-		//				'max'       => 50,
-		//				'step'      => 1,
-		//				'condition' => [
-		//					'category_position!' => 'default',
-		//				],
-		//				'selectors' => [
-		//					'{{WRAPPER}} .tpg-el-main-wrapper .tpg-separate-category.style1 .categories-links'         => 'font-size: {{VALUE}}px;',
-		//					'{{WRAPPER}} .tpg-el-main-wrapper .tpg-separate-category:not(.style1) .categories-links a' => 'font-size: {{VALUE}}px',
-		//				],
-		//			]
-		//		);
-		//
-		//		$ref->add_control(
-		//			'category_radius',
-		//			[
-		//				'label'     => __( '', 'the-post-grid' ),
-		//				'type'      => \Elementor\Controls_Manager::NUMBER,
-		//				'min'       => 0,
-		//				'max'       => 50,
-		//				'step'      => 1,
-		//				'selectors' => [
-		//					'{{WRAPPER}} .tpg-el-main-wrapper .tpg-separate-category.style1 .categories-links'         => 'border-radius: {{VALUE}}px;',
-		//					'{{WRAPPER}} .tpg-el-main-wrapper .tpg-separate-category:not(.style1) .categories-links a' => 'border-radius: {{VALUE}}px',
-		//				],
-		//				'condition' => [
-		//					'category_position!' => 'default',
-		//					'category_style!'    => 'style3',
-		//				],
-		//			]
-		//		);
 
-		$ref->add_control(
+		$ref->add_responsive_control(
 			'category_radius',
 			[
 				'label'      => __( 'Category Border Radius', 'the-post-grid' ),
@@ -4608,7 +4529,7 @@ class rtTPGElementorHelper {
 		);
 
 
-		$ref->add_control(
+		$ref->add_responsive_control(
 			'readmore_spacing',
 			[
 				'label'              => __( 'Button Spacing', 'the-post-grid' ),
@@ -4628,7 +4549,7 @@ class rtTPGElementorHelper {
 			]
 		);
 
-		$ref->add_control(
+		$ref->add_responsive_control(
 			'readmore_padding',
 			[
 				'label'      => __( 'Button Padding', 'the-post-grid' ),
@@ -4644,7 +4565,7 @@ class rtTPGElementorHelper {
 		);
 
 
-		$ref->add_control(
+		$ref->add_responsive_control(
 			'readmore_btn_alignment',
 			[
 				'label'     => __( 'Button Alignment', 'the-post-grid' ),
@@ -4687,7 +4608,7 @@ class rtTPGElementorHelper {
 			]
 		);
 
-		$ref->add_control(
+		$ref->add_responsive_control(
 			'readmore_icon_size',
 			[
 				'label'      => __( 'Icon Size', 'the-post-grid' ),
@@ -4709,7 +4630,7 @@ class rtTPGElementorHelper {
 			]
 		);
 
-		$ref->add_control(
+		$ref->add_responsive_control(
 			'readmore_icon_y_position',
 			[
 				'label'      => __( 'Icon Vertical Position', 'the-post-grid' ),
@@ -4782,7 +4703,7 @@ class rtTPGElementorHelper {
 			]
 		);
 
-		$ref->add_control(
+		$ref->add_responsive_control(
 			'readmore_icon_margin',
 			[
 				'label'              => __( 'Icon Spacing', 'the-post-grid' ),
@@ -4805,7 +4726,7 @@ class rtTPGElementorHelper {
 			]
 		);
 
-		$ref->add_control(
+		$ref->add_responsive_control(
 			'border_radius',
 			[
 				'label'              => __( 'Border Radius', 'the-post-grid' ),
@@ -4900,7 +4821,7 @@ class rtTPGElementorHelper {
 			]
 		);
 
-		$ref->add_control(
+		$ref->add_responsive_control(
 			'readmore_icon_margin_hover',
 			[
 				'label'              => __( 'Icon Spacing - Hover', 'the-post-grid' ),
@@ -4923,7 +4844,7 @@ class rtTPGElementorHelper {
 			]
 		);
 
-		$ref->add_control(
+		$ref->add_responsive_control(
 			'border_radius_hover',
 			[
 				'label'              => __( 'Border Radius - Hover', 'the-post-grid' ),
@@ -5082,7 +5003,7 @@ class rtTPGElementorHelper {
 			]
 		);
 
-		$ref->add_control(
+		$ref->add_responsive_control(
 			'pagination_text_align',
 			[
 				'label'     => esc_html__( 'Alignment', 'the-post-grid' ),
@@ -5109,7 +5030,7 @@ class rtTPGElementorHelper {
 			]
 		);
 
-		$ref->add_control(
+		$ref->add_responsive_control(
 			'pagination_spacing',
 			[
 				'label'              => __( 'Button Vertical Spacing', 'the-post-grid' ),
@@ -5132,7 +5053,7 @@ class rtTPGElementorHelper {
 			]
 		);
 
-		$ref->add_control(
+		$ref->add_responsive_control(
 			'pagination_padding',
 			[
 				'label'              => __( 'Button Padding', 'the-post-grid' ),
@@ -5148,7 +5069,7 @@ class rtTPGElementorHelper {
 			]
 		);
 
-		$ref->add_control(
+		$ref->add_responsive_control(
 			'pagination_border_radius',
 			[
 				'label'      => __( 'Border Radius', 'the-post-grid' ),
@@ -5411,7 +5332,7 @@ class rtTPGElementorHelper {
 			]
 		);
 
-		$ref->add_control(
+		$ref->add_responsive_control(
 			'filter_text_alignment',
 			[
 				'label'     => esc_html__( 'Alignment', 'the-post-grid' ),
@@ -5565,7 +5486,7 @@ class rtTPGElementorHelper {
 			]
 		);
 
-		$ref->add_control(
+		$ref->add_responsive_control(
 			'filter_btn_radius',
 			[
 				'label'      => __( 'Border Radius', 'the-post-grid' ),
@@ -5978,7 +5899,7 @@ class rtTPGElementorHelper {
 		$settings = get_option( rtTPG()->options['settings'] );
 		$ssList   = ! empty( $settings['social_share_items'] ) ? $settings['social_share_items'] : [];
 
-		$ref->add_control(
+		$ref->add_responsive_control(
 			'social_icon_margin',
 			[
 				'label'              => __( 'Icon Margin', 'the-post-grid' ),
@@ -5991,7 +5912,7 @@ class rtTPGElementorHelper {
 			]
 		);
 
-		$ref->add_control(
+		$ref->add_responsive_control(
 			'social_wrapper_margin',
 			[
 				'label'              => __( 'Icon Wrapper Spacing', 'the-post-grid' ),
@@ -6011,7 +5932,7 @@ class rtTPGElementorHelper {
 			]
 		);
 
-		$ref->add_control(
+		$ref->add_responsive_control(
 			'social_icon_radius',
 			[
 				'label'              => __( 'Border Radius', 'the-post-grid' ),
@@ -6048,7 +5969,7 @@ class rtTPGElementorHelper {
 			]
 		);
 
-		$ref->add_control(
+		$ref->add_responsive_control(
 			'icon_font_size',
 			[
 				'label'      => __( 'Icon Font Size', 'the-post-grid' ),
@@ -6614,7 +6535,7 @@ class rtTPGElementorHelper {
 			]
 		);
 
-		$ref->add_control(
+		$ref->add_responsive_control(
 			'slider_gap',
 			[
 				'label'      => __( 'Slider Gap', 'the-post-grid' ),
@@ -7190,7 +7111,7 @@ class rtTPGElementorHelper {
 		);
 
 
-		$ref->add_control(
+		$ref->add_responsive_control(
 			'dot_wrapper_radius',
 			[
 				'label'      => __( 'Dots Wrapper Radius', 'the-post-grid' ),
@@ -7675,7 +7596,7 @@ class rtTPGElementorHelper {
 			]
 		);
 
-		$ref->add_control(
+		$ref->add_responsive_control(
 			'acf_label_width',
 			[
 				'label'      => __( 'Label Min Width', 'the-post-grid' ),

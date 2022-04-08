@@ -90,6 +90,11 @@ a:link, a:visited {
     margin-right: -15px;
 }
 
+.grid-layout2.rt-row {
+    margin-left: 0;
+    margin-right: 0;
+}
+
 .rt-row > .rt-row {
     padding-left: 15px;
     padding-right: 15px;
@@ -511,7 +516,9 @@ Pagination Style
 }
 
 .paginationjs .paginationjs-pages li > a:hover {
-    background: #eee
+    background: var(--tpg-primary-color);
+    color: #ffffff !important;
+    border-color: var(--tpg-primary-color) !important;
 }
 
 .paginationjs .paginationjs-pages li.active {
@@ -970,7 +977,7 @@ Isotope Buttons
 }
 
 .rt-tpg-container .rt-tpg-isotope-buttons .selected {
-    background: #1e73be;
+    background: var(--tpg-primary-color);
 }
 
 .rt-tpg-container .rt-tpg-isotope-buttons button {
@@ -1016,7 +1023,7 @@ Ajax Loader
 }
 
 .rt-tpg-container .rt-loading {
-    color: #fb4c35;
+    color: var(--tpg-primary-color);
     position: absolute;
     top: 40%;
     left: 50%;
@@ -1226,7 +1233,7 @@ Filter
     border-top-color: transparent;
     border-left-color: transparent;
     border-right-color: transparent;
-    border-bottom-color: #1e73be;
+    border-bottom-color: var(--tpg-primary-color);
     visibility: hidden;
     opacity: 0;
     transition: all 0.3s ease;
@@ -1243,7 +1250,7 @@ Filter
 
 .tpg-header-wrapper.carousel .rt-filter-item-wrap.swiper-wrapper .swiper-slide.selected,
 .tpg-header-wrapper.carousel .rt-filter-item-wrap.swiper-wrapper .swiper-slide:hover {
-    color: #1e73be;
+    color: var(--tpg-primary-color);
 }
 
 .tpg-header-wrapper.carousel .rt-layout-filter-container .rt-filter-wrap .filter-right-wrapper,
@@ -1916,7 +1923,7 @@ Common Layout Style
 }
 
 #bottom-script-loader .rt-ball-clip-rotate {
-    color: #fb4c35;
+    color: var(--tpg-primary-color);
     position: absolute;
     top: 80px;
     left: 50%;
@@ -1964,7 +1971,7 @@ Common Layout Style
     height: 8px;
     margin-top: -4px;
     border-radius: 50%;
-    background-color: #1e73be;
+    background-color: var(--tpg-primary-color);
     margin-right: 7px;
     display: inline-block;
 }
@@ -1999,7 +2006,7 @@ Common Layout Style
 
 .tpg-widget-heading-wrapper.heading-style2 .tpg-widget-heading,
 .tpg-widget-heading-wrapper.heading-style3 .tpg-widget-heading {
-    background-color: #1e73be;
+    background-color: var(--tpg-primary-color);
     color: #fff;
     line-height: 1.4;
     padding: 5px 15px;
@@ -2042,10 +2049,10 @@ Common Layout Style
     right: -11px;
     border-width: 12px 12px 0 0;
     border-style: solid;
-    border-color: #1e73be transparent;
+    border-color: var(--tpg-primary-color) transparent;
 }
 
-.tpg-el-main-wrapper .tpg-widget-heading-wrapper.heading-style2 .tpg-widget-heading::before {
+.section-title-align-center .tpg-el-main-wrapper .tpg-widget-heading-wrapper.heading-style2 .tpg-widget-heading::before {
     right: auto;
     left: -11px;
     border-width: 12px 0 0 12px;
@@ -2065,7 +2072,7 @@ Common Layout Style
 .section-title-style-style3 .tpg-header-wrapper:not(.carousel) .tpg-widget-heading-wrapper,
 .section-title-style-style2 .tpg-header-wrapper.carousel,
 .section-title-style-style3 .tpg-header-wrapper.carousel {
-    border-bottom: 2px solid #1e73be;
+    border-bottom: 2px solid var(--tpg-primary-color);
 }
 
 
@@ -2233,7 +2240,7 @@ TPG EVEN Style
     text-transform: uppercase;
     margin-top: 30px;
     color: #fff;
-    background-color: #fb4c35;
+    background-color: var(--tpg-primary-color);
     text-decoration: none;
     padding: 9px 20px 8px 20px;
     display: inline-block;
@@ -2243,7 +2250,7 @@ TPG EVEN Style
 }
 
 .rt-tpg-container .rt-loadmore-btn:hover {
-    background-color: #666;
+    background-color: var(--tpg-secondary-color);
 }
 
 .rt-tpg-container .rt-pagination-wrap .rt-page-numbers .paginationjs .paginationjs-pages {
@@ -2270,44 +2277,45 @@ TPG EVEN Style
     font-size: 16px;
     line-height: 1.55;
     display: inline-block;
-    min-width: 30px;
-    min-height: 30px;
+    min-width: 48px;
+    min-height: 45px;
     border: none;
     padding: 2px;
 }
 
 .rt-tpg-container .rt-pagination-wrap .rt-page-numbers .paginationjs .paginationjs-pages ul li > a {
-    -moz-border-top-left-radius: 0;
-    -ms-border-top-left-radius: 0;
-    -o-border-top-left-radius: 0;
-    -moz-border-top-right-radius: 0;
-    -ms-border-top-right-radius: 0;
-    -o-border-top-right-radius: 0;
-    -moz-border-bottom-left-radius: 0;
-    -ms-border-bottom-left-radius: 0;
-    -o-border-bottom-left-radius: 0;
-    border-radius: 0;
-    -webkit-border-radius: 0;
-    -moz-border-bottom-right-radius: 0;
-    -ms-border-bottom-right-radius: 0;
-    -o-border-bottom-right-radius: 0;
+    border-radius: 3px;
     text-decoration: none;
-    min-width: 30px;
-    height: 30px;
+    min-width: 48px;
+    min-height: 45px;
+    line-height: 45px;
     font-size: 16px;
     font-weight: normal;
     letter-spacing: 0;
-    line-height: 29px;
-    border: 1px solid #d7d7d7;
+    border: 1px solid #dee2e6;
     display: block;
     padding-left: 8px;
     padding-right: 8px;
-    color: #999;
+    color: #212121;
 }
 
 .rt-tpg-container .rt-pagination-wrap .rt-page-numbers .paginationjs .paginationjs-pages ul li.active > a {
-    background-color: #fb4c35;
-    color: #fff;
+    background-color: var(--tpg-primary-color);
+    border-color: var(--tpg-primary-color);
+    color: #ffffff;
+}
+
+.rt-tpg-container .rt-pagination-wrap .rt-page-numbers .paginationjs .paginationjs-pages ul li.paginationjs-ellipsis {
+    padding: 0;
+    min-width: auto;
+}
+.rt-tpg-container .rt-pagination-wrap .rt-page-numbers .paginationjs .paginationjs-pages ul li.paginationjs-ellipsis a {
+    border: none;
+    pointer-events: none;
+    color: #000;
+    opacity: 1;
+    font-size: 18px;
+    min-width: auto;
 }
 
 /* old pagination */
@@ -2331,32 +2339,24 @@ TPG EVEN Style
 
 .rt-pagination .pagination-list > li {
     display: inline-block;
+    margin: 0 2px;
 }
 
 .rt-pagination .pagination-list > li > a,
 .rt-pagination .pagination-list > li > span {
     position: relative;
-    padding: 6px 12px;
-    line-height: 1.42857143;
+    padding: 0 5px;
+    line-height: 45px;
     text-decoration: none;
-    color: #337ab7;
+    color: #212121;
     background-color: #ffffff;
     border: 1px solid #dddddd;
     margin-left: -1px;
     transition: 0.4s ease-in-out;
-}
-
-.rt-pagination .pagination-list > li:first-child > a,
-.rt-pagination .pagination-list > li:first-child > span {
-    margin-left: 0;
-    border-bottom-left-radius: 4px;
-    border-top-left-radius: 4px;
-}
-
-.rt-pagination .pagination-list > li:last-child > a,
-.rt-pagination .pagination-list > li:last-child > span {
-    border-bottom-right-radius: 4px;
-    border-top-right-radius: 4px;
+    min-width: 48px;
+    min-height: 45px;
+    border-radius: 3px;
+    display: block;
 }
 
 .rt-pagination .pagination-list > li > a:hover,
@@ -2364,9 +2364,9 @@ TPG EVEN Style
 .rt-pagination .pagination-list > li > a:focus,
 .rt-pagination .pagination-list > li > span:focus {
     z-index: 2;
-    color: #23527c;
-    background-color: #eeeeee;
-    border-color: #dddddd;
+    color: #ffffff;
+    background-color: var(--tpg-primary-color);
+    border-color: var(--tpg-primary-color);
 }
 
 .rt-pagination .pagination-list > .active > a,
@@ -2377,8 +2377,8 @@ TPG EVEN Style
 .rt-pagination .pagination-list > .active > span:focus {
     z-index: 3;
     color: #ffffff;
-    background-color: #337ab7;
-    border-color: #337ab7;
+    background-color: var(--tpg-primary-color);
+    border-color: var(--tpg-primary-color);
     cursor: default;
 }
 
@@ -2388,10 +2388,11 @@ TPG EVEN Style
 .rt-pagination .pagination-list > .disabled > a,
 .rt-pagination .pagination-list > .disabled > a:hover,
 .rt-pagination .pagination-list > .disabled > a:focus {
-    color: #777777;
+    color: #212121;
     background-color: #ffffff;
     border-color: #dddddd;
     cursor: not-allowed;
+    /*pointer-events: none;*/
 }
 
 
@@ -2502,7 +2503,7 @@ TPG EVEN Style
 }
 
 .tpg-el-main-wrapper .tpg-cf-wrap {
-   margin: 10px 0 0;
+    margin: 10px 0 0;
 }
 
 .rt-tpg-container .tpg-cf-wrap:empty {

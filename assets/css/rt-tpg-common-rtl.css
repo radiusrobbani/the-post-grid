@@ -943,7 +943,7 @@ Isotope Buttons
 }
 
 .rt-tpg-container .rt-tpg-isotope-buttons .selected {
-    background: #1e73be;
+    background: var(--tpg-primary-color);
 }
 
 .rt-tpg-container .rt-tpg-isotope-buttons button {
@@ -1066,7 +1066,7 @@ Ajax Loader
 }
 
 .rt-tpg-container .rt-loading {
-    color: #fb4c35;
+    color: var(--tpg-primary-color);
     position: absolute;
     top: 60px;
     right: 50%;
@@ -1720,7 +1720,7 @@ Common Layout Style
 }
 
 #bottom-script-loader .rt-ball-clip-rotate {
-    color: #fb4c35;
+    color: var(--tpg-primary-color);
     position: absolute;
     top: 80px;
     right: 50%;

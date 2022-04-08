@@ -198,6 +198,7 @@ class TPGListLayoutArchive extends Custom_Widget_Base {
 
 			//section title settings
 
+
 			echo "<div class='tpg-header-wrapper'>";
 			$this->get_section_title( $data );
 			echo "</div>";

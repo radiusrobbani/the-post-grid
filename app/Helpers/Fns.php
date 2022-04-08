@@ -525,14 +525,16 @@ class Fns {
 
 	public static function custom_variation_price( $product ) {
 		$price = '';
-		$max   = $product->get_variation_regular_price( 'max' );
-		$min   = $product->get_variation_regular_price( 'min' );
+		$max   = $product->get_variation_sale_price( 'max' );
+		$min   = $product->get_variation_sale_price( 'min' );
 
 		if ( ! $min || $min !== $max ) {
-			$price .= woocommerce_price( $product->get_price() );
+			$price .= wc_price( $product->get_price() );
 		}
+
 		if ( $max && $max !== $min ) {
-			$price .= woocommerce_price( $max );
+			$price .= " - ";
+			$price .= wc_price( $max );
 		}
 
 		return $price;
@@ -1989,7 +1991,13 @@ class Fns {
 
 		ob_start();
 		//Category Meta
-		if ( $categories && 'show' == $data['show_category'] && self::el_ignore_layout( $data ) && in_array( $data['category_position'], [ 'default', 'with_meta' ] ) ) { ?>
+
+        $category_condition = ( $categories && 'show' == $data['show_category'] && self::el_ignore_layout( $data ) && in_array( $data['category_position'], [ 'default', 'with_meta' ] ));
+        if(! rtTPG()->hasPro()) {
+	        $category_condition = ( $categories && 'show' == $data['show_category'] );
+        }
+
+		if ( $category_condition ) { ?>
             <span class='categories-links'>
                 <?php
                 if ( $data['show_meta_icon'] === 'yes' ) {
@@ -2146,7 +2154,7 @@ class Fns {
 
 	public static function get_el_post_title( $title_tag, $title, $link_start, $link_end, $data ) {
 		echo '<div class="entry-title-wrapper">';
-		if ( 'above_title' === $data['category_position'] || ! self::el_ignore_layout( $data ) ) {
+		if ( rtTPG()->hasPro() && 'above_title' === $data['category_position'] || ! self::el_ignore_layout( $data ) ) {
 			self::get_el_thumb_cat( $data, 'cat-above-title' );
 		}
 		printf( '<%s class="entry-title">', esc_attr( $title_tag ) );
@@ -2163,9 +2171,7 @@ class Fns {
 		}
 		$pID               = get_the_ID();
 		$_cat_id           = $data['post_type'] . '_taxonomy';
-		$_tag_id           = $data['post_type'] . '_tags';
 		$categories        = get_the_term_list( $pID, $data[ $_cat_id ], null, '<span class="rt-separator">,</span>' );
-		$tags              = get_the_term_list( $pID, $data[ $_tag_id ], null, '<span class="rt-separator">,</span>' );
 		$category_position = $data['category_position'];
 		if ( in_array( $data['layout'], [ 'grid-layout4' ] ) && 'default' === $data['category_position'] ) {
 			$category_position = 'top_left';
@@ -2239,7 +2245,7 @@ class Fns {
 			$thumb_cat_condition = true;
 		}
 
-		if ( $thumb_cat_condition && 'with_meta' !== $data['category_position'] ) {
+		if ( rtTPG()->hasPro() && $data['show_category'] == 'show' && $thumb_cat_condition && 'with_meta' !== $data['category_position'] ) {
 			self::get_el_thumb_cat( $data );
 		}
 		$img_link = get_the_post_thumbnail_url( $pID, 'full' );

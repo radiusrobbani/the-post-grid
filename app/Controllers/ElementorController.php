@@ -1,26 +1,16 @@
 <?php
 
-
 namespace RT\ThePostGrid\Controllers;
-
 
 if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
-use Elementor\Controls_Manager;
 use Elementor\Plugin;
-use RT\ThePostGridPro\Traits\ELTempleateBuilderTraits;
 
 if ( ! class_exists( 'ElementorController' ) ):
 
 	class ElementorController {
-
-		/**
-		 * Template builder related traits.
-		 */
-
-		use ELTempleateBuilderTraits;
 
 		public $el_cat_id;
 		private $version;
@@ -43,7 +33,7 @@ if ( ! class_exists( 'ElementorController' ) ):
 		}
 
 		public function set_primary_color() {
-			echo "<style>:root{--tpg-primary-color: #4C6FFF;--tpg-secondary-color:#4262e5;--tpg-primary-light:#c4d0ff }</style>";
+			echo "<style>:root{--tpg-primary-color: #0d6efd;--tpg-secondary-color:#0654c4;--tpg-primary-light:#c4d0ff }</style>";
 		}
 
 		public function tpg_frontend_scripts() {
@@ -107,19 +97,9 @@ if ( ! class_exists( 'ElementorController' ) ):
 				'grid-hover-layout' => 'TPGGridHoverLayout',
 				'slider-layout'     => 'TPGSliderLayout',
 				'default'           => 'RtElementorWidget',
-				// 'grid-layout-archive' => 'TPGGridLayoutArchive'
 			];
 
-			if ( rtTPG()->hasPro() && self::is_builder_page_single() ) {
-				$widgets['related-post'] = 'TPGRelatedPost';
-			}
-
-			if ( rtTPG()->hasPro() && self::is_builder_page_archive() ) {
-				$widgets['grid-layout-archive']       = 'TPGGridLayoutArchive';
-				$widgets['list-layout-archive']       = 'TPGListLayoutArchive';
-				$widgets['grid-hover-layout-archive'] = 'TPGGridHoverLayoutArchive';
-				$widgets['slider-layout-archive']     = 'TPGSliderLayoutArchive';
-			}
+			$widgets = apply_filters( 'tpg_el_widget_register', $widgets );
 
 			foreach ( $widgets as $file_name => $class ) {
 				if ( ! rtTPG()->hasPro() && 'slider-layout' == $file_name ) {
@@ -140,23 +120,23 @@ if ( ! class_exists( 'ElementorController' ) ):
 		}
 
 		public function widget_category( $elements_manager ) {
-			//			$register_categories = [
-			//				$this->el_cat_id => [ 'title' => __( 'The Post Grid', 'the-post-grid' ) ],
-			//			];
+			$categories['tpg-elementor-builder-widgets'] = [
+				'title' => __( 'TPG Archive Builder Element', 'the-post-grid-pro' ),
+				'icon'  => 'fa fa-plug',
+			];
 
-			//$register_categories = apply_filters( 'rtcl_elementor_widgets_category_lists', $register_categories );
+			$categories[ RT_THE_POST_GRID_PLUGIN_SLUG . '-elements' ] = [
+				'title' => __( 'The Post Grid', 'the-post-grid-pro' ),
+				'icon'  => 'fa fa-plug',
+			];
 
-			//			foreach ( $register_categories as $id => $category ) {
-			//				Plugin::$instance->elements_manager->add_category( $id, $category );
-			//			}
+			$get_all_categories = $elements_manager->get_categories();
+			$categories         = array_merge( $categories, $get_all_categories );
+			$set_categories     = function ( $categories ) {
+				$this->categories = $categories;
+			};
 
-			$elements_manager->add_category(
-				$this->el_cat_id,
-				[
-					'title' => esc_html__( 'The Post Grid', 'the-post-grid' ),
-					'icon'  => 'fa fa-plug',
-				]
-			);
+			$set_categories->call( $elements_manager, $categories );
 		}
 
 

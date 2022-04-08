@@ -1416,7 +1416,7 @@
 }
 
 #bottom-script-loader .rt-ball-clip-rotate {
-    color: #fb4c35;
+    color: var(--tpg-primary-color);
     position: absolute;
     top: 80px;
     left: 50%;
