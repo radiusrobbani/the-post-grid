@@ -101,11 +101,14 @@ class TPGGridLayout extends Custom_Widget_Base {
 		//Pagination - Loadmore Style
 		rtTPGElementorHelper::paginationStyle( $this );
 
-		//Box Settings
+		//Box Style
 		rtTPGElementorHelper::frontEndFilter( $this );
 
-		//Box Settings
+		//Box Style
 		rtTPGElementorHelper::socialShareStyle( $this );
+
+		//Link Style
+		rtTPGElementorHelper::linkStyle( $this );
 
 		//ACF Style
 		rtTPGElementorHelper::tpg_acf_style( $this );

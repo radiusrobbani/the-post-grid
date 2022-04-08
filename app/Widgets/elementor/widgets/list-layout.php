@@ -113,6 +113,9 @@ class TPGListLayout extends Custom_Widget_Base {
 		//Box Style
 		rtTPGElementorHelper::socialShareStyle( $this );
 
+		//Link Style
+		rtTPGElementorHelper::linkStyle( $this );
+
 		//ACF Style
 		rtTPGElementorHelper::tpg_acf_style( $this );
 

@@ -171,10 +171,11 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'date_range',
 			[
-				'label'          => __( 'Date Range (Start to End)', 'plugin-domain' ),
+				'label'          => __( 'Date Range (Start to End)', 'plugin-domain' ) . $ref->pro_label,
 				'type'           => \Elementor\Controls_Manager::DATE_TIME,
 				'placeholder'    => "Choose date...",
 				'description'    => __( "NB: Enter DEL button for delete date range", "the-post-grid" ),
+				'classes'        => rtTPG()->hasPro() ? '' : 'the-post-grid-field-hide',
 				'picker_options' => [
 					'enableTime' => false,
 					'mode'       => "range",
@@ -1700,14 +1701,15 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'show_post_count',
 			[
-				'label'        => __( 'Post View Count', 'the-post-grid' ),
+				'label'        => __( 'Post View Count', 'the-post-grid' ) . $ref->pro_label,
 				'type'         => \Elementor\Controls_Manager::SWITCHER,
 				'label_on'     => __( 'Show', 'the-post-grid' ),
 				'label_off'    => __( 'Hide', 'the-post-grid' ),
 				'return_value' => 'show',
 				'default'      => false,
-				'classes'      => 'tpg-padding-left',
-				'condition'    => [
+				'classes'      => rtTPG()->hasPro() ? 'tpg-padding-left' : 'the-post-grid-field-hide tpg-padding-left',
+
+				'condition' => [
 					'show_meta'          => 'show',
 					$prefix . '_layout!' => [ 'grid-layout7' ],
 				],
@@ -7369,6 +7371,17 @@ class rtTPGElementorHelper {
 				'type'      => \Elementor\Controls_Manager::COLOR,
 				'selectors' => [
 					'body .rt-popup-wrap .rt-popup-navigation-wrap' => 'background-color: {{VALUE}}',
+				],
+			]
+		);
+
+		$ref->add_control(
+			'popup_head_txt_color',
+			[
+				'label'     => __( 'Header Text Color', 'the-post-grid' ),
+				'type'      => \Elementor\Controls_Manager::COLOR,
+				'selectors' => [
+					'body #rt-popup-wrap .rt-popup-singlePage-counter' => 'color: {{VALUE}}',
 				],
 			]
 		);

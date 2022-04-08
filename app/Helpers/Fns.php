@@ -1877,6 +1877,9 @@ class Fns {
 			$link_end   = $readmore_link_end = "</a>";
 		} elseif ( 'popup' == $data['post_link_type'] ) {
 			$link_class = "tpg-single-popup tpg-post-link";
+		    if(\Elementor\Plugin::$instance->editor->is_edit_mode()){
+			    $link_class = "tpg-post-link";
+            }
 			$link_start = $readmore_link_start = sprintf( '<a data-id="%s" href="%s" class="%s" target="%s">',
 				esc_attr( $pID ),
 				esc_url( get_permalink() ),
@@ -2089,7 +2092,7 @@ class Fns {
 
 		ob_start();
 		//Comment Meta
-		if ( 'show' == $data['show_post_count'] && ! empty( $get_view_count ) ) {
+		if ( rtTPG()->hasPro() && 'show' == $data['show_post_count'] && ! empty( $get_view_count ) ) {
 			?>
             <span class="post-count">
                 <?php

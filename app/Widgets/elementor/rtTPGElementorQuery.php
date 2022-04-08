@@ -29,11 +29,7 @@ class rtTPGElementorQuery {
 
 		$excluded_ids = null;
 
-		if ( $data['exclude'] ) {
-			$excluded_ids         = explode( ',', $data['exclude'] );
-			$excluded_ids         = array_map( 'trim', $excluded_ids );
-			$args['post__not_in'] = $excluded_ids;
-		}
+
 
 		if ( $data['post_id'] ) {
 			$post_ids = explode( ',', $data['post_id'] );
@@ -46,11 +42,24 @@ class rtTPGElementorQuery {
 			}
 		}
 
-		if ( $prefix !== 'slider' && 'pagination' !== $data['pagination_type'] ) {
-			$args['offset'] = $data['offset'] ? $data['offset'] : 0;
-		} elseif ( $prefix === 'slider' && $data['offset'] ) {
-			$args['offset'] = $data['offset'];
-		}
+
+//		if ( $prefix !== 'slider' && 'show' == $data['show_pagination'] && 'pagination' !== $data['pagination_type'] ) {
+//			$args['offset'] = $data['offset'] ? $data['offset'] : 0;
+//		} elseif ( $data['offset'] ) {
+//			$args['offset'] = $data['offset'];
+//		}
+
+
+//		if ( $data['exclude'] ) {
+//			$excluded_ids         = explode( ',', $data['exclude'] );
+//			$excluded_ids         = array_map( 'trim', $excluded_ids );
+//			$args['post__not_in'] = $excluded_ids;
+//		}
+
+
+
+
+
 
 		if ( $prefix !== 'slider' && 'show' === $data['show_pagination'] ) {
 			$_paged        = is_front_page() ? "page" : "paged";
@@ -60,6 +69,7 @@ class rtTPGElementorQuery {
 		if ( rtTPG()->hasPro() && 'yes' == $data['ignore_sticky_posts'] ) {
 			$args['ignore_sticky_posts'] = 1;
 		}
+
 		if ( $data['orderby'] ) {
 			$args['orderby'] = $data['orderby'];
 		}
@@ -72,7 +82,7 @@ class rtTPGElementorQuery {
 			$args['author__in'] = $data['author'];
 		}
 
-		if ( $data['date_range'] ) {
+		if ( rtTPG()->hasPro() && $data['date_range'] ) {
 			if ( strpos( $data['date_range'], 'to' ) ) {
 				$date_range         = explode( 'to', $data['date_range'] );
 				$args['date_query'] = [
@@ -182,6 +192,30 @@ class rtTPGElementorQuery {
 				}
 			}
 			$args['posts_per_page'] = $slider_per_page;
+		}
+
+
+
+
+		if ( $data['exclude'] || $data['offset'] ) {
+			$excluded_ids = [];
+			if ( $data['exclude'] ) {
+				$excluded_ids = explode( ',', $data['exclude'] );
+				$excluded_ids = array_map( 'trim', $excluded_ids );
+			}
+
+			$offset_posts = [];
+			if ( $data['offset'] ) {
+				$_temp_args = $args;
+				unset($_temp_args['paged']);
+				$_temp_args['posts_per_page'] = $data['offset'];
+				$_temp_args['fields'] = 'ids';
+
+				$offset_posts = get_posts( $_temp_args );
+			}
+
+			$excluded_post_ids    = array_merge( $offset_posts, $excluded_ids );
+			$args['post__not_in'] = array_unique( $excluded_post_ids );
 		}
 
 		return $args;
@@ -333,7 +367,7 @@ class rtTPGElementorQuery {
 			}
 
 			if ( is_search() ) {
-				$search = get_query_var( 's' );
+				$search    = get_query_var( 's' );
 				$args['s'] = $search;
 			}
 		}
