@@ -890,14 +890,6 @@ body .readmore-btn-only-text .rt-tpg-container .tpg-post-holder .read-more a {
     background: rgba(255, 255, 255, .4);
 }
 
-.rt-tpg-container .grid-layout5 .offset-right .tpg-separate-category a {
-    background: none;
-    padding: 0;
-    color: #7b7b7b;
-    font-size: 14px;
-    font-weight: 500;
-}
-
 .tpg-el-main-wrapper .grid-layout5 .offset-right .tpg-el-image-wrap .overlay {
     display: none !important;
 }

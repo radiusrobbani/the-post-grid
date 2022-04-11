@@ -42,25 +42,6 @@ class rtTPGElementorQuery {
 			}
 		}
 
-
-//		if ( $prefix !== 'slider' && 'show' == $data['show_pagination'] && 'pagination' !== $data['pagination_type'] ) {
-//			$args['offset'] = $data['offset'] ? $data['offset'] : 0;
-//		} elseif ( $data['offset'] ) {
-//			$args['offset'] = $data['offset'];
-//		}
-
-
-//		if ( $data['exclude'] ) {
-//			$excluded_ids         = explode( ',', $data['exclude'] );
-//			$excluded_ids         = array_map( 'trim', $excluded_ids );
-//			$args['post__not_in'] = $excluded_ids;
-//		}
-
-
-
-
-
-
 		if ( $prefix !== 'slider' && 'show' === $data['show_pagination'] ) {
 			$_paged        = is_front_page() ? "page" : "paged";
 			$args['paged'] = get_query_var( $_paged ) ? absint( get_query_var( $_paged ) ) : 1;
@@ -70,8 +51,11 @@ class rtTPGElementorQuery {
 			$args['ignore_sticky_posts'] = 1;
 		}
 
-		if ( $data['orderby'] ) {
-			$args['orderby'] = $data['orderby'];
+		if ( $orderby = $data['orderby'] ) {
+			if(! rtTPG()->hasPro() && 'rand' == $orderby) {
+				$orderby = 'date';
+			}
+			$args['orderby'] = $orderby;
 		}
 
 		if ( $data['order'] ) {
@@ -195,8 +179,6 @@ class rtTPGElementorQuery {
 		}
 
 
-
-
 		if ( $data['exclude'] || $data['offset'] ) {
 			$excluded_ids = [];
 			if ( $data['exclude'] ) {
@@ -247,8 +229,8 @@ class rtTPGElementorQuery {
 				'post__not_in' => [ $data['last_post_id'] ],
 			];
 
-			if ( $data['orderby'] ) {
-				$args['orderby'] = $data['orderby'];
+			if ( $orderby = $data['orderby'] ) {
+				$args['orderby'] = $orderby;
 			}
 
 			if ( $data['order'] ) {

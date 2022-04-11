@@ -70,6 +70,19 @@ if ( ! class_exists( RtTpg::class ) ) {
 
 
 		protected function __init() {
+
+//			if ( is_admin() || true ) {
+//				if( ! function_exists('get_plugin_data') ){
+//					require_once( ABSPATH . 'wp-admin/includes/plugin.php' );
+//				}
+//				$plugin_data = get_plugin_data( RT_THE_POST_GRID_PRO_PLUGIN_ACTIVE_FILE_NAME );
+//
+//				echo "<pre>";
+//				echo "from free ";
+//				print_r( $plugin_data['Version'] );
+//				echo "</pre>";
+//			}
+
 			new PostTypeController();
 			if ( is_admin() ) {
 				new AdminAjaxController();

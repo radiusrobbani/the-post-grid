@@ -124,7 +124,7 @@ class TPGGridLayout extends Custom_Widget_Base {
 		$data    = $this->get_settings();
 		$_prefix = $this->prefix;
 
-		if ( ! rtTPG()->hasPro() && ! in_array( $data[ $_prefix . '_layout' ], [ 'grid-layout1', 'grid-layout2' ] ) ) {
+		if ( ! rtTPG()->hasPro() && ! in_array( $data[ $_prefix . '_layout' ], [ 'grid-layout1', 'grid-layout2', 'grid-layout3' ] ) ) {
 			$data[ $_prefix . '_layout' ] = 'grid-layout1';
 		}
 

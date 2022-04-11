@@ -65,7 +65,7 @@ class Fns {
 			$count_key = self::get_post_view_count_meta_key();
 			$count     = get_post_meta( $post_id, $count_key, true );
 			if ( '' == $count ) {
-				update_post_meta( $post_id, $count_key, 0 );
+				update_post_meta( $post_id, $count_key, 1 );
 			} else {
 				$count = absint( $count );
 				$count ++;
@@ -1877,9 +1877,9 @@ class Fns {
 			$link_end   = $readmore_link_end = "</a>";
 		} elseif ( 'popup' == $data['post_link_type'] ) {
 			$link_class = "tpg-single-popup tpg-post-link";
-		    if(\Elementor\Plugin::$instance->editor->is_edit_mode()){
-			    $link_class = "tpg-post-link";
-            }
+			if ( \Elementor\Plugin::$instance->editor->is_edit_mode() ) {
+				$link_class = "tpg-post-link";
+			}
 			$link_start = $readmore_link_start = sprintf( '<a data-id="%s" href="%s" class="%s" target="%s">',
 				esc_attr( $pID ),
 				esc_url( get_permalink() ),
@@ -1939,8 +1939,18 @@ class Fns {
 		$author      = apply_filters( 'rttpg_author_link', sprintf( '<a href="%s">%s</a>', get_author_posts_url( $author_id ), $author_name ) );
 
 		$comments_number = get_comments_number( $post_id );
-		$comments_text   = sprintf( '(%s)', number_format_i18n( $comments_number ) );
-		$date            = get_the_date();
+
+
+		$comment_label = '';
+		if ( $data['show_comment_count_label'] ) {
+			$comment_label = $data['comment_count_label_singular'];
+			if ( $comments_number > 1 ) {
+				$comment_label = $data['comment_count_label_plural'];
+			}
+		}
+
+		$comments_text = sprintf( '%s (%s)', esc_html($comment_label), number_format_i18n( $comments_number ) );
+		$date          = get_the_date();
 
 		//Category and Tags Management
 		$_cat_id    = isset( $data['post_type'] ) ? $data['post_type'] . '_taxonomy' : 'category';
@@ -1995,10 +2005,12 @@ class Fns {
 		ob_start();
 		//Category Meta
 
-        $category_condition = ( $categories && 'show' == $data['show_category'] && self::el_ignore_layout( $data ) && in_array( $data['category_position'], [ 'default', 'with_meta' ] ));
-        if(! rtTPG()->hasPro()) {
-	        $category_condition = ( $categories && 'show' == $data['show_category'] );
-        }
+		$category_condition = ( $categories && 'show' == $data['show_category'] && self::el_ignore_layout( $data )
+		                        && in_array( $data['category_position'],
+				[ 'default', 'with_meta' ] ) );
+		if ( ! rtTPG()->hasPro() ) {
+			$category_condition = ( $categories && 'show' == $data['show_category'] );
+		}
 
 		if ( $category_condition ) { ?>
             <span class='categories-links'>

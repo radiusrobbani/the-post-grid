@@ -206,11 +206,11 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'orderby',
 			[
-				'label'   => __( 'Order by', 'the-post-grid' ),
-				'type'    => \Elementor\Controls_Manager::SELECT,
-				'options' => $orderby_opt,
-				'default' => 'date',
-
+				'label'       => __( 'Order by', 'the-post-grid' ),
+				'type'        => \Elementor\Controls_Manager::SELECT,
+				'options'     => $orderby_opt,
+				'default'     => 'date',
+				'description' => $ref->get_pro_message( 'Random Order.' ),
 			]
 		);
 
@@ -1804,6 +1804,8 @@ class rtTPGElementorHelper {
 			]
 		);
 
+
+
 		$ref->add_control(
 			'section_title_style',
 			[
@@ -2349,6 +2351,7 @@ class rtTPGElementorHelper {
 			'word'      => __( 'Word', 'the-post-grid' ),
 		];
 
+
 		if ( in_array( $prefix, [ 'grid', 'list' ] ) ) {
 			$excerpt_type['full'] = __( 'Full Content', 'the-post-grid' );
 		}
@@ -2358,10 +2361,15 @@ class rtTPGElementorHelper {
 			[
 				'label'   => __( 'Excerpt Type', 'the-post-grid' ),
 				'type'    => \Elementor\Controls_Manager::SELECT,
-				'default' => 'word',
+				'default' => 'character',
 				'options' => $excerpt_type,
 			]
 		);
+
+		$default_excerpt_limit = 200;
+		if ( 'grid_hover' == $prefix ) {
+			$default_excerpt_limit = 100;
+		}
 
 		$ref->add_control(
 			'excerpt_limit',
@@ -2369,7 +2377,7 @@ class rtTPGElementorHelper {
 				'label'     => __( 'Excerpt Limit', 'the-post-grid' ),
 				'type'      => \Elementor\Controls_Manager::NUMBER,
 				'step'      => 1,
-				'default'   => 15,
+				'default'   => $default_excerpt_limit,
 				'condition' => [
 					'excerpt_type' => [ 'character', 'word' ],
 				],
@@ -2762,14 +2770,14 @@ class rtTPGElementorHelper {
 				'render_type'  => 'template',
 				'divider'      => 'before',
 				'prefix_class' => 'tpg-category-position-',
-				'classes'      => rtTPG()->hasPro() ? '' : 'the-post-grid-field-hide tpg-should-hide-field',
+				'classes'      => rtTPG()->hasPro() ? '' : 'the-post-grid-field-hide',
 			]
 		);
 
 		$ref->add_control(
 			'category_style',
 			[
-				'label'     => __( 'Category Style', 'the-post-grid' ),
+				'label'     => __( 'Category Style', 'the-post-grid' ) . $ref->pro_label,
 				'type'      => \Elementor\Controls_Manager::SELECT,
 				'default'   => 'style1',
 				'options'   => [
@@ -2784,20 +2792,22 @@ class rtTPGElementorHelper {
 			]
 		);
 
-		$ref->add_control(
-			'show_cat_icon',
-			[
-				'label'        => __( 'Show Category Icon', 'the-post-grid' ),
-				'type'         => \Elementor\Controls_Manager::SWITCHER,
-				'label_on'     => __( 'Show', 'the-post-grid' ),
-				'label_off'    => __( 'Hide', 'the-post-grid' ),
-				'return_value' => 'yes',
-				'default'      => false,
-				'condition'    => [
-					'category_position!' => 'default',
-				],
-			]
-		);
+		if ( rtTPG()->hasPro() ) {
+			$ref->add_control(
+				'show_cat_icon',
+				[
+					'label'        => __( 'Show Over Image Category Icon', 'the-post-grid' ),
+					'type'         => \Elementor\Controls_Manager::SWITCHER,
+					'label_on'     => __( 'Show', 'the-post-grid' ),
+					'label_off'    => __( 'Hide', 'the-post-grid' ),
+					'return_value' => 'yes',
+					'default'      => false,
+					'condition'    => [
+						'category_position!' => 'default',
+					],
+				]
+			);
+		}
 
 		$post_types = Fns::get_post_types();
 		foreach ( $post_types as $post_type => $label ) {
@@ -2881,6 +2891,61 @@ class rtTPGElementorHelper {
 				]
 			);
 		}
+
+		$ref->add_control(
+			'comment_count_heading',
+			[
+				'label'     => __( 'Comment Count ', 'the-post-grid-pro' ),
+				'type'      => \Elementor\Controls_Manager::HEADING,
+				'classes'   => 'tpg-control-type-heading',
+				'condition' => [
+					'show_comment_count' => 'show',
+				],
+			]
+		);
+
+		$ref->add_control(
+			'show_comment_count_label',
+			[
+				'label'        => __( 'Show Comment Label', 'the-post-grid' ),
+				'type'         => \Elementor\Controls_Manager::SWITCHER,
+				'label_on'     => __( 'Show', 'the-post-grid' ),
+				'label_off'    => __( 'Hide', 'the-post-grid' ),
+				'return_value' => 'yes',
+				'default'      => 'yes',
+				'condition'    => [
+					'show_comment_count' => 'show',
+				],
+			]
+		);
+
+		$ref->add_control(
+			'comment_count_label_singular',
+			[
+				'label'       => __( 'Comment Label Singular', 'the-post-grid' ),
+				'type'        => \Elementor\Controls_Manager::TEXT,
+				'default'     => __( 'Comment', 'the-post-grid' ),
+				'placeholder' => __( 'Type your title here', 'the-post-grid' ),
+				'condition'   => [
+					'show_comment_count'       => 'show',
+					'show_comment_count_label' => 'yes',
+				],
+			]
+		);
+
+		$ref->add_control(
+			'comment_count_label_plural',
+			[
+				'label'       => __( 'Comment Label Plural', 'the-post-grid' ),
+				'type'        => \Elementor\Controls_Manager::TEXT,
+				'default'     => __( 'Comments', 'the-post-grid' ),
+				'placeholder' => __( 'Type your title here', 'the-post-grid' ),
+				'condition'   => [
+					'show_comment_count'       => 'show',
+					'show_comment_count_label' => 'yes',
+				],
+			]
+		);
 
 		$ref->add_control(
 			'meta_ordering_heading',
@@ -3548,6 +3613,8 @@ class rtTPGElementorHelper {
 			]
 		);
 
+		//Overlay Style Heading
+
 		$ref->add_control(
 			'thumb_overlay_style_heading',
 			[
@@ -3556,80 +3623,6 @@ class rtTPGElementorHelper {
 				'classes' => 'tpg-control-type-heading',
 			]
 		);
-
-		$overlay_type_opt = [
-			'always'              => __( 'Show Always', 'the-post-grid' ),
-			'fadein-on-hover'     => __( 'FadeIn on hover', 'the-post-grid' ),
-			'fadeout-on-hover'    => __( 'FadeOut on hover', 'the-post-grid' ),
-			'slidein-on-hover'    => __( 'SlideIn on hover', 'the-post-grid' ),
-			'slideout-on-hover'   => __( 'SlideOut on hover', 'the-post-grid' ),
-			'zoomin-on-hover'     => __( 'ZoomIn on hover', 'the-post-grid' ),
-			'zoomout-on-hover'    => __( 'ZoomOut on hover', 'the-post-grid' ),
-			'zoominall-on-hover'  => __( 'ZoomIn Content on hover', 'the-post-grid' ),
-			'zoomoutall-on-hover' => __( 'ZoomOut Content on hover', 'the-post-grid' ),
-		];
-
-		if ( $ref->prefix == 'grid_hover' || $ref->prefix == 'slider' ) {
-			$overlay_type_opt2 = [
-				'flipin-on-hover'  => __( 'FlipIn on hover', 'the-post-grid' ),
-				'flipout-on-hover' => __( 'FlipOut on hover', 'the-post-grid' ),
-			];
-			$overlay_type_opt  = array_merge( $overlay_type_opt, $overlay_type_opt2 );
-		}
-
-		$ref->add_control(
-			'grid_hover_overlay_type',
-			[
-				'label'        => __( 'Overlay Type', 'the-post-grid' ),
-				'type'         => \Elementor\Controls_Manager::SELECT,
-				'default'      => 'always',
-				'options'      => $overlay_type_opt,
-				'prefix_class' => 'grid-hover-overlay-type-',
-			]
-		);
-
-		$overlay_height_condition = [
-			'grid_hover_layout!' => [ 'grid_hover-layout3' ],
-		];
-		if ( $ref->prefix === 'slider' ) {
-			$overlay_height_condition = [
-				'slider_layout!' => [ '' ],
-			];
-		}
-		$ref->add_control(
-			'grid_hover_overlay_height',
-			[
-				'label'        => __( 'Overlay Height', 'the-post-grid' ),
-				'type'         => \Elementor\Controls_Manager::SELECT,
-				'default'      => 'default',
-				'options'      => [
-					'default' => __( 'Default', 'the-post-grid' ),
-					'full'    => __( '100%', 'the-post-grid' ),
-					'auto'    => __( 'Auto', 'the-post-grid' ),
-				],
-				'condition'    => $overlay_height_condition,
-				'prefix_class' => 'grid-hover-overlay-height-',
-			]
-		);
-
-		$ref->add_control(
-			'on_hover_overlay',
-			[
-				'label'        => __( 'Overlay Height on hover', 'the-post-grid' ),
-				'type'         => \Elementor\Controls_Manager::SELECT,
-				'default'      => 'default',
-				'options'      => [
-					'default' => __( 'Default', 'the-post-grid' ),
-					'full'    => __( '100%', 'the-post-grid' ),
-					'auto'    => __( 'Auto', 'the-post-grid' ),
-				],
-				'condition'    => [
-					'grid_hover_layout!' => [ 'grid_hover-layout3' ],
-				],
-				'prefix_class' => 'hover-overlay-height-',
-			]
-		);
-
 
 		//TODO: Tab normal
 		$ref->start_controls_tabs(
@@ -3646,11 +3639,22 @@ class rtTPGElementorHelper {
 		$ref->add_group_control(
 			\Elementor\Group_Control_Background::get_type(),
 			[
-				'name'     => 'grid_hover_overlay_color',
-				'label'    => __( 'Overlay BG', 'the-post-grid' ),
-				'types'    => [ 'classic', 'gradient' ],
-				'selector' => '{{WRAPPER}} .rt-tpg-container .rt-grid-hover-item .rt-holder .grid-hover-content:before, {{WRAPPER}} .tpg-el-main-wrapper .tpg-el-image-wrap .overlay',
-				'exclude'  => [ 'image' ],
+				'name'           => 'grid_hover_overlay_color',
+				'label'          => __( 'Overlay BG', 'the-post-grid' ),
+				'types'          => [ 'classic', 'gradient' ],
+				'selector'       => '{{WRAPPER}} .rt-tpg-container .rt-grid-hover-item .rt-holder .grid-hover-content:before, {{WRAPPER}} .tpg-el-main-wrapper .tpg-el-image-wrap .overlay',
+				'exclude'        => [ 'image' ],
+				'fields_options' => [
+					'background' => [
+						'label' => esc_html__( 'Overlay Background Type', 'the-post-grid' ),
+					],
+					'color'      => [
+						'label' => 'Background Color',
+					],
+					'color_b'    => [
+						'label' => 'Background Color 2',
+					],
+				],
 			]
 		);
 
@@ -3695,11 +3699,22 @@ class rtTPGElementorHelper {
 		$ref->add_group_control(
 			\Elementor\Group_Control_Background::get_type(),
 			[
-				'name'     => 'grid_hover_overlay_color_hover',
-				'label'    => __( 'Overlay BG - Hover', 'the-post-grid' ),
-				'types'    => [ 'classic', 'gradient' ],
-				'selector' => '{{WRAPPER}} .rt-tpg-container .rt-grid-hover-item .rt-holder .grid-hover-content:after, {{WRAPPER}} .tpg-el-main-wrapper .rt-holder:hover .tpg-el-image-wrap .overlay',
-				'exclude'  => [ 'image' ],
+				'name'           => 'grid_hover_overlay_color_hover',
+				'label'          => __( 'Overlay BG - Hover', 'the-post-grid' ),
+				'types'          => [ 'classic', 'gradient' ],
+				'selector'       => '{{WRAPPER}} .rt-tpg-container .rt-grid-hover-item .rt-holder .grid-hover-content:after, {{WRAPPER}} .tpg-el-main-wrapper .rt-holder:hover .tpg-el-image-wrap .overlay',
+				'exclude'        => [ 'image' ],
+				'fields_options' => [
+					'background' => [
+						'label' => esc_html__( 'Overlay Background Type - Hover', 'the-post-grid' ),
+					],
+					'color'      => [
+						'label' => 'Background Color',
+					],
+					'color_b'    => [
+						'label' => 'Background Color 2',
+					],
+				],
 			]
 		);
 
@@ -3736,6 +3751,84 @@ class rtTPGElementorHelper {
 
 		$ref->end_controls_tabs();
 
+		$ref->add_control(
+			'hr_for_overlay',
+			[
+				'type' => \Elementor\Controls_Manager::DIVIDER,
+			]
+		);
+
+		$overlay_type_opt = [
+			'always'              => __( 'Show Always', 'the-post-grid' ),
+			'fadein-on-hover'     => __( 'FadeIn on hover', 'the-post-grid' ),
+			'fadeout-on-hover'    => __( 'FadeOut on hover', 'the-post-grid' ),
+			'slidein-on-hover'    => __( 'SlideIn on hover', 'the-post-grid' ),
+			'slideout-on-hover'   => __( 'SlideOut on hover', 'the-post-grid' ),
+			'zoomin-on-hover'     => __( 'ZoomIn on hover', 'the-post-grid' ),
+			'zoomout-on-hover'    => __( 'ZoomOut on hover', 'the-post-grid' ),
+			'zoominall-on-hover'  => __( 'ZoomIn Content on hover', 'the-post-grid' ),
+			'zoomoutall-on-hover' => __( 'ZoomOut Content on hover', 'the-post-grid' ),
+		];
+
+		if ( $ref->prefix == 'grid_hover' || $ref->prefix == 'slider' ) {
+			$overlay_type_opt2 = [
+				'flipin-on-hover'  => __( 'FlipIn on hover', 'the-post-grid' ),
+				'flipout-on-hover' => __( 'FlipOut on hover', 'the-post-grid' ),
+			];
+			$overlay_type_opt  = array_merge( $overlay_type_opt, $overlay_type_opt2 );
+		}
+
+		$ref->add_control(
+			'grid_hover_overlay_type',
+			[
+				'label'        => __( 'Overlay Type', 'the-post-grid' ),
+				'type'         => \Elementor\Controls_Manager::SELECT,
+				'default'      => 'always',
+				'options'      => $overlay_type_opt,
+				'description'  => __( 'If you don\'t choose overlay background then it will work only for some selected layout ', 'the-post-grid' ),
+				'prefix_class' => 'grid-hover-overlay-type-',
+			]
+		);
+
+		$overlay_height_condition = [
+			'grid_hover_layout!' => [ 'grid_hover-layout3' ],
+		];
+		if ( $ref->prefix === 'slider' ) {
+			$overlay_height_condition = [
+				'slider_layout!' => [ '' ],
+			];
+		}
+		$ref->add_control(
+			'grid_hover_overlay_height',
+			[
+				'label'        => __( 'Overlay Height', 'the-post-grid' ),
+				'type'         => \Elementor\Controls_Manager::SELECT,
+				'default'      => 'default',
+				'options'      => [
+					'default' => __( 'Default', 'the-post-grid' ),
+					'full'    => __( '100%', 'the-post-grid' ),
+					'auto'    => __( 'Auto', 'the-post-grid' ),
+				],
+				'condition'    => $overlay_height_condition,
+				'prefix_class' => 'grid-hover-overlay-height-',
+			]
+		);
+
+		$ref->add_control(
+			'on_hover_overlay',
+			[
+				'label'        => __( 'Overlay Height on hover', 'the-post-grid' ),
+				'type'         => \Elementor\Controls_Manager::SELECT,
+				'default'      => 'default',
+				'options'      => [
+					'default' => __( 'Default', 'the-post-grid' ),
+					'full'    => __( '100%', 'the-post-grid' ),
+					'auto'    => __( 'Auto', 'the-post-grid' ),
+				],
+				'condition'    => $overlay_height_condition,
+				'prefix_class' => 'hover-overlay-height-',
+			]
+		);
 
 		$ref->end_controls_section();
 	}
@@ -6339,11 +6432,16 @@ class rtTPGElementorHelper {
 			$ref->add_group_control(
 				\Elementor\Group_Control_Background::get_type(),
 				[
-					'name'      => 'box_background',
-					'label'     => __( 'Background', 'the-post-grid' ),
-					'types'     => [ 'classic', 'gradient' ],
-					'selector'  => 'body {{WRAPPER}} .tpg-el-main-wrapper .tpg-post-holder',
-					'condition' => [
+					'name'           => 'box_background',
+					'label'          => __( 'Background', 'the-post-grid' ),
+					'fields_options' => [
+						'background' => [
+							'label' => esc_html__( 'Card Background', 'the-post-grid' ),
+						],
+					],
+					'types'          => [ 'classic', 'gradient' ],
+					'selector'       => 'body {{WRAPPER}} .tpg-el-main-wrapper .tpg-post-holder',
+					'condition'      => [
 						$prefix . '_layout!' => [ 'slider-layout13' ],
 					],
 				]
@@ -6352,11 +6450,16 @@ class rtTPGElementorHelper {
 			$ref->add_group_control(
 				\Elementor\Group_Control_Background::get_type(),
 				[
-					'name'      => 'box_background2',
-					'label'     => __( 'Background', 'the-post-grid' ),
-					'types'     => [ 'classic', 'gradient' ],
-					'selector'  => 'body {{WRAPPER}} .rt-tpg-container .slider-layout13 .rt-holder .post-content',
-					'condition' => [
+					'name'           => 'box_background2',
+					'label'          => __( 'Background', 'the-post-grid' ),
+					'fields_options' => [
+						'background' => [
+							'label' => esc_html__( 'Card Background', 'the-post-grid' ),
+						],
+					],
+					'types'          => [ 'classic', 'gradient' ],
+					'selector'       => 'body {{WRAPPER}} .rt-tpg-container .slider-layout13 .rt-holder .post-content',
+					'condition'      => [
 						$prefix . '_layout' => [ 'slider-layout13' ],
 					],
 				]
@@ -6428,11 +6531,16 @@ class rtTPGElementorHelper {
 			$ref->add_group_control(
 				\Elementor\Group_Control_Background::get_type(),
 				[
-					'name'      => 'box_background_hover',
-					'label'     => __( 'Background - Hover', 'the-post-grid' ),
-					'types'     => [ 'classic', 'gradient' ],
-					'selector'  => 'body {{WRAPPER}} .tpg-el-main-wrapper .tpg-post-holder:hover',
-					'condition' => [
+					'name'           => 'box_background_hover',
+					'label'          => __( 'Background - Hover', 'the-post-grid' ),
+					'fields_options' => [
+						'background' => [
+							'label' => esc_html__( 'Card Background - Hover', 'the-post-grid' ),
+						],
+					],
+					'types'          => [ 'classic', 'gradient' ],
+					'selector'       => 'body {{WRAPPER}} .tpg-el-main-wrapper .tpg-post-holder:hover',
+					'condition'      => [
 						$prefix . '_layout!' => [ 'slider-layout13' ],
 					],
 				]
@@ -6441,11 +6549,16 @@ class rtTPGElementorHelper {
 			$ref->add_group_control(
 				\Elementor\Group_Control_Background::get_type(),
 				[
-					'name'      => 'box_background_hover2',
-					'label'     => __( 'Background - Hover', 'the-post-grid' ),
-					'types'     => [ 'classic', 'gradient' ],
-					'selector'  => 'body {{WRAPPER}} .rt-tpg-container .slider-layout13 .rt-holder .post-content',
-					'condition' => [
+					'name'           => 'box_background_hover2',
+					'label'          => __( 'Background - Hover', 'the-post-grid' ),
+					'fields_options' => [
+						'background' => [
+							'label' => esc_html__( 'Card Background - Hover', 'the-post-grid' ),
+						],
+					],
+					'types'          => [ 'classic', 'gradient' ],
+					'selector'       => 'body {{WRAPPER}} .rt-tpg-container .slider-layout13 .rt-holder .post-content',
+					'condition'      => [
 						$prefix . '_layout' => [ 'slider-layout13' ],
 					],
 				]
@@ -7529,11 +7642,16 @@ class rtTPGElementorHelper {
 		$ref->add_group_control(
 			\Elementor\Group_Control_Background::get_type(),
 			[
-				'name'     => 'thumb_wrapper_bg',
-				'label'    => __( 'Thumb Wrapper Background', 'the-post-grid' ),
-				'types'    => [ 'classic', 'gradient' ],
-				'selector' => '{{WRAPPER}} .tpg-el-main-wrapper .slider-thumb-main-wrapper, {{WRAPPER}} .tpg-el-main-wrapper .slider-layout12 .slider-thumb-main-wrapper',
-				'exclude'  => [ 'image' ],
+				'name'           => 'thumb_wrapper_bg',
+				'label'          => __( 'Thumb Wrapper Background', 'the-post-grid' ),
+				'fields_options' => [
+					'background' => [
+						'label' => esc_html__( 'Thumb Wrapper Background', 'the-post-grid' ),
+					],
+				],
+				'types'          => [ 'classic', 'gradient' ],
+				'selector'       => '{{WRAPPER}} .tpg-el-main-wrapper .slider-thumb-main-wrapper, {{WRAPPER}} .tpg-el-main-wrapper .slider-layout12 .slider-thumb-main-wrapper',
+				'exclude'        => [ 'image' ],
 			]
 		);
 

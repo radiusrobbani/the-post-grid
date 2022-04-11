@@ -331,7 +331,8 @@ i.tpg-grid-icon {
 .elementor-control.elementor-control-user_icon .elementor-fit-aspect-ratio,
 .elementor-control.elementor-control-date_icon .elementor-fit-aspect-ratio,
 .elementor-control.elementor-control-tag_icon .elementor-fit-aspect-ratio,
-.elementor-control.elementor-control-cat_icon .elementor-fit-aspect-ratio {
+.elementor-control.elementor-control-cat_icon .elementor-fit-aspect-ratio,
+.elementor-control.elementor-control-post_count_icon .elementor-fit-aspect-ratio {
     padding-bottom: 25%;
 }
 
@@ -556,14 +557,14 @@ body .elementor-panel .elementor-tab-control-settings a:before {
 .the-post-grid-pro-needed.tpg-image-select.slider-layout .elementor-choices .elementor-choices-label:nth-of-type(n+1),
 .the-post-grid-pro-needed.tpg-image-select.grid-hover-layout .elementor-choices .elementor-choices-label:nth-of-type(n+4),
 .the-post-grid-pro-needed.tpg-image-select.list-layout .elementor-choices .elementor-choices-label:nth-of-type(n+4),
-.the-post-grid-pro-needed.tpg-image-select.grid-layout .elementor-choices .elementor-choices-label:nth-of-type(n+3) {
+.the-post-grid-pro-needed.tpg-image-select.grid-layout .elementor-choices .elementor-choices-label:nth-of-type(n+4) {
     pointer-events: none;
 }
 
 .the-post-grid-pro-needed.tpg-image-select.slider-layout .elementor-choices .elementor-choices-label:nth-of-type(n+2)::before,
 .the-post-grid-pro-needed.tpg-image-select.grid-hover-layout .elementor-choices .elementor-choices-label:nth-of-type(n+4)::before,
 .the-post-grid-pro-needed.tpg-image-select.list-layout .elementor-choices .elementor-choices-label:nth-of-type(n+4)::before,
-.the-post-grid-pro-needed.tpg-image-select.grid-layout .elementor-choices .elementor-choices-label:nth-of-type(n+3)::before {
+.the-post-grid-pro-needed.tpg-image-select.grid-layout .elementor-choices .elementor-choices-label:nth-of-type(n+4)::before {
     content: "";
     width: 100%;
     height: 100%;
@@ -577,7 +578,7 @@ body .elementor-panel .elementor-tab-control-settings a:before {
 .the-post-grid-pro-needed.tpg-image-select.slider-layout .elementor-choices .elementor-choices-label:nth-of-type(n+1)::after,
 .the-post-grid-pro-needed.tpg-image-select.grid-hover-layout .elementor-choices .elementor-choices-label:nth-of-type(n+4)::after,
 .the-post-grid-pro-needed.tpg-image-select.list-layout .elementor-choices .elementor-choices-label:nth-of-type(n+4)::after,
-.the-post-grid-pro-needed.tpg-image-select.grid-layout .elementor-choices .elementor-choices-label:nth-of-type(n+3)::after {
+.the-post-grid-pro-needed.tpg-image-select.grid-layout .elementor-choices .elementor-choices-label:nth-of-type(n+4)::after {
     content: "Pro";
     position: absolute;
     top: 0;
