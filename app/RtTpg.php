@@ -13,35 +13,39 @@ use RT\ThePostGrid\Controllers\ShortcodeController;
 use RT\ThePostGrid\Controllers\Hooks\FilterHooks;
 use RT\ThePostGrid\Controllers\Hooks\ActionHooks;
 use RT\ThePostGrid\Helpers\Install;
+use RT\ThePostGrid\Controllers\Admin\UpgradeController;
 
 require_once __DIR__ . './../vendor/autoload.php';
 
 if ( ! class_exists( RtTpg::class ) ) {
 	final class RtTpg {
+
 		public $post_type = "rttpg";
-		public $options = [
-			'settings'          => 'rt_the_post_grid_settings',
-			'version'           => RT_THE_POST_GRID_VERSION,
-			'installed_version' => 'rt_the_post_grid_current_version',
-			'slug'              => RT_THE_POST_GRID_PLUGIN_SLUG
-		];
-		public $defaultSettings = [
-			'popup_fields'       => [
-				'title',
-				'feature_img',
-				'content',
-				'post_date',
-				'author',
-				'categories',
-				'tags',
-				'social_share',
-			],
-			'social_share_items' => [
-				'facebook',
-				'twitter',
-				'linkedin'
-			]
-		];
+		public $options
+			= [
+				'settings'          => 'rt_the_post_grid_settings',
+				'version'           => RT_THE_POST_GRID_VERSION,
+				'installed_version' => 'rt_the_post_grid_current_version',
+				'slug'              => RT_THE_POST_GRID_PLUGIN_SLUG,
+			];
+		public $defaultSettings
+			= [
+				'popup_fields'       => [
+					'title',
+					'feature_img',
+					'content',
+					'post_date',
+					'author',
+					'categories',
+					'tags',
+					'social_share',
+				],
+				'social_share_items' => [
+					'facebook',
+					'twitter',
+					'linkedin',
+				],
+			];
 
 		protected static $_instance;
 
@@ -70,18 +74,9 @@ if ( ! class_exists( RtTpg::class ) ) {
 
 
 		protected function __init() {
-
-//			if ( is_admin() || true ) {
-//				if( ! function_exists('get_plugin_data') ){
-//					require_once( ABSPATH . 'wp-admin/includes/plugin.php' );
-//				}
-//				$plugin_data = get_plugin_data( RT_THE_POST_GRID_PRO_PLUGIN_ACTIVE_FILE_NAME );
-//
-//				echo "<pre>";
-//				echo "from free ";
-//				print_r( $plugin_data['Version'] );
-//				echo "</pre>";
-//			}
+			if ( $this->hasPro() ) {
+				new UpgradeController();
+			}
 
 			new PostTypeController();
 			if ( is_admin() ) {
@@ -102,7 +97,6 @@ if ( ! class_exists( RtTpg::class ) ) {
 			new GutenBergController();
 
 			$this->load_hooks();
-
 		}
 
 		private function load_hooks() {
@@ -150,7 +144,7 @@ if ( ! class_exists( RtTpg::class ) ) {
 		}
 
 		public function default_template_path() {
-			return apply_filters('rttpg_default_template_path', untrailingslashit( plugin_dir_path( RT_THE_POST_GRID_PLUGIN_FILE ) ));
+			return apply_filters( 'rttpg_default_template_path', untrailingslashit( plugin_dir_path( RT_THE_POST_GRID_PLUGIN_FILE ) ) );
 		}
 
 		public static function nonceText() {
@@ -183,7 +177,7 @@ if ( ! class_exists( RtTpg::class ) ) {
 
 
 		public function hasPro() {
-			return class_exists( 'RtTpgPro' );
+			return class_exists( 'RtTpgPro' ) || class_exists('rtTPGP');
 		}
 
 	}
