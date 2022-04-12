@@ -202,7 +202,7 @@ class Fns {
 			Options::rtTPGPostType(),
 			Options::rtTPGStyleButtonColorFields(),
 			Options::rtTPAdvanceFilters(),
-		//			Options::itemFields()
+			Options::itemFields()
 		);
 
 		return $fields;
@@ -1949,7 +1949,7 @@ class Fns {
 			}
 		}
 
-		$comments_text = sprintf( '%s (%s)', esc_html($comment_label), number_format_i18n( $comments_number ) );
+		$comments_text = sprintf( '%s (%s)', esc_html( $comment_label ), number_format_i18n( $comments_number ) );
 		$date          = get_the_date();
 
 		//Category and Tags Management

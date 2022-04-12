@@ -5,12 +5,12 @@ namespace RT\ThePostGrid\Helpers;
 
 
 class Install {
+
 	public static function activate() {
 		self::insertDefaultData();
 	}
 
 	public static function deactivate() {
-
 	}
 
 	public static function insertDefaultData() {
@@ -19,4 +19,5 @@ class Install {
 			update_option( rtTPG()->options['settings'], rtTPG()->defaultSettings );
 		}
 	}
+
 }

@@ -74,8 +74,8 @@ if ( ! class_exists( RtTpg::class ) ) {
 
 
 		protected function __init() {
-			if ( $this->hasPro() ) {
-				new UpgradeController();
+			if ( $this->hasPro() && UpgradeController::check_plugin_version() == false ) {
+				return;
 			}
 
 			new PostTypeController();

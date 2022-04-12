@@ -199,10 +199,10 @@ class Options {
 				],
 
 				'cf_hide_empty_value_details' => [
-					'type'  => 'switch',
-					'name'  => 'cf_hide_empty_value_details',
-					'label' => __( 'Hide field with empty value', 'the-post-grid' ),
-					'value' => isset( $settings['cf_hide_empty_value_details'] ) ? $settings['cf_hide_empty_value_details'] : false,
+					'type'        => 'switch',
+					'name'        => 'cf_hide_empty_value_details',
+					'label'       => __( 'Hide field with empty value', 'the-post-grid' ),
+					'value'       => isset( $settings['cf_hide_empty_value_details'] ) ? $settings['cf_hide_empty_value_details'] : false,
 					'holderClass' => 'pro-field',
 				],
 
@@ -216,10 +216,10 @@ class Options {
 				],
 
 				'cf_hide_group_title_details' => [
-					'type'  => 'switch',
-					'name'  => 'cf_hide_group_title_details',
-					'label' => __( 'Hide group title', 'the-post-grid' ),
-					'value' => isset( $settings['cf_hide_group_title_details'] ) ? $settings['cf_hide_group_title_details'] : false,
+					'type'        => 'switch',
+					'name'        => 'cf_hide_group_title_details',
+					'label'       => __( 'Hide group title', 'the-post-grid' ),
+					'value'       => isset( $settings['cf_hide_group_title_details'] ) ? $settings['cf_hide_group_title_details'] : false,
 					'holderClass' => 'pro-field',
 				],
 			];

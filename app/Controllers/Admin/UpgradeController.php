@@ -5,11 +5,7 @@ namespace RT\ThePostGrid\Controllers\Admin;
 
 class UpgradeController {
 
-	public function __construct() {
-		$this->check_plugin_version();
-	}
-
-	public function check_plugin_version() {
+	public static function check_plugin_version() {
 		if ( version_compare( RT_TPG_PRO_VERSION, '5', '<' ) ) {
 			add_action( 'admin_notices',
 				function () {
@@ -23,8 +19,9 @@ class UpgradeController {
 						$text );
 				} );
 
-			return;
+			return false;
 		}
+		return true;
 	}
 
 }
