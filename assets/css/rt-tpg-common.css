@@ -1932,9 +1932,10 @@ Common Layout Style
 }
 
 /*----------- Widget Heading -------------*/
+
 .tpg-widget-heading-wrapper {
     position: relative;
-    margin-bottom: 20px;
+    margin-bottom: 30px;
     display: flex;
 }
 
@@ -2210,6 +2211,10 @@ TPG EVEN Style
     margin-top: 30px;
 }
 
+.tpg-el-main-wrapper .rt-pagination-wrap .rt-pagination {
+    margin: 0;
+}
+
 .rt-tpg-container .rt-pagination-wrap .rt-loadmore-style {
     cursor: pointer;
     position: relative;
@@ -2309,6 +2314,7 @@ TPG EVEN Style
     padding: 0;
     min-width: auto;
 }
+
 .rt-tpg-container .rt-pagination-wrap .rt-page-numbers .paginationjs .paginationjs-pages ul li.paginationjs-ellipsis a {
     border: none;
     pointer-events: none;

@@ -276,9 +276,16 @@ abstract class Custom_Widget_Base extends Widget_Base {
 	 * @return string
 	 */
 	public function get_frontend_filter_markup( $data ) {
-		if ( ! rtTPG()->hasPro() ) {
+
+		if ( ! rtTPG()->hasPro()
+		     || ! ( $data['show_taxonomy_filter'] == 'show' || $data['show_author_filter'] == 'show' || $data['show_order_by'] == 'show'
+		          || $data['show_sort_order'] == 'show'
+		          || $data['show_search'] == 'show' )
+		) {
 			return;
 		}
+
+
 		$html             = null;
 		$wrapperContainer = $wrapperClass = $itemClass = $filter_btn_item_per_page = '';
 

@@ -102,7 +102,7 @@ class Options {
 				'name'        => 'tpg_load_script',
 				'label'       => __( 'Load Script only ShortCode page', 'the-post-grid' ),
 				'description' => __( 'If you enable this, script will be loaded only ShortCode page.', 'the-post-grid' ),
-				'value'       => isset( $settings['tpg_load_script'] ) ? $settings['tpg_load_script'] : false,
+				'value'       => isset( $settings['tpg_load_script'] ) ? $settings['tpg_load_script'] : true,
 			],
 			'tpg_enable_preloader' => [
 				'type'        => 'switch',

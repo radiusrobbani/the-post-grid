@@ -716,7 +716,7 @@ class rtTPGElementorHelper {
 				[
 					'label'       => __( 'Layout Style', 'the-post-grid' ),
 					'type'        => \Elementor\Controls_Manager::SELECT,
-					'default'     => 'tpg-even',
+					'default'     => 'tpg-full-height',
 					'options'     => $layout_style_opt,
 					'description' => __( 'If you use card border then equal height will work. ', 'the-post-grid' ) . $ref->get_pro_message( "masonry layout" ),
 					'classes'     => rtTPG()->hasPro() ? '' : 'tpg-should-hide-field',
