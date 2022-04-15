@@ -18,6 +18,11 @@
     height: 100%;
 }
 
+.grid_hover-layout9-main .tpg-even .rt-holder,
+.grid_hover-layout9-2-main .tpg-even .rt-holder {
+    display: block;
+}
+
 .rt-el-post-meta span.author {
     margin-bottom: 2px;
 }

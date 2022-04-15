@@ -2179,7 +2179,7 @@ class Fns {
 	}
 
 	static function get_el_thumb_cat( $data, $class = 'cat-over-image' ) {
-		if ( 'hide' === $data['show_category'] ) {
+		if ( ! ('show' == $data['show_meta'] && 'show' == $data['show_category']) ) {
 			return;
 		}
 		$pID               = get_the_ID();

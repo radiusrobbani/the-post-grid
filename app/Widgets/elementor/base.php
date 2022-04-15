@@ -276,19 +276,16 @@ abstract class Custom_Widget_Base extends Widget_Base {
 	 * @return string
 	 */
 	public function get_frontend_filter_markup( $data ) {
-
 		if ( ! rtTPG()->hasPro()
 		     || ! ( $data['show_taxonomy_filter'] == 'show' || $data['show_author_filter'] == 'show' || $data['show_order_by'] == 'show'
-		          || $data['show_sort_order'] == 'show'
-		          || $data['show_search'] == 'show' )
+		            || $data['show_sort_order'] == 'show'
+		            || $data['show_search'] == 'show' )
 		) {
 			return;
 		}
 
-
 		$html             = null;
 		$wrapperContainer = $wrapperClass = $itemClass = $filter_btn_item_per_page = '';
-
 
 		if ( 'carousel' === $data['filter_btn_style'] ) {
 			$wrapperContainer  = 'swiper';
@@ -819,8 +816,8 @@ abstract class Custom_Widget_Base extends Widget_Base {
 			'block_type'                   => 'elementor',
 			'prefix'                       => $_prefix,
 			'gird_column'                  => $data[ $_prefix . '_column' ],
-			'gird_column_tablet'           => ( isset( $data[ $_prefix . '_column_tablet' ] ) ) ? $data[ $_prefix . '_column_tablet' ] : '0',
-			'gird_column_mobile'           => ( isset( $data[ $_prefix . '_column_mobile' ] ) ) ? $data[ $_prefix . '_column_mobile' ] : '0',
+			'gird_column_tablet'           => isset( $data[ $_prefix . '_column_tablet' ] ) ? $data[ $_prefix . '_column_tablet' ] : '0',
+			'gird_column_mobile'           => isset( $data[ $_prefix . '_column_mobile' ] ) ? $data[ $_prefix . '_column_mobile' ] : '0',
 			'layout'                       => $data[ $_prefix . '_layout' ],
 			'pagination_type'              => 'slider' === $_prefix ? 'slider' : $data['pagination_type'],
 			'total_pages'                  => $total_pages,
@@ -854,7 +851,7 @@ abstract class Custom_Widget_Base extends Widget_Base {
 			'show_read_more'               => $data['show_read_more'],
 			'show_btn_icon'                => $data['show_btn_icon'],
 			'show_social_share'            => $data['show_social_share'],
-			'show_cat_icon'                => $data['show_cat_icon'],
+			'show_cat_icon'                => isset( $data['show_cat_icon'] ) ? $data['show_cat_icon'] : '',
 			'is_thumb_linked'              => $data['is_thumb_linked'],
 			'media_source'                 => $data['media_source'],
 			'no_posts_found_text'          => isset( $data['no_posts_found_text'] ) ? $data['no_posts_found_text'] : '',
@@ -883,7 +880,7 @@ abstract class Custom_Widget_Base extends Widget_Base {
 			'comment_icon'                 => $data['comment_icon'],
 			'image_custom_dimension'       => ( $data['image_size'] == 'custom' && isset( $data['image_custom_dimension'] ) ) ? $data['image_custom_dimension'] : '',
 			'img_crop_style'               => ( $data['image_size'] == 'custom' && isset( $data['img_crop_style'] ) ) ? $data['img_crop_style'] : '',
-			'show_acf'                     => ( isset( $data['show_acf'] ) ) ? $data['show_acf'] : '',
+			'show_acf'                     => isset( $data['show_acf'] ) ? $data['show_acf'] : '',
 		];
 
 		$cf = Fns::checkWhichCustomMetaPluginIsInstalled();

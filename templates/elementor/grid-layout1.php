@@ -75,7 +75,10 @@ if ( 'masonry' == $data['layout_style'] ) {
 							<?php echo wp_kses_post( $excerpt ); ?>
                         </div>
 					<?php endif; ?>
-					<?php Fns::tpg_get_acf_data_elementor( $data, $pID ); ?>
+					<?php Fns::tpg_get_acf_data_elementor( $data, $pID );
+
+
+					?>
                 </div>
 			<?php endif; ?>
 

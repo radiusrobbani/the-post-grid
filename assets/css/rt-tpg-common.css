@@ -2345,7 +2345,7 @@ TPG EVEN Style
 
 .rt-pagination .pagination-list > li {
     display: inline-block;
-    margin: 0 2px;
+    margin: 2px 2px;
 }
 
 .rt-pagination .pagination-list > li > a,

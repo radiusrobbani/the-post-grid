@@ -1294,32 +1294,6 @@ class rtTPGElementorHelper {
 		);
 
 		$ref->add_responsive_control(
-			'list_image_side_width',
-			[
-				'label'      => __( 'List Image Width', 'the-post-grid' ),
-				'type'       => Controls_Manager::SLIDER,
-				'size_units' => [ 'px', '%' ],
-				'range'      => [
-					'px' => [
-						'min'  => 0,
-						'max'  => 700,
-						'step' => 5,
-					],
-					'%'  => [
-						'min' => 0,
-						'max' => 100,
-					],
-				],
-				'selectors'  => [
-					'{{WRAPPER}} .rt-tpg-container .list-layout-wrapper [class*="rt-col"]:not(.offset-left) .rt-holder .tpg-el-image-wrap' => 'flex: 0 0 {{SIZE}}{{UNIT}}; max-width: {{SIZE}}{{UNIT}};',
-				],
-				'condition'  => [
-					'list_layout!' => [ 'list-layout4' ],
-				],
-			]
-		);
-
-		$ref->add_responsive_control(
 			'list_left_side_width',
 			[
 				'label'      => __( 'Offset Width', 'the-post-grid' ),
@@ -1779,6 +1753,20 @@ class rtTPGElementorHelper {
 					],
 				]
 			);
+
+			$ref->add_control(
+				'cf_group',
+				[
+					'label'       => __( 'Choose Advanced Custom Field (ACF)', 'the-post-grid' ),
+					'type'        => \Elementor\Controls_Manager::SELECT2,
+					'multiple'    => true,
+					'label_block' => true,
+					'options'     => Fns::get_groups_by_post_type( 'all' ),
+					'condition'   => [
+						'show_acf' => 'show',
+					],
+				]
+			);
 		}
 
 		$ref->end_controls_section();
@@ -1803,7 +1791,6 @@ class rtTPGElementorHelper {
 				],
 			]
 		);
-
 
 
 		$ref->add_control(
@@ -1938,6 +1925,7 @@ class rtTPGElementorHelper {
 	 */
 
 	public static function post_thumbnail_settings( $ref ) {
+		$prefix = $ref->prefix;
 		$ref->start_controls_section(
 			'post_thumbnail_settings',
 			[
@@ -2048,6 +2036,34 @@ class rtTPGElementorHelper {
 				'classes'   => 'tpg-offset-thumb-size',
 			]
 		);
+
+		if ( 'list' == $prefix ) {
+			$ref->add_responsive_control(
+				'list_image_side_width',
+				[
+					'label'      => __( 'List Image Width', 'the-post-grid' ),
+					'type'       => Controls_Manager::SLIDER,
+					'size_units' => [ 'px', '%' ],
+					'range'      => [
+						'px' => [
+							'min'  => 0,
+							'max'  => 700,
+							'step' => 5,
+						],
+						'%'  => [
+							'min' => 0,
+							'max' => 100,
+						],
+					],
+					'selectors'  => [
+						'{{WRAPPER}} .rt-tpg-container .list-layout-wrapper [class*="rt-col"]:not(.offset-left) .rt-holder .tpg-el-image-wrap' => 'flex: 0 0 {{SIZE}}{{UNIT}}; max-width: {{SIZE}}{{UNIT}};',
+					],
+					'condition'  => [
+						'list_layout!' => [ 'list-layout4' ],
+					],
+				]
+			);
+		}
 
 		if ( rtTPG()->hasPro() ) {
 			$ref->add_responsive_control(
@@ -2366,9 +2382,9 @@ class rtTPGElementorHelper {
 			]
 		);
 
-		$default_excerpt_limit = 200;
-		if ( 'grid_hover' == $prefix ) {
-			$default_excerpt_limit = 100;
+		$default_excerpt_limit = 100;
+		if ( 'grid' == $prefix ) {
+			$default_excerpt_limit = 200;
 		}
 
 		$ref->add_control(
@@ -3121,17 +3137,6 @@ class rtTPGElementorHelper {
 
 	public static function get_tpg_acf_settings( $ref ) {
 		$ref->add_control(
-			'cf_group',
-			[
-				'label'       => __( 'Choose Advanced Custom Field (ACF)', 'the-post-grid' ),
-				'type'        => \Elementor\Controls_Manager::SELECT2,
-				'multiple'    => true,
-				'label_block' => true,
-				'options'     => Fns::get_groups_by_post_type( 'all' ),
-			]
-		);
-
-		$ref->add_control(
 			'cf_hide_empty_value',
 			[
 				'label'        => __( 'Hide field with empty value?', 'the-post-grid' ),
@@ -3600,7 +3605,6 @@ class rtTPGElementorHelper {
 			]
 		);
 
-
 		$ref->add_responsive_control(
 			'thumbnail_spacing',
 			[
@@ -3609,6 +3613,13 @@ class rtTPGElementorHelper {
 				'size_units' => [ 'px' ],
 				'selectors'  => [
 					'{{WRAPPER}} .tpg-el-main-wrapper .tpg-el-image-wrap' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+				],
+				'default'    => [
+					'top'      => '',
+					'right'    => '',
+					'bottom'   => '',
+					'left'     => '',
+					'isLinked' => false,
 				],
 			]
 		);
@@ -3858,6 +3869,7 @@ class rtTPGElementorHelper {
 			\Elementor\Group_Control_Typography::get_type(),
 			[
 				'name'     => 'title_typography',
+				'label' => esc_html__( 'Typography', 'the-post-grid' ),
 				'selector' => '{{WRAPPER}} .tpg-el-main-wrapper .entry-title-wrapper .entry-title',
 			]
 		);
@@ -3867,8 +3879,8 @@ class rtTPGElementorHelper {
 			\Elementor\Group_Control_Typography::get_type(),
 			[
 				'name'        => 'title_offset_typography',
+				'label' => esc_html__( 'Offset Typography', 'the-post-grid' ),
 				'selector'    => '{{WRAPPER}} .tpg-el-main-wrapper .offset-left .entry-title-wrapper .entry-title',
-				'classes'     => 'tpg-offset-title',
 				'description' => __( 'You can overwrite offset title font style', 'the-post-grid' ),
 				'condition'   => [
 					$prefix . '_layout' => [
