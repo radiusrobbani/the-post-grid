@@ -1752,12 +1752,16 @@ class Fns {
 		return $groups;
 	}
 
-	public static function get_groups_by_post_type_cpt( $post_type ) {
-	}
-
+	/**
+     * Get ACF post group
+	 * @param $post_type
+	 *
+	 * @return array
+	 */
 	public static function get_groups_by_post_type_acf( $post_type ) {
 		$groups   = [];
 		$groups_q = get_posts( [ 'post_type' => 'acf-field-group', 'posts_per_page' => - 1 ] );
+
 		if ( ! empty( $groups_q ) ) {
 			foreach ( $groups_q as $group ) {
 				$c    = $group->post_content ? unserialize( $group->post_content ) : [];
@@ -1772,9 +1776,10 @@ class Fns {
 									$flag = true;
 								}
 							} else {
-								if ( ( ! empty( $rule['param'] ) && $rule['param'] == 'post_type' )
+								if ( ( ! empty( $rule['param'] ) && ( $rule['param'] == 'post_type' || ($rule['param'] == 'post_category' && 'post' == $post_type) ) )
 								     && ( ! empty( $rule['operator'] ) && $rule['operator'] == '==' )
-								     && ( ! empty( $rule['value'] ) && $rule['value'] == $post_type )
+								     && ( ! empty( $rule['value'] ) && ( $rule['value'] == $post_type || ($rule['param'] == 'post_category' && 'post' == $post_type) ) )
+
 								) {
 									$flag = true;
 								}
@@ -2179,7 +2184,7 @@ class Fns {
 	}
 
 	static function get_el_thumb_cat( $data, $class = 'cat-over-image' ) {
-		if ( ! ('show' == $data['show_meta'] && 'show' == $data['show_category']) ) {
+		if ( ! ( 'show' == $data['show_meta'] && 'show' == $data['show_category'] ) ) {
 			return;
 		}
 		$pID               = get_the_ID();

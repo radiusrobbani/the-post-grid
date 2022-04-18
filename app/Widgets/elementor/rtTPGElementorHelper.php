@@ -415,13 +415,13 @@ class rtTPGElementorHelper {
 				$prefix . '-layout1'   => [
 					'title' => __( 'Layout 1', 'the-post-grid' ),
 				],
-				$prefix . '-layout2'   => [
+				$prefix . '-layout3'   => [
 					'title' => __( 'Layout 2', 'the-post-grid' ),
 				],
-				$prefix . '-layout3'   => [
+				$prefix . '-layout4'   => [
 					'title' => __( 'Layout 3', 'the-post-grid' ),
 				],
-				$prefix . '-layout4'   => [
+				$prefix . '-layout2'   => [
 					'title' => __( 'Layout 4', 'the-post-grid' ),
 				],
 				$prefix . '-layout5'   => [
@@ -1003,7 +1003,8 @@ class rtTPGElementorHelper {
 				'tablet_default' => 'auto',
 				'mobile_default' => 'auto',
 				'condition'      => [
-					'filter_type' => 'button',
+					'filter_type'      => 'button',
+					'filter_btn_style' => 'carousel',
 				],
 				'conditions'     => $front_end_filter_condition,
 				'description'    => __( 'If you use carousel then only category section show on the filter', 'the-post-grid' ),
@@ -2676,24 +2677,6 @@ class rtTPGElementorHelper {
 		);
 
 		$ref->add_control(
-			'show_author_image',
-			[
-				'label'        => __( 'Author Image / Icon', 'the-post-grid' ),
-				'type'         => \Elementor\Controls_Manager::SWITCHER,
-				'label_on'     => __( 'Image', 'the-post-grid' ),
-				'label_off'    => __( 'Icon', 'the-post-grid' ),
-				'return_value' => 'show',
-				'default'      => 'show',
-				'render_type'  => 'template',
-				'prefix_class' => 'author-image-visibility-',
-				'condition'    => [
-					'show_author!'       => '',
-					$prefix . '_layout!' => [ 'grid-layout7' ],
-				],
-			]
-		);
-
-		$ref->add_control(
 			'author_icon_visibility',
 			[
 				'label'        => __( 'Author Icon Visibility', 'the-post-grid' ),
@@ -2708,6 +2691,25 @@ class rtTPGElementorHelper {
 					'show_author!' => '',
 				],
 				'prefix_class' => 'tpg-is-author-icon-',
+			]
+		);
+
+		$ref->add_control(
+			'show_author_image',
+			[
+				'label'        => __( 'Author Image / Icon', 'the-post-grid' ),
+				'type'         => \Elementor\Controls_Manager::SWITCHER,
+				'label_on'     => __( 'Image', 'the-post-grid' ),
+				'label_off'    => __( 'Icon', 'the-post-grid' ),
+				'return_value' => 'show',
+				'default'      => 'show',
+				'render_type'  => 'template',
+				'prefix_class' => 'author-image-visibility-',
+				'condition'    => [
+					'show_author!'       => '',
+					'author_icon_visibility!' => 'hide',
+					$prefix . '_layout!' => [ 'grid-layout7' ],
+				],
 			]
 		);
 
@@ -3297,6 +3299,7 @@ class rtTPGElementorHelper {
 	 * @param $ref
 	 */
 	public static function sectionTitle( $ref, $layout_type = '' ) {
+		$prefix = $ref->prefix;
 		$ref->start_controls_section(
 			'tpg_section_title_style',
 			[
@@ -3344,7 +3347,7 @@ class rtTPGElementorHelper {
 		$ref->add_responsive_control(
 			'section_title_margin',
 			[
-				'label'              => __( 'Margin', 'the-post-grid' ),
+				'label'              => __( 'Margin Y axis', 'the-post-grid' ),
 				'type'               => Controls_Manager::DIMENSIONS,
 				'size_units'         => [ 'px' ],
 				'allowed_dimensions' => 'vertical', //horizontal, vertical, [ 'top', 'right', 'bottom', 'left' ]
@@ -3356,10 +3359,32 @@ class rtTPGElementorHelper {
 					'isLinked' => false,
 				],
 				'selectors'          => [
-					'{{WRAPPER}} .tpg-widget-heading-wrapper' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+					'{{WRAPPER}} .tpg-widget-heading-wrapper' => 'margin-top: {{TOP}}{{UNIT}}; margin-bottom: {{BOTTOM}}{{UNIT}};',
 				],
 			]
 		);
+
+		if ( 'slider' === $prefix ) {
+			$ref->add_responsive_control(
+				'section_title_padding',
+				[
+					'label'              => __( 'Padding', 'the-post-grid' ),
+					'type'               => Controls_Manager::DIMENSIONS,
+					'size_units'         => [ 'px' ],
+					'allowed_dimensions' => 'all', //horizontal, vertical, [ 'top', 'right', 'bottom', 'left' ]
+					'default'            => [
+						'top'      => '',
+						'right'    => '',
+						'bottom'   => '',
+						'left'     => '',
+						'isLinked' => false,
+					],
+					'selectors'          => [
+						'{{WRAPPER}} .slider-layout-main .tpg-widget-heading-wrapper' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+					],
+				]
+			);
+		}
 
 		$ref->add_group_control(
 			\Elementor\Group_Control_Typography::get_type(),
@@ -3869,7 +3894,7 @@ class rtTPGElementorHelper {
 			\Elementor\Group_Control_Typography::get_type(),
 			[
 				'name'     => 'title_typography',
-				'label' => esc_html__( 'Typography', 'the-post-grid' ),
+				'label'    => esc_html__( 'Typography', 'the-post-grid' ),
 				'selector' => '{{WRAPPER}} .tpg-el-main-wrapper .entry-title-wrapper .entry-title',
 			]
 		);
@@ -3879,7 +3904,7 @@ class rtTPGElementorHelper {
 			\Elementor\Group_Control_Typography::get_type(),
 			[
 				'name'        => 'title_offset_typography',
-				'label' => esc_html__( 'Offset Typography', 'the-post-grid' ),
+				'label'       => esc_html__( 'Offset Typography', 'the-post-grid' ),
 				'selector'    => '{{WRAPPER}} .tpg-el-main-wrapper .offset-left .entry-title-wrapper .entry-title',
 				'description' => __( 'You can overwrite offset title font style', 'the-post-grid' ),
 				'condition'   => [
@@ -4515,8 +4540,8 @@ class rtTPGElementorHelper {
 				'type'      => \Elementor\Controls_Manager::COLOR,
 				'separator' => 'before',
 				'selectors' => [
-					'{{WRAPPER}} .tpg-el-main-wrapper .tpg-separate-category .categories-links a:hover' => 'color: {{VALUE}}',
-					'{{WRAPPER}} .tpg-el-main-wrapper .post-meta-tags .categories-links a:hover'        => 'color: {{VALUE}}',
+					'{{WRAPPER}} .tpg-el-main-wrapper .tpg-separate-category .categories-links a:hover' => 'color: {{VALUE}} !important',
+					'{{WRAPPER}} .tpg-el-main-wrapper .post-meta-tags .categories-links a:hover'        => 'color: {{VALUE}} !important',
 				],
 			]
 		);
@@ -6677,7 +6702,7 @@ class rtTPGElementorHelper {
 				],
 				'selectors'  => [
 					'body {{WRAPPER}} .tpg-el-main-wrapper .rt-slider-item'                     => 'padding-left: {{SIZE}}{{UNIT}};padding-right: {{SIZE}}{{UNIT}};',
-					'body {{WRAPPER}} .tpg-el-main-wrapper .rt-swiper-holder'                   => 'margin-left: -{{SIZE}}{{UNIT}};margin-right: -{{SIZE}}{{UNIT}};',
+					'body {{WRAPPER}} .tpg-el-main-wrapper .rt-swiper-holder'                   => 'margin-left: calc(-{{SIZE}}{{UNIT}} - 5px);margin-right: -{{SIZE}}{{UNIT}};',
 					'{{WRAPPER}} .rt-tpg-container .slider-column.swiper-slide .rt-slider-item' => 'padding-top: {{SIZE}}{{UNIT}}; padding-bottom: {{SIZE}}{{UNIT}};',
 				],
 				'condition'  => [
@@ -6697,7 +6722,7 @@ class rtTPGElementorHelper {
 				'return_value' => 'yes',
 				'default'      => 'yes',
 				'condition'    => [
-					$prefix . '_layout!' => [ 'slider-layout10', 'slider-layout11', 'slider-layout12' ],
+					$prefix . '_layout!' => [ 'slider-layout13', 'slider-layout11', 'slider-layout12' ],
 				],
 			]
 		);
@@ -6717,7 +6742,7 @@ class rtTPGElementorHelper {
 				],
 				'condition'    => [
 					'arrows'             => 'yes',
-					$prefix . '_layout!' => [ 'slider-layout10', 'slider-layout11', 'slider-layout12' ],
+					$prefix . '_layout!' => [ 'slider-layout13', 'slider-layout11', 'slider-layout12' ],
 				],
 				'prefix_class' => 'slider-arrow-position-',
 			]
@@ -6735,7 +6760,7 @@ class rtTPGElementorHelper {
 				'prefix_class' => 'slider-dot-enable-',
 				'render_type'  => 'template',
 				'condition'    => [
-					$prefix . '_layout!' => [ 'slider-layout10', 'slider-layout11', 'slider-layout12' ],
+					$prefix . '_layout!' => [ 'slider-layout13', 'slider-layout11', 'slider-layout12' ],
 				],
 			]
 		);
@@ -6752,7 +6777,7 @@ class rtTPGElementorHelper {
 				],
 				'condition'    => [
 					'dots'               => 'yes',
-					$prefix . '_layout!' => [ 'slider-layout10', 'slider-layout11', 'slider-layout12' ],
+					$prefix . '_layout!' => [ 'slider-layout13', 'slider-layout11', 'slider-layout12' ],
 				],
 				'prefix_class' => 'slider-dots-style-',
 			]
@@ -6862,7 +6887,7 @@ class rtTPGElementorHelper {
 				'render_type'  => 'template',
 				'description'  => __( 'If you use 2 rows then you have to put an even number for post limit' ),
 				'condition'    => [
-					$prefix . '_layout!' => [ 'slider-layout10', 'slider-layout11', 'slider-layout12' ],
+					$prefix . '_layout!' => [ 'slider-layout13', 'slider-layout11', 'slider-layout12', 'slider-layout10' ],
 				],
 			]
 		);
@@ -7053,10 +7078,11 @@ class rtTPGElementorHelper {
 				'selectors'  => [
 					'{{WRAPPER}} .rt-tpg-container .swiper-navigation .slider-btn.swiper-button-prev' => 'left: {{SIZE}}{{UNIT}};',
 					'{{WRAPPER}} .rt-tpg-container .swiper-navigation .slider-btn.swiper-button-next' => 'right: {{SIZE}}{{UNIT}};',
+					'{{WRAPPER}}.slider-arrow-position-top-right .swiper-navigation' => 'right: {{SIZE}}{{UNIT}};',
+					'{{WRAPPER}}.slider-arrow-position-top-left .swiper-navigation' => 'left: {{SIZE}}{{UNIT}};',
 				],
 				'condition'  => [
 					'arrows'         => 'yes',
-					'arrow_position' => [ 'default', 'show-hover' ],
 				],
 			]
 		);
@@ -7075,7 +7101,8 @@ class rtTPGElementorHelper {
 					],
 				],
 				'selectors'  => [
-					'{{WRAPPER}} .rt-tpg-container .swiper-navigation .slider-btn' => 'top: {{SIZE}}{{UNIT}};',
+					'{{WRAPPER}} .rt-tpg-container .swiper-navigation .slider-btn'                                                                  => 'top: {{SIZE}}{{UNIT}};',
+					'{{WRAPPER}}.slider-arrow-position-top-right .swiper-navigation, {{WRAPPER}}.slider-arrow-position-top-left .swiper-navigation' => 'top: {{SIZE}}{{UNIT}};',
 				],
 				'condition'  => [
 					'arrows' => 'yes',
