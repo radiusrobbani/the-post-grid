@@ -4325,7 +4325,7 @@ class rtTPGElementorHelper {
 	}
 
 	/**
-	 * Post Meta Style Tab
+	 * Post Meta Style
 	 *
 	 * @param $ref
 	 */
@@ -4348,7 +4348,7 @@ class rtTPGElementorHelper {
 			\Elementor\Group_Control_Typography::get_type(),
 			[
 				'name'     => 'post_meta_typography',
-				'selector' => '{{WRAPPER}} .rt-tpg-container .tpg-post-holder .rt-el-post-meta',
+				'selector' => '{{WRAPPER}} .rt-tpg-container .tpg-post-holder .rt-el-post-meta, {{WRAPPER}} .tpg-post-holder .tpg-separate-category .categories-links a',
 			]
 		);
 
@@ -5055,6 +5055,7 @@ class rtTPGElementorHelper {
 
 
 		//TODO: Box Hover Tab
+		
 		$ref->start_controls_tab(
 			'readmore_style_box_hover_tab',
 			[
@@ -5107,23 +5108,6 @@ class rtTPGElementorHelper {
 				'name'           => 'readmore_border_box_hover',
 				'label'          => __( 'Button Border - Box Hover', 'the-post-grid' ),
 				'selector'       => '{{WRAPPER}} .rt-tpg-container .tpg-post-holder:hover .rt-detail .read-more a',
-				'fields_options' => [
-					'border' => [
-						'default' => 'solid',
-					],
-					'width'  => [
-						'default' => [
-							'top'      => '1',
-							'right'    => '1',
-							'bottom'   => '1',
-							'left'     => '1',
-							'isLinked' => true,
-						],
-					],
-					'color'  => [
-						'default' => '#D4D4D4',
-					],
-				],
 				'condition'      => [
 					'readmore_btn_style' => 'default-style',
 				],

@@ -356,11 +356,11 @@ body .elementor-panel .elementor-tab-control-settings a:before {
 }
 
 .tpg-image-select.grid-layout .elementor-choices .elementor-choices-label:nth-of-type(2) {
-    background-image: url("../images/layouts/grid12.png");
+    background-image: url("../images/layouts/grid_layout8.png");
 }
 
 .tpg-image-select.grid-layout .elementor-choices .elementor-choices-label:nth-of-type(3) {
-    background-image: url("../images/layouts/grid_layout8.png");
+    background-image: url("../images/layouts/grid12.png");
 }
 
 .tpg-image-select.grid-layout .elementor-choices .elementor-choices-label:nth-of-type(4) {
