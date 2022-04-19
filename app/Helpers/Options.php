@@ -1462,12 +1462,9 @@ class Options {
 	}
 
 	public static function postLoadingType() {
-		return [
-			'pagination'      => "Pagination",
-			'pagination_ajax' => "Ajax Number Pagination ( Only for Grid )",
-			'load_more'       => "Load more button (by ajax loading)",
-			'load_on_scroll'  => "Load more on scroll (by ajax loading)",
-		];
+		return apply_filters('rttpg_pagination_type', [
+			'pagination'      => __("Pagination", "the-post-grid")
+		]);
 	}
 
 	public static function scGridOpt() {

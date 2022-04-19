@@ -22,6 +22,11 @@ class PostTypeController {
 					'remove_all_meta_boxes_tgp_sc',
 				] );
 		}
+
+		if ( get_option('rttpg_activation_redirect', false) ) {
+			delete_option('rttpg_activation_redirect');
+			wp_redirect( admin_url('edit.php?post_type=rttpg&page=rttpg_get_help') );
+		}
 	}
 
 	public function register_post_types() {

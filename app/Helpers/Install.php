@@ -8,6 +8,7 @@ class Install {
 
 	public static function activate() {
 		self::insertDefaultData();
+		add_option('rttpg_activation_redirect', true);
 	}
 
 	public static function deactivate() {

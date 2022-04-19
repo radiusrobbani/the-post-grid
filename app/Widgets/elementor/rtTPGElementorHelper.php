@@ -4266,6 +4266,21 @@ class rtTPGElementorHelper {
 			]
 		);
 
+		$ref->add_control(
+			'excerpt_border',
+			[
+				'label'     => __( 'Border color', 'the-post-grid' ),
+				'type'      => \Elementor\Controls_Manager::COLOR,
+				'selectors' => [
+					'{{WRAPPER}}.meta_position_default .tpg-el-main-wrapper .grid-layout3 .rt-holder .rt-el-post-meta::before' => 'background: {{VALUE}}',
+				],
+				'condition' => [
+					'meta_position' => 'default',
+					$prefix . '_layout' => [ 'grid-layout3' ],
+				],
+			]
+		);
+
 		$ref->end_controls_tab();
 
 		$ref->start_controls_tab(
@@ -4283,6 +4298,21 @@ class rtTPGElementorHelper {
 				'type'      => \Elementor\Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .tpg-el-main-wrapper .tpg-post-holder:hover .tpg-el-excerpt .tpg-excerpt-inner' => 'color: {{VALUE}} !important',
+				],
+			]
+		);
+
+		$ref->add_control(
+			'excerpt_border_hover',
+			[
+				'label'     => __( 'Border color - Hover', 'the-post-grid' ),
+				'type'      => \Elementor\Controls_Manager::COLOR,
+				'selectors' => [
+					'{{WRAPPER}}.meta_position_default .tpg-el-main-wrapper .grid-layout3 .rt-holder:hover .rt-el-post-meta::before' => 'background: {{VALUE}}',
+				],
+				'condition' => [
+					'meta_position' => 'default',
+					$prefix . '_layout' => [ 'grid-layout3' ],
 				],
 			]
 		);
