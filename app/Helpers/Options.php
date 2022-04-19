@@ -179,7 +179,7 @@ class Options {
 				'show_acf_details' => [
 					'type'        => 'switch',
 					'name'        => 'show_acf_details',
-					'label'       => __( 'Enable Advanced Custom Field (ACF)', 'the-post-grid' ),
+					'label'       => __( 'Enable Advanced Custom Field (ACF) for Single page', 'the-post-grid' ),
 					'description' => __( "You may enable advanced custom field (ACF) on details page", 'the-post-grid' ),
 					'holderClass' => 'pro-field',
 					'value'       => isset( $settings['show_acf_details'] ) ? $settings['show_acf_details'] : false,
@@ -209,16 +209,16 @@ class Options {
 				'cf_show_only_value_details' => [
 					'type'        => 'switch',
 					'name'        => 'cf_show_only_value_details',
-					'label'       => __( 'Show only value of field', 'the-post-grid' ),
+					'label'       => __( 'Show Title', 'the-post-grid' ),
 					'description' => __( "By default both name & value of field is shown", 'the-post-grid' ),
-					'value'       => isset( $settings['cf_show_only_value_details'] ) ? $settings['cf_show_only_value_details'] : false,
+					'value'       => isset( $settings['cf_show_only_value_details'] ) ? $settings['cf_show_only_value_details'] : true,
 					'holderClass' => 'pro-field',
 				],
 
 				'cf_hide_group_title_details' => [
 					'type'        => 'switch',
 					'name'        => 'cf_hide_group_title_details',
-					'label'       => __( 'Hide group title', 'the-post-grid' ),
+					'label'       => __( 'Show group title', 'the-post-grid' ),
 					'value'       => isset( $settings['cf_hide_group_title_details'] ) ? $settings['cf_hide_group_title_details'] : false,
 					'holderClass' => 'pro-field',
 				],

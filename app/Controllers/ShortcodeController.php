@@ -753,6 +753,9 @@ class ShortcodeController {
 					$wooFeature     = ( $postType == "product" ? true : false );
 					$orders         = Options::rtPostOrderBy( $wooFeature );
 					$action_orderby = ( ! empty( $args['orderby'] ) ? trim( $args['orderby'] ) : "none" );
+					if($action_orderby == 'ID') {
+						$action_orderby = 'title';
+					}
 					if ( $action_orderby == 'none' ) {
 						$action_orderby_label = __( "Sort By None", "the-post-grid" );
 					} elseif ( in_array( $action_orderby, array_keys( Options::rtMetaKeyType() ) ) ) {
@@ -760,6 +763,7 @@ class ShortcodeController {
 					} else {
 						$action_orderby_label = $orders[ $action_orderby ];
 					}
+
 					if ( $action_orderby !== 'none' ) {
 						$orders['none'] = __( "Sort By None", "the-post-grid" );
 					}
