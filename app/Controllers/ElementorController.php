@@ -54,7 +54,7 @@ if ( ! class_exists( 'ElementorController' ) ):
 				wp_enqueue_style( 'rt-tpg-rtl' );
 			}
 
-			wp_enqueue_script( 'rt-swiper' );
+			wp_enqueue_script( 'rt-swiper-el' );
 			wp_enqueue_script( 'rt-tpg' );
 			//Custom CSS From Settings
 			$css = isset( $settings['custom_css'] ) ? stripslashes( $settings['custom_css'] ) : null;
