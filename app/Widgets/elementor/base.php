@@ -885,7 +885,8 @@ abstract class Custom_Widget_Base extends Widget_Base {
 
 		$cf = Fns::checkWhichCustomMetaPluginIsInstalled();
 		if ( $cf && rtTPG()->hasPro() ) {
-			$data_set['cf_group']            = $data['cf_group'];
+			$post_type                       = $data['post_type'];
+			$data_set['cf_group']            = $data[ $post_type . '_cf_group' ];
 			$data_set['cf_hide_empty_value'] = $data['cf_hide_empty_value'];
 			$data_set['cf_show_only_value']  = $data['cf_show_only_value'];
 			$data_set['cf_hide_group_title'] = $data['cf_hide_group_title'];

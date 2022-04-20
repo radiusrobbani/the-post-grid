@@ -72,11 +72,11 @@ class TPGGridLayoutArchive extends Custom_Widget_Base {
 		//Meta Settings
 		rtTPGElementorHelper::post_meta_settings( $this );
 
-		//Readmore Settings
-		rtTPGElementorHelper::post_readmore_settings( $this );
-
 		//Advanced Custom Field ACF Settings
 		rtTPGElementorHelper::tpg_acf_settings( $this );
+
+		//Readmore Settings
+		rtTPGElementorHelper::post_readmore_settings( $this );
 
 
 		/** Style TAB **/
@@ -96,23 +96,21 @@ class TPGGridLayoutArchive extends Custom_Widget_Base {
 		// Meta Info Style
 		rtTPGElementorHelper::metaInfoStyle( $this );
 
-		//Pagination - Loadmore Style
-		rtTPGElementorHelper::readmoreStyle( $this );
-
-		//Pagination - Loadmore Style
-		rtTPGElementorHelper::paginationStyle( $this );
-
-		//Box Settings
-		//rtTPGElementorHelper::frontEndFilter( $this );
-
 		//Social Share Settings
 		rtTPGElementorHelper::socialShareStyle( $this );
+
+		//ACF Style
+		rtTPGElementorHelper::tpg_acf_style( $this );
+
+		//Read More Style
+		rtTPGElementorHelper::readmoreStyle( $this );
 
 		//Link Style
 		rtTPGElementorHelper::linkStyle( $this );
 
-		//ACF Style
-		rtTPGElementorHelper::tpg_acf_style( $this );
+
+		//Pagination - Loadmore Style
+		rtTPGElementorHelper::paginationStyle( $this );
 
 		//Box Settings
 		rtTPGElementorHelper::articlBoxSettings( $this );

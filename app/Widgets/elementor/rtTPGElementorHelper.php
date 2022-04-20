@@ -1754,20 +1754,6 @@ class rtTPGElementorHelper {
 					],
 				]
 			);
-
-			$ref->add_control(
-				'cf_group',
-				[
-					'label'       => __( 'Choose Advanced Custom Field (ACF)', 'the-post-grid' ),
-					'type'        => \Elementor\Controls_Manager::SELECT2,
-					'multiple'    => true,
-					'label_block' => true,
-					'options'     => Fns::get_groups_by_post_type( 'all' ),
-					'condition'   => [
-						'show_acf' => 'show',
-					],
-				]
-			);
 		}
 
 		$ref->end_controls_section();
@@ -2706,9 +2692,9 @@ class rtTPGElementorHelper {
 				'render_type'  => 'template',
 				'prefix_class' => 'author-image-visibility-',
 				'condition'    => [
-					'show_author!'       => '',
+					'show_author!'            => '',
 					'author_icon_visibility!' => 'hide',
-					$prefix . '_layout!' => [ 'grid-layout7' ],
+					$prefix . '_layout!'      => [ 'grid-layout7' ],
 				],
 			]
 		);
@@ -3138,6 +3124,49 @@ class rtTPGElementorHelper {
 	}
 
 	public static function get_tpg_acf_settings( $ref ) {
+
+
+//		$ref->add_control(
+//			'cf_group',
+//			[
+//				'label'       => __( 'Choose Advanced Custom Field (ACF)', 'the-post-grid' ),
+//				'type'        => \Elementor\Controls_Manager::SELECT2,
+//				'multiple'    => true,
+//				'label_block' => true,
+//				'default'     => [ $selected_acf_id ],
+//				'options'     => Fns::get_groups_by_post_type( 'post' ),
+//				'condition'   => [
+//					'show_acf' => 'show',
+//				],
+//			]
+//		);
+
+		$post_types = Fns::get_post_types();
+
+		foreach ( $post_types as $post_type => $post_type_title) {
+
+			$get_acf_field   = Fns::get_groups_by_post_type( $post_type );
+			$selected_acf_id = '';
+			if ( ! empty( $get_acf_field ) && is_array( $get_acf_field ) ) {
+				$selected_acf_id = array_key_first( $get_acf_field );
+			}
+
+			$ref->add_control(
+				$post_type . '_cf_group',
+				[
+					'label'       => __( "Choose Advanced Custom Field (ACF)", 'the-post-grid' ),
+					'type'        => \Elementor\Controls_Manager::SELECT2,
+					'label_block' => true,
+					'multiple'    => true,
+					'default'     => [ $selected_acf_id ],
+					'options'     => Fns::get_groups_by_post_type( $post_type ),
+					'condition'   => [
+						'post_type' => $post_type,
+					],
+				]
+			);
+		}
+
 		$ref->add_control(
 			'cf_hide_empty_value',
 			[
@@ -3147,9 +3176,6 @@ class rtTPGElementorHelper {
 				'label_off'    => __( 'Yes', 'the-post-grid' ),
 				'return_value' => 'yes',
 				'default'      => 'yes',
-				'condition'    => [
-					'cf_group!' => '',
-				],
 			]
 		);
 
@@ -3162,9 +3188,6 @@ class rtTPGElementorHelper {
 				'label_off'    => __( 'Yes', 'the-post-grid' ),
 				'return_value' => 'yes',
 				'default'      => 'yes',
-				'condition'    => [
-					'cf_group!' => '',
-				],
 			]
 		);
 
@@ -3177,9 +3200,6 @@ class rtTPGElementorHelper {
 				'label_off'    => __( 'Yes', 'the-post-grid' ),
 				'return_value' => 'yes',
 				'default'      => 'yes',
-				'condition'    => [
-					'cf_group!' => '',
-				],
 			]
 		);
 	}
@@ -4200,7 +4220,7 @@ class rtTPGElementorHelper {
 				'selectors'          => [
 					'{{WRAPPER}} .tpg-el-main-wrapper .tpg-el-excerpt' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				],
-				'allowed_dimensions' => 'vertical',
+				'allowed_dimensions' => 'all',
 				'default'            => [
 					'top'      => '',
 					'right'    => '',
@@ -4275,7 +4295,7 @@ class rtTPGElementorHelper {
 					'{{WRAPPER}}.meta_position_default .tpg-el-main-wrapper .grid-layout3 .rt-holder .rt-el-post-meta::before' => 'background: {{VALUE}}',
 				],
 				'condition' => [
-					'meta_position' => 'default',
+					'meta_position'     => 'default',
 					$prefix . '_layout' => [ 'grid-layout3' ],
 				],
 			]
@@ -4311,7 +4331,7 @@ class rtTPGElementorHelper {
 					'{{WRAPPER}}.meta_position_default .tpg-el-main-wrapper .grid-layout3 .rt-holder:hover .rt-el-post-meta::before' => 'background: {{VALUE}}',
 				],
 				'condition' => [
-					'meta_position' => 'default',
+					'meta_position'     => 'default',
 					$prefix . '_layout' => [ 'grid-layout3' ],
 				],
 			]
@@ -4361,7 +4381,7 @@ class rtTPGElementorHelper {
 				'selectors'          => [
 					'{{WRAPPER}} .tpg-el-main-wrapper .rt-holder .rt-el-post-meta' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				],
-				'allowed_dimensions' => 'vertical',
+				'allowed_dimensions' => 'all',
 				'default'            => [
 					'top'      => '',
 					'right'    => '',
@@ -4697,7 +4717,7 @@ class rtTPGElementorHelper {
 				'label'              => __( 'Button Spacing', 'the-post-grid' ),
 				'type'               => Controls_Manager::DIMENSIONS,
 				'size_units'         => [ 'px' ],
-				'allowed_dimensions' => 'vertical',
+				'allowed_dimensions' => 'all',
 				'default'            => [
 					'top'      => '',
 					'right'    => '',
@@ -5055,7 +5075,7 @@ class rtTPGElementorHelper {
 
 
 		//TODO: Box Hover Tab
-		
+
 		$ref->start_controls_tab(
 			'readmore_style_box_hover_tab',
 			[
@@ -5105,10 +5125,10 @@ class rtTPGElementorHelper {
 		$ref->add_group_control(
 			\Elementor\Group_Control_Border::get_type(),
 			[
-				'name'           => 'readmore_border_box_hover',
-				'label'          => __( 'Button Border - Box Hover', 'the-post-grid' ),
-				'selector'       => '{{WRAPPER}} .rt-tpg-container .tpg-post-holder:hover .rt-detail .read-more a',
-				'condition'      => [
+				'name'      => 'readmore_border_box_hover',
+				'label'     => __( 'Button Border - Box Hover', 'the-post-grid' ),
+				'selector'  => '{{WRAPPER}} .rt-tpg-container .tpg-post-holder:hover .rt-detail .read-more a',
+				'condition' => [
 					'readmore_btn_style' => 'default-style',
 				],
 			]
@@ -5224,7 +5244,7 @@ class rtTPGElementorHelper {
 				'range'      => [
 					'px' => [
 						'min'  => 0,
-						'max'  => 50,
+						'max'  => 100,
 						'step' => 1,
 					],
 					'%'  => [
@@ -5235,6 +5255,7 @@ class rtTPGElementorHelper {
 				'selectors'  => [
 					'{{WRAPPER}} .rt-pagination .pagination-list > li:first-child > a, {{WRAPPER}} .rt-pagination .pagination-list > li:first-child > span' => 'border-bottom-left-radius: {{SIZE}}{{UNIT}}; border-top-left-radius: {{SIZE}}{{UNIT}};',
 					'{{WRAPPER}} .rt-pagination .pagination-list > li:last-child > a, {{WRAPPER}} .rt-pagination .pagination-list > li:last-child > span'   => 'border-bottom-right-radius: {{SIZE}}{{UNIT}}; border-top-right-radius: {{SIZE}}{{UNIT}};',
+					'{{WRAPPER}} .rt-tpg-container .rt-pagination-wrap .rt-loadmore-btn'                                                                    => 'border-radius: {{SIZE}}{{UNIT}};',
 				],
 				'condition'  => [
 					'pagination_type!' => 'load_on_scroll',
@@ -7092,11 +7113,11 @@ class rtTPGElementorHelper {
 				'selectors'  => [
 					'{{WRAPPER}} .rt-tpg-container .swiper-navigation .slider-btn.swiper-button-prev' => 'left: {{SIZE}}{{UNIT}};',
 					'{{WRAPPER}} .rt-tpg-container .swiper-navigation .slider-btn.swiper-button-next' => 'right: {{SIZE}}{{UNIT}};',
-					'{{WRAPPER}}.slider-arrow-position-top-right .swiper-navigation' => 'right: {{SIZE}}{{UNIT}};',
-					'{{WRAPPER}}.slider-arrow-position-top-left .swiper-navigation' => 'left: {{SIZE}}{{UNIT}};',
+					'{{WRAPPER}}.slider-arrow-position-top-right .swiper-navigation'                  => 'right: {{SIZE}}{{UNIT}};',
+					'{{WRAPPER}}.slider-arrow-position-top-left .swiper-navigation'                   => 'left: {{SIZE}}{{UNIT}};',
 				],
 				'condition'  => [
-					'arrows'         => 'yes',
+					'arrows' => 'yes',
 				],
 			]
 		);

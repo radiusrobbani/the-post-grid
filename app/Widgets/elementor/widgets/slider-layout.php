@@ -68,14 +68,16 @@ class TPGSliderLayout extends Custom_Widget_Base {
 		//Meta Settings
 		rtTPGElementorHelper::post_meta_settings( $this );
 
+		//Advanced Custom Field ACF Settings
+		rtTPGElementorHelper::tpg_acf_settings( $this );
+
 		//Readmore Settings
 		rtTPGElementorHelper::post_readmore_settings( $this );
 
 		//Slider Settings
 		rtTPGElementorHelper::slider_settings( $this );
 
-		//Advanced Custom Field ACF Settings
-		rtTPGElementorHelper::tpg_acf_settings( $this );
+
 
 		/**
 		 * Style Tabs
@@ -97,6 +99,12 @@ class TPGSliderLayout extends Custom_Widget_Base {
 		// Meta Info Style
 		rtTPGElementorHelper::metaInfoStyle( $this );
 
+		//Social Style
+		rtTPGElementorHelper::socialShareStyle( $this );
+
+		//ACF Style
+		rtTPGElementorHelper::tpg_acf_style( $this );
+
 		//Read more style
 		rtTPGElementorHelper::readmoreStyle( $this );
 
@@ -104,14 +112,8 @@ class TPGSliderLayout extends Custom_Widget_Base {
 		rtTPGElementorHelper::slider_style( $this );
 		rtTPGElementorHelper::slider_thumb_style( $this );
 
-		//Social Style
-		rtTPGElementorHelper::socialShareStyle( $this );
-
 		//Link Style
 		rtTPGElementorHelper::linkStyle( $this );
-
-		//ACF Style
-		rtTPGElementorHelper::tpg_acf_style( $this );
 
 		//Box Settings
 		rtTPGElementorHelper::articlBoxSettings( $this );

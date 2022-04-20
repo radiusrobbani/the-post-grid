@@ -71,11 +71,11 @@ class TPGGridLayout extends Custom_Widget_Base {
 		//Meta Settings
 		rtTPGElementorHelper::post_meta_settings( $this );
 
-		//Readmore Settings
-		rtTPGElementorHelper::post_readmore_settings( $this );
-
 		//Advanced Custom Field ACF Settings
 		rtTPGElementorHelper::tpg_acf_settings( $this );
+
+		//Readmore Settings
+		rtTPGElementorHelper::post_readmore_settings( $this );
 
 
 		/** Style TAB **/
@@ -95,23 +95,23 @@ class TPGGridLayout extends Custom_Widget_Base {
 		// Meta Info Style
 		rtTPGElementorHelper::metaInfoStyle( $this );
 
-		//Pagination - Loadmore Style
-		rtTPGElementorHelper::readmoreStyle( $this );
-
-		//Pagination - Loadmore Style
-		rtTPGElementorHelper::paginationStyle( $this );
-
-		//Box Style
-		rtTPGElementorHelper::frontEndFilter( $this );
-
 		//Box Style
 		rtTPGElementorHelper::socialShareStyle( $this );
+
+		//ACF Style
+		rtTPGElementorHelper::tpg_acf_style( $this );
+
+		//Read More Style
+		rtTPGElementorHelper::readmoreStyle( $this );
 
 		//Link Style
 		rtTPGElementorHelper::linkStyle( $this );
 
-		//ACF Style
-		rtTPGElementorHelper::tpg_acf_style( $this );
+		//Pagination - Load more Style
+		rtTPGElementorHelper::paginationStyle( $this );
+
+		//Box Style
+		rtTPGElementorHelper::frontEndFilter( $this );
 
 		//Box Settings
 		rtTPGElementorHelper::articlBoxSettings( $this );
@@ -160,15 +160,15 @@ class TPGGridLayout extends Custom_Widget_Base {
 		 * Post type render
 		 */
 
-        $post_types = Fns::get_post_types();
-        foreach ( $post_types as $post_type => $label ) {
-            $_taxonomies = get_object_taxonomies( $post_type, 'object' );
-            if ( empty( $_taxonomies ) ) {
-                continue;
-            }
-            $post_data[ $data['post_type'] . '_taxonomy' ] = $data[ $data['post_type'] . '_taxonomy' ];
-            $post_data[ $data['post_type'] . '_tags' ]     = $data[ $data['post_type'] . '_tags' ];
-        }
+		$post_types = Fns::get_post_types();
+		foreach ( $post_types as $post_type => $label ) {
+			$_taxonomies = get_object_taxonomies( $post_type, 'object' );
+			if ( empty( $_taxonomies ) ) {
+				continue;
+			}
+			$post_data[ $data['post_type'] . '_taxonomy' ] = $data[ $data['post_type'] . '_taxonomy' ];
+			$post_data[ $data['post_type'] . '_tags' ]     = $data[ $data['post_type'] . '_tags' ];
+		}
 
 		$template_path = $this->tpg_template_path( $post_data );
 		$_layout       = $data[ $_prefix . '_layout' ];
@@ -189,7 +189,7 @@ class TPGGridLayout extends Custom_Widget_Base {
 			$wrapper_class   = [];
 			$wrapper_class[] = str_replace( '-2', null, $_layout );
 			$wrapper_class[] = 'grid-behaviour';
-			$wrapper_class[] = (in_array($_layout, ['grid-layout2'])) ? "tpg-even" : $_layout_style;
+			$wrapper_class[] = ( in_array( $_layout, [ 'grid-layout2' ] ) ) ? "tpg-even" : $_layout_style;
 			$wrapper_class[] = $_prefix . '_layout_wrapper';
 			if ( 'masonry' === $_layout_style && ! in_array( $_layout, [ $this->prefix . '-layout2', $this->prefix . '-layout5', $this->prefix . '-layout6' ] ) ) {
 				$wrapper_class[] = 'tpg-masonry';
