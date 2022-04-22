@@ -1507,7 +1507,7 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'show_section_title',
 			[
-				'label'        => __( 'Show Section Title', 'the-post-grid' ),
+				'label'        => __( 'Section Title', 'the-post-grid' ),
 				'type'         => \Elementor\Controls_Manager::SWITCHER,
 				'label_on'     => __( 'Show', 'the-post-grid' ),
 				'label_off'    => __( 'Hide', 'the-post-grid' ),
@@ -1844,26 +1844,6 @@ class rtTPGElementorHelper {
 
 
 		$ref->add_control(
-			'section_title_tag',
-			[
-				'label'     => __( 'Title Tag', 'the-post-grid' ),
-				'type'      => Controls_Manager::SELECT,
-				'default'   => 'h2',
-				'options'   => [
-					'h1' => __( 'H1', 'the-post-grid' ),
-					'h2' => __( 'H2', 'the-post-grid' ),
-					'h3' => __( 'H3', 'the-post-grid' ),
-					'h4' => __( 'H4', 'the-post-grid' ),
-					'h5' => __( 'H5', 'the-post-grid' ),
-					'h6' => __( 'H6', 'the-post-grid' ),
-				],
-				'condition' => [
-					'show_section_title' => 'show',
-				],
-			]
-		);
-
-		$ref->add_control(
 			'title_prefix',
 			[
 				'label'       => __( 'Title Prefix Text', 'the-post-grid' ),
@@ -1883,6 +1863,26 @@ class rtTPGElementorHelper {
 				'placeholder' => __( 'Title suffix text', 'the-post-grid' ),
 				'condition'   => [
 					'section_title_source' => 'page_title',
+				],
+			]
+		);
+
+		$ref->add_control(
+			'section_title_tag',
+			[
+				'label'     => __( 'Title Tag', 'the-post-grid' ),
+				'type'      => Controls_Manager::SELECT,
+				'default'   => 'h2',
+				'options'   => [
+					'h1' => __( 'H1', 'the-post-grid' ),
+					'h2' => __( 'H2', 'the-post-grid' ),
+					'h3' => __( 'H3', 'the-post-grid' ),
+					'h4' => __( 'H4', 'the-post-grid' ),
+					'h5' => __( 'H5', 'the-post-grid' ),
+					'h6' => __( 'H6', 'the-post-grid' ),
+				],
+				'condition' => [
+					'show_section_title' => 'show',
 				],
 			]
 		);
@@ -2219,8 +2219,8 @@ class rtTPGElementorHelper {
 				'options'      => [
 					'default'    => __( 'Default', 'the-post-grid' ),
 					'one-line'   => __( 'Show in 1 line', 'the-post-grid' ),
-					'two-line'   => __( 'Show in 2 line', 'the-post-grid' ),
-					'three-line' => __( 'Show in 3 line', 'the-post-grid' ),
+					'two-line'   => __( 'Show in 2 lines', 'the-post-grid' ),
+					'three-line' => __( 'Show in 3 lines', 'the-post-grid' ),
 					'custom'     => __( 'Custom', 'the-post-grid' ),
 				],
 				'render_type'  => 'template',
@@ -3837,7 +3837,7 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'grid_hover_overlay_type',
 			[
-				'label'        => __( 'Overlay Type', 'the-post-grid' ),
+				'label'        => __( 'Overlay Interaction', 'the-post-grid' ),
 				'type'         => \Elementor\Controls_Manager::SELECT,
 				'default'      => 'always',
 				'options'      => $overlay_type_opt,
@@ -3910,6 +3910,46 @@ class rtTPGElementorHelper {
 			]
 		);
 
+		$ref->add_responsive_control(
+			'title_spacing',
+			[
+				'label'              => __( 'Title Margin', 'the-post-grid' ),
+				'type'               => Controls_Manager::DIMENSIONS,
+				'size_units'         => [ 'px' ],
+				'selectors'          => [
+					'{{WRAPPER}} .rt-tpg-container .rt-holder .entry-title-wrapper' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+				],
+				'allowed_dimensions' => 'all',
+				'default'            => [
+					'top'      => '',
+					'right'    => '',
+					'bottom'   => '',
+					'left'     => '',
+					'isLinked' => false,
+				],
+			]
+		);
+
+		$ref->add_responsive_control(
+			'title_padding',
+			[
+				'label'              => __( 'Title Padding', 'the-post-grid' ),
+				'type'               => Controls_Manager::DIMENSIONS,
+				'size_units'         => [ 'px' ],
+				'selectors'          => [
+					'{{WRAPPER}} .rt-tpg-container .rt-holder .entry-title-wrapper .entry-title' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+				],
+				'allowed_dimensions' => 'all',
+				'default'            => [
+					'top'      => '',
+					'right'    => '',
+					'bottom'   => '',
+					'left'     => '',
+					'isLinked' => false,
+				],
+			]
+		);
+
 		$ref->add_group_control(
 			\Elementor\Group_Control_Typography::get_type(),
 			[
@@ -3967,39 +4007,6 @@ class rtTPGElementorHelper {
 				'condition'    => [
 					$prefix . '_layout' => 'grid_hover-layout3',
 				],
-			]
-		);
-
-		$ref->add_responsive_control(
-			'title_spacing',
-			[
-				'label'              => __( 'Title Margin', 'the-post-grid' ),
-				'type'               => Controls_Manager::DIMENSIONS,
-				'size_units'         => [ 'px' ],
-				'selectors'          => [
-					'{{WRAPPER}} .rt-tpg-container .rt-holder .entry-title-wrapper' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
-				],
-				'allowed_dimensions' => 'all',
-				'default'            => [
-					'top'      => '',
-					'right'    => '',
-					'bottom'   => '',
-					'left'     => '',
-					'isLinked' => false,
-				],
-			]
-		);
-
-		$ref->add_responsive_control(
-			'title_padding',
-			[
-				'label'              => __( 'Title Padding', 'the-post-grid' ),
-				'type'               => Controls_Manager::DIMENSIONS,
-				'size_units'         => [ 'px' ],
-				'selectors'          => [
-					'{{WRAPPER}} .rt-tpg-container .rt-holder .entry-title-wrapper .entry-title' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
-				],
-				'allowed_dimensions' => 'all',
 			]
 		);
 
@@ -6027,7 +6034,7 @@ class rtTPGElementorHelper {
 		$ref->start_controls_section(
 			'social_share_style',
 			[
-				'label'     => esc_html__( 'Social Share Style', 'the-post-grid' ),
+				'label'     => esc_html__( 'Social Share', 'the-post-grid' ),
 				'tab'       => Controls_Manager::TAB_STYLE,
 				'condition' => [
 					'show_social_share'  => 'show',
@@ -6085,7 +6092,7 @@ class rtTPGElementorHelper {
 				'label'              => __( 'Icon Wrapper Spacing', 'the-post-grid' ),
 				'type'               => Controls_Manager::DIMENSIONS,
 				'size_units'         => [ 'px' ],
-				'allowed_dimensions' => 'vertical', //horizontal, vertical, [ 'top', 'right', 'bottom', 'left' ]
+				'allowed_dimensions' => 'all', //horizontal, vertical, [ 'top', 'right', 'bottom', 'left' ]
 				'default'            => [
 					'top'      => '',
 					'right'    => '',
@@ -6750,7 +6757,7 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'arrows',
 			[
-				'label'        => __( 'Arrow', 'the-post-grid' ),
+				'label'        => __( 'Arrow Visibility', 'the-post-grid' ),
 				'type'         => \Elementor\Controls_Manager::SWITCHER,
 				'label_on'     => __( 'Show', 'the-post-grid' ),
 				'label_off'    => __( 'Hide', 'the-post-grid' ),
@@ -6786,7 +6793,7 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'dots',
 			[
-				'label'        => __( 'Dots', 'the-post-grid' ),
+				'label'        => __( 'Dots Visibility', 'the-post-grid' ),
 				'type'         => \Elementor\Controls_Manager::SWITCHER,
 				'label_on'     => __( 'Show', 'the-post-grid' ),
 				'label_off'    => __( 'Hide', 'the-post-grid' ),
@@ -6838,18 +6845,6 @@ class rtTPGElementorHelper {
 				'label_on'     => __( 'Yes', 'the-post-grid' ),
 				'label_off'    => __( 'No', 'the-post-grid' ),
 				'return_value' => 'yes',
-				'default'      => false,
-			]
-		);
-
-		$ref->add_control(
-			'stopOnHover',
-			[
-				'label'        => __( 'Stop On Hover', 'the-post-grid' ),
-				'type'         => \Elementor\Controls_Manager::SWITCHER,
-				'label_on'     => __( 'Yes', 'the-post-grid' ),
-				'label_off'    => __( 'No', 'the-post-grid' ),
-				'return_value' => 'yes',
 				'default'      => 'yes',
 			]
 		);
@@ -6868,6 +6863,19 @@ class rtTPGElementorHelper {
 				],
 			]
 		);
+
+		$ref->add_control(
+			'stopOnHover',
+			[
+				'label'        => __( 'Stop On Hover', 'the-post-grid' ),
+				'type'         => \Elementor\Controls_Manager::SWITCHER,
+				'label_on'     => __( 'Yes', 'the-post-grid' ),
+				'label_off'    => __( 'No', 'the-post-grid' ),
+				'return_value' => 'yes',
+				'default'      => 'yes',
+			]
+		);
+		
 
 		$ref->add_control(
 			'autoHeight',
@@ -7543,7 +7551,7 @@ class rtTPGElementorHelper {
 		$ref->start_controls_section(
 			'linkStyle',
 			[
-				'label'     => esc_html__( 'Link Style', 'the-post-grid' ),
+				'label'     => esc_html__( 'Popup Style', 'the-post-grid' ),
 				'tab'       => Controls_Manager::TAB_STYLE,
 				'condition' => [
 					'post_link_type' => [ 'popup', 'multi_popup' ],
@@ -7777,7 +7785,7 @@ class rtTPGElementorHelper {
 			\Elementor\Group_Control_Typography::get_type(),
 			[
 				'name'     => 'acf_typography',
-				'label'    => __( 'Group Title Typography', 'the-post-grid' ),
+				'label'    => __( 'ACF Fields Typography', 'the-post-grid' ),
 				'selector' => '{{WRAPPER}} .rt-tpg-container .tpg-cf-fields',
 			]
 		);

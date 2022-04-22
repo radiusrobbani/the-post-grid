@@ -1121,17 +1121,15 @@ Filter
 
 /*Filter carousel style*/
 
-.tpg-header-wrapper.carousel .rt-filter-item-wrap {
-}
 
 .tpg-header-wrapper.carousel .rt-layout-filter-container .rt-filter-wrap {
-    margin-right: 82px;
+    padding-right: 82px;
 }
 
 .tpg-header-wrapper.carousel .rt-layout-filter-container .rt-filter-wrap .filter-left-wrapper {
     margin-right: 0;
     width: 100%;
-
+    position: static;
 }
 
 .tpg-header-wrapper.carousel {
