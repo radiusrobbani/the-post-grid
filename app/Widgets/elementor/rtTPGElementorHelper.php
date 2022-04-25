@@ -845,7 +845,7 @@ class rtTPGElementorHelper {
 		$ref->start_controls_section(
 			$prefix . '_filter_settings',
 			[
-				'label' => __( 'Filter', 'the-post-grid' ),
+				'label' => __( 'Filter (Front-end)', 'the-post-grid' ),
 				'tab'   => Controls_Manager::TAB_CONTENT,
 			]
 		);
@@ -1434,7 +1434,7 @@ class rtTPGElementorHelper {
 			$pagination_type_pro = [
 				'pagination_ajax' => __( 'Ajax Pagination ( Only for Grid )', 'the-post-grid' ),
 				'load_more'       => __( 'Load More - On Click', 'the-post-grid' ),
-				'load_on_scroll'  => __( 'Load More - On Scroll', 'the-post-grid' ),
+				'load_on_scroll'  => __( 'Load On Scroll', 'the-post-grid' ),
 			];
 			$pagination_type     = array_merge( $pagination_type, $pagination_type_pro );
 		}
@@ -1737,7 +1737,7 @@ class rtTPGElementorHelper {
 			]
 		);
 
-		$cf = Fns::checkWhichCustomMetaPluginIsInstalled();
+		$cf = Fns::is_acf();
 		if ( $cf ) {
 			$ref->add_control(
 				'show_acf',
@@ -2295,6 +2295,32 @@ class rtTPGElementorHelper {
 				'description'  => $ref->get_pro_message( 'more position (above/below image)' ),
 				'condition'    => [
 					$prefix . '_layout' => [
+						'grid-layout1',
+						'grid-layout2',
+						'grid-layout3',
+						'grid-layout4',
+						'slider-layout1',
+						'slider-layout2',
+						'slider-layout3',
+					],
+				],
+			]
+		);
+
+		$ref->add_control(
+			'title_position_hidden',
+			[
+				'label'        => __( 'Title Position', 'the-post-grid' ),
+				'type'         => \Elementor\Controls_Manager::SELECT,
+				'default'      => 'default',
+				'prefix_class' => 'title_position_',
+				'render_type'  => 'template',
+				'classes'      => 'tpg-should-hide-field',
+				'options'      => [
+					'default' => __( 'Default', 'the-post-grid' )
+				],
+				'condition'    => [
+					$prefix . '_layout!' => [
 						'grid-layout1',
 						'grid-layout2',
 						'grid-layout3',
@@ -3100,7 +3126,7 @@ class rtTPGElementorHelper {
 
 	public static function tpg_acf_settings( $ref ) {
 		$prefix = $ref->prefix;
-		$cf     = Fns::checkWhichCustomMetaPluginIsInstalled();
+		$cf     = Fns::is_acf();
 
 		if ( ! $cf || ! rtTPG()->hasPro() ) {
 			return;
@@ -3124,27 +3150,24 @@ class rtTPGElementorHelper {
 	}
 
 	public static function get_tpg_acf_settings( $ref ) {
-
-
-//		$ref->add_control(
-//			'cf_group',
-//			[
-//				'label'       => __( 'Choose Advanced Custom Field (ACF)', 'the-post-grid' ),
-//				'type'        => \Elementor\Controls_Manager::SELECT2,
-//				'multiple'    => true,
-//				'label_block' => true,
-//				'default'     => [ $selected_acf_id ],
-//				'options'     => Fns::get_groups_by_post_type( 'post' ),
-//				'condition'   => [
-//					'show_acf' => 'show',
-//				],
-//			]
-//		);
+		//		$ref->add_control(
+		//			'cf_group',
+		//			[
+		//				'label'       => __( 'Choose Advanced Custom Field (ACF)', 'the-post-grid' ),
+		//				'type'        => \Elementor\Controls_Manager::SELECT2,
+		//				'multiple'    => true,
+		//				'label_block' => true,
+		//				'default'     => [ $selected_acf_id ],
+		//				'options'     => Fns::get_groups_by_post_type( 'post' ),
+		//				'condition'   => [
+		//					'show_acf' => 'show',
+		//				],
+		//			]
+		//		);
 
 		$post_types = Fns::get_post_types();
 
-		foreach ( $post_types as $post_type => $post_type_title) {
-
+		foreach ( $post_types as $post_type => $post_type_title ) {
 			$get_acf_field   = Fns::get_groups_by_post_type( $post_type );
 			$selected_acf_id = '';
 			if ( ! empty( $get_acf_field ) && is_array( $get_acf_field ) ) {
@@ -3650,24 +3673,51 @@ class rtTPGElementorHelper {
 			]
 		);
 
-		$ref->add_responsive_control(
-			'thumbnail_spacing',
-			[
-				'label'      => __( 'Thumbnail Margin', 'the-post-grid' ),
-				'type'       => Controls_Manager::DIMENSIONS,
-				'size_units' => [ 'px' ],
-				'selectors'  => [
-					'{{WRAPPER}} .tpg-el-main-wrapper .tpg-el-image-wrap' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
-				],
-				'default'    => [
-					'top'      => '',
-					'right'    => '',
-					'bottom'   => '',
-					'left'     => '',
-					'isLinked' => false,
-				],
-			]
-		);
+		if ( 'grid_hover' != $prefix ) {
+			$ref->add_responsive_control(
+				'thumbnail_spacing',
+				[
+					'label'      => __( 'Thumbnail Margin', 'the-post-grid' ),
+					'type'       => Controls_Manager::DIMENSIONS,
+					'size_units' => [ 'px' ],
+					'selectors'  => [
+						'{{WRAPPER}} .tpg-el-main-wrapper .tpg-el-image-wrap' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+					],
+					'default'    => [
+						'top'      => '',
+						'right'    => '',
+						'bottom'   => '',
+						'left'     => '',
+						'isLinked' => false,
+					],
+				]
+			);
+		}
+
+		if ( in_array( $prefix, [ 'grid_hover', 'slider' ] ) ) {
+			if ( 'slider' == $prefix ) {
+				$thumbnail_padding_condition = [
+					'slider_layout' => [ 'slider-layout4', 'slider-layout5', 'slider-layout6', 'slider-layout7', 'slider-layout8', 'slider-layout9', 'slider-layout10' ],
+				];
+			} else {
+				$thumbnail_padding_condition = [
+					'grid_hover_layout!' => '',
+				];
+			}
+			$ref->add_responsive_control(
+				'grid_hover_thumbnail_margin',
+				[
+					'label'      => __( 'Thumbnail padding', 'the-post-grid' ),
+					'type'       => Controls_Manager::DIMENSIONS,
+					'size_units' => [ 'px' ],
+					'selectors'  => [
+						'{{WRAPPER}} .rt-tpg-container .rt-grid-hover-item .rt-holder .grid-hover-content' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+						'{{WRAPPER}} .rt-tpg-container .rt-el-content-wrapper .gallery-content'            => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+					],
+					'condition'  => $thumbnail_padding_condition,
+				]
+			);
+		}
 
 		//Overlay Style Heading
 
@@ -5295,8 +5345,9 @@ class rtTPGElementorHelper {
 				'label'     => __( 'Color', 'the-post-grid' ),
 				'type'      => \Elementor\Controls_Manager::COLOR,
 				'selectors' => [
-					'{{WRAPPER}} .rt-pagination .pagination-list > li > a:not(:hover), {{WRAPPER}} .rt-pagination .pagination-list > li > span:not(:hover)' => 'color: {{VALUE}}',
-					'{{WRAPPER}} .rt-tpg-container .rt-pagination-wrap .rt-page-numbers .paginationjs .paginationjs-pages ul li > a:not(:hover)'            => 'color: {{VALUE}}',
+					'{{WRAPPER}} .rt-pagination .pagination-list > li:not(:hover) > a, {{WRAPPER}} .rt-pagination .pagination-list > li:not(:hover) > span' => 'color: {{VALUE}}',
+					'{{WRAPPER}} .rt-tpg-container .rt-pagination-wrap .rt-page-numbers .paginationjs .paginationjs-pages ul li:not(:hover) > a'            => 'color: {{VALUE}}',
+					'{{WRAPPER}} .rt-tpg-container .rt-pagination-wrap .rt-page-numbers .paginationjs .paginationjs-pages ul li:not(:hover)'                => 'color: {{VALUE}}',
 					'{{WRAPPER}} .rt-tpg-container .rt-pagination-wrap .rt-loadmore-btn'                                                                    => 'color: {{VALUE}}',
 				],
 			]
@@ -5308,8 +5359,8 @@ class rtTPGElementorHelper {
 				'label'     => __( 'Background Color', 'the-post-grid' ),
 				'type'      => \Elementor\Controls_Manager::COLOR,
 				'selectors' => [
-					'{{WRAPPER}} .rt-pagination .pagination-list > li > a:not(:hover), {{WRAPPER}} .rt-pagination .pagination-list > li > span:not(:hover)' => 'background-color: {{VALUE}}',
-					'{{WRAPPER}} .rt-tpg-container .rt-pagination-wrap .rt-page-numbers .paginationjs .paginationjs-pages ul li > a:not(:hover)'            => 'background-color: {{VALUE}}',
+					'{{WRAPPER}} .rt-pagination .pagination-list > li > a:not(:hover), {{WRAPPER}} .rt-pagination .pagination-list > li:not(:hover) > span' => 'background-color: {{VALUE}}',
+					'{{WRAPPER}} .rt-tpg-container .rt-pagination-wrap .rt-page-numbers .paginationjs .paginationjs-pages ul li:not(:hover) > a'            => 'background-color: {{VALUE}}',
 					'{{WRAPPER}} .rt-tpg-container .rt-pagination-wrap .rt-loadmore-btn'                                                                    => 'background-color: {{VALUE}}',
 				],
 
@@ -5322,8 +5373,8 @@ class rtTPGElementorHelper {
 				'label'     => __( 'Border Color', 'the-post-grid' ),
 				'type'      => \Elementor\Controls_Manager::COLOR,
 				'selectors' => [
-					'{{WRAPPER}} .rt-pagination .pagination-list > li > a:not(:hover), {{WRAPPER}} .rt-pagination .pagination-list > li > span:not(:hover)' => 'border-color: {{VALUE}}',
-					'{{WRAPPER}} .rt-tpg-container .rt-pagination-wrap .rt-page-numbers .paginationjs .paginationjs-pages ul li > a:not(:hover)'            => 'border-color: {{VALUE}}',
+					'{{WRAPPER}} .rt-pagination .pagination-list > li > a:not(:hover), {{WRAPPER}} .rt-pagination .pagination-list > li:not(:hover) > span' => 'border-color: {{VALUE}}',
+					'{{WRAPPER}} .rt-tpg-container .rt-pagination-wrap .rt-page-numbers .paginationjs .paginationjs-pages ul li:not(:hover) > a'            => 'border-color: {{VALUE}}',
 					'{{WRAPPER}} .rt-tpg-container .rt-pagination-wrap .rt-loadmore-btn'                                                                    => 'border-color: {{VALUE}}',
 				],
 			]
@@ -5345,13 +5396,12 @@ class rtTPGElementorHelper {
 				'label'     => __( 'Color - hover', 'the-post-grid' ),
 				'type'      => \Elementor\Controls_Manager::COLOR,
 				'selectors' => [
-					'{{WRAPPER}} .rt-pagination .pagination-list > li > a:hover, {{WRAPPER}} .rt-pagination .pagination-list > li > span:hover' => 'color: {{VALUE}}',
-					'{{WRAPPER}} .rt-tpg-container .rt-pagination-wrap .rt-page-numbers .paginationjs .paginationjs-pages ul li > a:hover'      => 'color: {{VALUE}}',
-					'{{WRAPPER}} .rt-tpg-container .rt-pagination-wrap .rt-loadmore-btn:hover'                                                  => 'color: {{VALUE}}',
+					'{{WRAPPER}} .rt-pagination .pagination-list > li:hover > a, {{WRAPPER}} .rt-pagination .pagination-list > li:hover > span' => 'color: {{VALUE}} !important',
+					'{{WRAPPER}} .rt-tpg-container .rt-pagination-wrap .rt-page-numbers .paginationjs .paginationjs-pages ul li:hover > a'      => 'color: {{VALUE}} !important',
+					'{{WRAPPER}} .rt-tpg-container .rt-pagination-wrap .rt-loadmore-btn:hover'                                                  => 'color: {{VALUE}} !important',
 				],
 			]
 		);
-
 
 		$ref->add_control(
 			'pagination_bg_hover',
@@ -5359,9 +5409,9 @@ class rtTPGElementorHelper {
 				'label'     => __( 'Background Color - Hover', 'the-post-grid' ),
 				'type'      => \Elementor\Controls_Manager::COLOR,
 				'selectors' => [
-					'{{WRAPPER}} .rt-pagination .pagination-list > li > a:hover, {{WRAPPER}} .rt-pagination .pagination-list > li > span:hover' => 'background-color: {{VALUE}}',
-					'{{WRAPPER}} .rt-tpg-container .rt-pagination-wrap .rt-page-numbers .paginationjs .paginationjs-pages ul li > a:hover'      => 'background-color: {{VALUE}}',
-					'{{WRAPPER}} .rt-tpg-container .rt-pagination-wrap .rt-loadmore-btn:hover'                                                  => 'background-color: {{VALUE}}',
+					'{{WRAPPER}} .rt-pagination .pagination-list > li:hover > a, {{WRAPPER}} .rt-pagination .pagination-list > li:hover > span' => 'background-color: {{VALUE}} !important',
+					'{{WRAPPER}} .rt-tpg-container .rt-pagination-wrap .rt-page-numbers .paginationjs .paginationjs-pages ul li:hover > a'      => 'background-color: {{VALUE}} !important',
+					'{{WRAPPER}} .rt-tpg-container .rt-pagination-wrap .rt-loadmore-btn:hover'                                                  => 'background-color: {{VALUE}} !important',
 				],
 			]
 		);
@@ -5372,9 +5422,9 @@ class rtTPGElementorHelper {
 				'label'     => __( 'Border Color - Hover', 'the-post-grid' ),
 				'type'      => \Elementor\Controls_Manager::COLOR,
 				'selectors' => [
-					'{{WRAPPER}} .rt-pagination .pagination-list > li > a:hover, {{WRAPPER}} .rt-pagination .pagination-list > li > span:hover' => 'border-color: {{VALUE}}',
-					'{{WRAPPER}} .rt-tpg-container .rt-pagination-wrap .rt-page-numbers .paginationjs .paginationjs-pages ul li > a:hover'      => 'border-color: {{VALUE}}',
-					'{{WRAPPER}} .rt-tpg-container .rt-pagination-wrap .rt-loadmore-btn:hover'                                                  => 'border-color: {{VALUE}}',
+					'{{WRAPPER}} .rt-pagination .pagination-list > li:hover > a, {{WRAPPER}} .rt-pagination .pagination-list > li:hover > span' => 'border-color: {{VALUE}} !important',
+					'{{WRAPPER}} .rt-tpg-container .rt-pagination-wrap .rt-page-numbers .paginationjs .paginationjs-pages ul li:hover > a'      => 'border-color: {{VALUE}} !important',
+					'{{WRAPPER}} .rt-tpg-container .rt-pagination-wrap .rt-loadmore-btn:hover'                                                  => 'border-color: {{VALUE}} !important',
 				],
 			]
 		);
@@ -6372,7 +6422,36 @@ class rtTPGElementorHelper {
 		}
 
 
-		if ( in_array( $prefix, [ 'grid', 'list' ] ) ) {
+		if ( in_array( $prefix, [ 'grid', 'list', 'slider' ] ) ) {
+			if ( 'slider' == $prefix ) {
+				$box_padding = [
+					$prefix . '_layout' => [
+						'slider-layout1',
+						'slider-layout2',
+						'slider-layout3',
+					],
+				];
+			} else {
+				$box_padding = [
+					$prefix . '_layout!' => [
+						'grid-layout5',
+						'grid-layout5-2',
+						'grid-layout6',
+						'grid-layout6-2',
+						'grid-layout7',
+						'list-layout1',
+						'list-layout2',
+						'list-layout2-2',
+						'list-layout3',
+						'list-layout3-2',
+						'list-layout4',
+						'list-layout5',
+						'slider-layout1',
+						'slider-layout2',
+						'slider-layout3',
+					],
+				];
+			}
 			$ref->add_responsive_control(
 				'content_box_padding',
 				[
@@ -6385,22 +6464,7 @@ class rtTPGElementorHelper {
 						'body {{WRAPPER}} .rt-tpg-container .rt-el-content-wrapper-flex .post-right-content'         => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}} !important;',
 						'body {{WRAPPER}} .tpg-el-main-wrapper .rt-holder .rt-el-content-wrapper .tpg-el-image-wrap' => 'margin-left: -{{LEFT}}{{UNIT}}; margin-right: -{{RIGHT}}{{UNIT}};',
 					],
-					'condition'          => [
-						$prefix . '_layout!' => [
-							'grid-layout5',
-							'grid-layout5-2',
-							'grid-layout6',
-							'grid-layout6-2',
-							'grid-layout7',
-							'list-layout1',
-							'list-layout2',
-							'list-layout2-2',
-							'list-layout3',
-							'list-layout3-2',
-							'list-layout4',
-							'list-layout5',
-						],
-					],
+					'condition'          => $box_padding,
 				]
 			);
 
@@ -6875,7 +6939,7 @@ class rtTPGElementorHelper {
 				'default'      => 'yes',
 			]
 		);
-		
+
 
 		$ref->add_control(
 			'autoHeight',
@@ -7748,7 +7812,7 @@ class rtTPGElementorHelper {
 	 */
 
 	public static function tpg_acf_style( $ref ) {
-		$cf = Fns::checkWhichCustomMetaPluginIsInstalled();
+		$cf = Fns::is_acf();
 		if ( ! $cf || ! rtTPG()->hasPro() ) {
 			return;
 		}

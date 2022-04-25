@@ -33,11 +33,11 @@ class TPGGridLayout extends Custom_Widget_Base {
 	protected function register_controls() {
 		/** Content TAB **/
 
-		//Query
-		rtTPGElementorHelper::query( $this );
-
 		//Layout
 		rtTPGElementorHelper::grid_layouts( $this );
+
+		//Query
+		rtTPGElementorHelper::query( $this );
 
 		//Filter  Settings
 		rtTPGElementorHelper::filter_settings( $this );

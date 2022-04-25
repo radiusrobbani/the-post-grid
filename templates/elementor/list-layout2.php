@@ -101,13 +101,13 @@ if ( $tpg_post_count != 1 ) {
 				<?php endif; ?>
 
 				<?php
-				if ( rtTPG()->hasPro() && $tpg_post_count == 1 && in_array( $data['show_social_share'], [ 'show', 'default' ] ) ) {
+				if ( rtTPG()->hasPro() && $tpg_post_count == 1 && 'show' == $data['show_social_share'] ) {
 					echo \RT\ThePostGridPro\Helpers\Functions::rtShare( $pID );
 				}
 				?>
 
 
-				<?php if ( $tpg_post_count == 1 && in_array( $data['show_read_more'], [ 'show', 'default' ] ) ) : ?>
+				<?php if ( $tpg_post_count == 1 && 'show' == $data['show_read_more'] ) : ?>
                     <div class="post-footer">
 
                         <div class="read-more">

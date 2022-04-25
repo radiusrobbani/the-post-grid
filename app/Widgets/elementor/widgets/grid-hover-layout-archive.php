@@ -37,11 +37,11 @@ class TPGGridHoverLayoutArchive extends Custom_Widget_Base {
 		 * ===========
 		 */
 
-		//Query
-		rtTPGElementorHelper::query_builder( $this, 'archive' );
-
 		//Layout
 		rtTPGElementorHelper::grid_layouts( $this, 'archive' );
+
+		//Query
+		rtTPGElementorHelper::query_builder( $this, 'archive' );
 
 		//Filter  Settings
 		//rtTPGElementorHelper::filter_settings( $this );

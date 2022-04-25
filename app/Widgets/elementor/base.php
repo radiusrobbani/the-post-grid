@@ -883,7 +883,7 @@ abstract class Custom_Widget_Base extends Widget_Base {
 			'show_acf'                     => isset( $data['show_acf'] ) ? $data['show_acf'] : '',
 		];
 
-		$cf = Fns::checkWhichCustomMetaPluginIsInstalled();
+		$cf = Fns::is_acf();
 		if ( $cf && rtTPG()->hasPro() ) {
 			$post_type                       = $data['post_type'];
 			$data_set['cf_group']            = $data[ $post_type . '_cf_group' ];

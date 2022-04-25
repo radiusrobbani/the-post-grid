@@ -172,7 +172,7 @@ class Options {
 			],
 		];
 
-		$plugin = Fns::checkWhichCustomMetaPluginIsInstalled();
+		$plugin = Fns::is_acf();
 
 		if ( $plugin ) {
 			$acf_settings = [
@@ -698,7 +698,7 @@ class Options {
 				'value'       => isset( $settings['popup_fields'] ) ? $settings['popup_fields'] : [],
 			],
 		];
-		$cf     = Fns::checkWhichCustomMetaPluginIsInstalled();
+		$cf     = Fns::is_acf();
 		if ( $cf ) {
 			$plist                         = self::getCFPluginList();
 			$pName                         = ! empty( $plist[ $cf ] ) ? $plist[ $cf ] : " - ";
@@ -1260,7 +1260,7 @@ class Options {
 				"options"   => self::rtTPGItemFields(),
 			],
 		];
-		if ( $cf = Fns::checkWhichCustomMetaPluginIsInstalled() ) {
+		if ( $cf = Fns::is_acf() ) {
 			global $post;
 			$post_type                     = get_post_meta( $post->ID, 'tpg_post_type', true );
 			$plist                         = self::getCFPluginList();

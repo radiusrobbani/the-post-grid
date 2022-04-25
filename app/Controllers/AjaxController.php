@@ -23,7 +23,7 @@ class AjaxController {
 		if ( Fns::verifyNonce() ) {
 			$fields    = array();
 			$post_type = ! empty( $_REQUEST['post_type'] ) ? $_REQUEST['post_type'] : null;
-			if ( $cf = Fns::checkWhichCustomMetaPluginIsInstalled() && $post_type ) {
+			if ( $cf = Fns::is_acf() && $post_type ) {
 				$fields['cf_group'] = array(
 					"type"        => "checkbox",
 					"name"        => "cf_group",

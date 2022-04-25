@@ -58,7 +58,7 @@ body.rt-model-open,
 }
 
 .rt-container-fluid.slider-layout13-main {
-    padding: 0;
+    padding: 0 0 15px;
 }
 
 .rt-tpg-container ul {
@@ -435,38 +435,6 @@ a:link, a:visited {
 Pagination Style
 **************************************/
 
-.ajax-pagination-type-next-prev-yes .rt-tpg-container .rt-pagination-wrap .rt-page-numbers .paginationjs ul li:not(.paginationjs-next):not(.paginationjs-prev) {
-    display: none;
-}
-
-.ajax-pagination-type-next-prev-yes .rt-tpg-container .rt-pagination-wrap .rt-page-numbers .paginationjs ul li.paginationjs-page:nth-child(2) {
-    display: inline-block;
-    position: relative;
-    pointer-events: none;
-}
-
-.ajax-pagination-type-next-prev-yes .rt-tpg-container .rt-pagination-wrap .rt-page-numbers .paginationjs ul li.paginationjs-page:nth-child(2) a {
-    text-indent: -99999px;
-    pointer-events: none;
-}
-
-.ajax-pagination-type-next-prev-yes .rt-tpg-container .rt-pagination-wrap .rt-page-numbers .paginationjs ul li.paginationjs-page:nth-child(2):before {
-    content: "\f100";
-    font-family: "Font Awesome 5 Free";
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    z-index: 99999;
-    opacity: .5;
-    font-weight: 900;
-    transform: translate(-50%, -50%);
-
-}
-
-.ajax-pagination-type-next-prev-yes .rt-tpg-container .rt-pagination-wrap .rt-page-numbers .paginationjs ul li.paginationjs-prev + li {
-    display: none !important;
-}
-
 .paginationjs {
     line-height: 1.6;
     font-family: Marmelad, "Lucida Grande", Arial, "Hiragino Sans GB", Georgia, sans-serif;
@@ -515,7 +483,7 @@ Pagination Style
     text-align: center
 }
 
-.paginationjs .paginationjs-pages li > a:hover {
+.paginationjs .paginationjs-pages li:hover > a {
     background: var(--tpg-primary-color);
     color: #ffffff !important;
     border-color: var(--tpg-primary-color) !important;
@@ -695,7 +663,7 @@ Pagination Style
     color: #289de9
 }
 
-.paginationjs.paginationjs-theme-blue .paginationjs-pages li > a:hover {
+.paginationjs.paginationjs-theme-blue .paginationjs-pages li:hover > a {
     background: #e9f4fc
 }
 
@@ -704,7 +672,7 @@ Pagination Style
     color: #fff
 }
 
-.paginationjs.paginationjs-theme-blue .paginationjs-pages li.disabled > a:hover {
+.paginationjs.paginationjs-theme-blue .paginationjs-pages li.disabled:hover > a {
     background: 0 0
 }
 
@@ -726,7 +694,7 @@ Pagination Style
     color: #449d44
 }
 
-.paginationjs.paginationjs-theme-green .paginationjs-pages li > a:hover {
+.paginationjs.paginationjs-theme-green .paginationjs-pages li:hover > a {
     background: #ebf4eb
 }
 
@@ -735,7 +703,7 @@ Pagination Style
     color: #fff
 }
 
-.paginationjs.paginationjs-theme-green .paginationjs-pages li.disabled > a:hover {
+.paginationjs.paginationjs-theme-green .paginationjs-pages li.disabled:hover > a {
     background: 0 0
 }
 
@@ -757,7 +725,7 @@ Pagination Style
     color: #ec971f
 }
 
-.paginationjs.paginationjs-theme-yellow .paginationjs-pages li > a:hover {
+.paginationjs.paginationjs-theme-yellow .paginationjs-pages li:hover > a {
     background: #fdf5e9
 }
 
@@ -766,7 +734,7 @@ Pagination Style
     color: #fff
 }
 
-.paginationjs.paginationjs-theme-yellow .paginationjs-pages li.disabled > a:hover {
+.paginationjs.paginationjs-theme-yellow .paginationjs-pages li.disabled:hover > a {
     background: 0 0
 }
 
@@ -788,7 +756,7 @@ Pagination Style
     color: #c9302c
 }
 
-.paginationjs.paginationjs-theme-red .paginationjs-pages li > a:hover {
+.paginationjs.paginationjs-theme-red .paginationjs-pages li:hover > a {
     background: #faeaea
 }
 
@@ -797,7 +765,7 @@ Pagination Style
     color: #fff
 }
 
-.paginationjs.paginationjs-theme-red .paginationjs-pages li.disabled > a:hover {
+.paginationjs.paginationjs-theme-red .paginationjs-pages li.disabled:hover > a {
     background: 0 0
 }
 
@@ -828,6 +796,53 @@ Pagination Style
     height: 36px \9;
     line-height: 36px \9
 }
+
+
+.ajax-pagination-type-next-prev-yes .rt-tpg-container .rt-pagination-wrap .rt-page-numbers .paginationjs ul li:not(.paginationjs-next):not(.paginationjs-prev) {
+    display: none;
+}
+
+.ajax-pagination-type-next-prev-yes .rt-tpg-container .rt-pagination-wrap .rt-page-numbers .paginationjs ul li {
+    color: #ffffff;
+}
+
+.ajax-pagination-type-next-prev-yes .rt-tpg-container .rt-pagination-wrap .rt-page-numbers .paginationjs .paginationjs-pages ul li > a {
+    color: #ffffff;
+    background-color: var(--tpg-primary-color);
+}
+
+.ajax-pagination-type-next-prev-yes .rt-tpg-container .rt-pagination-wrap .rt-page-numbers .paginationjs ul li:hover a {
+    background-color: var(--tpg-secondary-color);
+}
+
+.ajax-pagination-type-next-prev-yes .rt-tpg-container .rt-pagination-wrap .rt-page-numbers .paginationjs ul li.paginationjs-page:nth-child(2) {
+    display: inline-block;
+    position: relative;
+    pointer-events: none;
+}
+
+.ajax-pagination-type-next-prev-yes .rt-tpg-container .rt-pagination-wrap .rt-page-numbers .paginationjs ul li.paginationjs-page:nth-child(2) a {
+    text-indent: -99999px;
+    pointer-events: none;
+}
+
+.ajax-pagination-type-next-prev-yes .rt-tpg-container .rt-pagination-wrap .rt-page-numbers .paginationjs ul li.paginationjs-page:nth-child(2):before {
+    content: "\f100";
+    font-family: "Font Awesome 5 Free";
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    z-index: 99999;
+    opacity: .5;
+    font-weight: 900;
+    transform: translate(-50%, -50%);
+
+}
+
+.ajax-pagination-type-next-prev-yes .rt-tpg-container .rt-pagination-wrap .rt-page-numbers .paginationjs ul li.paginationjs-prev + li {
+    display: none !important;
+}
+
 
 /************************ Common ***************************/
 
@@ -1731,6 +1746,13 @@ Common Layout Style
     margin-bottom: 15px;
 }
 
+.rt-tpg-container .list-layout2 .rt-detail .tpg-excerpt-inner,
+.rt-tpg-container .list-layout3 .rt-detail .tpg-excerpt-inner {
+    margin-bottom: 0;
+}
+
+
+
 .rt-tpg-container .rt-holder .rt-detail .post-meta {
     line-height: 25px;
     overflow: hidden;
@@ -2314,12 +2336,13 @@ TPG EVEN Style
 }
 
 .rt-tpg-container .rt-pagination-wrap .rt-page-numbers .paginationjs .paginationjs-pages ul li.paginationjs-ellipsis a {
-    border: none;
-    pointer-events: none;
-    color: #000;
+    border: none !important;
+    pointer-events: none !important;
+    color: #000 !important;
     opacity: 1;
     font-size: 18px;
     min-width: auto;
+    background: none !important;
 }
 
 /* old pagination */
@@ -2411,6 +2434,10 @@ TPG EVEN Style
 
 .rt-tpg-container .swiper-wrapper {
     padding-bottom: 45px;
+}
+
+.rt-tpg-container.slider-layout13-main .swiper-wrapper {
+    padding-bottom: 0;
 }
 
 .rt-tpg-container .swiper-pagination-bullets.swiper-pagination-horizontal {

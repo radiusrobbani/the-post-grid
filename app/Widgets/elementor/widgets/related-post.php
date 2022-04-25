@@ -37,11 +37,11 @@ class TPGRelatedPost extends Custom_Widget_Base {
 		 * =============
 		 */
 
-		//Query
-		rtTPGElementorHelper::query_builder( $this, 'single' );
-
 		//Layout
 		rtTPGElementorHelper::grid_layouts( $this, 'single' );
+
+		//Query
+		rtTPGElementorHelper::query_builder( $this, 'single' );
 
 		//Links
 		rtTPGElementorHelper::links( $this );

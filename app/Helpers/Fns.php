@@ -1730,7 +1730,7 @@ class Fns {
 		return $content;
 	}
 
-	public static function checkWhichCustomMetaPluginIsInstalled() {
+	public static function is_acf() {
 		$plugin = null;
 		if ( class_exists( 'acf' ) ) {
 			$plugin = 'acf';
@@ -1742,7 +1742,7 @@ class Fns {
 	public static function get_groups_by_post_type( $post_type ) {
 		$post_type = $post_type ? $post_type : "post";
 		$groups    = [];
-		$plugin    = self::checkWhichCustomMetaPluginIsInstalled();
+		$plugin    = self::is_acf();
 		switch ( $plugin ) {
 			case 'acf':
 				$groups = self::get_groups_by_post_type_acf( $post_type );
@@ -2373,7 +2373,7 @@ class Fns {
 	 * @return bool
 	 */
 	public static function tpg_get_acf_data_elementor( $data, $pID, $return_type = true ) {
-		if ( ! ( rtTPG()->hasPro() && Fns::checkWhichCustomMetaPluginIsInstalled() ) ) {
+		if ( ! ( rtTPG()->hasPro() && Fns::is_acf() ) ) {
 			return;
 		}
 

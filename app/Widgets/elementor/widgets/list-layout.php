@@ -35,11 +35,12 @@ class TPGListLayout extends Custom_Widget_Base {
 		 * Content Tabs
 		 * ===========
 		 */
-		//Query
-		rtTPGElementorHelper::query( $this );
 
 		//Layout
 		rtTPGElementorHelper::list_layouts( $this );
+
+		//Query
+		rtTPGElementorHelper::query( $this );
 
 
 		//Filter  Settings

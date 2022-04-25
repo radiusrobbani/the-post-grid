@@ -36,12 +36,12 @@ class TPGListLayoutArchive extends Custom_Widget_Base {
 		 * Content Tabs
 		 * ===========
 		 */
-		//Query
-		rtTPGElementorHelper::query_builder( $this );
 
 		//Layout
 		rtTPGElementorHelper::list_layouts( $this, 'archive' );
 
+		//Query
+		rtTPGElementorHelper::query_builder( $this );
 
 		//Filter  Settings
 		//rtTPGElementorHelper::filter_settings( $this );
