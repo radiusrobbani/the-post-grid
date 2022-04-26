@@ -97,12 +97,27 @@ class Options {
 		$settings = get_option( rtTPG()->options['settings'] );
 
 		$other_settings = [
+			'tpg_block_type'       => [
+				'type'        => 'select',
+				'name'        => 'tpg_block_type',
+				'label'       => 'Choose Elementor or Shortcode',
+				'id'          => 'tpg_block_type',
+				'holderClass' => 'pro-field',
+				'class'       => 'select2',
+				'options'     => [
+					'default'   => __( 'Default (Both Elementor and Shortcode)', 'the-post-grid' ),
+					'elementor' => __( 'Elementor', 'the-post-grid' ),
+					'shortcode' => __( 'Shortcode', 'the-post-grid' ),
+				],
+				'description' => __( 'Please check which type of block you want to use. If you use Default then all styles and scripts for both will load on your site. But if you use one then just this style and script will load on your site.', 'the-post-grid' ),
+				'value'       => isset( $settings['tpg_block_type'] ) ? $settings['tpg_block_type'] : 'default',
+			],
 			'tpg_load_script'      => [
 				'type'        => 'switch',
 				'name'        => 'tpg_load_script',
 				'label'       => __( 'Load Script only ShortCode page', 'the-post-grid' ),
 				'description' => __( 'If you enable this, script will be loaded only ShortCode page.', 'the-post-grid' ),
-				'value'       => isset( $settings['tpg_load_script'] ) ? $settings['tpg_load_script'] : true,
+				'value'       => isset( $settings['tpg_load_script'] ) ? $settings['tpg_load_script'] : false,
 			],
 			'tpg_enable_preloader' => [
 				'type'        => 'switch',
@@ -193,7 +208,6 @@ class Options {
 					'holderClass' => 'pro-field',
 					'alignment'   => 'vertical',
 					'multiple'    => true,
-					'holderClass' => 'pro-field',
 					'options'     => Fns::get_groups_by_post_type( 'all' ),
 					'value'       => isset( $settings['cf_group_details'] ) ? $settings['cf_group_details'] : [],
 				],
@@ -1462,9 +1476,10 @@ class Options {
 	}
 
 	public static function postLoadingType() {
-		return apply_filters('rttpg_pagination_type', [
-			'pagination'      => __("Pagination", "the-post-grid")
-		]);
+		return apply_filters( 'rttpg_pagination_type',
+			[
+				'pagination' => __( "Pagination", "the-post-grid" ),
+			] );
 	}
 
 	public static function scGridOpt() {

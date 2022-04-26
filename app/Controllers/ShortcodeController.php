@@ -496,6 +496,10 @@ class ShortcodeController {
 			// Start layout
 			$html              .= Fns::layoutStyle( $layoutID, $scMeta, $layout, $scID );
 			$containerDataAttr .= " data-sc-id='{$scID}'";
+
+			if ( isset( $settings['tpg_load_script'] ) ) {
+				$parentClass .= ' loading';
+			}
 			$html              .= "<div class='rt-container-fluid rt-tpg-container tpg-shortcode-main-wrapper {$parentClass}' id='{$layoutID}' {$dataArchive} {$containerDataAttr}>";
 
 			// widget heading

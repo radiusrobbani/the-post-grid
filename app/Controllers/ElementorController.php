@@ -28,12 +28,6 @@ if ( ! class_exists( 'ElementorController' ) ):
 				add_action( "elementor/frontend/after_enqueue_scripts", [ $this, 'tpg_frontend_scripts' ] );
 				add_filter( 'elementor/editor/localize_settings', [ $this, 'promotePremiumWidgets' ] );
 			}
-
-			add_action( "wp_head", [ $this, 'set_primary_color' ] );
-		}
-
-		public function set_primary_color() {
-			echo "<style>:root{--tpg-primary-color: #0d6efd;--tpg-secondary-color:#0654c4;--tpg-primary-light:#c4d0ff }</style>";
 		}
 
 		public function tpg_frontend_scripts() {

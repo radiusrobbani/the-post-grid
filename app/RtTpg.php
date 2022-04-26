@@ -78,6 +78,9 @@ if ( ! class_exists( RtTpg::class ) ) {
 				return;
 			}
 
+			$settings = get_option( $this->options['settings'] );
+
+
 			new PostTypeController();
 			if ( is_admin() ) {
 				new AdminAjaxController();
@@ -87,14 +90,21 @@ if ( ! class_exists( RtTpg::class ) ) {
 
 			new AjaxController();
 			new ScriptController();
-			new ShortcodeController();
+
+			if ( ! isset( $settings['tpg_block_type'] ) || in_array( $settings['tpg_block_type'], [ 'default', 'shortcode' ] ) ) {
+				new ShortcodeController();
+				new GutenBergController();
+			}
 
 			FilterHooks::init();
 			ActionHooks::init();
 
 			( new SettingsController() )->init();
-			new ElementorController();
-			new GutenBergController();
+
+			if ( !isset( $settings['tpg_block_type'] ) || in_array( $settings['tpg_block_type'], [ 'default', 'elementor' ] ) ) {
+				new ElementorController();
+			}
+
 
 			$this->load_hooks();
 		}
@@ -177,7 +187,7 @@ if ( ! class_exists( RtTpg::class ) ) {
 
 
 		public function hasPro() {
-			return class_exists( 'RtTpgPro' ) || class_exists('rtTPGP');
+			return class_exists( 'RtTpgPro' ) || class_exists( 'rtTPGP' );
 		}
 
 	}

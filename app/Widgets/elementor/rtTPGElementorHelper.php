@@ -2902,7 +2902,7 @@ class rtTPGElementorHelper {
 						'show_category' => 'show',
 						'post_type'     => $post_type,
 					],
-					'description' => __( 'Select which taxonomy should sit in the place of categories. Default: Category' ),
+					'description' => __( 'Select which taxonomy should sit in the place of categories. Default: Category', 'the-post-grid' ),
 				]
 			);
 
@@ -2917,7 +2917,7 @@ class rtTPGElementorHelper {
 						'show_category' => 'show',
 						'post_type'     => $post_type,
 					],
-					'description' => __( 'Select which taxonomy should sit in the place of tags. Default: Tags' ),
+					'description' => __( 'Select which taxonomy should sit in the place of tags. Default: Tags', 'the-post-grid' ),
 				]
 			);
 		}
@@ -6992,7 +6992,7 @@ class rtTPGElementorHelper {
 				'default'      => false,
 				'prefix_class' => 'enable-two-rows-',
 				'render_type'  => 'template',
-				'description'  => __( 'If you use 2 rows then you have to put an even number for post limit' ),
+				'description'  => __( 'If you use 2 rows then you have to put an even number for post limit', 'the-post-grid' ),
 				'condition'    => [
 					$prefix . '_layout!' => [ 'slider-layout13', 'slider-layout11', 'slider-layout12', 'slider-layout10' ],
 				],
