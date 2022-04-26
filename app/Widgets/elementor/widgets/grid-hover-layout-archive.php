@@ -218,7 +218,7 @@ class TPGGridHoverLayoutArchive extends Custom_Widget_Base {
 					if ( $data['no_posts_found_text'] ) {
 						printf( "<div class='no_posts_found_text'>%s</div>", esc_html( $data['no_posts_found_text'] ) );
 					} else {
-						printf( "<div class='no_posts_found_text'>%s</div>", esc_html__( 'No post found', 'the-post-grid-pro' ) );
+						printf( "<div class='no_posts_found_text'>%s</div>", esc_html__( 'No post found', 'the-post-grid' ) );
 					}
 				}
 				wp_reset_postdata();

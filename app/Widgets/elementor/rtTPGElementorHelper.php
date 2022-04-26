@@ -171,7 +171,7 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'date_range',
 			[
-				'label'          => __( 'Date Range (Start to End)', 'plugin-domain' ) . $ref->pro_label,
+				'label'          => __( 'Date Range (Start to End)', 'the-post-grid' ) . $ref->pro_label,
 				'type'           => \Elementor\Controls_Manager::DATE_TIME,
 				'placeholder'    => "Choose date...",
 				'description'    => __( "NB: Enter DEL button for delete date range", "the-post-grid" ),
@@ -244,10 +244,10 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'ignore_sticky_posts',
 			[
-				'label'        => __( 'Ignore sticky posts at the top', 'plugin-domain' ) . $ref->pro_label,
+				'label'        => __( 'Ignore sticky posts at the top', 'the-post-grid' ) . $ref->pro_label,
 				'type'         => \Elementor\Controls_Manager::SWITCHER,
-				'label_on'     => __( 'Yes', 'your-plugin' ),
-				'label_off'    => __( 'No', 'your-plugin' ),
+				'label_on'     => __( 'Yes', 'the-post-grid' ),
+				'label_off'    => __( 'No', 'the-post-grid' ),
 				'return_value' => 'yes',
 				'default'      => 'no',
 				'disabled'     => true,
@@ -2925,7 +2925,7 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'comment_count_heading',
 			[
-				'label'     => __( 'Comment Count ', 'the-post-grid-pro' ),
+				'label'     => __( 'Comment Count ', 'the-post-grid' ),
 				'type'      => \Elementor\Controls_Manager::HEADING,
 				'classes'   => 'tpg-control-type-heading',
 				'condition' => [
@@ -2980,7 +2980,7 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'meta_ordering_heading',
 			[
-				'label'   => __( 'Meta Ordering', 'the-post-grid-pro' ),
+				'label'   => __( 'Meta Ordering', 'the-post-grid' ),
 				'type'    => \Elementor\Controls_Manager::HEADING,
 				'classes' => 'tpg-control-type-heading',
 			]
@@ -3102,7 +3102,7 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'readmore_btn_icon',
 			[
-				'label'     => __( 'Choose Icon', 'text-domain' ),
+				'label'     => __( 'Choose Icon', 'the-post-grid' ),
 				'type'      => \Elementor\Controls_Manager::ICONS,
 				'default'   => [
 					'value'   => 'fas fa-angle-right',

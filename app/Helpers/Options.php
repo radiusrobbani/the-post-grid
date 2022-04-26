@@ -1399,7 +1399,7 @@ class Options {
 				'img'         => rtTPG()->get_assets_uri( 'images/layouts/grid1.png' ),
 			],
 			'layout12' => [
-				'title'       => esc_html__( "Grid Layout 2", "the-post-grid-pro" ),
+				'title'       => esc_html__( "Grid Layout 2", "the-post-grid" ),
 				'layout'      => 'grid',
 				'layout_link' => 'https://www.radiustheme.com/demo/plugins/the-post-grid/grid-layout-2/',
 				'img'         => rtTPG()->get_assets_uri( 'images/layouts/grid10.png' ),
@@ -1411,13 +1411,13 @@ class Options {
 				'img'         => rtTPG()->get_assets_uri( 'images/layouts/grid3.png' ),
 			],
 			'layout6'  => [
-				'title'       => esc_html__( "Grid Hover 2", "the-post-grid-pro" ),
+				'title'       => esc_html__( "Grid Hover 2", "the-post-grid" ),
 				'layout'      => 'grid_hover',
 				'layout_link' => 'https://www.radiustheme.com/demo/plugins/the-post-grid/hover-layout-2/',
 				'img'         => rtTPG()->get_assets_uri( 'images/layouts/grid4.png' ),
 			],
 			'layout7'  => [
-				'title'       => esc_html__( "Grid Hover 3", "the-post-grid-pro" ),
+				'title'       => esc_html__( "Grid Hover 3", "the-post-grid" ),
 				'layout'      => 'grid_hover',
 				'layout_link' => 'https://www.radiustheme.com/demo/plugins/the-post-grid/hover-layout-3/',
 				'img'         => rtTPG()->get_assets_uri( 'images/layouts/grid5.png' ),

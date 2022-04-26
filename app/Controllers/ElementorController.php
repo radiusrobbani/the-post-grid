@@ -121,12 +121,12 @@ if ( ! class_exists( 'ElementorController' ) ):
 
 		public function widget_category( $elements_manager ) {
 			$categories['tpg-elementor-builder-widgets'] = [
-				'title' => __( 'TPG Archive Builder Element', 'the-post-grid-pro' ),
+				'title' => __( 'TPG Archive Builder Element', 'the-post-grid' ),
 				'icon'  => 'fa fa-plug',
 			];
 
 			$categories[ RT_THE_POST_GRID_PLUGIN_SLUG . '-elements' ] = [
-				'title' => __( 'The Post Grid', 'the-post-grid-pro' ),
+				'title' => __( 'The Post Grid', 'the-post-grid' ),
 				'icon'  => 'fa fa-plug',
 			];
 
@@ -154,8 +154,8 @@ if ( ! class_exists( 'ElementorController' ) ):
 			$pro_widgets = [
 				[
 					'name'        => 'tpg-slider-layout',
-					'title'       => __( 'TPG - Slider Layout', 'testimonial-slider-showcase' ),
-					'description' => __( 'TPG - Slider Layout', 'testimonial-slider-showcase' ),
+					'title'       => __( 'TPG - Slider Layout', 'the-post-grid' ),
+					'description' => __( 'TPG - Slider Layout', 'the-post-grid' ),
 					'icon'        => 'eicon-post-slider tpg-grid-icon tss-promotional-element',
 					'categories'  => '[ "the-post-grid-elements" ]',
 				],

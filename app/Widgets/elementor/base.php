@@ -202,7 +202,7 @@ abstract class Custom_Widget_Base extends Widget_Base {
 			'taxonomy'   => $cat,
 			'hide_empty' => true,
 		] );
-		$options = [ '0' => __( 'All Categories', 'homlisti-core' ) ];
+		$options = [ '0' => __( 'All Categories', 'the-post-grid' ) ];
 		if ( ! empty( $terms ) && ! is_wp_error( $terms ) ) {
 			foreach ( $terms as $term ) {
 				$options[ $term->slug ] = $term->name;

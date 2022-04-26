@@ -28,13 +28,13 @@ const {RichText, InspectorControls} = wp.editor;
  *                             registered; otherwise `undefined`.
  */
 registerBlockType('rttpg/post-grid-pro', {
-    title: __('The Post Grid Pro', "the-post-grid-pro"),
+    title: __('The Post Grid Pro', "the-post-grid"),
     icon: 'grid-view',
     category: 'common', // Block category — Group blocks together based on common traits E.g. common, formatting, layout widgets, embed.
     keywords: [
-        __('Post Grid pro', "the-post-grid-pro"),
-        __('The Post Grid pro', "the-post-grid-pro"),
-        __('the-post-grid-pro', "the-post-grid-pro"),
+        __('Post Grid pro', "the-post-grid"),
+        __('The Post Grid pro', "the-post-grid"),
+        __('the-post-grid-pro', "the-post-grid"),
     ],
     attributes: {
         gridId: {
