@@ -3,8 +3,8 @@ Contributors: techlabpro1
 Donate link:
 Tags: post grid, content grid, post display, post format, post view, blog display, news display, post
 Requires at least: 4.5
-Tested up to: 5.9.1
-Stable tag: 3.1.4
+Tested up to: 5.9.3
+Stable tag: 3.1.5
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -150,6 +150,9 @@ For any bug or suggestion please mail support@radiustheme.com
 
 
 == Changelog ==
+
+= 3.1.5 =
+* Fixed: Multiple ShortCode in same page preloader issue
 
 = 3.1.4 =
 * Fixed: PHP error
