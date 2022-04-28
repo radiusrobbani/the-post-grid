@@ -105,6 +105,7 @@
             container.trigger("tpg_loaded");
         });
     };
+
     initTpg();
 
     $(window).on('load resize', function () {
@@ -113,9 +114,9 @@
     });
 
     function tpgBottomScriptLoader() {
-        $( "#bottom-script-loader" ).fadeOut(500, function() {
+        $( ".bottom-script-loader" ).fadeOut(500, function() {
             // fadeOut complete. Remove the loading div
-            $( "#bottom-script-loader" ).remove(); //makes page more lightweight
+            $( ".bottom-script-loader" ).remove(); //makes page more lightweight
         });
     }
 
