@@ -521,7 +521,7 @@ class ShortcodeController {
 			}
 
 			if ( ! $isCarousel && isset( $settings['tpg_load_script'] ) && isset( $settings['tpg_enable_preloader'] ) ) {
-				$html .= '<div id="bottom-script-loader"><div class="rt-ball-clip-rotate"><div></div></div></div>';
+				$html .= '<div id="bottom-script-loader" class="bottom-script-loader"><div class="rt-ball-clip-rotate"><div></div></div></div>';
 			}
 			if ( ! empty( $filters ) && ( $isGrid || $isOffset || $isWooCom || $isEdd ) ) {
 				$html                      .= "<div class='rt-layout-filter-container rt-clear'><div class='rt-filter-wrap'>";
