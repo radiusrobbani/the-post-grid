@@ -82,14 +82,14 @@ if ( ! class_exists( RtTpg::class ) ) {
 
 
 			new PostTypeController();
+			new AjaxController();
+			new ScriptController();
+
 			if ( is_admin() ) {
 				new AdminAjaxController();
 				new NoticeController();
 				new MetaController();
 			}
-
-			new AjaxController();
-			new ScriptController();
 
 			if ( ! isset( $settings['tpg_block_type'] ) || in_array( $settings['tpg_block_type'], [ 'default', 'shortcode' ] ) ) {
 				new ShortcodeController();
@@ -101,7 +101,7 @@ if ( ! class_exists( RtTpg::class ) ) {
 
 			( new SettingsController() )->init();
 
-			if ( !isset( $settings['tpg_block_type'] ) || in_array( $settings['tpg_block_type'], [ 'default', 'elementor' ] ) ) {
+			if ( ! isset( $settings['tpg_block_type'] ) || in_array( $settings['tpg_block_type'], [ 'default', 'elementor' ] ) ) {
 				new ElementorController();
 			}
 
@@ -174,6 +174,21 @@ if ( ! class_exists( RtTpg::class ) ) {
 			$file = ltrim( $file, '/' );
 
 			return trailingslashit( RT_THE_POST_GRID_PLUGIN_URL . '/assets' ) . $file;
+		}
+
+		/**
+		 * @param $file
+		 *
+		 * @return string
+		 */
+		public function tpg_can_be_rtl( $file ) {
+			$file = ltrim( str_replace('.css', '', $file), '/' );
+
+			if ( is_rtl() ) {
+				$file .= '-rtl';
+			}
+
+			return trailingslashit( RT_THE_POST_GRID_PLUGIN_URL . '/assets' ) . $file . '.css';
 		}
 
 		/**

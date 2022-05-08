@@ -6,10 +6,9 @@ namespace RT\ThePostGrid\Controllers\Admin;
 
 class PostTypeController {
 
-	private $version;
+
 
 	public function __construct() {
-		$this->version = defined( 'WP_DEBUG' ) && WP_DEBUG ? time() : RT_THE_POST_GRID_VERSION;
 		add_action( 'init', [ &$this, 'register_post_types' ], 1 );
 		add_action( 'admin_init', [ &$this, 'the_post_grid_remove_all_meta_box' ], 9999 );
 	}
@@ -23,9 +22,9 @@ class PostTypeController {
 				] );
 		}
 
-		if ( get_option('rttpg_activation_redirect', false) ) {
-			delete_option('rttpg_activation_redirect');
-			wp_redirect( admin_url('edit.php?post_type=rttpg&page=rttpg_get_help') );
+		if ( get_option( 'rttpg_activation_redirect', false ) ) {
+			delete_option( 'rttpg_activation_redirect' );
+			wp_redirect( admin_url( 'edit.php?post_type=rttpg&page=rttpg_get_help' ) );
 		}
 	}
 
@@ -62,68 +61,6 @@ class PostTypeController {
 				'show_in_menu'    => true,
 				'menu_position'   => 20,
 			] );
-
-		// register scripts
-		$scripts   = [];
-		$styles    = [];
-		$scripts[] = [
-			'handle' => 'rt-image-load-js',
-			'src'    => rtTPG()->get_assets_uri( "vendor/isotope/imagesloaded.pkgd.min.js" ),
-			'deps'   => [ 'jquery' ],
-			'footer' => true,
-		];
-		$scripts[] = [
-			'handle' => 'rt-isotope-js',
-			'src'    => rtTPG()->get_assets_uri( "vendor/isotope/isotope.pkgd.min.js" ),
-			'deps'   => [ 'jquery' ],
-			'footer' => true,
-		];
-
-		$scripts[] = [
-			'handle' => 'rt-tpg',
-			'src'    => rtTPG()->get_assets_uri( 'js/rttpg.js' ),
-			'deps'   => [ 'jquery' ],
-			'footer' => true,
-		];
-
-		// register acf styles
-		$styles['rt-fontawsome']     = rtTPG()->get_assets_uri( 'vendor/font-awesome/css/font-awesome.min.css' );
-		$styles['rt-tpg']            = rtTPG()->get_assets_uri( 'css/thepostgrid.css' );
-		$styles['rt-tpg-rtl']        = rtTPG()->get_assets_uri( 'css/thepostgrid-rtl.css' );
-		$styles['rt-tpg-common']     = rtTPG()->get_assets_uri( 'css/rt-tpg-common.css' );
-		$styles['rt-tpg-common-rtl'] = rtTPG()->get_assets_uri( 'css/rt-tpg-common-rtl.css' );
-
-		if ( is_admin() ) {
-			$scripts[]                      = [
-				'handle' => 'rt-select2',
-				'src'    => rtTPG()->get_assets_uri( 'vendor/select2/select2.min.js' ),
-				'deps'   => [ 'jquery' ],
-				'footer' => false,
-			];
-			$scripts[]                      = [
-				'handle' => 'rt-tpg-admin',
-				'src'    => rtTPG()->get_assets_uri( 'js/admin.js' ),
-				'deps'   => [ 'jquery' ],
-				'footer' => true,
-			];
-			$scripts[]                      = [
-				'handle' => 'rt-tpg-admin-preview',
-				'src'    => rtTPG()->get_assets_uri( 'js/admin-preview.js' ),
-				'deps'   => [ 'jquery' ],
-				'footer' => true,
-			];
-			$styles['rt-select2']           = rtTPG()->get_assets_uri( 'vendor/select2/select2.min.css' );
-			$styles['rt-tpg-admin']         = rtTPG()->get_assets_uri( 'css/admin.css' );
-			$styles['rt-tpg-admin-preview'] = rtTPG()->get_assets_uri( 'css/admin-preview.css' );
-		}
-
-		foreach ( $scripts as $script ) {
-			wp_register_script( $script['handle'], $script['src'], $script['deps'], isset( $script['version'] ) ? $script['version'] : $this->version, $script['footer'] );
-		}
-
-		foreach ( $styles as $k => $v ) {
-			wp_register_style( $k, $v, false, isset( $script['version'] ) ? $script['version'] : $this->version );
-		}
 	}
 
 

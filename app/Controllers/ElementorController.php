@@ -41,12 +41,7 @@ if ( ! class_exists( 'ElementorController' ) ):
 			$settings = get_option( rtTPG()->options['settings'] );
 			wp_enqueue_style( 'rt-fontawsome' );
 			wp_enqueue_style( 'rt-tpg-common' );
-			wp_enqueue_style( 'tgp-elementor-style', rtTPG()->get_assets_uri( 'css/tpg-elementor.css' ), [], $this->version );
-
-			if ( is_rtl() ) {
-				wp_enqueue_style( 'rt-tpg-common-rtl' );
-				wp_enqueue_style( 'rt-tpg-rtl' );
-			}
+			wp_enqueue_style( 'rt-tpg-elementor' );
 
 			if(rtTPG()->hasPro()){
 				wp_enqueue_script( 'rt-isotope-js' );
