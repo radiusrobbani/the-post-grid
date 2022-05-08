@@ -14,7 +14,7 @@ class ScriptController {
 	public function enqueue() {
 		$settings = get_option( rtTPG()->options['settings'] );
 
-		if ( ! isset( $settings['tpg_load_script'] )) {
+		if ( ! isset( $settings['tpg_load_script'] ) ) {
 			wp_enqueue_style( 'rt-tpg-common' );
 			wp_enqueue_style( 'rt-tpg' );
 		}
@@ -36,7 +36,10 @@ class ScriptController {
 		echo "<style>:root{--tpg-primary-color: #0d6efd;--tpg-secondary-color:#0654c4;--tpg-primary-light:#c4d0ff }</style>";
 
 		$settings = get_option( rtTPG()->options['settings'] );
+
+
 		if ( isset( $settings['tpg_load_script'] ) ) {
+			$loadingContent = isset( $settings['tpg_enable_preloader'] ) ? 'Loading...' : '';
 			?>
             <style>
 
@@ -45,7 +48,7 @@ class ScriptController {
                 }
 
                 .tpg-shortcode-main-wrapper.loading::before {
-                    content: "Loading...";
+                    content: "<?php echo esc_attr($loadingContent) ?>";
                     width: 100%;
                     height: 100%;
                     position: absolute;
@@ -58,21 +61,33 @@ class ScriptController {
                 }
 
                 @-webkit-keyframes tpgFadeInOut {
-                    0%{opacity:1}
-                    100%{opacity:0}
+                    0% {
+                        opacity: 1
+                    }
+                    100% {
+                        opacity: 0
+                    }
 
                 }
             </style>
 
             <script>
 
-                jQuery(window).load(function () {
+                window.addEventListener('load', () => {
                     setTimeout(function () {
-                        // jQuery('.tpg-shortcode-main-wrapper').removeClass('loading');
-                        jQuery('.tpg-shortcode-main-wrapper .rt-content-loader').css({'opacity': '1'});
-                        jQuery('.tpg-shortcode-main-wrapper').removeClass('loading');
+                        var tpgContainer = document.querySelectorAll('.tpg-shortcode-main-wrapper');
+                        var tpgContainerLoader = document.querySelectorAll('.tpg-shortcode-main-wrapper .rt-content-loader');
+
+                        tpgContainerLoader.forEach(function (elm) {
+                            elm.style.opactiy = 1
+                        })
+
+                        tpgContainer.forEach(function (elm) {
+                            elm.classList.remove('loading');
+                        })
                     }, 500);
                 });
+
             </script>
 
 			<?php

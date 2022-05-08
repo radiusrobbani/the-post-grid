@@ -774,15 +774,15 @@ class Fns {
 			$limit = isset( $data['excerpt_limit'] ) ? abs( $data['excerpt_limit'] ) : 0;
 			if ( class_exists( 'ET_GB_Block_Layout' ) ) {
 				$defaultExcerpt = $post->post_excerpt ?: wp_trim_words( $post->post_content, 55 );
+				$excerpt        = preg_replace( '`\[[^\]]*\]`', '', $defaultExcerpt );
+				$excerpt        = strip_shortcodes( $excerpt );
+				$excerpt        = preg_replace( '`[[^]]*]`', '', $excerpt );
+				$excerpt        = str_replace( '…', '', $excerpt );
 			} else {
-				$defaultExcerpt = $limit ? $post->post_content : get_the_excerpt( $post_id );
+				$excerpt = get_the_excerpt( $post_id );
 			}
 
-			$more    = $data['excerpt_more_text'];
-			$excerpt = preg_replace( '`\[[^\]]*\]`', '', $defaultExcerpt );
-			$excerpt = strip_shortcodes( $excerpt );
-			$excerpt = preg_replace( '`[[^]]*]`', '', $excerpt );
-			$excerpt = str_replace( '…', '', $excerpt );
+			$more = $data['excerpt_more_text'];
 			if ( $limit ) {
 				$excerpt = wp_filter_nohtml_kses( $excerpt );
 				if ( $type == "word" ) {
@@ -796,12 +796,6 @@ class Fns {
 						$excerpt = $rawExcerpt;
 					}
 				} else {
-					/*
-					if ( $limit > 0 && strlen( $excerpt ) > $limit ) {
-						$excerpt = mb_substr( $excerpt, 0, $limit, "utf-8" );
-						$excerpt = preg_replace( '/\W\w+\s*(\W*)$/', '$1', $excerpt );
-					}
-					*/
 					$excerpt = self::tpgCharacterLimit( $limit, $excerpt );
 				}
 				$excerpt = stripslashes( $excerpt );
@@ -820,13 +814,13 @@ class Fns {
 
 			$excerpt = ( $more ? $excerpt . " " . $more : $excerpt );
 
-			return apply_filters( 'tpg_get_the_excerpt', $excerpt, $post_id, $data, $defaultExcerpt );
+			return apply_filters( 'tpg_get_the_excerpt', $excerpt, $post_id, $data );
 		}
 	}
 
 	public static function get_the_title( $post_id, $data = [] ) {
 		$title      = $originalTitle = get_the_title( $post_id );
-		$limit      = isset( $data['title_limit'] ) ? abs( $data['title_limit'] ) : 0;
+		$limit      = isset( $data['title_limit'] ) ? absint( $data['title_limit'] ) : 0;
 		$limit_type = isset( $data['title_limit_type'] ) ? trim( $data['title_limit_type'] ) : 'character';
 		if ( $limit ) {
 			if ( $limit_type == "word" ) {
@@ -919,7 +913,7 @@ class Fns {
 		return $html;
 	}
 
-	public static function rt_pagination_ajax( $pages = '', $range = 4, $scID ) {
+	public static function rt_pagination_ajax( $scID, $range = 4, $pages = '' ) {
 		$html = null;
 
 
@@ -979,7 +973,7 @@ class Fns {
 
 		//Check if opacity is set(rgba or rgb)
 		if ( $opacity ) {
-			if ( abs( $opacity ) > 1 ) {
+			if ( absint( $opacity ) > 1 ) {
 				$opacity = 1.0;
 			}
 			$output = 'rgba(' . implode( ",", $rgb ) . ',' . $opacity . ')';
@@ -991,7 +985,7 @@ class Fns {
 		return $output;
 	}
 
-	public static function meta_exist( $post_id = null, $meta_key, $type = "post" ) {
+	public static function meta_exist( $meta_key, $post_id = null, $type = "post" ) {
 		if ( ! $post_id ) {
 			return false;
 		}
@@ -1753,7 +1747,8 @@ class Fns {
 	}
 
 	/**
-     * Get ACF post group
+	 * Get ACF post group
+	 *
 	 * @param $post_type
 	 *
 	 * @return array
@@ -1776,9 +1771,9 @@ class Fns {
 									$flag = true;
 								}
 							} else {
-								if ( ( ! empty( $rule['param'] ) && ( $rule['param'] == 'post_type' || ($rule['param'] == 'post_category' && 'post' == $post_type) ) )
+								if ( ( ! empty( $rule['param'] ) && ( $rule['param'] == 'post_type' || ( $rule['param'] == 'post_category' && 'post' == $post_type ) ) )
 								     && ( ! empty( $rule['operator'] ) && $rule['operator'] == '==' )
-								     && ( ! empty( $rule['value'] ) && ( $rule['value'] == $post_type || ($rule['param'] == 'post_category' && 'post' == $post_type) ) )
+								     && ( ! empty( $rule['value'] ) && ( $rule['value'] == $post_type || ( $rule['param'] == 'post_category' && 'post' == $post_type ) ) )
 
 								) {
 									$flag = true;
@@ -2333,7 +2328,7 @@ class Fns {
 		} elseif ( 'first_image' === $data['media_source'] && self::get_content_first_image( $pID ) ) {
 			echo self::get_content_first_image( $pID, 'markup', $lazy_class );
 			$img_link = self::get_content_first_image( $pID, 'url' );
-		} elseif ( 'yes' === $data['is_default_img'] ) {
+		} elseif ( 'yes' === $data['is_default_img'] || 'grid_hover' == $data['prefix'] ) {
 			echo \Elementor\Group_Control_Image_Size::get_attachment_image_html( $data, $img_size_key, 'default_image' );
 			if ( ! empty( $data['default_image'] ) && isset( $data['default_image']['url'] ) ) {
 				$img_link = $data['default_image']['url'];

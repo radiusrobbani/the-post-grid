@@ -187,11 +187,11 @@ class TPGGridLayout extends Custom_Widget_Base {
 			<?php
 
 			$wrapper_class   = [];
-			$wrapper_class[] = str_replace( '-2', null, $_layout );
+			$wrapper_class[] = str_replace( '-2', '', $_layout );
 			$wrapper_class[] = 'grid-behaviour';
 			$wrapper_class[] = ( in_array( $_layout, [ 'grid-layout2' ] ) ) ? "tpg-even" : $_layout_style;
 			$wrapper_class[] = $_prefix . '_layout_wrapper';
-			if ( 'masonry' === $_layout_style && ! in_array( $_layout, [ $this->prefix . '-layout2', $this->prefix . '-layout5', $this->prefix . '-layout6' ] ) ) {
+			if ( 'masonry' === $_layout_style && in_array( $_layout, [ 'grid-layout1', 'grid-layout3', 'grid-layout4' ] ) ) {
 				$wrapper_class[] = 'tpg-masonry';
 			}
 

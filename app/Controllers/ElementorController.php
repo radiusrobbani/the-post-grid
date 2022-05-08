@@ -32,7 +32,7 @@ if ( ! class_exists( 'ElementorController' ) ):
 
 		public function tpg_frontend_scripts() {
 			//wp_enqueue_script( 'imagesloaded' );
-			//wp_enqueue_script( 'isotope' );
+
 			//wp_enqueue_script( 'select2' );
 			wp_enqueue_script( 'tpg-el-script', rtTPG()->get_assets_uri( 'js/el-frontend.js' ), [ 'jquery' ], $this->version, true );
 		}
@@ -48,6 +48,9 @@ if ( ! class_exists( 'ElementorController' ) ):
 				wp_enqueue_style( 'rt-tpg-rtl' );
 			}
 
+			if(rtTPG()->hasPro()){
+				wp_enqueue_script( 'rt-isotope-js' );
+			}
 			wp_enqueue_script( 'rt-swiper-el' );
 			wp_enqueue_script( 'rt-tpg' );
 			//Custom CSS From Settings

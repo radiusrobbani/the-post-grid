@@ -39,7 +39,7 @@ class Field {
 
 		if ( ! $this->value ) {
 			$post_id = get_the_ID();
-			if ( ! Fns::meta_exist( $post_id, $this->name ) &&  $pagenow == 'post-new.php') {
+			if ( ! Fns::meta_exist( $this->name, $post_id ) &&  $pagenow == 'post-new.php') {
 				$this->value = $this->default;
 			} else {
 				if ( $this->multiple ) {

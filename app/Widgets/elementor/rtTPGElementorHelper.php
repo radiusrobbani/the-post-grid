@@ -2159,7 +2159,7 @@ class rtTPGElementorHelper {
 				'label'     => __( 'Default Image', 'the-post-grid' ) . $ref->pro_label,
 				'type'      => \Elementor\Controls_Manager::MEDIA,
 				'default'   => [
-					'url' => \Elementor\Utils::get_placeholder_image_src(),
+					'url' => rtTPG()->get_assets_uri('images/placeholder.png'),
 				],
 				'condition' => [
 					'is_default_img' => 'yes',
@@ -6909,7 +6909,7 @@ class rtTPGElementorHelper {
 				'label_on'     => __( 'Yes', 'the-post-grid' ),
 				'label_off'    => __( 'No', 'the-post-grid' ),
 				'return_value' => 'yes',
-				'default'      => 'yes',
+				'default'      => false,
 			]
 		);
 

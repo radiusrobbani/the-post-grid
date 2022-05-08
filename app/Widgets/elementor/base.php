@@ -78,7 +78,7 @@ abstract class Custom_Widget_Base extends Widget_Base {
 
 
 	public function tpg_template( $data ) {
-		$layout        = str_replace( '-2', null, $data['layout'] );
+		$layout        = str_replace( '-2', '', $data['layout'] );
 		$template_name = '/the-post-grid/elementor/' . $layout . '.php';
 		if ( file_exists( STYLESHEETPATH . $template_name ) ) {
 			$file = STYLESHEETPATH . $template_name;
@@ -105,7 +105,7 @@ abstract class Custom_Widget_Base extends Widget_Base {
 
 
 	public function tpg_template_path( $data ) {
-		$layout        = str_replace( '-2', null, $data['layout'] );
+		$layout        = str_replace( '-2', '', $data['layout'] );
 		$template_name = '/the-post-grid/elementor/' . $layout . '.php';
 		$path          = RT_THE_POST_GRID_PLUGIN_PATH . '/templates/elementor/';
 		if ( file_exists( STYLESHEETPATH . $template_name ) ) {
