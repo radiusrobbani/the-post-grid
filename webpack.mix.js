@@ -55,5 +55,3 @@ if (process.env.NODE_ENV === 'package') {
 
     }
 }
-
-mix.block('src/blocks.js', 'scripts');
