@@ -771,7 +771,7 @@ div#column_holder:before {
     color: #000;
     top: 45%;
     text-align: center;
-    display: block;
+    display: none;
     font-size: 20px;
     position: absolute;
     left: 0;
