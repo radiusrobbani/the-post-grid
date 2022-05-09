@@ -181,7 +181,9 @@ if ( ! defined( 'ABSPATH' ) ) {
                     <li><i class="dashicons dashicons-saved"></i> Fields Selection.</li>
                     <li><i class="dashicons dashicons-saved"></i> All Text and Color control.</li>
                     <li><i class="dashicons dashicons-saved"></i> AJAX Pagination (Load more and Load on Scrolling).</li>
-                    <li><i class="dashicons dashicons-saved"></i> More Features...</li>
+                    <li><i class="dashicons dashicons-saved"></i> Archive page builder for Elementor </li>
+                    <li><i class="dashicons dashicons-saved"></i> Advanced Custom Field support</li>
+                    <li><i class="dashicons dashicons-saved"></i> Post View Count</li>
                 </ul>
             </div>
         </div>

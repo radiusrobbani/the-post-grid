@@ -1581,6 +1581,9 @@ class Options {
                         <li>Content Wrapper Style Control.</li>
                         <li>Enable/Disable Pagination.</li>
                         <li>AJAX Pagination (Load more and Load on Scrolling)</li>
+                        <li>Archive page builder for Elementor</li>
+                        <li>Advanced Custom Field support</li>
+                        <li>Post View Count</li>
                     </ol>
                 <a href="https://www.radiustheme.com/downloads/the-post-grid-pro-for-wordpress/" class="rt-admin-btn" target="_blank">' . __( "Get Pro Version", "the-post-grid" )
 		       . '</a>';
