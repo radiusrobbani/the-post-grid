@@ -3,8 +3,8 @@ Contributors: techlabpro1
 Donate link:
 Tags: post grid, content grid, post display, post format, post view, blog display, news display, post
 Requires at least: 4.5
-Tested up to: 5.8.2
-Stable tag: 3.1.2
+Tested up to: 5.9.3
+Stable tag: 4.0.0
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -24,6 +24,8 @@ By using The Post Grid plugin you can display your post in Grid List & Isotope v
 * Fully responsive and mobile friendly.
 * 8 Different Layouts
 * 4 New Layouts
+* 3 Elementor Widgets
+* 9 Elementor Layouts
 * Generate Unlimited grid.
 * Excerpt limit in word or characters
 * User define excerpt ending(... )
@@ -72,6 +74,11 @@ For any bug or suggestion please mail support@radiustheme.com
 * Fully responsive and mobile friendly.
 * 62 Different Layouts
 * 12 New Layouts
+* 4 Elementor Widgets
+* 45 Elementor Layouts
+* Necessary widgets for archive page and single post builder.
+* Advanced Custom Field support on single post.
+* Post View Count.
 * Even and Masonry Grid.
 * WooCommerce supported.
 * Custom Post Type Supported
@@ -150,6 +157,20 @@ For any bug or suggestion please mail support@radiustheme.com
 
 
 == Changelog ==
+
+= 4.0.0 =
+* Added: 9 Elementor widgets for The Post Grid
+* Added: Elementor page builder compatibility (Category, Tag, Author, Date, Single Post)
+
+= 3.1.5 =
+* Fixed: Multiple ShortCode same page preloader issue
+
+= 3.1.4 =
+* Fixed: PHP error
+
+= 3.1.3 =
+* Fixed: Post Excerpt hide issue in mobile
+* Fixed: Pagination Type selection issue
 
 = 3.1.2 =
 * Added: No post found message in Isotope
