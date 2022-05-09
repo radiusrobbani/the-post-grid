@@ -32,8 +32,6 @@ if ( ! class_exists( 'ElementorController' ) ):
 
 		public function tpg_frontend_scripts() {
 			//wp_enqueue_script( 'imagesloaded' );
-
-			//wp_enqueue_script( 'select2' );
 			wp_enqueue_script( 'tpg-el-script', rtTPG()->get_assets_uri( 'js/el-frontend.js' ), [ 'jquery' ], $this->version, true );
 		}
 

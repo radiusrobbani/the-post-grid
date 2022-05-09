@@ -1752,7 +1752,6 @@ Common Layout Style
 }
 
 
-
 .rt-tpg-container .rt-holder .rt-detail .post-meta {
     line-height: 25px;
     overflow: hidden;
@@ -1938,8 +1937,8 @@ Common Layout Style
     position: absolute;
     width: 100%;
     height: 100%;
-    z-index: 99999;
-    background: rgba(255, 255, 255, 0.8);
+    z-index: 20;
+    background: rgba(255, 255, 255, 0.95);
 }
 
 #bottom-script-loader .rt-ball-clip-rotate {
@@ -2568,6 +2567,5 @@ TPG EVEN Style
     margin: 0;
     display: inline;
 }
-
 
 /*End ACF Style*/

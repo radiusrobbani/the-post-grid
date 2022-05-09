@@ -105,10 +105,14 @@
 
 
     function tpgBottomScriptLoader() {
-        $(".bottom-script-loader").fadeOut(500, function () {
-            // fadeOut complete. Remove the loading div
-            $(".bottom-script-loader").remove(); //makes page more lightweight
-        });
+        setTimeout(function () {
+
+            $(".bottom-script-loader").fadeOut(500, function () {
+                // fadeOut complete. Remove the loading div
+                $(".bottom-script-loader").remove(); //makes page more lightweight
+            });
+
+        }, 400)
     }
 
     function windowHashChange(isotope, IsoButton) {
@@ -283,7 +287,6 @@
             }
         });
     }
-
 
     // Elementor Frontend Load
     $(window).on('elementor/frontend/init', function () {
