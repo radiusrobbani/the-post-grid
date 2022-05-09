@@ -779,7 +779,7 @@ class Fns {
 				$excerpt        = preg_replace( '`[[^]]*]`', '', $excerpt );
 				$excerpt        = str_replace( '…', '', $excerpt );
 			} else {
-				$excerpt = get_the_excerpt( $post_id );
+				$excerpt = apply_filters('tpg_custom_excerpt', get_the_excerpt( $post_id ), $limit);
 			}
 
 			$more = $data['excerpt_more_text'];
@@ -1940,7 +1940,7 @@ class Fns {
 
 
 		$comment_label = '';
-		if ( $data['show_comment_count_label'] ) {
+		if ( isset($data['show_comment_count_label']) && $data['show_comment_count_label'] ) {
 			$comment_label = $data['comment_count_label_singular'];
 			if ( $comments_number > 1 ) {
 				$comment_label = $data['comment_count_label_plural'];
