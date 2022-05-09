@@ -16,16 +16,6 @@ class FilterHooks {
 			add_filter( 'the_content', [ __CLASS__, 'tpg_acf_content_filter' ] );
 		}
 		add_filter( 'wp_head', [ __CLASS__, 'set_post_view_count' ], 9999 );
-		add_filter( 'excerpt_length', [ __CLASS__, 'tpg_excerpt_length' ] );
-	}
-
-	public static function tpg_excerpt_length( $length ): int {
-		global $post;
-		if ( in_array( $post->post_type, [ 'post' ] ) ) {
-			return 99999;
-		}
-
-		return 55;
 	}
 
 

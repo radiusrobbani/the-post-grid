@@ -774,15 +774,15 @@ class Fns {
 			$limit = isset( $data['excerpt_limit'] ) ? abs( $data['excerpt_limit'] ) : 0;
 			if ( class_exists( 'ET_GB_Block_Layout' ) ) {
 				$defaultExcerpt = $post->post_excerpt ?: wp_trim_words( $post->post_content, 55 );
-				$excerpt        = preg_replace( '`\[[^\]]*\]`', '', $defaultExcerpt );
-				$excerpt        = strip_shortcodes( $excerpt );
-				$excerpt        = preg_replace( '`[[^]]*]`', '', $excerpt );
-				$excerpt        = str_replace( '…', '', $excerpt );
 			} else {
-				$excerpt = apply_filters('tpg_custom_excerpt', get_the_excerpt( $post_id ), $limit);
+				$defaultExcerpt = $limit ? $post->post_content : get_the_excerpt( $post_id );
 			}
 
-			$more = $data['excerpt_more_text'];
+			$more    = $data['excerpt_more_text'];
+			$excerpt = preg_replace( '`\[[^\]]*\]`', '', $defaultExcerpt );
+			$excerpt = strip_shortcodes( $excerpt );
+			$excerpt = preg_replace( '`[[^]]*]`', '', $excerpt );
+			$excerpt = str_replace( '…', '', $excerpt );
 			if ( $limit ) {
 				$excerpt = wp_filter_nohtml_kses( $excerpt );
 				if ( $type == "word" ) {
@@ -796,6 +796,12 @@ class Fns {
 						$excerpt = $rawExcerpt;
 					}
 				} else {
+					/*
+					if ( $limit > 0 && strlen( $excerpt ) > $limit ) {
+						$excerpt = mb_substr( $excerpt, 0, $limit, "utf-8" );
+						$excerpt = preg_replace( '/\W\w+\s*(\W*)$/', '$1', $excerpt );
+					}
+					*/
 					$excerpt = self::tpgCharacterLimit( $limit, $excerpt );
 				}
 				$excerpt = stripslashes( $excerpt );
@@ -814,7 +820,7 @@ class Fns {
 
 			$excerpt = ( $more ? $excerpt . " " . $more : $excerpt );
 
-			return apply_filters( 'tpg_get_the_excerpt', $excerpt, $post_id, $data );
+			return apply_filters( 'tpg_get_the_excerpt', $excerpt, $post_id, $data, $defaultExcerpt );
 		}
 	}
 
