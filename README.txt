@@ -104,15 +104,15 @@ For any bug or suggestion please mail support@radiustheme.com
 * Social Share on popup
 * Override default page template (Category, Tag, Search)
 
-= 👉 Post Grid Elementor addon with archive and single page builder =
+== 🏆 Post Grid Elementor addon with archive and single page builder ==
 
 From the version 4.0 we included 4 independent Elementor addon without lot of settings that allows you to create grid, list, & slider layouts easily using Elementor Page Builder.
 
-= 👉 Elementor Archive Page Builder [Pro] =
+== 🏆 Elementor Archive Page Builder [Pro] ==
 
 We intrduce archive page builder using Elenentor Page Builder. You can create your own archive page using the layout that you want like posts page, category page, tag page, search paage and author page.
 
-= 👉 Elementor Single Page Builder [Pro] =
+== 🏆 Elementor Single Page Builder [Pro] ==
 
 We introduce Single Page Builder with Elementor Page builder. You can easily arrange the single post as you want using the drag & drop interfance of Elementor Page Builder.
 
