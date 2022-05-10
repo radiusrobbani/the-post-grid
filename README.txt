@@ -1,18 +1,18 @@
-=== The Post Grid ===
+=== Post Grid – Shortcode, Elementor Addon for Post Grid ===
 Contributors: techlabpro1
 Donate link:
-Tags: post grid, content grid, post display, post format, post view, blog display, news display, post
+Tags: post grid, content grid, post display, post slider, post grid elementor addon
 Requires at least: 4.5
 Tested up to: 5.9.3
 Stable tag: 4.0.0
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
-Fast & Easy way to display WordPress post in Grid, List & Isotope view ( filter by category, tag, author..)  without a single line of coding.
+Post Grid Plugin allows you to create grid, list, filter and slider view. Post Grid Plugin is Easy to use as shortcode or Elementor Addon.
 
 == Description ==
 
-[Plugin Demo](https://www.radiustheme.com/demo/plugins/the-post-grid/) | [Documentation](https://www.radiustheme.com/docs/the-post-grid/) | [Get Pro](https://www.radiustheme.com/downloads/the-post-grid-pro-for-wordpress/)
+[Plugin Demo](https://www.radiustheme.com/demo/plugins/the-post-grid/) | [Elementor Demo](https://www.radiustheme.com/demo/plugins/the-post-grid-elementor/) | [Documentation](https://www.radiustheme.com/docs/the-post-grid/) | [Get Pro](https://www.radiustheme.com/downloads/the-post-grid-pro-for-wordpress/)
 
 The Post Grid is a fully Responsive & Mobile friendly plugin to display your page/post in Grid, List and Isotope View without any line of coding. It is fast and easy to generate grid from admin end and insert into page/post. You can Display posts by any category(s), tag(s), author(s), keyword(s) also Order posts by Id, Title, Created date, Modified date and Menu order.
 
@@ -23,7 +23,7 @@ By using The Post Grid plugin you can display your post in Grid List & Isotope v
 = Features =
 * Fully responsive and mobile friendly.
 * 8 Different Layouts
-* 4 New Layouts
+* Elementor Addon
 * 3 Elementor Widgets
 * 9 Elementor Layouts
 * Generate Unlimited grid.
@@ -53,16 +53,17 @@ By using The Post Grid plugin you can display your post in Grid List & Isotope v
 * **Layout preview**
 
 
+= 5 easy steps to Generate Grid =
 
-= 4 easy steps to Generate Grid =
-
-**Step 1) Post Source:** Select Post Source then Select the Taxonomy ie category(s), tag(s), author(s), keyword(s) and Select Order  by Id, Title, Created date, Modified date and Menu order then set the Terms and Relation.
+**Step 1) Query Build:** Select Post Source then Select the Taxonomy ie category(s), tag(s), author(s), keyword(s) and Select Order  by Id, Title, Created date, Modified date and Menu order then set the Terms and Relation.
 
 **Step 2) Layout Settings:** From the 4 different layouts select which layout you want then Select Number of Columns, pagiantion, Image Size, Image Source and Excerpt limit.
 
-**Step 3) Field Selection:** You can select which fields you want to display.
+**Step 3) Settings:** You can set category, tag, excerpt and meta position and style.
 
-**Step 4) Style:** You can set Primay color and Button Color.
+**Step 4) Field Selection:** You can select which fields you want to display.
+
+**Step 5) Style:** You can set Primay color and Button Color.
 
 = How to use? =
 
@@ -76,11 +77,11 @@ For any bug or suggestion please mail support@radiustheme.com
 * 12 New Layouts
 * 4 Elementor Widgets
 * 45 Elementor Layouts
-* Necessary widgets for archive page and single post builder.
-* Advanced Custom Field support on single post.
-* Post View Count.
-* Even and Masonry Grid.
-* WooCommerce supported.
+* Necessary widgets for archive page and single post builder
+* Advanced Custom Field support on single post
+* Post View Count
+* Even and Masonry Grid
+* WooCommerce supported
 * Custom Post Type Supported
 * Display posts by any Taxonomy like category(s), tag(s), author(s), keyword(s), Status and Date Range
 * Order by Id, Title, Created date, Modified date, Random, Comments Count and Menu order.
@@ -89,18 +90,32 @@ For any bug or suggestion please mail support@radiustheme.com
 * Isotope filter for any taxonomy ie. categories, tags...
 * Search field on Isotope.
 * Set Default Isotope Filter Button.
-* Disable Show All Button for Isotope Filter.
+* Disable Show All Button for Isotope Filter
 * Popup page Fields Selection.
 * Default image set option in Shortcode generator settings.
 * All Text color, size and Button Color control.
 * Meta Position Control
 * Category Position Control
 * Content Wrapper Style Control
-* Overlay color and opacity.
+* Overlay color and opacity
 * AJAX Pagination (Number, Load more and Load on Scrolling))
 * Single popup and Popup with next preview.
-* Social Share on popup.
+* Social Share on popup
 * Override default page template (Category, Tag, Search)
+
+= Post Grid Elementor addon with archive and single page builder =
+
+From the version 4.0 we included 4 independent Elementor addon without lot of settings that allows you to create grid, list, & slider layouts easily using Elementor Page Builder.
+
+= Elementor Archive Page Builder [Pro] =
+
+We intrduce archive page builder using Elenentor Page Builder. You can create your own archive page using the layout that you want like posts page, category page, tag page, search paage and author page.
+
+= Elementor Single Page Builder [Pro] =
+
+We introduce Single Page Builder with Elementor Page builder. You can easily arrange the single post as you want using the drag & drop interfance of Elementor Page Builder.
+
+
 
 [Get The PRO](https://www.radiustheme.com/downloads/the-post-grid-pro-for-wordpress/) [PRO Version Demo](https://www.radiustheme.com/demo/plugins/the-post-grid/)
 
