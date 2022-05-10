@@ -60,6 +60,15 @@
                             container.trigger('tpg_item_after_load');
                         }, 100);
                     });
+
+                    IsotopeWrap.on('arrangeComplete', function (event, filteredItems) {
+                        if ($(".isotope-item", IsotopeWrap).is(":visible")) {
+                            IsotopeWrap.parent().find('.isotope-term-no-post p').hide();
+                        } else {
+                            IsotopeWrap.parent().find('.isotope-term-no-post p').show();
+                        }
+                    });
+
                     // use value of search field to filter
                     var $quicksearch = container.find('.iso-search-input').keyup(debounce(function () {
                         qsRegex = new RegExp($quicksearch.val(), 'gi');

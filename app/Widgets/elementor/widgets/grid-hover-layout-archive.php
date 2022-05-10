@@ -228,6 +228,7 @@ class TPGGridHoverLayoutArchive extends Custom_Widget_Base {
 			<?php echo $this->get_pagination_markup( $query, $data ); ?>
         </div>
 		<?php
+		do_action('tpg_elementor_script');
 	}
 
 }

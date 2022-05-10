@@ -361,6 +361,7 @@ class TPGSliderLayoutArchive extends Custom_Widget_Base {
 
         </div>
 		<?php
+		do_action('tpg_elementor_script');
 	}
 
 }

@@ -234,6 +234,7 @@ class TPGGridLayoutArchive extends Custom_Widget_Base {
             <script>jQuery('.rt-row.rt-content-loader.tpg-masonry').isotope();</script>
 			<?php
 		}
+		do_action('tpg_elementor_script');
 	}
 
 }

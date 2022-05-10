@@ -52,18 +52,14 @@ class ShortcodeController {
 		}
 		if ( count( $this->scA ) ) {
 			array_push( $script, 'jquery' );
-			array_push( $script, 'rt-image-load-js' );
 			array_push( $script, 'rt-isotope-js' );
+			array_push( $script, 'rt-image-load-js' );
 			array_push( $style, 'rt-fontawsome' );
 			array_push( $script, 'rt-tpg' );
 
 			if ( isset( $settings['tpg_load_script'] ) ) {
 				wp_enqueue_style( 'rt-tpg-common' );
 				wp_enqueue_style( 'rt-tpg' );
-				/*$css = isset( $settings['custom_css'] ) ? stripslashes( $settings['custom_css'] ) : null;
-				if ( $css ) {
-					wp_add_inline_style( 'rt-tpg', $css );
-				}*/
 			}
 
 			if ( is_rtl() ) {
@@ -798,6 +794,9 @@ class ShortcodeController {
 			$html .= "<div data-title='" . __( "Loading ...",
 					'the-post-grid' ) . "' class='rt-row rt-content-loader {$layout}{$masonryG} {$preLoader}'>";
 
+			$not_found_text = isset( $scMeta['tgp_not_found_text'][0] ) && ! empty( $scMeta['tgp_not_found_text'][0] ) ? esc_html( $scMeta['tgp_not_found_text'][0] )
+				: __( 'No post found', 'the-post-grid' );
+
 			if ( $gridQuery->have_posts() ) {
 				if ( $isCarousel ) {
 					$cOpt              = ! empty( $scMeta['carousel_property'] ) ? $scMeta['carousel_property'] : [];
@@ -980,9 +979,9 @@ class ShortcodeController {
 				if ( $isIsotope || $isCarousel ) {
 					$html .= '</div>'; // End isotope / Carousel item holder
 
-//					if ($isIsotope) {
-//						$html .= '<div class="isotope-term-no-post"><p>'.esc_html__('No post found', 'the-post-grid').'</p></div>';
-//					}
+					if ($isIsotope) {
+						$html .= '<div class="isotope-term-no-post"><p>'.$not_found_text.'</p></div>';
+					}
 					if ( $isCarousel ) {
 
 						$html .= '</div>';
@@ -996,8 +995,7 @@ class ShortcodeController {
 					}
 				}
 			} else {
-				$not_found_text = isset( $scMeta['tgp_not_found_text'][0] ) && ! empty( $scMeta['tgp_not_found_text'][0] ) ? esc_attr( $scMeta['tgp_not_found_text'][0] )
-					: __( 'No post found', 'the-post-grid' );
+
 				$html           .= sprintf( '<p>%s</p>',
 					apply_filters( 'tpg_not_found_text', $not_found_text, $args, $scMeta )
 				);

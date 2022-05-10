@@ -24,7 +24,8 @@ if ( ! class_exists( 'ElementorController' ) ):
 				add_action( 'elementor/elements/categories_registered', [ $this, 'widget_category' ] );
 				//add_action( 'elementor/editor/after_enqueue_styles', [ $this, 'editor_style' ] );
 				add_action( 'elementor/editor/after_enqueue_scripts', [ $this, 'el_editor_script' ] );
-				add_action( 'wp_enqueue_scripts', [ $this, 'tpg_el_scripts' ] );
+				add_action( 'tpg_elementor_script', [ $this, 'tpg_el_scripts' ] );
+				add_action( 'wp_enqueue_scripts', [ $this, 'tpg_el_style' ] );
 				add_action( "elementor/frontend/after_enqueue_scripts", [ $this, 'tpg_frontend_scripts' ] );
 				add_filter( 'elementor/editor/localize_settings', [ $this, 'promotePremiumWidgets' ] );
 			}
@@ -35,35 +36,42 @@ if ( ! class_exists( 'ElementorController' ) ):
 			wp_enqueue_script( 'tpg-el-script', rtTPG()->get_assets_uri( 'js/el-frontend.js' ), [ 'jquery' ], $this->version, true );
 		}
 
-		public function tpg_el_scripts() {
-			$settings = get_option( rtTPG()->options['settings'] );
+		public function tpg_el_style() {
 			wp_enqueue_style( 'rt-fontawsome' );
 			wp_enqueue_style( 'rt-tpg-common' );
 			wp_enqueue_style( 'rt-tpg-elementor' );
 
-			if(rtTPG()->hasPro()){
-				wp_enqueue_script( 'rt-isotope-js' );
-			}
-			wp_enqueue_script( 'rt-swiper-el' );
-			wp_enqueue_script( 'rt-tpg' );
 			//Custom CSS From Settings
 			$css = isset( $settings['custom_css'] ) ? stripslashes( $settings['custom_css'] ) : null;
 			if ( $css ) {
-				wp_add_inline_style( 'rt-tpg', $css );
+				wp_add_inline_style( 'rt-tpg-elementor', $css );
 			}
+		}
 
-			$ajaxurl = '';
-			if ( in_array( 'sitepress-multilingual-cms/sitepress.php', get_option( 'active_plugins' ) ) ) {
-				$ajaxurl .= admin_url( 'admin-ajax.php?lang=' . ICL_LANGUAGE_CODE );
-			} else {
-				$ajaxurl .= admin_url( 'admin-ajax.php' );
-			}
-			$variables = [
-				'nonceID' => rtTPG()->nonceId(),
-				'nonce'   => wp_create_nonce( rtTPG()->nonceText() ),
-				'ajaxurl' => $ajaxurl,
-			];
-			wp_localize_script( 'rt-tpg', 'rttpg', $variables );
+		public function tpg_el_scripts() {
+			add_action( 'wp_footer',
+				function () {
+					$settings = get_option( rtTPG()->options['settings'] );
+					if ( rtTPG()->hasPro() ) {
+						wp_enqueue_script( 'rt-isotope-js' );
+					}
+					wp_enqueue_script( 'rt-swiper-el' );
+					wp_enqueue_script( 'rt-tpg' );
+
+
+					$ajaxurl = '';
+					if ( in_array( 'sitepress-multilingual-cms/sitepress.php', get_option( 'active_plugins' ) ) ) {
+						$ajaxurl .= admin_url( 'admin-ajax.php?lang=' . ICL_LANGUAGE_CODE );
+					} else {
+						$ajaxurl .= admin_url( 'admin-ajax.php' );
+					}
+					$variables = [
+						'nonceID' => rtTPG()->nonceId(),
+						'nonce'   => wp_create_nonce( rtTPG()->nonceText() ),
+						'ajaxurl' => $ajaxurl,
+					];
+					wp_localize_script( 'rt-tpg', 'rttpg', $variables );
+				} );
 		}
 
 		public function el_editor_script() {

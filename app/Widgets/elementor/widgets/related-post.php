@@ -319,6 +319,9 @@ class TPGRelatedPost extends Custom_Widget_Base {
             </div>
 		<?php
 		endif;
+
+		do_action('tpg_elementor_script');
+
 	}
 
 }

@@ -2569,3 +2569,11 @@ TPG EVEN Style
 }
 
 /*End ACF Style*/
+
+.isotope-term-no-post {
+    min-height: 30px;
+}
+.isotope-term-no-post p {
+    margin-bottom: 0;
+    display: none;
+}
