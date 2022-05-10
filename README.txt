@@ -1,4 +1,4 @@
-=== Post Grid – Shortcode, Elementor Addon for Post Grid ===
+=== The Post Grid – Shortcode, Elementor Addon for Post Grid ===
 Contributors: techlabpro1
 Donate link:
 Tags: post grid, content grid, post display, post slider, post grid elementor addon
@@ -12,7 +12,7 @@ Post Grid Plugin allows you to create grid, list, filter and slider view. Post G
 
 == Description ==
 
-[Plugin Demo](https://www.radiustheme.com/demo/plugins/the-post-grid/) | [Elementor Demo](https://www.radiustheme.com/demo/plugins/the-post-grid-elementor/) | [Documentation](https://www.radiustheme.com/docs/the-post-grid/) | [Get Pro](https://www.radiustheme.com/downloads/the-post-grid-pro-for-wordpress/)
+👉 [Plugin Demo](https://www.radiustheme.com/demo/plugins/the-post-grid/) | [Elementor Demo](https://www.radiustheme.com/demo/plugins/the-post-grid-elementor/) | [Documentation](https://www.radiustheme.com/docs/the-post-grid/) | [Get Pro](https://www.radiustheme.com/downloads/the-post-grid-pro-for-wordpress/) 👈
 
 The Post Grid is a fully Responsive & Mobile friendly plugin to display your page/post in Grid, List and Isotope View without any line of coding. It is fast and easy to generate grid from admin end and insert into page/post. You can Display posts by any category(s), tag(s), author(s), keyword(s) also Order posts by Id, Title, Created date, Modified date and Menu order.
 
@@ -20,7 +20,7 @@ The Post Grid is a fully Responsive & Mobile friendly plugin to display your pag
 
 By using The Post Grid plugin you can display your post in Grid List & Isotope view in minutes, without any line of Coding...
 
-= Features =
+== 🏆 Features ==
 * Fully responsive and mobile friendly.
 * 8 Different Layouts
 * Elementor Addon
@@ -53,7 +53,7 @@ By using The Post Grid plugin you can display your post in Grid List & Isotope v
 * **Layout preview**
 
 
-= 5 easy steps to Generate Grid =
+== 🏆 5 easy steps to Generate Grid ==
 
 **Step 1) Query Build:** Select Post Source then Select the Taxonomy ie category(s), tag(s), author(s), keyword(s) and Select Order  by Id, Title, Created date, Modified date and Menu order then set the Terms and Relation.
 
@@ -65,13 +65,13 @@ By using The Post Grid plugin you can display your post in Grid List & Isotope v
 
 **Step 5) Style:** You can set Primay color and Button Color.
 
-= How to use? =
+== 🏆 How to use? ==
 
 From the Editor The Post Grid icon you can easily add into your page or post.
 
 For any bug or suggestion please mail support@radiustheme.com
 
-= PRO Features =
+== 🏆 PRO Features ==
 * Fully responsive and mobile friendly.
 * 62 Different Layouts
 * 12 New Layouts
@@ -103,27 +103,28 @@ For any bug or suggestion please mail support@radiustheme.com
 * Social Share on popup
 * Override default page template (Category, Tag, Search)
 
-= Post Grid Elementor addon with archive and single page builder =
+= 👉 Post Grid Elementor addon with archive and single page builder =
 
 From the version 4.0 we included 4 independent Elementor addon without lot of settings that allows you to create grid, list, & slider layouts easily using Elementor Page Builder.
 
-= Elementor Archive Page Builder [Pro] =
+= 👉 Elementor Archive Page Builder [Pro] =
 
 We intrduce archive page builder using Elenentor Page Builder. You can create your own archive page using the layout that you want like posts page, category page, tag page, search paage and author page.
 
-= Elementor Single Page Builder [Pro] =
+= 👉 Elementor Single Page Builder [Pro] =
 
 We introduce Single Page Builder with Elementor Page builder. You can easily arrange the single post as you want using the drag & drop interfance of Elementor Page Builder.
 
 
 
-[Get The PRO](https://www.radiustheme.com/downloads/the-post-grid-pro-for-wordpress/) [PRO Version Demo](https://www.radiustheme.com/demo/plugins/the-post-grid/)
+👉 [Get The PRO](https://www.radiustheme.com/downloads/the-post-grid-pro-for-wordpress/) 
+👉 [PRO Version Demo](https://www.radiustheme.com/demo/plugins/the-post-grid/)
 
 For any bug or suggestion please mail support@radiustheme.com
 
-== Installation ==
+== 🏆 Installation ==
 
-= Using The WordPress Dashboard =
+= 👉 Using The WordPress Dashboard =
 
 1. Navigate to the 'Add New' in the plugins dashboard
 2. Search for 'The Post Grid'
@@ -138,7 +139,7 @@ For any bug or suggestion please mail support@radiustheme.com
 4. Click 'Install Now'
 5. Activate the plugin in the Plugin dashboard
 
-= Using FTP =
+= 👉 Using FTP =
 
 1. Download `the-post-grid.zip`
 2. Extract the `the-post-grid` directory to your computer
@@ -147,19 +148,19 @@ For any bug or suggestion please mail support@radiustheme.com
 
 
 
-== Frequently Asked Questions ==
+== 🏆 Frequently Asked Questions ==
 
-= How to Use Post Grid=
+= 👉 How to Use Post Grid =
 
 * Go to `The Post Grid > Add New Grid`
 * Go to page or post editor click The post grid Shortcode button and select a shortcode from dropdown list and insert shortcode.
 
-= Need Any Help? =
+= 👉 Need Any Help? =
 
 * Please mail us at `support@radiustheme.com`
 * We provide `15 hours live support`
 
-== Screenshots ==
+== 🏆 Screenshots ==
 
 01. Layout 1
 02. Layout 2 Single
@@ -171,7 +172,7 @@ For any bug or suggestion please mail support@radiustheme.com
 08. Shortcode Style
 
 
-== Changelog ==
+== 🏆 Changelog ==
 
 = 4.0.0 =
 * Added: 9 Elementor widgets for The Post Grid
