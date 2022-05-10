@@ -779,7 +779,7 @@ class Fns {
 			}
 
 			$more    = $data['excerpt_more_text'];
-			$excerpt = preg_replace( '`\[[^\]]*\]`', '', $defaultExcerpt );
+			$excerpt = preg_replace( '`\[[^\]]*\]`', '', wp_strip_all_tags($defaultExcerpt) );
 			$excerpt = strip_shortcodes( $excerpt );
 			$excerpt = preg_replace( '`[[^]]*]`', '', $excerpt );
 			$excerpt = str_replace( '…', '', $excerpt );
@@ -796,12 +796,6 @@ class Fns {
 						$excerpt = $rawExcerpt;
 					}
 				} else {
-					/*
-					if ( $limit > 0 && strlen( $excerpt ) > $limit ) {
-						$excerpt = mb_substr( $excerpt, 0, $limit, "utf-8" );
-						$excerpt = preg_replace( '/\W\w+\s*(\W*)$/', '$1', $excerpt );
-					}
-					*/
 					$excerpt = self::tpgCharacterLimit( $limit, $excerpt );
 				}
 				$excerpt = stripslashes( $excerpt );
