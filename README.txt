@@ -171,8 +171,8 @@ We introduce Single Page Builder with Elementor Page builder. You can easily arr
 == Changelog ==
 
 = 4.0.0 =
-* Added: 9 Elementor widgets for The Post Grid
-* Added: Elementor page builder compatibility (Category, Tag, Author, Date, Single Post)
+* Added: 3 Elementor Widgets with 9 layouts for The Post Grid
+* Added: Archive Page Builder for Elementor (Pro)
 
 = 3.1.5 =
 * Fixed: Multiple ShortCode same page preloader issue
