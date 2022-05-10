@@ -21,6 +21,7 @@ The Post Grid is a fully Responsive & Mobile friendly plugin to display your pag
 By using The Post Grid plugin you can display your post in Grid List & Isotope view in minutes, without any line of Coding...
 
 == 🏆 Features ==
+
 * Fully responsive and mobile friendly.
 * 8 Different Layouts
 * Elementor Addon
@@ -71,6 +72,7 @@ From the Editor The Post Grid icon you can easily add into your page or post.
 For any bug or suggestion please mail support@radiustheme.com
 
 == 🏆 PRO Features ==
+
 * Fully responsive and mobile friendly.
 * 62 Different Layouts
 * 12 New Layouts
@@ -117,7 +119,7 @@ We introduce Single Page Builder with Elementor Page builder. You can easily arr
 👉 [Get The PRO](https://www.radiustheme.com/downloads/the-post-grid-pro-for-wordpress/) 
 👉 [PRO Version Demo](https://www.radiustheme.com/demo/plugins/the-post-grid/)
 
-For any bug or suggestion please mail support@radiustheme.com
+👉 For any bug or suggestion please mail support@radiustheme.com
 
 == 🏆 Installation ==
 
@@ -143,19 +145,19 @@ For any bug or suggestion please mail support@radiustheme.com
 3. Upload the `the-post-grid` directory to the `/wp-content/plugins/` directory
 4. Activate the plugin in the Plugin dashboard
 
-== 🏆 Frequently Asked Questions ==
+== Frequently Asked Questions ==
 
-= 👉 How to Use Post Grid =
+= How to Use Post Grid =
 
 * Go to `The Post Grid > Add New Grid`
 * Go to page or post editor click The post grid Shortcode button and select a shortcode from dropdown list and insert shortcode.
 
-= 👉 Need Any Help? =
+= Need Any Help? =
 
 * Please mail us at `support@radiustheme.com`
 * We provide `15 hours live support`
 
-== 🏆 Screenshots ==
+== Screenshots ==
 
 01. Layout 1
 02. Layout 2 Single
@@ -166,7 +168,7 @@ For any bug or suggestion please mail support@radiustheme.com
 07. Shortcode Field Selections
 08. Shortcode Style
 
-== 🏆 Changelog ==
+== Changelog ==
 
 = 4.0.0 =
 * Added: 9 Elementor widgets for The Post Grid
