@@ -52,7 +52,6 @@ By using The Post Grid plugin you can display your post in Grid List & Isotope v
 * Detail page link target control
 * **Layout preview**
 
-
 == 🏆 5 easy steps to Generate Grid ==
 
 **Step 1) Query Build:** Select Post Source then Select the Taxonomy ie category(s), tag(s), author(s), keyword(s) and Select Order  by Id, Title, Created date, Modified date and Menu order then set the Terms and Relation.
@@ -115,8 +114,6 @@ We intrduce archive page builder using Elenentor Page Builder. You can create yo
 
 We introduce Single Page Builder with Elementor Page builder. You can easily arrange the single post as you want using the drag & drop interfance of Elementor Page Builder.
 
-
-
 👉 [Get The PRO](https://www.radiustheme.com/downloads/the-post-grid-pro-for-wordpress/) 
 👉 [PRO Version Demo](https://www.radiustheme.com/demo/plugins/the-post-grid/)
 
@@ -131,7 +128,7 @@ For any bug or suggestion please mail support@radiustheme.com
 3. Click 'Install Now'
 4. Activate the plugin on the Plugin dashboard
 
-= Uploading in WordPress Dashboard =
+= 👉 Uploading in WordPress Dashboard =
 
 1. Navigate to the 'Add New' in the plugins dashboard
 2. Navigate to the 'Upload' area
@@ -145,8 +142,6 @@ For any bug or suggestion please mail support@radiustheme.com
 2. Extract the `the-post-grid` directory to your computer
 3. Upload the `the-post-grid` directory to the `/wp-content/plugins/` directory
 4. Activate the plugin in the Plugin dashboard
-
-
 
 == 🏆 Frequently Asked Questions ==
 
@@ -170,7 +165,6 @@ For any bug or suggestion please mail support@radiustheme.com
 06. Shortcode Layout Settings
 07. Shortcode Field Selections
 08. Shortcode Style
-
 
 == 🏆 Changelog ==
 
