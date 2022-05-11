@@ -170,6 +170,9 @@ We introduce Single Page Builder with Elementor Page builder. You can easily arr
 
 == Changelog ==
 
+= 4.0.1 =
+* Fixed: Some style issue fixed
+
 = 4.0.0 =
 * Added: 3 Elementor Widgets with 9 layouts for The Post Grid
 * Added: Archive Page Builder for Elementor (Pro)
