@@ -1035,6 +1035,12 @@
     color: #fff;
 }
 
+.tpg-shortcode-main-wrapper .layout12 .rt-holder:hover .rt-detail a,
+.tpg-shortcode-main-wrapper .isotope8 .rt-holder:hover .rt-detail a,
+.tpg-shortcode-main-wrapper .carousel8 .rt-holder:hover .rt-detail a {
+    color: #fff;
+}
+
 .tpg-shortcode-main-wrapper .layout12 .rt-holder .rt-detail .read-more,
 .tpg-shortcode-main-wrapper .isotope8 .rt-holder .rt-detail .read-more,
 .tpg-shortcode-main-wrapper .carousel8 .rt-holder .rt-detail .read-more {
