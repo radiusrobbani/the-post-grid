@@ -80,7 +80,6 @@ if ( ! class_exists( RtTpg::class ) ) {
 
 			$settings = get_option( $this->options['settings'] );
 
-
 			new PostTypeController();
 			new AjaxController();
 			new ScriptController();

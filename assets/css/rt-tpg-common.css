@@ -2110,13 +2110,6 @@ TPG EVEN Style
     flex-wrap: wrap;
 }
 
-
-@media (max-width: 767px) {
-    .tpg-even .even-grid-item {
-        width: 100%;
-    }
-}
-
 @media (max-width: 767px) {
     .rt-content-loader .rt-holder,
     .tpg-even .rt-holder {
@@ -2130,8 +2123,6 @@ TPG EVEN Style
 .rt-tpg-container .rt-pagination-wrap .rt-cb-page-prev-next > * {
     margin-left: 1px;
     margin-right: 1px;
-    font-size: 16px;
-    line-height: 1.55;
     display: inline-block;
     width: 30px;
     height: 30px;
