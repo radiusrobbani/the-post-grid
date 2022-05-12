@@ -480,18 +480,6 @@ body .readmore-btn-only-text .rt-tpg-container .tpg-post-holder .read-more a {
     background: none !important;
 }
 
-.tpg-wrapper-align-left .tpg-post-holder div {
-    text-align: right;
-}
-
-.tpg-wrapper-align-center .tpg-post-holder div {
-    text-align: center;
-}
-
-.tpg-wrapper-align-right .tpg-post-holder div {
-    text-align: left;
-}
-
 .rt-tpg-container .post-right-content {
     display: flex;
     flex-direction: column;

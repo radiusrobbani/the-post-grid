@@ -818,7 +818,11 @@ class rtTPGElementorHelper {
 					],
 				],
 				'prefix_class' => 'tpg-wrapper-align-',
+				'render_type' => 'template',
 				'toggle'       => true,
+				'selectors'  => [
+					'{{WRAPPER}} .tpg-post-holder div' => 'text-align: {{VALUE}};',
+				],
 				'condition'    => [
 					$prefix . '_layout!' => [ 'grid-layout7' ],
 				],
@@ -1366,6 +1370,10 @@ class rtTPGElementorHelper {
 						'icon'  => 'eicon-text-align-right',
 					],
 				],
+				'selectors'  => [
+					'{{WRAPPER}} .tpg-post-holder div' => 'text-align: {{VALUE}};',
+				],
+				'render_type' => 'template',
 				'prefix_class' => 'tpg-wrapper-align-',
 				'toggle'       => true,
 			]
@@ -3361,7 +3369,7 @@ class rtTPGElementorHelper {
 			];
 		}
 
-		$ref->add_responsive_control(
+		$ref->add_control(
 			'section_title_alignment',
 			[
 				'label'        => __( 'Alignment', 'the-post-grid' ),
