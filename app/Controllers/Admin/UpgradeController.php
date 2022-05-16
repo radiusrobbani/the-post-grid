@@ -13,7 +13,7 @@ class UpgradeController {
 					$text     = esc_html__( 'The Post Grid Pro', 'the-post-grid' );
 					$link_pro = 'https://www.radiustheme.com/downloads/the-post-grid-pro-for-wordpress/';
 
-					printf( '<div class="%1$s"><p><a target="_blank" href="%2$s"><strong>The Post Grid Pro</strong></a> is not working, You need to update <strong>%3$s</strong> version to 4.0.0 or more to get the pro features.</p></div>',
+					printf( '<div class="%1$s"><p><a target="_blank" href="%2$s"><strong>The Post Grid Pro</strong></a> is not working, You need to update <strong>%3$s</strong> version to 5.0.0 or more to get the pro features.</p></div>',
 						$class,
 						$link_pro,
 						$text );

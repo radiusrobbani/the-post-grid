@@ -483,7 +483,8 @@
         }
 
         var pagination = $("#rt-tpg-pagination").is(':checked');
-        if (pagination && (isGrid || isList || isIsotope)) {
+
+        if (pagination && ! (isCarousel || isWc || isWcIsotope || isWcCarousel)) {
             $(".field-holder.pagination-item").show();
         } else if (pagination && (isLOffset)) {
             $(".field-holder.posts-per-page").show();
@@ -492,6 +493,8 @@
             $(".field-holder.pagination-item").hide();
         }
     }
+
+
 
     function taxonomyFilterEffect() {
         if ($("#tgp_filter-_taxonomy_filter").is(':checked')) {
