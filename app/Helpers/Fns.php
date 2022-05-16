@@ -779,12 +779,13 @@ class Fns {
 			}
 
 			$more    = $data['excerpt_more_text'];
-			$excerpt = preg_replace( '`\[[^\]]*\]`', '', wp_strip_all_tags($defaultExcerpt) );
+			$excerpt = preg_replace( '`\[[^\]]*\]`', '', $defaultExcerpt );
 			$excerpt = strip_shortcodes( $excerpt );
 			$excerpt = preg_replace( '`[[^]]*]`', '', $excerpt );
 			$excerpt = str_replace( '…', '', $excerpt );
+
 			if ( $limit ) {
-				$excerpt = wp_filter_nohtml_kses( $excerpt );
+				$excerpt = wp_strip_all_tags( $excerpt );
 				if ( $type == "word" ) {
 					$limit      = $limit + 1;
 					$rawExcerpt = $excerpt;
