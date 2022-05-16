@@ -4,7 +4,7 @@ Donate link:
 Tags: post grid, content grid, post display, post slider, post grid elementor addon
 Requires at least: 4.5
 Tested up to: 5.9.3
-Stable tag: 4.0.2
+Stable tag: 4.0.3
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -169,6 +169,9 @@ We introduce Single Page Builder with Elementor Page builder. You can easily arr
 08. Shortcode Style
 
 == Changelog ==
+
+= 4.0.3 =
+* Fixed: HTML tags not allowed in Excerpt
 
 = 4.0.2 =
 * Fixed: Elementor block responsive issue fix
