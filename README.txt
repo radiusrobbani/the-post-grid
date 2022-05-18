@@ -170,6 +170,10 @@ We introduce Single Page Builder with Elementor Page builder. You can easily arr
 
 == Changelog ==
 
+= 4.0.4 =
+* Fixed: Showing full text instead of excerpt
+* Updated: Documentation Updated
+
 = 4.0.3 =
 * Fixed: HTML tags not allowed in Excerpt
 

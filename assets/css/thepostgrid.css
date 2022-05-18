@@ -1028,6 +1028,10 @@
     color: #fff;
 }
 
+.tpg-shortcode-main-wrapper .layout12 .rt-holder .rt-detail {
+    flex-grow: 1;
+}
+
 .tpg-shortcode-main-wrapper .layout12 .rt-holder:hover .rt-detail,
 .tpg-shortcode-main-wrapper .isotope8 .rt-holder:hover .rt-detail,
 .tpg-shortcode-main-wrapper .carousel8 .rt-holder:hover .rt-detail {
