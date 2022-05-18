@@ -102,7 +102,6 @@ class Options {
 				'name'        => 'tpg_block_type',
 				'label'       => 'Choose Elementor or Shortcode',
 				'id'          => 'tpg_block_type',
-				'holderClass' => 'pro-field',
 				'class'       => 'select2',
 				'options'     => [
 					'default'   => __( 'Default (Both Elementor and Shortcode)', 'the-post-grid' ),
