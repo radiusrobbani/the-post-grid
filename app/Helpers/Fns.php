@@ -767,23 +767,23 @@ class Fns {
 			return '';
 		}
 		if ( $type == 'full' ) {
-			$content = $post->post_content;
+			ob_start();
+			the_content();
+			$content = ob_get_clean();
 
 			return apply_filters( 'tpg_content_full', $content, $post_id, $data );
 		} else {
-			$limit = isset( $data['excerpt_limit'] ) ? abs( $data['excerpt_limit'] ) : 0;
 			if ( class_exists( 'ET_GB_Block_Layout' ) ) {
 				$defaultExcerpt = $post->post_excerpt ?: wp_trim_words( $post->post_content, 55 );
 			} else {
-				$defaultExcerpt = $limit ? $post->post_content : get_the_excerpt( $post_id );
+				$defaultExcerpt = get_the_excerpt( $post_id );
 			}
-
+			$limit   = isset( $data['excerpt_limit'] ) ? abs( $data['excerpt_limit'] ) : 0;
 			$more    = $data['excerpt_more_text'];
 			$excerpt = preg_replace( '`\[[^\]]*\]`', '', $defaultExcerpt );
 			$excerpt = strip_shortcodes( $excerpt );
 			$excerpt = preg_replace( '`[[^]]*]`', '', $excerpt );
 			$excerpt = str_replace( '…', '', $excerpt );
-
 			if ( $limit ) {
 				$excerpt = wp_strip_all_tags( $excerpt );
 				if ( $type == "word" ) {
@@ -1941,7 +1941,7 @@ class Fns {
 
 
 		$comment_label = '';
-		if ( isset($data['show_comment_count_label']) && $data['show_comment_count_label'] ) {
+		if ( isset( $data['show_comment_count_label'] ) && $data['show_comment_count_label'] ) {
 			$comment_label = $data['comment_count_label_singular'];
 			if ( $comments_number > 1 ) {
 				$comment_label = $data['comment_count_label_plural'];
