@@ -172,6 +172,7 @@ We introduce Single Page Builder with Elementor Page builder. You can easily arr
 
 = 4.0.4 =
 * Fixed: Showing full text instead of excerpt
+* Updated: Elementor widget register functionality updated
 * Updated: Documentation Updated
 
 = 4.0.3 =

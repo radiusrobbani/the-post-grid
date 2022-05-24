@@ -20,7 +20,7 @@ if ( ! class_exists( 'ElementorController' ) ):
 			$this->el_cat_id = RT_THE_POST_GRID_PLUGIN_SLUG . '-elements';
 
 			if ( did_action( 'elementor/loaded' ) ) {
-				add_action( 'elementor/widgets/widgets_registered', [ $this, 'init_widgets' ] );
+				add_action( 'elementor/widgets/register', [ $this, 'init_widgets' ] );
 				add_action( 'elementor/elements/categories_registered', [ $this, 'widget_category' ] );
 				//add_action( 'elementor/editor/after_enqueue_styles', [ $this, 'editor_style' ] );
 				add_action( 'elementor/editor/after_enqueue_scripts', [ $this, 'el_editor_script' ] );
@@ -84,17 +84,17 @@ if ( ! class_exists( 'ElementorController' ) ):
 			wp_add_inline_style( 'elementor-editor', $css );
 		}
 
-		public function init_widgets() {
+		public function init_widgets($widgets_manager) {
 			require_once( RT_THE_POST_GRID_PLUGIN_PATH . '/app/Widgets/elementor/base.php' );
 			require_once( RT_THE_POST_GRID_PLUGIN_PATH . '/app/Widgets/elementor/rtTPGElementorHelper.php' );
 
 			// dir_name => class_name
 			$widgets = [
-				'grid-layout'       => 'TPGGridLayout',
-				'list-layout'       => 'TPGListLayout',
-				'grid-hover-layout' => 'TPGGridHoverLayout',
-				'slider-layout'     => 'TPGSliderLayout',
-				'default'           => 'RtElementorWidget',
+				'grid-layout'       => '\TPGGridLayout',
+				'list-layout'       => '\TPGListLayout',
+				'grid-hover-layout' => '\TPGGridHoverLayout',
+				'slider-layout'     => '\TPGSliderLayout',
+				'default'           => '\RtElementorWidget',
 			];
 
 			$widgets = apply_filters( 'tpg_el_widget_register', $widgets );
@@ -113,7 +113,7 @@ if ( ! class_exists( 'ElementorController' ) ):
 				}
 				require_once $file;
 
-				Plugin::instance()->widgets_manager->register( new $class );
+				$widgets_manager->register( new $class );
 			}
 		}
 
