@@ -269,29 +269,6 @@ With the Post Grid PRO, you get to use the Single Page Builder, which is based o
 👉= Need Any Help? =
 * For any bug, support or suggestion please submit your ticket [here](https://www.radiustheme.com/ticket-support/).
 
-== Frequently Asked Questions ==
-
-= Is this Post Grid plugin can use any page builder?=
-* Yes you can use with any page builder simple just generate shortcode then call the shortcode in page/post..
-
-= Can I use it with Elementor page builder? =
-* Yes can use with Elementor page Buildr. We have Elementor widget use the widget.
-
-= Can I make a news or blog site using the post grid plugin? =
-* Yes using elementor addon or shortode you can builder any news or bloc theme.
-
-= Is this plugin can use in archive page? =
-* Yes you can set shortcode for archive page also using post grid Elementor addon you can build own archive page?
-
-= Can I build single post? =
-*  using Elementor addon you can build post single page using drag & drop.
-
-= Can I use this plugin only for Elementor Page builder? =
-* Yes, from settings you can enable or disable which way you wab to use the thene.
-
-= Can I control style? =
-* Yes you can style and control all from the post grid pluign.
-
 
 == 🏆 Installation ==
 
@@ -317,6 +294,7 @@ With the Post Grid PRO, you get to use the Single Page Builder, which is based o
 3. Upload the `the-post-grid` directory to the `/wp-content/plugins/` directory
 4. Activate the plugin in the Plugin dashboard
 
+
 == Frequently Asked Questions ==
 
 = How to Use Post Grid =
@@ -328,6 +306,34 @@ With the Post Grid PRO, you get to use the Single Page Builder, which is based o
 
 * Please mail us at `support@radiustheme.com`
 * We provide `15 hours live support`
+
+= Is this Post Grid plugin can use any page builder? =
+
+* Yes you can use with any page builder simple just generate shortcode then call the shortcode in page/post..
+
+= Can I use it with Elementor page builder? =
+
+* Yes can use with Elementor page Buildr. We have Elementor widget use the widget.
+
+= Can I make a news or blog site using the post grid plugin? =
+
+* Yes using elementor addon or shortode you can builder any news or bloc theme.
+
+= Is this plugin can use in archive page? =
+
+* Yes you can set shortcode for archive page also using post grid Elementor addon you can build own archive page?
+
+= Can I build single post? =
+
+*  using Elementor addon you can build post single page using drag & drop.
+
+= Can I use this plugin only for Elementor Page builder? =
+
+* Yes, from settings you can enable or disable which way you wab to use the thene.
+
+= Can I control style? =
+
+* Yes you can style and control all from the post grid pluign.
 
 == Screenshots ==
 
