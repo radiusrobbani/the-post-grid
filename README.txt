@@ -59,7 +59,7 @@ Elementor Page Builder was the most popular page builder with over 7 million act
 
 == 🏆 5 Easy Steps to Use Shortcode in the Post Grid Plugin: ==
 
-== 🏆 Step 1: == 
+== 🏆 [Step 1:](https://www.radiustheme.com/docs/the-post-grid/elementor-addons/elementor-settings/content-tab-2/) == 
 
 = 👉 Query Builder =
 The Post Grid has a query builder to facilitate the use of the shortcode generator to use with the Elementor addons. It lets you start by choosing whichever type of post you want. You then get to choose precisely what items you want to display and the ones that you would rather not show.
@@ -84,7 +84,7 @@ The Date Range filter is only available in the premium version. It allows you to
 Another filter that you can expect to see is the Show Sticky Post at the Top. You can enable it to allow you to showcase sticky posts at the top of the entire listing.
 
 
-== 🏆 Step 2: ==
+== 🏆 [Step 2:](https://www.radiustheme.com/docs/the-post-grid/elementor-addons/elementor-settings/content-tab-2/) ==
 
 = 👉 Layout Settings =
 When you’re through with the Query Builder, you move on to the layout settings.
@@ -111,7 +111,7 @@ On the other hand, the Margin Post Grid PRO setting lets you choose to work with
 You get to set your Grid Style to masonry or even, only if you have Post Grid PRO. With Post Grid PRO, you get the Content will be Visible for setting. It enables you to set your content to be viewed by distinct groups, including the public or registered user group.
 
 
-== 🏆 Step 3: ==
+== 🏆 [Step 3:](https://www.radiustheme.com/docs/the-post-grid/elementor-addons/elementor-settings/settings-tab-2/) ==
 
 = 👉 Settings =
 There are different settings that you can manage from the settings tab to affect the display of items on your pages and posts.
@@ -136,13 +136,13 @@ The next group of settings you need to configure are the Excerpt. The Excerpt Li
 Finally, you can manage the Text, Alignment, and Border Radius of the “Read More” button. The Alignment setting lets you position this button to the left, right, or center. On the other hand, the Text and Border Radius settings allow you to set the text content of the button and its border radius.
 
 
-== 🏆 Step 4: == 
+== 🏆 [Step 4:](https://www.radiustheme.com/docs/the-post-grid/elementor-addons/elementor-settings/settings-tab-2/) == 
 
 = 👉 Field Selection =
 Set the fields that you want to display and check those fields in your shortcode display. These fields include tags, categories, author, date of the post, read more, excerpt, comment count, social share, and title, widget heading, and rating for WooCommerce.
 
 
-== 🏆 Step 5: ==
+== 🏆 [Step 5:](https://www.radiustheme.com/docs/the-post-grid/elementor-addons/elementor-settings/style-tab/) ==
 
 = 👉 Style =
 Here, you get to set various style settings so you can get the best out of the Post Grid and Elementor addons.
