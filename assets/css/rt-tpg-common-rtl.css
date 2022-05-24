@@ -832,7 +832,7 @@ Pagination Style
     position: absolute;
     right: 50%;
     top: 50%;
-    z-index: 99999;
+    z-index: 99;
     opacity: .5;
     font-weight: 900;
     transform: translate(50%, -50%);
