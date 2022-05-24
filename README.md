@@ -21,12 +21,12 @@ With this plugin, you can create and display your posts in grid, list, and isoto
 ## ✴️ Unlimited Shortcode Generator
 Since the Post Grid plugin is equipped with a shortcode generator, you can convert any blocks into shortcodes easily. The plugin facilitates the generation of unlimited shortcodes and their application on any page or post. You can utilize the Unlimited Shortcode Generator in any page builder you like. [Check Demo](https://www.radiustheme.com/demo/plugins/the-post-grid/)
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/_xZBDU4kgKk" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+[youtube https://www.youtube.com/watch?v=_xZBDU4kgKk]
 
 ## ✴️ Post Grid Elementor Addon
 Elementor Page Builder was the most popular page builder with over 7 million active users! With this plugin, you get to combine the best post grid plugin with the best page builder. The Elementor Addon only makes it an even smoother user experience. [Check Demo](https://www.radiustheme.com/demo/plugins/the-post-grid-elementor/)
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/Px7c91A0W5Y" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+[youtube https://www.youtube.com/watch?v=Px7c91A0W5Y]
 
 ## 🏆 FEATURES
 
