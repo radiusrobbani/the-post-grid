@@ -88,7 +88,7 @@ The Date Range filter is only available in the premium version. It allows you to
 ### 👉 Sticky Post
 Another filter that you can expect to see is the Show Sticky Post at the Top. You can enable it to allow you to showcase sticky posts at the top of the entire listing.
 
-🔗 [Check Documentation](https://www.radiustheme.com/docs/the-post-grid/elementor-addons/elementor-settings/content-tab-2/)
+👉 [Check Documentation](https://www.radiustheme.com/docs/the-post-grid/elementor-addons/elementor-settings/content-tab-2/)
 
 
 ### 🏆 Step 2:
@@ -117,7 +117,7 @@ On the other hand, the Margin Post Grid PRO setting lets you choose to work with
 ### 👉 Grid Style Control [Pro]
 You get to set your Grid Style to masonry or even, only if you have Post Grid PRO. With Post Grid PRO, you get the Content will be Visible for setting. It enables you to set your content to be viewed by distinct groups, including the public or registered user group.
 
-🔗 [Check Documentation](https://www.radiustheme.com/docs/the-post-grid/elementor-addons/elementor-settings/content-tab-2/)
+👉 [Check Documentation](https://www.radiustheme.com/docs/the-post-grid/elementor-addons/elementor-settings/content-tab-2/)
 
 
 ### 🏆 Step 3:
@@ -145,14 +145,14 @@ The next group of settings you need to configure are the Excerpt. The Excerpt Li
 ### 👉 Read More Button Settings:
 Finally, you can manage the Text, Alignment, and Border Radius of the “Read More” button. The Alignment setting lets you position this button to the left, right, or center. On the other hand, the Text and Border Radius settings allow you to set the text content of the button and its border radius.
 
-🔗 [Check Documentation](https://www.radiustheme.com/docs/the-post-grid/elementor-addons/elementor-settings/settings-tab-2/)
+👉 [Check Documentation](https://www.radiustheme.com/docs/the-post-grid/elementor-addons/elementor-settings/settings-tab-2/)
 
 ### 🏆 Step 4:
 
 ### 👉 Field Selection
 Set the fields that you want to display and check those fields in your shortcode display. These fields include tags, categories, author, date of the post, read more, excerpt, comment count, social share, and title, widget heading, and rating for WooCommerce.
 
-🔗 [Check Documentation](https://www.radiustheme.com/docs/the-post-grid/elementor-addons/elementor-settings/settings-tab-2/)
+👉 [Check Documentation](https://www.radiustheme.com/docs/the-post-grid/elementor-addons/elementor-settings/settings-tab-2/)
 
 
 ### 🏆 Step 5:
@@ -175,7 +175,7 @@ The Full Area or Section tab enables you to set your style to full area or secti
 ### 👉 Title, Excerpt & Meta Style:
 You can manage the title color, font size, alignment and weight from the Title tab. The Title Hover tab is ideal for setting the title hover color, font size, weight and alignment. You can set the excerpt color, font size, alignment and weight at the Excerpt tab. Finally, the Meta tab enables you to set the meta color, font size, weight and alignment.
 
-🔗 [Check Documentation](https://www.radiustheme.com/docs/the-post-grid/elementor-addons/elementor-settings/style-tab/)
+👉 [Check Documentation](https://www.radiustheme.com/docs/the-post-grid/elementor-addons/elementor-settings/style-tab/)
 
 
 ## 🏆 PRO FEATURES
