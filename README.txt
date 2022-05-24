@@ -188,7 +188,7 @@ You can manage the title color, font size, alignment and weight from the Title t
 - Display posts by any Taxonomy like category(s), tag(s), author(s), keyword(s), Status and Date Range
 - Order by Id, Title, Created date, Modified date, Random, Comments Count and Menu order.
 - Isotope filter for any taxonomy ie. categories, tags…
-- Search field on Isotope.
+- [Search field on Isotope](https://www.radiustheme.com/demo/plugins/the-post-grid-elementor/filter-style/)
 - Set Default Isotope Filter Button.
 - Disable Show All Button for Isotope Filter
 - Popup page Fields Selection.
@@ -197,10 +197,10 @@ You can manage the title color, font size, alignment and weight from the Title t
 - Meta Position Control
 - Category Position Control
 - Content Wrapper Style Control
-- Overlay color and opacity
+- [Overlay color and opacity](https://www.radiustheme.com/demo/plugins/the-post-grid-elementor/grid-hover-5/)
 - [AJAX Pagination (Number, Load more and Load on Scrolling))](https://www.radiustheme.com/demo/plugins/the-post-grid-elementor/grid-layout-4/)
-- Single popup and Popup with next preview.
-- Social Share on popup
+- [Single popup and Popup with next preview](https://www.radiustheme.com/demo/plugins/the-post-grid-elementor/grid-hover-5/)
+- [Social Share on popup](https://www.radiustheme.com/demo/plugins/the-post-grid-elementor/grid-layout-4/)
 - Override default page template (Category, Tag, Search)
 
 == 🏆 Advanced Post Grid Plugin for Elementor Page Builder with Archive and Single Page Builder ==
