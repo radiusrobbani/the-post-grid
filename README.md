@@ -209,7 +209,7 @@ You can manage the title color, font size, alignment and weight from the Title t
 - Social Share on popup
 - Override default page template (Category, Tag, Search)
 
-## ✅ Advanced Post Grid Plugin for Elementor Page Builder with Archive and Single Page Builder
+## 🏆 Advanced Post Grid Plugin for Elementor Page Builder with Archive and Single Page Builder
 
 There are 4 widgets with multiple layouts for the Elementor addon. The grid layout widget has 9 layouts, 3 of which are available with the free version of the Post Grid plugin. On the other hand, the list layout widget has 7 layouts with 3 of them being free. Grid hover widget also offers 3 free layouts, but a total of a whopping 16 layouts in the PRO version. The Slider layout widget has 13 layouts, without any available in the free plugin version.
 
