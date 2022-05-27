@@ -68,6 +68,7 @@
                             IsotopeWrap.parent().find('.isotope-term-no-post p').show();
                         }
                     });
+
                     // use value of search field to filter
                     var $quicksearch = container.find('.iso-search-input').keyup(debounce(function () {
                         qsRegex = new RegExp($quicksearch.val(), 'gi');
@@ -83,7 +84,6 @@
                             IsotopeWrap.isotope();
                             $(this).parent().find('.selected').removeClass('selected');
                             $(this).addClass('selected');
-
                         }
                     });
                     if (IsoURL) {
@@ -105,7 +105,6 @@
             container.trigger("tpg_loaded");
         });
     };
-
     initTpg();
 
     $(window).on('load resize', function () {
@@ -113,11 +112,16 @@
         overlayIconResizeTpg();
     });
 
+
     function tpgBottomScriptLoader() {
-        $( ".bottom-script-loader" ).fadeOut(500, function() {
-            // fadeOut complete. Remove the loading div
-            $( ".bottom-script-loader" ).remove(); //makes page more lightweight
-        });
+        setTimeout(function () {
+
+            $(".bottom-script-loader").fadeOut(500, function () {
+                // fadeOut complete. Remove the loading div
+                $(".bottom-script-loader").remove(); //makes page more lightweight
+            });
+
+        }, 400)
     }
 
     function windowHashChange(isotope, IsoButton) {
@@ -174,6 +178,7 @@
     }
 
     function preFunction() {
+        //HeightResize();
         overlayIconResizeTpg();
     }
 
@@ -181,6 +186,42 @@
         $(this).prop("disabled", true);
         $(this).removeAttr("href");
     });
+
+    function HeightResize() {
+        var wWidth = $(window).width();
+        tpgFixLazyLoad();
+        $(".rt-tpg-container").each(function () {
+            var self = $(this),
+                dCol = self.data('desktop-col'),
+                tCol = self.data('tab-col'),
+                mCol = self.data('mobile-col'),
+                target = $(this).find('.rt-row.rt-content-loader.tpg-even');
+            if ((wWidth >= 992 && dCol > 1) || (wWidth >= 768 && tCol > 1) || (wWidth < 768 && mCol > 1)) {
+                target.imagesLoaded(function () {
+                    var tlpMaxH = 0;
+                    target.find('.even-grid-item').height('auto');
+                    target.find('.even-grid-item').each(function () {
+                        var $thisH = $(this).outerHeight();
+                        if ($thisH > tlpMaxH) {
+                            tlpMaxH = $thisH;
+                        }
+                    });
+                    target.find('.even-grid-item').height(tlpMaxH + "px");
+                });
+            } else {
+                target.find('.even-grid-item').height('auto');
+            }
+
+        });
+        if ($(".rt-row.rt-content-loader.layout4").length) {
+            equalHeight4Layout4();
+        }
+
+        function equalHeight4Layout4() {
+            var $maxH = $(".rt-row.rt-content-loader.layout4 .layout4item").height();
+            $(".rt-row.rt-content-loader.layout4 .layout4item .layoutInner .rt-img-holder img,.rt-row.rt-content-loader.layout4 .layout4item .layoutInner.layoutInner-content").height($maxH + "px");
+        }
+    }
 
     function overlayIconResizeTpg() {
         $('.overlay').each(function () {
@@ -195,5 +236,73 @@
             targetd.css('margin-top', hd + 'px');
         });
     }
+
+
+    function RTPromoContent() {
+        parent.document.addEventListener("mousedown", function (e) {
+            var widgets = parent.document.querySelectorAll(".elementor-element--promotion");
+
+            if (widgets.length > 0) {
+                for (var i = 0; i < widgets.length; i++) {
+                    if (widgets[i].contains(e.target)) {
+                        var dialog = parent.document.querySelector("#elementor-element--promotion__dialog");
+                        var icon = widgets[i].querySelector(".icon > i");
+
+                        if (icon.classList.toString().indexOf("tss-promotional-element") >= 0) {
+                            dialog.querySelector(".dialog-buttons-action").style.visibility = "hidden";
+                            dialog.querySelector(".dialog-buttons-action").style.width = 0;
+                            dialog.querySelector(".dialog-buttons-action").style.height = 0;
+                            dialog.querySelector(".dialog-buttons-action").style.opacity = 0;
+                            dialog.querySelector(".dialog-buttons-action").style.padding = 0;
+
+                            if (dialog.querySelector(".rt-dialog-buttons-action") === null) {
+                                var button = document.createElement("a");
+                                var buttonText = document.createTextNode("Get Pro");
+
+                                button.setAttribute("href", "//www.radiustheme.com/downloads/the-post-grid-pro-for-wordpress/");
+                                button.setAttribute("target", "_blank");
+                                button.classList.add(
+                                    "dialog-button",
+                                    "dialog-action",
+                                    "dialog-buttons-action",
+                                    "elementor-button",
+                                    "elementor-button-success",
+                                    "rt-dialog-buttons-action"
+                                );
+
+                                button.appendChild(buttonText);
+
+
+                                dialog.querySelector(".dialog-buttons-action").insertAdjacentHTML("afterend", button.outerHTML);
+                            } else {
+                                dialog.querySelector(".rt-dialog-buttons-action").style.display = "";
+                            }
+                        } else {
+                            dialog.querySelector(".dialog-buttons-action").style.display = "";
+                            dialog.querySelector(".dialog-buttons-action").style.visibility = "";
+                            dialog.querySelector(".dialog-buttons-action").style.width = "";
+                            dialog.querySelector(".dialog-buttons-action").style.height = "";
+                            dialog.querySelector(".dialog-buttons-action").style.opacity = "";
+                            dialog.querySelector(".dialog-buttons-action").style.padding = "";
+
+                            if (dialog.querySelector(".rt-dialog-buttons-action") !== null) {
+                                dialog.querySelector(".rt-dialog-buttons-action").style.display = "none";
+                            }
+                        }
+
+                        break;
+                    }
+                }
+            }
+        });
+    }
+
+    // Elementor Frontend Load
+    $(window).on('elementor/frontend/init', function () {
+        if (elementorFrontend.isEditMode()) {
+            // Promo Content.
+            RTPromoContent();
+        }
+    });
 
 })(jQuery);

@@ -20,14 +20,14 @@ Post Grid Plugin allows you to create grid, list, filter and slider view. Post G
 With this plugin, you can create and display your posts in grid, list, and isotope views. The best part is that it exempts you from the need of any coding expertise. It has pre-made layouts that you can work with easily. The Post Grid makes it easy to generate grids from the admin end and insert them into any page or post.
 
 == 🏆 Unlimited Shortcode Generator ==
-Since the Post Grid plugin is equipped with a shortcode generator, you can convert any blocks into shortcodes easily. The plugin facilitates the generation of unlimited shortcodes and their application on any page or post. You can utilize the Unlimited Shortcode Generator in any page builder you like. 
+Since the Post Grid plugin is equipped with a shortcode generator, you can convert any blocks into shortcodes easily. The plugin facilitates the generation of unlimited shortcodes and their application on any page or post. You can utilize the Unlimited Shortcode Generator in any page builder you like.
 
 [Shortcode Demo](https://www.radiustheme.com/demo/plugins/the-post-grid/)
 
 [youtube https://www.youtube.com/watch?v=_xZBDU4kgKk]
 
 == 🏆 Post Grid Elementor Addon ==
-Elementor Page Builder was the most popular page builder with over 7 million active users! With this plugin, you get to combine the best post grid plugin with the best page builder. The Elementor Addon only makes it an even smoother user experience. 
+Elementor Page Builder was the most popular page builder with over 7 million active users! With this plugin, you get to combine the best post grid plugin with the best page builder. The Elementor Addon only makes it an even smoother user experience.
 
 [Elementor Demo](https://www.radiustheme.com/demo/plugins/the-post-grid-elementor/)
 
@@ -66,7 +66,7 @@ Elementor Page Builder was the most popular page builder with over 7 million act
 
 === 🏆 5 Easy Steps to Use Shortcode in the Post Grid Plugin: ===
 
-== 🏆 Step 1: == 
+== 🏆 Step 1: ==
 
 = 👉 Query Builder =
 The Post Grid has a query builder to facilitate the use of the shortcode generator to use with the Elementor addons. It lets you start by choosing whichever type of post you want. You then get to choose precisely what items you want to display and the ones that you would rather not show. You have all the common filters to work with as you use the shortcode generator.
@@ -111,7 +111,7 @@ At the Column setting, you select the number of columns that you want to showcas
 = 👉 Pagination Type =
 If you want to enable pagination, just check the Pagination option. Choose the number of paginations that you want to showcase per page at the Display Per Page setting. You can choose the Pagination Type you want to have, with options, such as normal number pagination, AJAX Load on Scroll, AJAX Load More, and AJAX Number Pagination. However, all the AJAX Paginations are only available in the Post Grid PRO.
 
-= 👉 Detail Page Link Type = 
+= 👉 Detail Page Link Type =
 If you want to enable the display of links that take you to the detail pages, enable the Link to Detail Page setting. The Detail Page Link Type feature allows you to set the detail page link as a normal link or as a popup. With Link Target setting, you get to set whether you want the link to open in the same window or in a new one.
 
 = 👉 Margin Control [Pro] =
@@ -128,7 +128,7 @@ There are different settings that you can manage from the settings tab to affect
 
 [Shortcode Documentation](https://www.radiustheme.com/docs/the-post-grid/shortcode-generator/settings/)
 
-= 👉 Shortcode Heading: = 
+= 👉 Shortcode Heading: =
 You can start with managing some Widget and Shortcode Heading settings. With the Tag setting, you get to set the heading tags, with designations from H1 to H6. There are 3 predefined Styles from which you can choose, including style 1, style 2, and style 3. You can then set the alignment to left, right, or center. The plugin also lets you add a link to your titles.
 
 = 👉 Category Settings: =
@@ -149,7 +149,7 @@ The next group of settings you need to configure are the Excerpt. The Excerpt Li
 Finally, you can manage the Text, Alignment, and Border Radius of the “Read More” button. The Alignment setting lets you position this button to the left, right, or center. On the other hand, the Text and Border Radius settings allow you to set the text content of the button and its border radius.
 
 
-== 🏆 Step 4: == 
+== 🏆 Step 4: ==
 
 = 👉 Field Selection =
 Set the fields that you want to display and check those fields in your shortcode display. These fields include tags, categories, author, date of the post, read more, excerpt, comment count, social share, and title, widget heading, and rating for WooCommerce.
@@ -266,7 +266,7 @@ Basically, you have 4 different layouts when using the free version of the plugi
 == 🏆 Elementor Addon with Archive and Single Page Builder [Pro] ==
 The premium version of this plugin, the Post Grid PRO comes with this addon to enable quite a few extra features. You get 4 widgets, including the Grid Hover Layout, Grid Layout, Slider Layout, and List Layout. Apart from this, you also get a total of 45 layouts.
 
-[Documentation](https://www.radiustheme.com/docs/the-post-grid/elementor-addons/archive-single-page-builder/) 
+[Documentation](https://www.radiustheme.com/docs/the-post-grid/elementor-addons/archive-single-page-builder/)
 
 == 🏆 Elementor Archive Builder [Pro]: ==
 With the Elementor Archive Builder, you will be able to create grid, slider, and list layouts easily using the popular page builder, Elementor. You get to manage the category, author, search, and date details too.
@@ -275,7 +275,7 @@ With the Elementor Archive Builder, you will be able to create grid, slider, and
 With the Post Grid PRO, you get to use the Single Page Builder, which is based on the Elementor Page Builder. This builder enables you to arrange the single posts as well as you can using the drag & drop interface that comes with the Elementor Page Builder.
 
 
-👉 [Get The PRO](https://www.radiustheme.com/downloads/the-post-grid-pro-for-wordpress/) 
+👉 [Get The PRO](https://www.radiustheme.com/downloads/the-post-grid-pro-for-wordpress/)
 👉 [PRO Version Demo](https://www.radiustheme.com/demo/plugins/the-post-grid/)
 
 👉= Need Any Help? =
