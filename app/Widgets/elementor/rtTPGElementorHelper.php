@@ -271,11 +271,11 @@ class rtTPGElementorHelper {
 	}
 
 
-	/**
-	 *  Builder Post Query Settings
-	 *
-	 * @param $ref
-	 */
+    /**
+     * @param $ref
+     * @param $layout_type
+     * @return void
+     */
 	public static function query_builder( $ref, $layout_type = '' ) {
 		$post_types = Fns::get_post_types();
 

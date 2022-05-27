@@ -143,10 +143,12 @@ i.tpg-grid-icon {
     -webkit-text-fill-color: transparent;
 }
 
+#elementor-panel-category-tpg-elementor-builder-widgets .elementor-element-wrapper .elementor-element,
 #elementor-panel-category-the-post-grid-elements .elementor-element-wrapper .elementor-element {
     position: relative;
 }
 
+#elementor-panel-category-tpg-elementor-builder-widgets .elementor-element-wrapper .elementor-element::before,
 #elementor-panel-category-the-post-grid-elements .elementor-element-wrapper .elementor-element::before {
     content: "TPG";
     position: absolute;
