@@ -4,7 +4,7 @@ Donate link:
 Tags: post grid, content grid, post display, post slider, post grid elementor addon
 Requires at least: 4.5
 Tested up to: 5.9.3
-Stable tag: 4.0.4
+Stable tag: 4.0.5
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -363,6 +363,9 @@ With the Post Grid PRO, you get to use the Single Page Builder, which is based o
 
 == Changelog ==
 
+= 4.0.5 =
+* Fixed: Shortcode Taxonomy filter bug fixed
+
 = 4.0.4 =
 * Fixed: Showing full text instead of excerpt
 * Fixed: Pagination CSS issue fixed
@@ -373,7 +376,7 @@ With the Post Grid PRO, you get to use the Single Page Builder, which is based o
 * Fixed: HTML tags not allowed in Excerpt
 
 = 4.0.2 =
-* Fixed: Elementor block responsive issue fix
+* Fixed: Elementor block responsive issue fixed
 
 = 4.0.1 =
 * Fixed: Some style issue fixed

@@ -5,7 +5,7 @@
  * Plugin URI: http://demo.radiustheme.com/wordpress/plugins/the-post-grid/
  * Description: Fast & Easy way to display WordPress post in Grid, List & Isotope view ( filter by category, tag, author..)  without a single line of coding.
  * Author: RadiusTheme
- * Version: 4.0.4
+ * Version: 4.0.5
  * Text Domain: the-post-grid
  * Domain Path: /languages
  * Author URI: https://radiustheme.com/
@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'RT_THE_POST_GRID_VERSION', '4.0.4' );
+define( 'RT_THE_POST_GRID_VERSION', '4.0.5' );
 define( 'RT_THE_POST_GRID_AUTHOR', 'RadiusTheme' );
 define( 'RT_THE_POST_GRID_NAME', 'The Post Grid' );
 define( 'RT_THE_POST_GRID_PLUGIN_FILE', __FILE__ );
