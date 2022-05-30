@@ -18,7 +18,6 @@
         } else {
             $(".rt-tpg-filter." + id).hide('slow');
         }
-
     });
 
     $(".field-holder.pro-field").on('click', '.field', function (e) {
