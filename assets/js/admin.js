@@ -381,6 +381,11 @@
 
         var arg = "post_type=" + postType;
         var bindElement = $this;
+
+        $('#post-taxonomy input[name="tpg_taxonomy[]"]:checked').each(function() {
+            arg += '&taxonomy[]=' + this.value;
+        });
+
         tpgAjaxCall(bindElement, 'rtTPGTaxonomyListByPostType', arg, function (data) {
             if (!data.error) {
                 $('.rt-tpg-filter.taxonomy > .taxonomy-field').html(data.data).show('slow');
