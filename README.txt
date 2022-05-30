@@ -376,7 +376,7 @@ With the Post Grid PRO, you get to use the Single Page Builder, which is based o
 * Fixed: HTML tags not allowed in Excerpt
 
 = 4.0.2 =
-* Fixed: Elementor block responsive issue fix
+* Fixed: Elementor block responsive issue fixed
 
 = 4.0.1 =
 * Fixed: Some style issue fixed
