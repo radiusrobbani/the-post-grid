@@ -6880,6 +6880,22 @@ class rtTPGElementorHelper {
 		);
 
 		$ref->add_control(
+			'dynamic_dots',
+			[
+				'label'        => __( 'Enable Dynamic Dots', 'the-post-grid' ),
+				'type'         => \Elementor\Controls_Manager::SWITCHER,
+				'label_on'     => __( 'Show', 'the-post-grid' ),
+				'label_off'    => __( 'Hide', 'the-post-grid' ),
+				'return_value' => 'yes',
+				'default'      => 'yes',
+				'render_type'  => 'template',
+				'condition'    => [
+					$prefix . '_layout!' => [ 'slider-layout13', 'slider-layout11', 'slider-layout12' ],
+				],
+			]
+		);
+
+		$ref->add_control(
 			'dots_style',
 			[
 				'label'        => __( 'Dots Style', 'the-post-grid' ),

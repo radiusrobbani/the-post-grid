@@ -11,14 +11,6 @@
     color: inherit !important;
 }
 
-#elementor-panel .elementor-control.elementor-control-separator-after:after {
-    bottom: 10px;
-}
-
-#elementor-panel .elementor-control.elementor-control-separator-after {
-    padding-bottom: 20px;
-}
-
 .elementor-nerd-box-title {
     margin-top: 20px;
     font-size: 16px;

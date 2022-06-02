@@ -16,8 +16,8 @@ class TPGSliderLayout extends Custom_Widget_Base {
 	/**
 	 * GridLayout constructor.
 	 *
-	 * @param  array  $data
-	 * @param  null   $args
+	 * @param array $data
+	 * @param null $args
 	 *
 	 * @throws \Exception
 	 */
@@ -76,7 +76,6 @@ class TPGSliderLayout extends Custom_Widget_Base {
 
 		//Slider Settings
 		rtTPGElementorHelper::slider_settings( $this );
-
 
 
 		/**
@@ -159,15 +158,15 @@ class TPGSliderLayout extends Custom_Widget_Base {
 		 * Post type render
 		 */
 
-        $post_types = Fns::get_post_types();
-        foreach ( $post_types as $post_type => $label ) {
-            $_taxonomies = get_object_taxonomies( $post_type, 'object' );
-            if ( empty( $_taxonomies ) ) {
-                continue;
-            }
-            $post_data[ $data['post_type'] . '_taxonomy' ] = $data[ $data['post_type'] . '_taxonomy' ];
-            $post_data[ $data['post_type'] . '_tags' ]     = $data[ $data['post_type'] . '_tags' ];
-        }
+		$post_types = Fns::get_post_types();
+		foreach ( $post_types as $post_type => $label ) {
+			$_taxonomies = get_object_taxonomies( $post_type, 'object' );
+			if ( empty( $_taxonomies ) ) {
+				continue;
+			}
+			$post_data[ $data['post_type'] . '_taxonomy' ] = $data[ $data['post_type'] . '_taxonomy' ];
+			$post_data[ $data['post_type'] . '_tags' ]     = $data[ $data['post_type'] . '_tags' ];
+		}
 
 
 		$post_data['enable_2_rows'] = $data['enable_2_rows'];
@@ -254,6 +253,7 @@ class TPGSliderLayout extends Custom_Widget_Base {
 				"loop"            => $data['infinite'] == "yes" ? true : false,
 				"lazyLoad"        => $data['lazyLoad'] == "yes" ? true : false,
 				"autoHeight"      => $data['autoHeight'] == "yes" ? true : false,
+				"dynamic_dots"    => $data['dynamic_dots'] == "yes" ? true : false,
 			];
 
 			if ( $data['enable_2_rows'] == 'yes' ) {
@@ -362,7 +362,7 @@ class TPGSliderLayout extends Custom_Widget_Base {
 
         </div>
 		<?php
-		do_action('tpg_elementor_script');
+		do_action( 'tpg_elementor_script' );
 	}
 
 }

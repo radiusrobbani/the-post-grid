@@ -1116,6 +1116,7 @@ body .readmore-btn-only-text .rt-tpg-container .tpg-post-holder .read-more a {
     align-items: flex-start;
 }
 
+
 .tpg-el-main-wrapper.list-layout1-2-main .list-layout1 .rt-holder .rt-el-content-wrapper {
     flex-direction: row-reverse;
 }
@@ -2272,7 +2273,6 @@ body .elementor-section .rt-tpg-container .grid_hover-layout5 [class*='rt-col'] 
 
 .tpg-el-main-wrapper .swiper-pagination span.swiper-pagination-bullet-active {
     background-color: var(--tpg-primary-color);
-    width: 20px;
     border-radius: 10px;
 }
 
@@ -2745,6 +2745,7 @@ body .tpg-el-main-wrapper .slider-layout12 .rt-swiper-holder {
 }
 
 .tpg-el-main-wrapper .slider-layout11 .swiper-thumb-wrapper .swiper-wrapper .swiper-slide:hover .p-thumbnail img,
+.tpg-el-main-wrapper .slider-layout11 .swiper-thumb-wrapper .swiper-wrapper .swiper-slide-active .p-thumbnail img,
 .tpg-el-main-wrapper .slider-layout11 .swiper-thumb-wrapper .swiper-wrapper .swiper-slide-thumb-active .p-thumbnail img {
     background: rgba(255, 255, 255, .4);
 }
@@ -2836,6 +2837,8 @@ body .tpg-el-main-wrapper .slider-layout12 .rt-swiper-holder {
         transition: .5s ease-in-out;
     }
 
+    /*.tpg-el-main-wrapper .slider-layout11 .swiper-thumb-wrapper .swiper-wrapper .swiper-slide:hover .post-thumbnail-wrap::before,*/
+    .tpg-el-main-wrapper .slider-layout11 .swiper-thumb-wrapper .swiper-wrapper .swiper-slide-active .post-thumbnail-wrap::before,
     .tpg-el-main-wrapper .slider-layout11 .swiper-thumb-wrapper .swiper-wrapper .swiper-slide-thumb-active .post-thumbnail-wrap::before {
         width: 100%;
         opacity: .1;
@@ -2856,6 +2859,7 @@ body .tpg-el-main-wrapper .slider-layout12 .rt-swiper-holder {
         max-width: 80px;
         height: 80px;
         margin-left: 0;
+        background: rgb(255 255 255 / 4%);
     }
 
     .tpg-el-main-wrapper .slider-layout11 .slider-thumb-main-wrapper .swiper-thumb-wrapper .swiper-thumb-pagination {
@@ -3001,6 +3005,7 @@ body .tpg-el-main-wrapper .slider-layout12 .rt-swiper-holder {
 }
 
 .tpg-el-main-wrapper .slider-layout12 .slider-thumb-main-wrapper .swiper-thumb-wrapper .swiper-slide:hover .post-thumbnail-wrap .p-thumbnail::before,
+.tpg-el-main-wrapper .slider-layout12 .slider-thumb-main-wrapper .swiper-thumb-wrapper .swiper-slide.swiper-slide-active .post-thumbnail-wrap .p-thumbnail::before,
 .tpg-el-main-wrapper .slider-layout12 .slider-thumb-main-wrapper .swiper-thumb-wrapper .swiper-slide.swiper-slide-thumb-active .post-thumbnail-wrap .p-thumbnail::before {
     opacity: 1;
 }
