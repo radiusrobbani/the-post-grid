@@ -55,8 +55,12 @@ if ( ! class_exists( 'ElementorController' ) ):
 					if ( rtTPG()->hasPro() ) {
 						wp_enqueue_script( 'rt-isotope-js' );
 					}
-					wp_enqueue_script( 'rt-swiper' );
+
 					wp_enqueue_script( 'rt-tpg' );
+
+					if ( ! isset( $settings['tpg_disable_swiper_script'] ) ) {
+						wp_enqueue_script( 'rt-swiper' );
+					}
 
 					$ajaxurl = '';
 					if ( in_array( 'sitepress-multilingual-cms/sitepress.php', get_option( 'active_plugins' ) ) ) {
