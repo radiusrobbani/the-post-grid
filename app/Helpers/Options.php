@@ -118,6 +118,14 @@ class Options {
 				'description' => __( 'If you enable this, script will be loaded only ShortCode page.', 'the-post-grid' ),
 				'value'       => isset( $settings['tpg_load_script'] ) ? $settings['tpg_load_script'] : false,
 			],
+			'tpg_disable_swiper_script'      => [
+				'type'        => 'switch',
+				'name'        => 'tpg_disable_swiper_script',
+				'holderClass' => 'pro-field',
+				'label'       => __( 'Disable Swiper Script', 'the-post-grid' ),
+				'description' => __( 'If you use Elementor Page Builder then you no need to load swiper from this plugin. Our plugin will work with the elementor. But you have keep the default value from ( Elementor > Settings > Experiments > Improved Asset Loading)', 'the-post-grid' ),
+				'value'       => isset( $settings['tpg_disable_swiper_script'] ) ? $settings['tpg_disable_swiper_script'] : false,
+			],
 			'tpg_enable_preloader' => [
 				'type'        => 'switch',
 				'name'        => 'tpg_enable_preloader',

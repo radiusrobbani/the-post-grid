@@ -55,7 +55,11 @@ if ( ! class_exists( 'ElementorController' ) ):
 					if ( rtTPG()->hasPro() ) {
 						wp_enqueue_script( 'rt-isotope-js' );
 					}
-					wp_enqueue_script( 'rt-swiper' );
+					$settings = get_option( rtTPG()->options['settings'] );
+
+					if ( ! isset( $settings['tpg_disable_swiper_script'] ) ) {
+						wp_enqueue_script( 'rt-swiper' );
+					}
 					wp_enqueue_script( 'rt-tpg' );
 
 					$ajaxurl = '';
@@ -83,7 +87,7 @@ if ( ! class_exists( 'ElementorController' ) ):
 			wp_add_inline_style( 'elementor-editor', $css );
 		}
 
-		public function init_widgets($widgets_manager) {
+		public function init_widgets( $widgets_manager ) {
 			require_once( RT_THE_POST_GRID_PLUGIN_PATH . '/app/Widgets/elementor/base.php' );
 			require_once( RT_THE_POST_GRID_PLUGIN_PATH . '/app/Widgets/elementor/rtTPGElementorHelper.php' );
 
