@@ -55,11 +55,11 @@ if ( ! class_exists( 'ElementorController' ) ):
 					if ( rtTPG()->hasPro() ) {
 						wp_enqueue_script( 'rt-isotope-js' );
 					}
-					$settings = get_option( rtTPG()->options['settings'] );
 
 					if ( ! isset( $settings['tpg_disable_swiper_script'] ) ) {
 						wp_enqueue_script( 'rt-swiper' );
 					}
+
 					wp_enqueue_script( 'rt-tpg' );
 
 					$ajaxurl = '';
