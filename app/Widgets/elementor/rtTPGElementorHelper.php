@@ -6836,7 +6836,7 @@ class rtTPGElementorHelper {
 				'return_value' => 'yes',
 				'default'      => 'yes',
 				'condition'    => [
-					$prefix . '_layout!' => [ 'slider-layout13', 'slider-layout11', 'slider-layout12' ],
+					$prefix . '_layout!' => [ 'slider-layout11', 'slider-layout12' ],
 				],
 			]
 		);
@@ -6856,7 +6856,7 @@ class rtTPGElementorHelper {
 				],
 				'condition'    => [
 					'arrows'             => 'yes',
-					$prefix . '_layout!' => [ 'slider-layout13', 'slider-layout11', 'slider-layout12' ],
+					$prefix . '_layout!' => [ 'slider-layout11', 'slider-layout12' ],
 				],
 				'prefix_class' => 'slider-arrow-position-',
 			]
@@ -6874,7 +6874,7 @@ class rtTPGElementorHelper {
 				'prefix_class' => 'slider-dot-enable-',
 				'render_type'  => 'template',
 				'condition'    => [
-					$prefix . '_layout!' => [ 'slider-layout13', 'slider-layout11', 'slider-layout12' ],
+					$prefix . '_layout!' => [ 'slider-layout11', 'slider-layout12' ],
 				],
 			]
 		);
@@ -6890,7 +6890,8 @@ class rtTPGElementorHelper {
 				'default'      => 'yes',
 				'render_type'  => 'template',
 				'condition'    => [
-					$prefix . '_layout!' => [ 'slider-layout13', 'slider-layout11', 'slider-layout12' ],
+					'dots'               => 'yes',
+					$prefix . '_layout!' => [ 'slider-layout11', 'slider-layout12' ],
 				],
 			]
 		);
@@ -6907,7 +6908,7 @@ class rtTPGElementorHelper {
 				],
 				'condition'    => [
 					'dots'               => 'yes',
-					$prefix . '_layout!' => [ 'slider-layout13', 'slider-layout11', 'slider-layout12' ],
+					$prefix . '_layout!' => [ 'slider-layout11', 'slider-layout12' ],
 				],
 				'prefix_class' => 'slider-dots-style-',
 			]

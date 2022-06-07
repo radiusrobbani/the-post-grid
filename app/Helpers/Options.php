@@ -97,49 +97,6 @@ class Options {
 		$settings = get_option( rtTPG()->options['settings'] );
 
 		$other_settings = [
-			'tpg_block_type'       => [
-				'type'        => 'select',
-				'name'        => 'tpg_block_type',
-				'label'       => 'Choose Elementor or Shortcode',
-				'id'          => 'tpg_block_type',
-				'class'       => 'select2',
-				'options'     => [
-					'default'   => __( 'Default (Both Elementor and Shortcode)', 'the-post-grid' ),
-					'elementor' => __( 'Elementor', 'the-post-grid' ),
-					'shortcode' => __( 'Shortcode', 'the-post-grid' ),
-				],
-				'description' => __( 'Please check which type of block you want to use. If you use Default then all styles and scripts for both will load on your site. But if you use one then just this style and script will load on your site.', 'the-post-grid' ),
-				'value'       => isset( $settings['tpg_block_type'] ) ? $settings['tpg_block_type'] : 'default',
-			],
-			'tpg_load_script'      => [
-				'type'        => 'switch',
-				'name'        => 'tpg_load_script',
-				'label'       => __( 'Load Script only ShortCode page', 'the-post-grid' ),
-				'description' => __( 'If you enable this, script will be loaded only ShortCode page.', 'the-post-grid' ),
-				'value'       => isset( $settings['tpg_load_script'] ) ? $settings['tpg_load_script'] : false,
-			],
-			'tpg_disable_swiper_script'      => [
-				'type'        => 'switch',
-				'name'        => 'tpg_disable_swiper_script',
-				'holderClass' => 'pro-field',
-				'label'       => __( 'Disable Swiper Script', 'the-post-grid' ),
-				'description' => __( 'If you use Elementor Page Builder then you no need to load swiper from this plugin. Our plugin will work with the elementor. But you have keep the default value from ( Elementor > Settings > Experiments > Improved Asset Loading)', 'the-post-grid' ),
-				'value'       => isset( $settings['tpg_disable_swiper_script'] ) ? $settings['tpg_disable_swiper_script'] : false,
-			],
-			'tpg_enable_preloader' => [
-				'type'        => 'switch',
-				'name'        => 'tpg_enable_preloader',
-				'label'       => __( 'Enable Pre-loader', 'the-post-grid' ),
-				'holderClass' => 'tpg-hidden',
-				'value'       => isset( $settings['tpg_enable_preloader'] ) ? $settings['tpg_enable_preloader'] : false,
-			],
-			'tpg_skip_fa'          => [
-				'type'        => 'switch',
-				'name'        => 'tpg_skip_fa',
-				'label'       => __( 'Disable Font Awesome Script', 'the-post-grid' ),
-				'description' => __( "If Font Awesome 5 exist with theme, don't need to load twice.", 'the-post-grid' ),
-				'value'       => isset( $settings['tpg_enable_preloader'] ) ? $settings['tpg_enable_preloader'] : false,
-			],
 			'template_author'      => [
 				'type'        => 'select',
 				'name'        => 'template_author',
@@ -249,6 +206,59 @@ class Options {
 		}
 
 		return $other_settings;
+	}
+
+
+	public static function rtTPGSettingsCommonSettingsFields() {
+		$settings = get_option( rtTPG()->options['settings'] );
+
+		$common_settings = [
+			'tpg_common_settings_heading'      => [
+				'type'        => 'heading',
+				'name'        => 'tpg_common_settings_heading',
+				'class'       => 'tpg_common_settings_heading',
+				'label'       => __( 'Performance Issues - (Please don\'t skip this)', 'the-post-grid' ),
+				'description'       => __( 'Please choose a Block Type first. Otherwise, all CSS & JS for shortcode and element will load on your site which can create a bad performance issues for your site.', 'the-post-grid' ),
+			],
+
+			'tpg_block_type'       => [
+				'type'        => 'select',
+				'name'        => 'tpg_block_type',
+				'label'       => 'Block Type',
+				'id'          => 'tpg_block_type',
+				'class'       => 'select2',
+				'options'     => [
+					'default'   => __( 'Default (Both Elementor and Shortcode)', 'the-post-grid' ),
+					'elementor' => __( 'Elementor', 'the-post-grid' ),
+					'shortcode' => __( 'Shortcode', 'the-post-grid' ),
+				],
+				'description' => __( 'Please check which type of block you want to use. If you use Default then all styles and scripts for both will load on your site. But if you use one then just this style and script will load on your site.', 'the-post-grid' ),
+				'value'       => isset( $settings['tpg_block_type'] ) ? $settings['tpg_block_type'] : 'default',
+			],
+			'tpg_load_script'      => [
+				'type'        => 'switch',
+				'name'        => 'tpg_load_script',
+				'label'       => __( 'Load Script only ShortCode page', 'the-post-grid' ),
+				'description' => __( 'If you enable this, script will be loaded only ShortCode page.', 'the-post-grid' ),
+				'value'       => isset( $settings['tpg_load_script'] ) ? $settings['tpg_load_script'] : false,
+			],
+			'tpg_enable_preloader' => [
+				'type'        => 'switch',
+				'name'        => 'tpg_enable_preloader',
+				'label'       => __( 'Enable Pre-loader', 'the-post-grid' ),
+				'holderClass' => 'tpg-hidden',
+				'value'       => isset( $settings['tpg_enable_preloader'] ) ? $settings['tpg_enable_preloader'] : false,
+			],
+			'tpg_skip_fa'          => [
+				'type'        => 'switch',
+				'name'        => 'tpg_skip_fa',
+				'label'       => __( 'Disable Font Awesome Script', 'the-post-grid' ),
+				'description' => __( "If Font Awesome 5 exist with theme, don't need to load twice.", 'the-post-grid' ),
+				'value'       => isset( $settings['tpg_enable_preloader'] ) ? $settings['tpg_enable_preloader'] : false,
+			],
+		];
+
+		return $common_settings;
 	}
 
 	public static function rtTPGLicenceField() {

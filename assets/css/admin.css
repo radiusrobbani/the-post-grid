@@ -1538,3 +1538,53 @@ input:checked + .rttm-switch-slider:before {
     border: 1px solid #b8cad6;
     background: white;
 }
+
+#tpg_common_settings_heading_holder {
+    display: flex;
+    flex-direction: column;
+    background: #dc3545!important;
+    padding: 13px 19px 15px;
+    margin-top: -15px;
+    margin-left: -15px;
+    margin-right: -15px;
+}
+
+#tpg_common_settings_heading_holder .field{
+    background: none;
+    border: none;
+    padding: 10px 0 0;
+}
+
+#tpg_common_settings_heading_holder.field-holder .field-label {
+    width: 100%;
+    font-size: 21px;
+    border-bottom: 1px solid rgba(0,0,0,.2);
+    padding-bottom: 11px;
+    color: #ffffff;
+}
+#tpg_common_settings_heading_holder.field-holder .description {
+    color: #ffffff;
+    font-size: 17px;
+}
+.tpg-block-type-not-shortcode.post-type-rttpg.post-new-php #wpbody-content > div,
+.tpg-block-type-not-shortcode.post-type-rttpg.edit-php #wpbody-content > div {
+    filter: blur(5px);
+    pointer-events: none;
+    position: relative;
+}
+
+.tpg-block-type-not-shortcode.post-type-rttpg.post-new-php #wpbody-content::after, .tpg-block-type-not-shortcode.post-type-rttpg.edit-php #wpbody-content::after {
+    content: "This page is used to create Shortcode. But you are using only for Elementor. If you want to use this shortcode builder then choose All or Shortcode from ( The Post Grid > Settings > Common Settings > Block Type )";
+    position: fixed;
+    top: 20%;
+    left: 50%;
+    width: 500px;
+    display: block;
+    font-size: 18px;
+    padding: 22px 32px 31px;
+    max-width: 80%;
+    transform: translateX(-50%);
+    border: 1px solid #f00;
+    background: #fff1f1;
+    line-height: 27px;
+}

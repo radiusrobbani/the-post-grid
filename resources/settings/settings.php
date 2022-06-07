@@ -1,6 +1,8 @@
 <?php
+
 use RT\ThePostGrid\Helpers\Fns;
 use RT\ThePostGrid\Helpers\Options;
+
 ?>
 <div class="wrap rttpg-wrapper">
     <div id="upf-icon-edit-pages" class="icon32 icon32-posts-page"><br/></div>
@@ -16,30 +18,38 @@ use RT\ThePostGrid\Helpers\Options;
         <form id="rt-tpg-settings-form">
 			<?php
 			$settings = get_option( rtTPG()->options['settings'] );
-			$last_tab = isset( $settings['_tpg_last_active_tab'] ) ? trim( $settings['_tpg_last_active_tab'] ) : 'popup-fields';
+			$last_tab = isset( $settings['_tpg_last_active_tab'] ) ? trim( $settings['_tpg_last_active_tab'] ) : 'common-settings';
 			$html     = null;
 			$html     .= '<div id="settings-tabs" class="rt-tabs rt-tab-container">';
 
 			$html .= '<ul class="tab-nav rt-tab-nav">';
-                $html     .= sprintf( '<li%s><a href="#popup-fields">%s</a></li>
-                                    <li%s><a href="#social-share">%s</a></li>
-                                    <li%s><a href="#custom-script">%s</a></li>
-                                    <li%s><a href="#other-settings">%s</a></li>',
-                    $last_tab == "popup-fields" ? ' class="active"' : '',
-                    __( 'PopUp field selection', 'the-post-grid' ),
-                    $last_tab == "social-share" ? ' class="active"' : '',
-                    __( 'Social Share', 'the-post-grid' ),
-                    $last_tab == "custom-script" ? ' class="active"' : '',
-                    __( 'Custom Script', 'the-post-grid' ),
-                    $last_tab == "other-settings" ? ' class="active"' : '',
-                    __( 'Other Settings', 'the-post-grid' )
-                );
+			$html .= sprintf(
+				'<li%s><a href="#common-settings">%s</a></li>
+                        <li%s><a href="#popup-fields">%s</a></li>
+                        <li%s><a href="#social-share">%s</a></li>
+                        <li%s><a href="#custom-script">%s</a></li>
+                        <li%s><a href="#other-settings">%s</a></li>',
+				$last_tab == "common-settings" ? ' class="active"' : '',
+				__( 'Common Settings', 'the-post-grid' ),
+				$last_tab == "popup-fields" ? ' class="active"' : '',
+				__( 'PopUp field selection', 'the-post-grid' ),
+				$last_tab == "social-share" ? ' class="active"' : '',
+				__( 'Social Share', 'the-post-grid' ),
+				$last_tab == "custom-script" ? ' class="active"' : '',
+				__( 'Custom Script', 'the-post-grid' ),
+				$last_tab == "other-settings" ? ' class="active"' : '',
+				__( 'Other Settings', 'the-post-grid' )
+			);
 
-            ob_start();
-            do_action('tpg_settings_tab_title', $last_tab);
-            $html .= ob_get_clean();
+			ob_start();
+			do_action( 'tpg_settings_tab_title', $last_tab );
+			$html .= ob_get_clean();
 
 			$html .= '</ul>';
+
+			$html .= sprintf( '<div id="common-settings" class="rt-tab-content"%s>', $last_tab == "common-settings" ? ' style="display:block"' : '' );
+			$html .= Fns::rtFieldGenerator( Options::rtTPGSettingsCommonSettingsFields() );
+			$html .= '</div>';
 
 			$html .= sprintf( '<div id="popup-fields" class="rt-tab-content"%s>', $last_tab == "popup-fields" ? ' style="display:block"' : '' );
 			$html .= Fns::rtFieldGenerator( Options::rtTpgSettingsDetailFieldSelection() );
@@ -58,7 +68,7 @@ use RT\ThePostGrid\Helpers\Options;
 			$html .= '</div>';
 
 			ob_start();
-			do_action('tpg_settings_tab_content', $last_tab);
+			do_action( 'tpg_settings_tab_content', $last_tab );
 			$html .= ob_get_clean();
 
 			$html .= sprintf( '<input type="hidden" id="_tpg_last_active_tab" name="_tpg_last_active_tab"  value="%s"/>', $last_tab );

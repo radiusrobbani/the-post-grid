@@ -3,10 +3,7 @@
 
 namespace RT\ThePostGrid\Controllers\Admin;
 
-
 class PostTypeController {
-
-
 
 	public function __construct() {
 		add_action( 'init', [ &$this, 'register_post_types' ], 1 );
@@ -24,11 +21,19 @@ class PostTypeController {
 
 		if ( get_option( 'rttpg_activation_redirect', false ) ) {
 			delete_option( 'rttpg_activation_redirect' );
-			wp_redirect( admin_url( 'edit.php?post_type=rttpg&page=rttpg_get_help' ) );
+			wp_redirect( admin_url( 'edit.php?post_type=rttpg&page=rttpg_settings&section=common-settings' ) );
 		}
 	}
 
 	public function register_post_types() {
+
+		$settings = get_option( 'rt_the_post_grid_settings' );
+		if ( isset( $settings['tpg_block_type'] ) || in_array( $settings['tpg_block_type'], [ 'default',
+				'shortcode'
+			] ) ) {
+
+
+
 		// Create the post grid post type
 		$labels = [
 			'name'               => __( 'The Post Grid', 'the-post-grid' ),
@@ -61,6 +66,8 @@ class PostTypeController {
 				'show_in_menu'    => true,
 				'menu_position'   => 20,
 			] );
+
+		}
 	}
 
 

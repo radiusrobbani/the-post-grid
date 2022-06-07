@@ -2438,14 +2438,12 @@ TPG EVEN Style
     background: #007bff;
 }
 
-.rt-tpg-container .swiper-pagination-bullets-dynamic .swiper-pagination-bullet-active-prev-prev,
-.rt-tpg-container .swiper-pagination-bullets-dynamic .swiper-pagination-bullet-active-next-next {
-    transform: scale(.6);
+.rt-container-fluid .swiper-pagination.swiper-pagination-bullets-dynamic {
+    width: 100% !important;
 }
 
-.rt-tpg-container .swiper-pagination-bullets-dynamic .swiper-pagination-bullet-active-next,
-.rt-tpg-container .swiper-pagination-bullets-dynamic .swiper-pagination-bullet-active-prev {
-    transform: scale(0.8);
+.rt-container-fluid .swiper-pagination.swiper-pagination-bullets-dynamic .swiper-pagination-bullet:not(.swiper-pagination-bullet-active-prev-prev, .swiper-pagination-bullet-active-prev, .swiper-pagination-bullet-active, .swiper-pagination-bullet-active-next, .swiper-pagination-bullet-active-next-next) {
+    opacity: 0;
 }
 
 /*---------- Swiper Navigation -------------*/

@@ -16,7 +16,20 @@ class FilterHooks {
 			add_filter( 'the_content', [ __CLASS__, 'tpg_acf_content_filter' ] );
 		}
 		add_filter( 'wp_head', [ __CLASS__, 'set_post_view_count' ], 9999 );
+		add_filter( 'admin_body_class', [ __CLASS__, 'admin_body_class' ] );
 	}
+
+
+	public static function admin_body_class($clsses){
+		$settings = get_option('rt_the_post_grid_settings');
+
+		if( isset($settings['tpg_block_type']) && ! in_array($settings['tpg_block_type'], ['shortcode', 'default'])) {
+			$clsses .= 'tpg-block-type-not-shortcode';
+		}
+
+		return $clsses;
+	}
+
 
 
 	public static function set_post_view_count( $content ) {
