@@ -17,6 +17,7 @@
         });
     };
 
+
     window.initTpg = function () {
 
         $('.rt-tpg-container').each(function () {

@@ -50,11 +50,10 @@ class TPGSliderLayoutArchive extends Custom_Widget_Base {
 			array_push( $style, 'rt-fontawsome' );
 			array_push( $style, 'rt-tpg-common' );
 			array_push( $style, 'rt-tpg-elementor' );
+            array_push( $style, 'rt-tpg-common-pro' );
+            array_push( $style, 'rt-tpg-elementor-pro' );
+            array_push( $style, 'swiper' );
 
-			if ( rtTPG()->hasPro() ) {
-				array_push( $style, 'rt-tpg-common-pro' );
-				array_push( $style, 'rt-tpg-elementor-pro' );
-			}
 		}
 
 		return $style;

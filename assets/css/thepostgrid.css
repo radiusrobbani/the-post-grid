@@ -80,6 +80,7 @@
 .tpg-shortcode-main-wrapper .grid_hover6 .rt-grid-item {
     padding: 0 2px;
     margin-bottom: 4px;
+    overflow: hidden;
 }
 
 .tpg-shortcode-main-wrapper .grid_hover7 .rt-grid-item .post-img img,

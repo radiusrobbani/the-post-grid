@@ -26,14 +26,14 @@ if ( ! class_exists( 'ElementorController' ) ):
 				add_action( 'elementor/editor/after_enqueue_scripts', [ $this, 'el_editor_script' ] );
 				add_action( 'tpg_elementor_script', [ $this, 'tpg_el_scripts' ] );
 				add_action( 'wp_enqueue_scripts', [ $this, 'tpg_el_style' ] );
-				add_action( "elementor/frontend/after_enqueue_scripts", [ $this, 'tpg_frontend_scripts' ] );
+				//add_action( "elementor/frontend/after_enqueue_scripts", [ $this, 'tpg_frontend_scripts' ] );
 				add_filter( 'elementor/editor/localize_settings', [ $this, 'promotePremiumWidgets' ] );
 			}
 		}
 
 		public function tpg_frontend_scripts() {
 			//wp_enqueue_script( 'imagesloaded' );
-			wp_enqueue_script( 'tpg-el-script', rtTPG()->get_assets_uri( 'js/el-frontend.js' ), [ 'jquery' ], $this->version, true );
+			//wp_enqueue_script( 'tpg-el-script', rtTPG()->get_assets_uri( 'js/el-frontend.js' ), [ 'jquery' ], $this->version, true );
 		}
 
 		public function tpg_el_style() {

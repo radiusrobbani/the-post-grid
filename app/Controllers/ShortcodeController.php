@@ -35,6 +35,7 @@ class ShortcodeController {
 
 		$caro   = $isSinglePopUp = false;
 		$script = [];
+		$style  = [];
 
 		array_push( $script, 'jquery' );
 		$ajaxurl = '';
@@ -80,6 +81,20 @@ class ShortcodeController {
 
 			}
 
+			array_push( $style, 'rt-fontawsome' );
+			array_push( $style, 'rt-tpg-common' );
+			array_push( $style, 'rt-tpg' );
+
+			if ( rtTPG()->hasPro() ) {
+				array_push( $style, 'rt-fontawsome' );
+				array_push( $style, 'rt-magnific-popup' );
+				array_push( $style, 'rt-tpg-pro' );
+				array_push( $style, 'rt-tpg-common-pro' );
+				array_push( $style, 'rt-scrollbar' );
+				array_push( $style, 'swiper' );
+			}
+
+			wp_enqueue_style( $style );
 			wp_enqueue_script( $script );
 			wp_localize_script( 'rt-tpg', 'rttpg', $variables );
 
@@ -104,19 +119,6 @@ class ShortcodeController {
 	}
 
 	public function the_post_grid_short_code( $atts, $content = null ) {
-
-		wp_enqueue_style('rt-fontawsome' );
-		wp_enqueue_style('rt-tpg-common' );
-		wp_enqueue_style('rt-tpg' );
-
-		if ( rtTPG()->hasPro() ) {
-			wp_enqueue_style( 'rt-magnific-popup' );
-			wp_enqueue_style( 'rt-tpg-pro' );
-			wp_enqueue_style( 'rt-tpg-common-pro' );
-			wp_enqueue_style( 'swiper' );
-			wp_enqueue_style( 'rt-scrollbar' );
-			wp_enqueue_style( 'rt-fontawsome' );
-		}
 
 		$rand = mt_rand();
 

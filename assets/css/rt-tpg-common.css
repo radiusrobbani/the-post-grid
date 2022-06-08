@@ -1458,7 +1458,7 @@ Filter
 .rt-layout-filter-container .rt-filter-wrap .rt-filter-item-wrap.rt-filter-dropdown-wrap .rt-filter-dropdown .rt-filter-dropdown-item {
     display: block;
     padding: 10px 15px 9px 15px;
-    border-bottom: 1px solid #323232;
+    border-bottom: 1px solid rgba(0,0,0,.2);
     color: #b4b4b4;
     text-align: center;
 }
@@ -1936,10 +1936,11 @@ Common Layout Style
 
 #bottom-script-loader {
     position: absolute;
-    width: 100%;
-    height: 100%;
-    z-index: 20;
+    width: calc(100% + 60px);
+    height: calc(100% + 60px);
+    z-index: 999;
     background: rgba(255, 255, 255, 0.95);
+    margin: -30px;
 }
 
 #bottom-script-loader .rt-ball-clip-rotate {

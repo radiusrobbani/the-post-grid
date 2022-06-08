@@ -109,25 +109,28 @@ class ScriptController {
 	 */
 	public function header_scripts() {
 		$settings = get_option( rtTPG()->options['settings'] );
+
+
 		?>
         <style>
+            :root {
+                --tpg-primary-color: <?php echo isset( $settings['tpg_primary_color_main'] ) ? $settings['tpg_primary_color_main'] : '#0d6efd'?>;
+                --tpg-secondary-color: <?php echo isset( $settings['tpg_secondary_color_main'] ) ? $settings['tpg_secondary_color_main'] : '#0654c4'?>;
+                --tpg-primary-light: #c4d0ff
+            }
+
             <?php if( isset( $settings['tpg_loader_color'] ) ) : ?>
+            body .rt-tpg-container .rt-loading,
             body #bottom-script-loader .rt-ball-clip-rotate {
                 color: <?php echo esc_attr($settings['tpg_loader_color']) ?> !important;
             }
 
             <?php endif; ?>
         </style>
-		<?php
 
+		<?php
 		if ( isset( $settings['tpg_load_script'] ) ) : ?>
             <style>
-                :root {
-                    --tpg-primary-color: #0d6efd;
-                    --tpg-secondary-color: #0654c4;
-                    --tpg-primary-light: #c4d0ff
-                }
-
                 .rt-tpg-container .tpg-pre-loader {
                     position: relative;
                     overflow: hidden;
@@ -169,10 +172,11 @@ class ScriptController {
 
                 #bottom-script-loader {
                     position: absolute;
-                    width: 100%;
-                    height: 100%;
-                    z-index: 20;
+                    width: calc(100% + 60px);
+                    height: calc(100% + 60px);
+                    z-index: 999;
                     background: rgba(255, 255, 255, 0.95);
+                    margin: -30px;
                 }
 
                 #bottom-script-loader .rt-ball-clip-rotate {
@@ -210,6 +214,7 @@ class ScriptController {
                 }
 
 
+                .rt-tpg-container .slider-main-wrapper,
                 .tpg-el-main-wrapper .slider-main-wrapper {
                     opacity: 0;
                 }
@@ -218,7 +223,21 @@ class ScriptController {
                     visibility: hidden;
                 }
 
+                .builder-content.content-invisible {
+                    visibility: hidden;
+                }
+
+                .rt-tpg-container > *:not(.bottom-script-loader, .slider-main-wrapper){
+                    opacity: 0;
+                }
+
             </style>
+
+            <script>
+                jQuery(document).ready(function(){
+                    jQuery('.rt-tpg-container > *:not(.bottom-script-loader, .slider-main-wrapper)').animate({"opacity":1})
+                })
+            </script>
 		<?php endif;
 
 	}

@@ -142,6 +142,20 @@ class Options {
 				'value'       => isset( $settings['template_tag'] ) ? $settings['template_tag'] : [],
 			],
 
+			'tpg_primary_color_main' => [
+				"type"    => "text",
+				"label"   => "Primary Color",
+				"class"   => "rt-color",
+				"default" => isset( $settings['tpg_primary_color_main'] ) ? $settings['tpg_primary_color_main'] : "#0d6efd",
+			],
+
+			'tpg_secondary_color_main' => [
+				"type"    => "text",
+				"label"   => "Secondary Color",
+				"class"   => "rt-color",
+				"default" => isset( $settings['tpg_secondary_color_main'] ) ? $settings['tpg_secondary_color_main'] : "#0654c4",
+			],
+
 			'tpg_loader_color' => [
 				"type"    => "text",
 				"label"   => "Preloader Color",
@@ -247,7 +261,7 @@ class Options {
 				'type'        => 'switch',
 				'name'        => 'tpg_load_script',
 				'label'       => __( 'Load Script dependent on block', 'the-post-grid' ),
-				'description' => __( 'If you enable this, script will be loaded only ShortCode or Elementor block page.', 'the-post-grid' ),
+				'description' => __( 'Check, if you want to load script when ShortCode or Elementor block is used on a page. <b>If you enable this then you must have to enable Preloader from below</b>', 'the-post-grid' ),
 				'value'       => isset( $settings['tpg_load_script'] ) ? $settings['tpg_load_script'] : true,
 			],
 			'tpg_enable_preloader' => [
