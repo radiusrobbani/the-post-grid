@@ -14,9 +14,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-$pID     = get_the_ID();
+$pID = get_the_ID();
 $excerpt = Fns::get_the_excerpt( $pID, $data );
-$title   = Fns::get_the_title( $pID, $data );
+$title = Fns::get_the_title( $pID, $data );
 if ( 'custom' !== $data['title_visibility_style'] ) {
 	$title = get_the_title();
 }
@@ -35,8 +35,8 @@ $gird_column_mobile  = '0' !== $data['gird_column_mobile'] ? $data['gird_column_
 $col_class           = "rt-col-md-{$gird_column_desktop} rt-col-sm-{$gird_column_tab} rt-col-xs-{$gird_column_mobile}";
 
 //Column Dynamic Class
-$column_classes   = [];
-$column_classes[] .= 'rt-ready-animation animated fadeIn';
+$column_classes = [];
+
 $column_classes[] .= $data['hover_animation'];
 $column_classes[] .= 'rt-grid-item';
 if ( 'masonry' == $data['layout_style'] ) {
@@ -45,7 +45,8 @@ if ( 'masonry' == $data['layout_style'] ) {
 
 ?>
 
-<div <?php post_class( esc_attr( $col_class . ' ' . implode( ' ', $column_classes ) ) ); ?> data-id="<?php echo esc_attr( $pID ); ?>">
+<div <?php post_class( esc_attr( $col_class . ' ' . implode( ' ', $column_classes ) ) ); ?>
+        data-id="<?php echo esc_attr( $pID ); ?>">
     <div class="rt-holder tpg-post-holder">
         <div class="rt-detail rt-el-content-wrapper">
 			<?php if ( 'show' == $data['show_thumb'] ) :
@@ -92,11 +93,15 @@ if ( 'masonry' == $data['layout_style'] ) {
 						<?php
 						echo Fns::wp_kses( $readmore_link_start );
 						if ( 'yes' == $data['show_btn_icon'] && 'left' == $data['readmore_icon_position'] ) {
-							\Elementor\Icons_Manager::render_icon( $data['readmore_btn_icon'], [ 'aria-hidden' => 'true', 'class' => 'left-icon' ] );
+							\Elementor\Icons_Manager::render_icon( $data['readmore_btn_icon'], [ 'aria-hidden' => 'true',
+							                                                                     'class'       => 'left-icon'
+							] );
 						}
 						echo esc_html( $data['read_more_label'] );
 						if ( 'yes' == $data['show_btn_icon'] && 'right' == $data['readmore_icon_position'] ) {
-							\Elementor\Icons_Manager::render_icon( $data['readmore_btn_icon'], [ 'aria-hidden' => 'true', 'class' => 'right-icon' ] );
+							\Elementor\Icons_Manager::render_icon( $data['readmore_btn_icon'], [ 'aria-hidden' => 'true',
+							                                                                     'class'       => 'right-icon'
+							] );
 						}
 						echo Fns::wp_kses( $readmore_link_end );
 						?>

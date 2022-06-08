@@ -27,13 +27,6 @@ class PostTypeController {
 
 	public function register_post_types() {
 
-		$settings = get_option( 'rt_the_post_grid_settings' );
-		if ( isset( $settings['tpg_block_type'] ) || in_array( $settings['tpg_block_type'], [ 'default',
-				'shortcode'
-			] ) ) {
-
-
-
 		// Create the post grid post type
 		$labels = [
 			'name'               => __( 'The Post Grid', 'the-post-grid' ),
@@ -67,7 +60,7 @@ class PostTypeController {
 				'menu_position'   => 20,
 			] );
 
-		}
+
 	}
 
 

@@ -16,6 +16,13 @@ class ScriptController {
 	}
 
 	public function init() {
+
+		$current_page = isset( $_GET["page"] ) ? $_GET["page"] : '';
+		if ( 'rttpg_settings' == $current_page ) {
+			wp_enqueue_style( 'wp-color-picker' );
+			wp_enqueue_script( 'wp-color-picker' );
+		}
+
 		// register scripts
 		$scripts   = [];
 		$styles    = [];
@@ -55,7 +62,7 @@ class ScriptController {
 			$scripts[]                      = [
 				'handle' => 'rt-tpg-admin',
 				'src'    => rtTPG()->get_assets_uri( 'js/admin.js' ),
-				'deps'   => [ 'jquery' ],
+				'deps'   => [ 'jquery', 'wp-color-picker' ],
 				'footer' => true,
 			];
 			$scripts[]                      = [
@@ -102,52 +109,57 @@ class ScriptController {
 	 */
 	public function header_scripts() {
 		$settings = get_option( rtTPG()->options['settings'] );
-
-		if ( ! isset( $settings['tpg_load_script'] ) ) {
-            return;
-        }
 		?>
         <style>
-            :root {
-                --tpg-primary-color: #0d6efd;
-                --tpg-secondary-color: #0654c4;
-                --tpg-primary-light: #c4d0ff
+            <?php if( isset( $settings['tpg_loader_color'] ) ) : ?>
+            body #bottom-script-loader .rt-ball-clip-rotate {
+                color: <?php echo esc_attr($settings['tpg_loader_color']) ?> !important;
             }
 
-            #bottom-script-loader {
-                position: absolute;
-                width: 100%;
-                height: 100%;
-                z-index: 20;
-                background: rgba(255, 255, 255, 0.95);
-            }
-
-            #bottom-script-loader .rt-ball-clip-rotate {
-                color: var(--tpg-primary-color);
-                position: absolute;
-                top: 80px;
-                left: 50%;
-                margin-left: -16px;
-                z-index: 2;
-            }
-
-
-            .tpg-el-main-wrapper.loading {
-                min-height: 300px;
-                transition: 0.4s;
-            }
-
-
-            .tpg-el-main-wrapper .slider-main-wrapper {
-                opacity: 0;
-            }
-
-            .md-modal {
-                visibility: hidden;
-            }
-
+            <?php endif; ?>
         </style>
 		<?php
+
+		if ( isset( $settings['tpg_load_script'] ) ) : ?>
+            <style>
+                :root {
+                    --tpg-primary-color: #0d6efd;
+                    --tpg-secondary-color: #0654c4;
+                    --tpg-primary-light: #c4d0ff
+                }
+
+                #bottom-script-loader {
+                    position: absolute;
+                    width: 100%;
+                    height: 100%;
+                    z-index: 20;
+                    background: rgba(255, 255, 255, 0.95);
+                }
+
+                #bottom-script-loader .rt-ball-clip-rotate {
+                    color: var(--tpg-primary-color);
+                    position: absolute;
+                    top: 80px;
+                    left: 50%;
+                    margin-left: -16px;
+                    z-index: 2;
+                }
+
+                .tpg-el-main-wrapper.loading {
+                    min-height: 300px;
+                    transition: 0.4s;
+                }
+
+                .tpg-el-main-wrapper .slider-main-wrapper {
+                    opacity: 0;
+                }
+
+                .md-modal {
+                    visibility: hidden;
+                }
+
+            </style>
+		<?php endif;
 
 	}
 

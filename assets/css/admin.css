@@ -427,6 +427,7 @@ div#sc-post-post-source > .field-holder > .field > .field-holder:first-child {
     z-index: 10;
     border-radius: 4px;
     border: 1px solid #d9e3ed;
+    z-index: inherit;
 }
 
 #sc-style.rt-tab-content .field-holder .field {

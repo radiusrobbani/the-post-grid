@@ -36,7 +36,7 @@ $col_class           = "rt-col-md-{$gird_column_desktop} rt-col-sm-{$gird_column
 
 //Column Dynamic Class
 $column_classes   = [];
-$column_classes[] .= 'rt-ready-animation animated fadeIn';
+
 $column_classes[] .= $data['hover_animation'];
 $column_classes[] .= 'rt-grid-hover-item rt-grid-item';
 if ( 'masonry' == $data['layout_style'] ) {

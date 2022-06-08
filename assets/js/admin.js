@@ -231,7 +231,7 @@
     detailLinkEffect();
     customImageSize();
     customSmallImageSize();
-    preLoaderEffect();
+    // preLoaderEffect();
     tpgEnableACF();
     featureImageEffect();
     tpgOrderByEffect();

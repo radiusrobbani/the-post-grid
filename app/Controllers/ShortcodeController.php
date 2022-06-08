@@ -542,7 +542,7 @@ class ShortcodeController {
 				$html .= '</div>';
 			}
 
-			if ( ! $isCarousel && isset( $settings['tpg_load_script'] ) && isset( $settings['tpg_enable_preloader'] ) ) {
+			if ( ! $isCarousel && isset( $settings['tpg_enable_preloader'] ) ) {
 				$html .= '<div id="bottom-script-loader" class="bottom-script-loader"><div class="rt-ball-clip-rotate"><div></div></div></div>';
 			}
 			if ( ! empty( $filters ) && ( $isGrid || $isOffset || $isWooCom || $isEdd ) ) {

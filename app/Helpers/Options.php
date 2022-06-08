@@ -141,6 +141,14 @@ class Options {
 				'options'     => Fns::getTPGShortCodeList(),
 				'value'       => isset( $settings['template_tag'] ) ? $settings['template_tag'] : [],
 			],
+
+			'tpg_loader_color' => [
+				"type"    => "text",
+				"label"   => "Preloader Color",
+				"class"   => "rt-color",
+				"default" => isset( $settings['tpg_loader_color'] ) ? $settings['tpg_loader_color'] : "#0367bf",
+			],
+
 			'template_class'       => [
 				'type'        => 'text',
 				'name'        => 'template_class',
