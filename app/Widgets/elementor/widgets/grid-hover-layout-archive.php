@@ -254,8 +254,8 @@ class TPGGridHoverLayoutArchive extends Custom_Widget_Base {
 						$pCount ++;
 					}
 				} else {
-					if ( $data['no_posts_found_text'] ) {
-						printf( "<div class='no_posts_found_text'>%s</div>", esc_html( $data['no_posts_found_text'] ) );
+					if ( $data['no_posts_found_text_archive'] ) {
+						printf( "<div class='no_posts_found_text'>%s</div>", esc_html( $data['no_posts_found_text_archive'] ) );
 					} else {
 						printf( "<div class='no_posts_found_text'>%s</div>", esc_html__( 'No post found', 'the-post-grid' ) );
 					}

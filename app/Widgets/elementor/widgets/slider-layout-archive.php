@@ -291,6 +291,7 @@ class TPGSliderLayoutArchive extends Custom_Widget_Base {
 				"loop"            => $data['infinite'] == "yes" ? true : false,
 				"lazyLoad"        => $data['lazyLoad'] == "yes" ? true : false,
 				"autoHeight"      => $data['autoHeight'] == "yes" ? true : false,
+				"dynamic_dots"    => $data['dynamic_dots'] == "yes" ? true : false,
 			];
 
 			if ( $data['enable_2_rows'] == 'yes' ) {

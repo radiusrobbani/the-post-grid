@@ -271,11 +271,12 @@ class rtTPGElementorHelper {
 	}
 
 
-    /**
-     * @param $ref
-     * @param $layout_type
-     * @return void
-     */
+	/**
+	 * @param $ref
+	 * @param $layout_type
+	 *
+	 * @return void
+	 */
 	public static function query_builder( $ref, $layout_type = '' ) {
 		$post_types = Fns::get_post_types();
 
@@ -387,6 +388,17 @@ class rtTPGElementorHelper {
 					'type'        => \Elementor\Controls_Manager::TEXT,
 					'placeholder' => __( 'Enter Post offset', 'the-post-grid' ),
 					'description' => __( 'Number of posts to skip. The offset parameter is ignored when post limit => -1 is used.', 'the-post-grid' ),
+				]
+			);
+
+			$ref->add_control(
+				'no_posts_found_text_archive',
+				[
+					'label'       => __( 'No post found Text', 'the-post-grid' ),
+					'type'        => \Elementor\Controls_Manager::TEXT,
+					'default'     => __( 'No posts found.', 'the-post-grid' ),
+					'placeholder' => __( 'Enter No post found', 'the-post-grid' ),
+					'separator'   => 'before',
 				]
 			);
 		}
@@ -721,7 +733,14 @@ class rtTPGElementorHelper {
 					'description' => __( 'If you use card border then equal height will work. ', 'the-post-grid' ) . $ref->get_pro_message( "masonry layout" ),
 					'classes'     => rtTPG()->hasPro() ? '' : 'tpg-should-hide-field',
 					'condition'   => [
-						$prefix . '_layout!' => [ 'grid-layout2', 'grid-layout5', 'grid-layout5-2', 'grid-layout6', 'grid-layout6-2', 'grid-layout7', 'grid-layout7-2' ],
+						$prefix . '_layout!' => [ 'grid-layout2',
+							'grid-layout5',
+							'grid-layout5-2',
+							'grid-layout6',
+							'grid-layout6-2',
+							'grid-layout7',
+							'grid-layout7-2'
+						],
 					],
 				]
 			);
@@ -788,7 +807,12 @@ class rtTPGElementorHelper {
 						'space-between' => __( 'Space Between', 'the-post-grid' ),
 					],
 					'condition' => [
-						$prefix . '_layout!' => [ 'slider-layout1', 'slider-layout2', 'slider-layout3', 'slider-layout13', 'grid-layout7' ],
+						$prefix . '_layout!' => [ 'slider-layout1',
+							'slider-layout2',
+							'slider-layout3',
+							'slider-layout13',
+							'grid-layout7'
+						],
 					],
 					'selectors' => [
 						'{{WRAPPER}} .tpg-el-main-wrapper .grid-behaviour .rt-holder .rt-el-content-wrapper .gallery-content' => 'justify-content: {{VALUE}};height:100%;',
@@ -818,9 +842,9 @@ class rtTPGElementorHelper {
 					],
 				],
 				'prefix_class' => 'tpg-wrapper-align-',
-				'render_type' => 'template',
+				'render_type'  => 'template',
 				'toggle'       => true,
-				'selectors'  => [
+				'selectors'    => [
 					'{{WRAPPER}} .tpg-post-holder div' => 'text-align: {{VALUE}};',
 				],
 				'condition'    => [
@@ -1024,7 +1048,11 @@ class rtTPGElementorHelper {
 			}
 			$taxonomies_list = [];
 			foreach ( $_taxonomies as $tax ) {
-				if ( in_array( $tax->name, [ 'post_format', 'elementor_library_type', 'product_visibility', 'product_shipping_class' ] ) ) {
+				if ( in_array( $tax->name, [ 'post_format',
+					'elementor_library_type',
+					'product_visibility',
+					'product_shipping_class'
+				] ) ) {
 					continue;
 				}
 				$taxonomies_list[ $tax->name ] = $tax->label;
@@ -1070,7 +1098,11 @@ class rtTPGElementorHelper {
 			);
 
 			foreach ( $_taxonomies as $tax ) {
-				if ( in_array( $tax->name, [ 'post_format', 'elementor_library_type', 'product_visibility', 'product_shipping_class' ] ) ) {
+				if ( in_array( $tax->name, [ 'post_format',
+					'elementor_library_type',
+					'product_visibility',
+					'product_shipping_class'
+				] ) ) {
 					continue;
 				}
 
@@ -1370,10 +1402,10 @@ class rtTPGElementorHelper {
 						'icon'  => 'eicon-text-align-right',
 					],
 				],
-				'selectors'  => [
+				'selectors'    => [
 					'{{WRAPPER}} .tpg-post-holder div' => 'text-align: {{VALUE}};',
 				],
-				'render_type' => 'template',
+				'render_type'  => 'template',
 				'prefix_class' => 'tpg-wrapper-align-',
 				'toggle'       => true,
 			]
@@ -1386,7 +1418,7 @@ class rtTPGElementorHelper {
 	 * Pagination and Load more style tab
 	 *
 	 * @param        $ref
-	 * @param  bool  $is_print
+	 * @param bool $is_print
 	 */
 	public static function pagination_settings( $ref, $layout_type = '' ) {
 		$ref->start_controls_section(
@@ -2167,7 +2199,7 @@ class rtTPGElementorHelper {
 				'label'     => __( 'Default Image', 'the-post-grid' ) . $ref->pro_label,
 				'type'      => \Elementor\Controls_Manager::MEDIA,
 				'default'   => [
-					'url' => rtTPG()->get_assets_uri('images/placeholder.png'),
+					'url' => rtTPG()->get_assets_uri( 'images/placeholder.png' ),
 				],
 				'condition' => [
 					'is_default_img' => 'yes',
@@ -3705,7 +3737,14 @@ class rtTPGElementorHelper {
 		if ( in_array( $prefix, [ 'grid_hover', 'slider' ] ) ) {
 			if ( 'slider' == $prefix ) {
 				$thumbnail_padding_condition = [
-					'slider_layout' => [ 'slider-layout4', 'slider-layout5', 'slider-layout6', 'slider-layout7', 'slider-layout8', 'slider-layout9', 'slider-layout10' ],
+					'slider_layout' => [ 'slider-layout4',
+						'slider-layout5',
+						'slider-layout6',
+						'slider-layout7',
+						'slider-layout8',
+						'slider-layout9',
+						'slider-layout10'
+					],
 				];
 			} else {
 				$thumbnail_padding_condition = [
@@ -6820,7 +6859,11 @@ class rtTPGElementorHelper {
 					'{{WRAPPER}} .rt-tpg-container .slider-column.swiper-slide .rt-slider-item' => 'padding-top: {{SIZE}}{{UNIT}}; padding-bottom: {{SIZE}}{{UNIT}};',
 				],
 				'condition'  => [
-					$prefix . '_layout!' => [ 'slider-layout10', 'slider-layout11', 'slider-layout12', 'slider-layout13' ],
+					$prefix . '_layout!' => [ 'slider-layout10',
+						'slider-layout11',
+						'slider-layout12',
+						'slider-layout13'
+					],
 				],
 			]
 		);
@@ -7019,7 +7062,11 @@ class rtTPGElementorHelper {
 				'render_type'  => 'template',
 				'description'  => __( 'If you use 2 rows then you have to put an even number for post limit', 'the-post-grid' ),
 				'condition'    => [
-					$prefix . '_layout!' => [ 'slider-layout13', 'slider-layout11', 'slider-layout12', 'slider-layout10' ],
+					$prefix . '_layout!' => [ 'slider-layout13',
+						'slider-layout11',
+						'slider-layout12',
+						'slider-layout10'
+					],
 				],
 			]
 		);
