@@ -128,6 +128,45 @@ class ScriptController {
                     --tpg-primary-light: #c4d0ff
                 }
 
+                .rt-tpg-container .tpg-pre-loader {
+                    position: relative;
+                    overflow: hidden;
+                }
+
+                .rt-tpg-container .rt-loading-overlay {
+                    opacity: 0;
+                    visibility: hidden;
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    z-index: 1;
+                    background-color: #fff;
+                }
+
+                .rt-tpg-container .rt-loading {
+                    color: var(--tpg-primary-color);
+                    position: absolute;
+                    top: 40%;
+                    left: 50%;
+                    margin-left: -16px;
+                    z-index: 2;
+                    opacity: 0;
+                    visibility: hidden;
+                }
+
+                .rt-tpg-container .tpg-pre-loader .rt-loading-overlay {
+                    opacity: 0.8;
+                    visibility: visible;
+                }
+
+                .rt-tpg-container .tpg-pre-loader .rt-loading {
+                    opacity: 1;
+                    visibility: visible;
+                }
+
+
                 #bottom-script-loader {
                     position: absolute;
                     width: 100%;
@@ -149,6 +188,27 @@ class ScriptController {
                     min-height: 300px;
                     transition: 0.4s;
                 }
+
+                .tpg-el-main-wrapper.loading::before {
+                    width: 32px;
+                    height: 32px;
+                    display: inline-block;
+                    float: none;
+                    border: 2px solid currentColor;
+                    background: transparent;
+                    border-bottom-color: transparent;
+                    border-radius: 100%;
+                    -webkit-animation: ball-clip-rotate 0.75s linear infinite;
+                    -moz-animation: ball-clip-rotate 0.75s linear infinite;
+                    -o-animation: ball-clip-rotate 0.75s linear infinite;
+                    animation: ball-clip-rotate 0.75s linear infinite;
+                    left: 50%;
+                    top: 50%;
+                    position: absolute;
+                    z-index: 9999999999;
+                    color: red;
+                }
+
 
                 .tpg-el-main-wrapper .slider-main-wrapper {
                     opacity: 0;

@@ -2569,3 +2569,28 @@ TPG EVEN Style
     margin-bottom: 0;
     display: none;
 }
+
+.tpg-el-main-wrapper.loading {
+    min-height: 300px;
+    transition: 0.4s;
+}
+
+.tpg-el-main-wrapper.loading::before {
+    width: 32px;
+    height: 32px;
+    display: inline-block;
+    float: none;
+    border: 2px solid currentColor;
+    background: transparent;
+    border-bottom-color: transparent;
+    border-radius: 100%;
+    -webkit-animation: ball-clip-rotate 0.75s linear infinite;
+    -moz-animation: ball-clip-rotate 0.75s linear infinite;
+    -o-animation: ball-clip-rotate 0.75s linear infinite;
+    animation: ball-clip-rotate 0.75s linear infinite;
+    left: 50%;
+    top: 50%;
+    position: absolute;
+    z-index: 9999999999;
+    color: red;
+}
