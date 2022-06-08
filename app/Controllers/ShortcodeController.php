@@ -20,12 +20,22 @@ class ShortcodeController {
 		}
 	}
 
+	public function register_style_scripts() {
+		?>
+        <style>
+            * {
+                color: red;
+            }
+        </style>
+		<?php
+	}
+
 	public function register_sc_scripts() {
 		$settings = get_option( rtTPG()->options['settings'] );
 
 		$caro   = $isSinglePopUp = false;
 		$script = [];
-		$style  = [];
+
 		array_push( $script, 'jquery' );
 		$ajaxurl = '';
 		if ( in_array( 'sitepress-multilingual-cms/sitepress.php', get_option( 'active_plugins' ) ) ) {
@@ -51,23 +61,25 @@ class ShortcodeController {
 			}
 		}
 		if ( count( $this->scA ) ) {
-			array_push( $script, 'jquery' );
+
+			// array_push( $script, 'jquery' );
 			array_push( $script, 'rt-isotope-js' );
 			array_push( $script, 'rt-image-load-js' );
-			array_push( $style, 'rt-fontawsome' );
 			array_push( $script, 'rt-tpg' );
 
-			if ( isset( $settings['tpg_load_script'] ) ) {
-				wp_enqueue_style( 'rt-tpg-common' );
-				wp_enqueue_style( 'rt-tpg' );
+			//Pro Scripts and Styles
+			if ( rtTPG()->hasPro() ) {
+				array_push( $script, 'swiper' );
+				array_push( $script, 'rt-pagination' );
+				array_push( $script, 'rt-scrollbar' );
+				array_push( $script, 'rt-magnific-popup' );
+				if ( class_exists( 'WooCommerce' ) ) {
+					array_push( $script, 'rt-jzoom' );
+				}
+				array_push( $script, 'rt-tpg-pro' );
+
 			}
 
-			if ( is_rtl() ) {
-				array_push( $style, 'rt-tpg-common-rtl' );
-				array_push( $style, 'rt-tpg-rtl' );
-			}
-
-			wp_enqueue_style( $style );
 			wp_enqueue_script( $script );
 			wp_localize_script( 'rt-tpg', 'rttpg', $variables );
 
@@ -92,6 +104,20 @@ class ShortcodeController {
 	}
 
 	public function the_post_grid_short_code( $atts, $content = null ) {
+
+		wp_enqueue_style('rt-fontawsome' );
+		wp_enqueue_style('rt-tpg-common' );
+		wp_enqueue_style('rt-tpg' );
+
+		if ( rtTPG()->hasPro() ) {
+			wp_enqueue_style( 'rt-magnific-popup' );
+			wp_enqueue_style( 'rt-tpg-pro' );
+			wp_enqueue_style( 'rt-tpg-common-pro' );
+			wp_enqueue_style( 'swiper' );
+			wp_enqueue_style( 'rt-scrollbar' );
+			wp_enqueue_style( 'rt-fontawsome' );
+		}
+
 		$rand = mt_rand();
 
 		$layoutID = "rt-tpg-container-" . $rand;
@@ -110,13 +136,13 @@ class ShortcodeController {
 				$layout = 'layout1';
 			}
 
-			$isIsotope      = preg_match( '/isotope/', $layout );
-			$isCarousel     = preg_match( '/carousel/', $layout );
-			$isGrid         = preg_match( '/layout/', $layout );
-			$isWooCom       = preg_match( '/wc/', $layout );
-			$isEdd          = preg_match( '/edd/', $layout );
-			$isOffset       = preg_match( '/offset/', $layout );
-			$isGridHover    = preg_match( '/grid_hover/', $layout );
+			$isIsotope   = preg_match( '/isotope/', $layout );
+			$isCarousel  = preg_match( '/carousel/', $layout );
+			$isGrid      = preg_match( '/layout/', $layout );
+			$isWooCom    = preg_match( '/wc/', $layout );
+			$isEdd       = preg_match( '/edd/', $layout );
+			$isOffset    = preg_match( '/offset/', $layout );
+			$isGridHover = preg_match( '/grid_hover/', $layout );
 
 			$colStore = $dCol = ( isset( $scMeta['column'][0] ) ? absint( $scMeta['column'][0] ) : 3 );
 			$tCol     = ( isset( $scMeta['tpg_tab_column'][0] ) ? absint( $scMeta['tpg_tab_column'][0] ) : 2 );
@@ -480,7 +506,7 @@ class ShortcodeController {
 			if ( $pagination && $queryOffset && isset( $args['paged'] ) ) {
 				$queryOffset = ( $posts_per_page * ( $args['paged'] - 1 ) ) + $queryOffset;
 			}
-			if ($queryOffset) {
+			if ( $queryOffset ) {
 				$args['offset'] = $queryOffset;
 			}
 
@@ -496,7 +522,7 @@ class ShortcodeController {
 			if ( isset( $settings['tpg_load_script'] ) ) {
 				$parentClass .= ' loading';
 			}
-			$html              .= "<div class='rt-container-fluid rt-tpg-container tpg-shortcode-main-wrapper {$parentClass}' id='{$layoutID}' {$dataArchive} {$containerDataAttr}>";
+			$html .= "<div class='rt-container-fluid rt-tpg-container tpg-shortcode-main-wrapper {$parentClass}' id='{$layoutID}' {$dataArchive} {$containerDataAttr}>";
 
 			// widget heading
 			$heading_tag       = isset( $scMeta['tpg_heading_tag'][0] ) ? $scMeta['tpg_heading_tag'][0] : 'h2';
@@ -510,7 +536,7 @@ class ShortcodeController {
 				if ( $heading_link ) {
 					$html .= sprintf( '<%1$s class="tpg-widget-heading"><a href="%2$s" title="%3$s">%3$s</a></%1$s>', $heading_tag, $heading_link, get_the_title() );
 				} else {
-					$html .= sprintf( '<%1$s class="tpg-widget-heading">%2$s</%1$s>', $heading_tag, get_the_title($scID) );
+					$html .= sprintf( '<%1$s class="tpg-widget-heading">%2$s</%1$s>', $heading_tag, get_the_title( $scID ) );
 				}
 				$html .= '<span class="tpg-widget-heading-line"></span>';
 				$html .= '</div>';
@@ -753,7 +779,7 @@ class ShortcodeController {
 					$wooFeature     = ( $postType == "product" ? true : false );
 					$orders         = Options::rtPostOrderBy( $wooFeature );
 					$action_orderby = ( ! empty( $args['orderby'] ) ? trim( $args['orderby'] ) : "none" );
-					if($action_orderby == 'ID') {
+					if ( $action_orderby == 'ID' ) {
 						$action_orderby = 'title';
 					}
 					if ( $action_orderby == 'none' ) {
@@ -900,17 +926,17 @@ class ShortcodeController {
 						}
 						$l = 0;
 					}
-					$arg['postCount']     = $gridPostCount ++;
-					$pID                  = get_the_ID();
-					$arg['pID']           = $pID;
-					$arg['title']         = Fns::get_the_title( $pID, $arg );
-					$arg['pLink']         = get_permalink();
-					$arg['toggle']        = $this->l4toggle;
-					$arg['layoutID']      = $layoutID;
-					$arg['author']        = apply_filters( 'rttpg_author_link',
+					$arg['postCount'] = $gridPostCount ++;
+					$pID              = get_the_ID();
+					$arg['pID']       = $pID;
+					$arg['title']     = Fns::get_the_title( $pID, $arg );
+					$arg['pLink']     = get_permalink();
+					$arg['toggle']    = $this->l4toggle;
+					$arg['layoutID']  = $layoutID;
+					$arg['author']    = apply_filters( 'rttpg_author_link',
 						sprintf( '<a href="%s">%s</a>', get_author_posts_url( get_the_author_meta( 'ID' ) ), get_the_author() ) );
-					$comments_number = get_comments_number( $pID );
-					$comments_text   = sprintf( '(%s)', number_format_i18n( $comments_number ) );
+					$comments_number  = get_comments_number( $pID );
+					$comments_text    = sprintf( '(%s)', number_format_i18n( $comments_number ) );
 
 					$arg['date']          = get_the_date();
 					$arg['excerpt']       = Fns::get_the_excerpt( $pID, $arg );
@@ -979,8 +1005,8 @@ class ShortcodeController {
 				if ( $isIsotope || $isCarousel ) {
 					$html .= '</div>'; // End isotope / Carousel item holder
 
-					if ($isIsotope) {
-						$html .= '<div class="isotope-term-no-post"><p>'.$not_found_text.'</p></div>';
+					if ( $isIsotope ) {
+						$html .= '<div class="isotope-term-no-post"><p>' . $not_found_text . '</p></div>';
 					}
 					if ( $isCarousel ) {
 
@@ -996,7 +1022,7 @@ class ShortcodeController {
 				}
 			} else {
 
-				$html           .= sprintf( '<p>%s</p>',
+				$html .= sprintf( '<p>%s</p>',
 					apply_filters( 'tpg_not_found_text', $not_found_text, $args, $scMeta )
 				);
 			}
@@ -1057,6 +1083,7 @@ class ShortcodeController {
 			$scriptGenerator['isSinglePopUp'] = $isSinglePopUp;
 			$scriptGenerator['isWooCom']      = $isWooCom;
 			$this->scA[]                      = $scriptGenerator;
+			add_action( 'wp_head', [ $this, 'register_style_scripts' ], 9999 );
 			add_action( 'wp_footer', [ $this, 'register_sc_scripts' ] );
 		} else {
 			$html .= "<p>" . __( "No shortCode found", "the-post-grid" ) . "</p>";

@@ -238,16 +238,15 @@ class Options {
 			'tpg_load_script'      => [
 				'type'        => 'switch',
 				'name'        => 'tpg_load_script',
-				'label'       => __( 'Load Script only ShortCode page', 'the-post-grid' ),
-				'description' => __( 'If you enable this, script will be loaded only ShortCode page.', 'the-post-grid' ),
-				'value'       => isset( $settings['tpg_load_script'] ) ? $settings['tpg_load_script'] : false,
+				'label'       => __( 'Load Script dependent on block', 'the-post-grid' ),
+				'description' => __( 'If you enable this, script will be loaded only ShortCode or Elementor block page.', 'the-post-grid' ),
+				'value'       => isset( $settings['tpg_load_script'] ) ? $settings['tpg_load_script'] : true,
 			],
 			'tpg_enable_preloader' => [
 				'type'        => 'switch',
 				'name'        => 'tpg_enable_preloader',
 				'label'       => __( 'Enable Pre-loader', 'the-post-grid' ),
-				'holderClass' => 'tpg-hidden',
-				'value'       => isset( $settings['tpg_enable_preloader'] ) ? $settings['tpg_enable_preloader'] : false,
+				'value'       => isset( $settings['tpg_enable_preloader'] ) ? $settings['tpg_enable_preloader'] : true,
 			],
 			'tpg_skip_fa'          => [
 				'type'        => 'switch',

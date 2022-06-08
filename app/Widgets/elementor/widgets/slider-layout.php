@@ -30,6 +30,36 @@ class TPGSliderLayout extends Custom_Widget_Base {
 		$this->tpg_icon = 'eicon-post-slider tpg-grid-icon'; //.tpg-grid-icon class for just style
 	}
 
+	public function get_script_depends() {
+		$scripts = [];
+
+		array_push( $scripts, 'swiper' );
+		array_push( $scripts, 'rt-pagination' );
+		array_push( $scripts, 'rt-tpg-el-pro' );
+		array_push( $scripts, 'rt-tpg' );
+
+		return $scripts;
+	}
+
+	public function get_style_depends() {
+		$settings = get_option( rtTPG()->options['settings'] );
+		$style = [];
+
+		if ( isset( $settings['tpg_load_script'] ) ) {
+			array_push( $style, 'rt-fontawsome' );
+			array_push( $style, 'rt-tpg-common' );
+			array_push( $style, 'rt-tpg-elementor' );
+
+			if ( rtTPG()->hasPro() ) {
+				array_push( $style, 'rt-tpg-common-pro' );
+				array_push( $style, 'rt-tpg-elementor-pro' );
+			}
+		}
+
+		return $style;
+	}
+
+
 	protected function register_controls() {
 		/**
 		 * Content Tabs
@@ -203,7 +233,6 @@ class TPGSliderLayout extends Custom_Widget_Base {
              data-el-query=''
         >
 			<?php
-
 
 			$wrapper_class = [];
 			//			$wrapper_class[] = $_layout;

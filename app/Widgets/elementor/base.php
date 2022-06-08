@@ -103,7 +103,6 @@ abstract class Custom_Widget_Base extends Widget_Base {
 		echo ob_get_clean();
 	}
 
-
 	public function tpg_template_path( $data ) {
 		$layout        = str_replace( '-2', '', $data['layout'] );
 		$template_name = '/the-post-grid/elementor/' . $layout . '.php';

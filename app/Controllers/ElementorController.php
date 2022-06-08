@@ -37,10 +37,6 @@ if ( ! class_exists( 'ElementorController' ) ):
 		}
 
 		public function tpg_el_style() {
-			wp_enqueue_style( 'rt-fontawsome' );
-			wp_enqueue_style( 'rt-tpg-common' );
-			wp_enqueue_style( 'rt-tpg-elementor' );
-
 			//Custom CSS From Settings
 			$css = isset( $settings['custom_css'] ) ? stripslashes( $settings['custom_css'] ) : null;
 			if ( $css ) {

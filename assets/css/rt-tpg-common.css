@@ -1933,6 +1933,7 @@ Common Layout Style
     position: relative;
 }
 
+
 #bottom-script-loader {
     position: absolute;
     width: 100%;
@@ -1945,10 +1946,11 @@ Common Layout Style
     color: var(--tpg-primary-color);
     position: absolute;
     top: 80px;
-    left: 50%;
-    margin-left: -16px;
+    right: 50%;
+    margin-right: -16px;
     z-index: 2;
 }
+
 
 /*----------- Widget Heading -------------*/
 
@@ -2454,6 +2456,7 @@ TPG EVEN Style
 
 .rt-tpg-container .slider-main-wrapper {
     position: relative;
+    opacity: 0;
 }
 
 .rt-tpg-container .swiper-navigation .slider-btn {

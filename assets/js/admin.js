@@ -261,7 +261,7 @@
     });
 
     $("#tpg_load_script").on('change', function () {
-        preLoaderEffect();
+        //preLoaderEffect();
     });
 
     $("#show_acf_details").on('change', function () {

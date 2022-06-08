@@ -30,6 +30,34 @@ class TPGListLayout extends Custom_Widget_Base {
 		$this->tpg_icon = 'eicon-post-list tpg-grid-icon'; //.tpg-grid-icon class for just style
 	}
 
+	public function get_script_depends() {
+		$scripts = [];
+
+		array_push( $scripts, 'rt-pagination' );
+		array_push( $scripts, 'rt-tpg-el-pro' );
+		array_push( $scripts, 'rt-tpg' );
+
+		return $scripts;
+	}
+
+	public function get_style_depends() {
+		$settings = get_option( rtTPG()->options['settings'] );
+		$style = [];
+
+		if ( isset( $settings['tpg_load_script'] ) ) {
+			array_push( $style, 'rt-fontawsome' );
+			array_push( $style, 'rt-tpg-common' );
+			array_push( $style, 'rt-tpg-elementor' );
+
+			if ( rtTPG()->hasPro() ) {
+				array_push( $style, 'rt-tpg-common-pro' );
+				array_push( $style, 'rt-tpg-elementor-pro' );
+			}
+		}
+
+		return $style;
+	}
+
 	protected function register_controls() {
 		/**
 		 * Content Tabs
@@ -189,6 +217,18 @@ class TPGListLayout extends Custom_Widget_Base {
              data-el-path='<?php echo Fns::is_filter_enable( $data ) ? esc_attr( $template_path ) : ''; ?>'
         >
 			<?php
+
+			$settings = get_option( rtTPG()->options['settings'] );
+			if ( isset( $settings['tpg_load_script'] ) && isset( $settings['tpg_enable_preloader'] ) ) {
+				?>
+                <div id="bottom-script-loader" class="bottom-script-loader">
+                    <div class="rt-ball-clip-rotate">
+                        <div></div>
+                    </div>
+                </div>
+				<?php
+			}
+
 			$wrapper_class   = [];
 			$wrapper_class[] = str_replace( '-2', null, $_layout );
 			$wrapper_class[] = 'tpg-even list-behaviour';

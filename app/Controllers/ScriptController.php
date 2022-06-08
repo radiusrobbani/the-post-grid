@@ -41,9 +41,9 @@ class ScriptController {
 
 		// register acf styles
 		$styles['rt-fontawsome']    = rtTPG()->get_assets_uri( 'vendor/font-awesome/css/font-awesome.min.css' );
-		$styles['rt-tpg']           = rtTPG()->tpg_can_be_rtl( 'css/thepostgrid' );
 		$styles['rt-tpg-common']    = rtTPG()->tpg_can_be_rtl( 'css/rt-tpg-common' );
 		$styles['rt-tpg-elementor'] = rtTPG()->tpg_can_be_rtl( 'css/tpg-elementor' );
+		$styles['rt-tpg']           = rtTPG()->tpg_can_be_rtl( 'css/thepostgrid' );
 
 		if ( is_admin() ) {
 			$scripts[]                      = [
@@ -83,6 +83,7 @@ class ScriptController {
 
 		if ( ! isset( $settings['tpg_load_script'] ) ) {
 			wp_enqueue_style( 'rt-tpg-common' );
+			wp_enqueue_style( 'rt-tpg-elementor' );
 			wp_enqueue_style( 'rt-tpg' );
 		}
 		$scriptBefore = isset( $settings['script_before_item_load'] ) ? stripslashes( $settings['script_before_item_load'] ) : null;
@@ -100,7 +101,54 @@ class ScriptController {
 	 * Header Scripts
 	 */
 	public function header_scripts() {
-		echo "<style>:root{--tpg-primary-color: #0d6efd;--tpg-secondary-color:#0654c4;--tpg-primary-light:#c4d0ff }</style>";
+		$settings = get_option( rtTPG()->options['settings'] );
+
+		if ( ! isset( $settings['tpg_load_script'] ) ) {
+            return;
+        }
+		?>
+        <style>
+            :root {
+                --tpg-primary-color: #0d6efd;
+                --tpg-secondary-color: #0654c4;
+                --tpg-primary-light: #c4d0ff
+            }
+
+            #bottom-script-loader {
+                position: absolute;
+                width: 100%;
+                height: 100%;
+                z-index: 20;
+                background: rgba(255, 255, 255, 0.95);
+            }
+
+            #bottom-script-loader .rt-ball-clip-rotate {
+                color: var(--tpg-primary-color);
+                position: absolute;
+                top: 80px;
+                left: 50%;
+                margin-left: -16px;
+                z-index: 2;
+            }
+
+
+            .tpg-el-main-wrapper.loading {
+                min-height: 300px;
+                transition: 0.4s;
+            }
+
+
+            .tpg-el-main-wrapper .slider-main-wrapper {
+                opacity: 0;
+            }
+
+            .md-modal {
+                visibility: hidden;
+            }
+
+        </style>
+		<?php
+
 	}
 
 }

@@ -16,8 +16,8 @@ class TPGGridHoverLayout extends Custom_Widget_Base {
 	/**
 	 * GridLayout constructor.
 	 *
-	 * @param  array  $data
-	 * @param  null   $args
+	 * @param array $data
+	 * @param null $args
 	 *
 	 * @throws \Exception
 	 */
@@ -28,6 +28,34 @@ class TPGGridHoverLayout extends Custom_Widget_Base {
 		$this->tpg_name = esc_html__( 'TPG - Grid Hover Layout', 'the-post-grid' );
 		$this->tpg_base = 'tpg-grid-hover-layout';
 		$this->tpg_icon = 'eicon-image-rollover tpg-grid-icon'; //.tpg-grid-icon class for just style
+	}
+
+	public function get_script_depends() {
+		$scripts = [];
+
+		array_push( $scripts, 'rt-pagination' );
+		array_push( $scripts, 'rt-tpg-el-pro' );
+		array_push( $scripts, 'rt-tpg' );
+
+		return $scripts;
+	}
+
+	public function get_style_depends() {
+		$settings = get_option( rtTPG()->options['settings'] );
+		$style    = [];
+
+		if ( isset( $settings['tpg_load_script'] ) ) {
+			array_push( $style, 'rt-fontawsome' );
+			array_push( $style, 'rt-tpg-common' );
+			array_push( $style, 'rt-tpg-elementor' );
+
+			if ( rtTPG()->hasPro() ) {
+				array_push( $style, 'rt-tpg-common-pro' );
+				array_push( $style, 'rt-tpg-elementor-pro' );
+			}
+		}
+
+		return $style;
 	}
 
 	protected function register_controls() {
@@ -128,7 +156,10 @@ class TPGGridHoverLayout extends Custom_Widget_Base {
 	protected function render() {
 		$data    = $this->get_settings();
 		$_prefix = $this->prefix;
-		if ( ! rtTPG()->hasPro() && ! in_array( $data[ $_prefix . '_layout' ], [ 'grid_hover-layout1', 'grid_hover-layout2', 'grid_hover-layout3' ] ) ) {
+		if ( ! rtTPG()->hasPro() && ! in_array( $data[ $_prefix . '_layout' ], [ 'grid_hover-layout1',
+				'grid_hover-layout2',
+				'grid_hover-layout3'
+			] ) ) {
 			$data[ $_prefix . '_layout' ] = 'grid_hover-layout1';
 		}
 
@@ -174,11 +205,32 @@ class TPGGridHoverLayout extends Custom_Widget_Base {
              data-el-path='<?php echo Fns::is_filter_enable( $data ) ? esc_attr( $template_path ) : ''; ?>'
         >
 			<?php
+			$settings = get_option( rtTPG()->options['settings'] );
+			if ( isset( $settings['tpg_load_script'] ) && isset( $settings['tpg_enable_preloader'] ) ) {
+				?>
+                <div id="bottom-script-loader" class="bottom-script-loader">
+                    <div class="rt-ball-clip-rotate">
+                        <div></div>
+                    </div>
+                </div>
+				<?php
+			}
+
 			$wrapper_class = [];
-			if ( in_array( $_layout, [ 'grid_hover-layout6', 'grid_hover-layout7', 'grid_hover-layout8', 'grid_hover-layout9', 'grid_hover-layout10', 'grid_hover-layout11', 'grid_hover-layout5-2', 'grid_hover-layout6-2', 'grid_hover-layout7-2', 'grid_hover-layout9-2', ] ) ) {
+			if ( in_array( $_layout, [ 'grid_hover-layout6',
+				'grid_hover-layout7',
+				'grid_hover-layout8',
+				'grid_hover-layout9',
+				'grid_hover-layout10',
+				'grid_hover-layout11',
+				'grid_hover-layout5-2',
+				'grid_hover-layout6-2',
+				'grid_hover-layout7-2',
+				'grid_hover-layout9-2',
+			] ) ) {
 				$wrapper_class[] = 'grid_hover-layout5';
 			}
-			$wrapper_class[] = str_replace('-2', null, $_layout);
+			$wrapper_class[] = str_replace( '-2', null, $_layout );
 			$wrapper_class[] = 'tpg-even grid-behaviour';
 			$wrapper_class[] = $_prefix . '_layout_wrapper';
 
@@ -194,7 +246,8 @@ class TPGGridHoverLayout extends Custom_Widget_Base {
 			echo "</div>";
 			?>
 
-            <div data-title="Loading ..." class="rt-row rt-content-loader <?php echo esc_attr( implode( ' ', $wrapper_class ) ) ?>">
+            <div data-title="Loading ..."
+                 class="rt-row rt-content-loader <?php echo esc_attr( implode( ' ', $wrapper_class ) ) ?>">
 				<?php
 				if ( $query->have_posts() ) {
 					$pCount = 1;
@@ -219,7 +272,7 @@ class TPGGridHoverLayout extends Custom_Widget_Base {
 			<?php echo $this->get_pagination_markup( $query, $data ); ?>
         </div>
 		<?php
-		do_action('tpg_elementor_script');
+		do_action( 'tpg_elementor_script' );
 	}
 
 }
