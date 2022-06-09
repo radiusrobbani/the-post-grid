@@ -347,7 +347,6 @@ class TPGSliderLayout extends Custom_Widget_Base {
 										$query->the_post();
 										set_query_var( 'tpg_post_count', $pCount );
 										set_query_var( 'tpg_total_posts', $query->post_count );
-										//				            $this->tpg_template( $post_data );
 										?>
                                         <div class="swiper-slide">
                                             <div class="post-thumbnail-wrap">
@@ -383,11 +382,7 @@ class TPGSliderLayout extends Custom_Widget_Base {
                         </div>
                     </div>
 				<?php endif; ?>
-
-
             </div>
-
-
         </div>
 		<?php
 		do_action( 'tpg_elementor_script' );

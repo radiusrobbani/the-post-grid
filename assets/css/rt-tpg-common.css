@@ -174,7 +174,7 @@ a:link, a:visited {
 
 .rt-tpg-container h3.entry-title {
     line-height: 1.25;
-    margin: 0px 0px 12px;
+    margin: 0 0 12px;
 }
 
 .rt-tpg-container .offset-small-wrap .rt-holder .overlay {
@@ -208,7 +208,7 @@ a:link, a:visited {
 }
 
 .rt-tpg-container .offset-big h3.entry-title {
-    margin: 20px 0px 15px;
+    margin: 20px 0 15px;
 }
 
 .rt-tpg-container .offset-big .cat-above-title {
@@ -883,8 +883,8 @@ Pagination Style
 }
 
 .rt-tpg-container .no-margin {
-    margin: 0px !important;
-    padding: 0px !important;
+    margin: 0 !important;
+    padding: 0 !important;
 }
 
 span.more-loading {
@@ -922,7 +922,7 @@ span.more-loading {
 .post-meta-user span.comment-link {
     text-align: right;
     float: right;
-    padding-right: 0px;
+    padding-right: 0;
 }
 
 .rt-holder .entry-title a {
@@ -958,16 +958,6 @@ span.more-loading {
 
 .rt-tpg-container .rt-holder .tpg-excerpt {
     margin-bottom: 10px;
-}
-
-@media (max-width: 991px) {
-    .rt-tpg-container .rt-holder .tpg-excerpt {
-        overflow: hidden !important;
-        text-overflow: ellipsis !important;
-        display: -webkit-box !important;
-        -webkit-line-clamp: 3 !important;
-        -webkit-box-orient: vertical;
-    }
 }
 
 

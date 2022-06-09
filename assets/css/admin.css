@@ -212,8 +212,8 @@ ul#order-target {
 }
 
 ul#order-target li {
-    padding: 2px 0px;
-    margin: 4px 0px;
+    padding: 2px 0;
+    margin: 4px 0;
     border: 1px solid #dddddd;
     cursor: move;
     -moz-border-radius: 6px;
@@ -1575,7 +1575,7 @@ input:checked + .rttm-switch-slider:before {
 }
 
 .tpg-block-type-not-shortcode.post-type-rttpg.post-new-php #wpbody-content::after, .tpg-block-type-not-shortcode.post-type-rttpg.edit-php #wpbody-content::after {
-    content: "This page is used to create Shortcode. But you are using only for Elementor. If you want to use this shortcode builder then choose All or Shortcode from ( The Post Grid > Settings > Common Settings > Block Type )";
+    content: "This page is used to create Shortcode. But you are using only for Elementor. If you want to use this shortcode builder then choose the value \"Default\" or \"Shortcode\" from ( The Post Grid > Settings > Common Settings > Block Type )";
     position: fixed;
     top: 20%;
     left: 50%;
@@ -1588,4 +1588,12 @@ input:checked + .rttm-switch-slider:before {
     border: 1px solid #f00;
     background: #fff1f1;
     line-height: 27px;
+}
+
+.tpg-shortcode-main-wrapper .swiper-navigation {
+    top: -13px;
+}
+
+body .rt-tpg-container .swiper-navigation .slider-btn {
+    position: static;
 }

@@ -145,9 +145,9 @@
 .tpg-shortcode-main-wrapper .layout1 .rt-holder,
 .tpg-shortcode-main-wrapper .isotope1 .rt-holder,
 .tpg-shortcode-main-wrapper .carousel1 .rt-holder {
-    box-shadow: 0px 0px 2px 0px rgba(0, 0, 0, 0.3);
-    -webkit-box-shadow: 0px 0px 2px 0px rgba(0, 0, 0, 0.3);
-    -moz-box-shadow: 0px 0px 2px 0px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.3);
+    -webkit-box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.3);
+    -moz-box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.3);
 }
 
 .tpg-shortcode-main-wrapper .layout1 .rt-holder .rt-detail,
@@ -284,7 +284,7 @@
 .tpg-shortcode-main-wrapper .layout2 .rt-holder .rt-detail h4 {
     font-size: 26px;
     line-height: 1.25;
-    margin: 0px 0 15px 0;
+    margin: 0 0 15px 0;
     font-weight: 400;
 }
 
@@ -334,7 +334,7 @@
 .tpg-shortcode-main-wrapper .layout3 .rt-holder .rt-detail h3,
 .tpg-shortcode-main-wrapper .layout3 .rt-holder .rt-detail h4 {
     font-size: 26px;
-    margin: 0px 0 18px 0;
+    margin: 0 0 18px 0;
     line-height: 1.25;
     font-weight: 400;
 }
@@ -472,7 +472,7 @@
     font-size: 22px;
     line-height: 1.3;
     color: #ffffff;
-    margin: 0px 0 10px;
+    margin: 0 0 10px;
     font-weight: 400;
 }
 
@@ -615,7 +615,7 @@
     font-size: 22px;
     line-height: 1.25;
     font-weight: 400;
-    margin: 0px 0 18px 0;
+    margin: 0 0 18px 0;
 }
 
 .tpg-shortcode-main-wrapper .layout6 .rt-holder .overlay h2 a,
@@ -1001,7 +1001,7 @@
 .tpg-shortcode-main-wrapper .carousel8 .rt-holder .rt-detail h4 {
     font-size: 22px;
     line-height: 1.25;
-    margin: 15px 0px 15px;
+    margin: 15px 0 15px;
     font-weight: 400;
 }
 

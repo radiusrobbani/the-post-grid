@@ -1,12 +1,11 @@
 <?php
 
-
 namespace RT\ThePostGrid\Controllers;
-
 
 class ScriptController {
 
 	private $version;
+	private $settings;
 
 	public function __construct() {
 		$this->version = defined( 'WP_DEBUG' ) && WP_DEBUG ? time() : RT_THE_POST_GRID_VERSION;
@@ -16,6 +15,8 @@ class ScriptController {
 	}
 
 	public function init() {
+
+		$this->settings = get_option( rtTPG()->options['settings'] );
 
 		$current_page = isset( $_GET["page"] ) ? $_GET["page"] : '';
 		if ( 'rttpg_settings' == $current_page ) {
@@ -47,10 +48,19 @@ class ScriptController {
 		];
 
 		// register acf styles
-		$styles['rt-fontawsome']    = rtTPG()->get_assets_uri( 'vendor/font-awesome/css/font-awesome.min.css' );
-		$styles['rt-tpg-common']    = rtTPG()->tpg_can_be_rtl( 'css/rt-tpg-common' );
-		$styles['rt-tpg-elementor'] = rtTPG()->tpg_can_be_rtl( 'css/tpg-elementor' );
-		$styles['rt-tpg']           = rtTPG()->tpg_can_be_rtl( 'css/thepostgrid' );
+		$styles['rt-fontawsome'] = rtTPG()->get_assets_uri( 'vendor/font-awesome/css/font-awesome.min.css' );
+		$styles['rt-tpg-common'] = rtTPG()->tpg_can_be_rtl( 'css/rt-tpg-common' );
+
+		$block_type = isset( $this->settings['tpg_block_type'] ) ? $this->settings['tpg_block_type'] : '';
+
+		if ( in_array( $block_type, [ 'default', 'elementor' ] ) ) {
+			$styles['rt-tpg-elementor'] = rtTPG()->tpg_can_be_rtl( 'css/tpg-elementor' );
+		}
+
+		if ( in_array( $block_type, [ 'default', 'shortcode' ] ) ) {
+			$styles['rt-tpg'] = rtTPG()->tpg_can_be_rtl( 'css/thepostgrid' );
+		}
+
 
 		if ( is_admin() ) {
 			$scripts[]                      = [
@@ -86,16 +96,14 @@ class ScriptController {
 	}
 
 	public function enqueue() {
-		$settings = get_option( rtTPG()->options['settings'] );
-
-		if ( ! isset( $settings['tpg_load_script'] ) ) {
+		if ( ! isset( $this->settings['tpg_load_script'] ) ) {
 			wp_enqueue_style( 'rt-tpg-common' );
 			wp_enqueue_style( 'rt-tpg-elementor' );
 			wp_enqueue_style( 'rt-tpg' );
 		}
-		$scriptBefore = isset( $settings['script_before_item_load'] ) ? stripslashes( $settings['script_before_item_load'] ) : null;
-		$scriptAfter  = isset( $settings['script_after_item_load'] ) ? stripslashes( $settings['script_after_item_load'] ) : null;
-		$scriptLoaded = isset( $settings['script_loaded'] ) ? stripslashes( $settings['script_loaded'] ) : null;
+		$scriptBefore = isset( $this->settings['script_before_item_load'] ) ? stripslashes( $this->settings['script_before_item_load'] ) : null;
+		$scriptAfter  = isset( $this->settings['script_after_item_load'] ) ? stripslashes( $this->settings['script_after_item_load'] ) : null;
+		$scriptLoaded = isset( $this->settings['script_loaded'] ) ? stripslashes( $this->settings['script_loaded'] ) : null;
 		$script       = "(function($){
 				$('.rt-tpg-container').on('tpg_item_before_load', function(){{$scriptBefore}});
 				$('.rt-tpg-container').on('tpg_item_after_load', function(){{$scriptAfter}});
@@ -108,28 +116,26 @@ class ScriptController {
 	 * Header Scripts
 	 */
 	public function header_scripts() {
-		$settings = get_option( rtTPG()->options['settings'] );
-
 
 		?>
         <style>
             :root {
-                --tpg-primary-color: <?php echo isset( $settings['tpg_primary_color_main'] ) ? $settings['tpg_primary_color_main'] : '#0d6efd'?>;
-                --tpg-secondary-color: <?php echo isset( $settings['tpg_secondary_color_main'] ) ? $settings['tpg_secondary_color_main'] : '#0654c4'?>;
+                --tpg-primary-color: <?php echo isset( $this->settings['tpg_primary_color_main'] ) ? $this->settings['tpg_primary_color_main'] : '#0d6efd'?>;
+                --tpg-secondary-color: <?php echo isset( $this->settings['tpg_secondary_color_main'] ) ? $this->settings['tpg_secondary_color_main'] : '#0654c4'?>;
                 --tpg-primary-light: #c4d0ff
             }
 
-            <?php if( isset( $settings['tpg_loader_color'] ) ) : ?>
+            <?php if( isset( $this->settings['tpg_loader_color'] ) ) : ?>
             body .rt-tpg-container .rt-loading,
             body #bottom-script-loader .rt-ball-clip-rotate {
-                color: <?php echo esc_attr($settings['tpg_loader_color']) ?> !important;
+                color: <?php echo esc_attr($this->settings['tpg_loader_color']) ?> !important;
             }
 
             <?php endif; ?>
         </style>
 
 		<?php
-		if ( isset( $settings['tpg_load_script'] ) ) : ?>
+		if ( isset( $this->settings['tpg_load_script'] ) ) : ?>
             <style>
                 .rt-tpg-container .tpg-pre-loader {
                     position: relative;
@@ -227,16 +233,16 @@ class ScriptController {
                     visibility: hidden;
                 }
 
-                .rt-tpg-container > *:not(.bottom-script-loader, .slider-main-wrapper){
+                .rt-tpg-container > *:not(.bottom-script-loader, .slider-main-wrapper) {
                     opacity: 0;
                 }
 
             </style>
 
             <script>
-                jQuery(document).ready(function(){
-                    jQuery('.rt-tpg-container > *:not(.bottom-script-loader, .slider-main-wrapper)').animate({"opacity":1})
-                })
+                jQuery( document ).ready( function () {
+                    jQuery( '.rt-tpg-container > *:not(.bottom-script-loader, .slider-main-wrapper)' ).animate( { "opacity": 1 } )
+                } )
             </script>
 		<?php endif;
 

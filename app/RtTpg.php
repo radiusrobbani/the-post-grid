@@ -12,6 +12,7 @@ use RT\ThePostGrid\Controllers\ScriptController;
 use RT\ThePostGrid\Controllers\ShortcodeController;
 use RT\ThePostGrid\Controllers\Hooks\FilterHooks;
 use RT\ThePostGrid\Controllers\Hooks\ActionHooks;
+use RT\ThePostGrid\Controllers\WidgetController;
 use RT\ThePostGrid\Helpers\Install;
 use RT\ThePostGrid\Controllers\Admin\UpgradeController;
 
@@ -20,32 +21,31 @@ require_once __DIR__ . './../vendor/autoload.php';
 if ( ! class_exists( RtTpg::class ) ) {
 	final class RtTpg {
 
+		public $test;
 		public $post_type = "rttpg";
-		public $options
-			= [
-				'settings'          => 'rt_the_post_grid_settings',
-				'version'           => RT_THE_POST_GRID_VERSION,
-				'installed_version' => 'rt_the_post_grid_current_version',
-				'slug'              => RT_THE_POST_GRID_PLUGIN_SLUG,
-			];
-		public $defaultSettings
-			= [
-				'popup_fields'       => [
-					'title',
-					'feature_img',
-					'content',
-					'post_date',
-					'author',
-					'categories',
-					'tags',
-					'social_share',
-				],
-				'social_share_items' => [
-					'facebook',
-					'twitter',
-					'linkedin',
-				],
-			];
+		public $options = [
+			'settings'          => 'rt_the_post_grid_settings',
+			'version'           => RT_THE_POST_GRID_VERSION,
+			'installed_version' => 'rt_the_post_grid_current_version',
+			'slug'              => RT_THE_POST_GRID_PLUGIN_SLUG,
+		];
+		public $defaultSettings = [
+			'popup_fields'       => [
+				'title',
+				'feature_img',
+				'content',
+				'post_date',
+				'author',
+				'categories',
+				'tags',
+				'social_share',
+			],
+			'social_share_items' => [
+				'facebook',
+				'twitter',
+				'linkedin',
+			],
+		];
 
 		protected static $_instance;
 
@@ -58,6 +58,7 @@ if ( ! class_exists( RtTpg::class ) ) {
 		 * Create an inaccessible constructor.
 		 */
 		private function __construct() {
+			$this->test = 'test value';
 			$this->__init();
 		}
 
@@ -83,6 +84,7 @@ if ( ! class_exists( RtTpg::class ) ) {
 			new PostTypeController();
 			new AjaxController();
 			new ScriptController();
+			new WidgetController();
 
 			if ( is_admin() ) {
 				new AdminAjaxController();
@@ -90,7 +92,9 @@ if ( ! class_exists( RtTpg::class ) ) {
 				new MetaController();
 			}
 
-			if ( ! isset( $settings['tpg_block_type'] ) || in_array( $settings['tpg_block_type'], [ 'default', 'shortcode' ] ) ) {
+			if ( ! isset( $settings['tpg_block_type'] ) || in_array( $settings['tpg_block_type'], [ 'default',
+					'shortcode'
+				] ) ) {
 				new ShortcodeController();
 				new GutenBergController();
 			}
@@ -100,7 +104,9 @@ if ( ! class_exists( RtTpg::class ) ) {
 
 			( new SettingsController() )->init();
 
-			if ( ! isset( $settings['tpg_block_type'] ) || in_array( $settings['tpg_block_type'], [ 'default', 'elementor' ] ) ) {
+			if ( ! isset( $settings['tpg_block_type'] ) || in_array( $settings['tpg_block_type'], [ 'default',
+					'elementor'
+				] ) ) {
 				new ElementorController();
 			}
 
@@ -181,7 +187,7 @@ if ( ! class_exists( RtTpg::class ) ) {
 		 * @return string
 		 */
 		public function tpg_can_be_rtl( $file ) {
-			$file = ltrim( str_replace('.css', '', $file), '/' );
+			$file = ltrim( str_replace( '.css', '', $file ), '/' );
 
 			if ( is_rtl() ) {
 				$file .= '-rtl';

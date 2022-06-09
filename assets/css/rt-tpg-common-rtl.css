@@ -174,7 +174,7 @@ a:link, a:visited {
 
 .rt-tpg-container h3.entry-title {
     line-height: 1.25;
-    margin: 0px 0px 12px;
+    margin: 0 0 12px;
 }
 
 .rt-tpg-container .offset-small-wrap .rt-holder .overlay {
@@ -208,7 +208,7 @@ a:link, a:visited {
 }
 
 .rt-tpg-container .offset-big h3.entry-title {
-    margin: 20px 0px 15px;
+    margin: 20px 0 15px;
 }
 
 .rt-tpg-container .offset-big .cat-above-title {
@@ -883,8 +883,8 @@ Pagination Style
 }
 
 .rt-tpg-container .no-margin {
-    margin: 0px !important;
-    padding: 0px !important;
+    margin: 0 !important;
+    padding: 0 !important;
 }
 
 span.more-loading {
@@ -922,7 +922,7 @@ span.more-loading {
 .post-meta-user span.comment-link {
     text-align: left;
     float: left;
-    padding-left: 0px;
+    padding-left: 0;
 }
 
 .rt-holder .entry-title a {
@@ -958,16 +958,6 @@ span.more-loading {
 
 .rt-tpg-container .rt-holder .tpg-excerpt {
     margin-bottom: 10px;
-}
-
-@media (max-width: 991px) {
-    .rt-tpg-container .rt-holder .tpg-excerpt {
-        overflow: hidden !important;
-        text-overflow: ellipsis !important;
-        display: -webkit-box !important;
-        -webkit-line-clamp: 3 !important;
-        -webkit-box-orient: vertical;
-    }
 }
 
 
@@ -1458,7 +1448,7 @@ Filter
 .rt-layout-filter-container .rt-filter-wrap .rt-filter-item-wrap.rt-filter-dropdown-wrap .rt-filter-dropdown .rt-filter-dropdown-item {
     display: block;
     padding: 10px 15px 9px 15px;
-    border-bottom: 1px solid #323232;
+    border-bottom: 1px solid rgba(0,0,0,.2);
     color: #b4b4b4;
     text-align: center;
 }
@@ -1933,22 +1923,25 @@ Common Layout Style
     position: relative;
 }
 
+
 #bottom-script-loader {
     position: absolute;
-    width: 100%;
-    height: 100%;
-    z-index: 20;
+    width: calc(100% + 60px);
+    height: calc(100% + 60px);
+    z-index: 999;
     background: rgba(255, 255, 255, 0.95);
+    margin: -30px;
 }
 
 #bottom-script-loader .rt-ball-clip-rotate {
     color: var(--tpg-primary-color);
     position: absolute;
     top: 80px;
-    right: 50%;
-    margin-right: -16px;
+    left: 50%;
+    margin-left: -16px;
     z-index: 2;
 }
+
 
 /*----------- Widget Heading -------------*/
 
@@ -2454,6 +2447,7 @@ TPG EVEN Style
 
 .rt-tpg-container .slider-main-wrapper {
     position: relative;
+    opacity: 0;
 }
 
 .rt-tpg-container .swiper-navigation .slider-btn {
@@ -2565,4 +2559,29 @@ TPG EVEN Style
 .isotope-term-no-post p {
     margin-bottom: 0;
     display: none;
+}
+
+.tpg-el-main-wrapper.loading {
+    min-height: 300px;
+    transition: 0.4s;
+}
+
+.tpg-el-main-wrapper.loading::before {
+    width: 32px;
+    height: 32px;
+    display: inline-block;
+    float: none;
+    border: 2px solid currentColor;
+    background: transparent;
+    border-bottom-color: transparent;
+    border-radius: 100%;
+    -webkit-animation: ball-clip-rotate 0.75s linear infinite;
+    -moz-animation: ball-clip-rotate 0.75s linear infinite;
+    -o-animation: ball-clip-rotate 0.75s linear infinite;
+    animation: ball-clip-rotate 0.75s linear infinite;
+    right: 50%;
+    top: 50%;
+    position: absolute;
+    z-index: 9999999999;
+    color: red;
 }
