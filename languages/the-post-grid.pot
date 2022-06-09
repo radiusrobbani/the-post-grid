@@ -6,7 +6,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2022-06-08 11:42+0000\n"
+"POT-Creation-Date: 2022-06-09 09:35+0000\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-KeywordsList: __;_e;_ex:1,2c;_n:1,2;_n_noop:1,2;_nx:1,2,4c;_nx_noop:1,2,3c;_x:1,2c;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c\n"
 "X-Poedit-SearchPath-0: .\n"
@@ -98,7 +98,7 @@ msgstr ""
 msgid "Loading ..."
 msgstr ""
 
-#: ../app/Controllers/ShortcodeController.php:826, ../app/Controllers/Admin/AdminAjaxController.php:952, ../app/Widgets/elementor/widgets/grid-hover-layout-archive.php:260, ../app/Widgets/elementor/widgets/grid-hover-layout.php:265, ../app/Widgets/elementor/widgets/grid-layout-archive.php:261, ../app/Widgets/elementor/widgets/grid-layout.php:275, ../app/Widgets/elementor/widgets/list-layout-archive.php:261, ../app/Widgets/elementor/widgets/list-layout.php:267, ../app/Widgets/elementor/widgets/slider-layout-archive.php:325, ../app/Widgets/elementor/widgets/slider-layout-archive.php:386, ../app/Widgets/elementor/widgets/slider-layout.php:315, ../app/Widgets/elementor/widgets/slider-layout.php:376
+#: ../app/Controllers/ShortcodeController.php:826, ../app/Controllers/Admin/AdminAjaxController.php:952, ../app/Widgets/elementor/widgets/grid-hover-layout-archive.php:260, ../app/Widgets/elementor/widgets/grid-hover-layout.php:265, ../app/Widgets/elementor/widgets/grid-layout-archive.php:261, ../app/Widgets/elementor/widgets/grid-layout.php:275, ../app/Widgets/elementor/widgets/list-layout-archive.php:261, ../app/Widgets/elementor/widgets/list-layout.php:267, ../app/Widgets/elementor/widgets/slider-layout-archive.php:325, ../app/Widgets/elementor/widgets/slider-layout-archive.php:386, ../app/Widgets/elementor/widgets/slider-layout.php:315, ../app/Widgets/elementor/widgets/slider-layout.php:375
 msgid "No post found"
 msgstr ""
 
