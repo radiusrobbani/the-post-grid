@@ -33,6 +33,7 @@ class TPGSliderLayout extends Custom_Widget_Base {
 	public function get_script_depends() {
 		$scripts = [];
 
+		array_push( $scripts, 'imagesloaded' );
 		array_push( $scripts, 'swiper' );
 		array_push( $scripts, 'rt-pagination' );
 		array_push( $scripts, 'rt-tpg-el-pro' );
@@ -292,7 +293,8 @@ class TPGSliderLayout extends Custom_Widget_Base {
             <div class="slider-main-wrapper <?php echo esc_attr( $_layout ) ?>">
                 <div class="rt-swiper-holder swiper"
                      data-rtowl-options='<?php echo wp_json_encode( $slider_data ) ?>'
-                     dir="<?php echo esc_attr( $data['slider_direction'] ); ?>">
+                     dir="<?php echo esc_attr( $data['slider_direction'] ); ?>"
+                >
                     <div class="swiper-wrapper <?php echo esc_attr( implode( ' ', $wrapper_class ) ) ?>">
 						<?php
 						if ( $query->have_posts() ) {

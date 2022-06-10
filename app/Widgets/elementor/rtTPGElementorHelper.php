@@ -6930,7 +6930,7 @@ class rtTPGElementorHelper {
 				'label_on'     => __( 'Show', 'the-post-grid' ),
 				'label_off'    => __( 'Hide', 'the-post-grid' ),
 				'return_value' => 'yes',
-				'default'      => 'yes',
+				'default'      => 'no',
 				'render_type'  => 'template',
 				'condition'    => [
 					'dots'               => 'yes',

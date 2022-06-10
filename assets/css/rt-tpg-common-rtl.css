@@ -2431,10 +2431,6 @@ TPG EVEN Style
     background: #007bff;
 }
 
-.rt-container-fluid .swiper-pagination.swiper-pagination-bullets-dynamic {
-    width: 100% !important;
-}
-
 .rt-container-fluid .swiper-pagination.swiper-pagination-bullets-dynamic .swiper-pagination-bullet:not(.swiper-pagination-bullet-active-prev-prev, .swiper-pagination-bullet-active-prev, .swiper-pagination-bullet-active, .swiper-pagination-bullet-active-next, .swiper-pagination-bullet-active-next-next) {
     opacity: 0;
 }

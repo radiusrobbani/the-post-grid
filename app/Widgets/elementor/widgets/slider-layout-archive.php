@@ -16,8 +16,8 @@ class TPGSliderLayoutArchive extends Custom_Widget_Base {
 	/**
 	 * GridLayout constructor.
 	 *
-	 * @param  array  $data
-	 * @param  null   $args
+	 * @param array $data
+	 * @param null $args
 	 *
 	 * @throws \Exception
 	 */
@@ -34,6 +34,7 @@ class TPGSliderLayoutArchive extends Custom_Widget_Base {
 	public function get_script_depends() {
 		$scripts = [];
 
+		array_push( $scripts, 'imagesloaded' );
 		array_push( $scripts, 'swiper' );
 		array_push( $scripts, 'rt-pagination' );
 		array_push( $scripts, 'rt-tpg-el-pro' );
@@ -44,15 +45,15 @@ class TPGSliderLayoutArchive extends Custom_Widget_Base {
 
 	public function get_style_depends() {
 		$settings = get_option( rtTPG()->options['settings'] );
-		$style = [];
+		$style    = [];
 
 		if ( isset( $settings['tpg_load_script'] ) ) {
 			array_push( $style, 'rt-fontawsome' );
 			array_push( $style, 'rt-tpg-common' );
 			array_push( $style, 'rt-tpg-elementor' );
-            array_push( $style, 'rt-tpg-common-pro' );
-            array_push( $style, 'rt-tpg-elementor-pro' );
-            array_push( $style, 'swiper' );
+			array_push( $style, 'rt-tpg-common-pro' );
+			array_push( $style, 'rt-tpg-elementor-pro' );
+			array_push( $style, 'swiper' );
 
 		}
 
@@ -400,7 +401,7 @@ class TPGSliderLayoutArchive extends Custom_Widget_Base {
 
         </div>
 		<?php
-		do_action('tpg_elementor_script');
+		do_action( 'tpg_elementor_script' );
 	}
 
 }

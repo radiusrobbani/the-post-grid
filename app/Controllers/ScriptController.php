@@ -97,6 +97,7 @@ class ScriptController {
 
 	public function enqueue() {
 		if ( ! isset( $this->settings['tpg_load_script'] ) ) {
+			wp_enqueue_style( 'rt-fontawsome' );
 			wp_enqueue_style( 'rt-tpg-common' );
 			wp_enqueue_style( 'rt-tpg-elementor' );
 			wp_enqueue_style( 'rt-tpg' );
@@ -137,6 +138,9 @@ class ScriptController {
 		<?php
 		if ( isset( $this->settings['tpg_load_script'] ) ) : ?>
             <style>
+                .rt-container-fluid {
+                    position: relative;
+                }
                 .rt-tpg-container .tpg-pre-loader {
                     position: relative;
                     overflow: hidden;
@@ -241,8 +245,16 @@ class ScriptController {
 
             <script>
                 jQuery( document ).ready( function () {
-                    jQuery( '.rt-tpg-container > *:not(.bottom-script-loader, .slider-main-wrapper)' ).animate( { "opacity": 1 } )
+                    jQuery( '.rt-tpg-container > *:not(.bottom-script-loader, .slider-main-wrapper)' ).animate( { "opacity": 1 } );
                 } )
+
+                jQuery( window ).on( 'elementor/frontend/init', function () {
+                    if ( elementorFrontend.isEditMode() ) {
+                        elementorFrontend.hooks.addAction( 'frontend/element_ready/widget', function () {
+                            jQuery( '.rt-tpg-container > *:not(.bottom-script-loader, .slider-main-wrapper)' ).animate( { "opacity": 1 } );
+                        } );
+                    }
+                } );
             </script>
 		<?php endif;
 

@@ -20,15 +20,6 @@ class ShortcodeController {
 		}
 	}
 
-	public function register_style_scripts() {
-		?>
-        <style>
-            * {
-                color: red;
-            }
-        </style>
-		<?php
-	}
 
 	public function register_sc_scripts() {
 		$settings = get_option( rtTPG()->options['settings'] );
@@ -81,20 +72,23 @@ class ShortcodeController {
 
 			}
 
-			array_push( $style, 'rt-fontawsome' );
-			array_push( $style, 'rt-tpg-common' );
-			array_push( $style, 'rt-tpg' );
-
-			if ( rtTPG()->hasPro() ) {
+			if ( isset( $settings['tpg_load_script'] ) ) {
 				array_push( $style, 'rt-fontawsome' );
-				array_push( $style, 'rt-magnific-popup' );
-				array_push( $style, 'rt-tpg-pro' );
-				array_push( $style, 'rt-tpg-common-pro' );
-				array_push( $style, 'rt-scrollbar' );
-				array_push( $style, 'swiper' );
+				array_push( $style, 'rt-tpg-common' );
+				array_push( $style, 'rt-tpg' );
+
+				if ( rtTPG()->hasPro() ) {
+					array_push( $style, 'rt-magnific-popup' );
+					array_push( $style, 'rt-tpg-pro' );
+					array_push( $style, 'rt-tpg-common-pro' );
+					array_push( $style, 'rt-scrollbar' );
+					array_push( $style, 'swiper' );
+				}
+
+				wp_enqueue_style( $style );
 			}
 
-			wp_enqueue_style( $style );
+
 			wp_enqueue_script( $script );
 			wp_localize_script( 'rt-tpg', 'rttpg', $variables );
 
@@ -1085,7 +1079,7 @@ class ShortcodeController {
 			$scriptGenerator['isSinglePopUp'] = $isSinglePopUp;
 			$scriptGenerator['isWooCom']      = $isWooCom;
 			$this->scA[]                      = $scriptGenerator;
-			add_action( 'wp_head', [ $this, 'register_style_scripts' ], 9999 );
+
 			add_action( 'wp_footer', [ $this, 'register_sc_scripts' ] );
 		} else {
 			$html .= "<p>" . __( "No shortCode found", "the-post-grid" ) . "</p>";
