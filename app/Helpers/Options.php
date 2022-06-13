@@ -262,7 +262,7 @@ class Options {
 				'name'        => 'tpg_load_script',
 				'label'       => __( 'Load Script dependent on block', 'the-post-grid' ),
 				'description' => __( 'Check, if you want to load script when ShortCode or Elementor block is used on a page. <b>If you enable this then you must have to enable Preloader from below</b>', 'the-post-grid' ),
-				'value'       => isset( $settings['tpg_load_script'] ) ? $settings['tpg_load_script'] : false,
+				'value'       => isset( $settings['tpg_load_script'] ) ? $settings['tpg_load_script'] : true,
 			],
 			'tpg_enable_preloader' => [
 				'type'        => 'switch',

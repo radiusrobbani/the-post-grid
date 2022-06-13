@@ -36,9 +36,8 @@ class TPGSliderLayoutArchive extends Custom_Widget_Base {
 
 		array_push( $scripts, 'imagesloaded' );
 		array_push( $scripts, 'swiper' );
-		array_push( $scripts, 'rt-pagination' );
-		array_push( $scripts, 'rt-tpg-el-pro' );
 		array_push( $scripts, 'rt-tpg' );
+		array_push( $scripts, 'rt-tpg-el-pro' );
 
 		return $scripts;
 	}
@@ -293,6 +292,7 @@ class TPGSliderLayoutArchive extends Custom_Widget_Base {
 				"lazyLoad"        => $data['lazyLoad'] == "yes" ? true : false,
 				"autoHeight"      => $data['autoHeight'] == "yes" ? true : false,
 				"dynamic_dots"    => $data['dynamic_dots'] == "yes" ? true : false,
+				"grabCursor"      => $data['grabCursor'] == "yes" ? true : false,
 			];
 
 			if ( $data['enable_2_rows'] == 'yes' ) {

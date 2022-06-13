@@ -63,7 +63,7 @@ class MetaController {
 			'jquery-ui-datepicker',
 			'wp-color-picker',
 			$select2Id,
-			'rt-image-load-js',
+			'imagesloaded',
 			'rt-isotope-js',
 			'rt-tpg-admin',
 			'rt-tpg-admin-preview',

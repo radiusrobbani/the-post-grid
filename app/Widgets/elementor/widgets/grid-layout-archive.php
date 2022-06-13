@@ -33,10 +33,8 @@ class TPGGridLayoutArchive extends Custom_Widget_Base {
 
 	public function get_script_depends() {
 		$scripts = [];
-
-		array_push( $scripts, 'rt-pagination' );
-		array_push( $scripts, 'rt-tpg-el-pro' );
 		array_push( $scripts, 'rt-tpg' );
+		array_push( $scripts, 'rt-tpg-el-pro' );
 
 		return $scripts;
 	}
@@ -168,7 +166,11 @@ class TPGGridLayoutArchive extends Custom_Widget_Base {
 			wp_enqueue_script( 'imagesloaded' );
 			wp_enqueue_script( 'rt-isotope-js' );
 			wp_enqueue_script( 'jquery-masonry' );
-			wp_enqueue_script( 'rt-image-load-js' );
+			wp_enqueue_script( 'imagesloaded' );
+		}
+
+		if ( 'show' == $data['show_pagination'] && 'pagination_ajax' == $data['pagination_type'] ) {
+			wp_enqueue_script( 'rt-pagination' );
 		}
 
 		//Query

@@ -27,12 +27,16 @@ class ScriptController {
 		// register scripts
 		$scripts   = [];
 		$styles    = [];
+
+        /*
 		$scripts[] = [
-			'handle' => 'rt-image-load-js',
+			'handle' => 'imagesloaded',
 			'src'    => rtTPG()->get_assets_uri( "vendor/isotope/imagesloaded.pkgd.min.js" ),
 			'deps'   => [ 'jquery' ],
 			'footer' => true,
 		];
+        */
+
 		$scripts[] = [
 			'handle' => 'rt-isotope-js',
 			'src'    => rtTPG()->get_assets_uri( "vendor/isotope/isotope.pkgd.min.js" ),
@@ -240,13 +244,16 @@ class ScriptController {
                 .rt-tpg-container > *:not(.bottom-script-loader, .slider-main-wrapper) {
                     opacity: 0;
                 }
+                .rt-popup-content .rt-tpg-container > *:not(.bottom-script-loader, .slider-main-wrapper) {
+                    opacity: 1;
+                }
 
             </style>
 
             <script>
                 jQuery( document ).ready( function () {
                     jQuery( '.rt-tpg-container > *:not(.bottom-script-loader, .slider-main-wrapper)' ).animate( { "opacity": 1 } );
-                } )
+                } );
 
                 jQuery( window ).on( 'elementor/frontend/init', function () {
                     if ( elementorFrontend.isEditMode() ) {

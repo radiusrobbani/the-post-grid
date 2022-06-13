@@ -7005,6 +7005,21 @@ class rtTPGElementorHelper {
 				'label_off'    => __( 'No', 'the-post-grid' ),
 				'return_value' => 'yes',
 				'default'      => 'yes',
+				'condition' => [
+					'autoplay' => 'yes',
+				],
+			]
+		);
+
+		$ref->add_control(
+			'grabCursor',
+			[
+				'label'        => __( 'Allow Touch Move', 'the-post-grid' ),
+				'type'         => \Elementor\Controls_Manager::SWITCHER,
+				'label_on'     => __( 'Yes', 'the-post-grid' ),
+				'label_off'    => __( 'No', 'the-post-grid' ),
+				'return_value' => 'yes',
+				'default'      => 'yes',
 			]
 		);
 
@@ -7020,6 +7035,7 @@ class rtTPGElementorHelper {
 				'default'      => false,
 				'condition'    => [
 					'enable_2_rows!' => 'yes',
+					$prefix . '_layout!' => [ 'slider-layout11', 'slider-layout12' ],
 				],
 			]
 		);
@@ -7034,6 +7050,9 @@ class rtTPGElementorHelper {
 				'return_value' => 'yes',
 				'default'      => false,
 				'prefix_class' => 'is-lazy-load-',
+				'condition'    => [
+					$prefix . '_layout!' => [ 'slider-layout11', 'slider-layout12' ],
+				],
 			]
 		);
 
