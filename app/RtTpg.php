@@ -190,10 +190,10 @@ if ( ! class_exists( RtTpg::class ) ) {
 			$file = ltrim( str_replace( '.css', '', $file ), '/' );
 
 			if ( is_rtl() ) {
-				$file .= '-rtl';
+				$file .= '.rtl';
 			}
 
-			return trailingslashit( RT_THE_POST_GRID_PLUGIN_URL . '/assets' ) . $file . '.css';
+			return trailingslashit( RT_THE_POST_GRID_PLUGIN_URL . '/assets' ) . $file . '.min.css';
 		}
 
 		/**

@@ -44,7 +44,6 @@ class TPGGridHoverLayout extends Custom_Widget_Base {
 
 		if ( isset( $settings['tpg_load_script'] ) ) {
 			array_push( $style, 'rt-fontawsome' );
-			array_push( $style, 'rt-tpg-common' );
 			array_push( $style, 'rt-tpg-elementor' );
 
 			if ( rtTPG()->hasPro() ) {

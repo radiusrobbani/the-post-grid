@@ -31,6 +31,10 @@
     "fs-extra": "^10.0.0",
     "laravel-mix": "^6.0.19",
     "postcss": "^8.3.0",
+    "resolve-url-loader": "5.0.0",
+    "sass": "^1.52.3",
+    "sass-loader": "12.1.0",
+    "webpack-rtl-plugin": "^2.0.0",
     "wp-pot": "^1.9.8"
   }
 }

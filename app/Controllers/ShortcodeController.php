@@ -1062,14 +1062,11 @@ class ShortcodeController {
 
 
 			array_push( $style, 'rt-fontawsome' );
-			array_push( $style, 'rt-tpg-common' );
 
 
 			if ( rtTPG()->hasPro() ) {
-
 				array_push( $style, 'rt-tpg-pro' );
 				array_push( $style, 'rt-tpg-common-pro' );
-
 
 			}
 
@@ -1103,7 +1100,9 @@ class ShortcodeController {
 				if ( class_exists( 'WooCommerce' ) ) {
 					array_push( $script, 'rt-jzoom' );
 				}
-				array_push( $style, 'rt-tpg' );
+				array_push( $style, 'rt-tpg-shortcode' );
+
+
 				array_push( $script, 'rt-tpg-pro' );
 
 			}

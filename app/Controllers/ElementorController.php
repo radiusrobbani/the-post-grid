@@ -62,7 +62,7 @@ if ( ! class_exists( 'ElementorController' ) ):
 
 		public function el_editor_script() {
 			wp_enqueue_script( 'tgp-el-editor-scripts', rtTPG()->get_assets_uri( 'js/tpg-el-editor.js' ), [ 'jquery' ], $this->version, true );
-			wp_enqueue_style( 'tgp-el-editor-style', rtTPG()->get_assets_uri( 'css/tpg-el-editor.css' ), [], $this->version );
+			wp_enqueue_style( 'tgp-el-editor-style', rtTPG()->get_assets_uri( 'css/admin/tpg-el-editor.css' ), [], $this->version );
 		}
 
 		public function editor_style() {

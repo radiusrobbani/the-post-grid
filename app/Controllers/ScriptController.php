@@ -12,6 +12,7 @@ class ScriptController {
 		add_action( 'wp_head', [ &$this, 'header_scripts' ] );
 		add_action( 'wp_enqueue_scripts', [ &$this, 'enqueue' ] );
 		add_action( 'init', [ $this, 'init' ] );
+
 	}
 
 	public function init() {
@@ -25,17 +26,9 @@ class ScriptController {
 		}
 
 		// register scripts
-		$scripts   = [];
-		$styles    = [];
+		$scripts = [];
+		$styles  = [];
 
-        /*
-		$scripts[] = [
-			'handle' => 'imagesloaded',
-			'src'    => rtTPG()->get_assets_uri( "vendor/isotope/imagesloaded.pkgd.min.js" ),
-			'deps'   => [ 'jquery' ],
-			'footer' => true,
-		];
-        */
 
 		$scripts[] = [
 			'handle' => 'rt-isotope-js',
@@ -53,17 +46,12 @@ class ScriptController {
 
 		// register acf styles
 		$styles['rt-fontawsome'] = rtTPG()->get_assets_uri( 'vendor/font-awesome/css/font-awesome.min.css' );
-		$styles['rt-tpg-common'] = rtTPG()->tpg_can_be_rtl( 'css/rt-tpg-common' );
 
-		$block_type = isset( $this->settings['tpg_block_type'] ) ? $this->settings['tpg_block_type'] : '';
 
-		if ( in_array( $block_type, [ 'default', 'elementor' ] ) ) {
-			$styles['rt-tpg-elementor'] = rtTPG()->tpg_can_be_rtl( 'css/tpg-elementor' );
-		}
-
-		if ( in_array( $block_type, [ 'default', 'shortcode' ] ) ) {
-			$styles['rt-tpg'] = rtTPG()->tpg_can_be_rtl( 'css/thepostgrid' );
-		}
+		//Plugin specific css
+		$styles['rt-tpg']           = rtTPG()->tpg_can_be_rtl( 'css/thepostgrid' );
+		$styles['rt-tpg-elementor'] = rtTPG()->tpg_can_be_rtl( 'css/tpg-elementor' );
+		$styles['rt-tpg-shortcode'] = rtTPG()->tpg_can_be_rtl( 'css/tpg-shortcode' );
 
 
 		if ( is_admin() ) {
@@ -86,8 +74,8 @@ class ScriptController {
 				'footer' => true,
 			];
 			$styles['rt-select2']           = rtTPG()->get_assets_uri( 'vendor/select2/select2.min.css' );
-			$styles['rt-tpg-admin']         = rtTPG()->get_assets_uri( 'css/admin.css' );
-			$styles['rt-tpg-admin-preview'] = rtTPG()->get_assets_uri( 'css/admin-preview.css' );
+			$styles['rt-tpg-admin']         = rtTPG()->get_assets_uri( 'css/admin/admin.css' );
+			$styles['rt-tpg-admin-preview'] = rtTPG()->get_assets_uri( 'css/admin/admin-preview.css' );
 		}
 
 		foreach ( $scripts as $script ) {
@@ -100,11 +88,25 @@ class ScriptController {
 	}
 
 	public function enqueue() {
-		if ( ! isset( $this->settings['tpg_load_script'] ) ) {
+		$block_type = isset( $this->settings['tpg_block_type'] ) ? $this->settings['tpg_block_type'] : 'default';
+
+        if ( ! isset( $this->settings['tpg_load_script'] ) ) {
+
 			wp_enqueue_style( 'rt-fontawsome' );
-			wp_enqueue_style( 'rt-tpg-common' );
-			wp_enqueue_style( 'rt-tpg-elementor' );
-			wp_enqueue_style( 'rt-tpg' );
+
+
+			if ( 'default' == $block_type ) {
+				wp_enqueue_style( 'rt-tpg' );
+			}
+
+			if ( 'elementor' == $block_type ) {
+				wp_enqueue_style( 'rt-tpg-elementor' );
+			}
+
+			if ( 'shortcode' == $block_type ) {
+				wp_enqueue_style( 'rt-tpg-shortcode' );
+			}
+
 		}
 		$scriptBefore = isset( $this->settings['script_before_item_load'] ) ? stripslashes( $this->settings['script_before_item_load'] ) : null;
 		$scriptAfter  = isset( $this->settings['script_after_item_load'] ) ? stripslashes( $this->settings['script_after_item_load'] ) : null;
@@ -145,6 +147,7 @@ class ScriptController {
                 .rt-container-fluid {
                     position: relative;
                 }
+
                 .rt-tpg-container .tpg-pre-loader {
                     position: relative;
                     overflow: hidden;
@@ -244,6 +247,7 @@ class ScriptController {
                 .rt-tpg-container > *:not(.bottom-script-loader, .slider-main-wrapper) {
                     opacity: 0;
                 }
+
                 .rt-popup-content .rt-tpg-container > *:not(.bottom-script-loader, .slider-main-wrapper) {
                     opacity: 1;
                 }

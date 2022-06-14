@@ -1,5 +1,4 @@
-@import url('rt-tpg-common.css');
-@import url('thepostgrid.css');
+@import url('../tpg-shortcode.min.css');
 @import url(https://fonts.googleapis.com/css?family=Open+Sans);
 #tpg-preview-container .rt-tpg-utility .rt-tgp-load-more button {
     border: 0;
