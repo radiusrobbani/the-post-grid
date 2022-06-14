@@ -46,11 +46,6 @@ class TPGListLayoutArchive extends Custom_Widget_Base {
 		if ( isset( $settings['tpg_load_script'] ) ) {
 			array_push( $style, 'rt-fontawsome' );
 			array_push( $style, 'rt-tpg-elementor' );
-
-			if ( rtTPG()->hasPro() ) {
-				array_push( $style, 'rt-tpg-common-pro' );
-				array_push( $style, 'rt-tpg-elementor-pro' );
-			}
 		}
 
 		return $style;

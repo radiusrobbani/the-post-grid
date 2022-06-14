@@ -91,22 +91,16 @@ class ScriptController {
 		$block_type = isset( $this->settings['tpg_block_type'] ) ? $this->settings['tpg_block_type'] : 'default';
 
         if ( ! isset( $this->settings['tpg_load_script'] ) ) {
-
 			wp_enqueue_style( 'rt-fontawsome' );
-
-
 			if ( 'default' == $block_type ) {
 				wp_enqueue_style( 'rt-tpg' );
 			}
-
 			if ( 'elementor' == $block_type ) {
 				wp_enqueue_style( 'rt-tpg-elementor' );
 			}
-
 			if ( 'shortcode' == $block_type ) {
 				wp_enqueue_style( 'rt-tpg-shortcode' );
 			}
-
 		}
 		$scriptBefore = isset( $this->settings['script_before_item_load'] ) ? stripslashes( $this->settings['script_before_item_load'] ) : null;
 		$scriptAfter  = isset( $this->settings['script_after_item_load'] ) ? stripslashes( $this->settings['script_after_item_load'] ) : null;

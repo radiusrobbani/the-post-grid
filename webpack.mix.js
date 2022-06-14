@@ -59,18 +59,15 @@ if ( process.env.NODE_ENV === 'package' ) {
 }
 
 if ( process.env.NODE_ENV === 'development' || process.env.NODE_ENV === 'production' ) {
-
     mix.sass( 'src/scss/thepostgrid.scss', 'assets/css/thepostgrid.min.css' )
     mix.sass( 'src/scss/tpg-elementor.scss', 'assets/css/tpg-elementor.min.css' )
     mix.sass( 'src/scss/tpg-shortcode.scss', 'assets/css/tpg-shortcode.min.css' )
-
         .options( {
             terser: {
                 extractComments: false
             },
             processCssUrls: false
         } )
-
         .webpackConfig( {
             plugins: [
                 new WebpackRTLPlugin( {
@@ -79,6 +76,5 @@ if ( process.env.NODE_ENV === 'development' || process.env.NODE_ENV === 'product
                 } )
             ],
         } )
-
 }
 

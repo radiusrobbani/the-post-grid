@@ -482,9 +482,9 @@ class ShortcodeController {
 			}
 
 			$carousel_nav = ! empty( $scMeta['carousel_property'] ) ? $scMeta['carousel_property'] : [];
-			$is_nav = in_array( 'nav_button', $carousel_nav );
+			$is_nav       = in_array( 'nav_button', $carousel_nav );
 
-			if($isCarousel && $is_nav) {
+			if ( $isCarousel && $is_nav ) {
 				$parentClass .= ' tpg-has-nav';
 			}
 			$html .= "<div class='rt-container-fluid rt-tpg-container tpg-shortcode-main-wrapper {$parentClass}' id='{$layoutID}' {$dataArchive} {$containerDataAttr}>";
@@ -1057,19 +1057,8 @@ class ShortcodeController {
 			$script = [];
 			$style  = [];
 
-
 			array_push( $script, 'jquery' );
-
-
 			array_push( $style, 'rt-fontawsome' );
-
-
-			if ( rtTPG()->hasPro() ) {
-				array_push( $style, 'rt-tpg-pro' );
-				array_push( $style, 'rt-tpg-common-pro' );
-
-			}
-
 			if ( 'masonry' == $gridType || $isIsotope ) {
 				array_push( $script, 'rt-isotope-js' );
 			}
@@ -1078,34 +1067,28 @@ class ShortcodeController {
 
 			//Pro Scripts and Styles
 			if ( rtTPG()->hasPro() ) {
-
 				if ( $isCarousel ) {
 					array_push( $style, 'swiper' );
 					array_push( $script, 'swiper' );
 				}
-
 				if ( isset( $posts_loading_type ) && 'pagination_ajax' == $posts_loading_type ) {
 					array_push( $script, 'rt-pagination' );
 				}
-
 				// var_dump( $linkType );
-
 				if ( 'popup' == $linkType ) {
 					array_push( $style, 'rt-magnific-popup' );
 					array_push( $style, 'rt-scrollbar' );
 					array_push( $script, 'rt-scrollbar' );
 					array_push( $script, 'rt-magnific-popup' );
 				}
-
 				if ( class_exists( 'WooCommerce' ) ) {
 					array_push( $script, 'rt-jzoom' );
 				}
-				array_push( $style, 'rt-tpg-shortcode' );
-
 
 				array_push( $script, 'rt-tpg-pro' );
-
 			}
+
+			array_push( $style, 'rt-tpg-shortcode' );
 
 			if ( isset( $settings['tpg_load_script'] ) ) {
 				wp_enqueue_style( $style );
