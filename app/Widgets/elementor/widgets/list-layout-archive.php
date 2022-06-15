@@ -33,6 +33,7 @@ class TPGListLayoutArchive extends Custom_Widget_Base {
 
 	public function get_script_depends() {
 		$scripts = [];
+		array_push( $scripts, 'imagesloaded' );
 		array_push( $scripts, 'rt-tpg' );
 		array_push( $scripts, 'rt-tpg-el-pro' );
 
@@ -162,10 +163,8 @@ class TPGListLayoutArchive extends Custom_Widget_Base {
 		}
 
 		if ( 'masonry' === $data['list_layout_style'] ) {
-			wp_enqueue_script( 'imagesloaded' );
 			wp_enqueue_script( 'isotope' );
 			wp_enqueue_script( 'jquery-masonry' );
-			wp_enqueue_script( 'imagesloaded' );
 		}
 
 		if ( 'show' == $data['show_pagination'] && 'pagination_ajax' == $data['pagination_type'] ) {

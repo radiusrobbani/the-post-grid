@@ -12,6 +12,7 @@ class Install {
 	}
 
 	public static function deactivate() {
+		update_option( 'tpg_flush_rewrite_rules', 0 );
 	}
 
 	public static function insertDefaultData() {

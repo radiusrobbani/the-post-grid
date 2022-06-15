@@ -245,7 +245,7 @@ ul#order-target li.placeholder {
 }
 
 .rt-loading {
-    background: url('../images/loading.gif') no-repeat center center;
+    background: url('../../images/loading.gif') no-repeat center center;
     padding: 11px;
 }
 

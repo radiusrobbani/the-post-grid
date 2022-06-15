@@ -88,9 +88,10 @@ class ScriptController {
 	}
 
 	public function enqueue() {
+		wp_enqueue_script( 'jquery' );
 		$block_type = isset( $this->settings['tpg_block_type'] ) ? $this->settings['tpg_block_type'] : 'default';
 
-        if ( ! isset( $this->settings['tpg_load_script'] ) ) {
+		if ( ! isset( $this->settings['tpg_load_script'] ) ) {
 			wp_enqueue_style( 'rt-fontawsome' );
 			if ( 'default' == $block_type ) {
 				wp_enqueue_style( 'rt-tpg' );
@@ -251,7 +252,9 @@ class ScriptController {
 
             <script>
                 jQuery( document ).ready( function () {
-                    jQuery( '.rt-tpg-container > *:not(.bottom-script-loader, .slider-main-wrapper)' ).animate( { "opacity": 1 } );
+                    setTimeout( function () {
+                        jQuery( '.rt-tpg-container > *:not(.bottom-script-loader, .slider-main-wrapper)' ).animate( { "opacity": 1 } );
+                    }, 100 );
                 } );
 
                 jQuery( window ).on( 'elementor/frontend/init', function () {

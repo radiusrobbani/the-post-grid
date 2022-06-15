@@ -6,7 +6,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2022-06-14 08:01+0000\n"
+"POT-Creation-Date: 2022-06-15 06:13+0000\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-KeywordsList: __;_e;_ex:1,2c;_n:1,2;_n_noop:1,2;_nx:1,2,4c;_nx_noop:1,2,3c;_x:1,2c;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c\n"
 "X-Poedit-SearchPath-0: .\n"
@@ -66,7 +66,7 @@ msgstr ""
 msgid "TPG - Slider Layout"
 msgstr ""
 
-#: ../app/Controllers/ShortcodeController.php:1118
+#: ../app/Controllers/ShortcodeController.php:1100
 msgid "No shortCode found"
 msgstr ""
 
@@ -98,7 +98,7 @@ msgstr ""
 msgid "Loading ..."
 msgstr ""
 
-#: ../app/Controllers/ShortcodeController.php:789, ../app/Controllers/Admin/AdminAjaxController.php:952, ../app/Widgets/elementor/widgets/grid-hover-layout-archive.php:262, ../app/Widgets/elementor/widgets/grid-hover-layout.php:267, ../app/Widgets/elementor/widgets/grid-layout-archive.php:263, ../app/Widgets/elementor/widgets/grid-layout.php:277, ../app/Widgets/elementor/widgets/list-layout-archive.php:263, ../app/Widgets/elementor/widgets/list-layout.php:269, ../app/Widgets/elementor/widgets/slider-layout-archive.php:326, ../app/Widgets/elementor/widgets/slider-layout-archive.php:387, ../app/Widgets/elementor/widgets/slider-layout.php:317, ../app/Widgets/elementor/widgets/slider-layout.php:377
+#: ../app/Controllers/ShortcodeController.php:789, ../app/Controllers/Admin/AdminAjaxController.php:952, ../app/Widgets/elementor/widgets/grid-hover-layout-archive.php:256, ../app/Widgets/elementor/widgets/grid-hover-layout.php:261, ../app/Widgets/elementor/widgets/grid-layout-archive.php:257, ../app/Widgets/elementor/widgets/grid-layout.php:271, ../app/Widgets/elementor/widgets/list-layout-archive.php:257, ../app/Widgets/elementor/widgets/list-layout.php:263, ../app/Widgets/elementor/widgets/slider-layout-archive.php:323, ../app/Widgets/elementor/widgets/slider-layout-archive.php:384, ../app/Widgets/elementor/widgets/slider-layout.php:314, ../app/Widgets/elementor/widgets/slider-layout.php:374
 msgid "No post found"
 msgstr ""
 
@@ -110,11 +110,11 @@ msgstr ""
 msgid "Load More"
 msgstr ""
 
-#: ../app/Controllers/ShortcodeController.php:1137
+#: ../app/Controllers/ShortcodeController.php:1119
 msgid "This is a restricted content, you need to logged in to view this content."
 msgstr ""
 
-#: ../app/Controllers/ShortcodeController.php:1132
+#: ../app/Controllers/ShortcodeController.php:1114
 msgid "You are not permitted to view this content."
 msgstr ""
 
@@ -2863,7 +2863,7 @@ msgstr ""
 msgid "TPG - Related Post"
 msgstr ""
 
-#: ../app/Widgets/elementor/widgets/related-post.php:158, ../app/Widgets/elementor/widgets/slider-layout-archive.php:158, ../app/Widgets/elementor/widgets/slider-layout.php:157
+#: ../app/Widgets/elementor/widgets/related-post.php:152, ../app/Widgets/elementor/widgets/slider-layout-archive.php:155, ../app/Widgets/elementor/widgets/slider-layout.php:154
 msgid "Please upgrade to pro for slider layout!"
 msgstr ""
 

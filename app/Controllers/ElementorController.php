@@ -105,7 +105,7 @@ if ( ! class_exists( 'ElementorController' ) ):
 
 		public function widget_category( $elements_manager ) {
 			$categories['tpg-elementor-builder-widgets'] = [
-				'title' => __( 'TPG Archive Builder Element', 'the-post-grid' ),
+				'title' => __( 'TPG Template Builder Element', 'the-post-grid' ),
 				'icon'  => 'fa fa-plug',
 			];
 

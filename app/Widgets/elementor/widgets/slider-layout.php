@@ -49,7 +49,6 @@ class TPGSliderLayout extends Custom_Widget_Base {
 			array_push( $style, 'rt-fontawsome' );
 			array_push( $style, 'rt-tpg-elementor' );
 			array_push( $style, 'swiper' );
-
 		}
 
 		return $style;

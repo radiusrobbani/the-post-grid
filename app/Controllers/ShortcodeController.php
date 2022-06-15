@@ -1067,28 +1067,38 @@ class ShortcodeController {
 
 			//Pro Scripts and Styles
 			if ( rtTPG()->hasPro() ) {
-				if ( $isCarousel ) {
-					array_push( $style, 'swiper' );
-					array_push( $script, 'swiper' );
-				}
+
+
 				if ( isset( $posts_loading_type ) && 'pagination_ajax' == $posts_loading_type ) {
 					array_push( $script, 'rt-pagination' );
 				}
-				// var_dump( $linkType );
-				if ( 'popup' == $linkType ) {
-					array_push( $style, 'rt-magnific-popup' );
-					array_push( $style, 'rt-scrollbar' );
-					array_push( $script, 'rt-scrollbar' );
+
+				if ( $layout == 'layout17' || 'popup' == $linkType ) {
 					array_push( $script, 'rt-magnific-popup' );
 				}
+
+				// var_dump( $linkType );
+				if ( 'popup' == $linkType ) {
+					array_push( $style, 'rt-scrollbar' );
+					array_push( $script, 'rt-scrollbar' );
+				}
+
 				if ( class_exists( 'WooCommerce' ) ) {
 					array_push( $script, 'rt-jzoom' );
 				}
 
-				array_push( $script, 'rt-tpg-pro' );
 			}
 
 			array_push( $style, 'rt-tpg-shortcode' );
+
+			if ( $isCarousel && rtTPG()->hasPro() ) {
+				array_push( $style, 'swiper' );
+				array_push( $script, 'swiper' );
+			}
+
+			if ( rtTPG()->hasPro() ) {
+				array_push( $script, 'rt-tpg-pro' );
+			}
 
 			if ( isset( $settings['tpg_load_script'] ) ) {
 				wp_enqueue_style( $style );

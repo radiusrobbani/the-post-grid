@@ -34,6 +34,7 @@ class TPGGridLayout extends Custom_Widget_Base {
 	public function get_script_depends() {
 		$scripts = [];
 
+		array_push( $scripts, 'imagesloaded' );
 		array_push( $scripts, 'rt-tpg' );
 		array_push( $scripts, 'rt-tpg-el-pro' );
 
@@ -161,11 +162,13 @@ class TPGGridLayout extends Custom_Widget_Base {
 			add_action( 'wp_footer', [ $this, 'get_modal_markup' ] );
 		}
 
+        if('button' == $data['filter_type'] && 'carousel' == $data['filter_btn_style']){
+		    wp_enqueue_script('swiper');
+        }
+
 		if ( 'masonry' === $data['grid_layout_style'] ) {
-			wp_enqueue_script( 'imagesloaded' );
 			wp_enqueue_script( 'rt-isotope-js' );
 			wp_enqueue_script( 'jquery-masonry' );
-			wp_enqueue_script( 'imagesloaded' );
 		}
 
 		if ( 'show' == $data['show_pagination'] && 'pagination_ajax' == $data['pagination_type'] ) {

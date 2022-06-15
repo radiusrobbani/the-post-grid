@@ -32,6 +32,7 @@ class TPGGridHoverLayout extends Custom_Widget_Base {
 
 	public function get_script_depends() {
 		$scripts = [];
+		array_push( $scripts, 'imagesloaded' );
 		array_push( $scripts, 'rt-tpg' );
 		array_push( $scripts, 'rt-tpg-el-pro' );
 
