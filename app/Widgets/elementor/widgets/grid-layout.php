@@ -162,7 +162,7 @@ class TPGGridLayout extends Custom_Widget_Base {
 			add_action( 'wp_footer', [ $this, 'get_modal_markup' ] );
 		}
 
-        if('button' == $data['filter_type'] && 'carousel' == $data['filter_btn_style']){
+        if(rtTPG()->hasPro() && 'button' == $data['filter_type'] && 'carousel' == $data['filter_btn_style']){
 		    wp_enqueue_script('swiper');
         }
 

@@ -164,6 +164,10 @@ class TPGGridHoverLayout extends Custom_Widget_Base {
 			add_action( 'wp_footer', [ $this, 'get_modal_markup' ] );
 		}
 
+		if(rtTPG()->hasPro() && 'button' == $data['filter_type'] && 'carousel' == $data['filter_btn_style']){
+			wp_enqueue_script('swiper');
+		}
+
 		if ( 'show' == $data['show_pagination'] && 'pagination_ajax' == $data['pagination_type'] ) {
 			wp_enqueue_script( 'rt-pagination' );
 		}

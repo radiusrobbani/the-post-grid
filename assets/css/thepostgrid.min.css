@@ -1,9 +1,6 @@
-/***********************************************************************/
-/**************************** The Post Grid ****************************/
-/********************** support@radiustheme.com ************************/
-/*************************** Common Style ******************************/
-/***********************************************************************/
-/***************************** Common Grid Style ******************************/
+/****************************
+Common CSS Free
+****************************/
 body .tpg-el-main-wrapper .rt-grid-item {
   padding: 0 15px;
 }
@@ -231,9 +228,9 @@ a:link, a:visited {
   list-style-position: inside;
 }
 
-/**********************************************************************/
-/********************************* Media Query *************************/
-/**********************************************************************/
+/***************************
+## Media Query
+*************************/
 @media (min-width: 992px) {
   .rt-container {
     width: 970px;
@@ -387,9 +384,9 @@ a:link, a:visited {
     width: 8.33333333%;
   }
 }
-/***************************************
+/**************************
 Pagination Style
-**************************************/
+***************************/
 .paginationjs {
   line-height: 1.6;
   font-family: Marmelad, "Lucida Grande", Arial, "Hiragino Sans GB", Georgia, sans-serif;
@@ -796,7 +793,9 @@ Pagination Style
   display: none !important;
 }
 
-/************************ Common ***************************/
+/************************
+## Common
+*************************/
 .rt-tpg-container button {
   border: none;
   padding: 10px 15px;
@@ -909,9 +908,9 @@ span.more-loading {
   margin-bottom: 10px;
 }
 
-/***************************************************
-Isotope Buttons
-****************************************************/
+/****************************
+## Isotope Buttons
+*****************************/
 .rt-tpg-container .tpg-iso-filter {
   text-align: center;
   margin: 15px 0 45px;
@@ -953,9 +952,9 @@ Isotope Buttons
   text-shadow: none !important;
 }
 
-/**********************************
-Ajax Loader
-*************************************/
+/****************************
+## Ajax Loader
+*****************************/
 .rt-tpg-container .tpg-pre-loader {
   position: relative;
   overflow: hidden;
@@ -1028,9 +1027,9 @@ Ajax Loader
   animation: ball-clip-rotate 0.75s linear infinite;
 }
 
-/****************************************
-Filter
-*****************************************/
+/****************************
+## Filter
+*****************************/
 .rt-layout-filter-container.rt-clear:after {
   clear: both;
   display: block;
@@ -1525,7 +1524,7 @@ Filter
   }
 }
 /***************************
-Tooltip Style
+## Tooltip Style
 ****************************/
 .rt-tpg-social-share.a {
   position: relative;
@@ -1581,9 +1580,9 @@ body > .rt-tooltip .rt-tooltip-bottom:after {
   tranform: rotate(45deg);
 }
 
-/******************************************
-Common Layout Style
-********************************************/
+/****************************
+## Common Layout Style
+****************************/
 .rt-tpg-container .rt-holder .rt-img-holder {
   position: relative;
   overflow: hidden;
@@ -1910,9 +1909,9 @@ TPG EVEN Style
     flex-direction: column;
   }
 }
-/**********************************************************************/
-/********************************* pagination *************************/
-/**********************************************************************/
+/****************************
+## pagination
+*****************************/
 .rt-tpg-container .rt-pagination-wrap .rt-cb-page-prev-next > * {
   margin-left: 1px;
   margin-right: 1px;
@@ -2360,12 +2359,12 @@ TPG EVEN Style
   color: red;
 }
 
-/**********************************************************************/
-/************************* The Post Grid **************************/
-/********************** support@radiustheme.com ***********************/
-/************ Copyright @ 2015-2017, RadiusTheme.com ******************/
-/**********************************************************************/
-/************************ Common ***************************/
+/*************************
+## Shortcode CSS - Free
+**************************/
+/************************
+## Shortcode Common
+***************************/
 .tpg-shortcode-main-wrapper .masonry-grid-item,
 .tpg-shortcode-main-wrapper .even-grid-item {
   margin-bottom: 30px;
@@ -2453,9 +2452,9 @@ TPG EVEN Style
   padding: 0;
 }
 
-/*********************************************************************
-/********************************* Layout 1  *************************/
-/**********************************************************************/
+/************************
+## Layout 1
+*************************/
 .tpg-shortcode-main-wrapper .layout1 .rt-holder .rt-img-holder,
 .tpg-shortcode-main-wrapper .isotope1 .rt-holder .rt-img-holder,
 .tpg-shortcode-main-wrapper .carousel1 .rt-holder .rt-img-holder {
@@ -2571,9 +2570,7 @@ TPG EVEN Style
   border-radius: 50% !important;
 }
 
-/**********************************************************************/
-/********************************* Layout 2   *************************/
-/**********************************************************************/
+/********************** Layout 2   ******************/
 .tpg-shortcode-main-wrapper .layout2 .rt-holder .rt-img-holder {
   position: relative;
   overflow: hidden;
@@ -2643,9 +2640,7 @@ TPG EVEN Style
     padding: 15px 0;
   }
 }
-/**********************************************************************/
-/********************************* Layout 3  *************************/
-/**********************************************************************/
+/*************************** Layout 3  *************************/
 .tpg-shortcode-main-wrapper .layout3 .rt-holder .rt-detail p {
   margin-bottom: 20px;
 }
@@ -2699,9 +2694,7 @@ TPG EVEN Style
   margin-bottom: 15px;
 }
 
-/**********************************************************************/
-/********************************* Layout 5  *************************/
-/**********************************************************************/
+/**************************** Layout 5  *************************/
 .tpg-shortcode-main-wrapper .layout5 .rt-holder,
 .tpg-shortcode-main-wrapper .isotope2 .rt-holder,
 .tpg-shortcode-main-wrapper .carousel2 .rt-holder,
@@ -2865,9 +2858,7 @@ TPG EVEN Style
      object-fit: cover;
 }
 
-/**********************************************************************/
-/********************************* Layout 6  *************************/
-/**********************************************************************/
+/**************************** Layout 6  *************************/
 .tpg-shortcode-main-wrapper .layout6 .rt-holder,
 .tpg-shortcode-main-wrapper .isotope3 .rt-holder,
 .tpg-shortcode-main-wrapper .carousel3 .rt-holder {
@@ -2994,9 +2985,7 @@ TPG EVEN Style
   opacity: 1;
 }
 
-/**********************************************************************/
-/********************************* Layout 7 *************************/
-/**********************************************************************/
+/**************************** Layout 7 *************************/
 .tpg-shortcode-main-wrapper .layout7 .rt-holder,
 .tpg-shortcode-main-wrapper .isotope4 .rt-holder,
 .tpg-shortcode-main-wrapper .carousel4 .rt-holder {
@@ -3212,9 +3201,7 @@ TPG EVEN Style
   transition: 0.4s;
 }
 
-/**********************************************************************/
-/********************************* Layout 12 *************************/
-/**********************************************************************/
+/**************************** Layout 12 *************************/
 .tpg-shortcode-main-wrapper .layout12 .rt-holder,
 .tpg-shortcode-main-wrapper .isotope8 .rt-holder,
 .tpg-shortcode-main-wrapper .carousel8 .rt-holder {
@@ -3364,9 +3351,7 @@ TPG EVEN Style
   color: #fff !important;
 }
 
-/**********************************************************************/
-/********************************* Media Query *************************/
-/**********************************************************************/
+/**************************** Media Query *************************/
 @media (min-width: 992px) {
   .rt-container {
     width: 970px;
@@ -3520,10 +3505,7 @@ TPG EVEN Style
     width: 8.33333333%;
   }
 }
-/**********************************************************************/
-/**************************** End Media Query *************************/
-/**********************************************************************/
-/*--------- Settings Style -----------*/
+/**************************** Settings Style *************************/
 /*Image ZoomIn Effect*/
 .rt-img-holder {
   overflow: hidden;
@@ -3656,8 +3638,9 @@ TPG EVEN Style
   overflow: hidden;
 }
 
-/************************* The Post Grid **************************/
-/*Elementor CSS */
+/*************************
+## Elementor Css - Free
+**************************/
 .tpg-even.grid-behaviour {
   align-items: flex-start;
 }
