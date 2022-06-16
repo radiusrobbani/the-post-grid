@@ -484,9 +484,23 @@ class ShortcodeController {
 			$carousel_nav = ! empty( $scMeta['carousel_property'] ) ? $scMeta['carousel_property'] : [];
 			$is_nav       = in_array( 'nav_button', $carousel_nav );
 
-			if ( $isCarousel && $is_nav ) {
-				$parentClass .= ' tpg-has-nav';
+
+			if ( $isCarousel ) {
+				$parentClass .= ' tpg-carousel-main';
+				if ( $is_nav ) {
+					$parentClass .= ' tpg-has-nav';
+				}
+				$cOptMeta     = ! empty( $scMeta['carousel_property'] ) ? $scMeta['carousel_property'] : [];
+
+				if ( in_array( 'lazy_load', $cOptMeta ) ) {
+					$parentClass .= ' is-lazy-load-yes';
+				}
+
+				if ( in_array( 'auto_height', $cOptMeta ) ) {
+					$parentClass .= ' is-auto-height-yes';
+				}
 			}
+
 			$html .= "<div class='rt-container-fluid rt-tpg-container tpg-shortcode-main-wrapper {$parentClass}' id='{$layoutID}' {$dataArchive} {$containerDataAttr}>";
 
 			// widget heading
@@ -790,6 +804,7 @@ class ShortcodeController {
 
 
 			if ( $gridQuery->have_posts() ) {
+				$is_lazy_load = '';
 				if ( $isCarousel ) {
 					$cOpt              = ! empty( $scMeta['carousel_property'] ) ? $scMeta['carousel_property'] : [];
 					$slider_js_options = apply_filters( 'rttpg_slider_js_options', [
@@ -800,7 +815,7 @@ class ShortcodeController {
 						"nav"             => in_array( 'nav_button', $cOpt ),
 						"dots"            => in_array( 'pagination', $cOpt ),
 						"loop"            => in_array( 'loop', $cOpt ),
-						"lazyLoad"        => in_array( 'lazyLoad', $cOpt ),
+						"lazy"            => in_array( 'lazy_load', $cOpt ),
 						"autoHeight"      => in_array( 'auto_height', $cOpt ),
 						"rtl"             => in_array( 'rtl', $cOpt ) ? 'rtl' : 'ltr',
 					], $scMeta );
@@ -808,6 +823,10 @@ class ShortcodeController {
 						htmlspecialchars( wp_json_encode( $slider_js_options ) ),
 						$slider_js_options['rtl']
 					);
+
+					if ( in_array( 'lazy_load', $cOpt ) ) {
+						$is_lazy_load = 'swiper-lazy';
+					}
 
 				}
 				$isotope_filter = null;
@@ -926,10 +945,12 @@ class ShortcodeController {
 					} else {
 						$arg['comment'] = "{$comments_text}";
 					}
-					$imgSrc             = null;
+					$imgSrc = null;
+
+					//TODO: Image Thumbnail
+
 					$arg['smallImgSrc'] = ! $fImg ? Fns::getFeatureImageSrc( $pID, $fSmallImgSize, $mediaSource,
-						$defaultImgId,
-						$customSmallImgSize ) : null;
+						$defaultImgId, $customSmallImgSize, $is_lazy_load ) : null;
 					if ( $isOffset ) {
 						if ( $offLoop == 0 ) {
 							$arg['imgSrc'] = ! $fImg ? Fns::getFeatureImageSrc( $pID, $fImgSize, $mediaSource,
@@ -949,7 +970,7 @@ class ShortcodeController {
 					} else {
 						$arg['imgSrc'] = ! $fImg ? Fns::getFeatureImageSrc( $pID, $fImgSize, $mediaSource,
 							$defaultImgId,
-							$customImgSize ) : null;
+							$customImgSize, $is_lazy_load ) : null;
 						$html          .= Fns::get_template_html( 'layouts/' . $layout, $arg );
 					}
 					$offLoop ++;

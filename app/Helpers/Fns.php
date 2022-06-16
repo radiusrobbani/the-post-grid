@@ -714,9 +714,9 @@ class Fns {
 			if ( $w && $h ) {
 				$imgSrc = Fns::rtImageReSize( $imgSrc, $w, $h, $c );
 				if ( $img_Class !== 'swiper-lazy' ) {
-					$image = "<img class='{$img_class}' src='{$imgSrc}' width='{$w}' height='{$h}' alt='{$alt}'>";
+					$image = "<img class='{$img_class}' src='{$imgSrc}' width='{$w}' height='{$h}' alt='{$alt}'/>";
 				} else {
-					$image = "<img class='{$img_class}' data-src='{$imgSrc}'>";
+					$image = "<img class='{$img_class} img-responsive' data-src='{$imgSrc}' src='#none' width='{$w}' height='{$h}' alt='{$alt}'/><div class='lazy-overlay-wrap'><div class='swiper-lazy-preloader swiper-lazy-preloader-white'></div></div>";
 				}
 			}
 		}
@@ -778,7 +778,7 @@ class Fns {
 			} else {
 				$defaultExcerpt = get_the_excerpt( $post_id );
 			}
-			$limit   = isset( $data['excerpt_limit'] ) ? abs( $data['excerpt_limit'] ) : 0;
+			$limit   = isset( $data['excerpt_limit'] ) && $data['excerpt_limit'] ? abs( $data['excerpt_limit'] ) : 0;
 			$more    = $data['excerpt_more_text'];
 			$excerpt = preg_replace( '`\[[^\]]*\]`', '', $defaultExcerpt );
 			$excerpt = strip_shortcodes( $excerpt );

@@ -7050,9 +7050,9 @@ class rtTPGElementorHelper {
 				'return_value' => 'yes',
 				'default'      => false,
 				'prefix_class' => 'is-lazy-load-',
-				'condition'    => [
-					$prefix . '_layout!' => [ 'slider-layout11', 'slider-layout12' ],
-				],
+				// 'condition'    => [
+				// 	$prefix . '_layout!' => [ 'slider-layout11', 'slider-layout12' ],
+				// ],
 			]
 		);
 

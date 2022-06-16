@@ -177,6 +177,10 @@ class ScriptController {
                     visibility: visible;
                 }
 
+                .tpg-carousel-main .tpg-pre-loader .rt-loading-overlay {
+                    opacity: 1;
+                }
+
                 .rt-tpg-container .tpg-pre-loader .rt-loading {
                     opacity: 1;
                     visibility: visible;
