@@ -661,7 +661,7 @@ class Fns {
 		$imgSrc    = null;
 		$img_class = "rt-img-responsive ";
 		if ( $img_Class ) {
-			$img_class = $img_Class;
+			$img_class .= $img_Class;
 		}
 		$post_id = ( $post_id ? absint( $post_id ) : $post->ID );
 		$alt     = get_the_title( $post_id );
@@ -676,6 +676,9 @@ class Fns {
 			if ( $aID = get_post_thumbnail_id( $post_id ) ) {
 				$image  = wp_get_attachment_image( $aID, $fImgSize, '', [ 'class' => $img_class, 'loading' => false ] );
 				$imgSrc = wp_get_attachment_image_src( $aID, $fImgSize );
+				if ( ! empty( $imgSrc ) && $img_Class == 'swiper-lazy' ) {
+					$image = "<img class='{$img_class}' data-src='{$imgSrc[0]}' src='#none' width='{$imgSrc[1]}' height='{$imgSrc[2]}' alt='{$alt}'/><div class='lazy-overlay-wrap'><div class='swiper-lazy-preloader swiper-lazy-preloader-white'></div></div>";
+				}
 				$imgSrc = ! empty( $imgSrc ) ? $imgSrc[0] : $imgSrc;
 			}
 		} elseif ( $mediaSource == 'first_image' ) {
@@ -700,6 +703,9 @@ class Fns {
 				}
 
 				$image = "<img class='{$img_class}' src='{$imgSrc}' {$size} alt='{$alt}'>";
+				if ( $img_Class == 'swiper-lazy' ) {
+					$image = "<img class='{$img_class} img-responsive' data-src='{$imgSrc}' src='#none' {$size} alt='{$alt}'/><div class='lazy-overlay-wrap'><div class='swiper-lazy-preloader swiper-lazy-preloader-white'></div></div>";
+				}
 			}
 		}
 
@@ -720,6 +726,7 @@ class Fns {
 				}
 			}
 		}
+
 
 		return $image;
 	}

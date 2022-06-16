@@ -6,7 +6,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2022-06-16 04:00+0000\n"
+"POT-Creation-Date: 2022-06-16 07:49+0000\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-KeywordsList: __;_e;_ex:1,2c;_n:1,2;_n_noop:1,2;_nx:1,2,4c;_nx_noop:1,2,3c;_x:1,2c;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c\n"
 "X-Poedit-SearchPath-0: .\n"
@@ -66,7 +66,7 @@ msgstr ""
 msgid "TPG - Slider Layout"
 msgstr ""
 
-#: ../app/Controllers/ShortcodeController.php:1110
+#: ../app/Controllers/ShortcodeController.php:1131
 msgid "No shortCode found"
 msgstr ""
 
@@ -78,43 +78,43 @@ msgstr ""
 msgid "Show all"
 msgstr ""
 
-#: ../app/Controllers/ShortcodeController.php:516, ../app/Controllers/Admin/AdminAjaxController.php:467
+#: ../app/Controllers/ShortcodeController.php:530, ../app/Controllers/Admin/AdminAjaxController.php:467
 msgid "All"
 msgstr ""
 
-#: ../app/Controllers/ShortcodeController.php:737, ../app/Controllers/Admin/AdminAjaxController.php:691, ../app/Widgets/elementor/base.php:632
+#: ../app/Controllers/ShortcodeController.php:751, ../app/Controllers/Admin/AdminAjaxController.php:691, ../app/Widgets/elementor/base.php:632
 msgid "Search..."
 msgstr ""
 
-#: ../app/Controllers/ShortcodeController.php:753, ../app/Helpers/Options.php:50, ../app/Controllers/Admin/AdminAjaxController.php:704, ../app/Widgets/elementor/base.php:608
+#: ../app/Controllers/ShortcodeController.php:767, ../app/Helpers/Options.php:50, ../app/Controllers/Admin/AdminAjaxController.php:704, ../app/Widgets/elementor/base.php:608
 msgid "Meta value"
 msgstr ""
 
-#: ../app/Controllers/ShortcodeController.php:751, ../app/Controllers/ShortcodeController.php:759, ../app/Controllers/Admin/AdminAjaxController.php:702, ../app/Controllers/Admin/AdminAjaxController.php:709
+#: ../app/Controllers/ShortcodeController.php:765, ../app/Controllers/ShortcodeController.php:773, ../app/Controllers/Admin/AdminAjaxController.php:702, ../app/Controllers/Admin/AdminAjaxController.php:709
 msgid "Sort By None"
 msgstr ""
 
-#: ../app/Controllers/ShortcodeController.php:785, ../app/Controllers/Admin/AdminAjaxController.php:735
+#: ../app/Controllers/ShortcodeController.php:799, ../app/Controllers/Admin/AdminAjaxController.php:735
 msgid "Loading ..."
 msgstr ""
 
-#: ../app/Controllers/ShortcodeController.php:789, ../app/Controllers/Admin/AdminAjaxController.php:952, ../app/Widgets/elementor/widgets/grid-hover-layout-archive.php:257, ../app/Widgets/elementor/widgets/grid-hover-layout.php:266, ../app/Widgets/elementor/widgets/grid-layout-archive.php:256, ../app/Widgets/elementor/widgets/grid-layout.php:274, ../app/Widgets/elementor/widgets/list-layout-archive.php:256, ../app/Widgets/elementor/widgets/list-layout.php:266, ../app/Widgets/elementor/widgets/slider-layout-archive.php:323, ../app/Widgets/elementor/widgets/slider-layout-archive.php:384, ../app/Widgets/elementor/widgets/slider-layout.php:313, ../app/Widgets/elementor/widgets/slider-layout.php:373
+#: ../app/Controllers/ShortcodeController.php:803, ../app/Controllers/Admin/AdminAjaxController.php:952, ../app/Widgets/elementor/widgets/grid-hover-layout-archive.php:257, ../app/Widgets/elementor/widgets/grid-hover-layout.php:266, ../app/Widgets/elementor/widgets/grid-layout-archive.php:256, ../app/Widgets/elementor/widgets/grid-layout.php:274, ../app/Widgets/elementor/widgets/list-layout-archive.php:256, ../app/Widgets/elementor/widgets/list-layout.php:266, ../app/Widgets/elementor/widgets/slider-layout-archive.php:323, ../app/Widgets/elementor/widgets/slider-layout-archive.php:384, ../app/Widgets/elementor/widgets/slider-layout.php:313, ../app/Widgets/elementor/widgets/slider-layout.php:373
 msgid "No post found"
 msgstr ""
 
-#: ../app/Controllers/ShortcodeController.php:875, ../app/Controllers/Admin/AdminAjaxController.php:826
+#: ../app/Controllers/ShortcodeController.php:894, ../app/Controllers/Admin/AdminAjaxController.php:826
 msgid "Search"
 msgstr ""
 
-#: ../app/Controllers/ShortcodeController.php:1017, ../app/Controllers/Admin/AdminAjaxController.php:987, ../app/Controllers/Admin/AdminAjaxController.php:982, ../app/Widgets/elementor/base.php:673, ../app/Widgets/elementor/rtTPGElementorHelper.php:1519
+#: ../app/Controllers/ShortcodeController.php:1038, ../app/Controllers/Admin/AdminAjaxController.php:987, ../app/Controllers/Admin/AdminAjaxController.php:982, ../app/Widgets/elementor/base.php:673, ../app/Widgets/elementor/rtTPGElementorHelper.php:1519
 msgid "Load More"
 msgstr ""
 
-#: ../app/Controllers/ShortcodeController.php:1129
+#: ../app/Controllers/ShortcodeController.php:1150
 msgid "This is a restricted content, you need to logged in to view this content."
 msgstr ""
 
-#: ../app/Controllers/ShortcodeController.php:1124
+#: ../app/Controllers/ShortcodeController.php:1145
 msgid "You are not permitted to view this content."
 msgstr ""
 
