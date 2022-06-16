@@ -1095,6 +1095,7 @@ class ShortcodeController {
 				}
 
 				if ( $layout == 'layout17' || 'popup' == $linkType ) {
+					array_push( $style, 'rt-magnific-popup' );
 					array_push( $script, 'rt-magnific-popup' );
 				}
 

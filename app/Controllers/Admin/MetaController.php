@@ -35,12 +35,18 @@ class MetaController {
 	}
 
 	function admin_enqueue_scripts() {
+
 		global $pagenow, $typenow;
+
+		if ( $typenow == 'tpg_builder' ) {
+			wp_enqueue_style( 'rt-tpg-admin' );
+		}
 
 		// validate page
 		if ( ! in_array( $pagenow, array( 'post.php', 'post-new.php' ) ) ) {
 			return;
 		}
+
 		if ( $typenow != rtTPG()->post_type ) {
 			return;
 		}

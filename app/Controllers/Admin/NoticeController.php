@@ -17,7 +17,41 @@ class NoticeController {
 			add_action( 'admin_init', [ __CLASS__, 'rttpg_spare_me' ], 5 );
 		}
 
+		add_action( 'admin_init', [ __CLASS__, 'rttpg_notice' ] );
+	}
 
+	public static function rttpg_notice() {
+
+
+		add_action( 'admin_notices', function () {
+			$settings = get_option( 'rt_the_post_grid_settings' );
+			$screen   = get_current_screen();
+
+			if ( in_array( $screen->id, [ 'edit-rttpg', 'rttpg', 'edit-tpg_builder' ] ) ) {
+
+				$notice_text = '';
+				if ( $settings['tpg_block_type'] == 'elementor' ) {
+					$notice_text = __( 'In this section, we will create a Elementor Archive page. However, we are using it only for Elementor. If we want to use this shortcode generator, follow the steps: Choose the value "Default" or "Shortcode" from (The Post Grid > Settings > Common Settings > Resource Load Type)', 'the-post-grid' );
+				}
+
+				if ( $settings['tpg_block_type'] == 'shortcode' ) {
+					$notice_text = __( 'In this section, we will create a Shortcode. However, we are using it only for Shortcode. If we want to use this shortcode generator, follow the steps: Choose the value "Default" or "Shortcode" from (The Post Grid > Settings > Common Settings > Resource Load Type)', 'the-post-grid' );
+				}
+
+
+				?>
+				<?php if ( $notice_text ) : ?>
+                    <div class="notice notice-for-warning">
+                        <p> <?php
+							echo esc_html( $notice_text );
+							?>
+                        </p>
+                    </div>
+
+				<?php
+				endif;
+			}
+		} );
 	}
 
 	public static function black_friday_notice() {
@@ -41,7 +75,7 @@ class NoticeController {
             <div class="notice notice-info is-dismissible" data-rttpg-dismissable="rttpg_bf_2021"
                  style="display:grid;grid-template-columns: 100px auto;padding-top: 25px; padding-bottom: 22px;">
                 <img alt="<?php echo esc_attr( $plugin_name ) ?>"
-                     src="<?php echo rtTPG()->get_assets_uri('images/icon-128x128.png'); ?>" width="74px"
+                     src="<?php echo rtTPG()->get_assets_uri( 'images/icon-128x128.png' ); ?>" width="74px"
                      height="74px" style="grid-row: 1 / 4; align-self: center;justify-self: center"/>
                 <h3 style="margin:0;"><?php echo sprintf( '%s Black Friday Deal!!', $plugin_name ) ?></h3>
                 <p style="margin:0 0 2px;">Don't miss out on our biggest sale of the year! Get your
@@ -61,21 +95,21 @@ class NoticeController {
 		add_action( 'admin_footer', function () {
 			?>
             <script type="text/javascript">
-                (function ($) {
-                    $(function () {
-                        setTimeout(function () {
-                            $('div[data-rttpg-dismissable] .notice-dismiss, div[data-rttpg-dismissable] .button-dismiss')
-                                .on('click', function (e) {
+                ( function ( $ ) {
+                    $( function () {
+                        setTimeout( function () {
+                            $( 'div[data-rttpg-dismissable] .notice-dismiss, div[data-rttpg-dismissable] .button-dismiss' )
+                                .on( 'click', function ( e ) {
                                     e.preventDefault();
-                                    $.post(ajaxurl, {
+                                    $.post( ajaxurl, {
                                         'action': 'rttpg_dismiss_admin_notice',
                                         'nonce': <?php echo json_encode( wp_create_nonce( 'rttpg-dismissible-notice' ) ); ?>
-                                    });
-                                    $(e.target).closest('.is-dismissible').remove();
-                                });
-                        }, 1000);
-                    });
-                })(jQuery);
+                                    } );
+                                    $( e.target ).closest( '.is-dismissible' ).remove();
+                                } );
+                        }, 1000 );
+                    } );
+                } )( jQuery );
             </script>
 			<?php
 		} );

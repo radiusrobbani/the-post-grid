@@ -239,14 +239,14 @@ class Options {
 				'type'        => 'heading',
 				'name'        => 'tpg_common_settings_heading',
 				'class'       => 'tpg_common_settings_heading',
-				'label'       => __( 'Performance Issues - (Please don\'t skip this)', 'the-post-grid' ),
-				'description'       => __( 'Please choose a Block Type first. Otherwise, all CSS & JS for shortcode and element will load on your site which can create a bad performance issues for your site.', 'the-post-grid' ),
+				'label'       => __( 'Improve Performance', 'the-post-grid' ),
+				'description'       => __( 'Please choose a Resource Load Type first. Otherwise, all CSS & JS for shortcode and elementor will load on your site which can create a bad performance issues for your site.', 'the-post-grid' ),
 			],
 
 			'tpg_block_type'       => [
 				'type'        => 'select',
 				'name'        => 'tpg_block_type',
-				'label'       => 'Block Type',
+				'label'       => 'Resource Load Type',
 				'id'          => 'tpg_block_type',
 				'class'       => 'select2',
 				'options'     => [

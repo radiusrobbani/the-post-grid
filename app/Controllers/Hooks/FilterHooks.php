@@ -23,13 +23,12 @@ class FilterHooks {
 	public static function admin_body_class($clsses){
 		$settings = get_option('rt_the_post_grid_settings');
 
-		if( isset($settings['tpg_block_type']) && ! in_array($settings['tpg_block_type'], ['shortcode', 'default'])) {
-			$clsses .= 'tpg-block-type-not-shortcode';
+		if( isset($settings['tpg_block_type']) && in_array($settings['tpg_block_type'], ['elementor', 'shortcode']) ) {
+			$clsses .= 'tpg-block-type-elementor-or-shortcode';
 		}
 
 		return $clsses;
 	}
-
 
 
 	public static function set_post_view_count( $content ) {

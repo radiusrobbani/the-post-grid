@@ -1567,33 +1567,24 @@ input:checked + .rttm-switch-slider:before {
     color: #ffffff;
     font-size: 17px;
 }
-.tpg-block-type-not-shortcode.post-type-rttpg.post-new-php #wpbody-content > div,
-.tpg-block-type-not-shortcode.post-type-rttpg.edit-php #wpbody-content > div {
-    filter: blur(5px);
-    pointer-events: none;
-    position: relative;
-}
-
-.tpg-block-type-not-shortcode.post-type-rttpg.post-new-php #wpbody-content::after, .tpg-block-type-not-shortcode.post-type-rttpg.edit-php #wpbody-content::after {
-    content: "This page is used to create Shortcode. But you are using only for Elementor. If you want to use this shortcode builder then choose the value \"Default\" or \"Shortcode\" from ( The Post Grid > Settings > Common Settings > Block Type )";
-    position: fixed;
-    top: 20%;
-    left: 50%;
-    width: 500px;
-    display: block;
-    font-size: 18px;
-    padding: 22px 32px 31px;
-    max-width: 80%;
-    transform: translateX(-50%);
-    border: 1px solid #f00;
-    background: #fff1f1;
-    line-height: 27px;
-}
 
 .tpg-shortcode-main-wrapper .swiper-navigation {
-    top: -13px;
+    top: 0;
+}
+.tpg-shortcode-main-wrapper .rt-swiper-holder {
+    padding-bottom: 50px;
 }
 
 body .rt-tpg-container .swiper-navigation .slider-btn {
     position: static;
+}
+
+.tpg-block-type-elementor-or-shortcode .notice-for-warning {
+    background: #db1f31;
+    color: #fff;
+    border: none;
+}
+
+.tpg-block-type-elementor-or-shortcode .notice-for-warning p {
+    font-size: 20px;
 }
