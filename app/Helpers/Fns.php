@@ -20,8 +20,8 @@ class Fns {
 
 	/**
 	 * @param         $viewName
-	 * @param  array  $args
-	 * @param  bool   $return
+	 * @param array $args
+	 * @param bool $return
 	 *
 	 * @return string|void
 	 */
@@ -45,7 +45,7 @@ class Fns {
 	}
 
 	/**
-	 * @param  integer  $post_id  Listing ID
+	 * @param integer $post_id Listing ID
 	 */
 	static function update_post_views_count( $post_id ) {
 		if ( ! $post_id && is_admin() ) {
@@ -75,10 +75,10 @@ class Fns {
 	/**
 	 * Template Content
 	 *
-	 * @param  string  $template_name  Template name.
-	 * @param  array   $args           Arguments. (default: array).
-	 * @param  string  $template_path  Template path. (default: '').
-	 * @param  string  $default_path   Default path. (default: '').
+	 * @param string $template_name Template name.
+	 * @param array $args Arguments. (default: array).
+	 * @param string $template_path Template path. (default: '').
+	 * @param string $default_path Default path. (default: '').
 	 */
 	static function get_template( $template_name, $args = null, $template_path = '', $default_path = '' ) {
 		if ( ! empty( $args ) && is_array( $args ) ) {
@@ -108,10 +108,10 @@ class Fns {
 	/**
 	 * Get template content and return
 	 *
-	 * @param  string  $template_name  Template name.
-	 * @param  array   $args           Arguments. (default: array).
-	 * @param  string  $template_path  Template path. (default: '').
-	 * @param  string  $default_path   Default path. (default: '').
+	 * @param string $template_name Template name.
+	 * @param array $args Arguments. (default: array).
+	 * @param string $template_path Template path. (default: '').
+	 * @param string $default_path Default path. (default: '').
 	 *
 	 * @return string
 	 */
@@ -124,8 +124,8 @@ class Fns {
 
 	/**
 	 * @param          $template_name
-	 * @param  string  $template_path
-	 * @param  string  $default_path
+	 * @param string $template_path
+	 * @param string $default_path
 	 *
 	 * @return mixed|void
 	 */
@@ -346,8 +346,8 @@ class Fns {
 	/**
 	 * Sanitize field value
 	 *
-	 * @param  array  $field
-	 * @param  null   $value
+	 * @param array $field
+	 * @param null $value
 	 *
 	 * @return array|null
 	 * @internal param $value
@@ -717,7 +717,14 @@ class Fns {
 			$w = ( ! empty( $customImgSize[0] ) ? absint( $customImgSize[0] ) : null );
 			$h = ( ! empty( $customImgSize[1] ) ? absint( $customImgSize[1] ) : null );
 			$c = ( ! empty( $customImgSize[2] ) && $customImgSize[2] == 'soft' ? false : true );
+
 			if ( $w && $h ) {
+				$post_thumb_id = get_post_thumbnail_id( $post_id );
+				if ( $post_thumb_id ) {
+					$featured_image = wp_get_attachment_image_src( $post_thumb_id, 'full' );
+					$w              = $featured_image[1] < $w ? $featured_image[1] : $w;
+					$h              = $featured_image[2] < $h ? $featured_image[2] : $h;
+				}
 				$imgSrc = Fns::rtImageReSize( $imgSrc, $w, $h, $c );
 				if ( $img_Class !== 'swiper-lazy' ) {
 					$image = "<img class='{$img_class}' src='{$imgSrc}' width='{$w}' height='{$h}' alt='{$alt}'/>";
@@ -726,7 +733,6 @@ class Fns {
 				}
 			}
 		}
-
 
 		return $image;
 	}
@@ -936,11 +942,11 @@ class Fns {
 	 * Call the Image resize model for resize function
 	 *
 	 * @param              $url
-	 * @param  null        $width
-	 * @param  null        $height
-	 * @param  null        $crop
-	 * @param  bool|true   $single
-	 * @param  bool|false  $upscale
+	 * @param null $width
+	 * @param null $height
+	 * @param null $crop
+	 * @param bool|true $single
+	 * @param bool|false $upscale
 	 *
 	 * @return array|bool|string
 	 * @throws Exception
@@ -2212,7 +2218,7 @@ class Fns {
 	 * Get first image from the content
 	 *
 	 * @param          $post_id
-	 * @param  string  $type
+	 * @param string $type
 	 *
 	 * @return mixed|string
 	 */
@@ -2256,13 +2262,15 @@ class Fns {
 	 * @param         $data
 	 * @param         $link_start
 	 * @param         $link_end
-	 * @param  false  $offset_size
+	 * @param false $offset_size
 	 */
 	public static function get_post_thumbnail( $pID, $data, $link_start, $link_end, $offset_size = false ) {
 		$thumb_cat_condition = ( ! ( 'above_title' === $data['category_position'] || 'default' === $data['category_position'] ) );
 		if ( 'grid-layout4' === $data['layout'] && 'default' === $data['category_position'] ) {
 			$thumb_cat_condition = true;
-		} elseif ( in_array( $data['layout'], [ 'grid-layout4', 'grid_hover-layout11' ] ) && 'default' === $data['category_position'] ) {
+		} elseif ( in_array( $data['layout'], [ 'grid-layout4',
+				'grid_hover-layout11'
+			] ) && 'default' === $data['category_position'] ) {
 			$thumb_cat_condition = true;
 		}
 
@@ -2351,7 +2359,9 @@ class Fns {
 		<?php echo $data['is_thumb_linked'] === 'yes' ? self::wp_kses( $link_end ) : null; ?>
 
 		<?php if ( 'show' === $data['is_thumb_lightbox']
-		           || ( in_array( $data['layout'], [ 'grid-layout7', 'slider-layout4' ] ) && in_array( $data['is_thumb_lightbox'], [ 'default', 'show' ] ) )
+		           || ( in_array( $data['layout'], [ 'grid-layout7',
+					'slider-layout4'
+				] ) && in_array( $data['is_thumb_lightbox'], [ 'default', 'show' ] ) )
 		) :
 			?>
             <a class="tpg-zoom"

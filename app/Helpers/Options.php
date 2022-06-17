@@ -240,7 +240,7 @@ class Options {
 				'name'        => 'tpg_common_settings_heading',
 				'class'       => 'tpg_common_settings_heading',
 				'label'       => __( 'Improve Performance', 'the-post-grid' ),
-				'description' => __( 'Please choose a Resource Load Type first. Otherwise, all CSS & JS for shortcode and elementor will load on your site which can create a bad performance issues for your site.', 'the-post-grid' ),
+				'description' => __( 'Please choose a Resource Load Type first. Otherwise, all CSS & JS for shortcode and elementor will load on your site which can create a bad performance issues.', 'the-post-grid' ),
 			],
 
 			'tpg_block_type'       => [

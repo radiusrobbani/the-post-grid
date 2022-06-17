@@ -34,6 +34,7 @@ body.rt-model-open,
 .entry .rt-tpg-container .entry-title:before {
     content: none;
 }
+
 .rt-tpg-container .entry {
     margin-top: 0;
 }
@@ -793,7 +794,8 @@ Pagination Style
 }
 
 .paginationjs .paginationjs-go-input > input[type=text] {
-    line-height: 28px \9;
+    line-height: 28px \9
+;
     vertical-align: middle \9
 }
 
@@ -802,7 +804,8 @@ Pagination Style
 }
 
 .paginationjs.paginationjs-big .paginationjs-go-input > input[type=text] {
-    height: 36px \9;
+    height: 36px \9
+;
     line-height: 36px \9
 }
 
@@ -897,6 +900,7 @@ Pagination Style
     margin: 0 !important;
     padding: 0 !important;
 }
+
 span.more-loading {
     background: url("../images/loading.gif") center right no-repeat;
     padding-right: 20px;
