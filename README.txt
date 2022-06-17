@@ -364,12 +364,12 @@ With the Post Grid PRO, you get to use the Single Page Builder, which is based o
 == Changelog ==
 
 = 4.1.0 =
+* Added: Add New Settings
 * Fixed: Responsive issue fixed for List layout - Elementor
-* Add New Settings
-* Conditionally load assets
-* Merge and minify all css
-* Full Excerpt not showing in mobile
-
+* Fixed: Full Excerpt not showing in mobile
+* Fixed: Field Selection default value conflict
+* Fixed: List layout for Elementor responsive issue fixed
+* Improved: Merge and minify all css and improved assets loading
 
 = 4.0.5 =
 * Fixed: Shortcode Taxonomy filter bug fixed

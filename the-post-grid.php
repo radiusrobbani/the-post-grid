@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'RT_THE_POST_GRID_VERSION', '4.0.5' );
+define( 'RT_THE_POST_GRID_VERSION', '4.1.0' );
 define( 'RT_THE_POST_GRID_AUTHOR', 'RadiusTheme' );
 define( 'RT_THE_POST_GRID_NAME', 'The Post Grid' );
 define( 'RT_THE_POST_GRID_PLUGIN_FILE', __FILE__ );

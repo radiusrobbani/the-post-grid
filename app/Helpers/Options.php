@@ -97,7 +97,7 @@ class Options {
 		$settings = get_option( rtTPG()->options['settings'] );
 
 		$other_settings = [
-			'template_author'      => [
+			'template_author'   => [
 				'type'        => 'select',
 				'name'        => 'template_author',
 				'label'       => 'Template Author',
@@ -108,7 +108,7 @@ class Options {
 				'options'     => Fns::getTPGShortCodeList(),
 				'value'       => isset( $settings['template_author'] ) ? $settings['template_author'] : [],
 			],
-			'template_category'    => [
+			'template_category' => [
 				'type'        => 'select',
 				'name'        => 'template_category',
 				'label'       => 'Template Category',
@@ -119,7 +119,7 @@ class Options {
 				'options'     => Fns::getTPGShortCodeList(),
 				'value'       => isset( $settings['template_category'] ) ? $settings['template_category'] : [],
 			],
-			'template_search'      => [
+			'template_search'   => [
 				'type'        => 'select',
 				'name'        => 'template_search',
 				'label'       => 'Template Search',
@@ -130,7 +130,7 @@ class Options {
 				'options'     => Fns::getTPGShortCodeList(),
 				'value'       => isset( $settings['template_search'] ) ? $settings['template_search'] : [],
 			],
-			'template_tag'         => [
+			'template_tag'      => [
 				'type'        => 'select',
 				'name'        => 'template_tag',
 				'label'       => 'Template Tag',
@@ -163,7 +163,7 @@ class Options {
 				"default" => isset( $settings['tpg_loader_color'] ) ? $settings['tpg_loader_color'] : "#0367bf",
 			],
 
-			'template_class'       => [
+			'template_class' => [
 				'type'        => 'text',
 				'name'        => 'template_class',
 				'label'       => 'Template class',
@@ -235,12 +235,12 @@ class Options {
 		$settings = get_option( rtTPG()->options['settings'] );
 
 		$common_settings = [
-			'tpg_common_settings_heading'      => [
+			'tpg_common_settings_heading' => [
 				'type'        => 'heading',
 				'name'        => 'tpg_common_settings_heading',
 				'class'       => 'tpg_common_settings_heading',
 				'label'       => __( 'Improve Performance', 'the-post-grid' ),
-				'description'       => __( 'Please choose a Resource Load Type first. Otherwise, all CSS & JS for shortcode and elementor will load on your site which can create a bad performance issues for your site.', 'the-post-grid' ),
+				'description' => __( 'Please choose a Resource Load Type first. Otherwise, all CSS & JS for shortcode and elementor will load on your site which can create a bad performance issues for your site.', 'the-post-grid' ),
 			],
 
 			'tpg_block_type'       => [
@@ -265,10 +265,10 @@ class Options {
 				'value'       => isset( $settings['tpg_load_script'] ) ? $settings['tpg_load_script'] : false,
 			],
 			'tpg_enable_preloader' => [
-				'type'        => 'switch',
-				'name'        => 'tpg_enable_preloader',
-				'label'       => __( 'Enable Pre-loader', 'the-post-grid' ),
-				'value'       => isset( $settings['tpg_enable_preloader'] ) ? $settings['tpg_enable_preloader'] : false,
+				'type'  => 'switch',
+				'name'  => 'tpg_enable_preloader',
+				'label' => __( 'Enable Pre-loader', 'the-post-grid' ),
+				'value' => isset( $settings['tpg_enable_preloader'] ) ? $settings['tpg_enable_preloader'] : false,
 			],
 			'tpg_skip_fa'          => [
 				'type'        => 'switch',
@@ -795,8 +795,8 @@ class Options {
 	public static function detailAvailableFields() {
 		$fields   = self::rtTPGItemFields();
 		$inserted = [
-			'feature_img' => 'Feature Image',
-			'content'     => 'Content',
+			'content'     => __( 'Content', "the-post-grid" ),
+			'feature_img' => __( "Feature Image", "the-post-grid" ),
 		];
 		unset( $fields['heading'] );
 		unset( $fields['excerpt'] );
@@ -1300,6 +1300,10 @@ class Options {
 
 
 	public static function itemFields() {
+
+		$itemField                      = self::rtTPGItemFields();
+		$itemField['tpg_default_value'] = 'Default';
+
 		$fields = [
 			'item_fields' => [
 				"type"      => "checkbox",
@@ -1308,8 +1312,8 @@ class Options {
 				"id"        => "item-fields",
 				"multiple"  => true,
 				"alignment" => "vertical",
-				"default"   => array_keys( self::rtTPGItemFields() ),
-				"options"   => self::rtTPGItemFields(),
+				"default"   => array_keys( $itemField ),
+				"options"   => $itemField,
 			],
 		];
 		if ( $cf = Fns::is_acf() ) {

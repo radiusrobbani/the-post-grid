@@ -1543,7 +1543,7 @@ input:checked + .rttm-switch-slider:before {
 #tpg_common_settings_heading_holder {
     display: flex;
     flex-direction: column;
-    background: #dc3545!important;
+    background: #db1f31!important;
     padding: 13px 19px 15px;
     margin-top: -15px;
     margin-left: -15px;
@@ -1583,8 +1583,16 @@ body .rt-tpg-container .swiper-navigation .slider-btn {
     background: #db1f31;
     color: #fff;
     border: none;
+    border-radius: 10px;
 }
 
 .tpg-block-type-elementor-or-shortcode .notice-for-warning p {
     font-size: 20px;
+}
+
+label[for="popup-fields-tpg_default_value"],
+label[for="item-fields-tpg_default_value"]{
+    display: none !important;
+    pointer-events: none;
+    text-indent: -99999px;
 }
