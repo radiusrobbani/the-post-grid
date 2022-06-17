@@ -1113,7 +1113,7 @@ class ShortcodeController {
 
 			array_push( $style, 'rt-tpg-shortcode' );
 
-			if ( $isCarousel && rtTPG()->hasPro() ) {
+			if ( ($isCarousel && rtTPG()->hasPro()) || $isWooCom ) {
 				array_push( $style, 'swiper' );
 				array_push( $script, 'swiper' );
 			}

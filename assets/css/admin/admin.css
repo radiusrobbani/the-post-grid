@@ -1569,8 +1569,10 @@ input:checked + .rttm-switch-slider:before {
 }
 
 .tpg-shortcode-main-wrapper .swiper-navigation {
-    top: 0;
+    top: -11px;
+    right: 19px;
 }
+
 .tpg-shortcode-main-wrapper .rt-swiper-holder {
     padding-bottom: 50px;
 }
