@@ -25,6 +25,11 @@ body.rt-model-open,
     overflow: hidden;
 }
 
+.rt-tpg-container img {
+    max-width: 100%;
+    height: auto;
+}
+
 .rt-tpg-container * {
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;

@@ -1027,7 +1027,7 @@ class ShortcodeController {
 				} else {
 					$hide = ( $gridQuery->max_num_pages < 2 ? " rt-hidden-elm" : null );
 					if ( $posts_loading_type == "pagination" ) {
-						if ( $isGrid && empty( $filters ) ) {
+						if ( ($isGrid || $isWooCom || $isEdd) && empty( $filters ) ) {
 							$htmlUtility .= Fns::rt_pagination( $gridQuery,
 								$args['posts_per_page'] );
 						}

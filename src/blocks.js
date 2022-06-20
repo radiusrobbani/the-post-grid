@@ -69,15 +69,17 @@ registerBlockType('rttpg/post-grid-pro', {
         return (
             [
                 <InspectorControls>
-                    This text will show when the box is selected
-                    <PanelRow>
-                        <SelectControl
-                            label={__('Select a grid:')}
-                            options={options}
-                            value={gridId}
-                            onChange={(val) => setAttributes({gridId: Number(val)})}
-                        />
-                    </PanelRow>
+                    <div className="tpg-panel-control-wrapper" style={ { padding: '0 17px' }}>
+                        This text will show when the box is selected
+                        <PanelRow>
+                            <SelectControl
+                                label={__('Select a grid:')}
+                                options={options}
+                                value={gridId}
+                                onChange={(val) => setAttributes({gridId: Number(val)})}
+                            />
+                        </PanelRow>
+                    </div>
                 </InspectorControls>
                 ,
                 <div className={props.className}>

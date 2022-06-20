@@ -1608,12 +1608,17 @@ class Options {
                         <li>Fully responsive and mobile friendly.</li>
                         <li>62 Different Layouts</li>
                         <li>12 New Layouts</li>
+                        <li>45 Elementor Layouts</li>
+                        <li>Creative Slider layouts</li>
+                        <li>Archive page builder for Elementor</li>
                         <li>Even and Masonry Grid.</li>
                         <li>WooCommerce supported.</li>
+                        <li>EDD supported.</li>
                         <li>Custom Post Type Supported</li>
                         <li>Display posts by any Taxonomy like category(s), tag(s), author(s), keyword(s)</li>
                         <li>Order by Id, Title, Created date, Modified date and Menu order.</li>
                         <li>Display image size (thumbnail, medium, large, full)</li>
+                        <li>Ajax front-end filter by category(s), tag(s), author(s), keyword(s)</li>
                         <li>Isotope filter for any taxonomy ie. categories, tags...</li>
                         <li>Query Post with Relation.</li>
                         <li>Fields Selection.</li>
@@ -1623,7 +1628,6 @@ class Options {
                         <li>Content Wrapper Style Control.</li>
                         <li>Enable/Disable Pagination.</li>
                         <li>AJAX Pagination (Load more and Load on Scrolling)</li>
-                        <li>Archive page builder for Elementor</li>
                         <li>Advanced Custom Field support</li>
                         <li>Post View Count</li>
                     </ol>

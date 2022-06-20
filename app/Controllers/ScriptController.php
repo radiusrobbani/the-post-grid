@@ -239,6 +239,9 @@ class ScriptController {
                 .md-modal {
                     visibility: hidden;
                 }
+                .md-modal.md-show {
+                    visibility: visible;
+                }
 
                 .builder-content.content-invisible {
                     visibility: hidden;

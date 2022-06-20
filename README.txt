@@ -365,11 +365,16 @@ With the Post Grid PRO, you get to use the Single Page Builder, which is based o
 
 = 4.1.0 =
 * Added: Add New Settings
+* Added: EDD Isotope layout added for shortcode
 * Fixed: Responsive issue fixed for List layout - Elementor
 * Fixed: Full Excerpt not showing in mobile
 * Fixed: Field Selection default value conflict
 * Fixed: List layout for Elementor responsive issue fixed
+* Fixed: WooCommerce pagination fix
+* Fixed: WooCommerce popup slider fix
+* Fixed: Gutenberg block style fix
 * Improved: Merge and minify all css and improved assets loading
+
 
 = 4.0.5 =
 * Fixed: Shortcode Taxonomy filter bug fixed
