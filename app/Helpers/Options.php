@@ -1607,13 +1607,12 @@ class Options {
 		return '<ol>
                         <li>Fully responsive and mobile friendly.</li>
                         <li>62 Different Layouts</li>
-                        <li>12 New Layouts</li>
                         <li>45 Elementor Layouts</li>
                         <li>Creative Slider layouts</li>
                         <li>Archive page builder for Elementor</li>
                         <li>Even and Masonry Grid.</li>
                         <li>WooCommerce supported.</li>
-                        <li>EDD supported.</li>
+                        <li>EDD supported for shortcode.</li>
                         <li>Custom Post Type Supported</li>
                         <li>Display posts by any Taxonomy like category(s), tag(s), author(s), keyword(s)</li>
                         <li>Order by Id, Title, Created date, Modified date and Menu order.</li>
