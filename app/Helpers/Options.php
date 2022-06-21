@@ -19,6 +19,7 @@ class Options {
 		}
 
 		return $post_types;
+
 	}
 
 	public static function rtPostOrders() {
