@@ -27,23 +27,31 @@ class NoticeController {
 			$settings = get_option( 'rt_the_post_grid_settings' );
 			$screen   = get_current_screen();
 
-			if ( in_array( $screen->id, [ 'edit-rttpg', 'rttpg' ] ) && $settings['tpg_block_type'] == 'elementor' ) {?>
-                <div class="notice notice-for-warning">
-                    <p>
-                        You have selected only Elementor method. To use Shortcode Generator please enable shortcode or default from  <a style="color: #fff;" href="<?php echo esc_url(admin_url('edit.php?post_type=rttpg&page=rttpg_settings')) ?>">Settings => Common Settings => Resource Load Type</a>
-                    </p>
-                </div>
-				<?php
-			}
+			if ( isset( $settings['tpg_block_type'] ) ) {
+				if ( in_array( $screen->id, [ 'edit-rttpg','rttpg'] ) && $settings['tpg_block_type'] == 'elementor' ) { ?>
+                    <div class="notice notice-for-warning">
+                        <p>
+                            You have selected only Elementor method. To use Shortcode Generator please enable shortcode
+                            or default from <a style="color: #fff;"
+                                               href="<?php echo esc_url( admin_url( 'edit.php?post_type=rttpg&page=rttpg_settings' ) ) ?>">Settings
+                                => Common Settings => Resource Load Type</a>
+                        </p>
+                    </div>
+					<?php
+				}
 
-			if ( $screen->id == 'edit-tpg_builder' && $settings['tpg_block_type'] == 'shortcode' ) {
-				?>
-                <div class="notice notice-for-warning">
-                    <p>
-                        You have selected only Shortcode Generator method. To use Elementor please enable Elementor or default from <a style="color: #fff;" href="<?php echo esc_url(admin_url('edit.php?post_type=rttpg&page=rttpg_settings&section=common-settings')) ?>">Settings => Common Settings => Resource Load Type</a>
-                    </p>
-                </div>
-				<?php
+				if ( $screen->id == 'edit-tpg_builder' && $settings['tpg_block_type'] == 'shortcode' ) {
+					?>
+                    <div class="notice notice-for-warning">
+                        <p>
+                            You have selected only Shortcode Generator method. To use Elementor please enable Elementor
+                            or default from <a style="color: #fff;"
+                                               href="<?php echo esc_url( admin_url( 'edit.php?post_type=rttpg&page=rttpg_settings&section=common-settings' ) ) ?>">Settings
+                                => Common Settings => Resource Load Type</a>
+                        </p>
+                    </div>
+					<?php
+				}
 			}
 
 		} );

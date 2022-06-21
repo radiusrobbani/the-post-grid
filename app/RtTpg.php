@@ -30,6 +30,7 @@ if ( ! class_exists( RtTpg::class ) ) {
 			'slug'              => RT_THE_POST_GRID_PLUGIN_SLUG,
 		];
 		public $defaultSettings = [
+			'tpg_block_type'     => 'default',
 			'popup_fields'       => [
 				'title',
 				'feature_img',
