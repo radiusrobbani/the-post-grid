@@ -1738,8 +1738,16 @@ body > .rt-tooltip .rt-tooltip-bottom:after {
     padding: 15px 15px 0;
 }
 
+.rt-tpg-container .offset02 .rt-holder .rt-detail,
+.rt-tpg-container .offset01 .rt-detail,
+.rt-tpg-container .layout3 .rt-holder .rt-detail,
 .rt-tpg-container .layout2 .rt-holder .rt-detail {
     padding: 0;
+}
+
+.rt-tpg-container .offset02 .rt-holder .rt-detail,
+.rt-tpg-container .offset01 .rt-detail {
+    padding-left: 5px;
 }
 
 .rt-tpg-container .entry-title-wrapper .entry-title {

@@ -5,7 +5,6 @@ const cliColor = require( "cli-color" );
 const emojic = require( "emojic" );
 let WebpackRTLPlugin = require( 'webpack-rtl-plugin' );
 const wpPot = require( 'wp-pot' );
-require( "@tinypixelco/laravel-mix-wp-blocks" );
 const min = Mix.inProduction() ? '.min' : '';
 const isProduction = Mix.inProduction() ? true : false
 

@@ -21,7 +21,6 @@ require_once __DIR__ . './../vendor/autoload.php';
 if ( ! class_exists( RtTpg::class ) ) {
 	final class RtTpg {
 
-		public $test;
 		public $post_type = "rttpg";
 		public $options = [
 			'settings'          => 'rt_the_post_grid_settings',
@@ -59,7 +58,6 @@ if ( ! class_exists( RtTpg::class ) ) {
 		 * Create an inaccessible constructor.
 		 */
 		private function __construct() {
-			$this->test = 'test value';
 			$this->__init();
 		}
 
@@ -76,12 +74,10 @@ if ( ! class_exists( RtTpg::class ) ) {
 
 
 		protected function __init() {
-			if ( $this->hasPro() && UpgradeController::check_plugin_version() == false ) {
-				return;
-			}
 
 			$settings = get_option( $this->options['settings'] );
 
+			new UpgradeController();
 			new PostTypeController();
 			new AjaxController();
 			new ScriptController();
