@@ -44,6 +44,7 @@ class rtTPGElementorHelper {
 				'type'    => Controls_Manager::SELECT,
 				'options' => $post_types,
 				'default' => 'post',
+				'description' => $ref->get_pro_message( 'all post type.' ),
 			]
 		);
 

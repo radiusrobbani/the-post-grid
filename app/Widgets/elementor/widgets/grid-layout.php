@@ -254,8 +254,7 @@ class TPGGridLayout extends Custom_Widget_Base {
 			echo "</div>";
 			?>
 
-            <div data-title="Loading ..."
-                 class="rt-row rt-content-loader <?php echo esc_attr( implode( ' ', $wrapper_class ) ) ?>">
+            <div data-title="Loading ..." class="rt-row rt-content-loader <?php echo esc_attr( implode( ' ', $wrapper_class ) ) ?>">
 				<?php
 				if ( $query->have_posts() ) {
 					$pCount = 1;

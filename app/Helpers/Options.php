@@ -6,13 +6,12 @@ class Options {
 
 	public static function rtPostTypes() {
 		$args = apply_filters( 'tpg_get_post_type',
-			[
-				'_builtin' => true,
-			] );
+			[ 'public' => true, 'show_in_nav_menus' => true ]
+		);
 
 		$post_types = get_post_types( $args );
 
-		$exclude = [ 'attachment', 'revision', 'nav_menu_item' ];
+		$exclude = [ 'attachment', 'revision', 'nav_menu_item','elementor_library', 'tpg_builder' ];
 
 		foreach ( $exclude as $ex ) {
 			unset( $post_types[ $ex ] );

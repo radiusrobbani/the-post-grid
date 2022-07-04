@@ -1933,7 +1933,13 @@ class Fns {
 		$post_types = get_post_types( [ 'public' => true, 'show_in_nav_menus' => true ], 'objects' );
 		$post_types = wp_list_pluck( $post_types, 'label', 'name' );
 
-		return array_diff_key( $post_types, [ 'elementor_library', 'attachment' ] );
+		$exclude = [ 'attachment', 'revision', 'nav_menu_item','elementor_library', 'tpg_builder' ];
+
+		foreach ( $exclude as $ex ) {
+			unset( $post_types[ $ex ] );
+		}
+
+		return $post_types;
 	}
 
 	/**

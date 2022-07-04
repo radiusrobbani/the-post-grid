@@ -607,7 +607,7 @@ abstract class Custom_Widget_Base extends Widget_Base {
 			} elseif ( in_array( $action_orderby, array_keys( Options::rtMetaKeyType() ) ) ) {
 				$action_orderby_label = __( "Meta value", "the-post-grid" );
 			} else {
-				$action_orderby_label = $orders[ $action_orderby ];
+				$action_orderby_label = __( "By ", "the-post-grid" ). $action_orderby;
 			}
 			if ( $action_orderby !== 'none' ) {
 				$orders['none'] = __( "Sort By", "the-post-grid" );
