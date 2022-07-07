@@ -195,11 +195,13 @@ class TPGGridLayout extends Custom_Widget_Base {
 		$post_types = Fns::get_post_types();
 		foreach ( $post_types as $post_type => $label ) {
 			$_taxonomies = get_object_taxonomies( $post_type, 'object' );
+
 			if ( empty( $_taxonomies ) ) {
 				continue;
 			}
-			$post_data[ $data['post_type'] . '_taxonomy' ] = $data[ $data['post_type'] . '_taxonomy' ];
-			$post_data[ $data['post_type'] . '_tags' ]     = $data[ $data['post_type'] . '_tags' ];
+
+			$post_data[ $data['post_type'] . '_taxonomy' ] = isset($data[ $data['post_type'] . '_taxonomy' ]) ? $data[ $data['post_type'] . '_taxonomy' ] : '';
+			$post_data[ $data['post_type'] . '_tags' ]     = isset($data[ $data['post_type'] . '_tags' ]) ? $data[ $data['post_type'] . '_tags' ] : '';
 		}
 
 		$template_path = $this->tpg_template_path( $post_data );

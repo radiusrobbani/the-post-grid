@@ -366,6 +366,7 @@ With the Post Grid PRO, you get to use the Single Page Builder, which is based o
 = 4.1.2 =
 * Fixed: Front-end filter orderby bug fixed
 * Fixed: Post type issue fixed
+* Fixed: Some bug fixed
 
 = 4.1.1 =
 * Fixed: List Layout (1,2,3,4) extra padding remove

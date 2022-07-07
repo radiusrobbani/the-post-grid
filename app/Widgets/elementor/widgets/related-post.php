@@ -192,8 +192,8 @@ class TPGRelatedPost extends Custom_Widget_Base {
             if ( empty( $_taxonomies ) ) {
                 continue;
             }
-            $post_data[ $data['post_type'] . '_taxonomy' ] = $data[ $data['post_type'] . '_taxonomy' ];
-            $post_data[ $data['post_type'] . '_tags' ]     = $data[ $data['post_type'] . '_tags' ];
+	        $post_data[ $data['post_type'] . '_taxonomy' ] = isset($data[ $data['post_type'] . '_taxonomy' ]) ? $data[ $data['post_type'] . '_taxonomy' ] : '';
+	        $post_data[ $data['post_type'] . '_tags' ]     = isset($data[ $data['post_type'] . '_tags' ]) ? $data[ $data['post_type'] . '_tags' ] : '';
         }
 
 		$post_data['enable_2_rows'] = false;

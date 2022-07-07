@@ -17,6 +17,13 @@ class Options {
 			unset( $post_types[ $ex ] );
 		}
 
+		if ( ! rtTPG()->hasPro() ) {
+			$post_types = [
+				'post' => $post_types['post'],
+				'page' => $post_types['page']
+			];
+		}
+
 		return $post_types;
 
 	}
