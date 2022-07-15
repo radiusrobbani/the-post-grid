@@ -133,6 +133,20 @@ class rtTPGElementorHelper {
 		}
 
 		$ref->add_control(
+			'relation',
+			[
+				'label'   => __( 'Taxonomies Relation', 'the-post-grid' ),
+				'type'    => \Elementor\Controls_Manager::SELECT,
+				'default' => 'OR',
+				'options' => [
+					'OR'     => __( 'OR', 'the-post-grid' ),
+					'AND'    => __( 'AND', 'the-post-grid' ),
+					'NOT IN' => __( 'NOT IN', 'the-post-grid' ),
+				],
+			]
+		);
+
+		$ref->add_control(
 			'author',
 			[
 				'label'       => __( 'By Author', 'the-post-grid' ),
@@ -153,21 +167,6 @@ class rtTPGElementorHelper {
 				'description' => __( 'Search by post title or content keyword', 'the-post-grid' ),
 			]
 		);
-
-		$ref->add_control(
-			'relation',
-			[
-				'label'   => __( 'Taxonomies Relation', 'the-post-grid' ),
-				'type'    => \Elementor\Controls_Manager::SELECT,
-				'default' => 'OR',
-				'options' => [
-					'OR'     => __( 'OR', 'the-post-grid' ),
-					'AND'    => __( 'AND', 'the-post-grid' ),
-					'NOT IN' => __( 'NOT IN', 'the-post-grid' ),
-				],
-			]
-		);
-
 
 		$ref->add_control(
 			'date_range',

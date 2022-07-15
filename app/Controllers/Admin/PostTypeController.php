@@ -11,13 +11,9 @@ class PostTypeController {
 	}
 
 	public function the_post_grid_remove_all_meta_box() {
-		if ( is_admin() && apply_filters( 'rttpg_remove_all_extra_metabox_from_shordcode', true ) ) {
-			add_filter( "get_user_option_meta-box-order_" . rtTPG()->post_type,
-				[
-					&$this,
-					'remove_all_meta_boxes_tgp_sc',
-				] );
-		}
+		// if ( is_admin() && apply_filters( 'rttpg_remove_all_extra_metabox_from_shordcode', true ) ) {
+		// 	add_filter( "get_user_option_meta-box-order_" . rtTPG()->post_type, [ &$this, 'remove_all_meta_boxes_tgp_sc', ] );
+		// }
 
 		if ( get_option( 'rttpg_activation_redirect', false ) ) {
 			delete_option( 'rttpg_activation_redirect' );
@@ -69,9 +65,11 @@ class PostTypeController {
 	 */
 	public function remove_all_meta_boxes_tgp_sc() {
 		global $wp_meta_boxes;
-		if ( isset( $wp_meta_boxes[ rtTPG()->post_type ]['normal']['high']['rttpg_meta'] ) && $wp_meta_boxes[ rtTPG()->post_type ]['normal']['high']['rttpg_sc_preview_meta']
+		if ( isset( $wp_meta_boxes[ rtTPG()->post_type ]['normal']['high']['rttpg_meta'] )
+		     && $wp_meta_boxes[ rtTPG()->post_type ]['normal']['high']['rttpg_sc_preview_meta']
 		     && $wp_meta_boxes[ rtTPG()->post_type ]['side']['low']['rt_plugin_sc_pro_information']
 		) {
+
 			$publishBox   = $wp_meta_boxes[ rtTPG()->post_type ]['side']['core']['submitdiv'];
 			$scBox        = $wp_meta_boxes[ rtTPG()->post_type ]['normal']['high']['rttpg_meta'];
 			$scBoxPreview = $wp_meta_boxes[ rtTPG()->post_type ]['normal']['high']['rttpg_sc_preview_meta'];
