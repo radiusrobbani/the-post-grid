@@ -894,6 +894,11 @@ span.more-loading {
   width: 100%;
 }
 
+.rt-tpg-container .post-tags-links .fa-tags {
+  font-weight: 900 !important;
+  font-size: 12px !important;
+}
+
 .rt-tpg-container .rt-holder .post-meta.center .rt-tpg-social-share {
   text-align: left;
 }

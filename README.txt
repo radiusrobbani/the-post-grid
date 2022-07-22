@@ -4,7 +4,7 @@ Donate link:
 Tags: post grid, content grid, post display, post slider, post grid elementor addon
 Requires at least: 4.5
 Tested up to: 6.0
-Stable tag: 4.1.3
+Stable tag: 4.1.4
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -362,6 +362,11 @@ With the Post Grid PRO, you get to use the Single Page Builder, which is based o
 11. Elementor Page builder
 
 == Changelog ==
+
+= 4.1.4 =
+* Fixed: Meta icon font-weight issue fixed
+* Added: Some css added
+* Remove: Unnecessary CSS remove
 
 = 4.1.3 =
 * Fixed: Elementor Controller Rearranged
