@@ -157,7 +157,6 @@ class TPGGridHoverLayout extends Custom_Widget_Base {
 		}
 
 		if ( rtTPG()->hasPro() && ( 'popup' == $data['post_link_type'] || 'multi_popup' == $data['post_link_type'] ) ) {
-			wp_enqueue_style( 'rt-scrollbar' );
 			wp_enqueue_style( 'rt-magnific-popup' );
 			wp_enqueue_script( 'rt-scrollbar' );
 			wp_enqueue_script( 'rt-magnific-popup' );

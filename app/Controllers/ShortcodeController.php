@@ -1101,7 +1101,6 @@ class ShortcodeController {
 
 				// var_dump( $linkType );
 				if ( 'popup' == $linkType ) {
-					array_push( $style, 'rt-scrollbar' );
 					array_push( $script, 'rt-scrollbar' );
 				}
 
