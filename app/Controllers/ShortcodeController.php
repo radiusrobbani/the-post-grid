@@ -1034,8 +1034,11 @@ class ShortcodeController {
 					} elseif ( $posts_loading_type == "pagination_ajax" && ! $isIsotope ) {
 						$htmlUtility .= "<div class='rt-page-numbers'></div>";
 					} elseif ( $posts_loading_type == "load_more" && rtTPG()->hasPro() ) {
+						$load_more_btn_text = ( ! empty( $scMeta['load_more_text'][0] ) ? $scMeta['load_more_text'][0] : "" );
+						$load_more_text = $load_more_btn_text ? esc_html($load_more_btn_text) : __( 'Load More', 'the-post-grid' );
+
 						$htmlUtility .= "<div class='rt-loadmore-btn rt-loadmore-action rt-loadmore-style{$hide}'>
-											<span class='rt-loadmore-text'>" . __( 'Load More', 'the-post-grid' ) . "</span>
+											<span class='rt-loadmore-text'>" . $load_more_text . "</span>
 											<div class='rt-loadmore-loading rt-ball-scale-multiple rt-2x'><div></div><div></div><div></div></div>
 										</div>";
 					} elseif ( $posts_loading_type == "load_on_scroll" && rtTPG()->hasPro() ) {

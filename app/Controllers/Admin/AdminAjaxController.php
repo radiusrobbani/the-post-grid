@@ -977,15 +977,18 @@ class AdminAjaxController {
 								true );
 						}
 					} elseif ( $posts_loading_type == "load_more" ) {
+
+						$load_more_btn_text = ( ! empty( $scMeta['load_more_text'][0] ) ? $scMeta['load_more_text'][0] : "" );
+						$load_more_text     = $load_more_btn_text ? esc_html( $load_more_btn_text ) : __( 'Load More', 'the-post-grid' );
+
 						if ( $isGrid ) {
 							$htmlUtility .= "<div class='rt-loadmore-btn rt-loadmore-action rt-loadmore-style'>
-											<span class='rt-loadmore-text'>" . __( 'Load More', 'the-post-grid' ) . "</span>
+											<span class='rt-loadmore-text'>" . $load_more_text . "</span>
 											<div class='rt-loadmore-loading rt-ball-scale-multiple rt-2x'><div></div><div></div><div></div></div>
 										</div>";
 						} else {
 							$htmlUtility .= "<div class='rt-tpg-load-more'>
-                                        <button data-sc-id='' data-paged='2'>" . __( 'Load More',
-									'the-post-grid' ) . "</button>
+                                        <button data-sc-id='' data-paged='2'>" . $load_more_text . "</button>
                                     </div>";
 						}
 					} elseif ( $posts_loading_type == "load_on_scroll" ) {

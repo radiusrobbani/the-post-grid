@@ -669,8 +669,9 @@ abstract class Custom_Widget_Base extends Widget_Base {
 		} elseif ( rtTPG()->hasPro() && $posts_loading_type == "pagination_ajax" ) { //&& ! $isIsotope
 			$htmlUtility .= "<div class='rt-page-numbers'></div>";
 		} elseif ( rtTPG()->hasPro() && $posts_loading_type == "load_more" ) {
+            $load_more_btn_text = $data['load_more_button_text'] ? esc_html($data['load_more_button_text']) : __( 'Load More', 'the-post-grid' );
 			$htmlUtility .= "<div class='rt-loadmore-btn rt-loadmore-action rt-loadmore-style{$hide}'>
-											<span class='rt-loadmore-text'>" . __( 'Load More', 'the-post-grid' ) . "</span>
+											<span class='rt-loadmore-text'>" . $load_more_btn_text . "</span>
 											<div class='rt-loadmore-loading rt-ball-scale-multiple rt-2x'><div></div><div></div><div></div></div>
 										</div>";
 		} elseif ( rtTPG()->hasPro() && $posts_loading_type == "load_on_scroll" ) {
