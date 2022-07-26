@@ -1,7 +1,20 @@
 <?php
+/**
+ * Upgrade Controller class.
+ *
+ * @package RT_TPG
+ */
 
 namespace RT\ThePostGrid\Controllers\Admin;
 
+// Do not allow directly accessing this file.
+if ( ! defined( 'ABSPATH' ) ) {
+	exit( 'This script cannot be accessed directly.' );
+}
+
+/**
+ * Upgrade Controller class.
+ */
 class UpgradeController {
 
 	public static $compare_version;
@@ -25,17 +38,21 @@ class UpgradeController {
 
 	public function version_notice() {
 		if ( class_exists( 'RtTpgPro' ) || class_exists( 'rtTPGP' ) ) {
-			add_action( 'admin_notices',
+			add_action(
+				'admin_notices',
 				function () {
 					$class    = 'notice notice-error';
 					$text     = esc_html__( 'The Post Grid Pro', 'the-post-grid' );
 					$link_pro = 'https://www.radiustheme.com/downloads/the-post-grid-pro-for-wordpress/';
 
-					printf( '<div class="%1$s"><p><a target="_blank" href="%2$s"><strong>The Post Grid Pro</strong></a> is not working properly, You need to update <strong>%3$s</strong> version to 5.1.0 or more to get the pro features.</p></div>',
+					printf(
+						'<div class="%1$s"><p><a target="_blank" href="%2$s"><strong>The Post Grid Pro</strong></a> is not working properly, You need to update <strong>%3$s</strong> version to 5.1.0 or more to get the pro features.</p></div>',
 						$class,
 						$link_pro,
-						$text );
-				} );
+						$text
+					);
+				}
+			);
 		}
 	}
 
@@ -48,7 +65,7 @@ class UpgradeController {
 	 */
 	public static function get_pro_plugin_info( $parameter ): string {
 		if ( ! function_exists( 'get_plugin_data' ) ) {
-			require_once( ABSPATH . 'wp-admin/includes/plugin.php' );
+			require_once ABSPATH . 'wp-admin/includes/plugin.php';
 		}
 
 		$tpg_free_path = WP_PLUGIN_DIR . '/the-post-grid-pro/the-post-grid-pro.php';

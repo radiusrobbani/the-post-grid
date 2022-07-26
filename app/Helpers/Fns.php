@@ -1,4 +1,9 @@
 <?php
+/**
+ * Helper class.
+ *
+ * @package RT_TPG
+ */
 
 namespace RT\ThePostGrid\Helpers;
 
@@ -6,6 +11,14 @@ use RT\ThePostGrid\Models\Field;
 use RT\ThePostGrid\Models\ReSizer;
 use RT\ThePostGridPro\Helpers\Functions;
 
+// Do not allow directly accessing this file.
+if ( ! defined( 'ABSPATH' ) ) {
+	exit( 'This script cannot be accessed directly.' );
+}
+
+/**
+ * Helper class.
+ */
 class Fns {
 
 	/**
@@ -20,17 +33,17 @@ class Fns {
 
 	/**
 	 * @param         $viewName
-	 * @param array $args
-	 * @param bool $return
+	 * @param array    $args
+	 * @param bool     $return
 	 *
 	 * @return string|void
 	 */
 	public static function view( $viewName, $args = [], $return = false ) {
-		$file     = str_replace( ".", "/", $viewName );
+		$file     = str_replace( '.', '/', $viewName );
 		$file     = ltrim( $file, '/' );
 		$viewFile = trailingslashit( RT_THE_POST_GRID_PLUGIN_PATH . '/resources' ) . $file . '.php';
 		if ( ! file_exists( $viewFile ) ) {
-			return new \WP_Error( "brock", __( "$viewFile file not found" ) );
+			return new \WP_Error( 'brock', __( "$viewFile file not found" ) );
 		}
 		if ( $args ) {
 			extract( $args );
@@ -76,7 +89,7 @@ class Fns {
 	 * Template Content
 	 *
 	 * @param string $template_name Template name.
-	 * @param array $args Arguments. (default: array).
+	 * @param array  $args Arguments. (default: array).
 	 * @param string $template_path Template path. (default: '').
 	 * @param string $default_path Default path. (default: '').
 	 */
@@ -86,7 +99,6 @@ class Fns {
 		}
 
 		$located = self::locate_template( $template_name, $template_path, $default_path );
-
 
 		if ( ! file_exists( $located ) ) {
 			/* translators: %s template */
@@ -109,7 +121,7 @@ class Fns {
 	 * Get template content and return
 	 *
 	 * @param string $template_name Template name.
-	 * @param array $args Arguments. (default: array).
+	 * @param array  $args Arguments. (default: array).
 	 * @param string $template_path Template path. (default: '').
 	 * @param string $default_path Default path. (default: '').
 	 *
@@ -124,13 +136,13 @@ class Fns {
 
 	/**
 	 * @param          $template_name
-	 * @param string $template_path
-	 * @param string $default_path
+	 * @param string        $template_path
+	 * @param string        $default_path
 	 *
 	 * @return mixed|void
 	 */
 	public static function locate_template( $template_name, $template_path = '', $default_path = '' ) {
-		$template_name = $template_name . ".php";
+		$template_name = $template_name . '.php';
 		if ( ! $template_path ) {
 			$template_path = rtTPG()->get_template_path();
 		}
@@ -1186,16 +1198,16 @@ class Fns {
 			$css .= "#{$layoutID} .rt-holder .rt-woo-info .price{";
 			$css .= "color:" . $primaryColor . ";";
 			$css .= "}";
-			$css .= "body .rt-tpg-container .rt-tpg-isotope-buttons .selected, 
-						#{$layoutID} .layout12 .rt-holder:hover .rt-detail, 
-						#{$layoutID} .isotope8 .rt-holder:hover .rt-detail, 
+			$css .= "body .rt-tpg-container .rt-tpg-isotope-buttons .selected,
+						#{$layoutID} .layout12 .rt-holder:hover .rt-detail,
+						#{$layoutID} .isotope8 .rt-holder:hover .rt-detail,
 						#{$layoutID} .carousel8 .rt-holder:hover .rt-detail,
-				        #{$layoutID} .layout13 .rt-holder .overlay .post-info, 
-				        #{$layoutID} .isotope9 .rt-holder .overlay .post-info, 
+				        #{$layoutID} .layout13 .rt-holder .overlay .post-info,
+				        #{$layoutID} .isotope9 .rt-holder .overlay .post-info,
 				        #{$layoutID}.rt-tpg-container .layout4 .rt-holder .rt-detail,
-				        .rt-modal-{$id} .md-content, 
-				        .rt-modal-{$id} .md-content > .rt-md-content-holder .rt-md-content, 
-				        .rt-popup-wrap-{$id}.rt-popup-wrap .rt-popup-navigation-wrap, 
+				        .rt-modal-{$id} .md-content,
+				        .rt-modal-{$id} .md-content > .rt-md-content-holder .rt-md-content,
+				        .rt-popup-wrap-{$id}.rt-popup-wrap .rt-popup-navigation-wrap,
 				        #{$layoutID} .carousel9 .rt-holder .overlay .post-info{";
 			$css .= "background-color:" . $primaryColor . ";";
 			$css .= "}";
@@ -1225,9 +1237,9 @@ class Fns {
 
 		if ( $button_bg_color ) {
 			$css .= "#{$layoutID} .pagination-list li a,
-				            {$layoutID} .pagination-list li span, 
+				            {$layoutID} .pagination-list li span,
 				            {$layoutID} .pagination li a,
-							#{$layoutID} .rt-tpg-isotope-buttons button, 
+							#{$layoutID} .rt-tpg-isotope-buttons button,
 							#{$layoutID} .rt-tpg-utility .rt-tpg-load-more button,
 							#{$layoutID}.rt-tpg-container .swiper-navigation .slider-btn,
 							#{$layoutID}.rt-tpg-container .swiper-pagination-bullet,
@@ -1262,12 +1274,12 @@ class Fns {
 
 		// button active color
 		if ( $button_active_bg_color ) {
-			$css .= "#{$layoutID} .pagination li.active span, 
+			$css .= "#{$layoutID} .pagination li.active span,
                         #{$layoutID} .pagination-list li.active span,
 						#{$layoutID} .rt-tpg-isotope-buttons button.selected,
-						#{$layoutID} .rt-filter-item-wrap.rt-filter-button-wrap span.rt-filter-button-item.selected, 
+						#{$layoutID} .rt-filter-item-wrap.rt-filter-button-wrap span.rt-filter-button-item.selected,
 						#{$layoutID} .rt-layout-filter-container .rt-filter-sub-tax.sub-button-group .rt-filter-button-item.selected,
-						#{$layoutID}.rt-tpg-container .rt-pagination-wrap .rt-page-numbers .paginationjs .paginationjs-pages ul li.active>a, 
+						#{$layoutID}.rt-tpg-container .rt-pagination-wrap .rt-page-numbers .paginationjs .paginationjs-pages ul li.active>a,
 						#{$layoutID}.rt-tpg-container .swiper-pagination-bullet.swiper-pagination-bullet-active-main{";
 			$css .= "background-color:" . $button_active_bg_color . ";";
 			$css .= "}";
@@ -1335,7 +1347,7 @@ class Fns {
 				#{$layoutID} .wc-carousel2 .rt-detail .rt-wc-add-to-cart,
 				#{$layoutID} .wc-isotope2 .rt-detail .rt-wc-add-to-cart,
 				#{$layoutID} .rt-tpg-utility .rt-tpg-load-more button,
-				#rt-tooltip-{$id}, 
+				#rt-tooltip-{$id},
 				#{$layoutID} .rt-filter-item-wrap.rt-filter-button-wrap span.rt-filter-button-item,
 				#{$layoutID} .rt-layout-filter-container .rt-filter-sub-tax.sub-button-group .rt-filter-button-item,
 				#{$layoutID} .rt-layout-filter-container .rt-filter-wrap .rt-filter-item-wrap.rt-sort-order-action,
@@ -1567,9 +1579,9 @@ class Fns {
 			$css .= "}";
 			if ( $title_size ) {
 				$css .= "#{$layoutID} .post-grid-lg-style-1 .post-title,
-						#{$layoutID} .post-grid-lg-style-1 .post-title a, 
+						#{$layoutID} .post-grid-lg-style-1 .post-title a,
 						#{$layoutID} .big-layout .post-title,
-						#{$layoutID} .big-layout .post-title a, 
+						#{$layoutID} .big-layout .post-title a,
 						#{$layoutID} .post-grid-lg-style-1 .post-title,
 						#{$layoutID} .post-grid-lg-style-1 .post-title a {";
 				$css .= "font-size:" . ( $title_size + 8 ) . "px;";
@@ -1713,13 +1725,13 @@ class Fns {
 		$meta_keys = [];
 		if ( $post_type ) {
 			global $wpdb;
-			$query     = "SELECT DISTINCT($wpdb->postmeta.meta_key) 
-			        FROM $wpdb->posts 
-			        LEFT JOIN $wpdb->postmeta 
-			        ON $wpdb->posts.ID = $wpdb->postmeta.post_id 
-			        WHERE $wpdb->posts.post_type = '%s' 
-			        AND $wpdb->postmeta.meta_key != '' 
-			        AND $wpdb->postmeta.meta_key NOT RegExp '(^[_0-9].+$)' 
+			$query     = "SELECT DISTINCT($wpdb->postmeta.meta_key)
+			        FROM $wpdb->posts
+			        LEFT JOIN $wpdb->postmeta
+			        ON $wpdb->posts.ID = $wpdb->postmeta.post_id
+			        WHERE $wpdb->posts.post_type = '%s'
+			        AND $wpdb->postmeta.meta_key != ''
+			        AND $wpdb->postmeta.meta_key NOT RegExp '(^[_0-9].+$)'
 			        AND $wpdb->postmeta.meta_key NOT RegExp '(^[0-9]+$)'";
 			$meta_keys = $wpdb->get_col( $wpdb->prepare( $query, $post_type ) );
 			//				set_transient( 'tpg_' . $post_type . '_meta_keys', $meta_keys, 60 * 60 * 24 ); # create 1 Day Expiration

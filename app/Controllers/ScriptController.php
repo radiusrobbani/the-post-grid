@@ -1,7 +1,20 @@
 <?php
+/**
+ * Script Controller class.
+ *
+ * @package RT_TPG
+ */
 
 namespace RT\ThePostGrid\Controllers;
 
+// Do not allow directly accessing this file.
+if ( ! defined( 'ABSPATH' ) ) {
+	exit( 'This script cannot be accessed directly.' );
+}
+
+/**
+ * Script Controller class.
+ */
 class ScriptController {
 
 	private $version;
@@ -19,7 +32,7 @@ class ScriptController {
 
 		$this->settings = get_option( rtTPG()->options['settings'] );
 
-		$current_page = isset( $_GET["page"] ) ? $_GET["page"] : '';
+		$current_page = isset( $_GET['page'] ) ? $_GET['page'] : '';
 		if ( 'rttpg_settings' == $current_page ) {
 			wp_enqueue_style( 'wp-color-picker' );
 			wp_enqueue_script( 'wp-color-picker' );
@@ -29,10 +42,9 @@ class ScriptController {
 		$scripts = [];
 		$styles  = [];
 
-
 		$scripts[] = [
 			'handle' => 'rt-isotope-js',
-			'src'    => rtTPG()->get_assets_uri( "vendor/isotope/isotope.pkgd.min.js" ),
+			'src'    => rtTPG()->get_assets_uri( 'vendor/isotope/isotope.pkgd.min.js' ),
 			'deps'   => [ 'jquery' ],
 			'footer' => true,
 		];
@@ -47,12 +59,10 @@ class ScriptController {
 		// register acf styles
 		$styles['rt-fontawsome'] = rtTPG()->get_assets_uri( 'vendor/font-awesome/css/font-awesome.min.css' );
 
-
-		//Plugin specific css
+		// Plugin specific css
 		$styles['rt-tpg']           = rtTPG()->tpg_can_be_rtl( 'css/thepostgrid' );
 		$styles['rt-tpg-elementor'] = rtTPG()->tpg_can_be_rtl( 'css/tpg-elementor' );
 		$styles['rt-tpg-shortcode'] = rtTPG()->tpg_can_be_rtl( 'css/tpg-shortcode' );
-
 
 		if ( is_admin() ) {
 			$scripts[]                      = [
@@ -121,158 +131,160 @@ class ScriptController {
 	public function header_scripts() {
 
 		?>
-        <style>
-            :root {
-                --tpg-primary-color: <?php echo isset( $this->settings['tpg_primary_color_main'] ) ? $this->settings['tpg_primary_color_main'] : '#0d6efd'?>;
-                --tpg-secondary-color: <?php echo isset( $this->settings['tpg_secondary_color_main'] ) ? $this->settings['tpg_secondary_color_main'] : '#0654c4'?>;
-                --tpg-primary-light: #c4d0ff
-            }
+		<style>
+			:root {
+				--tpg-primary-color: <?php echo isset( $this->settings['tpg_primary_color_main'] ) ? $this->settings['tpg_primary_color_main'] : '#0d6efd'; ?>;
+				--tpg-secondary-color: <?php echo isset( $this->settings['tpg_secondary_color_main'] ) ? $this->settings['tpg_secondary_color_main'] : '#0654c4'; ?>;
+				--tpg-primary-light: #c4d0ff
+			}
 
-            <?php if( isset( $this->settings['tpg_loader_color'] ) ) : ?>
-            body .rt-tpg-container .rt-loading,
-            body #bottom-script-loader .rt-ball-clip-rotate {
-                color: <?php echo esc_attr($this->settings['tpg_loader_color']) ?> !important;
-            }
+			<?php if ( isset( $this->settings['tpg_loader_color'] ) ) : ?>
+			body .rt-tpg-container .rt-loading,
+			body #bottom-script-loader .rt-ball-clip-rotate {
+				color: <?php echo esc_attr( $this->settings['tpg_loader_color'] ); ?> !important;
+			}
 
-            <?php endif; ?>
-        </style>
+			<?php endif; ?>
+		</style>
 
 		<?php
-		if ( isset( $this->settings['tpg_load_script'] ) ) : ?>
-            <style>
-                .rt-container-fluid {
-                    position: relative;
-                }
+		if ( isset( $this->settings['tpg_load_script'] ) ) :
+			?>
+			<style>
+				.rt-container-fluid {
+					position: relative;
+				}
 
-                .rt-tpg-container .tpg-pre-loader {
-                    position: relative;
-                    overflow: hidden;
-                }
+				.rt-tpg-container .tpg-pre-loader {
+					position: relative;
+					overflow: hidden;
+				}
 
-                .rt-tpg-container .rt-loading-overlay {
-                    opacity: 0;
-                    visibility: hidden;
-                    position: absolute;
-                    top: 0;
-                    left: 0;
-                    width: 100%;
-                    height: 100%;
-                    z-index: 1;
-                    background-color: #fff;
-                }
+				.rt-tpg-container .rt-loading-overlay {
+					opacity: 0;
+					visibility: hidden;
+					position: absolute;
+					top: 0;
+					left: 0;
+					width: 100%;
+					height: 100%;
+					z-index: 1;
+					background-color: #fff;
+				}
 
-                .rt-tpg-container .rt-loading {
-                    color: var(--tpg-primary-color);
-                    position: absolute;
-                    top: 40%;
-                    left: 50%;
-                    margin-left: -16px;
-                    z-index: 2;
-                    opacity: 0;
-                    visibility: hidden;
-                }
+				.rt-tpg-container .rt-loading {
+					color: var(--tpg-primary-color);
+					position: absolute;
+					top: 40%;
+					left: 50%;
+					margin-left: -16px;
+					z-index: 2;
+					opacity: 0;
+					visibility: hidden;
+				}
 
-                .rt-tpg-container .tpg-pre-loader .rt-loading-overlay {
-                    opacity: 0.8;
-                    visibility: visible;
-                }
+				.rt-tpg-container .tpg-pre-loader .rt-loading-overlay {
+					opacity: 0.8;
+					visibility: visible;
+				}
 
-                .tpg-carousel-main .tpg-pre-loader .rt-loading-overlay {
-                    opacity: 1;
-                }
+				.tpg-carousel-main .tpg-pre-loader .rt-loading-overlay {
+					opacity: 1;
+				}
 
-                .rt-tpg-container .tpg-pre-loader .rt-loading {
-                    opacity: 1;
-                    visibility: visible;
-                }
-
-
-                #bottom-script-loader {
-                    position: absolute;
-                    width: calc(100% + 60px);
-                    height: calc(100% + 60px);
-                    z-index: 999;
-                    background: rgba(255, 255, 255, 0.95);
-                    margin: -30px;
-                }
-
-                #bottom-script-loader .rt-ball-clip-rotate {
-                    color: var(--tpg-primary-color);
-                    position: absolute;
-                    top: 80px;
-                    left: 50%;
-                    margin-left: -16px;
-                    z-index: 2;
-                }
-
-                .tpg-el-main-wrapper.loading {
-                    min-height: 300px;
-                    transition: 0.4s;
-                }
-
-                .tpg-el-main-wrapper.loading::before {
-                    width: 32px;
-                    height: 32px;
-                    display: inline-block;
-                    float: none;
-                    border: 2px solid currentColor;
-                    background: transparent;
-                    border-bottom-color: transparent;
-                    border-radius: 100%;
-                    -webkit-animation: ball-clip-rotate 0.75s linear infinite;
-                    -moz-animation: ball-clip-rotate 0.75s linear infinite;
-                    -o-animation: ball-clip-rotate 0.75s linear infinite;
-                    animation: ball-clip-rotate 0.75s linear infinite;
-                    left: 50%;
-                    top: 50%;
-                    position: absolute;
-                    z-index: 9999999999;
-                    color: red;
-                }
+				.rt-tpg-container .tpg-pre-loader .rt-loading {
+					opacity: 1;
+					visibility: visible;
+				}
 
 
-                .rt-tpg-container .slider-main-wrapper,
-                .tpg-el-main-wrapper .slider-main-wrapper {
-                    opacity: 0;
-                }
+				#bottom-script-loader {
+					position: absolute;
+					width: calc(100% + 60px);
+					height: calc(100% + 60px);
+					z-index: 999;
+					background: rgba(255, 255, 255, 0.95);
+					margin: -30px;
+				}
 
-                .md-modal {
-                    visibility: hidden;
-                }
-                .md-modal.md-show {
-                    visibility: visible;
-                }
+				#bottom-script-loader .rt-ball-clip-rotate {
+					color: var(--tpg-primary-color);
+					position: absolute;
+					top: 80px;
+					left: 50%;
+					margin-left: -16px;
+					z-index: 2;
+				}
 
-                .builder-content.content-invisible {
-                    visibility: hidden;
-                }
+				.tpg-el-main-wrapper.loading {
+					min-height: 300px;
+					transition: 0.4s;
+				}
 
-                .rt-tpg-container > *:not(.bottom-script-loader, .slider-main-wrapper) {
-                    opacity: 0;
-                }
+				.tpg-el-main-wrapper.loading::before {
+					width: 32px;
+					height: 32px;
+					display: inline-block;
+					float: none;
+					border: 2px solid currentColor;
+					background: transparent;
+					border-bottom-color: transparent;
+					border-radius: 100%;
+					-webkit-animation: ball-clip-rotate 0.75s linear infinite;
+					-moz-animation: ball-clip-rotate 0.75s linear infinite;
+					-o-animation: ball-clip-rotate 0.75s linear infinite;
+					animation: ball-clip-rotate 0.75s linear infinite;
+					left: 50%;
+					top: 50%;
+					position: absolute;
+					z-index: 9999999999;
+					color: red;
+				}
 
-                .rt-popup-content .rt-tpg-container > *:not(.bottom-script-loader, .slider-main-wrapper) {
-                    opacity: 1;
-                }
 
-            </style>
+				.rt-tpg-container .slider-main-wrapper,
+				.tpg-el-main-wrapper .slider-main-wrapper {
+					opacity: 0;
+				}
 
-            <script>
-                jQuery( document ).ready( function () {
-                    setTimeout( function () {
-                        jQuery( '.rt-tpg-container > *:not(.bottom-script-loader, .slider-main-wrapper)' ).animate( { "opacity": 1 } );
-                    }, 100 );
-                } );
+				.md-modal {
+					visibility: hidden;
+				}
+				.md-modal.md-show {
+					visibility: visible;
+				}
 
-                jQuery( window ).on( 'elementor/frontend/init', function () {
-                    if ( elementorFrontend.isEditMode() ) {
-                        elementorFrontend.hooks.addAction( 'frontend/element_ready/widget', function () {
-                            jQuery( '.rt-tpg-container > *:not(.bottom-script-loader, .slider-main-wrapper)' ).animate( { "opacity": 1 } );
-                        } );
-                    }
-                } );
-            </script>
-		<?php endif;
+				.builder-content.content-invisible {
+					visibility: hidden;
+				}
+
+				.rt-tpg-container > *:not(.bottom-script-loader, .slider-main-wrapper) {
+					opacity: 0;
+				}
+
+				.rt-popup-content .rt-tpg-container > *:not(.bottom-script-loader, .slider-main-wrapper) {
+					opacity: 1;
+				}
+
+			</style>
+
+			<script>
+				jQuery( document ).ready( function () {
+					setTimeout( function () {
+						jQuery( '.rt-tpg-container > *:not(.bottom-script-loader, .slider-main-wrapper)' ).animate( { "opacity": 1 } );
+					}, 100 );
+				} );
+
+				jQuery( window ).on( 'elementor/frontend/init', function () {
+					if ( elementorFrontend.isEditMode() ) {
+						elementorFrontend.hooks.addAction( 'frontend/element_ready/widget', function () {
+							jQuery( '.rt-tpg-container > *:not(.bottom-script-loader, .slider-main-wrapper)' ).animate( { "opacity": 1 } );
+						} );
+					}
+				} );
+			</script>
+			<?php
+		endif;
 
 	}
 

@@ -1,8 +1,20 @@
 <?php
-
+/**
+ * Post Type Controller class.
+ *
+ * @package RT_TPG
+ */
 
 namespace RT\ThePostGrid\Controllers\Admin;
 
+// Do not allow directly accessing this file.
+if ( ! defined( 'ABSPATH' ) ) {
+	exit( 'This script cannot be accessed directly.' );
+}
+
+/**
+ * Post Type Controller class.
+ */
 class PostTypeController {
 
 	public function __construct() {
@@ -12,7 +24,7 @@ class PostTypeController {
 
 	public function the_post_grid_remove_all_meta_box() {
 		// if ( is_admin() && apply_filters( 'rttpg_remove_all_extra_metabox_from_shordcode', true ) ) {
-		// 	add_filter( "get_user_option_meta-box-order_" . rtTPG()->post_type, [ &$this, 'remove_all_meta_boxes_tgp_sc', ] );
+		// add_filter( "get_user_option_meta-box-order_" . rtTPG()->post_type, [ &$this, 'remove_all_meta_boxes_tgp_sc', ] );
 		// }
 
 		if ( get_option( 'rttpg_activation_redirect', false ) ) {
@@ -38,7 +50,8 @@ class PostTypeController {
 			'not_found_in_trash' => __( 'No Post Grids found in Trash', 'the-post-grid' ),
 		];
 
-		register_post_type( rtTPG()->post_type,
+		register_post_type(
+			rtTPG()->post_type,
 			[
 				'labels'          => $labels,
 				'public'          => false,
@@ -54,8 +67,8 @@ class PostTypeController {
 				],
 				'show_in_menu'    => true,
 				'menu_position'   => 20,
-			] );
-
+			]
+		);
 
 	}
 
@@ -66,8 +79,8 @@ class PostTypeController {
 	public function remove_all_meta_boxes_tgp_sc() {
 		global $wp_meta_boxes;
 		if ( isset( $wp_meta_boxes[ rtTPG()->post_type ]['normal']['high']['rttpg_meta'] )
-		     && $wp_meta_boxes[ rtTPG()->post_type ]['normal']['high']['rttpg_sc_preview_meta']
-		     && $wp_meta_boxes[ rtTPG()->post_type ]['side']['low']['rt_plugin_sc_pro_information']
+			 && $wp_meta_boxes[ rtTPG()->post_type ]['normal']['high']['rttpg_sc_preview_meta']
+			 && $wp_meta_boxes[ rtTPG()->post_type ]['side']['low']['rt_plugin_sc_pro_information']
 		) {
 
 			$publishBox   = $wp_meta_boxes[ rtTPG()->post_type ]['side']['core']['submitdiv'];

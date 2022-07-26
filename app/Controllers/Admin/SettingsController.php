@@ -1,11 +1,22 @@
 <?php
-
+/**
+ * Settings Controller class.
+ *
+ * @package RT_TPG
+ */
 
 namespace RT\ThePostGrid\Controllers\Admin;
 
-
 use RT\ThePostGrid\Helpers\Fns;
 
+// Do not allow directly accessing this file.
+if ( ! defined( 'ABSPATH' ) ) {
+	exit( 'This script cannot be accessed directly.' );
+}
+
+/**
+ * Settings Controller class.
+ */
 class SettingsController {
 
 	private $sc_tag = 'rt_tpg_scg';
@@ -34,11 +45,11 @@ class SettingsController {
 		if ( 'true' == get_user_option( 'rich_editing' ) ) {
 			add_filter( 'mce_external_plugins', [ $this, 'mce_external_plugins' ] );
 			add_filter( 'mce_buttons', [ $this, 'mce_buttons' ] );
-			echo "<style>";
-			echo "i.mce-i-rt_tpg_scg{";
+			echo '<style>';
+			echo 'i.mce-i-rt_tpg_scg{';
 			echo "background: url('" . rtTPG()->get_assets_uri( 'images/icon-20x20.png' ) . "');";
-			echo "}";
-			echo "</style>";
+			echo '}';
+			echo '</style>';
 		}
 	}
 
@@ -46,7 +57,7 @@ class SettingsController {
 	 * mce_external_plugins
 	 * Adds our tinymce plugin
 	 *
-	 * @param  array  $plugin_array
+	 * @param  array $plugin_array
 	 *
 	 * @return array
 	 */
@@ -60,7 +71,7 @@ class SettingsController {
 	 * mce_buttons
 	 * Adds our tinymce button
 	 *
-	 * @param  array  $buttons
+	 * @param  array $buttons
 	 *
 	 * @return array
 	 */
@@ -81,14 +92,16 @@ class SettingsController {
 			return;
 		}
 
-		$html = '';
+		$html  = '';
 		$html .= '<div class="rt-document-box rt-alert rt-pro-alert">
                 <div class="rt-box-icon"><i class="dashicons dashicons-lock"></i></div>
                 <div class="rt-box-content">
                     <h3 class="rt-box-title">' . esc_html__( 'Pro field alert!', 'the-post-grid' ) . '</h3>
                     <p><span></span>' . esc_html__( 'Sorry! this is a pro field. To use this field, you need to use pro plugin.', 'the-post-grid' ) . '</p>
-                    <a href="https://www.radiustheme.com/downloads/the-post-grid-pro-for-wordpress/" target="_blank" class="rt-admin-btn">' . esc_html__( "Upgrade to pro",
-				"the-post-grid" ) . '</a>
+                    <a href="https://www.radiustheme.com/downloads/the-post-grid-pro-for-wordpress/" target="_blank" class="rt-admin-btn">' . esc_html__(
+						'Upgrade to pro',
+						'the-post-grid'
+					) . '</a>
                     <a href="#" target="_blank" class="rt-alert-close rt-pro-alert-close">x</a>
                 </div>
             </div>';
@@ -122,13 +135,15 @@ class SettingsController {
 		wp_enqueue_style( 'rt-tpg-admin' );
 
 		$nonce = wp_create_nonce( rtTPG()->nonceText() );
-		wp_localize_script( 'rt-tpg-admin',
+		wp_localize_script(
+			'rt-tpg-admin',
 			'rttpg',
 			[
 				'nonceID' => rtTPG()->nonceId(),
 				'nonce'   => $nonce,
 				'ajaxurl' => admin_url( 'admin-ajax.php' ),
-			] );
+			]
+		);
 	}
 
 	function marketing( $links ) {
@@ -136,7 +151,7 @@ class SettingsController {
 		$links[] = '<a target="_blank" href="' . esc_url( 'https://www.radiustheme.com/docs/the-post-grid/' ) . '">Documentation</a>';
 		if ( ! rtTPG()->hasPro() ) {
 			$links[] = '<a target="_blank" style="color: #39b54a;font-weight: 700;" href="' . esc_url( 'https://www.radiustheme.com/downloads/the-post-grid-pro-for-wordpress/' )
-			           . '">Get Pro</a>';
+					   . '">Get Pro</a>';
 		}
 
 		return $links;
@@ -146,24 +161,27 @@ class SettingsController {
 		add_submenu_page(
 			'edit.php?post_type=' . rtTPG()->post_type,
 			__( 'Settings', 'the-post-grid' ),
-			__( 'Settings', "the-post-grid" ),
+			__( 'Settings', 'the-post-grid' ),
 			'administrator',
 			'rttpg_settings',
-			[ &$this, 'settings' ] );
+			[ &$this, 'settings' ]
+		);
 
-		add_submenu_page( 'edit.php?post_type=' . rtTPG()->post_type,
+		add_submenu_page(
+			'edit.php?post_type=' . rtTPG()->post_type,
 			__( 'Get Help' ),
-			__( 'Get Help', "the-post-grid" ),
+			__( 'Get Help', 'the-post-grid' ),
 			'administrator',
 			'rttpg_get_help',
 			[
 				$this,
 				'get_help',
-			] );
+			]
+		);
 	}
 
 	function get_help() {
-		Fns::view('page.help');
+		Fns::view( 'page.help' );
 	}
 
 	public function settings() {

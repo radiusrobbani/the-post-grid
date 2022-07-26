@@ -1,4 +1,14 @@
 <?php
+/**
+ * Main initialization class.
+ *
+ * @package RT_TPG
+ */
+
+// Do not allow directly accessing this file.
+if ( ! defined( 'ABSPATH' ) ) {
+	exit( 'This script cannot be accessed directly.' );
+}
 
 use RT\ThePostGrid\Controllers\Admin\AdminAjaxController;
 use RT\ThePostGrid\Controllers\Admin\MetaController;
@@ -19,15 +29,34 @@ use RT\ThePostGrid\Controllers\Admin\UpgradeController;
 require_once __DIR__ . './../vendor/autoload.php';
 
 if ( ! class_exists( RtTpg::class ) ) {
+	/**
+	 * Main initialization class.
+	 */
 	final class RtTpg {
+		/**
+		 * Post Type
+		 *
+		 * @var string
+		 */
+		public $post_type = 'rttpg';
 
-		public $post_type = "rttpg";
+		/**
+		 * Options
+		 *
+		 * @var array
+		 */
 		public $options = [
 			'settings'          => 'rt_the_post_grid_settings',
 			'version'           => RT_THE_POST_GRID_VERSION,
 			'installed_version' => 'rt_the_post_grid_current_version',
 			'slug'              => RT_THE_POST_GRID_PLUGIN_SLUG,
 		];
+
+		/**
+		 * Defaut Settings
+		 *
+		 * @var array
+		 */
 		public $defaultSettings = [
 			'tpg_block_type'     => 'default',
 			'popup_fields'       => [
@@ -47,10 +76,10 @@ if ( ! class_exists( RtTpg::class ) ) {
 			],
 		];
 
-		protected static $_instance;
-
 		/**
 		 * Store the singleton object.
+		 *
+		 * @var boolean
 		 */
 		private static $singleton = false;
 
@@ -64,17 +93,20 @@ if ( ! class_exists( RtTpg::class ) ) {
 		/**
 		 * Fetch an instance of the class.
 		 */
-		final public static function getInstance() {
-			if ( self::$singleton === false ) {
+		public static function getInstance() {
+			if ( false === self::$singleton ) {
 				self::$singleton = new self();
 			}
 
 			return self::$singleton;
 		}
 
-
+		/**
+		 * Class init
+		 *
+		 * @return void
+		 */
 		protected function __init() {
-
 			$settings = get_option( $this->options['settings'] );
 
 			new UpgradeController();
@@ -89,9 +121,7 @@ if ( ! class_exists( RtTpg::class ) ) {
 				new MetaController();
 			}
 
-			if ( ! isset( $settings['tpg_block_type'] ) || in_array( $settings['tpg_block_type'], [ 'default',
-					'shortcode'
-				] ) ) {
+			if ( ! isset( $settings['tpg_block_type'] ) || in_array( $settings['tpg_block_type'], [ 'default', 'shortcode' ], true ) ) {
 				new ShortcodeController();
 				new GutenBergController();
 			}
@@ -101,32 +131,43 @@ if ( ! class_exists( RtTpg::class ) ) {
 
 			( new SettingsController() )->init();
 
-			if ( ! isset( $settings['tpg_block_type'] ) || in_array( $settings['tpg_block_type'], [ 'default',
-					'elementor'
-				] ) ) {
+			if ( ! isset( $settings['tpg_block_type'] ) || in_array( $settings['tpg_block_type'], [ 'default', 'elementor' ], true ) ) {
 				new ElementorController();
 			}
-
 
 			$this->load_hooks();
 		}
 
+		/**
+		 * Load hooks
+		 *
+		 * @return void
+		 */
 		private function load_hooks() {
 			register_activation_hook( RT_THE_POST_GRID_PLUGIN_FILE, [ Install::class, 'activate' ] );
 			register_deactivation_hook( RT_THE_POST_GRID_PLUGIN_FILE, [ Install::class, 'deactivate' ] );
 
 			add_action( 'plugins_loaded', [ $this, 'on_plugins_loaded' ], - 1 );
 			add_action( 'init', [ &$this, 'init_hooks' ], 0 );
-			//add_action( 'init', [ ShortcodeController::class, 'init' ] ); // Init ShortCode.
 			add_filter( 'wp_calculate_image_srcset', '__return_false' );
 		}
 
+		/**
+		 * Init hooks
+		 *
+		 * @return void
+		 */
 		public function init_hooks() {
 			do_action( 'rttpg_before_init', $this );
 
 			$this->load_language();
 		}
 
+		/**
+		 * I18n
+		 *
+		 * @return void
+		 */
 		public function load_language() {
 			do_action( 'rttpg_set_local', null );
 			$locale = determine_locale();
@@ -136,6 +177,11 @@ if ( ! class_exists( RtTpg::class ) ) {
 			load_plugin_textdomain( 'the-post-grid', false, plugin_basename( dirname( RT_THE_POST_GRID_PLUGIN_FILE ) ) . '/languages' );
 		}
 
+		/**
+		 * Plugin loaded action
+		 *
+		 * @return void
+		 */
 		public function on_plugins_loaded() {
 			do_action( 'rttpg_loaded', $this );
 		}
@@ -149,27 +195,48 @@ if ( ! class_exists( RtTpg::class ) ) {
 			return untrailingslashit( plugin_dir_path( RT_THE_POST_GRID_PLUGIN_FILE ) );
 		}
 
+		/**
+		 * Plugin template path
+		 *
+		 * @return string
+		 */
 		public function plugin_template_path() {
 			$plugin_template = $this->plugin_path() . '/templates/';
 
 			return apply_filters( 'tlp_tpg_template_path', $plugin_template );
 		}
 
+		/**
+		 * Default template path
+		 *
+		 * @return string
+		 */
 		public function default_template_path() {
 			return apply_filters( 'rttpg_default_template_path', untrailingslashit( plugin_dir_path( RT_THE_POST_GRID_PLUGIN_FILE ) ) );
 		}
 
+		/**
+		 * Nonce text
+		 *
+		 * @return string
+		 */
 		public static function nonceText() {
-			return "rttpg_nonce_secret";
-		}
-
-		public static function nonceId() {
-			return "rttpg_nonce";
+			return 'rttpg_nonce_secret';
 		}
 
 		/**
-		 * @param $file
+		 * Nonce ID
 		 *
+		 * @return string
+		 */
+		public static function nonceId() {
+			return 'rttpg_nonce';
+		}
+
+		/**
+		 * Get assets URI
+		 *
+		 * @param string $file File.
 		 * @return string
 		 */
 		public function get_assets_uri( $file ) {
@@ -179,8 +246,9 @@ if ( ! class_exists( RtTpg::class ) ) {
 		}
 
 		/**
-		 * @param $file
+		 * RTL check.
 		 *
+		 * @param string $file File.
 		 * @return string
 		 */
 		public function tpg_can_be_rtl( $file ) {
@@ -202,18 +270,25 @@ if ( ! class_exists( RtTpg::class ) ) {
 			return apply_filters( 'rttpg_template_path', 'the-post-grid/' );
 		}
 
-
+		/**
+		 * Pro check.
+		 *
+		 * @return boolean
+		 */
 		public function hasPro() {
 			return class_exists( 'RtTpgPro' ) || class_exists( 'rtTPGP' );
 		}
-
 	}
 
+	/**
+	 * Function for external use.
+	 *
+	 * @return rtTPG
+	 */
 	function rtTPG() {
 		return rtTPG::getInstance();
 	}
 
+	// Init app.
 	rtTPG();
 }
-
-
