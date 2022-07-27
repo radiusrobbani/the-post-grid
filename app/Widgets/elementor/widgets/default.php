@@ -1,7 +1,20 @@
 <?php
+/**
+ * Default Widget Class
+ *
+ * @package RT_TPG
+ */
 
 use RT\ThePostGrid\Helpers\Fns;
 
+// Do not allow directly accessing this file.
+if ( ! defined( 'ABSPATH' ) ) {
+	exit( 'This script cannot be accessed directly.' );
+}
+
+/**
+ * Default Widget Class
+ */
 class RtElementorWidget extends \Elementor\Widget_Base {
 
 	public function get_name() {
@@ -31,12 +44,12 @@ class RtElementorWidget extends \Elementor\Widget_Base {
 
 		$this->add_control(
 			'post_grid_id',
-			array(
+			[
 				'type'    => \Elementor\Controls_Manager::SELECT2,
 				'id'      => 'style',
 				'label'   => __( 'Post Grid', 'the-post-grid' ),
-				'options' => Fns::getAllTPGShortCodeList()
-			)
+				'options' => Fns::getAllTPGShortCodeList(),
+			]
 		);
 
 		$this->end_controls_section();
@@ -44,10 +57,10 @@ class RtElementorWidget extends \Elementor\Widget_Base {
 
 	protected function render() {
 		$settings = $this->get_settings_for_display();
-		if(isset($settings['post_grid_id']) && !empty($settings['post_grid_id']) && $id = absint($settings['post_grid_id'])){
+		if ( isset( $settings['post_grid_id'] ) && ! empty( $settings['post_grid_id'] ) && $id = absint( $settings['post_grid_id'] ) ) {
 			echo do_shortcode( '[the-post-grid id="' . $id . '"]' );
-		}else{
-			echo "Please select a post grid";
+		} else {
+			echo 'Please select a post grid';
 		}
 	}
 }

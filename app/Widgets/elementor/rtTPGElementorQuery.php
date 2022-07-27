@@ -1,23 +1,25 @@
 <?php
 /**
- * @author  RadiusTheme
- * @since   1.0
- * @version 1.2
+ * Elementor Query Class
+ *
+ * @package RT_TPG
  */
 
-use JetBrains\PhpStorm\ArrayShape;
-
+// Do not allow directly accessing this file.
 if ( ! defined( 'ABSPATH' ) ) {
-	exit;
+	exit( 'This script cannot be accessed directly.' );
 }
 
+/**
+ * Elementor Query Class
+ */
 class rtTPGElementorQuery {
 
 	/**
 	 * Post Query for normal grid widget
 	 *
 	 * @param          $data
-	 * @param  string  $prefix
+	 * @param  string $prefix
 	 *
 	 * @return array
 	 */
@@ -28,8 +30,6 @@ class rtTPGElementorQuery {
 		];
 
 		$excluded_ids = null;
-
-
 
 		if ( $data['post_id'] ) {
 			$post_ids = explode( ',', $data['post_id'] );
@@ -43,7 +43,7 @@ class rtTPGElementorQuery {
 		}
 
 		if ( $prefix !== 'slider' && 'show' === $data['show_pagination'] ) {
-			$_paged        = is_front_page() ? "page" : "paged";
+			$_paged        = is_front_page() ? 'page' : 'paged';
 			$args['paged'] = get_query_var( $_paged ) ? absint( get_query_var( $_paged ) ) : 1;
 		}
 
@@ -52,7 +52,7 @@ class rtTPGElementorQuery {
 		}
 
 		if ( $orderby = $data['orderby'] ) {
-			if(! rtTPG()->hasPro() && 'rand' == $orderby) {
+			if ( ! rtTPG()->hasPro() && 'rand' == $orderby ) {
 				$orderby = 'date';
 			}
 			$args['orderby'] = $orderby;
@@ -150,8 +150,10 @@ class rtTPGElementorQuery {
 						$_posts_per_page = 7;
 					} elseif ( in_array( $data['grid_hover_layout'], [ 'grid_hover-layout5', 'grid_hover-layout5-2' ] ) ) {
 						$_posts_per_page = 3;
-					} elseif ( in_array( $data['grid_hover_layout'],
-						[ 'grid_hover-layout6', 'grid_hover-layout6-2', 'grid_hover-layout9', 'grid_hover-layout9-2', 'grid_hover-layout10', 'grid_hover-layout11' ] )
+					} elseif ( in_array(
+						$data['grid_hover_layout'],
+						[ 'grid_hover-layout6', 'grid_hover-layout6-2', 'grid_hover-layout9', 'grid_hover-layout9-2', 'grid_hover-layout10', 'grid_hover-layout11' ]
+					)
 					) {
 						$_posts_per_page = 4;
 					} elseif ( in_array( $data['grid_hover_layout'], [ 'grid_hover-layout7', 'grid_hover-layout7-2', 'grid_hover-layout8' ] ) ) {
@@ -178,7 +180,6 @@ class rtTPGElementorQuery {
 			$args['posts_per_page'] = $slider_per_page;
 		}
 
-
 		if ( $data['exclude'] || $data['offset'] ) {
 			$excluded_ids = [];
 			if ( $data['exclude'] ) {
@@ -189,9 +190,9 @@ class rtTPGElementorQuery {
 			$offset_posts = [];
 			if ( $data['offset'] ) {
 				$_temp_args = $args;
-				unset($_temp_args['paged']);
+				unset( $_temp_args['paged'] );
 				$_temp_args['posts_per_page'] = $data['offset'];
-				$_temp_args['fields'] = 'ids';
+				$_temp_args['fields']         = 'ids';
 
 				$offset_posts = get_posts( $_temp_args );
 			}
@@ -208,8 +209,8 @@ class rtTPGElementorQuery {
 	 * Post Query for page builder block
 	 *
 	 * @param          $data
-	 * @param  string  $prefix
-	 * @param  string  $template_type
+	 * @param  string $prefix
+	 * @param  string $template_type
 	 *
 	 * @return array
 	 */
@@ -317,7 +318,7 @@ class rtTPGElementorQuery {
 			}
 
 			if ( 'slider' !== $prefix && 'show' === $data['show_pagination'] ) {
-				$args['paged'] = get_query_var( "paged" ) ? absint( get_query_var( "paged" ) ) : 1;
+				$args['paged'] = get_query_var( 'paged' ) ? absint( get_query_var( 'paged' ) ) : 1;
 			}
 
 			if ( is_tag() ) {

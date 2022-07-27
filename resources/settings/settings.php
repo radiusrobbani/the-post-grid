@@ -1,26 +1,34 @@
 <?php
+/**
+ * Settings Page
+ *
+ * @package RT_TPG
+ */
 
 use RT\ThePostGrid\Helpers\Fns;
 use RT\ThePostGrid\Helpers\Options;
 
+// Do not allow directly accessing this file.
+if ( ! defined( 'ABSPATH' ) ) {
+	exit( 'This script cannot be accessed directly.' );
+}
 ?>
-<div class="wrap rttpg-wrapper">
-    <div id="upf-icon-edit-pages" class="icon32 icon32-posts-page"><br/></div>
-    <h2><?php _e( 'The Post Grid Settings', 'the-post-grid' ); ?></h2>
-    <h3><?php _e( 'General settings', 'the-post-grid' ); ?>
-        <a style="margin-left: 15px; font-size: 15px;"
-           href="https://www.radiustheme.com/docs/the-post-grid/"
-           target="_blank"><?php _e( 'Documentation', 'the-post-grid' ) ?></a>
-    </h3>
 
-    <div class="rt-setting-wrapper">
-        <div class="rt-response"></div>
-        <form id="rt-tpg-settings-form">
+<div class="wrap rttpg-wrapper">
+	<div id="upf-icon-edit-pages" class="icon32 icon32-posts-page"><br/></div>
+	<h2><?php _e( 'The Post Grid Settings', 'the-post-grid' ); ?></h2>
+	<h3><?php _e( 'General settings', 'the-post-grid' ); ?>
+		<a style="margin-left: 15px; font-size: 15px;" href="https://www.radiustheme.com/docs/the-post-grid/" target="_blank"><?php _e( 'Documentation', 'the-post-grid' ); ?></a>
+	</h3>
+
+	<div class="rt-setting-wrapper">
+		<div class="rt-response"></div>
+		<form id="rt-tpg-settings-form">
 			<?php
 			$settings = get_option( rtTPG()->options['settings'] );
 			$last_tab = isset( $settings['_tpg_last_active_tab'] ) ? trim( $settings['_tpg_last_active_tab'] ) : 'common-settings';
 			$html     = null;
-			$html     .= '<div id="settings-tabs" class="rt-tabs rt-tab-container">';
+			$html    .= '<div id="settings-tabs" class="rt-tabs rt-tab-container">';
 
 			$html .= '<ul class="tab-nav rt-tab-nav">';
 			$html .= sprintf(
@@ -29,15 +37,15 @@ use RT\ThePostGrid\Helpers\Options;
                         <li%s><a href="#social-share">%s</a></li>
                         <li%s><a href="#custom-script">%s</a></li>
                         <li%s><a href="#other-settings">%s</a></li>',
-				$last_tab == "common-settings" ? ' class="active"' : '',
+				$last_tab == 'common-settings' ? ' class="active"' : '',
 				__( 'Common Settings', 'the-post-grid' ),
-				$last_tab == "popup-fields" ? ' class="active"' : '',
+				$last_tab == 'popup-fields' ? ' class="active"' : '',
 				__( 'PopUp field selection', 'the-post-grid' ),
-				$last_tab == "social-share" ? ' class="active"' : '',
+				$last_tab == 'social-share' ? ' class="active"' : '',
 				__( 'Social Share', 'the-post-grid' ),
-				$last_tab == "custom-script" ? ' class="active"' : '',
+				$last_tab == 'custom-script' ? ' class="active"' : '',
 				__( 'Custom Script', 'the-post-grid' ),
-				$last_tab == "other-settings" ? ' class="active"' : '',
+				$last_tab == 'other-settings' ? ' class="active"' : '',
 				__( 'Other Settings', 'the-post-grid' )
 			);
 
@@ -47,23 +55,23 @@ use RT\ThePostGrid\Helpers\Options;
 
 			$html .= '</ul>';
 
-			$html .= sprintf( '<div id="common-settings" class="rt-tab-content"%s>', $last_tab == "common-settings" ? ' style="display:block"' : '' );
+			$html .= sprintf( '<div id="common-settings" class="rt-tab-content"%s>', $last_tab == 'common-settings' ? ' style="display:block"' : '' );
 			$html .= Fns::rtFieldGenerator( Options::rtTPGSettingsCommonSettingsFields() );
 			$html .= '</div>';
 
-			$html .= sprintf( '<div id="popup-fields" class="rt-tab-content"%s>', $last_tab == "popup-fields" ? ' style="display:block"' : '' );
+			$html .= sprintf( '<div id="popup-fields" class="rt-tab-content"%s>', $last_tab == 'popup-fields' ? ' style="display:block"' : '' );
 			$html .= Fns::rtFieldGenerator( Options::rtTpgSettingsDetailFieldSelection() );
 			$html .= '</div>';
 
-			$html .= sprintf( '<div id="social-share" class="rt-tab-content"%s>', $last_tab == "social-share" ? ' style="display:block"' : '' );
+			$html .= sprintf( '<div id="social-share" class="rt-tab-content"%s>', $last_tab == 'social-share' ? ' style="display:block"' : '' );
 			$html .= Fns::rtFieldGenerator( Options::rtTPGSettingsSocialShareFields() );
 			$html .= '</div>';
 
-			$html .= sprintf( '<div id="custom-script" class="rt-tab-content"%s>', $last_tab == "custom-script" ? ' style="display:block"' : '' );
+			$html .= sprintf( '<div id="custom-script" class="rt-tab-content"%s>', $last_tab == 'custom-script' ? ' style="display:block"' : '' );
 			$html .= Fns::rtFieldGenerator( Options::rtTPGSettingsCustomScriptFields() );
 			$html .= '</div>';
 
-			$html .= sprintf( '<div id="other-settings" class="rt-tab-content"%s>', $last_tab == "other-settings" ? ' style="display:block"' : '' );
+			$html .= sprintf( '<div id="other-settings" class="rt-tab-content"%s>', $last_tab == 'other-settings' ? ' style="display:block"' : '' );
 			$html .= Fns::rtFieldGenerator( Options::rtTPGSettingsOtherSettingsFields() );
 			$html .= '</div>';
 
@@ -76,12 +84,11 @@ use RT\ThePostGrid\Helpers\Options;
 
 			echo $html;
 			?>
-            <p class="submit-wrap"><input type="submit" name="submit" class="button button-primary rtSaveButton"
-                                          value="Save Changes"></p>
+			<p class="submit-wrap"><input type="submit" name="submit" class="button button-primary rtSaveButton" value="Save Changes"></p>
 
 			<?php wp_nonce_field( rtTPG()->nonceText(), rtTPG()->nonceId() ); ?>
-        </form>
+		</form>
 
-        <div class="rt-response"></div>
-    </div>
+		<div class="rt-response"></div>
+	</div>
 </div>
