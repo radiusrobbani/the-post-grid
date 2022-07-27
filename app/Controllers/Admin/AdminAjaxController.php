@@ -19,21 +19,6 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Admin Ajax class.
  */
 class AdminAjaxController {
-
-	/**
-	 * Layout 4 toggle Ajax
-	 *
-	 * @var boolean
-	 */
-	private $l4togglePreviewAjax = false;
-
-	/**
-	 * Layout 4 toggle Preview
-	 *
-	 * @var boolean
-	 */
-	private $l4togglePreview = false;
-
 	/**
 	 * Layout 4 toggle
 	 *
@@ -58,15 +43,13 @@ class AdminAjaxController {
 		$error = true;
 
 		if ( Fns::verifyNonce() ) {
-			$error  = false;
-			$scMeta = $_REQUEST;
-
+			$error    = false;
 			$rand     = wp_rand();
 			$layoutID = 'rt-tpg-container-' . $rand;
 
-			$layout = ( isset( $scMeta['layout'] ) ? $scMeta['layout'] : 'layout1' );
+			$layout = ( isset( $_REQUEST['layout'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['layout'] ) ) : 'layout1' );
 
-			if ( ! in_array( $layout, array_keys( Options::rtTPGLayouts() ) ) ) {
+			if ( ! in_array( $layout, array_keys( Options::rtTPGLayouts() ), true ) ) {
 				$layout = 'layout1';
 			}
 
@@ -77,19 +60,19 @@ class AdminAjaxController {
 			$isOffset    = preg_match( '/offset/', $layout );
 			$isGridHover = preg_match( '/grid_hover/', $layout );
 
-			$dCol = ( isset( $scMeta['column'] ) ? absint( $scMeta['column'] ) : 3 );
-			$tCol = ( isset( $scMeta['tpg_tab_column'] ) ? absint( $scMeta['tpg_tab_column'] ) : 2 );
-			$mCol = ( isset( $scMeta['tpg_mobile_column'] ) ? absint( $scMeta['tpg_mobile_column'] ) : 1 );
+			$dCol = ( isset( $_REQUEST['column'] ) ? absint( $_REQUEST['column'] ) : 3 );
+			$tCol = ( isset( $_REQUEST['tpg_tab_column'] ) ? absint( $_REQUEST['tpg_tab_column'] ) : 2 );
+			$mCol = ( isset( $_REQUEST['tpg_mobile_column'] ) ? absint( $_REQUEST['tpg_mobile_column'] ) : 1 );
 
-			if ( ! in_array( $dCol, array_keys( Options::scColumns() ) ) ) {
+			if ( ! in_array( $dCol, array_keys( Options::scColumns() ), true ) ) {
 				$dCol = 3;
 			}
 
-			if ( ! in_array( $tCol, array_keys( Options::scColumns() ) ) ) {
+			if ( ! in_array( $tCol, array_keys( Options::scColumns() ), true ) ) {
 				$tCol = 2;
 			}
 
-			if ( ! in_array( $dCol, array_keys( Options::scColumns() ) ) ) {
+			if ( ! in_array( $dCol, array_keys( Options::scColumns() ), true ) ) {
 				$mCol = 1;
 			}
 
@@ -100,35 +83,34 @@ class AdminAjaxController {
 			}
 
 			$arg                        = [];
-			$fImg                       = ( ! empty( $scMeta['feature_image'] ) ? true : false );
-			$fImgSize                   = ( isset( $scMeta['featured_image_size'] ) ? $scMeta['featured_image_size'] : 'medium' );
-			$mediaSource                = ( isset( $scMeta['media_source'] ) ? $scMeta['media_source'] : 'feature_image' );
-			$arg['excerpt_type']        = ( isset( $scMeta['tgp_excerpt_type'] ) ? $scMeta['tgp_excerpt_type'] : 'character' );
-			$arg['title_limit_type']    = ( isset( $scMeta['tpg_title_limit_type'] ) ? $scMeta['tpg_title_limit_type'] : 'character' );
-			$arg['excerpt_limit']       = ( isset( $scMeta['excerpt_limit'] ) ? absint( $scMeta['excerpt_limit'] ) : 0 );
-			$arg['title_limit']         = ( isset( $scMeta['tpg_title_limit'] ) ? absint( $scMeta['tpg_title_limit'] ) : 0 );
-			$arg['excerpt_more_text']   = ( isset( $scMeta['tgp_excerpt_more_text'] ) ? $scMeta['tgp_excerpt_more_text'] : null );
-			$arg['read_more_text']      = ( ! empty( $scMeta['tgp_read_more_text'] ) ? $scMeta['tgp_read_more_text'] : __( 'Read More', 'the-post-grid' ) );
-			$arg['show_all_text']       = ( ! empty( $scMeta['tpg_show_all_text'] ) ? $scMeta['tpg_show_all_text'] : __( 'Show all', 'the-post-grid' ) );
-			$arg['tpg_title_position']  = isset( $scMeta['tpg_title_position'] ) && ! empty( $scMeta['tpg_title_position'] ) ? $scMeta['tpg_title_position'] : null;
-			$arg['btn_alignment_class'] = isset( $scMeta['tpg_read_more_button_alignment'] ) && ! empty( $scMeta['tpg_read_more_button_alignment'] )
-				? $scMeta['tpg_read_more_button_alignment'] : '';
-			$arg['category_position']   = isset( $scMeta['tpg_category_position'] ) ? $scMeta['tpg_category_position'] : null;
-			$arg['category_style']      = ! empty( $scMeta['tpg_category_style'] ) ? $scMeta['tpg_category_style'] : '';
-			$arg['catIcon']             = isset( $scMeta['tpg_category_icon'] ) ? $scMeta['tpg_category_icon'] : true;
-			$arg['metaPosition']        = isset( $scMeta['tpg_meta_position'] ) ? $scMeta['tpg_meta_position'] : null;
-			$arg['metaIcon']            = ! empty( $scMeta['tpg_meta_icon'] ) ? $scMeta['tpg_meta_icon'] : true;
-			$arg['metaSeparator']       = ! empty( $scMeta['tpg_meta_separator'] ) ? $scMeta['tpg_meta_separator'] : '';
+			$fImg                       = ! empty( $_REQUEST['feature_image'] );
+			$fImgSize                   = ( isset( $_REQUEST['featured_image_size'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['featured_image_size'] ) ) : 'medium' );
+			$mediaSource                = ( isset( $_REQUEST['media_source'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['media_source'] ) ) : 'feature_image' );
+			$arg['excerpt_type']        = ( isset( $_REQUEST['tgp_excerpt_type'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['tgp_excerpt_type'] ) ) : 'character' );
+			$arg['title_limit_type']    = ( isset( $_REQUEST['tpg_title_limit_type'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['tpg_title_limit_type'] ) ) : 'character' );
+			$arg['excerpt_limit']       = ( isset( $_REQUEST['excerpt_limit'] ) ? absint( $_REQUEST['excerpt_limit'] ) : 0 );
+			$arg['title_limit']         = ( isset( $_REQUEST['tpg_title_limit'] ) ? absint( $_REQUEST['tpg_title_limit'] ) : 0 );
+			$arg['excerpt_more_text']   = ( isset( $_REQUEST['tgp_excerpt_more_text'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['tgp_excerpt_more_text'] ) ) : null );
+			$arg['read_more_text']      = ( ! empty( $_REQUEST['tgp_read_more_text'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['tgp_read_more_text'] ) ) : esc_html__( 'Read More', 'the-post-grid' ) );
+			$arg['show_all_text']       = ( ! empty( $_REQUEST['tpg_show_all_text'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['tpg_show_all_text'] ) ) : esc_html__( 'Show all', 'the-post-grid' ) );
+			$arg['tpg_title_position']  = isset( $_REQUEST['tpg_title_position'] ) && ! empty( $_REQUEST['tpg_title_position'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['tpg_title_position'] ) ) : null;
+			$arg['btn_alignment_class'] = isset( $_REQUEST['tpg_read_more_button_alignment'] ) && ! empty( $_REQUEST['tpg_read_more_button_alignment'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['tpg_read_more_button_alignment'] ) ) : '';
+			$arg['category_position']   = isset( $_REQUEST['tpg_category_position'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['tpg_category_position'] ) ) : null;
+			$arg['category_style']      = ! empty( $_REQUEST['tpg_category_style'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['tpg_category_style'] ) ) : '';
+			$arg['catIcon']             = isset( $_REQUEST['tpg_category_icon'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['tpg_category_icon'] ) ) : true;
+			$arg['metaPosition']        = isset( $_REQUEST['tpg_meta_position'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['tpg_meta_position'] ) ) : null;
+			$arg['metaIcon']            = ! empty( $_REQUEST['tpg_meta_icon'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['tpg_meta_icon'] ) ) : true;
+			$arg['metaSeparator']       = ! empty( $_REQUEST['tpg_meta_separator'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['tpg_meta_separator'] ) ) : '';
 
 			$args     = [];
-			$postType = ( isset( $scMeta['tpg_post_type'] ) ? $scMeta['tpg_post_type'] : null );
+			$postType = ( isset( $_REQUEST['tpg_post_type'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['tpg_post_type'] ) ) : null );
 
 			if ( $postType ) {
 				$args['post_type'] = $postType;
 			}
 
 			/* post__in */
-			$post__in = ( isset( $scMeta['post__in'] ) ? $scMeta['post__in'] : null );
+			$post__in = ( isset( $_REQUEST['post__in'] ) ? absint( $_REQUEST['post__in'] ) : null );
 
 			if ( $post__in ) {
 				$post__in         = explode( ',', $post__in );
@@ -136,7 +118,7 @@ class AdminAjaxController {
 			}
 
 			/* post__not_in */
-			$post__not_in = ( isset( $scMeta['post__not_in'] ) ? $scMeta['post__not_in'] : null );
+			$post__not_in = ( isset( $_REQUEST['post__not_in'] ) ? absint( $_REQUEST['post__not_in'] ) : null );
 
 			if ( $post__not_in ) {
 				$post__not_in         = explode( ',', $post__not_in );
@@ -144,14 +126,14 @@ class AdminAjaxController {
 			}
 
 			/* LIMIT */
-			$limit                  = ( ( empty( $scMeta['limit'] ) || $scMeta['limit'] === '-1' ) ? 10000000 : (int) $scMeta['limit'] );
-			$queryOffset            = empty( $scMeta['offset'] ) ? 0 : (int) $scMeta['offset'];
+			$limit                  = ( ( empty( $_REQUEST['limit'] ) || $_REQUEST['limit'] === '-1' ) ? 10000000 : absint( $_REQUEST['limit'] ) );
+			$queryOffset            = empty( $_REQUEST['offset'] ) ? 0 : absint( $_REQUEST['offset'] );
 			$args['posts_per_page'] = $limit;
-			$pagination             = ( ! empty( $scMeta['pagination'] ) ? true : false );
-			$posts_loading_type     = ( ! empty( $scMeta['posts_loading_type'] ) ? $scMeta['posts_loading_type'] : 'pagination' );
+			$pagination             = ! empty( $_REQUEST['pagination'] );
+			$posts_loading_type     = ( ! empty( $_REQUEST['posts_loading_type'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['posts_loading_type'] ) ) : 'pagination' );
 
 			if ( $pagination ) {
-				$posts_per_page = ( isset( $scMeta['posts_per_page'] ) ? intval( $scMeta['posts_per_page'] ) : $limit );
+				$posts_per_page = ( isset( $_REQUEST['posts_per_page'] ) ? absint( $_REQUEST['posts_per_page'] ) : $limit );
 
 				if ( $posts_per_page > $limit ) {
 					$posts_per_page = $limit;
@@ -169,25 +151,25 @@ class AdminAjaxController {
 				}
 			}
 
-			$adv_filter        = ( isset( $scMeta['post_filter'] ) ? $scMeta['post_filter'] : [] );
-			$taxFilter         = ( ! empty( $scMeta['tgp_filter_taxonomy'] ) ? $scMeta['tgp_filter_taxonomy'] : null );
-			$taxHierarchical   = ! empty( $scMeta['tgp_filter_taxonomy_hierarchical'] ) ? true : false;
+			$adv_filter        = ( isset( $_REQUEST['post_filter'] ) ? array_map( 'sanitize_text_field', $_REQUEST['post_filter'] ) : [] );
+			$taxFilter         = ( ! empty( $_REQUEST['tgp_filter_taxonomy'] ) ? array_map( 'sanitize_text_field', $_REQUEST['tgp_filter_taxonomy'] ) : null );
+			$taxHierarchical   = ! empty( $_REQUEST['tgp_filter_taxonomy_hierarchical'] );
 			$taxFilterTerms    = [];
 			$taxFilterOperator = 'IN';
 
 			$taxQ = [];
 
-			if ( in_array( 'tpg_taxonomy', $adv_filter ) && isset( $scMeta['tpg_taxonomy'] ) ) {
-				if ( is_array( $scMeta['tpg_taxonomy'] ) && ! empty( $scMeta['tpg_taxonomy'] ) ) {
-					foreach ( $scMeta['tpg_taxonomy'] as $taxonomy ) {
-						$terms = ( isset( $scMeta[ 'term_' . $taxonomy ] ) ? $scMeta[ 'term_' . $taxonomy ] : [] );
+			if ( in_array( 'tpg_taxonomy', $adv_filter ) && isset( $_REQUEST['tpg_taxonomy'] ) ) {
+				if ( is_array( $_REQUEST['tpg_taxonomy'] ) && ! empty( $_REQUEST['tpg_taxonomy'] ) ) {
+					foreach ( $_REQUEST['tpg_taxonomy'] as $taxonomy ) {
+						$terms = ( isset( $_REQUEST[ 'term_' . $taxonomy ] ) ? array_map( 'sanitize_text_field', $_REQUEST[ 'term_' . $taxonomy ] ) : [] );
 
 						if ( $taxonomy == $taxFilter ) {
 							$taxFilterTerms = $terms;
 						}
 
 						if ( is_array( $terms ) && ! empty( $terms ) ) {
-							$operator = ( isset( $scMeta[ 'term_operator_' . $taxonomy ] ) ? $scMeta[ 'term_operator_' . $taxonomy ] : 'IN' );
+							$operator = ( isset( $_REQUEST[ 'term_operator_' . $taxonomy ] ) ? sanitize_text_field( wp_unslash( $_REQUEST[ 'term_operator_' . $taxonomy ] ) ) : 'IN' );
 							$taxQ[]   = [
 								'taxonomy' => $taxonomy,
 								'field'    => 'term_id',
@@ -199,7 +181,7 @@ class AdminAjaxController {
 				}
 
 				if ( count( $taxQ ) >= 2 ) {
-					$relation         = ( isset( $scMeta['taxonomy_relation'] ) ? $scMeta['taxonomy_relation'] : 'AND' );
+					$relation         = ( isset( $_REQUEST['taxonomy_relation'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['taxonomy_relation'] ) ) : 'AND' );
 					$taxQ['relation'] = $relation;
 				}
 			}
@@ -209,8 +191,8 @@ class AdminAjaxController {
 			}
 
 			if ( in_array( 'order', $adv_filter ) ) {
-				$order_by = ( isset( $scMeta['order_by'] ) ? $scMeta['order_by'] : null );
-				$order    = ( isset( $scMeta['order'] ) ? $scMeta['order'] : null );
+				$order_by = ( isset( $_REQUEST['order_by'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['order_by'] ) ) : null );
+				$order    = ( isset( $_REQUEST['order'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['order'] ) ) : null );
 
 				if ( $order ) {
 					$args['order'] = $order;
@@ -218,9 +200,9 @@ class AdminAjaxController {
 
 				if ( $order_by ) {
 					$args['orderby'] = $order_by;
-					$meta_key        = ! empty( $scMeta['tpg_meta_key'] ) ? trim( $scMeta['tpg_meta_key'] ) : null;
+					$meta_key        = ! empty( $_REQUEST['tpg_meta_key'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['tpg_meta_key'] ) ) : null;
 
-					if ( in_array( $order_by, array_keys( Options::rtMetaKeyType() ) ) && $meta_key ) {
+					if ( in_array( $order_by, array_keys( Options::rtMetaKeyType() ), true ) && $meta_key ) {
 						$args['orderby']  = $order_by;
 						$args['meta_key'] = $meta_key;
 					}
@@ -228,7 +210,7 @@ class AdminAjaxController {
 			}
 
 			if ( isset( $_REQUEST['orderby'] ) ) {
-				$orderby = $_REQUEST['orderby'];
+				$orderby = sanitize_text_field( wp_unslash( $_REQUEST['orderby'] ) );
 
 				switch ( $orderby ) {
 					case 'menu_order':
@@ -250,7 +232,7 @@ class AdminAjaxController {
 						$args['order']    = 'DESC';
 						break;
 					case 'rating':
-						// Sorting handled later though a hook
+						// Sorting handled later though a hook.
 						add_filter( 'posts_clauses', [ $this, 'order_by_rating_post_clauses' ] );
 						break;
 					case 'title':
@@ -261,7 +243,7 @@ class AdminAjaxController {
 			}
 
 			if ( in_array( 'tpg_post_status', $adv_filter ) ) {
-				$post_status = ( isset( $scMeta['tpg_post_status'] ) ? $scMeta['tpg_post_status'] : [] );
+				$post_status = ( isset( $_REQUEST['tpg_post_status'] ) ? array_map( 'sanitize_text_field', $_REQUEST['tpg_post_status'] ) : [] );
 
 				if ( ! empty( $post_status ) ) {
 					$args['post_status'] = $post_status;
@@ -271,21 +253,21 @@ class AdminAjaxController {
 			}
 
 			$filterAuthors = [];
-			$author        = ( isset( $scMeta['author'] ) ? $scMeta['author'] : [] );
+			$author        = ( isset( $_REQUEST['author'] ) ? array_map( 'sanitize_text_field', $_REQUEST['author'] ) : [] );
 
 			if ( in_array( 'author', $adv_filter ) && ! empty( $author ) ) {
 				$filterAuthors = $args['author__in'] = $author;
 			}
 
-			$s = ( isset( $scMeta['s'] ) ? $scMeta['s'] : [] );
+			$s = ( isset( $_REQUEST['s'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['s'] ) ) : [] );
 
 			if ( in_array( 's', $adv_filter ) && ! empty( $s ) ) {
 				$args['s'] = $s;
 			}
 
 			if ( in_array( 'date_range', $adv_filter ) ) {
-				$startDate = ( ! empty( $scMeta['date_range_start'] ) ? $scMeta['date_range_start'] : null );
-				$endDate   = ( ! empty( $scMeta['date_range_end'] ) ? $scMeta['date_range_end'] : null );
+				$startDate = ( ! empty( $_REQUEST['date_range_start'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['date_range_start'] ) ) : null );
+				$endDate   = ( ! empty( $_REQUEST['date_range_end'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['date_range_end'] ) ) : null );
 				if ( $startDate && $endDate ) {
 					$args['date_query'] = [
 						[
@@ -345,7 +327,7 @@ class AdminAjaxController {
 			$arg['grid'] = "rt-col-md-{$dCol} rt-col-sm-{$tCol} rt-col-xs-{$mCol}";
 
 			if ( ( $layout == 'layout2' ) || ( $layout == 'layout3' ) ) {
-				$iCol                = ( isset( $scMeta['tgp_layout2_image_column'] ) ? absint( $scMeta['tgp_layout2_image_column'] ) : 4 );
+				$iCol                = ( isset( $_REQUEST['tgp_layout2_image_column'] ) ? absint( $_REQUEST['tgp_layout2_image_column'] ) : 4 );
 				$iCol                = $iCol > 12 ? 4 : $iCol;
 				$cCol                = 12 - $iCol;
 				$arg['image_area']   = "rt-col-sm-{$iCol} rt-col-xs-12 ";
@@ -357,7 +339,7 @@ class AdminAjaxController {
 				$arg['content_area'] = 'rt-col-lg-6 rt-col-md-6 rt-col-sm-12 rt-col-xs-12 ';
 			}
 
-			$gridType    = ! empty( $scMeta['grid_style'] ) ? $scMeta['grid_style'] : 'even';
+			$gridType    = ! empty( $_REQUEST['grid_style'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['grid_style'] ) ) : 'even';
 			$arg_class   = [];
 			$arg_class[] = ' rt-grid-item';
 
@@ -369,13 +351,13 @@ class AdminAjaxController {
 				$arg_class[] = 'rt-offset-item';
 			}
 
-			$catHaveBg = ( isset( $scMeta['tpg_category_bg'] ) ? $scMeta['tpg_category_bg'] : '' );
+			$catHaveBg = ( isset( $_REQUEST['tpg_category_bg'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['tpg_category_bg'] ) ) : '' );
 
 			if ( ! empty( $catHaveBg ) ) {
 				$arg_class[] = 'category-have-bg';
 			}
 
-			$imgAnimationType = isset( $scMeta['tpg_image_animation'] ) ? $scMeta['tpg_image_animation'] : '';
+			$imgAnimationType = isset( $_REQUEST['tpg_image_animation'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['tpg_image_animation'] ) ) : '';
 
 			if ( ! empty( $imgAnimationType ) ) {
 				$arg_class[] = $imgAnimationType;
@@ -407,26 +389,26 @@ class AdminAjaxController {
 				$preLoaderHtml = '<div class="rt-loading-overlay"></div><div class="rt-loading rt-ball-clip-rotate"><div></div></div>';
 			}
 
-			$margin = ! empty( $scMeta['margin_option'] ) ? $scMeta['margin_option'] : 'default';
+			$margin = ! empty( $_REQUEST['margin_option'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['margin_option'] ) ) : 'default';
 
 			if ( $margin == 'no' ) {
 				$arg_class[] = 'no-margin';
 			}
 
-			if ( ! empty( $scMeta['tpg_image_type'] ) && $scMeta['tpg_image_type'] == 'circle' ) {
+			if ( ! empty( $_REQUEST['tpg_image_type'] ) && $_REQUEST['tpg_image_type'] == 'circle' ) {
 				$arg_class[] = 'tpg-img-circle';
 			}
 
 			$arg['anchorClass'] = null;
 			$arg['anchorClass'] = $arg['link_target'] = null;
-			$link               = isset( $scMeta['link_to_detail_page'] ) ? $scMeta['link_to_detail_page'] : '1';
+			$link               = isset( $_REQUEST['link_to_detail_page'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['link_to_detail_page'] ) ) : '1';
 			$link               = ( $link == 'yes' ) ? '1' : $link;
 			$isSinglePopUp      = false;
-			$linkType           = ! empty( $scMeta['detail_page_link_type'][0] ) ? $scMeta['detail_page_link_type'][0] : 'popup';
+			$linkType           = ! empty( $_REQUEST['detail_page_link_type'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['detail_page_link_type'] ) ) : 'popup';
 
 			if ( $link == '1' ) {
 				if ( $linkType == 'popup' && rtTPG()->hasPro() ) {
-					$popupType = ! empty( $scMeta['popup_type'][0] ) ? $scMeta['popup_type'][0] : 'single';
+					$popupType = ! empty( $_REQUEST['popup_type'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['popup_type'] ) ) : 'single';
 					if ( $popupType == 'single' ) {
 						$arg['anchorClass'] .= ' tpg-single-popup';
 						$isSinglePopUp       = true;
@@ -434,17 +416,17 @@ class AdminAjaxController {
 						$arg['anchorClass'] .= ' tpg-multi-popup';
 					}
 				} else {
-					$arg['link_target'] = ! empty( $scMeta['link_target'][0] ) ? " target='{$scMeta['link_target'][0]}'" : null;
+					$arg['link_target'] = ! empty( $_REQUEST['link_target'] ) ? ' target="' . sanitize_text_field( wp_unslash( $_REQUEST['link_target'] ) ) . '"' : null;
 				}
 			} else {
 				$arg['anchorClass'] = ' disabled';
 			}
 
 			$isSinglePopUp = false;
-			$linkType      = ! empty( $scMeta['detail_page_link_type'] ) ? $scMeta['detail_page_link_type'] : 'popup';
+			$linkType      = ! empty( $_REQUEST['detail_page_link_type'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['detail_page_link_type'] ) ) : 'popup';
 
 			if ( $link == '1' && $linkType == 'popup' && rtTPG()->hasPro() ) {
-				$popupType = ! empty( $scMeta['popup_type'] ) ? $scMeta['popup_type'] : 'single';
+				$popupType = ! empty( $_REQUEST['popup_type'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['popup_type'] ) ) : 'single';
 
 				if ( $popupType == 'single' ) {
 					$arg['anchorClass'] .= ' tpg-single-popup';
@@ -454,26 +436,26 @@ class AdminAjaxController {
 				}
 			}
 
-			$parentClass        = ( ! empty( $scMeta['parent_class'] ) ? trim( $scMeta['parent_class'] ) : null );
-			$defaultImgId       = ( ! empty( $scMeta['default_preview_image'] ) ? absint( $scMeta['default_preview_image'] ) : null );
-			$customImgSize      = ( ! empty( $scMeta['custom_image_size'] ) ? $scMeta['custom_image_size'] : [] );
-			$fSmallImgSize      = ( isset( $scMeta['featured_small_image_size'] ) ? $scMeta['featured_small_image_size'] : 'medium' );
-			$customSmallImgSize = ( ! empty( $scMeta['custom_small_image_size'] ) ? $scMeta['custom_small_image_size'] : [] );
+			$parentClass        = ( ! empty( $_REQUEST['parent_class'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['parent_class'] ) ) : null );
+			$defaultImgId       = ( ! empty( $_REQUEST['default_preview_image'] ) ? absint( $_REQUEST['default_preview_image'] ) : null );
+			$customImgSize      = ( ! empty( $_REQUEST['custom_image_size'] ) ? array_map( 'sanitize_text_field', $_REQUEST['custom_image_size'] ) : [] );
+			$fSmallImgSize      = ( isset( $_REQUEST['featured_small_image_size'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['featured_small_image_size'] ) ) : 'medium' );
+			$customSmallImgSize = ( ! empty( $_REQUEST['custom_small_image_size'] ) ? array_map( 'sanitize_text_field', $_REQUEST['custom_small_image_size'] ) : [] );
 
-			$arg['items'] = isset( $scMeta['item_fields'] ) ? ( $scMeta['item_fields'] ? $scMeta['item_fields'] : [] ) : [];
-			$arg['scID']  = $scID = $scMeta['sc_id'];
+			$arg['items'] = isset( $_REQUEST['item_fields'] ) ? ( $_REQUEST['item_fields'] ? array_map( 'sanitize_text_field', $_REQUEST['item_fields'] ) : [] ) : [];
+			$arg['scID']  = $scID = $_REQUEST['sc_id'];
 
 			if ( isset( $arg['excerpt_type'] ) && $arg['excerpt_type'] === 'full' && ( $key = array_search( 'read_more', $arg['items'] ) ) !== false ) {
 				unset( $arg['items'][ $key ] );
 			}
 
-			if ( isset( $scMeta['ignore_sticky_posts'] ) ) {
-				$args['ignore_sticky_posts'] = $scMeta['ignore_sticky_posts'];
+			if ( isset( $_REQUEST['ignore_sticky_posts'] ) ) {
+				$args['ignore_sticky_posts'] = isset( $_REQUEST['ignore_sticky_posts'] );
 			}
 
-			$filters         = ! empty( $scMeta['tgp_filter'] ) ? $scMeta['tgp_filter'] : [];
-			$action_term     = ! empty( $scMeta['tgp_default_filter'] ) ? absint( $scMeta['tgp_default_filter'] ) : 0;
-			$hide_all_button = ! empty( $scMeta['tpg_hide_all_button'] ) ? true : false;
+			$filters         = ! empty( $_REQUEST['tgp_filter'] ) ? array_map( 'sanitize_text_field', $_REQUEST['tgp_filter'] ) : [];
+			$action_term     = ! empty( $_REQUEST['tgp_default_filter'] ) ? absint( $_REQUEST['tgp_default_filter'] ) : 0;
+			$hide_all_button = ! empty( $_REQUEST['tpg_hide_all_button'] ) ? true : false;
 
 			if ( $taxHierarchical ) {
 				$terms = Fns::rt_get_all_term_by_taxonomy( $taxFilter, true, 0 );
@@ -506,7 +488,7 @@ class AdminAjaxController {
 				$args['offset'] = $queryOffset;
 			}
 
-			$arg['title_tag'] = ( ! empty( $scMeta['title_tag'] ) && in_array( $scMeta['title_tag'], array_keys( Options::getTitleTags() ) ) ) ? esc_attr( $scMeta['title_tag'] ) : 'h3';
+			$arg['title_tag'] = ( ! empty( $_REQUEST['title_tag'] ) && in_array( $_REQUEST['title_tag'], array_keys( Options::getTitleTags() ) ) ) ? sanitize_text_field( wp_unslash( $_REQUEST['title_tag'] ) ) : 'h3';
 
 			$gridQuery = new \WP_Query( $args );
 
@@ -514,10 +496,10 @@ class AdminAjaxController {
 			$containerDataAttr .= '';
 			$data              .= "<div class='rt-container-fluid rt-tpg-container tpg-shortcode-main-wrapper {$parentClass}' id='{$layoutID}' {$dataArchive} {$containerDataAttr}>";
 			// widget heading
-			$heading_tag       = isset( $scMeta['tpg_heading_tag'] ) ? $scMeta['tpg_heading_tag'] : 'h2';
-			$heading_style     = isset( $scMeta['tpg_heading_style'] ) && ! empty( $scMeta['tpg_heading_style'] ) ? $scMeta['tpg_heading_style'] : 'style1';
-			$heading_alignment = isset( $scMeta['tpg_heading_alignment'] ) ? $scMeta['tpg_heading_alignment'] : '';
-			$heading_link      = isset( $scMeta['tpg_heading_link'] ) ? $scMeta['tpg_heading_link'] : '';
+			$heading_tag       = isset( $_REQUEST['tpg_heading_tag'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['tpg_heading_tag'] ) ) : 'h2';
+			$heading_style     = isset( $_REQUEST['tpg_heading_style'] ) && ! empty( $_REQUEST['tpg_heading_style'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['tpg_heading_style'] ) ) : 'style1';
+			$heading_alignment = isset( $_REQUEST['tpg_heading_alignment'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['tpg_heading_alignment'] ) ) : '';
+			$heading_link      = isset( $_REQUEST['tpg_heading_link'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['tpg_heading_link'] ) ) : '';
 
 			if ( ! empty( $arg['items'] ) && in_array( 'heading', $arg['items'] ) ) {
 				$data .= sprintf( '<div class="tpg-widget-heading-wrapper heading-%1$s %2$s">', $heading_style, $heading_alignment );
@@ -533,16 +515,16 @@ class AdminAjaxController {
 				$data .= '</div>';
 			}
 
-			$filters = ! empty( $scMeta['tgp_filter'] ) ? $scMeta['tgp_filter'] : [];
+			$filters = ! empty( $_REQUEST['tgp_filter'] ) ? array_map( 'sanitize_text_field', $_REQUEST['tgp_filter'] ) : [];
 
 			if ( ! empty( $filters ) && ( $isGrid || $isOffset || $isWooCom ) ) {
 				$data                     .= "<div class='rt-layout-filter-container rt-clear'><div class='rt-filter-wrap'>";
-				$allText                   = apply_filters( 'tpg_filter_all_text', __( 'All', 'the-post-grid' ), $scMeta );
+				$allText                   = apply_filters( 'tpg_filter_all_text', esc_html__( 'All', 'the-post-grid' ), $_REQUEST );
 				$selectedSubTermsForButton = null;
 
 				if ( in_array( '_taxonomy_filter', $filters ) && $taxFilter ) {
-					$filterType     = ( ! empty( $scMeta['tgp_filter_type'] ) ? $scMeta['tgp_filter_type'] : null );
-					$post_count     = ( ! empty( $scMeta['tpg_post_count'] ) ? $scMeta['tpg_post_count'] : null );
+					$filterType     = ( ! empty( $_REQUEST['tgp_filter_type'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['tgp_filter_type'] ) ) : null );
+					$post_count     = ( ! empty( $_REQUEST['tpg_post_count'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['tpg_post_count'] ) ) : null );
 					$postCountClass = ( $post_count ? ' has-post-count' : null );
 
 					$allSelect      = ' selected';
@@ -712,8 +694,8 @@ class AdminAjaxController {
 
 				// Author filter.
 				if ( in_array( '_author_filter', $filters ) ) {
-					$filterType     = ( ! empty( $scMeta['tgp_filter_type'] ) ? $scMeta['tgp_filter_type'] : null );
-					$post_count     = ( ! empty( $scMeta['tpg_post_count'] ) ? $scMeta['tpg_post_count'] : null );
+					$filterType     = ( ! empty( $_REQUEST['tgp_filter_type'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['tgp_filter_type'] ) ) : null );
+					$post_count     = ( ! empty( $_REQUEST['tpg_post_count'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['tpg_post_count'] ) ) : null );
 					$postCountClass = ( $post_count ? ' has-post-count' : null );
 					$users          = get_users( apply_filters( 'tpg_author_arg', [] ) );
 					$allSelect      = ' selected';
@@ -808,15 +790,15 @@ class AdminAjaxController {
 					$action_orderby = ( ! empty( $args['orderby'] ) ? trim( $args['orderby'] ) : 'none' );
 
 					if ( $action_orderby == 'none' ) {
-						$action_orderby_label = __( 'Sort By None', 'the-post-grid' );
+						$action_orderby_label = esc_html__( 'Sort By None', 'the-post-grid' );
 					} elseif ( in_array( $action_orderby, array_keys( Options::rtMetaKeyType() ) ) ) {
-						$action_orderby_label = __( 'Meta value', 'the-post-grid' );
+						$action_orderby_label = esc_html__( 'Meta value', 'the-post-grid' );
 					} else {
 						$action_orderby_label = $orders[ $action_orderby ];
 					}
 
-					if ( $action_orderby !== 'none' ) {
-						$orders['none'] = __( 'Sort By None', 'the-post-grid' );
+					if ( 'none' !== $action_orderby ) {
+						$orders['none'] = esc_html__( 'Sort By None', 'the-post-grid' );
 					}
 
 					$data .= '<div class="rt-filter-item-wrap rt-order-by-action rt-filter-dropdown-wrap">';
@@ -848,12 +830,12 @@ class AdminAjaxController {
 
 			if ( $gridQuery->have_posts() ) {
 				if ( $isCarousel ) {
-					$cOpt              = ! empty( $scMeta['carousel_property'] ) ? $scMeta['carousel_property'] : [];
+					$cOpt              = ! empty( $_REQUEST['carousel_property'] ) ? array_map( 'sanitize_text_field', $_REQUEST['carousel_property'] ) : [];
 					$slider_js_options = apply_filters(
 						'rttpg_slider_js_options',
 						[
-							'speed'           => ! empty( $scMeta['tpg_carousel_speed'] ) ? absint( $scMeta['tpg_carousel_speed'] ) : 250,
-							'autoPlayTimeOut' => ! empty( $scMeta['tpg_carousel_autoplay_timeout'] ) ? absint( $scMeta['tpg_carousel_autoplay_timeout'] ) : 5000,
+							'speed'           => ! empty( $_REQUEST['tpg_carousel_speed'] ) ? absint( $_REQUEST['tpg_carousel_speed'] ) : 250,
+							'autoPlayTimeOut' => ! empty( $_REQUEST['tpg_carousel_autoplay_timeout'] ) ? absint( $_REQUEST['tpg_carousel_autoplay_timeout'] ) : 5000,
 							'autoPlay'        => in_array( 'auto_play', $cOpt ) ? true : false,
 							'stopOnHover'     => in_array( 'stop_hover', $cOpt ) ? true : false,
 							'nav'             => in_array( 'nav_button', $cOpt ) ? true : false,
@@ -874,12 +856,12 @@ class AdminAjaxController {
 				$isotope_filter = null;
 
 				if ( $isIsotope ) {
-					$isotope_filter          = isset( $scMeta['isotope_filter'] ) ? $scMeta['isotope_filter'] : null;
-					$isotope_dropdown_filter = isset( $scMeta['isotope_filter_dropdown'] ) ? $scMeta['isotope_filter_dropdown'] : null;
+					$isotope_filter          = isset( $_REQUEST['isotope_filter'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['isotope_filter'] ) ) : null;
+					$isotope_dropdown_filter = isset( $_REQUEST['isotope_filter_dropdown'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['isotope_filter_dropdown'] ) ) : null;
 					$selectedTerms           = [];
 
-					if ( isset( $scMeta['post_filter'] ) && in_array( 'tpg_taxonomy', $scMeta['post_filter'] ) && isset( $scMeta['tpg_taxonomy'] ) && in_array( $isotope_filter, $scMeta['tpg_taxonomy'] ) ) {
-						$selectedTerms = ( isset( $scMeta[ 'term_' . $isotope_filter ] ) ? $scMeta[ 'term_' . $isotope_filter ] : [] );
+					if ( isset( $_REQUEST['post_filter'] ) && in_array( 'tpg_taxonomy', $_REQUEST['post_filter'] ) && isset( $_REQUEST['tpg_taxonomy'] ) && in_array( $isotope_filter, $_REQUEST['tpg_taxonomy'] ) ) {
+						$selectedTerms = ( isset( $_REQUEST[ 'term_' . $isotope_filter ] ) ? array_map( 'sanitize_text_field', $_REQUEST[ 'term_' . $isotope_filter ] ) : [] );
 					}
 
 					global $wp_version;
@@ -913,7 +895,7 @@ class AdminAjaxController {
 
 					if ( ! empty( $terms ) && ! is_wp_error( $terms ) ) {
 						foreach ( $terms as $term ) {
-							$tItem     = ! empty( $scMeta['isotope_default_filter'] ) ? $scMeta['isotope_default_filter'] : null;
+							$tItem     = ! empty( $_REQUEST['isotope_default_filter'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['isotope_default_filter'] ) ) : null;
 							$fSelected = null;
 
 							if ( $tItem == $term->term_id ) {
@@ -932,14 +914,14 @@ class AdminAjaxController {
 						}
 					}
 
-					if ( empty( $scMeta['isotope_filter_show_all'] ) ) {
+					if ( empty( $_REQUEST['isotope_filter_show_all'] ) ) {
 						$fSelect    = ( $fSelectTrigger ? null : 'class="selected"' );
 						$htmlButton = "<button data-filter='*' {$fSelect}>" . $arg['show_all_text'] . '</button>' . $htmlButton;
 						$drop       = "<option value='*' {$fSelect}>{$arg['show_all_text']}</option>" . $drop;
 					}
 
-					$filter_count = ! empty( $scMeta['isotope_filter_count'] ) ? true : false;
-					$filter_url   = ! empty( $scMeta['isotope_filter_url'] ) ? true : false;
+					$filter_count = ! empty( $_REQUEST['isotope_filter_count'] );
+					$filter_url   = ! empty( $_REQUEST['isotope_filter_url'] );
 
 					$htmlButton = "<div id='iso-button-{$rand}' class='rt-tpg-isotope-buttons button-group filter-button-group option-set' data-url='{$filter_url}' data-count='{$filter_count}'>{$htmlButton}</div>";
 
@@ -949,11 +931,8 @@ class AdminAjaxController {
 						$data .= $htmlButton;
 					}
 
-					if ( ! empty( $scMeta['isotope_search_filter'] ) ) {
-						$data .= "<div class='iso-search'><input type='text' class='iso-search-input' placeholder='" . __(
-							'Search',
-							'the-post-grid'
-						) . "' /></div>";
+					if ( ! empty( $_REQUEST['isotope_search_filter'] ) ) {
+						$data .= "<div class='iso-search'><input type='text' class='iso-search-input' placeholder='" . esc_html__( 'Search', 'the-post-grid' ) . "' /></div>";
 					}
 
 					$data .= '</div>';
@@ -1105,7 +1084,7 @@ class AdminAjaxController {
 					}
 				}
 			} else {
-				$not_found_text = isset( $scMeta['tgp_not_found_text'] ) && ! empty( $scMeta['tgp_not_found_text'] ) ? esc_attr( $scMeta['tgp_not_found_text'] ) : __( 'No post found', 'the-post-grid' );
+				$not_found_text = isset( $_REQUEST['tgp_not_found_text'] ) && ! empty( $_REQUEST['tgp_not_found_text'] ) ? esc_attr( $_REQUEST['tgp_not_found_text'] ) : __( 'No post found', 'the-post-grid' );
 				$data          .= '<p>' . $not_found_text . '</p>';
 			}
 
@@ -1140,14 +1119,14 @@ class AdminAjaxController {
 							);
 						}
 					} elseif ( $posts_loading_type == 'load_more' ) {
-						$load_more_btn_text = ( ! empty( $scMeta['load_more_text'][0] ) ? $scMeta['load_more_text'][0] : '' );
+						$load_more_btn_text = ( ! empty( $_REQUEST['load_more_text'][0] ) ? $_REQUEST['load_more_text'][0] : '' );
 						$load_more_text     = $load_more_btn_text ? esc_html( $load_more_btn_text ) : __( 'Load More', 'the-post-grid' );
 
 						if ( $isGrid ) {
 							$htmlUtility .= "<div class='rt-loadmore-btn rt-loadmore-action rt-loadmore-style'>
-											<span class='rt-loadmore-text'>" . $load_more_text . "</span>
-											<div class='rt-loadmore-loading rt-ball-scale-multiple rt-2x'><div></div><div></div><div></div></div>
-										</div>";
+												<span class='rt-loadmore-text'>" . $load_more_text . "</span>
+												<div class='rt-loadmore-loading rt-ball-scale-multiple rt-2x'><div></div><div></div><div></div></div>
+											</div>";
 						} else {
 							$htmlUtility .= "<div class='rt-tpg-load-more'>
 												<button data-sc-id='' data-paged='2'>" . $load_more_text . '</button>
@@ -1156,12 +1135,12 @@ class AdminAjaxController {
 					} elseif ( $posts_loading_type == 'load_on_scroll' ) {
 						if ( $isGrid ) {
 							$htmlUtility .= "<div class='rt-infinite-action'>
-													<div class='rt-infinite-loading la-fire la-2x'>
-														<div></div>
-														<div></div>
-														<div></div>
-													</div>
-												</div>";
+												<div class='rt-infinite-loading la-fire la-2x'>
+													<div></div>
+													<div></div>
+													<div></div>
+												</div>
+											</div>";
 						} else {
 							$htmlUtility .= "<div class='rt-tpg-scroll-load-more' data-trigger='1' data-sc-id='{$scID}' data-paged='2'></div>";
 						}
