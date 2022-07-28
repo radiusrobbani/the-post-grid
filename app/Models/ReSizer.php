@@ -1,21 +1,27 @@
 <?php
-
-namespace RT\ThePostGrid\Models;
-use WP_Error;
-
 /**
  * Image resize Class
  *
- *
- * @package WP_LOGO_SHOWCASE
- * @since   1.0
- * @author  RadiusTheme
+ * @package RT_TPG
+ */
+
+namespace RT\ThePostGrid\Models;
+
+use WP_Error;
+
+// Do not allow directly accessing this file.
+if ( ! defined( 'ABSPATH' ) ) {
+	exit( 'This script cannot be accessed directly.' );
+}
+
+/**
+ * Image resize Class
  */
 class ReSizer {
 	/**
 	 * The singleton instance
 	 */
-	static private $instance = null;
+	private static $instance = null;
 
 	/**
 	 * Should an RtTpgException be thrown on error?
@@ -32,9 +38,9 @@ class ReSizer {
 	/**
 	 * For your custom default usage you may want to initialize an rtTPGReSizer object by yourself and then have own defaults
 	 */
-	static public function getInstance() {
+	public static function getInstance() {
 		if ( self::$instance == null ) {
-			self::$instance = new self;
+			self::$instance = new self();
 		}
 
 		return self::$instance;
@@ -47,18 +53,18 @@ class ReSizer {
 		try {
 			// Validate inputs.
 			if ( ! $url ) {
-				return new WP_Error( 'broke', __( "$url parameter is required", "the-post-grid" ) );
+				return new WP_Error( 'broke', __( "$url parameter is required", 'the-post-grid' ) );
 			}
 			if ( ! $width ) {
-				return new WP_Error( 'broke', __( "$width parameter is required", "the-post-grid" ) );
+				return new WP_Error( 'broke', __( "$width parameter is required", 'the-post-grid' ) );
 			}
 			if ( ! $height ) {
-				return new WP_Error( 'broke', __( "$height parameter is required", "the-post-grid" ) );
+				return new WP_Error( 'broke', __( "$height parameter is required", 'the-post-grid' ) );
 			}
 
 			// Caipt'n, ready to hook.
 			if ( true === $upscale ) {
-				add_filter( 'image_resize_dimensions', array( $this, 'aq_upscale' ), 10, 6 );
+				add_filter( 'image_resize_dimensions', [ $this, 'aq_upscale' ], 10, 6 );
 			}
 
 			// Define upload path & dir.
@@ -66,27 +72,31 @@ class ReSizer {
 			$upload_dir  = $upload_info['basedir'];
 			$upload_url  = $upload_info['baseurl'];
 
-			$http_prefix     = "http://";
-			$https_prefix    = "https://";
-			$relative_prefix = "//"; // The protocol-relative URL
+			$http_prefix     = 'http://';
+			$https_prefix    = 'https://';
+			$relative_prefix = '//'; // The protocol-relative URL
 
-			/* if the $url scheme differs from $upload_url scheme, make them match
+			/*
+			 if the $url scheme differs from $upload_url scheme, make them match
 			   if the schemes differe, images don't show up. */
-			if ( ! strncmp( $url, $https_prefix, strlen( $https_prefix ) ) ) { //if url begins with https:// make $upload_url begin with https:// as well
+			if ( ! strncmp( $url, $https_prefix, strlen( $https_prefix ) ) ) { // if url begins with https:// make $upload_url begin with https:// as well
 				$upload_url = str_replace( $http_prefix, $https_prefix, $upload_url );
-			} elseif ( ! strncmp( $url, $http_prefix, strlen( $http_prefix ) ) ) { //if url begins with http:// make $upload_url begin with http:// as well
+			} elseif ( ! strncmp( $url, $http_prefix, strlen( $http_prefix ) ) ) { // if url begins with http:// make $upload_url begin with http:// as well
 				$upload_url = str_replace( $https_prefix, $http_prefix, $upload_url );
-			} elseif ( ! strncmp( $url, $relative_prefix, strlen( $relative_prefix ) ) ) { //if url begins with // make $upload_url begin with // as well
-				$upload_url = str_replace( array(
-					0 => "$http_prefix",
-					1 => "$https_prefix"
-				), $relative_prefix, $upload_url );
+			} elseif ( ! strncmp( $url, $relative_prefix, strlen( $relative_prefix ) ) ) { // if url begins with // make $upload_url begin with // as well
+				$upload_url = str_replace(
+					[
+						0 => "$http_prefix",
+						1 => "$https_prefix",
+					],
+					$relative_prefix,
+					$upload_url
+				);
 			}
-
 
 			// Check if $img_url is local.
 			if ( false === strpos( $url, $upload_url ) ) {
-				return new WP_Error( 'broke', __( "Image must be local: $url", "the-post-grid" ) );
+				return new WP_Error( 'broke', __( "Image must be local: $url", 'the-post-grid' ) );
 			}
 
 			// Define path of image.
@@ -96,12 +106,12 @@ class ReSizer {
 			// Check if img path exists, and is an image indeed.
 			if ( ! file_exists( $img_path ) or ! getimagesize( $img_path ) ) {
 				return new WP_Error( 'broke', 'Image file does not exist (or is not an image): ' . $img_path );
-//				throw new RtTpgException( 'Image file does not exist (or is not an image): ' . $img_path );
+				// throw new RtTpgException( 'Image file does not exist (or is not an image): ' . $img_path );
 			}
 
 			// Get image info.
-			$info = pathinfo( $img_path );
-			$ext  = $info['extension'];
+			$info                    = pathinfo( $img_path );
+			$ext                     = $info['extension'];
 			list( $orig_w, $orig_h ) = getimagesize( $img_path );
 
 			// Get image size after cropping.
@@ -123,7 +133,7 @@ class ReSizer {
 				if ( ! $dims || ( true == $crop && false == $upscale && ( $dst_w < $width || $dst_h < $height ) ) ) {
 					// Can't resize, so return false saying that the action to do could not be processed as planned.
 					return new WP_Error( 'broke', 'Image file does not exist (or is not an image): ' . $img_path );
-//					throw new RtTpgException( 'Unable to resize image because image_resize_dimensions() failed' );
+					// throw new RtTpgException( 'Unable to resize image because image_resize_dimensions() failed' );
 				} // Else check if cache exists.
 				elseif ( file_exists( $destfilename ) && getimagesize( $destfilename ) ) {
 					$img_url = "{$upload_url}{$dst_rel_path}-{$suffix}.{$ext}";
@@ -134,8 +144,8 @@ class ReSizer {
 
 					if ( is_wp_error( $editor ) || is_wp_error( $editor->resize( $width, $height, $crop ) ) ) {
 						return new WP_Error( 'broke', 'Image file does not exist (or is not an image): ' . $img_path );
-//						throw new RtTpgException( 'Unable to get WP_Image_Editor: ' .
-//						                          $editor->get_error_message() . ' (is GD or ImageMagick installed?)' );
+						// throw new RtTpgException( 'Unable to get WP_Image_Editor: ' .
+						// $editor->get_error_message() . ' (is GD or ImageMagick installed?)' );
 					}
 
 					$resized_file = $editor->save();
@@ -145,15 +155,14 @@ class ReSizer {
 						$img_url          = $upload_url . $resized_rel_path;
 					} else {
 						return new WP_Error( 'broke', 'Image file does not exist (or is not an image): ' . $img_path );
-//						throw new RtTpgException( 'Unable to save resized image file: ' . $editor->get_error_message() );
+						// throw new RtTpgException( 'Unable to save resized image file: ' . $editor->get_error_message() );
 					}
-
 				}
 			}
 
 			// Okay, leave the ship.
 			if ( true === $upscale ) {
-				remove_filter( 'image_resize_dimensions', array( $this, 'aq_upscale' ) );
+				remove_filter( 'image_resize_dimensions', [ $this, 'aq_upscale' ] );
 			}
 
 			// Return the output.
@@ -162,11 +171,11 @@ class ReSizer {
 				$image = $img_url;
 			} else {
 				// array return.
-				$image = array(
+				$image = [
 					0 => $img_url,
 					1 => $dst_w,
-					2 => $dst_h
-				);
+					2 => $dst_h,
+				];
 			}
 
 			return $image;
@@ -189,7 +198,7 @@ class ReSizer {
 	function aq_upscale( $default, $orig_w, $orig_h, $dest_w, $dest_h, $crop ) {
 		if ( ! $crop ) {
 			return null;
-		} // Let the wordpress default function handle this.
+		} // Let the WordPress default function handle this.
 
 		// Here is the point we allow to use larger image size than the original one.
 		$aspect_ratio = $orig_w / $orig_h;
@@ -212,8 +221,6 @@ class ReSizer {
 		$s_x = floor( ( $orig_w - $crop_w ) / 2 );
 		$s_y = floor( ( $orig_h - $crop_h ) / 2 );
 
-		return array( 0, 0, (int) $s_x, (int) $s_y, (int) $new_w, (int) $new_h, (int) $crop_w, (int) $crop_h );
+		return [ 0, 0, (int) $s_x, (int) $s_y, (int) $new_w, (int) $new_h, (int) $crop_w, (int) $crop_h ];
 	}
 }
-
-

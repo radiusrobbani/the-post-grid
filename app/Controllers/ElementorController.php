@@ -1,15 +1,21 @@
 <?php
+/**
+ * Elementor Controller class.
+ *
+ * @package RT_TPG
+ */
 
 namespace RT\ThePostGrid\Controllers;
 
-if ( ! defined( 'WPINC' ) ) {
-	die;
+// Do not allow directly accessing this file.
+if ( ! defined( 'ABSPATH' ) ) {
+	exit( 'This script cannot be accessed directly.' );
 }
 
-use Elementor\Plugin;
-
-if ( ! class_exists( 'ElementorController' ) ):
-
+if ( ! class_exists( 'ElementorController' ) ) :
+	/**
+	 * Elementor Controller class.
+	 */
 	class ElementorController {
 
 		public $el_cat_id;
@@ -22,22 +28,22 @@ if ( ! class_exists( 'ElementorController' ) ):
 			if ( did_action( 'elementor/loaded' ) ) {
 				add_action( 'elementor/widgets/register', [ $this, 'init_widgets' ] );
 				add_action( 'elementor/elements/categories_registered', [ $this, 'widget_category' ] );
-				//add_action( 'elementor/editor/after_enqueue_styles', [ $this, 'editor_style' ] );
+				// add_action( 'elementor/editor/after_enqueue_styles', [ $this, 'editor_style' ] );
 				add_action( 'elementor/editor/after_enqueue_scripts', [ $this, 'el_editor_script' ] );
 				add_action( 'wp_footer', [ $this, 'tpg_el_scripts' ] );
 				add_action( 'wp_enqueue_scripts', [ $this, 'tpg_el_style' ] );
-				//add_action( "elementor/frontend/after_enqueue_scripts", [ $this, 'tpg_frontend_scripts' ] );
+				// add_action( "elementor/frontend/after_enqueue_scripts", [ $this, 'tpg_frontend_scripts' ] );
 				add_filter( 'elementor/editor/localize_settings', [ $this, 'promotePremiumWidgets' ] );
 			}
 		}
 
 		public function tpg_frontend_scripts() {
-			//wp_enqueue_script( 'imagesloaded' );
-			//wp_enqueue_script( 'tpg-el-script', rtTPG()->get_assets_uri( 'js/el-frontend.js' ), [ 'jquery' ], $this->version, true );
+			// wp_enqueue_script( 'imagesloaded' );
+			// wp_enqueue_script( 'tpg-el-script', rtTPG()->get_assets_uri( 'js/el-frontend.js' ), [ 'jquery' ], $this->version, true );
 		}
 
 		public function tpg_el_style() {
-			//Custom CSS From Settings
+			// Custom CSS From Settings
 			$css = isset( $settings['custom_css'] ) ? stripslashes( $settings['custom_css'] ) : null;
 			if ( $css ) {
 				wp_add_inline_style( 'rt-tpg-elementor', $css );
@@ -66,13 +72,13 @@ if ( ! class_exists( 'ElementorController' ) ):
 		}
 
 		public function editor_style() {
-			$css = "";
+			$css = '';
 			wp_add_inline_style( 'elementor-editor', $css );
 		}
 
 		public function init_widgets( $widgets_manager ) {
-			require_once( RT_THE_POST_GRID_PLUGIN_PATH . '/app/Widgets/elementor/base.php' );
-			require_once( RT_THE_POST_GRID_PLUGIN_PATH . '/app/Widgets/elementor/rtTPGElementorHelper.php' );
+			require_once RT_THE_POST_GRID_PLUGIN_PATH . '/app/Widgets/elementor/base.php';
+			require_once RT_THE_POST_GRID_PLUGIN_PATH . '/app/Widgets/elementor/rtTPGElementorHelper.php';
 
 			// dir_name => class_name
 			$widgets = [
@@ -99,7 +105,7 @@ if ( ! class_exists( 'ElementorController' ) ):
 				}
 				require_once $file;
 
-				$widgets_manager->register( new $class );
+				$widgets_manager->register( new $class() );
 			}
 		}
 

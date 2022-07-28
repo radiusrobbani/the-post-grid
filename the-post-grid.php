@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Plugin Name: The Post Grid
  * Plugin URI: http://demo.radiustheme.com/wordpress/plugins/the-post-grid/
@@ -9,10 +8,13 @@
  * Text Domain: the-post-grid
  * Domain Path: /languages
  * Author URI: https://radiustheme.com/
+ *
+ * @package RT_TPG
  */
 
+// Do not allow directly accessing this file.
 if ( ! defined( 'ABSPATH' ) ) {
-	exit;
+	exit( 'This script cannot be accessed directly.' );
 }
 
 define( 'RT_THE_POST_GRID_VERSION', '4.1.4' );

@@ -1,20 +1,24 @@
 <?php
 /**
- * @author  RadiusTheme
- * @since   1.0
- * @version 1.2
+ * Elementor Helper Class
+ *
+ * @package RT_TPG
  */
-
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
 
 use Elementor\Controls_Manager;
 use RT\ThePostGrid\Helpers\Fns;
 use RT\ThePostGrid\Helpers\Options;
 
+// Do not allow directly accessing this file.
+if ( ! defined( 'ABSPATH' ) ) {
+	exit( 'This script cannot be accessed directly.' );
+}
+
 require_once( RT_THE_POST_GRID_PLUGIN_PATH . '/app/Widgets/elementor/rtTPGElementorQuery.php' );
 
+/**
+ * Elementor Helper Class
+ */
 class rtTPGElementorHelper {
 
 
@@ -5493,11 +5497,11 @@ class rtTPGElementorHelper {
 				'label'     => __( 'Color - Active', 'the-post-grid' ),
 				'type'      => \Elementor\Controls_Manager::COLOR,
 				'selectors' => [
-					'{{WRAPPER}} .rt-pagination .pagination-list > .active > a, 
-					{{WRAPPER}} .rt-pagination .pagination-list > .active > span, 
-					{{WRAPPER}} .rt-pagination .pagination-list > .active > a:hover, 
-					{{WRAPPER}} .rt-pagination .pagination-list > .active > span:hover, 
-					{{WRAPPER}} .rt-pagination .pagination-list > .active > a:focus, 
+					'{{WRAPPER}} .rt-pagination .pagination-list > .active > a,
+					{{WRAPPER}} .rt-pagination .pagination-list > .active > span,
+					{{WRAPPER}} .rt-pagination .pagination-list > .active > a:hover,
+					{{WRAPPER}} .rt-pagination .pagination-list > .active > span:hover,
+					{{WRAPPER}} .rt-pagination .pagination-list > .active > a:focus,
 					{{WRAPPER}} .rt-pagination .pagination-list > .active > span:focus'                                                     => 'color: {{VALUE}} !important',
 					'{{WRAPPER}} .rt-tpg-container .rt-pagination-wrap .rt-page-numbers .paginationjs .paginationjs-pages ul li.active > a' => 'color: {{VALUE}}',
 				],
@@ -5511,11 +5515,11 @@ class rtTPGElementorHelper {
 				'label'     => __( 'Background Color - Active', 'the-post-grid' ),
 				'type'      => \Elementor\Controls_Manager::COLOR,
 				'selectors' => [
-					'{{WRAPPER}} .rt-pagination .pagination-list > .active > a, 
-					{{WRAPPER}} .rt-pagination .pagination-list > .active > span, 
-					{{WRAPPER}} .rt-pagination .pagination-list > .active > a:hover, 
-					{{WRAPPER}} .rt-pagination .pagination-list > .active > span:hover, 
-					{{WRAPPER}} .rt-pagination .pagination-list > .active > a:focus, 
+					'{{WRAPPER}} .rt-pagination .pagination-list > .active > a,
+					{{WRAPPER}} .rt-pagination .pagination-list > .active > span,
+					{{WRAPPER}} .rt-pagination .pagination-list > .active > a:hover,
+					{{WRAPPER}} .rt-pagination .pagination-list > .active > span:hover,
+					{{WRAPPER}} .rt-pagination .pagination-list > .active > a:focus,
 					{{WRAPPER}} .rt-pagination .pagination-list > .active > span:focus'                                                     => 'background-color: {{VALUE}} !important',
 					'{{WRAPPER}} .rt-tpg-container .rt-pagination-wrap .rt-page-numbers .paginationjs .paginationjs-pages ul li.active > a' => 'background-color: {{VALUE}}',
 				],
@@ -5528,11 +5532,11 @@ class rtTPGElementorHelper {
 				'label'     => __( 'Border Color - Active', 'the-post-grid' ),
 				'type'      => \Elementor\Controls_Manager::COLOR,
 				'selectors' => [
-					'{{WRAPPER}} .rt-pagination .pagination-list > .active > a, 
-					{{WRAPPER}} .rt-pagination .pagination-list > .active > span, 
-					{{WRAPPER}} .rt-pagination .pagination-list > .active > a:hover, 
-					{{WRAPPER}} .rt-pagination .pagination-list > .active > span:hover, 
-					{{WRAPPER}} .rt-pagination .pagination-list > .active > a:focus, 
+					'{{WRAPPER}} .rt-pagination .pagination-list > .active > a,
+					{{WRAPPER}} .rt-pagination .pagination-list > .active > span,
+					{{WRAPPER}} .rt-pagination .pagination-list > .active > a:hover,
+					{{WRAPPER}} .rt-pagination .pagination-list > .active > span:hover,
+					{{WRAPPER}} .rt-pagination .pagination-list > .active > a:focus,
 					{{WRAPPER}} .rt-pagination .pagination-list > .active > span:focus'                                                     => 'border-color: {{VALUE}} !important',
 					'{{WRAPPER}} .rt-tpg-container .rt-pagination-wrap .rt-page-numbers .paginationjs .paginationjs-pages ul li.active > a' => 'border-color: {{VALUE}}',
 				],

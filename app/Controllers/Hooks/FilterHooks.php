@@ -1,10 +1,24 @@
 <?php
+/**
+ * Filter Hooks class.
+ *
+ * @package RT_TPG
+ */
 
 namespace RT\ThePostGrid\Controllers\Hooks;
 
 use Cassandra\Varint;
 use RT\ThePostGrid\Helpers\Fns;
 
+// Do not allow directly accessing this file.
+if ( ! defined( 'ABSPATH' ) ) {
+	exit( 'This script cannot be accessed directly.' );
+}
+/**
+ * Filter Hooks class.
+ *
+ * @package RT_TPG
+ */
 class FilterHooks {
 
 	public static function init() {
@@ -20,10 +34,10 @@ class FilterHooks {
 	}
 
 
-	public static function admin_body_class($clsses){
-		$settings = get_option('rt_the_post_grid_settings');
+	public static function admin_body_class( $clsses ) {
+		$settings = get_option( 'rt_the_post_grid_settings' );
 
-		if( isset($settings['tpg_block_type']) && in_array($settings['tpg_block_type'], ['elementor', 'shortcode']) ) {
+		if ( isset( $settings['tpg_block_type'] ) && in_array( $settings['tpg_block_type'], [ 'elementor', 'shortcode' ] ) ) {
 			$clsses .= 'tpg-block-type-elementor-or-shortcode';
 		}
 
@@ -49,10 +63,12 @@ class FilterHooks {
 	public static function plugin_row_meta( $links, $file ) {
 		if ( $file == RT_THE_POST_GRID_PLUGIN_ACTIVE_FILE_NAME ) {
 			$report_url         = 'https://www.radiustheme.com/contact/';
-			$row_meta['issues'] = sprintf( '%2$s <a target="_blank" href="%1$s">%3$s</a>',
+			$row_meta['issues'] = sprintf(
+				'%2$s <a target="_blank" href="%1$s">%3$s</a>',
 				esc_url( $report_url ),
 				esc_html__( 'Facing issue?', 'the-post-grid' ),
-				'<span style="color: red">' . esc_html__( 'Please open a support ticket.', 'the-post-grid' ) . '</span>' );
+				'<span style="color: red">' . esc_html__( 'Please open a support ticket.', 'the-post-grid' ) . '</span>'
+			);
 
 			return array_merge( $links, $row_meta );
 		}

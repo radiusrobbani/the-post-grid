@@ -1,9 +1,20 @@
 <?php
-
+/**
+ * Notice Controller class.
+ *
+ * @package RT_TPG
+ */
 
 namespace RT\ThePostGrid\Controllers\Admin;
 
+// Do not allow directly accessing this file.
+if ( ! defined( 'ABSPATH' ) ) {
+	exit( 'This script cannot be accessed directly.' );
+}
 
+/**
+ * Notice Controller class.
+ */
 class NoticeController {
 	public function __construct() {
 		$current      = time();
@@ -203,13 +214,13 @@ class NoticeController {
                 </div>
             </div>' ), $reviewurl, $rated, $remind_me, $dont_disturb );
 
-			echo '<style> 
+			echo '<style>
             .rttpg-review-button--cta {
                 --e-button-context-color: #4C6FFF;
                 --e-button-context-color-dark: #4C6FFF;
                 --e-button-context-tint: rgb(75 47 157/4%);
                 --e-focus-color: rgb(75 47 157/40%);
-            } 
+            }
             .rttpg-review-notice {
                 position: relative;
                 margin: 5px 20px 5px 2px;
@@ -232,15 +243,15 @@ class NoticeController {
                 background: -webkit-linear-gradient(bottom, #4C6FFF 0%, #6939c6 100%);
                 background: linear-gradient(0deg, #4C6FFF 0%, #6939c6 100%);
                 content: "";
-            } 
+            }
             .rttpg-review-notice_content {
                 padding: 20px;
-            } 
+            }
             .rttpg-review-notice_actions > * + * {
                 margin-inline-start: 8px;
                 -webkit-margin-start: 8px;
                 -moz-margin-start: 8px;
-            } 
+            }
             .rttpg-review-notice p {
                 margin: 0;
                 padding: 0;
@@ -256,7 +267,7 @@ class NoticeController {
             }
             .rttpg-review-notice h3 + p {
                 margin-top: 8px;
-            } 
+            }
             .rttpg-review-button {
                 display: inline-block;
                 padding: 0.4375rem 0.75rem;
@@ -267,7 +278,7 @@ class NoticeController {
                 vertical-align: middle;
                 text-align: center;
                 text-decoration: none;
-                white-space: nowrap; 
+                white-space: nowrap;
             }
             .rttpg-review-button:active {
                 background: var(--e-button-context-color-dark);
@@ -285,11 +296,11 @@ class NoticeController {
                 background: var(--e-button-context-color-dark);
                 color: #fff;
                 text-decoration: none;
-            } 
+            }
             .rttpg-review-button.focus {
                 outline: 0;
                 box-shadow: 0 0 0 2px var(--e-focus-color);
-            } 
+            }
             .rttpg-review-button--error {
                 --e-button-context-color: #d72b3f;
                 --e-button-context-color-dark: #ae2131;
@@ -308,7 +319,7 @@ class NoticeController {
             .rttpg-review-button.rttpg-review-button--outline:hover {
                 background: var(--e-button-context-tint);
                 color: var(--e-button-context-color-dark);
-            } 
+            }
             </style>';
 		}
 	}

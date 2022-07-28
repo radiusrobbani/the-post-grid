@@ -1,7 +1,20 @@
 <?php
+/**
+ * Action Hooks class.
+ *
+ * @package RT_TPG
+ */
 
 namespace RT\ThePostGrid\Controllers\Hooks;
 
+// Do not allow directly accessing this file.
+if ( ! defined( 'ABSPATH' ) ) {
+	exit( 'This script cannot be accessed directly.' );
+}
+
+/**
+ * Action Hooks class.
+ */
 class ActionHooks {
 	public static function init() {
 		add_action( 'pre_get_posts', [ __CLASS__, 'category_query' ], 10 );
