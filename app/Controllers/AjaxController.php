@@ -19,7 +19,10 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Ajax Controller class.
  */
 class AjaxController {
-	function __construct() {
+	/**
+	 * Class constructor
+	 */
+	public function __construct() {
 		add_action( 'wp_ajax_rtTPGSettings', [ $this, 'rtTPGSaveSettings' ] );
 		add_action( 'wp_ajax_rtTPGShortCodeList', [ $this, 'shortCodeList' ] );
 		add_action( 'wp_ajax_rtTPGTaxonomyListByPostType', [ $this, 'rtTPGTaxonomyListByPostType' ] );
@@ -29,13 +32,19 @@ class AjaxController {
 		add_action( 'wp_ajax_getCfGroupListAsField', [ $this, 'getCfGroupListAsField' ] );
 	}
 
-	function getCfGroupListAsField() {
-
+	/**
+	 * Render
+	 *
+	 * @return void
+	 */
+	public function getCfGroupListAsField() {
 		$error = true;
 		$data  = $msg = null;
+
 		if ( Fns::verifyNonce() ) {
 			$fields    = [];
-			$post_type = ! empty( $_REQUEST['post_type'] ) ? $_REQUEST['post_type'] : null;
+			$post_type = isset( $_REQUEST['post_type'] ) ? $_REQUEST['post_type'] : null;
+
 			if ( $cf = Fns::is_acf() && $post_type ) {
 				$fields['cf_group'] = [
 					'type'        => 'checkbox',
@@ -53,77 +62,104 @@ class AjaxController {
 		} else {
 			$msg = __( 'Server Error !!', 'the-post-grid' );
 		}
+
 		$response = [
 			'error' => $error,
 			'msg'   => $msg,
 			'data'  => $data,
 		];
+
 		wp_send_json( $response );
 		die();
 	}
 
-	function defaultFilterItem() {
-
+	/**
+	 * Default filter.
+	 *
+	 * @return void
+	 */
+	public function defaultFilterItem() {
 		$error = true;
 		$data  = $msg = null;
+
 		if ( Fns::verifyNonce() ) {
-			if ( $filter = $_REQUEST['filter'] ) {
+			$filter = isset( $_REQUEST['filter'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['filter'] ) ) : null;
+			$term   = isset( $_REQUEST['include'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['include'] ) ) : null;
+
+			if ( ! empty( $filter ) ) {
 				$include = [];
-				if ( isset( $_REQUEST['include'] ) && $term = $_REQUEST['include'] ) {
+
+				if ( ! empty( $term ) ) {
 					$include = explode( ',', $term );
 				}
+
 				$error = false;
-				$msg   = __( 'Success', 'the-post-grid' );
-				$data .= "<option value=''>" . __( 'Show All', 'the-post-grid' ) . '</option>';
+				$msg   = esc_html__( 'Success', 'the-post-grid' );
+				$data .= "<option value=''>" . esc_html__( 'Show All', 'the-post-grid' ) . '</option>';
 				$items = Fns::rt_get_selected_term_by_taxonomy( $filter, $include, '', 0 );
+
 				if ( ! empty( $items ) ) {
 					foreach ( $items as $id => $item ) {
-						$data .= "<option value='{$id}'>{$item}</option>";
+						$data .= '<option value="' . absint( $id ) . '">' . esc_html( $item ) . '</option>';
 					}
 				}
 			}
 		} else {
-			$msg = __( 'Session Error !!', 'the-post-grid' );
+			$msg = esc_html__( 'Session Error !!', 'the-post-grid' );
 		}
 		$response = [
 			'error' => $error,
 			'msg'   => $msg,
 			'data'  => $data,
 		];
+
 		wp_send_json( $response );
 		die();
 	}
 
-	function rtTPGSaveSettings() {
-
+	/**
+	 * Save settings.
+	 *
+	 * @return void
+	 */
+	public function rtTPGSaveSettings() {
 		$error = true;
+
 		if ( Fns::verifyNonce() ) {
 			unset( $_REQUEST['action'] );
 			unset( $_REQUEST[ rtTPG()->nonceId() ] );
 			unset( $_REQUEST['_wp_http_referer'] );
 
 			update_option( rtTPG()->options['settings'], $_REQUEST );
+
 			$response = [
 				'error' => false,
-				'msg'   => __( 'Settings successfully updated', 'the-post-grid' ),
+				'msg'   => esc_html__( 'Settings successfully updated', 'the-post-grid' ),
 			];
 		} else {
 			$response = [
 				'error' => $error,
-				'msg'   => __( 'Session Error !!', 'the-post-grid' ),
+				'msg'   => esc_html__( 'Session Error !!', 'the-post-grid' ),
 			];
 		}
+
 		wp_send_json( $response );
 		die();
 	}
 
-	function rtTPGTaxonomyListByPostType() {
-
+	/**
+	 * Taxonomy list.
+	 *
+	 * @return void
+	 */
+	public function rtTPGTaxonomyListByPostType() {
 		$error = true;
 		$msg   = $data = null;
+
 		if ( Fns::verifyNonce() ) {
 			$error      = false;
-			$taxonomies = Fns::rt_get_all_taxonomy_by_post_type( isset( $_REQUEST['post_type'] ) ? $_REQUEST['post_type'] : null );
+			$taxonomies = Fns::rt_get_all_taxonomy_by_post_type( $_REQUEST['post_type'] );
+
 			if ( is_array( $taxonomies ) && ! empty( $taxonomies ) ) {
 				$data .= Fns::rtFieldGenerator(
 					[
@@ -132,17 +168,18 @@ class AjaxController {
 							'label'    => 'Taxonomy',
 							'id'       => 'post-taxonomy',
 							'multiple' => true,
-							'value'    => isset( $_REQUEST['taxonomy'] ) ? $_REQUEST['taxonomy'] : [],
+							'value'    => isset( $_REQUEST['taxonomy'] ) ? array_map( 'sanitize_text_field', wp_unslash( $_REQUEST['taxonomy'] ) ) : [],
 							'options'  => $taxonomies,
 						],
 					]
 				);
 			} else {
-				$data = __( '<div class="field-holder">No Taxonomy found</div>', 'the-post-grid' );
+				$data = '<div class="field-holder">' . esc_html__( 'No Taxonomy found', 'the-post-grid' ) . '</div>';
 			}
 		} else {
-			$msg = __( 'Security error', 'the-post-grid' );
+			$msg = esc_html__( 'Security error', 'the-post-grid' );
 		}
+
 		wp_send_json(
 			[
 				'error' => $error,
@@ -153,21 +190,28 @@ class AjaxController {
 		die();
 	}
 
-	function rtTPGIsotopeFilter() {
-
+	/**
+	 * Isotope Filter
+	 *
+	 * @return void
+	 */
+	public function rtTPGIsotopeFilter() {
 		$error = true;
 		$msg   = $data = null;
+
 		if ( Fns::verifyNonce() ) {
 			$error      = false;
-			$taxonomies = Fns::rt_get_taxonomy_for_filter( isset( $_REQUEST['post_type'] ) ? $_REQUEST['post_type'] : null );
+			$taxonomies = Fns::rt_get_taxonomy_for_filter( $_REQUEST['post_type'] );
+
 			if ( is_array( $taxonomies ) && ! empty( $taxonomies ) ) {
 				foreach ( $taxonomies as $tKey => $tax ) {
-					$data .= "<option value='{$tKey}'>{$tax}</option>";
+					$data .= '<option value="' . absint( $tKey ) . '">' . esc_html( $tax ) . '</option>';
 				}
 			}
 		} else {
-			$msg = __( 'Security error', 'the-post-grid' );
+			$msg = esc_html__( 'Security error', 'the-post-grid' );
 		}
+
 		wp_send_json(
 			[
 				'error' => $error,
@@ -178,13 +222,18 @@ class AjaxController {
 		die();
 	}
 
-	function rtTPGTermListByTaxonomy() {
-
+	/**
+	 * Term list
+	 *
+	 * @return void
+	 */
+	public function rtTPGTermListByTaxonomy() {
 		$error = true;
 		$msg   = $data = null;
+
 		if ( Fns::verifyNonce() ) {
 			$error    = false;
-			$taxonomy = isset( $_REQUEST['taxonomy'] ) ? $_REQUEST['taxonomy'] : null;
+			$taxonomy = isset( $_REQUEST['taxonomy'] ) ? array_map( 'sanitize_text_field', wp_unslash( $_REQUEST['taxonomy'] ) ) : null;
 			$data    .= "<div class='term-filter-item-container {$taxonomy}'>";
 			$data    .= Fns::rtFieldGenerator(
 				[
@@ -192,7 +241,7 @@ class AjaxController {
 						'type'        => 'select',
 						'label'       => ucfirst( str_replace( '_', ' ', $taxonomy ) ),
 						'class'       => 'rt-select2 full',
-						'id'          => 'term-' . mt_rand(),
+						'id'          => 'term-' . wp_rand(),
 						'holderClass' => "term-filter-item {$taxonomy}",
 						'value'       => null,
 						'multiple'    => true,
@@ -213,7 +262,7 @@ class AjaxController {
 			);
 			$data    .= '</div>';
 		} else {
-			$msg = __( 'Security error', 'the-post-grid' );
+			$msg = esc_html__( 'Security error', 'the-post-grid' );
 		}
 		wp_send_json(
 			[
@@ -225,7 +274,12 @@ class AjaxController {
 		die();
 	}
 
-	function shortCodeList() {
+	/**
+	 * Shortcode list
+	 *
+	 * @return void
+	 */
+	public function shortCodeList() {
 		$html = null;
 		$scQ  = new \WP_Query(
 			apply_filters(
@@ -240,23 +294,25 @@ class AjaxController {
 			)
 		);
 		if ( $scQ->have_posts() ) {
-
 			$html .= "<div class='mce-container mce-form'>";
 			$html .= "<div class='mce-container-body'>";
 			$html .= '<label class="mce-widget mce-label" style="padding: 20px;font-weight: bold;" for="scid">' . __( 'Select Short code', 'the-post-grid' ) . '</label>';
 			$html .= "<select name='id' id='scid' style='width: 150px;margin: 15px;'>";
-			$html .= "<option value=''>" . __( 'Default', 'the-post-grid' ) . '</option>';
+			$html .= "<option value=''>" . esc_html__( 'Default', 'the-post-grid' ) . '</option>';
+
 			while ( $scQ->have_posts() ) {
 				$scQ->the_post();
 				$html .= "<option value='" . get_the_ID() . "'>" . get_the_title() . '</option>';
 			}
+
 			$html .= '</select>';
 			$html .= '</div>';
 			$html .= '</div>';
 		} else {
-			$html .= '<div>' . __( 'No shortCode found.', 'the-post-grid' ) . '</div>';
+			$html .= '<div>' . esc_html__( 'No shortCode found.', 'the-post-grid' ) . '</div>';
 		}
-		echo $html;
+
+		Fns::print_html( $html, true );
 		die();
 	}
 }

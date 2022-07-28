@@ -180,14 +180,6 @@ class Fns {
 		return true;
 	}
 
-	public static function print_html( $html, $allHtml = false ) {
-		if ( $allHtml ) {
-			echo stripslashes_deep( $html );
-		} else {
-			echo wp_kses_post( stripslashes_deep( $html ) );
-		}
-	}
-
 	public static function rtAllOptionFields() {
 		$fields = array_merge(
 			Options::rtTPGCommonFilterFields(),
@@ -2460,4 +2452,181 @@ class Fns {
 		return false;
 	}
 
+	/**
+	 * Prints HTML.
+	 *
+	 * @param string $html HTML.
+	 * @param bool   $allHtml All HTML.
+	 *
+	 * @return mixed
+	 */
+	public static function print_html( $html, $allHtml = false ) {
+		if ( $allHtml ) {
+			echo stripslashes_deep( $html );
+		} else {
+			echo wp_kses_post( stripslashes_deep( $html ) );
+		}
+	}
+
+	/**
+	 * Allowed HTML for wp_kses.
+	 *
+	 * @param string $level Tag level.
+	 *
+	 * @return mixed
+	 */
+	public static function allowedHtml( $level = 'basic' ) {
+		$allowed_html = [];
+
+		switch ( $level ) {
+			case 'basic':
+				$allowed_html = [
+					'b'      => [
+						'class' => [],
+						'id'    => [],
+					],
+					'i'      => [
+						'class' => [],
+						'id'    => [],
+					],
+					'u'      => [
+						'class' => [],
+						'id'    => [],
+					],
+					'br'     => [
+						'class' => [],
+						'id'    => [],
+					],
+					'em'     => [
+						'class' => [],
+						'id'    => [],
+					],
+					'span'   => [
+						'class' => [],
+						'id'    => [],
+					],
+					'strong' => [
+						'class' => [],
+						'id'    => [],
+					],
+					'hr'     => [
+						'class' => [],
+						'id'    => [],
+					],
+					'a'      => [
+						'href'   => [],
+						'title'  => [],
+						'class'  => [],
+						'id'     => [],
+						'target' => [],
+					],
+				];
+				break;
+
+			case 'advanced':
+				$allowed_html = [
+					'b'      => [
+						'class' => [],
+						'id'    => [],
+					],
+					'i'      => [
+						'class' => [],
+						'id'    => [],
+					],
+					'u'      => [
+						'class' => [],
+						'id'    => [],
+					],
+					'br'     => [
+						'class' => [],
+						'id'    => [],
+					],
+					'em'     => [
+						'class' => [],
+						'id'    => [],
+					],
+					'span'   => [
+						'class' => [],
+						'id'    => [],
+					],
+					'strong' => [
+						'class' => [],
+						'id'    => [],
+					],
+					'hr'     => [
+						'class' => [],
+						'id'    => [],
+					],
+					'a'      => [
+						'href'   => [],
+						'title'  => [],
+						'class'  => [],
+						'id'     => [],
+						'target' => [],
+					],
+					'input'  => [
+						'type'   => [],
+						'name'   => [],
+						'class'  => [],
+						'value'  => [],
+					],
+				];
+				break;
+
+			case 'image':
+				$allowed_html = [
+					'img' => [
+						'src'      => [],
+						'data-src' => [],
+						'alt'      => [],
+						'height'   => [],
+						'width'    => [],
+						'class'    => [],
+						'id'       => [],
+						'style'    => [],
+						'srcset'   => [],
+						'loading'  => [],
+						'sizes'    => [],
+					],
+					'div' => [
+						'class' => [],
+					],
+				];
+				break;
+
+			case 'anchor':
+				$allowed_html = [
+					'a' => [
+						'href'  => [],
+						'title' => [],
+						'class' => [],
+						'id'    => [],
+						'style' => [],
+					],
+				];
+				break;
+
+			default:
+				// code...
+				break;
+		}
+
+		return $allowed_html;
+	}
+
+	/**
+	 * Definition for wp_kses.
+	 *
+	 * @param string $string String to check.
+	 * @param string $level Tag level.
+	 *
+	 * @return mixed
+	 */
+	public static function htmlKses( $string, $level ) {
+		if ( empty( $string ) ) {
+			return;
+		}
+
+		return wp_kses( $string, self::allowedHtml( $level ) );
+	}
 }
