@@ -364,7 +364,7 @@ With the Post Grid PRO, you get to use the Single Page Builder, which is based o
 == Changelog ==
 
 = 4.1.5 =
-* Fixed: Admin preview pagination now showing
+* Fixed: Admin preview pagination not showing
 * Fixed: Datepicker style added
 
 = 4.1.4 =
