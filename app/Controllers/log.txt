@@ -1,0 +1,140 @@
+Array
+(
+    [action] => defaultFilterItem
+    [filter] => team_designation
+    [include] => 
+    [rttpg_nonce] => 48120b0253
+)
+Array
+(
+    [action] => defaultFilterItem
+    [filter] => team_designation
+    [include] => 
+    [rttpg_nonce] => 48120b0253
+)
+Array
+(
+    [action] => defaultFilterItem
+    [filter] => team_designation
+    [include] => 
+    [rttpg_nonce] => 48120b0253
+)
+Array
+(
+    [action] => defaultFilterItem
+    [filter] => 0
+    [include] => 
+    [rttpg_nonce] => 48120b0253
+)
+Array
+(
+    [action] => defaultFilterItem
+    [filter] => 0
+    [include] => 
+    [rttpg_nonce] => 48120b0253
+)
+Array
+(
+    [action] => defaultFilterItem
+    [filter] => 0
+    [include] => 
+    [rttpg_nonce] => 48120b0253
+)
+Array
+(
+    [action] => defaultFilterItem
+    [filter] => 0
+    [include] => 
+    [rttpg_nonce] => 48120b0253
+)
+Array
+(
+    [action] => defaultFilterItem
+    [filter] => 0
+    [include] => 
+    [rttpg_nonce] => 48120b0253
+)
+Array
+(
+    [action] => defaultFilterItem
+    [filter] => 0
+    [include] => 
+    [rttpg_nonce] => 48120b0253
+)
+Array
+(
+    [action] => defaultFilterItem
+    [filter] => 0
+    [include] => 
+    [rttpg_nonce] => 48120b0253
+)
+Array
+(
+    [action] => defaultFilterItem
+    [filter] => 0
+    [include] => 
+    [rttpg_nonce] => 48120b0253
+)
+Array
+(
+    [action] => defaultFilterItem
+    [filter] => category
+    [include] => 
+    [rttpg_nonce] => 48120b0253
+)
+Array
+(
+    [action] => defaultFilterItem
+    [filter] => category
+    [include] => 
+    [rttpg_nonce] => 48120b0253
+)
+Array
+(
+    [action] => defaultFilterItem
+    [filter] => category
+    [include] => 
+    [rttpg_nonce] => 48120b0253
+)
+Array
+(
+    [action] => defaultFilterItem
+    [filter] => 0
+    [include] => 
+    [rttpg_nonce] => 48120b0253
+)
+Array
+(
+    [action] => defaultFilterItem
+    [filter] => 0
+    [include] => 
+    [rttpg_nonce] => 48120b0253
+)
+Array
+(
+    [action] => defaultFilterItem
+    [filter] => 0
+    [include] => 
+    [rttpg_nonce] => 48120b0253
+)
+Array
+(
+    [action] => defaultFilterItem
+    [filter] => 0
+    [include] => 
+    [rttpg_nonce] => 48120b0253
+)
+Array
+(
+    [action] => defaultFilterItem
+    [filter] => 0
+    [include] => 
+    [rttpg_nonce] => 48120b0253
+)
+Array
+(
+    [action] => defaultFilterItem
+    [filter] => 0
+    [include] => 
+    [rttpg_nonce] => 48120b0253
+)

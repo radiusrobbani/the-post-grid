@@ -43,14 +43,14 @@ class AjaxController {
 
 		if ( Fns::verifyNonce() ) {
 			$fields    = [];
-			$post_type = isset( $_REQUEST['post_type'] ) ? $_REQUEST['post_type'] : null;
+			$post_type = isset( $_REQUEST['post_type'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['post_type'] ) ) : null;
 
 			if ( $cf = Fns::is_acf() && $post_type ) {
 				$fields['cf_group'] = [
 					'type'        => 'checkbox',
 					'name'        => 'cf_group',
 					'holderClass' => 'tpg-hidden cf-fields cf-group',
-					'label'       => 'Custom Field group',
+					'label'       => esc_html__( 'Custom Field group', 'the-post-grid' ),
 					'multiple'    => true,
 					'alignment'   => 'vertical',
 					'id'          => 'cf_group',
@@ -60,7 +60,7 @@ class AjaxController {
 				$data               = Fns::rtFieldGenerator( $fields );
 			}
 		} else {
-			$msg = __( 'Server Error !!', 'the-post-grid' );
+			$msg = esc_html__( 'Server Error !!', 'the-post-grid' );
 		}
 
 		$response = [
@@ -130,7 +130,7 @@ class AjaxController {
 			unset( $_REQUEST[ rtTPG()->nonceId() ] );
 			unset( $_REQUEST['_wp_http_referer'] );
 
-			update_option( rtTPG()->options['settings'], $_REQUEST );
+			update_option( rtTPG()->options['settings'], wp_unslash( $_REQUEST ) );
 
 			$response = [
 				'error' => false,
@@ -165,7 +165,7 @@ class AjaxController {
 					[
 						'tpg_taxonomy' => [
 							'type'     => 'checkbox',
-							'label'    => 'Taxonomy',
+							'label'    => esc_html__( 'Taxonomy', 'the-post-grid' ),
 							'id'       => 'post-taxonomy',
 							'multiple' => true,
 							'value'    => isset( $_REQUEST['taxonomy'] ) ? array_map( 'sanitize_text_field', wp_unslash( $_REQUEST['taxonomy'] ) ) : [],
@@ -201,7 +201,8 @@ class AjaxController {
 
 		if ( Fns::verifyNonce() ) {
 			$error      = false;
-			$taxonomies = Fns::rt_get_taxonomy_for_filter( $_REQUEST['post_type'] );
+			$post_type  = isset( $_REQUEST['post_type'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['post_type'] ) ) : null;
+			$taxonomies = Fns::rt_get_taxonomy_for_filter( $post_type );
 
 			if ( is_array( $taxonomies ) && ! empty( $taxonomies ) ) {
 				foreach ( $taxonomies as $tKey => $tax ) {
@@ -233,9 +234,10 @@ class AjaxController {
 
 		if ( Fns::verifyNonce() ) {
 			$error    = false;
-			$taxonomy = isset( $_REQUEST['taxonomy'] ) ? array_map( 'sanitize_text_field', wp_unslash( $_REQUEST['taxonomy'] ) ) : null;
-			$data    .= "<div class='term-filter-item-container {$taxonomy}'>";
-			$data    .= Fns::rtFieldGenerator(
+			$taxonomy = isset( $_REQUEST['taxonomy'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['taxonomy'] ) ) : null;
+
+			$data .= "<div class='term-filter-item-container {$taxonomy}'>";
+			$data .= Fns::rtFieldGenerator(
 				[
 					'term_' . $taxonomy => [
 						'type'        => 'select',
@@ -249,18 +251,18 @@ class AjaxController {
 					],
 				]
 			);
-			$data    .= Fns::rtFieldGenerator(
+			$data .= Fns::rtFieldGenerator(
 				[
 					'term_operator_' . $taxonomy => [
 						'type'        => 'select',
-						'label'       => 'Operator',
+						'label'       => esc_html__( 'Operator', 'the-post-grid' ),
 						'class'       => 'rt-select2 full',
 						'holderClass' => "term-filter-item-operator {$taxonomy}",
 						'options'     => Options::rtTermOperators(),
 					],
 				]
 			);
-			$data    .= '</div>';
+			$data .= '</div>';
 		} else {
 			$msg = esc_html__( 'Security error', 'the-post-grid' );
 		}
