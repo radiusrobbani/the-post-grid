@@ -18,11 +18,19 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Widget Controller class.
  */
 class WidgetController {
-	function __construct() {
+	/**
+	 * Class construct
+	 */
+	public function __construct() {
 		add_action( 'widgets_init', [ $this, 'initWidget' ] );
 	}
 
-	function initWidget() {
+	/**
+	 * Widgets
+	 *
+	 * @return void
+	 */
+	public function initWidget() {
 		register_widget( TPGWidget::class );
 	}
 }

@@ -32,54 +32,72 @@ class Fns {
 
 
 	/**
-	 * @param         $viewName
-	 * @param array    $args
-	 * @param bool     $return
+	 * Render view
 	 *
-	 * @return string|void
+	 * @param string  $viewName View name.
+	 * @param array   $args Args.
+	 * @param boolean $return Include/return.
+	 * @return string
 	 */
 	public static function view( $viewName, $args = [], $return = false ) {
 		$file     = str_replace( '.', '/', $viewName );
 		$file     = ltrim( $file, '/' );
 		$viewFile = trailingslashit( RT_THE_POST_GRID_PLUGIN_PATH . '/resources' ) . $file . '.php';
+
 		if ( ! file_exists( $viewFile ) ) {
-			return new \WP_Error( 'brock', __( "$viewFile file not found" ) );
+			return new \WP_Error(
+				'brock',
+				sprintf(
+					/* translators: %s File name */
+					esc_html__( '%s file not found', 'the-post-grid' ),
+					$viewFile
+				)
+			);
 		}
+
 		if ( $args ) {
-			extract( $args );
+			extract( $args ); // phpcs:ignore WordPress.PHP.DontExtract.extract_extract
 		}
+
 		if ( $return ) {
 			ob_start();
 			include $viewFile;
 
 			return ob_get_clean();
 		}
+
 		include $viewFile;
 	}
 
 	/**
-	 * @param integer $post_id Listing ID
+	 * Update post view
+	 *
+	 * @param integer $post_id Listing ID.
+	 * @return void
 	 */
-	static function update_post_views_count( $post_id ) {
+	public static function update_post_views_count( $post_id ) {
 		if ( ! $post_id && is_admin() ) {
 			return;
 		}
 
-		$user_ip = $_SERVER['REMOTE_ADDR']; // retrieve the current IP address of the visitor
+		$user_ip = sanitize_text_field( wp_unslash( $_SERVER['REMOTE_ADDR'] ) ); // retrieve the current IP address of the visitor.
 		$key     = 'tpg_cache_' . $user_ip . '_' . $post_id;
 		$value   = [ $user_ip, $post_id ];
 		$visited = get_transient( $key );
-		if ( false === ( $visited ) ) {
-			set_transient( $key, $value, HOUR_IN_SECONDS * 12 ); // store the unique key, Post ID & IP address for 12 hours if it does not exist
 
-			// now run post views function
+		if ( false === ( $visited ) ) {
+			set_transient( $key, $value, HOUR_IN_SECONDS * 12 ); // store the unique key, Post ID & IP address for 12 hours if it does not exist.
+
+			// now run post views function.
 			$count_key = self::get_post_view_count_meta_key();
 			$count     = get_post_meta( $post_id, $count_key, true );
+
 			if ( '' == $count ) {
 				update_post_meta( $post_id, $count_key, 1 );
 			} else {
 				$count = absint( $count );
 				$count ++;
+
 				update_post_meta( $post_id, $count_key, $count );
 			}
 		}
@@ -93,16 +111,16 @@ class Fns {
 	 * @param string $template_path Template path. (default: '').
 	 * @param string $default_path Default path. (default: '').
 	 */
-	static function get_template( $template_name, $args = null, $template_path = '', $default_path = '' ) {
+	public static function get_template( $template_name, $args = null, $template_path = '', $default_path = '' ) {
 		if ( ! empty( $args ) && is_array( $args ) ) {
-			extract( $args ); // @codingStandardsIgnoreLine
+			extract( $args ); // phpcs:ignore WordPress.PHP.DontExtract.extract_extract
 		}
 
 		$located = self::locate_template( $template_name, $template_path, $default_path );
 
 		if ( ! file_exists( $located ) ) {
 			/* translators: %s template */
-			self::doing_it_wrong( __FUNCTION__, sprintf( __( '%s does not exist.', 'the-post-grid' ), '<code>' . $located . '</code>' ), '1.0' );
+			self::doing_it_wrong( __FUNCTION__, sprintf( esc_html__( '%s does not exist.', 'the-post-grid' ), '<code>' . $located . '</code>' ), '1.0' );
 
 			return;
 		}
@@ -135,14 +153,16 @@ class Fns {
 	}
 
 	/**
-	 * @param          $template_name
-	 * @param string        $template_path
-	 * @param string        $default_path
+	 * Locate template.
 	 *
+	 * @param string $template_name Template.
+	 * @param string $template_path Path.
+	 * @param string $default_path Default path.
 	 * @return mixed|void
 	 */
 	public static function locate_template( $template_name, $template_path = '', $default_path = '' ) {
 		$template_name = $template_name . '.php';
+
 		if ( ! $template_path ) {
 			$template_path = rtTPG()->get_template_path();
 		}
@@ -150,6 +170,7 @@ class Fns {
 		if ( ! $default_path ) {
 			$default_path = rtTPG()->default_template_path() . '/templates/';
 		}
+
 		// Look within passed path within the theme - this is priority.
 		$template_files   = [];
 		$template_files[] = trailingslashit( $template_path ) . $template_name;
@@ -164,15 +185,30 @@ class Fns {
 		return apply_filters( 'rttpg_locate_template', $template, $template_name );
 	}
 
-	static function doing_it_wrong( $function, $message, $version ) {
-		// @codingStandardsIgnoreStart
+	/**
+	 * Mark something as being incorrectly called.
+	 *
+	 * @param string $function — The function that was called.
+	 * @param string $message — A message explaining what has been done incorrectly.
+	 * @param string $version — The version of WordPress where the message was added.
+	 * @return void
+	 */
+	public static function doing_it_wrong( $function, $message, $version ) {
+		// phpcs:disable
 		$message .= ' Backtrace: ' . wp_debug_backtrace_summary();
 		_doing_it_wrong( $function, $message, $version );
+		// phpcs:enable
 	}
 
+	/**
+	 * Verify nonce.
+	 *
+	 * @return bool
+	 */
 	public static function verifyNonce() {
-		$nonce     = isset( $_REQUEST[ rtTPG()->nonceId() ] ) ? $_REQUEST[ rtTPG()->nonceId() ] : null;
+		$nonce     = isset( $_REQUEST[ rtTPG()->nonceId() ] ) ? sanitize_text_field( wp_unslash( $_REQUEST[ rtTPG()->nonceId() ] ) ) : null;
 		$nonceText = rtTPG()->nonceText();
+
 		if ( ! wp_verify_nonce( $nonce, $nonceText ) ) {
 			return false;
 		}
@@ -180,6 +216,11 @@ class Fns {
 		return true;
 	}
 
+	/**
+	 * All settings.
+	 *
+	 * @return array
+	 */
 	public static function rtAllOptionFields() {
 		$fields = array_merge(
 			Options::rtTPGCommonFilterFields(),
@@ -187,7 +228,7 @@ class Fns {
 			Options::responsiveSettingsColumn(),
 			Options::layoutMiscSettings(),
 			Options::stickySettings(),
-			// settings
+			// settings.
 			Options::rtTPGSCHeadingSettings(),
 			Options::rtTPGSCCategorySettings(),
 			Options::rtTPGSCTitleSettings(),
@@ -195,7 +236,7 @@ class Fns {
 			Options::rtTPGSCImageSettings(),
 			Options::rtTPGSCExcerptSettings(),
 			Options::rtTPGSCButtonSettings(),
-			// style
+			// style.
 			Options::rtTPGStyleFields(),
 			Options::rtTPGStyleHeading(),
 			Options::rtTPGStyleFullArea(),
@@ -212,25 +253,36 @@ class Fns {
 
 	public static function rt_get_all_term_by_taxonomy( $taxonomy = null, $count = false, $parent = false ) {
 		$terms = [];
+
 		if ( $taxonomy ) {
-			$temp_terms = get_terms( [ 'taxonomy' => $taxonomy, 'hide_empty' => 0 ] );
+			$temp_terms = get_terms(
+				[
+					'taxonomy'   => $taxonomy,
+					'hide_empty' => 0,
+				]
+			);
+
 			if ( is_array( $temp_terms ) && ! empty( $temp_terms ) && empty( $temp_terms['errors'] ) ) {
 				foreach ( $temp_terms as $term ) {
 					$order = get_term_meta( $term->term_id, '_rt_order', true );
-					if ( $order === "" ) {
+					if ( $order === '' ) {
 						update_term_meta( $term->term_id, '_rt_order', 0 );
 					}
 				}
+
 				global $wp_version;
+
 				$args = [
 					'taxonomy'   => $taxonomy,
 					'orderby'    => 'meta_value_num',
 					'meta_key'   => '_rt_order',
 					'hide_empty' => false,
 				];
+
 				if ( $parent >= 0 && $parent !== false ) {
 					$args['parent'] = absint( $parent );
 				}
+
 				$args['orderby']  = 'meta_value_num';
 				$args['meta_key'] = '_rt_order';
 
@@ -238,7 +290,10 @@ class Fns {
 
 				foreach ( $termObjs as $term ) {
 					if ( $count ) {
-						$terms[ $term->term_id ] = [ 'name' => $term->name, 'count' => $term->count ];
+						$terms[ $term->term_id ] = [
+							'name'  => $term->name,
+							'count' => $term->count,
+						];
 					} else {
 						$terms[ $term->term_id ] = $term->name;
 					}
@@ -251,16 +306,25 @@ class Fns {
 
 	public static function rt_get_selected_term_by_taxonomy( $taxonomy = null, $include = [], $count = false, $parent = false ) {
 		$terms = [];
+
 		if ( $taxonomy ) {
-			$temp_terms = get_terms( [ 'taxonomy' => $taxonomy, 'hide_empty' => 0 ] );
+			$temp_terms = get_terms(
+				[
+					'taxonomy'   => $taxonomy,
+					'hide_empty' => 0,
+				]
+			);
+
 			if ( is_array( $temp_terms ) && ! empty( $temp_terms ) && empty( $temp_terms['errors'] ) ) {
 				foreach ( $temp_terms as $term ) {
 					$order = get_term_meta( $term->term_id, '_rt_order', true );
-					if ( $order === "" ) {
+					if ( $order === '' ) {
 						update_term_meta( $term->term_id, '_rt_order', 0 );
 					}
 				}
+
 				global $wp_version;
+
 				$args = [
 					'taxonomy'   => $taxonomy,
 					'orderby'    => 'meta_value_num',
@@ -268,9 +332,11 @@ class Fns {
 					'include'    => $include,
 					'hide_empty' => false,
 				];
+
 				if ( $parent >= 0 && $parent !== false ) {
 					$args['parent'] = absint( $parent );
 				}
+
 				$args['orderby']  = 'meta_value_num';
 				$args['meta_key'] = '_rt_order';
 
@@ -278,7 +344,10 @@ class Fns {
 
 				foreach ( $termObjs as $term ) {
 					if ( $count ) {
-						$terms[ $term->term_id ] = [ 'name' => $term->name, 'count' => $term->count ];
+						$terms[ $term->term_id ] = [
+							'name'  => $term->name,
+							'count' => $term->count,
+						];
 					} else {
 						$terms[ $term->term_id ] = $term->name;
 					}
@@ -299,6 +368,7 @@ class Fns {
 		if ( ! $post_type ) {
 			$post_type = get_post_meta( get_the_ID(), 'tpg_post_type', true );
 		}
+
 		if ( ! $post_type ) {
 			$post_type = 'post';
 		}
@@ -308,14 +378,17 @@ class Fns {
 
 	public static function rt_get_all_taxonomy_by_post_type( $post_type = null ) {
 		$taxonomies = [];
+
 		if ( $post_type && post_type_exists( $post_type ) ) {
 			$taxObj = get_object_taxonomies( $post_type, 'objects' );
+
 			if ( is_array( $taxObj ) && ! empty( $taxObj ) ) {
 				foreach ( $taxObj as $tKey => $taxonomy ) {
 					$taxonomies[ $tKey ] = $taxonomy->label;
 				}
 			}
 		}
+
 		if ( $post_type == 'post' ) {
 			unset( $taxonomies['post_format'] );
 		}
@@ -326,6 +399,7 @@ class Fns {
 	public static function rt_get_users() {
 		$users = [];
 		$u     = get_users( apply_filters( 'tpg_author_arg', [] ) );
+
 		if ( ! empty( $u ) ) {
 			foreach ( $u as $user ) {
 				$users[ $user->ID ] = $user->display_name;
@@ -337,6 +411,7 @@ class Fns {
 
 	public static function rtFieldGenerator( $fields = [] ) {
 		$html = null;
+
 		if ( is_array( $fields ) && ! empty( $fields ) ) {
 			$tpgField = new Field();
 			foreach ( $fields as $fieldKey => $field ) {
@@ -351,15 +426,17 @@ class Fns {
 	 * Sanitize field value
 	 *
 	 * @param array $field
-	 * @param null $value
+	 * @param null  $value
 	 *
 	 * @return array|null
 	 * @internal param $value
 	 */
 	public static function sanitize( $field = [], $value = null ) {
 		$newValue = null;
+
 		if ( is_array( $field ) ) {
 			$type = ( ! empty( $field['type'] ) ? $field['type'] : 'text' );
+
 			if ( empty( $field['multiple'] ) ) {
 				if ( $type == 'text' || $type == 'number' || $type == 'select' || $type == 'checkbox' || $type == 'radio' ) {
 					$newValue = sanitize_text_field( $value );
@@ -375,11 +452,13 @@ class Fns {
 					$newValue = self::sanitize_hex_color( $value );
 				} elseif ( $type == 'image_size' ) {
 					$newValue = [];
+
 					foreach ( $value as $k => $v ) {
 						$newValue[ $k ] = esc_attr( $v );
 					}
 				} elseif ( $type == 'style' ) {
 					$newValue = [];
+
 					foreach ( $value as $k => $v ) {
 						if ( $k == 'color' ) {
 							$newValue[ $k ] = self::sanitize_hex_color( $v );
@@ -392,6 +471,7 @@ class Fns {
 				}
 			} else {
 				$newValue = [];
+
 				if ( ! empty( $value ) ) {
 					if ( is_array( $value ) ) {
 						foreach ( $value as $key => $val ) {
@@ -432,8 +512,10 @@ class Fns {
 
 	public static function rtFieldGeneratorBackup( $fields = [], $multi = false ) {
 		$html = null;
+
 		if ( is_array( $fields ) && ! empty( $fields ) ) {
 			$rtField = new Field();
+
 			if ( $multi ) {
 				foreach ( $fields as $field ) {
 					$html .= $rtField->Field( $field );
@@ -448,77 +530,82 @@ class Fns {
 
 	public static function rtSmartStyle( $fields = [] ) {
 		$h = null;
+
 		if ( ! empty( $fields ) ) {
 			foreach ( $fields as $key => $label ) {
 				$atts    = '';
 				$proText = '';
 				$class   = '';
 
-				$h .= "<div class='field-holder {$class}'>";
+				$h .= '<div class="field-holder ' . esc_attr( $class ) . '">';
 
-				$h .= "<div class='field-label'><label>{$label}{$proText}</label></div>";
+				$h .= '<div class="field-label"><label>' . esc_html( $label ) . '' . self::htmlKses( $proText, 'basic' ) . '</label></div>';
 				$h .= "<div class='field'>";
-				// color
-				$h      .= "<div class='field-inner col-4'>";
-				$h      .= "<div class='field-inner-container size'>";
-				$h      .= "<span class='label'>Color</span>";
-				$cValue = get_post_meta( get_the_ID(), $key . "_color", true );
-				$h      .= "<input type='text' value='{$cValue}' class='rt-color' name='{$key}_color'>";
-				$h      .= "</div>";
-				$h      .= "</div>";
+				// color.
+				$h     .= "<div class='field-inner col-4'>";
+				$h     .= "<div class='field-inner-container size'>";
+				$h     .= "<span class='label'>Color</span>";
+				$cValue = get_post_meta( get_the_ID(), $key . '_color', true );
+				$h     .= '<input type="text" value="' . esc_attr( $cValue ) . '" class="rt-color" name="' . esc_attr( $key ) . '_color">';
+				$h     .= '</div>';
+				$h     .= '</div>';
 
-				// Font size
-				$h      .= "<div class='field-inner col-4'>";
-				$h      .= "<div class='field-inner-container size'>";
-				$h      .= "<span class='label'>Font size</span>";
-				$h      .= "<select {$atts} name='{$key}_size' class='rt-select2'>";
+				// Font size.
+				$h     .= "<div class='field-inner col-4'>";
+				$h     .= "<div class='field-inner-container size'>";
+				$h     .= "<span class='label'>Font size</span>";
+				$h     .= '<select ' . self::htmlKses( $atts, 'basic' ) . ' name="' . esc_attr( $key ) . '_size" class="rt-select2">';
 				$fSizes = Options::scFontSize();
-				$sValue = get_post_meta( get_the_ID(), $key . "_size", true );
-				$h      .= "<option value=''>Default</option>";
+				$sValue = get_post_meta( get_the_ID(), $key . '_size', true );
+				$h     .= "<option value=''>Default</option>";
+
 				foreach ( $fSizes as $size => $sizeLabel ) {
-					$sSlt = ( $size == $sValue ? "selected" : null );
-					$h    .= "<option value='{$size}' {$sSlt}>{$sizeLabel}</option>";
+					$sSlt = ( $size == $sValue ? 'selected' : null );
+					$h   .= '<option value="' . esc_attr( $size ) . '" ' . esc_attr( $sSlt ) . '>' . esc_html( $sizeLabel ) . '</option>';
 				}
-				$h .= "</select>";
-				$h .= "</div>";
-				$h .= "</div>";
 
-				// Weight
+				$h .= '</select>';
+				$h .= '</div>';
+				$h .= '</div>';
 
-				$h       .= "<div class='field-inner col-4'>";
-				$h       .= "<div class='field-inner-container weight'>";
-				$h       .= "<span class='label'>Weight</span>";
-				$h       .= "<select {$atts} name='{$key}_weight' class='rt-select2'>";
-				$h       .= "<option value=''>Default</option>";
-				$weights = Options::scTextWeight();
-				$wValue  = get_post_meta( get_the_ID(), $key . "_weight", true );
-				foreach ( $weights as $weight => $weightLabel ) {
-					$wSlt = ( $weight == $wValue ? "selected" : null );
-					$h    .= "<option value='{$weight}' {$wSlt}>{$weightLabel}</option>";
-				}
-				$h .= "</select>";
-				$h .= "</div>";
-				$h .= "</div>";
-
-				// Alignment
-
+				// Weight.
 				$h      .= "<div class='field-inner col-4'>";
-				$h      .= "<div class='field-inner-container alignment'>";
-				$h      .= "<span class='label'>Alignment</span>";
-				$h      .= "<select {$atts} name='{$key}_alignment' class='rt-select2'>";
+				$h      .= "<div class='field-inner-container weight'>";
+				$h      .= "<span class='label'>Weight</span>";
+				$h      .= '<select ' . self::htmlKses( $atts, 'basic' ) . ' name="' . esc_attr( $key ) . '_weight" class="rt-select2">';
 				$h      .= "<option value=''>Default</option>";
-				$aligns = Options::scAlignment();
-				$aValue = get_post_meta( get_the_ID(), $key . "_alignment", true );
-				foreach ( $aligns as $align => $alignLabel ) {
-					$aSlt = ( $align == $aValue ? "selected" : null );
-					$h    .= "<option value='{$align}' {$aSlt}>{$alignLabel}</option>";
-				}
-				$h .= "</select>";
-				$h .= "</div>";
-				$h .= "</div>";
+				$weights = Options::scTextWeight();
+				$wValue  = get_post_meta( get_the_ID(), $key . '_weight', true );
 
-				$h .= "</div>";
-				$h .= "</div>";
+				foreach ( $weights as $weight => $weightLabel ) {
+					$wSlt = ( $weight == $wValue ? 'selected' : null );
+					$h   .= '<option value="' . esc_attr( $weight ) . '" ' . esc_attr( $wSlt ) . '>' . esc_html( $weightLabel ) . '</option>';
+				}
+
+				$h .= '</select>';
+				$h .= '</div>';
+				$h .= '</div>';
+
+				// Alignment.
+				$h     .= "<div class='field-inner col-4'>";
+				$h     .= "<div class='field-inner-container alignment'>";
+				$h     .= "<span class='label'>Alignment</span>";
+				$h     .= '<select ' . self::htmlKses( $atts, 'basic' ) . ' name="' . esc_attr( $key ) . '_alignment" class="rt-select2">';
+				$h     .= "<option value=''>Default</option>";
+				$aligns = Options::scAlignment();
+				$aValue = get_post_meta( get_the_ID(), $key . '_alignment', true );
+
+				foreach ( $aligns as $align => $alignLabel ) {
+					$aSlt = ( $align == $aValue ? 'selected' : null );
+					$h   .= '<option value="' . esc_attr( $align ) . '" ' . esc_attr( $aSlt ) . '>' . esc_html( $alignLabel ) . '</option>';
+				}
+
+				$h .= '</select>';
+				$h .= '</div>';
+				$h .= '</div>';
+
+				$h .= '</div>';
+				$h .= '</div>';
 			}
 		}
 
@@ -535,7 +622,7 @@ class Fns {
 		}
 
 		if ( $max && $max !== $min ) {
-			$price .= " - ";
+			$price .= ' - ';
 			$price .= wc_price( $max );
 		}
 
@@ -544,20 +631,23 @@ class Fns {
 
 	public static function getTPGShortCodeList() {
 		$scList = null;
-		$scQ    = get_posts( [
-			'post_type'      => rtTPG()->post_type,
-			'order_by'       => 'title',
-			'order'          => 'DESC',
-			'post_status'    => 'publish',
-			'posts_per_page' => - 1,
-			'meta_query'     => [
-				[
-					'key'     => 'layout',
-					'value'   => 'layout',
-					'compare' => 'LIKE',
+		$scQ    = get_posts(
+			[
+				'post_type'      => rtTPG()->post_type,
+				'order_by'       => 'title',
+				'order'          => 'DESC',
+				'post_status'    => 'publish',
+				'posts_per_page' => - 1,
+				'meta_query'     => [
+					[
+						'key'     => 'layout',
+						'value'   => 'layout',
+						'compare' => 'LIKE',
+					],
 				],
-			],
-		] );
+			]
+		);
+
 		if ( ! empty( $scQ ) ) {
 			foreach ( $scQ as $sc ) {
 				$scList[ $sc->ID ] = $sc->post_title;
@@ -569,13 +659,15 @@ class Fns {
 
 	public static function getAllTPGShortCodeList() {
 		$scList = null;
-		$scQ    = get_posts( [
-			'post_type'      => rtTPG()->post_type,
-			'order_by'       => 'title',
-			'order'          => 'ASC',
-			'post_status'    => 'publish',
-			'posts_per_page' => - 1,
-		] );
+		$scQ    = get_posts(
+			[
+				'post_type'      => rtTPG()->post_type,
+				'order_by'       => 'title',
+				'order'          => 'ASC',
+				'post_status'    => 'publish',
+				'posts_per_page' => - 1,
+			]
+		);
 		if ( ! empty( $scQ ) ) {
 			foreach ( $scQ as $sc ) {
 				$scList[ $sc->ID ] = $sc->post_title;
@@ -586,32 +678,32 @@ class Fns {
 	}
 
 	public static function socialShare( $pLink ) {
-		$html = null;
+		$html  = null;
 		$html .= "<div class='single-tpg-share'>
-                        <div class='fb-share'>
-                            <div class='fb-share-button' data-href='{$pLink}' data-layout='button_count'></div>
-                        </div>
-                        <div class='twitter-share'>
-                            <a href='{$pLink}' class='twitter-share-button'{count} data-url='https://about.twitter.com/resources/buttons#tweet'>Tweet</a>
-                        </div>
-                        <div class='googleplus-share'>
-                            <div class='g-plusone'></div>
-                        </div>
-                        <div class='linkedin-share'>
-                            <script type='IN/Share' data-counter='right'></script>
-                        </div>
-                        <div class='linkedin-share'>
-                            <a data-pin-do='buttonPin' data-pin-count='beside' href='https://www.pinterest.com/pin/create/button/?url=https%3A%2F%2Fwww.flickr.com%2Fphotos%2Fkentbrew%2F6851755809%2F&media=https%3A%2F%2Ffarm8.staticflickr.com%2F7027%2F6851755809_df5b2051c9_z.jpg&description=Next%20stop%3A%20Pinterest'><img src='//assets.pinterest.com/images/pidgets/pinit_fg_en_rect_gray_20.png' /></a>
-                        </div>
-                   </div>";
+					<div class='fb-share'>
+						<div class='fb-share-button' data-href='" . esc_url( $pLink ) . "' data-layout='button_count'></div>
+					</div>
+					<div class='twitter-share'>
+						<a href='" . esc_url( $pLink ) . "' class='twitter-share-button'{count} data-url='https://about.twitter.com/resources/buttons#tweet'>Tweet</a>
+					</div>
+					<div class='googleplus-share'>
+						<div class='g-plusone'></div>
+					</div>
+					<div class='linkedin-share'>
+						<script type='IN/Share' data-counter='right'></script>
+					</div>
+					<div class='linkedin-share'>
+						<a data-pin-do='buttonPin' data-pin-count='beside' href='https://www.pinterest.com/pin/create/button/?url=https%3A%2F%2Fwww.flickr.com%2Fphotos%2Fkentbrew%2F6851755809%2F&media=https%3A%2F%2Ffarm8.staticflickr.com%2F7027%2F6851755809_df5b2051c9_z.jpg&description=Next%20stop%3A%20Pinterest'><img src='//assets.pinterest.com/images/pidgets/pinit_fg_en_rect_gray_20.png' /></a>
+					</div>
+				</div>";
 		$html .= '<div id="fb-root"></div>
-            <script>(function(d, s, id) {
-                var js, fjs = d.getElementsByTagName(s)[0];
-                    if (d.getElementById(id)) return;
-                    js = d.createElement(s); js.id = id;
-                    js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.5";
-                    fjs.parentNode.insertBefore(js, fjs);
-                }(document, "script", "facebook-jssdk"));</script>';
+					<script>(function(d, s, id) {
+						var js, fjs = d.getElementsByTagName(s)[0];
+							if (d.getElementById(id)) return;
+							js = d.createElement(s); js.id = id;
+							js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.5";
+							fjs.parentNode.insertBefore(js, fjs);
+						}(document, "script", "facebook-jssdk"));</script>';
 		$html .= "<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
             <script>window.___gcfg = { lang: 'en-US', parsetags: 'onload', };</script>";
 		$html .= "<script src='https://apis.google.com/js/platform.js' async defer></script>";
@@ -643,8 +735,9 @@ class Fns {
 		}
 
 		$imgSize = [];
+
 		if ( ! empty( $sizes ) ) {
-			$imgSize['full'] = __( "Full Size", 'the-post-grid' );
+			$imgSize['full'] = esc_html__( 'Full Size', 'the-post-grid' );
 			foreach ( $sizes as $key => $img ) {
 				$imgSize[ $key ] = ucfirst( $key ) . " ({$img['width']}*{$img['height']})";
 			}
@@ -662,15 +755,19 @@ class Fns {
 		$img_Class = ''
 	) {
 		global $post;
+
 		$imgSrc    = null;
-		$img_class = "rt-img-responsive ";
+		$img_class = 'rt-img-responsive ';
+
 		if ( $img_Class ) {
 			$img_class .= $img_Class;
 		}
+
 		$post_id = ( $post_id ? absint( $post_id ) : $post->ID );
 		$alt     = get_the_title( $post_id );
 		$image   = null;
 		$cSize   = false;
+
 		if ( $fImgSize == 'rt_custom' ) {
 			$fImgSize = 'full';
 			$cSize    = true;
@@ -678,17 +775,29 @@ class Fns {
 
 		if ( $mediaSource == 'feature_image' ) {
 			if ( $aID = get_post_thumbnail_id( $post_id ) ) {
-				$image  = wp_get_attachment_image( $aID, $fImgSize, '', [ 'class' => $img_class, 'loading' => false ] );
+				$image  = wp_get_attachment_image(
+					$aID,
+					$fImgSize,
+					'',
+					[
+						'class'   => $img_class,
+						'loading' => false,
+					]
+				);
 				$imgSrc = wp_get_attachment_image_src( $aID, $fImgSize );
+
 				if ( ! empty( $imgSrc ) && $img_Class == 'swiper-lazy' ) {
-					$image = "<img class='{$img_class}' data-src='{$imgSrc[0]}' src='#none' width='{$imgSrc[1]}' height='{$imgSrc[2]}' alt='{$alt}'/><div class='lazy-overlay-wrap'><div class='swiper-lazy-preloader swiper-lazy-preloader-white'></div></div>";
+					$image = '<img class="' . esc_attr( $img_class ) . '" data-src="' . esc_url( $imgSrc[0] ) . '" src="#none" width="' . absint( $imgSrc[1] ) . '" height="' . absint( $imgSrc[2] ) . '" alt="' . esc_attr( $alt ) . '"/><div class="lazy-overlay-wrap"><div class="swiper-lazy-preloader swiper-lazy-preloader-white"></div></div>';
 				}
+
 				$imgSrc = ! empty( $imgSrc ) ? $imgSrc[0] : $imgSrc;
 			}
 		} elseif ( $mediaSource == 'first_image' ) {
-			if ( $img = preg_match_all( '/<img.+src=[\'"]([^\'"]+)[\'"].*>/i',
+			if ( $img = preg_match_all(
+				'/<img.+src=[\'"]([^\'"]+)[\'"].*>/i',
 				get_the_content( $post_id ),
-				$matches )
+				$matches
+			)
 			) {
 				$imgSrc = $matches[1][0];
 				$size   = '';
@@ -706,9 +815,10 @@ class Fns {
 					$size = isset( $info[3] ) ? $info[3] : '';
 				}
 
-				$image = "<img class='{$img_class}' src='{$imgSrc}' {$size} alt='{$alt}'>";
+				$image = '<img class="' . esc_attr( $img_class ) . '" src="' . esc_url( $imgSrc ) . '" ' . $size . ' alt="' . esc_attr( $alt ) . '">';
+
 				if ( $img_Class == 'swiper-lazy' ) {
-					$image = "<img class='{$img_class} img-responsive' data-src='{$imgSrc}' src='#none' {$size} alt='{$alt}'/><div class='lazy-overlay-wrap'><div class='swiper-lazy-preloader swiper-lazy-preloader-white'></div></div>";
+					$image = '<img class="' . esc_attr( $img_class ) . ' img-responsive" data-src="' . esc_url( $imgSrc ) . '" src="#none" ' . $size . ' alt="' . esc_attr( $alt ) . '"/><div class="lazy-overlay-wrap"><div class="swiper-lazy-preloader swiper-lazy-preloader-white"></div></div>';
 				}
 			}
 		}
@@ -724,16 +834,19 @@ class Fns {
 
 			if ( $w && $h ) {
 				$post_thumb_id = get_post_thumbnail_id( $post_id );
+
 				if ( $post_thumb_id ) {
 					$featured_image = wp_get_attachment_image_src( $post_thumb_id, 'full' );
 					$w              = $featured_image[1] < $w ? $featured_image[1] : $w;
 					$h              = $featured_image[2] < $h ? $featured_image[2] : $h;
 				}
-				$imgSrc = Fns::rtImageReSize( $imgSrc, $w, $h, $c );
+
+				$imgSrc = self::rtImageReSize( $imgSrc, $w, $h, $c );
+
 				if ( $img_Class !== 'swiper-lazy' ) {
-					$image = "<img class='{$img_class}' src='{$imgSrc}' width='{$w}' height='{$h}' alt='{$alt}'/>";
+					$image = '<img class="' . esc_attr( $img_class ) . '" src="' . esc_url( $imgSrc ) . '" width="' . absint( $w ) . '" height="' . absint( $h ) . '" alt="' . esc_attr( $alt ) . '"/>';
 				} else {
-					$image = "<img class='{$img_class} img-responsive' data-src='{$imgSrc}' src='#none' width='{$w}' height='{$h}' alt='{$alt}'/><div class='lazy-overlay-wrap'><div class='swiper-lazy-preloader swiper-lazy-preloader-white'></div></div>";
+					$image = '<img class="' . esc_attr( $img_class ) . ' img-responsive" data-src="' . esc_url( $imgSrc ) . '" src="#none" width="' . absint( $w ) . '" height="' . absint( $h ) . '" alt="' . esc_attr( $alt ) . '"/><div class="lazy-overlay-wrap"><div class="swiper-lazy-preloader swiper-lazy-preloader-white"></div></div>';
 				}
 			}
 		}
@@ -780,9 +893,11 @@ class Fns {
 	public static function get_the_excerpt( $post_id, $data = [] ) {
 		$type = $data['excerpt_type'];
 		$post = get_post( $post_id );
+
 		if ( empty( $post ) ) {
 			return '';
 		}
+
 		if ( $type == 'full' ) {
 			ob_start();
 			the_content();
@@ -795,21 +910,25 @@ class Fns {
 			} else {
 				$defaultExcerpt = get_the_excerpt( $post_id );
 			}
+
 			$limit   = isset( $data['excerpt_limit'] ) && $data['excerpt_limit'] ? abs( $data['excerpt_limit'] ) : 0;
 			$more    = $data['excerpt_more_text'];
 			$excerpt = preg_replace( '`\[[^\]]*\]`', '', $defaultExcerpt );
 			$excerpt = strip_shortcodes( $excerpt );
 			$excerpt = preg_replace( '`[[^]]*]`', '', $excerpt );
 			$excerpt = str_replace( '…', '', $excerpt );
+
 			if ( $limit ) {
 				$excerpt = wp_strip_all_tags( $excerpt );
-				if ( $type == "word" ) {
+
+				if ( $type == 'word' ) {
 					$limit      = $limit + 1;
 					$rawExcerpt = $excerpt;
 					$excerpt    = explode( ' ', $excerpt, $limit );
+
 					if ( count( $excerpt ) >= $limit ) {
 						array_pop( $excerpt );
-						$excerpt = implode( " ", $excerpt );
+						$excerpt = implode( ' ', $excerpt );
 					} else {
 						$excerpt = $rawExcerpt;
 					}
@@ -827,10 +946,11 @@ class Fns {
 					'b'      => [],
 					'br'     => [ [] ],
 				];
-				$excerpt      = nl2br( wp_kses( $excerpt, $allowed_html ) );
+
+				$excerpt = nl2br( wp_kses( $excerpt, $allowed_html ) );
 			}
 
-			$excerpt = ( $more ? $excerpt . " " . $more : $excerpt );
+			$excerpt = ( $more ? $excerpt . ' ' . $more : $excerpt );
 
 			return apply_filters( 'tpg_get_the_excerpt', $excerpt, $post_id, $data, $defaultExcerpt );
 		}
@@ -840,19 +960,21 @@ class Fns {
 		$title      = $originalTitle = get_the_title( $post_id );
 		$limit      = isset( $data['title_limit'] ) ? absint( $data['title_limit'] ) : 0;
 		$limit_type = isset( $data['title_limit_type'] ) ? trim( $data['title_limit_type'] ) : 'character';
+
 		if ( $limit ) {
-			if ( $limit_type == "word" ) {
+			if ( $limit_type == 'word' ) {
 				$limit = $limit + 1;
 				$title = explode( ' ', $title, $limit );
+
 				if ( count( $title ) >= $limit ) {
 					array_pop( $title );
-					$title = implode( " ", $title );
+					$title = implode( ' ', $title );
 				} else {
 					$title = $originalTitle;
 				}
 			} else {
 				if ( $limit > 0 && strlen( $title ) > $limit ) {
-					$title = mb_substr( $title, 0, $limit, "utf-8" );
+					$title = mb_substr( $title, 0, $limit, 'utf-8' );
 					$title = preg_replace( '/\W\w+\s*(\W*)$/', '$1', $title );
 				}
 			}
@@ -867,17 +989,19 @@ class Fns {
 		$showitems = ( $range * 2 ) + 1;
 
 		$wpQuery = $postGrid;
+
 		global $wp_query;
+
 		if ( empty( $wpQuery ) ) {
 			$wpQuery = $wp_query;
 		}
 
 		$pages = ! empty( $wpQuery->max_num_pages ) ? $wpQuery->max_num_pages : 1;
 		$paged = ! empty( $wpQuery->query['paged'] ) ? $wpQuery->query['paged'] : 1;
+
 		if ( is_front_page() ) {
 			$paged = ! empty( $wp_query->query['paged'] ) ? $wp_query->query['paged'] : 1;
 		}
-
 
 		$ajaxClass = null;
 		$dataAttr  = null;
@@ -895,28 +1019,24 @@ class Fns {
 			}
 
 			if ( $paged > 1 && $showitems < $pages && ! $ajax ) {
-				$p    = $paged - 1;
+				$p     = $paged - 1;
 				$html .= "<li><a data-paged='{$p}' href='" . get_pagenum_link( $p ) . "' aria-label='Previous'>&lsaquo;</a></li>";
 			}
 
 			if ( $ajax ) {
 				for ( $i = 1; $i <= $pages; $i ++ ) {
-					$html .= ( $paged == $i ) ? "<li class=\"active\"><span>" . $i . "</span>
-
-    </li>" : "<li><a data-paged='{$i}' href='" . get_pagenum_link( $i ) . "'>" . $i . "</a></li>";
+					$html .= ( $paged == $i ) ? '<li class="active"><span>' . $i . '</span></li>' : "<li><a data-paged='{$i}' href='" . get_pagenum_link( $i ) . "'>" . $i . '</a></li>';
 				}
 			} else {
 				for ( $i = 1; $i <= $pages; $i ++ ) {
 					if ( 1 != $pages && ( ! ( $i >= $paged + $range + 1 || $i <= $paged - $range - 1 ) || $pages <= $showitems ) ) {
-						$html .= ( $paged == $i ) ? "<li class=\"active\"><span>" . $i . "</span>
-
-    </li>" : "<li><a data-paged='{$i}' href='" . get_pagenum_link( $i ) . "'>" . $i . "</a></li>";
+						$html .= ( $paged == $i ) ? '<li class="active"><span>' . $i . '</span></li>' : "<li><a data-paged='{$i}' href='" . get_pagenum_link( $i ) . "'>" . $i . '</a></li>';
 					}
 				}
 			}
 
 			if ( $paged < $pages && $showitems < $pages && ! $ajax ) {
-				$p    = $paged + 1;
+				$p     = $paged + 1;
 				$html .= "<li><a data-paged='{$p}' href=\"" . get_pagenum_link( $paged + 1 ) . "\"  aria-label='Next'>&rsaquo;</a></li>";
 			}
 
@@ -924,8 +1044,8 @@ class Fns {
 				$html .= "<li><a data-paged='{$pages}' href='" . get_pagenum_link( $pages ) . "' aria-label='Last'>&raquo;</a></li>";
 			}
 
-			$html .= "</ul>";
-			$html .= "</div>";
+			$html .= '</ul>';
+			$html .= '</div>';
 		}
 
 		return $html;
@@ -934,10 +1054,8 @@ class Fns {
 	public static function rt_pagination_ajax( $scID, $range = 4, $pages = '' ) {
 		$html = null;
 
-
 		$html .= "<div class='rt-tpg-pagination-ajax' data-sc-id='{$scID}' data-paged='1'>";
-
-		$html .= "</div>";
+		$html .= '</div>';
 
 		return $html;
 	}
@@ -946,10 +1064,10 @@ class Fns {
 	 * Call the Image resize model for resize function
 	 *
 	 * @param              $url
-	 * @param null $width
-	 * @param null $height
-	 * @param null $crop
-	 * @param bool|true $single
+	 * @param null       $width
+	 * @param null       $height
+	 * @param null       $crop
+	 * @param bool|true  $single
 	 * @param bool|false $upscale
 	 *
 	 * @return array|bool|string
@@ -967,17 +1085,17 @@ class Fns {
 	public static function rtHex2rgba( $color, $opacity = .5 ) {
 		$default = 'rgb(0,0,0)';
 
-		//Return default if no color provided
+		// Return default if no color provided.
 		if ( empty( $color ) ) {
 			return $default;
 		}
 
-		//Sanitize $color if "#" is provided
+		// Sanitize $color if "#" is provided.
 		if ( $color[0] == '#' ) {
 			$color = substr( $color, 1 );
 		}
 
-		//Check if color has 6 or 3 characters and get values
+		// Check if color has 6 or 3 characters and get values.
 		if ( strlen( $color ) == 6 ) {
 			$hex = [ $color[0] . $color[1], $color[2] . $color[3], $color[4] . $color[5] ];
 		} elseif ( strlen( $color ) == 3 ) {
@@ -986,24 +1104,25 @@ class Fns {
 			return $default;
 		}
 
-		//Convert hexadec to rgb
+		// Convert hexadec to rgb.
 		$rgb = array_map( 'hexdec', $hex );
 
-		//Check if opacity is set(rgba or rgb)
+		// Check if opacity is set(rgba or rgb).
 		if ( $opacity ) {
 			if ( absint( $opacity ) > 1 ) {
 				$opacity = 1.0;
 			}
-			$output = 'rgba(' . implode( ",", $rgb ) . ',' . $opacity . ')';
+
+			$output = 'rgba(' . implode( ',', $rgb ) . ',' . $opacity . ')';
 		} else {
-			$output = 'rgb(' . implode( ",", $rgb ) . ')';
+			$output = 'rgb(' . implode( ',', $rgb ) . ')';
 		}
 
-		//Return rgb(a) color string
+		// Return rgb(a) color string.
 		return $output;
 	}
 
-	public static function meta_exist( $meta_key, $post_id = null, $type = "post" ) {
+	public static function meta_exist( $meta_key, $post_id = null, $type = 'post' ) {
 		if ( ! $post_id ) {
 			return false;
 		}
@@ -1017,6 +1136,7 @@ class Fns {
 			'big'   => 6,
 			'small' => 6,
 		];
+
 		if ( $col ) {
 			if ( $col == 12 ) {
 				$return['big']   = 12;
@@ -1036,17 +1156,19 @@ class Fns {
 	public static function formatSpacing( $data = '' ) {
 		if ( ! empty( $data ) ) {
 			$spacing = array_filter( explode( ',', $data ), 'is_numeric' );
+
 			if ( count( $spacing ) > 4 ) {
 				$spacing = array_slice( $spacing, 0, 4, true );
 			}
-			$data = implode( "px ", $spacing );
+
+			$data = implode( 'px ', $spacing );
 		}
 
 		return $data;
 	}
 
 	public static function layoutStyle( $layoutID, $scMeta, $layout, $scId = null ) {
-		$css = null;
+		$css  = null;
 		$css .= "<style type='text/css' media='all'>";
 		// primary color
 		if ( $scId ) {
@@ -1058,8 +1180,10 @@ class Fns {
 				: ( isset( $scMeta['button_text_color'][0] ) ? $scMeta['button_text_color'][0] : null ) );
 			$button_hover_text_color        = ( isset( $scMeta['button_hover_text_color'][0] ) ? $scMeta['button_hover_text_color'][0] : null );
 			$button_border_color            = ( isset( $scMeta['button_border_color'][0] ) ? $scMeta['button_border_color'][0] : null );
-			$overlay_color                  = ( ! empty( $scMeta['overlay_color'][0] ) ? Fns::rtHex2rgba( $scMeta['overlay_color'][0],
-				! empty( $scMeta['overlay_opacity'][0] ) ? absint( $scMeta['overlay_opacity'][0] ) / 10 : .8 ) : null );
+			$overlay_color                  = ( ! empty( $scMeta['overlay_color'][0] ) ? self::rtHex2rgba(
+				$scMeta['overlay_color'][0],
+				! empty( $scMeta['overlay_opacity'][0] ) ? absint( $scMeta['overlay_opacity'][0] ) / 10 : .8
+			) : null );
 			$overlay_padding                = ( ! empty( $scMeta['overlay_padding'][0] ) ? absint( $scMeta['overlay_padding'][0] ) : null );
 			$gutter                         = ! empty( $scMeta['tgp_gutter'][0] ) ? absint( $scMeta['tgp_gutter'][0] ) : null;
 			$read_more_button_border_radius = isset( $scMeta['tpg_read_more_button_border_radius'][0] ) ? $scMeta['tpg_read_more_button_border_radius'][0] : '';
@@ -1126,8 +1250,10 @@ class Fns {
 				: ( ! empty( $btn_text_color ) ? $btn_text_color : null ) );
 			$button_border_color            = ( isset( $scMeta['button_border_color'] ) ? $scMeta['button_border_color'] : null );
 			$button_hover_text_color        = ( isset( $scMeta['button_hover_text_color'] ) ? $scMeta['button_hover_text_color'] : null );
-			$overlay_color                  = ( ! empty( $scMeta['overlay_color'] ) ? Fns::rtHex2rgba( $scMeta['overlay_color'],
-				! empty( $scMeta['overlay_opacity'] ) ? absint( $scMeta['overlay_opacity'] ) / 10 : .8 ) : null );
+			$overlay_color                  = ( ! empty( $scMeta['overlay_color'] ) ? self::rtHex2rgba(
+				$scMeta['overlay_color'],
+				! empty( $scMeta['overlay_opacity'] ) ? absint( $scMeta['overlay_opacity'] ) / 10 : .8
+			) : null );
 			$overlay_padding                = ( ! empty( $scMeta['overlay_padding'] ) ? absint( $scMeta['overlay_padding'] ) : null );
 			$gutter                         = ! empty( $scMeta['tgp_gutter'] ) ? absint( $scMeta['tgp_gutter'] ) : null;
 			$read_more_button_border_radius = isset( $scMeta['tpg_read_more_button_border_radius'] ) ? $scMeta['tpg_read_more_button_border_radius'] : '';
@@ -1188,194 +1314,197 @@ class Fns {
 
 		if ( $primaryColor ) {
 			$css .= "#{$layoutID} .rt-holder .rt-woo-info .price{";
-			$css .= "color:" . $primaryColor . ";";
-			$css .= "}";
+			$css .= 'color:' . $primaryColor . ';';
+			$css .= '}';
 			$css .= "body .rt-tpg-container .rt-tpg-isotope-buttons .selected,
-						#{$layoutID} .layout12 .rt-holder:hover .rt-detail,
-						#{$layoutID} .isotope8 .rt-holder:hover .rt-detail,
-						#{$layoutID} .carousel8 .rt-holder:hover .rt-detail,
-				        #{$layoutID} .layout13 .rt-holder .overlay .post-info,
-				        #{$layoutID} .isotope9 .rt-holder .overlay .post-info,
-				        #{$layoutID}.rt-tpg-container .layout4 .rt-holder .rt-detail,
-				        .rt-modal-{$id} .md-content,
-				        .rt-modal-{$id} .md-content > .rt-md-content-holder .rt-md-content,
-				        .rt-popup-wrap-{$id}.rt-popup-wrap .rt-popup-navigation-wrap,
-				        #{$layoutID} .carousel9 .rt-holder .overlay .post-info{";
-			$css .= "background-color:" . $primaryColor . ";";
-			$css .= "}";
+					#{$layoutID} .layout12 .rt-holder:hover .rt-detail,
+					#{$layoutID} .isotope8 .rt-holder:hover .rt-detail,
+					#{$layoutID} .carousel8 .rt-holder:hover .rt-detail,
+					#{$layoutID} .layout13 .rt-holder .overlay .post-info,
+					#{$layoutID} .isotope9 .rt-holder .overlay .post-info,
+					#{$layoutID}.rt-tpg-container .layout4 .rt-holder .rt-detail,
+					.rt-modal-{$id} .md-content,
+					.rt-modal-{$id} .md-content > .rt-md-content-holder .rt-md-content,
+					.rt-popup-wrap-{$id}.rt-popup-wrap .rt-popup-navigation-wrap,
+					#{$layoutID} .carousel9 .rt-holder .overlay .post-info{";
+			$css .= 'background-color:' . $primaryColor . ';';
+			$css .= '}';
 
-
-			$ocp = Fns::rtHex2rgba( $primaryColor,
-				! empty( $scMeta['overlay_opacity'][0] ) ? absint( $scMeta['overlay_opacity'][0] ) / 10 : .8 );
+			$ocp  = self::rtHex2rgba(
+				$primaryColor,
+				! empty( $scMeta['overlay_opacity'][0] ) ? absint( $scMeta['overlay_opacity'][0] ) / 10 : .8
+			);
 			$css .= "#{$layoutID} .layout5 .rt-holder .overlay, #{$layoutID} .isotope2 .rt-holder .overlay, #{$layoutID} .carousel2 .rt-holder .overlay,#{$layoutID} .layout15 .rt-holder h3, #{$layoutID} .isotope11 .rt-holder h3, #{$layoutID} .carousel11 .rt-holder h3, #{$layoutID} .layout16 .rt-holder h3,
 					#{$layoutID} .isotope12 .rt-holder h3, #{$layoutID} .carousel12 .rt-holder h3 {";
-			$css .= "background-color:" . $ocp . ";";
-			$css .= "}";
+			$css .= 'background-color:' . $ocp . ';';
+			$css .= '}';
 		}
 
 		if ( $button_border_color ) {
 			$css .= "#{$layoutID} .rt-filter-item-wrap.rt-filter-button-wrap span.rt-filter-button-item,
-							#{$layoutID} .rt-layout-filter-container .rt-filter-sub-tax.sub-button-group .rt-filter-button-item,
-							#{$layoutID}.rt-tpg-container .swiper-navigation .slider-btn,
-							#{$layoutID} .rt-layout-filter-container .rt-filter-wrap .rt-filter-item-wrap.rt-sort-order-action,
-							#{$layoutID} .rt-layout-filter-container .rt-filter-wrap .rt-filter-item-wrap.rt-filter-dropdown-wrap .rt-filter-dropdown .rt-filter-dropdown-item,
-							#{$layoutID} .rt-layout-filter-container .rt-filter-wrap .rt-filter-item-wrap.rt-filter-dropdown-wrap{";
-			$css .= "border-color:" . $button_border_color . " !important;";
-			$css .= "}";
+					#{$layoutID} .rt-layout-filter-container .rt-filter-sub-tax.sub-button-group .rt-filter-button-item,
+					#{$layoutID}.rt-tpg-container .swiper-navigation .slider-btn,
+					#{$layoutID} .rt-layout-filter-container .rt-filter-wrap .rt-filter-item-wrap.rt-sort-order-action,
+					#{$layoutID} .rt-layout-filter-container .rt-filter-wrap .rt-filter-item-wrap.rt-filter-dropdown-wrap .rt-filter-dropdown .rt-filter-dropdown-item,
+					#{$layoutID} .rt-layout-filter-container .rt-filter-wrap .rt-filter-item-wrap.rt-filter-dropdown-wrap{";
+			$css .= 'border-color:' . $button_border_color . ' !important;';
+			$css .= '}';
 			$css .= "#{$layoutID} .rt-holder .read-more a {";
-			$css .= "border-color:" . $button_border_color . ";";
-			$css .= "}";
+			$css .= 'border-color:' . $button_border_color . ';';
+			$css .= '}';
 		}
 
 		if ( $button_bg_color ) {
 			$css .= "#{$layoutID} .pagination-list li a,
-				            {$layoutID} .pagination-list li span,
-				            {$layoutID} .pagination li a,
-							#{$layoutID} .rt-tpg-isotope-buttons button,
-							#{$layoutID} .rt-tpg-utility .rt-tpg-load-more button,
-							#{$layoutID}.rt-tpg-container .swiper-navigation .slider-btn,
-							#{$layoutID}.rt-tpg-container .swiper-pagination-bullet,
-							#{$layoutID} .wc1 .rt-holder .rt-img-holder .overlay .product-more ul li a,
-							#{$layoutID} .wc2 .rt-detail .rt-wc-add-to-cart,
-							#{$layoutID} .wc3 .rt-detail .rt-wc-add-to-cart,
-							#{$layoutID} .wc4 .rt-detail .rt-wc-add-to-cart,
-							#{$layoutID} .wc-carousel2 .rt-detail .rt-wc-add-to-cart,
-							#{$layoutID} .wc-isotope2 .rt-detail .rt-wc-add-to-cart,
-							#{$layoutID} .rt-layout-filter-container .rt-filter-wrap .rt-filter-item-wrap.rt-filter-dropdown-wrap .rt-filter-dropdown,
-							#{$layoutID} .rt-layout-filter-container .rt-filter-sub-tax.sub-button-group .rt-filter-button-item,
-							#{$layoutID}.rt-tpg-container .rt-pagination-wrap .rt-page-numbers .paginationjs .paginationjs-pages ul li>a,
-							#{$layoutID} .rt-filter-item-wrap.rt-filter-button-wrap span.rt-filter-button-item,
-							#{$layoutID}.rt-tpg-container .rt-pagination-wrap  .rt-loadmore-btn,
-							#{$layoutID}.rt-tpg-container .rt-pagination-wrap .rt-cb-page-prev-next > *,
-							#{$layoutID} .rt-read-more,
-							#rt-tooltip-{$id}, #rt-tooltip-{$id} .rt-tooltip-bottom:after{";
-			$css .= "background-color:" . $button_bg_color . ";";
-			$css .= "}";
+					{$layoutID} .pagination-list li span,
+					{$layoutID} .pagination li a,
+					#{$layoutID} .rt-tpg-isotope-buttons button,
+					#{$layoutID} .rt-tpg-utility .rt-tpg-load-more button,
+					#{$layoutID}.rt-tpg-container .swiper-navigation .slider-btn,
+					#{$layoutID}.rt-tpg-container .swiper-pagination-bullet,
+					#{$layoutID} .wc1 .rt-holder .rt-img-holder .overlay .product-more ul li a,
+					#{$layoutID} .wc2 .rt-detail .rt-wc-add-to-cart,
+					#{$layoutID} .wc3 .rt-detail .rt-wc-add-to-cart,
+					#{$layoutID} .wc4 .rt-detail .rt-wc-add-to-cart,
+					#{$layoutID} .wc-carousel2 .rt-detail .rt-wc-add-to-cart,
+					#{$layoutID} .wc-isotope2 .rt-detail .rt-wc-add-to-cart,
+					#{$layoutID} .rt-layout-filter-container .rt-filter-wrap .rt-filter-item-wrap.rt-filter-dropdown-wrap .rt-filter-dropdown,
+					#{$layoutID} .rt-layout-filter-container .rt-filter-sub-tax.sub-button-group .rt-filter-button-item,
+					#{$layoutID}.rt-tpg-container .rt-pagination-wrap .rt-page-numbers .paginationjs .paginationjs-pages ul li>a,
+					#{$layoutID} .rt-filter-item-wrap.rt-filter-button-wrap span.rt-filter-button-item,
+					#{$layoutID}.rt-tpg-container .rt-pagination-wrap  .rt-loadmore-btn,
+					#{$layoutID}.rt-tpg-container .rt-pagination-wrap .rt-cb-page-prev-next > *,
+					#{$layoutID} .rt-read-more,
+					#rt-tooltip-{$id}, #rt-tooltip-{$id} .rt-tooltip-bottom:after{";
+			$css .= 'background-color:' . $button_bg_color . ';';
+			$css .= '}';
 			$css .= "#{$layoutID} .rt-filter-item-wrap.rt-filter-button-wrap span.rt-filter-button-item,
-						#{$layoutID} .rt-layout-filter-container .rt-filter-sub-tax.sub-button-group .rt-filter-button-item{";
-			$css .= "border-color:" . $button_bg_color . ";";
-			$css .= "}";
+					#{$layoutID} .rt-layout-filter-container .rt-filter-sub-tax.sub-button-group .rt-filter-button-item{";
+			$css .= 'border-color:' . $button_bg_color . ';';
+			$css .= '}';
 			$css .= "#{$layoutID}.rt-tpg-container .layout17 .rt-holder .overlay a.tpg-zoom .fa{";
-			$css .= "color:" . $button_bg_color . ";";
-			$css .= "}";
+			$css .= 'color:' . $button_bg_color . ';';
+			$css .= '}';
 
 			$css .= "#{$layoutID} .rt-holder .read-more a {";
-			$css .= "background-color:" . $button_bg_color . ";padding: 8px 15px;";
-			$css .= "}";
+			$css .= 'background-color:' . $button_bg_color . ';padding: 8px 15px;';
+			$css .= '}';
 		}
 
-		// button active color
+		// button active color.
 		if ( $button_active_bg_color ) {
 			$css .= "#{$layoutID} .pagination li.active span,
-                        #{$layoutID} .pagination-list li.active span,
-						#{$layoutID} .rt-tpg-isotope-buttons button.selected,
-						#{$layoutID} .rt-filter-item-wrap.rt-filter-button-wrap span.rt-filter-button-item.selected,
-						#{$layoutID} .rt-layout-filter-container .rt-filter-sub-tax.sub-button-group .rt-filter-button-item.selected,
-						#{$layoutID}.rt-tpg-container .rt-pagination-wrap .rt-page-numbers .paginationjs .paginationjs-pages ul li.active>a,
-						#{$layoutID}.rt-tpg-container .swiper-pagination-bullet.swiper-pagination-bullet-active-main{";
-			$css .= "background-color:" . $button_active_bg_color . ";";
-			$css .= "}";
+					#{$layoutID} .pagination-list li.active span,
+					#{$layoutID} .rt-tpg-isotope-buttons button.selected,
+					#{$layoutID} .rt-filter-item-wrap.rt-filter-button-wrap span.rt-filter-button-item.selected,
+					#{$layoutID} .rt-layout-filter-container .rt-filter-sub-tax.sub-button-group .rt-filter-button-item.selected,
+					#{$layoutID}.rt-tpg-container .rt-pagination-wrap .rt-page-numbers .paginationjs .paginationjs-pages ul li.active>a,
+					#{$layoutID}.rt-tpg-container .swiper-pagination-bullet.swiper-pagination-bullet-active-main{";
+			$css .= 'background-color:' . $button_active_bg_color . ';';
+			$css .= '}';
 
 			$css .= "#{$layoutID} .rt-filter-item-wrap.rt-filter-button-wrap span.rt-filter-button-item.selected,
-						#{$layoutID} .rt-layout-filter-container .rt-filter-sub-tax.sub-button-group .rt-filter-button-item.selected,
-						#{$layoutID}.rt-tpg-container .rt-pagination-wrap .rt-page-numbers .paginationjs .paginationjs-pages ul li.active>a{";
-			$css .= "border-color:" . $button_active_bg_color . ";";
-			$css .= "}";
+					#{$layoutID} .rt-layout-filter-container .rt-filter-sub-tax.sub-button-group .rt-filter-button-item.selected,
+					#{$layoutID}.rt-tpg-container .rt-pagination-wrap .rt-page-numbers .paginationjs .paginationjs-pages ul li.active>a{";
+			$css .= 'border-color:' . $button_active_bg_color . ';';
+			$css .= '}';
 		}
 
-		// Button hover bg color
+		// Button hover bg color.
 		if ( $button_hover_bg_color ) {
 			$css .= "#{$layoutID} .pagination-list li a:hover,
-                        #{$layoutID} .pagination li a:hover,
-						#{$layoutID} .rt-tpg-isotope-buttons button:hover,
-						#{$layoutID} .rt-holder .read-more a:hover,
-						#{$layoutID} .rt-tpg-utility .rt-tpg-load-more button:hover,
-						#{$layoutID}.rt-tpg-container .swiper-pagination-bullet:hover,
-						#{$layoutID}.rt-tpg-container .swiper-navigation .slider-btn:hover,
-						#{$layoutID} .wc1 .rt-holder .rt-img-holder .overlay .product-more ul li a:hover,
-						#{$layoutID} .wc2 .rt-detail .rt-wc-add-to-cart:hover,
-						#{$layoutID} .wc3 .rt-detail .rt-wc-add-to-cart:hover,
-						#{$layoutID} .wc4 .rt-detail .rt-wc-add-to-cart:hover,
-						#{$layoutID} .wc-carousel2 .rt-detail .rt-wc-add-to-cart:hover,
-						#{$layoutID} .wc-isotope2 .rt-detail .rt-wc-add-to-cart:hover,
-						#{$layoutID} .rt-layout-filter-container .rt-filter-wrap .rt-filter-item-wrap.rt-filter-dropdown-wrap .rt-filter-dropdown .rt-filter-dropdown-item:hover,
-						#{$layoutID} .rt-layout-filter-container .rt-filter-wrap .rt-filter-item-wrap.rt-filter-dropdown-wrap .rt-filter-dropdown .rt-filter-dropdown-item.selected,
-						#{$layoutID} .rt-filter-item-wrap.rt-filter-button-wrap span.rt-filter-button-item:hover,
-						#{$layoutID} .rt-layout-filter-container .rt-filter-sub-tax.sub-button-group .rt-filter-button-item:hover,
-						#{$layoutID}.rt-tpg-container .rt-pagination-wrap .rt-page-numbers .paginationjs .paginationjs-pages ul li>a:hover,
-						#{$layoutID}.rt-tpg-container .rt-pagination-wrap .rt-cb-page-prev-next > *:hover,
-						#{$layoutID}.rt-tpg-container .rt-pagination-wrap  .rt-loadmore-btn:hover,
-						#{$layoutID} .rt-read-more:hover,
-						#{$layoutID} .rt-tpg-utility .rt-tpg-load-more button:hover{";
-			$css .= "background-color:" . $button_hover_bg_color . ";";
-			$css .= "}";
+					#{$layoutID} .pagination li a:hover,
+					#{$layoutID} .rt-tpg-isotope-buttons button:hover,
+					#{$layoutID} .rt-holder .read-more a:hover,
+					#{$layoutID} .rt-tpg-utility .rt-tpg-load-more button:hover,
+					#{$layoutID}.rt-tpg-container .swiper-pagination-bullet:hover,
+					#{$layoutID}.rt-tpg-container .swiper-navigation .slider-btn:hover,
+					#{$layoutID} .wc1 .rt-holder .rt-img-holder .overlay .product-more ul li a:hover,
+					#{$layoutID} .wc2 .rt-detail .rt-wc-add-to-cart:hover,
+					#{$layoutID} .wc3 .rt-detail .rt-wc-add-to-cart:hover,
+					#{$layoutID} .wc4 .rt-detail .rt-wc-add-to-cart:hover,
+					#{$layoutID} .wc-carousel2 .rt-detail .rt-wc-add-to-cart:hover,
+					#{$layoutID} .wc-isotope2 .rt-detail .rt-wc-add-to-cart:hover,
+					#{$layoutID} .rt-layout-filter-container .rt-filter-wrap .rt-filter-item-wrap.rt-filter-dropdown-wrap .rt-filter-dropdown .rt-filter-dropdown-item:hover,
+					#{$layoutID} .rt-layout-filter-container .rt-filter-wrap .rt-filter-item-wrap.rt-filter-dropdown-wrap .rt-filter-dropdown .rt-filter-dropdown-item.selected,
+					#{$layoutID} .rt-filter-item-wrap.rt-filter-button-wrap span.rt-filter-button-item:hover,
+					#{$layoutID} .rt-layout-filter-container .rt-filter-sub-tax.sub-button-group .rt-filter-button-item:hover,
+					#{$layoutID}.rt-tpg-container .rt-pagination-wrap .rt-page-numbers .paginationjs .paginationjs-pages ul li>a:hover,
+					#{$layoutID}.rt-tpg-container .rt-pagination-wrap .rt-cb-page-prev-next > *:hover,
+					#{$layoutID}.rt-tpg-container .rt-pagination-wrap  .rt-loadmore-btn:hover,
+					#{$layoutID} .rt-read-more:hover,
+					#{$layoutID} .rt-tpg-utility .rt-tpg-load-more button:hover{";
+			$css .= 'background-color:' . $button_hover_bg_color . ';';
+			$css .= '}';
 
 			$css .= "#{$layoutID} .rt-filter-item-wrap.rt-filter-button-wrap span.rt-filter-button-item:hover,
 						#{$layoutID} .rt-layout-filter-container .rt-filter-sub-tax.sub-button-group .rt-filter-button-item:hover,
 						#{$layoutID}.rt-tpg-container .swiper-navigation .slider-btn:hover,
 						#{$layoutID}.rt-tpg-container .rt-pagination-wrap .rt-page-numbers .paginationjs .paginationjs-pages ul li>a:hover{";
-			$css .= "border-color:" . $button_hover_bg_color . ";";
-			$css .= "}";
+			$css .= 'border-color:' . $button_hover_bg_color . ';';
+			$css .= '}';
 			$css .= "#{$layoutID}.rt-tpg-container .layout17 .rt-holder .overlay a.tpg-zoom:hover .fa{";
-			$css .= "color:" . $button_hover_bg_color . ";";
-			$css .= "}";
+			$css .= 'color:' . $button_hover_bg_color . ';';
+			$css .= '}';
 		}
 
-		//Button text color
+		// Button text color.
 		if ( $button_text_color ) {
 			$css .= "#{$layoutID} .pagination-list li a,
-                #{$layoutID} .pagination li a,
-				#{$layoutID} .rt-tpg-isotope-buttons button,
-				#{$layoutID} .rt-holder .read-more a,
-				#{$layoutID} .rt-tpg-utility .rt-tpg-load-more button,
-				#{$layoutID}.rt-tpg-container .swiper-navigation .slider-btn,
-				#{$layoutID} .wc1 .rt-holder .rt-img-holder .overlay .product-more ul li a,
-				#{$layoutID} .edd1 .rt-holder .rt-img-holder .overlay .product-more ul li a,
-				#{$layoutID} .wc2 .rt-detail .rt-wc-add-to-cart,
-				#{$layoutID} .wc3 .rt-detail .rt-wc-add-to-cart,
-				#{$layoutID} .edd2 .rt-detail .rt-wc-add-to-cart,
-				#{$layoutID} .wc4 .rt-detail .rt-wc-add-to-cart,
-				#{$layoutID} .edd3 .rt-detail .rt-wc-add-to-cart,
-				#{$layoutID} .wc-carousel2 .rt-detail .rt-wc-add-to-cart,
-				#{$layoutID} .wc-isotope2 .rt-detail .rt-wc-add-to-cart,
-				#{$layoutID} .rt-tpg-utility .rt-tpg-load-more button,
-				#rt-tooltip-{$id},
-				#{$layoutID} .rt-filter-item-wrap.rt-filter-button-wrap span.rt-filter-button-item,
-				#{$layoutID} .rt-layout-filter-container .rt-filter-sub-tax.sub-button-group .rt-filter-button-item,
-				#{$layoutID} .rt-layout-filter-container .rt-filter-wrap .rt-filter-item-wrap.rt-sort-order-action,
-				#{$layoutID} .rt-layout-filter-container .rt-filter-wrap .rt-filter-item-wrap.rt-filter-dropdown-wrap .rt-filter-dropdown .rt-filter-dropdown-item,
-				#{$layoutID}.rt-tpg-container .rt-pagination-wrap .rt-page-numbers .paginationjs .paginationjs-pages ul li>a,
-				#{$layoutID}.rt-tpg-container .rt-pagination-wrap .rt-cb-page-prev-next > *,
-				#{$layoutID}.rt-tpg-container .rt-pagination-wrap  .rt-loadmore-btn,
-				#{$layoutID} .rt-read-more,
-				#rt-tooltip-{$id} .rt-tooltip-bottom:after{";
-			$css .= "color:" . $button_text_color . ";";
-			$css .= "}";
+					#{$layoutID} .pagination li a,
+					#{$layoutID} .rt-tpg-isotope-buttons button,
+					#{$layoutID} .rt-holder .read-more a,
+					#{$layoutID} .rt-tpg-utility .rt-tpg-load-more button,
+					#{$layoutID}.rt-tpg-container .swiper-navigation .slider-btn,
+					#{$layoutID} .wc1 .rt-holder .rt-img-holder .overlay .product-more ul li a,
+					#{$layoutID} .edd1 .rt-holder .rt-img-holder .overlay .product-more ul li a,
+					#{$layoutID} .wc2 .rt-detail .rt-wc-add-to-cart,
+					#{$layoutID} .wc3 .rt-detail .rt-wc-add-to-cart,
+					#{$layoutID} .edd2 .rt-detail .rt-wc-add-to-cart,
+					#{$layoutID} .wc4 .rt-detail .rt-wc-add-to-cart,
+					#{$layoutID} .edd3 .rt-detail .rt-wc-add-to-cart,
+					#{$layoutID} .wc-carousel2 .rt-detail .rt-wc-add-to-cart,
+					#{$layoutID} .wc-isotope2 .rt-detail .rt-wc-add-to-cart,
+					#{$layoutID} .rt-tpg-utility .rt-tpg-load-more button,
+					#rt-tooltip-{$id},
+					#{$layoutID} .rt-filter-item-wrap.rt-filter-button-wrap span.rt-filter-button-item,
+					#{$layoutID} .rt-layout-filter-container .rt-filter-sub-tax.sub-button-group .rt-filter-button-item,
+					#{$layoutID} .rt-layout-filter-container .rt-filter-wrap .rt-filter-item-wrap.rt-sort-order-action,
+					#{$layoutID} .rt-layout-filter-container .rt-filter-wrap .rt-filter-item-wrap.rt-filter-dropdown-wrap .rt-filter-dropdown .rt-filter-dropdown-item,
+					#{$layoutID}.rt-tpg-container .rt-pagination-wrap .rt-page-numbers .paginationjs .paginationjs-pages ul li>a,
+					#{$layoutID}.rt-tpg-container .rt-pagination-wrap .rt-cb-page-prev-next > *,
+					#{$layoutID}.rt-tpg-container .rt-pagination-wrap  .rt-loadmore-btn,
+					#{$layoutID} .rt-read-more,
+					#rt-tooltip-{$id} .rt-tooltip-bottom:after{";
+			$css .= 'color:' . $button_text_color . ';';
+			$css .= '}';
 		}
 
 		if ( $button_hover_text_color ) {
 			$css .= "#{$layoutID} .rt-filter-item-wrap.rt-filter-button-wrap span.rt-filter-button-item:hover,
-                        #{$layoutID} .rt-holder .read-more a:hover,
-                        #{$layoutID}.rt-tpg-container .swiper-navigation .slider-btn:hover,
-						#{$layoutID} .rt-layout-filter-container .rt-filter-sub-tax.sub-button-group .rt-filter-button-item:hover,
-						#{$layoutID} .rt-layout-filter-container .rt-filter-wrap .rt-filter-item-wrap.rt-filter-dropdown-wrap .rt-filter-dropdown .rt-filter-dropdown-item:hover,
-						#{$layoutID} .rt-layout-filter-container .rt-filter-wrap .rt-filter-item-wrap.rt-filter-dropdown-wrap .rt-filter-dropdown .rt-filter-dropdown-item.selected,
-						#{$layoutID} .rt-layout-filter-container .rt-filter-wrap .rt-filter-item-wrap.rt-sort-order-action:hover,
-						#{$layoutID}.rt-tpg-container .rt-pagination-wrap .rt-page-numbers .paginationjs .paginationjs-pages ul li.active>a:hover,
-						#{$layoutID} .rt-filter-item-wrap.rt-filter-button-wrap span.rt-filter-button-item.selected,
-						#{$layoutID} .rt-layout-filter-container .rt-filter-wrap .rt-filter-item-wrap.rt-sort-order-action,
-						#{$layoutID}.rt-tpg-container .rt-pagination-wrap  .rt-loadmore-btn:hover,
-						#{$layoutID} .rt-read-more:hover,
-						#{$layoutID}.rt-tpg-container .rt-pagination-wrap .rt-page-numbers .paginationjs .paginationjs-pages ul li.active>a{";
-			$css .= "color:" . $button_hover_text_color . ";";
-			$css .= "}";
+					#{$layoutID} .rt-holder .read-more a:hover,
+					#{$layoutID}.rt-tpg-container .swiper-navigation .slider-btn:hover,
+					#{$layoutID} .rt-layout-filter-container .rt-filter-sub-tax.sub-button-group .rt-filter-button-item:hover,
+					#{$layoutID} .rt-layout-filter-container .rt-filter-wrap .rt-filter-item-wrap.rt-filter-dropdown-wrap .rt-filter-dropdown .rt-filter-dropdown-item:hover,
+					#{$layoutID} .rt-layout-filter-container .rt-filter-wrap .rt-filter-item-wrap.rt-filter-dropdown-wrap .rt-filter-dropdown .rt-filter-dropdown-item.selected,
+					#{$layoutID} .rt-layout-filter-container .rt-filter-wrap .rt-filter-item-wrap.rt-sort-order-action:hover,
+					#{$layoutID}.rt-tpg-container .rt-pagination-wrap .rt-page-numbers .paginationjs .paginationjs-pages ul li.active>a:hover,
+					#{$layoutID} .rt-filter-item-wrap.rt-filter-button-wrap span.rt-filter-button-item.selected,
+					#{$layoutID} .rt-layout-filter-container .rt-filter-wrap .rt-filter-item-wrap.rt-sort-order-action,
+					#{$layoutID}.rt-tpg-container .rt-pagination-wrap  .rt-loadmore-btn:hover,
+					#{$layoutID} .rt-read-more:hover,
+					#{$layoutID}.rt-tpg-container .rt-pagination-wrap .rt-page-numbers .paginationjs .paginationjs-pages ul li.active>a{";
+			$css .= 'color:' . $button_hover_text_color . ';';
+			$css .= '}';
 		}
 
 		if ( $overlay_color || $overlay_padding ) {
 			if ( in_array( $layout, [ 'layout15', 'isotope11', 'carousel11' ] ) ) {
 				$css .= "#{$layoutID} .{$layout} .rt-holder:hover .overlay .post-info{";
-			} elseif ( in_array( $layout,
-				[ 'layout10', 'isotope7', 'carousel6', 'carousel7', 'layout9', 'offset04' ] )
+			} elseif ( in_array(
+				$layout,
+				[ 'layout10', 'isotope7', 'carousel6', 'carousel7', 'layout9', 'offset04' ]
+			)
 			) {
 				$css .= "#{$layoutID} .{$layout} .rt-holder .post-info{";
 			} elseif ( in_array( $layout, [ 'layout7', 'isotope4', 'carousel4' ] ) ) {
@@ -1388,20 +1517,23 @@ class Fns {
 				$css .= "#{$layoutID} .rt-post-overlay .post-img > a:first-of-type::after,";
 				$css .= "#{$layoutID} .rt-holder .overlay:hover{";
 			}
+
 			if ( $overlay_color ) {
-				$css .= "background-image: none;";
-				$css .= "background-color:" . $overlay_color . ";";
+				$css .= 'background-image: none;';
+				$css .= 'background-color:' . $overlay_color . ';';
 			}
+
 			if ( $overlay_padding ) {
-				$css .= "padding-top:" . $overlay_padding . "%;";
+				$css .= 'padding-top:' . $overlay_padding . '%;';
 			}
-			$css .= "}";
+
+			$css .= '}';
 		}
 
 		if ( $boxShadow ) {
 			$css .= "#{$layoutID} .{$layout} .rt-holder {";
 			$css .= "box-shadow : 0px 0px 2px 0px {$boxShadow};";
-			$css .= "}";
+			$css .= '}';
 		}
 
 		/* gutter */
@@ -1411,164 +1543,185 @@ class Fns {
 			$css .= "padding-right : {$gutter}px !important;";
 			$css .= "margin-top : {$gutter}px;";
 			$css .= "margin-bottom : {$gutter}px;";
-			$css .= "}";
+			$css .= '}';
 			$css .= "#{$layoutID} .rt-row{";
 			$css .= "margin-left : -{$gutter}px !important;";
 			$css .= "margin-right : -{$gutter}px !important;";
-			$css .= "}";
+			$css .= '}';
 			$css .= "#{$layoutID}.rt-container-fluid,#{$layoutID}.rt-container{";
 			$css .= "padding-left : {$gutter}px;";
 			$css .= "padding-right : {$gutter}px;";
-			$css .= "}";
+			$css .= '}';
 
-			// remove inner row margin
+			// remove inner row margin.
 			$css .= "#{$layoutID} .rt-row .rt-row [class*='rt-col-'] {";
-			$css .= "margin-top : 0;";
-			$css .= "}";
+			$css .= 'margin-top : 0;';
+			$css .= '}';
 		}
 
-		// Read more button border radius
+		// Read more button border radius.
 		if ( isset( $read_more_button_border_radius ) || trim( $read_more_button_border_radius ) !== '' ) {
 			$css .= "#{$layoutID} .read-more a{";
-			$css .= "border-radius:" . $read_more_button_border_radius . "px;";
-			$css .= "}";
+			$css .= 'border-radius:' . $read_more_button_border_radius . 'px;';
+			$css .= '}';
 		}
 
-		// Section
+		// Section.
 		if ( $sectionBg ) {
 			$css .= "#{$layoutID}.rt-tpg-container {";
-			$css .= "background:" . $sectionBg . ";";
-			$css .= "}";
+			$css .= 'background:' . $sectionBg . ';';
+			$css .= '}';
 		}
+
 		if ( $sectionMargin ) {
 			$css .= "#{$layoutID}.rt-tpg-container {";
-			$css .= "margin:" . $sectionMargin . "px;";
-			$css .= "}";
+			$css .= 'margin:' . $sectionMargin . 'px;';
+			$css .= '}';
 		}
+
 		if ( $sectionPadding ) {
 			$css .= "#{$layoutID}.rt-tpg-container {";
-			$css .= "padding:" . $sectionPadding . "px;";
-			$css .= "}";
+			$css .= 'padding:' . $sectionPadding . 'px;';
+			$css .= '}';
 		}
-		// Box
+
+		// Box.
 		if ( $boxBg ) {
 			$css .= "#{$layoutID} .rt-holder, #{$layoutID} .rt-holder .rt-detail,#{$layoutID} .rt-post-overlay .post-img + .post-content {";
-			$css .= "background-color:" . $boxBg . ";";
-			$css .= "}";
+			$css .= 'background-color:' . $boxBg . ';';
+			$css .= '}';
 		}
+
 		if ( $boxBorderColor ) {
 			$css .= "#{$layoutID} .rt-holder {";
-			$css .= "border-color:" . $boxBorderColor . ";";
-			$css .= "}";
+			$css .= 'border-color:' . $boxBorderColor . ';';
+			$css .= '}';
 		}
+
 		if ( $boxBorder ) {
 			$css .= "#{$layoutID} .rt-holder {";
-			$css .= "border-style: solid;";
-			$css .= "border-width:" . $boxBorder . "px;";
-			$css .= "}";
+			$css .= 'border-style: solid;';
+			$css .= 'border-width:' . $boxBorder . 'px;';
+			$css .= '}';
 		}
+
 		if ( $boxBorderRadius ) {
 			$css .= "#{$layoutID} .rt-holder {";
-			$css .= "border-radius:" . $boxBorderRadius . "px;";
-			$css .= "}";
+			$css .= 'border-radius:' . $boxBorderRadius . 'px;';
+			$css .= '}';
 		}
+
 		if ( $boxPadding ) {
 			$css .= "#{$layoutID} .rt-holder {";
-			$css .= "padding:" . $boxPadding . "px;";
-			$css .= "}";
+			$css .= 'padding:' . $boxPadding . 'px;';
+			$css .= '}';
 		}
+
 		if ( $contentPadding ) {
 			$css .= "#{$layoutID} .rt-holder .rt-detail {";
-			$css .= "padding:" . $contentPadding . "px;";
-			$css .= "}";
+			$css .= 'padding:' . $contentPadding . 'px;';
+			$css .= '}';
 		}
-		// Widget heading
+
+		// Widget heading.
 		if ( $headingBg ) {
 			$css .= "#{$layoutID} .tpg-widget-heading-wrapper.heading-style1 .tpg-widget-heading, #{$layoutID} .tpg-widget-heading-wrapper.heading-style2 .tpg-widget-heading, #{$layoutID} .tpg-widget-heading-wrapper.heading-style3 .tpg-widget-heading {";
-			$css .= "background:" . $headingBg . ";";
-			$css .= "}";
+			$css .= 'background:' . $headingBg . ';';
+			$css .= '}';
 
 			$css .= "#{$layoutID} .tpg-widget-heading-wrapper.heading-style2 .tpg-widget-heading::after {";
-			$css .= "border-top-color:" . $headingBg . ";";
-			$css .= "}";
+			$css .= 'border-top-color:' . $headingBg . ';';
+			$css .= '}';
 		}
+
 		if ( $headingColor ) {
 			$css .= "#{$layoutID} .tpg-widget-heading-wrapper.heading-style1 .tpg-widget-heading, #{$layoutID} .tpg-widget-heading-wrapper.heading-style1 .tpg-widget-heading a, #{$layoutID} .tpg-widget-heading-wrapper.heading-style2 .tpg-widget-heading, #{$layoutID} .tpg-widget-heading-wrapper.heading-style2 .tpg-widget-heading a, #{$layoutID} .tpg-widget-heading-wrapper.heading-style3 .tpg-widget-heading, #{$layoutID} .tpg-widget-heading-wrapper.heading-style3 .tpg-widget-heading a  {";
-			$css .= "color:" . $headingColor . ";";
-			$css .= "}";
+			$css .= 'color:' . $headingColor . ';';
+			$css .= '}';
 			$css .= "#{$layoutID} .tpg-widget-heading-wrapper.heading-style1 .tpg-widget-heading::before  {";
-			$css .= "background-color:" . $headingColor . ";";
-			$css .= "}";
+			$css .= 'background-color:' . $headingColor . ';';
+			$css .= '}';
 		}
+
 		if ( $headingBorderSize ) {
 			$css .= "#{$layoutID} .tpg-widget-heading-wrapper.heading-style1, #{$layoutID} .tpg-widget-heading-wrapper.heading-style2, #{$layoutID} .tpg-widget-heading-wrapper.heading-style3 {";
-			//                $css .= "border-bottom-style: solid;";
-			$css .= "border-bottom-width:" . $headingBorderSize . "px;";
-			$css .= "}";
+			// $css .= "border-bottom-style: solid;";
+			$css .= 'border-bottom-width:' . $headingBorderSize . 'px;';
+			$css .= '}';
 
 			$css .= "#{$layoutID} .tpg-widget-heading-wrapper.heading-style1 .tpg-widget-heading-line {";
-			$css .= "border-width:" . $headingBorderSize . "px 0;";
-			$css .= "}";
-		}
-		if ( $headingBorderColor ) {
-			$css .= "#{$layoutID} .tpg-widget-heading-wrapper.heading-style1 .tpg-widget-heading-line, #{$layoutID} .tpg-widget-heading-wrapper.heading-style2, #{$layoutID} .tpg-widget-heading-wrapper.heading-style3  {";
-			$css .= "border-color:" . $headingBorderColor . ";";
-			$css .= "}";
-		}
-		if ( $headingMargin ) {
-			$css .= "#{$layoutID} .tpg-widget-heading-wrapper {";
-			$css .= "margin:" . $headingMargin . "px;";
-			$css .= "}";
-		}
-		if ( $headingPadding ) {
-			$css .= "#{$layoutID} .tpg-widget-heading-wrapper .tpg-widget-heading {";
-			$css .= "padding:" . $headingPadding . "px;";
-			$css .= "}";
-		}
-		// Image border
-		if ( isset( $image_border_radius ) || trim( $image_border_radius ) !== '' ) {
-			$css .= "#{$layoutID} .rt-img-holder img.rt-img-responsive,#{$layoutID} .rt-img-holder,
-				#{$layoutID} .rt-post-overlay .post-img,
-				#{$layoutID} .post-sm .post-img,
-				#{$layoutID} .rt-post-grid .post-img,
-				#{$layoutID} .post-img img {";
-			$css .= "border-radius:" . $image_border_radius . "px;";
-			$css .= "}";
+			$css .= 'border-width:' . $headingBorderSize . 'px 0;';
+			$css .= '}';
 		}
 
-		// Title decoration
+		if ( $headingBorderColor ) {
+			$css .= "#{$layoutID} .tpg-widget-heading-wrapper.heading-style1 .tpg-widget-heading-line, #{$layoutID} .tpg-widget-heading-wrapper.heading-style2, #{$layoutID} .tpg-widget-heading-wrapper.heading-style3  {";
+			$css .= 'border-color:' . $headingBorderColor . ';';
+			$css .= '}';
+		}
+
+		if ( $headingMargin ) {
+			$css .= "#{$layoutID} .tpg-widget-heading-wrapper {";
+			$css .= 'margin:' . $headingMargin . 'px;';
+			$css .= '}';
+		}
+
+		if ( $headingPadding ) {
+			$css .= "#{$layoutID} .tpg-widget-heading-wrapper .tpg-widget-heading {";
+			$css .= 'padding:' . $headingPadding . 'px;';
+			$css .= '}';
+		}
+
+		// Image border.
+		if ( isset( $image_border_radius ) || trim( $image_border_radius ) !== '' ) {
+			$css .= "#{$layoutID} .rt-img-holder img.rt-img-responsive,#{$layoutID} .rt-img-holder,
+					#{$layoutID} .rt-post-overlay .post-img,
+					#{$layoutID} .post-sm .post-img,
+					#{$layoutID} .rt-post-grid .post-img,
+					#{$layoutID} .post-img img {";
+			$css .= 'border-radius:' . $image_border_radius . 'px;';
+			$css .= '}';
+		}
+
+		// Title decoration.
 		if ( $title_color || $title_size || $title_weight || $title_alignment ) {
 			$css .= "#{$layoutID} .{$layout} .rt-holder h2.entry-title,
-                #{$layoutID} .{$layout} .rt-holder h3.entry-title,
-                #{$layoutID} .{$layout} .rt-holder h4.entry-title,
-                #{$layoutID} .{$layout} .rt-holder h2.entry-title a,
-                #{$layoutID} .{$layout} .rt-holder h3.entry-title a,
-                #{$layoutID} .{$layout} .rt-holder h4.entry-title a,
-                #{$layoutID} .rt-holder .rt-woo-info h2 a,
-                #{$layoutID} .rt-holder .rt-woo-info h3 a,
-                #{$layoutID} .rt-holder .rt-woo-info h4 a,
-                #{$layoutID} .post-content .post-title,
-                #{$layoutID} .rt-post-grid .post-title,
-                #{$layoutID} .rt-post-grid .post-title a,
-                #{$layoutID} .post-content .post-title a,
-                #{$layoutID} .rt-holder .rt-woo-info h2,
-                #{$layoutID} .rt-holder .rt-woo-info h3,
-                #{$layoutID} .rt-holder .rt-woo-info h4{";
+					#{$layoutID} .{$layout} .rt-holder h3.entry-title,
+					#{$layoutID} .{$layout} .rt-holder h4.entry-title,
+					#{$layoutID} .{$layout} .rt-holder h2.entry-title a,
+					#{$layoutID} .{$layout} .rt-holder h3.entry-title a,
+					#{$layoutID} .{$layout} .rt-holder h4.entry-title a,
+					#{$layoutID} .rt-holder .rt-woo-info h2 a,
+					#{$layoutID} .rt-holder .rt-woo-info h3 a,
+					#{$layoutID} .rt-holder .rt-woo-info h4 a,
+					#{$layoutID} .post-content .post-title,
+					#{$layoutID} .rt-post-grid .post-title,
+					#{$layoutID} .rt-post-grid .post-title a,
+					#{$layoutID} .post-content .post-title a,
+					#{$layoutID} .rt-holder .rt-woo-info h2,
+					#{$layoutID} .rt-holder .rt-woo-info h3,
+					#{$layoutID} .rt-holder .rt-woo-info h4{";
+
 			if ( $title_color ) {
-				$css .= "color:" . $title_color . ";";
+				$css .= 'color:' . $title_color . ';';
 			}
+
 			if ( $title_size ) {
 				$lineHeight = $title_size + 10;
-				$css        .= "font-size:" . $title_size . "px;";
-				$css        .= "line-height:" . $lineHeight . "px;";
+				$css       .= 'font-size:' . $title_size . 'px;';
+				$css       .= 'line-height:' . $lineHeight . 'px;';
 			}
+
 			if ( $title_weight ) {
-				$css .= "font-weight:" . $title_weight . ";";
+				$css .= 'font-weight:' . $title_weight . ';';
 			}
+
 			if ( $title_alignment ) {
-				$css .= "text-align:" . $title_alignment . ";";
+				$css .= 'text-align:' . $title_alignment . ';';
 			}
-			$css .= "}";
+
+			$css .= '}';
+
 			if ( $title_size ) {
 				$css .= "#{$layoutID} .post-grid-lg-style-1 .post-title,
 						#{$layoutID} .post-grid-lg-style-1 .post-title a,
@@ -1576,138 +1729,154 @@ class Fns {
 						#{$layoutID} .big-layout .post-title a,
 						#{$layoutID} .post-grid-lg-style-1 .post-title,
 						#{$layoutID} .post-grid-lg-style-1 .post-title a {";
-				$css .= "font-size:" . ( $title_size + 8 ) . "px;";
-				$css .= "line-height:" . ( $lineHeight + 8 ) . "px;";
-				$css .= "}";
+				$css .= 'font-size:' . ( $title_size + 8 ) . 'px;';
+				$css .= 'line-height:' . ( $lineHeight + 8 ) . 'px;';
+				$css .= '}';
 			}
 		}
-		// Title hover color
+
+		// Title hover color.
 		if ( $title_hover_color ) {
 			$css .= "#{$layoutID} .{$layout} .rt-holder h2.entry-title:hover,
-                        #{$layoutID} .{$layout} .rt-holder h3.entry-title:hover,
-                        #{$layoutID} .{$layout} .rt-holder h4.entry-title:hover,
-						#{$layoutID} .{$layout} .rt-holder h2.entry-title a:hover,
-						#{$layoutID} .{$layout} .rt-holder h3.entry-title a:hover,
-						#{$layoutID} .{$layout} .rt-holder h4.entry-title a:hover,
-						#{$layoutID} .post-content .post-title a:hover,
-                        #{$layoutID} .rt-post-grid .post-title a:hover,
-						#{$layoutID} .rt-holder .rt-woo-info h2 a:hover,
-						#{$layoutID} .rt-holder .rt-woo-info h3 a:hover,
-						#{$layoutID} .rt-holder .rt-woo-info h4 a:hover,
-						#{$layoutID} .rt-holder .rt-woo-info h2:hover,
-						#{$layoutID} .rt-holder .rt-woo-info h3:hover,
-						#{$layoutID} .rt-holder .rt-woo-info h4:hover{";
-			$css .= "color:" . $title_hover_color . " !important;";
-			$css .= "}";
+					#{$layoutID} .{$layout} .rt-holder h3.entry-title:hover,
+					#{$layoutID} .{$layout} .rt-holder h4.entry-title:hover,
+					#{$layoutID} .{$layout} .rt-holder h2.entry-title a:hover,
+					#{$layoutID} .{$layout} .rt-holder h3.entry-title a:hover,
+					#{$layoutID} .{$layout} .rt-holder h4.entry-title a:hover,
+					#{$layoutID} .post-content .post-title a:hover,
+					#{$layoutID} .rt-post-grid .post-title a:hover,
+					#{$layoutID} .rt-holder .rt-woo-info h2 a:hover,
+					#{$layoutID} .rt-holder .rt-woo-info h3 a:hover,
+					#{$layoutID} .rt-holder .rt-woo-info h4 a:hover,
+					#{$layoutID} .rt-holder .rt-woo-info h2:hover,
+					#{$layoutID} .rt-holder .rt-woo-info h3:hover,
+					#{$layoutID} .rt-holder .rt-woo-info h4:hover{";
+			$css .= 'color:' . $title_hover_color . ' !important;';
+			$css .= '}';
 		}
-		// Excerpt decoration
+		// Excerpt decoration.
 		if ( $excerpt_color || $excerpt_size || $excerpt_weight || $excerpt_alignment ) {
 			$css .= "#{$layoutID} .{$layout} .rt-holder .tpg-excerpt,#{$layoutID} .{$layout} .tpg-excerpt,#{$layoutID} .{$layout} .rt-holder .post-content,#{$layoutID} .rt-holder .rt-woo-info p,#{$layoutID} .post-content p {";
+
 			if ( $excerpt_color ) {
-				$css .= "color:" . $excerpt_color . ";";
+				$css .= 'color:' . $excerpt_color . ';';
 			}
+
 			if ( $excerpt_size ) {
-				$css .= "font-size:" . $excerpt_size . "px;";
+				$css .= 'font-size:' . $excerpt_size . 'px;';
 			}
+
 			if ( $excerpt_weight ) {
-				$css .= "font-weight:" . $excerpt_weight . ";";
+				$css .= 'font-weight:' . $excerpt_weight . ';';
 			}
+
 			if ( $excerpt_alignment ) {
-				$css .= "text-align:" . $excerpt_alignment . ";";
+				$css .= 'text-align:' . $excerpt_alignment . ';';
 			}
-			$css .= "}";
+
+			$css .= '}';
 		}
-		// Post meta decoration
+
+		// Post meta decoration.
 		if ( $meta_data_color || $meta_data_size || $meta_data_weight || $meta_data_alignment ) {
 			$css .= "#{$layoutID} .{$layout} .rt-holder .post-meta-user,
-						#{$layoutID} .{$layout} .rt-meta,
-						#{$layoutID} .{$layout} .rt-meta a,
-						#{$layoutID} .{$layout} .rt-holder .post-meta-user .meta-data,
-						#{$layoutID} .{$layout} .rt-holder .post-meta-user a,
-						#{$layoutID} .{$layout} .rt-holder .rt-detail .post-meta .rt-tpg-social-share,
-						#{$layoutID} .rt-post-overlay .post-meta-user span,
-						#{$layoutID} .rt-post-overlay .post-meta-user,
-						#{$layoutID} .rt-post-overlay .post-meta-user a,
-						#{$layoutID} .rt-post-grid .post-meta-user,
-						#{$layoutID} .rt-post-grid .post-meta-user a,
-						#{$layoutID} .rt-post-box-media-style .post-meta-user,
-						#{$layoutID} .rt-post-box-media-style .post-meta-user a,
-						#{$layoutID} .{$layout} .post-meta-user i,
-						#{$layoutID} .rt-detail .post-meta-category a,
-						#{$layoutID} .{$layout} .post-meta-user a
-						#{$layoutID} .{$layout} .post-meta-user a {";
+					#{$layoutID} .{$layout} .rt-meta,
+					#{$layoutID} .{$layout} .rt-meta a,
+					#{$layoutID} .{$layout} .rt-holder .post-meta-user .meta-data,
+					#{$layoutID} .{$layout} .rt-holder .post-meta-user a,
+					#{$layoutID} .{$layout} .rt-holder .rt-detail .post-meta .rt-tpg-social-share,
+					#{$layoutID} .rt-post-overlay .post-meta-user span,
+					#{$layoutID} .rt-post-overlay .post-meta-user,
+					#{$layoutID} .rt-post-overlay .post-meta-user a,
+					#{$layoutID} .rt-post-grid .post-meta-user,
+					#{$layoutID} .rt-post-grid .post-meta-user a,
+					#{$layoutID} .rt-post-box-media-style .post-meta-user,
+					#{$layoutID} .rt-post-box-media-style .post-meta-user a,
+					#{$layoutID} .{$layout} .post-meta-user i,
+					#{$layoutID} .rt-detail .post-meta-category a,
+					#{$layoutID} .{$layout} .post-meta-user a
+					#{$layoutID} .{$layout} .post-meta-user a {";
+
 			if ( $meta_data_color ) {
-				$css .= "color:" . $meta_data_color . ";";
+				$css .= 'color:' . $meta_data_color . ';';
 			}
+
 			if ( $meta_data_size ) {
-				$css .= "font-size:" . $meta_data_size . "px;";
+				$css .= 'font-size:' . $meta_data_size . 'px;';
 			}
+
 			if ( $meta_data_weight ) {
-				$css .= "font-weight:" . $meta_data_weight . ";";
+				$css .= 'font-weight:' . $meta_data_weight . ';';
 			}
+
 			if ( $meta_data_alignment ) {
-				$css .= "text-align:" . $meta_data_alignment . ";";
+				$css .= 'text-align:' . $meta_data_alignment . ';';
 			}
-			$css .= "}";
+
+			$css .= '}';
 		}
-		// Category
+
+		// Category.
 		if ( $catBg ) {
 			$css .= "#{$layoutID} .cat-over-image.style2 .categories-links a,
-				#{$layoutID} .cat-over-image.style3 .categories-links a,
-				#{$layoutID} .cat-above-title.style2 .categories-links a,
-				#{$layoutID} .cat-above-title.style3 .categories-links a,
-				#{$layoutID} .rt-tpg-category > a {
-					background-color: {$catBg};
-				}";
+					#{$layoutID} .cat-over-image.style3 .categories-links a,
+					#{$layoutID} .cat-above-title.style2 .categories-links a,
+					#{$layoutID} .cat-above-title.style3 .categories-links a,
+					#{$layoutID} .rt-tpg-category > a {
+						background-color: {$catBg};
+					}";
 
 			$css .= "#{$layoutID} .cat-above-title.style3 .categories-links a:after,
-				.cat-over-image.style3 .categories-links a:after,
-				#{$layoutID} .rt-tpg-category > a,
-				#{$layoutID} .rt-tpg-category.style3 > a:after {
-					border-top-color: {$catBg} ;
-				}";
+					.cat-over-image.style3 .categories-links a:after,
+					#{$layoutID} .rt-tpg-category > a,
+					#{$layoutID} .rt-tpg-category.style3 > a:after {
+						border-top-color: {$catBg} ;
+					}";
 
 			$css .= "#{$layoutID} .rt-tpg-category:not(style1) i {
 					color: {$catBg};
 				}";
 		}
+
 		if ( $catTextColor ) {
 			$css .= "#{$layoutID} .cat-over-image .categories-links a,
 				#{$layoutID} .cat-above-title .categories-links a,
 				#{$layoutID} .rt-tpg-category.style1 > i,
 				#{$layoutID} .rt-tpg-category > a {";
-			$css .= "color:" . $catTextColor . ";";
-			$css .= "}";
-		}
-		if ( $catBorderRadius ) {
-			$css .= "#{$layoutID} .cat-over-image .categories-links a,#{$layoutID} .cat-above-title .categories-links a,#{$layoutID} .rt-tpg-category > a{";
-			$css .= "border-radius:" . $catBorderRadius . "px;";
-			$css .= "}";
-		}
-		if ( $catPadding ) {
-			$css .= "#{$layoutID} .cat-over-image .categories-links a,#{$layoutID} .cat-above-title .categories-links a,#{$layoutID} .rt-tpg-category > a{";
-			$css .= "padding:" . $catPadding . "px;";
-			$css .= "}";
-		}
-		if ( $catMargin ) {
-			$css .= "#{$layoutID} .categories-links,#{$layoutID} .rt-tpg-category > a{";
-			$css .= "margin:" . $catMargin . "px;";
-			$css .= "}";
-		}
-		if ( $categorySize ) {
-			$css .= "#{$layoutID} .categories-links,#{$layoutID} .rt-tpg-category > a {";
-			$css .= "font-size:" . $categorySize . "px;";
-			$css .= "}";
+			$css .= 'color:' . $catTextColor . ';';
+			$css .= '}';
 		}
 
-		$css .= "</style>";
+		if ( $catBorderRadius ) {
+			$css .= "#{$layoutID} .cat-over-image .categories-links a,#{$layoutID} .cat-above-title .categories-links a,#{$layoutID} .rt-tpg-category > a{";
+			$css .= 'border-radius:' . $catBorderRadius . 'px;';
+			$css .= '}';
+		}
+
+		if ( $catPadding ) {
+			$css .= "#{$layoutID} .cat-over-image .categories-links a,#{$layoutID} .cat-above-title .categories-links a,#{$layoutID} .rt-tpg-category > a{";
+			$css .= 'padding:' . $catPadding . 'px;';
+			$css .= '}';
+		}
+
+		if ( $catMargin ) {
+			$css .= "#{$layoutID} .categories-links,#{$layoutID} .rt-tpg-category > a{";
+			$css .= 'margin:' . $catMargin . 'px;';
+			$css .= '}';
+		}
+
+		if ( $categorySize ) {
+			$css .= "#{$layoutID} .categories-links,#{$layoutID} .rt-tpg-category > a {";
+			$css .= 'font-size:' . $categorySize . 'px;';
+			$css .= '}';
+		}
+
+		$css .= '</style>';
 
 		return $css;
 	}
 
 	public static function get_meta_keys( $post_type ) {
-		//			$cache     = get_transient( 'tpg_' . $post_type . '_meta_keys' );
-		//			$meta_keys = $cache ? $cache : self::generate_meta_keys( $post_type );
 		$meta_keys = self::generate_meta_keys( $post_type );
 
 		return $meta_keys;
@@ -1715,18 +1884,19 @@ class Fns {
 
 	public static function generate_meta_keys( $post_type ) {
 		$meta_keys = [];
+
 		if ( $post_type ) {
 			global $wpdb;
-			$query     = "SELECT DISTINCT($wpdb->postmeta.meta_key)
-			        FROM $wpdb->posts
-			        LEFT JOIN $wpdb->postmeta
-			        ON $wpdb->posts.ID = $wpdb->postmeta.post_id
-			        WHERE $wpdb->posts.post_type = '%s'
-			        AND $wpdb->postmeta.meta_key != ''
-			        AND $wpdb->postmeta.meta_key NOT RegExp '(^[_0-9].+$)'
-			        AND $wpdb->postmeta.meta_key NOT RegExp '(^[0-9]+$)'";
+
+			$query = "SELECT DISTINCT($wpdb->postmeta.meta_key)
+					FROM $wpdb->posts
+					LEFT JOIN $wpdb->postmeta
+					ON $wpdb->posts.ID = $wpdb->postmeta.post_id
+					WHERE $wpdb->posts.post_type = '%s'
+					AND $wpdb->postmeta.meta_key != ''
+					AND $wpdb->postmeta.meta_key NOT RegExp '(^[_0-9].+$)'
+					AND $wpdb->postmeta.meta_key NOT RegExp '(^[0-9]+$)'";
 			$meta_keys = $wpdb->get_col( $wpdb->prepare( $query, $post_type ) );
-			//				set_transient( 'tpg_' . $post_type . '_meta_keys', $meta_keys, 60 * 60 * 24 ); # create 1 Day Expiration
 		}
 
 		return $meta_keys;
@@ -1744,6 +1914,7 @@ class Fns {
 
 	public static function is_acf() {
 		$plugin = null;
+
 		if ( class_exists( 'acf' ) ) {
 			$plugin = 'acf';
 		}
@@ -1752,9 +1923,10 @@ class Fns {
 	}
 
 	public static function get_groups_by_post_type( $post_type ) {
-		$post_type = $post_type ? $post_type : "post";
+		$post_type = $post_type ? $post_type : 'post';
 		$groups    = [];
 		$plugin    = self::is_acf();
+
 		switch ( $plugin ) {
 			case 'acf':
 				$groups = self::get_groups_by_post_type_acf( $post_type );
@@ -1773,7 +1945,12 @@ class Fns {
 	 */
 	public static function get_groups_by_post_type_acf( $post_type ) {
 		$groups   = [];
-		$groups_q = get_posts( [ 'post_type' => 'acf-field-group', 'posts_per_page' => - 1 ] );
+		$groups_q = get_posts(
+			[
+				'post_type'      => 'acf-field-group',
+				'posts_per_page' => - 1,
+			]
+		);
 
 		if ( ! empty( $groups_q ) ) {
 			foreach ( $groups_q as $group ) {
@@ -1784,14 +1961,14 @@ class Fns {
 						foreach ( $rules as $rule ) {
 							if ( $post_type === 'all' ) {
 								if ( ( ! empty( $rule['param'] ) && $rule['param'] == 'post_type' )
-								     && ( ! empty( $rule['operator'] ) && $rule['operator'] == '==' )
+									 && ( ! empty( $rule['operator'] ) && $rule['operator'] == '==' )
 								) {
 									$flag = true;
 								}
 							} else {
 								if ( ( ! empty( $rule['param'] ) && ( $rule['param'] == 'post_type' || ( $rule['param'] == 'post_category' && 'post' == $post_type ) ) )
-								     && ( ! empty( $rule['operator'] ) && $rule['operator'] == '==' )
-								     && ( ! empty( $rule['value'] ) && ( $rule['value'] == $post_type || ( $rule['param'] == 'post_category' && 'post' == $post_type ) ) )
+									 && ( ! empty( $rule['operator'] ) && $rule['operator'] == '==' )
+									 && ( ! empty( $rule['value'] ) && ( $rule['value'] == $post_type || ( $rule['param'] == 'post_category' && 'post' == $post_type ) ) )
 
 								) {
 									$flag = true;
@@ -1823,7 +2000,7 @@ class Fns {
 
 	/**
 	 * Elementor Functionality
-	 *************************************************
+	 * ************************************************
 	 */
 
 
@@ -1839,7 +2016,8 @@ class Fns {
 			return true;
 		}
 		if ( 'default' == $data['category_position']
-		     && in_array( $data['layout'],
+			&& in_array(
+				$data['layout'],
 				[
 					'grid-layout4',
 					'grid-layout5',
@@ -1865,7 +2043,8 @@ class Fns {
 					'slider-layout9',
 					'slider-layout11',
 					'slider-layout12',
-				] )
+				]
+			)
 		) {
 			return false;
 		}
@@ -1884,40 +2063,48 @@ class Fns {
 	public static function get_post_link( $pID, $data ) {
 		$link_class = $link_start = $link_end = $readmore_link_start = $readmore_link_end = null;
 		if ( 'default' == $data['post_link_type'] ) {
-			$link_class = "tpg-post-link";
-			$link_start = $readmore_link_start = sprintf( '<a data-id="%s" href="%s" class="%s" target="%s">',
+			$link_class = 'tpg-post-link';
+			$link_start = $readmore_link_start = sprintf(
+				'<a data-id="%s" href="%s" class="%s" target="%s">',
 				esc_attr( $pID ),
 				esc_attr( esc_url( get_permalink() ) ),
 				$link_class,
-				$data['link_target'] );
-			$link_end   = $readmore_link_end = "</a>";
+				$data['link_target']
+			);
+			$link_end   = $readmore_link_end = '</a>';
 		} elseif ( 'popup' == $data['post_link_type'] ) {
-			$link_class = "tpg-single-popup tpg-post-link";
+			$link_class = 'tpg-single-popup tpg-post-link';
 			if ( \Elementor\Plugin::$instance->editor->is_edit_mode() ) {
-				$link_class = "tpg-post-link";
+				$link_class = 'tpg-post-link';
 			}
-			$link_start = $readmore_link_start = sprintf( '<a data-id="%s" href="%s" class="%s" target="%s">',
+			$link_start = $readmore_link_start = sprintf(
+				'<a data-id="%s" href="%s" class="%s" target="%s">',
 				esc_attr( $pID ),
 				esc_url( get_permalink() ),
 				$link_class,
-				$data['link_target'] );
-			$link_end   = $readmore_link_end = "</a>";
+				$data['link_target']
+			);
+			$link_end   = $readmore_link_end = '</a>';
 		} elseif ( 'multi_popup' == $data['post_link_type'] ) {
-			$link_class = "tpg-multi-popup tpg-post-link";
-			$link_start = $readmore_link_start = sprintf( '<a data-id="%s" href="%s" class="%s" target="%s">',
+			$link_class = 'tpg-multi-popup tpg-post-link';
+			$link_start = $readmore_link_start = sprintf(
+				'<a data-id="%s" href="%s" class="%s" target="%s">',
 				esc_attr( $pID ),
 				esc_attr( esc_url( get_permalink() ) ),
 				$link_class,
-				$data['link_target'] );
-			$link_end   = $readmore_link_end = "</a>";
+				$data['link_target']
+			);
+			$link_end   = $readmore_link_end = '</a>';
 		} else {
-			$link_class          = "tpg-post-link";
-			$readmore_link_start = sprintf( '<a data-id="%s" href="%s" class="%s" target="%s">',
+			$link_class          = 'tpg-post-link';
+			$readmore_link_start = sprintf(
+				'<a data-id="%s" href="%s" class="%s" target="%s">',
 				esc_attr( $pID ),
 				esc_attr( esc_url( get_permalink() ) ),
 				$link_class,
-				$data['link_target'] );
-			$readmore_link_end   = "</a>";
+				$data['link_target']
+			);
+			$readmore_link_end   = '</a>';
 		}
 
 		return [
@@ -1934,7 +2121,13 @@ class Fns {
 	 * @return string[]|\WP_Post_Type[]
 	 */
 	public static function get_post_types() {
-		$post_types = get_post_types( [ 'public' => true, 'show_in_nav_menus' => true ], 'objects' );
+		$post_types = get_post_types(
+			[
+				'public'            => true,
+				'show_in_nav_menus' => true,
+			],
+			'objects'
+		);
 		$post_types = wp_list_pluck( $post_types, 'label', 'name' );
 
 		$exclude = [ 'attachment', 'revision', 'nav_menu_item', 'elementor_library', 'tpg_builder' ];
@@ -1946,7 +2139,7 @@ class Fns {
 		if ( ! rtTPG()->hasPro() ) {
 			$post_types = [
 				'post' => $post_types['post'],
-				'page' => $post_types['page']
+				'page' => $post_types['page'],
 			];
 		}
 
@@ -1969,7 +2162,6 @@ class Fns {
 
 		$comments_number = get_comments_number( $post_id );
 
-
 		$comment_label = '';
 		if ( isset( $data['show_comment_count_label'] ) && $data['show_comment_count_label'] ) {
 			$comment_label = $data['comment_count_label_singular'];
@@ -1981,19 +2173,18 @@ class Fns {
 		$comments_text = sprintf( '%s (%s)', esc_html( $comment_label ), number_format_i18n( $comments_number ) );
 		$date          = get_the_date();
 
-		//Category and Tags Management
+		// Category and Tags Management
 		$_cat_id    = isset( $data['post_type'] ) ? $data['post_type'] . '_taxonomy' : 'category';
 		$_tag_id    = isset( $data['post_type'] ) ? $data['post_type'] . '_tags' : 'post_tag';
 		$categories = get_the_term_list( $post_id, $data[ $_cat_id ], null, '<span class="rt-separator">,</span>' );
 		$tags       = get_the_term_list( $post_id, $data[ $_tag_id ], null, '<span class="rt-separator">,</span>' );
 
-		$count_key      = Fns::get_post_view_count_meta_key();
+		$count_key      = self::get_post_view_count_meta_key();
 		$get_view_count = get_post_meta( $post_id, $count_key, true );
 
 		$meta_separator = ( $data['meta_separator'] && $data['meta_separator'] !== 'default' ) ? sprintf( "<span class='separator'>%s</span>", $data['meta_separator'] ) : null;
 
-		//Author Meta
-
+		// Author Meta
 
 		$post_meta_html = [];
 
@@ -2005,54 +2196,58 @@ class Fns {
 				$is_author_avatar = 'has-author-avatar';
 			}
 			?>
-            <span class='author <?php echo esc_attr( $is_author_avatar ); ?>'>
+			<span class='author <?php echo esc_attr( $is_author_avatar ); ?>'>
 
-                <?php
-                if ( '' !== $data['show_author_image'] ) {
-	                echo get_avatar( $author_id, 80 );
-                } else {
-	                if ( $data['show_meta_icon'] === 'yes' ) {
-		                if ( isset( $data['user_icon']['value'] ) && $data['user_icon']['value'] ) {
-			                \Elementor\Icons_Manager::render_icon( $data['user_icon'], [ 'aria-hidden' => 'true' ] );
-		                } else {
-			                echo "<i class='fa fa-user'></i>";
-		                }
-	                }
-                }
+				<?php
+				if ( '' !== $data['show_author_image'] ) {
+					echo get_avatar( $author_id, 80 );
+				} else {
+					if ( $data['show_meta_icon'] === 'yes' ) {
+						if ( isset( $data['user_icon']['value'] ) && $data['user_icon']['value'] ) {
+							\Elementor\Icons_Manager::render_icon( $data['user_icon'], [ 'aria-hidden' => 'true' ] );
+						} else {
+							echo "<i class='fa fa-user'></i>";
+						}
+					}
+				}
 
-                if ( $data['author_prefix'] ) {
-	                echo "<span class='author-prefix'>" . esc_html( $data['author_prefix'] ) . "</span>";
-                }
-                echo $author;
-                ?>
-            </span>
-			<?php echo $meta_separator;
+				if ( $data['author_prefix'] ) {
+					echo "<span class='author-prefix'>" . esc_html( $data['author_prefix'] ) . '</span>';
+				}
+				echo $author;
+				?>
+			</span>
+			<?php
+			echo $meta_separator;
 		}
 
 		$post_meta_html['author'] = ob_get_clean();
 
 		ob_start();
-		//Category Meta
+		// Category Meta
 
 		$category_condition = ( $categories && 'show' == $data['show_category'] && self::el_ignore_layout( $data )
-		                        && in_array( $data['category_position'],
-				[ 'default', 'with_meta' ] ) );
+								&& in_array(
+									$data['category_position'],
+									[ 'default', 'with_meta' ]
+								) );
 		if ( ! rtTPG()->hasPro() ) {
 			$category_condition = ( $categories && 'show' == $data['show_category'] );
 		}
 
-		if ( $category_condition ) { ?>
-            <span class='categories-links'>
-                <?php
-                if ( $data['show_meta_icon'] === 'yes' ) {
-	                if ( isset( $data['cat_icon']['value'] ) && $data['cat_icon']['value'] ) {
-		                \Elementor\Icons_Manager::render_icon( $data['cat_icon'], [ 'aria-hidden' => 'true' ] );
-	                } else {
-		                echo "<i class='fa fa-user'></i>";
-	                }
-                }
-                echo $categories;
-                ?>
+		if ( $category_condition ) {
+			?>
+			<span class='categories-links'>
+				<?php
+				if ( $data['show_meta_icon'] === 'yes' ) {
+					if ( isset( $data['cat_icon']['value'] ) && $data['cat_icon']['value'] ) {
+						\Elementor\Icons_Manager::render_icon( $data['cat_icon'], [ 'aria-hidden' => 'true' ] );
+					} else {
+						echo "<i class='fa fa-user'></i>";
+					}
+				}
+				echo $categories;
+				?>
 			</span>
 			<?php
 			echo $meta_separator;
@@ -2060,71 +2255,70 @@ class Fns {
 		$post_meta_html['category'] = ob_get_clean();
 
 		ob_start();
-		//Date Meta
+		// Date Meta
 		if ( '' !== $data['show_date'] ) {
 			$archive_year  = get_the_date( 'Y' );
 			$archive_month = get_the_date( 'm' );
 			$archive_day   = get_the_date( 'j' );
 
 			?>
-            <span class='date'>
+			<span class='date'>
 
-                <?php
-                if ( $data['show_meta_icon'] === 'yes' ) {
-	                if ( isset( $data['date_icon']['value'] ) && $data['date_icon']['value'] ) {
-		                \Elementor\Icons_Manager::render_icon( $data['date_icon'], [ 'aria-hidden' => 'true' ] );
-	                } else {
-		                echo "<i class='fa fa-user'></i>";
-	                }
-                }
-                ?>
-                 <a href="<?php echo esc_url( get_day_link( $archive_year, $archive_month, $archive_day ) ); ?>">
-                     <?php echo esc_html( $date ); ?>
-                 </a>
-            </span>
+				<?php
+				if ( $data['show_meta_icon'] === 'yes' ) {
+					if ( isset( $data['date_icon']['value'] ) && $data['date_icon']['value'] ) {
+						\Elementor\Icons_Manager::render_icon( $data['date_icon'], [ 'aria-hidden' => 'true' ] );
+					} else {
+						echo "<i class='fa fa-user'></i>";
+					}
+				}
+				?>
+				 <a href="<?php echo esc_url( get_day_link( $archive_year, $archive_month, $archive_day ) ); ?>">
+					 <?php echo esc_html( $date ); ?>
+				 </a>
+			</span>
 			<?php
 			echo $meta_separator;
 		}
 		$post_meta_html['date'] = ob_get_clean();
 
-
 		ob_start();
-		//Tags Meta
+		// Tags Meta
 		if ( $tags && 'show' == $data['show_tags'] ) {
 			?>
-            <span class='post-tags-links'>
-                <?php
-                if ( $data['show_meta_icon'] === 'yes' ) {
-	                if ( isset( $data['tag_icon']['value'] ) && $data['tag_icon']['value'] ) {
-		                \Elementor\Icons_Manager::render_icon( $data['tag_icon'], [ 'aria-hidden' => 'true' ] );
-	                } else {
-		                echo "<i class='fa fa-user'></i>";
-	                }
-                }
-                echo $tags;
-                ?>
-            </span>
+			<span class='post-tags-links'>
+				<?php
+				if ( $data['show_meta_icon'] === 'yes' ) {
+					if ( isset( $data['tag_icon']['value'] ) && $data['tag_icon']['value'] ) {
+						\Elementor\Icons_Manager::render_icon( $data['tag_icon'], [ 'aria-hidden' => 'true' ] );
+					} else {
+						echo "<i class='fa fa-user'></i>";
+					}
+				}
+				echo $tags;
+				?>
+			</span>
 			<?php
 			echo $meta_separator;
 		}
 		$post_meta_html['tags'] = ob_get_clean();
 
 		ob_start();
-		//Comment Meta
+		// Comment Meta
 		if ( 'show' == $data['show_comment_count'] ) {
 			?>
-            <span class="comment-count">
-                <?php
-                if ( $data['show_meta_icon'] === 'yes' ) {
-	                if ( isset( $data['comment_icon']['value'] ) && $data['comment_icon']['value'] ) {
-		                \Elementor\Icons_Manager::render_icon( $data['comment_icon'], [ 'aria-hidden' => 'true' ] );
-	                } else {
-		                echo "<i class='fa fa-user'></i>";
-	                }
-                }
-                echo $comments_text;
-                ?>
-            </span>
+			<span class="comment-count">
+				<?php
+				if ( $data['show_meta_icon'] === 'yes' ) {
+					if ( isset( $data['comment_icon']['value'] ) && $data['comment_icon']['value'] ) {
+						\Elementor\Icons_Manager::render_icon( $data['comment_icon'], [ 'aria-hidden' => 'true' ] );
+					} else {
+						echo "<i class='fa fa-user'></i>";
+					}
+				}
+				echo $comments_text;
+				?>
+			</span>
 			<?php
 			echo $meta_separator;
 		}
@@ -2132,21 +2326,21 @@ class Fns {
 		$post_meta_html['comment_count'] = ob_get_clean();
 
 		ob_start();
-		//Comment Meta
+		// Comment Meta
 		if ( rtTPG()->hasPro() && 'show' == $data['show_post_count'] && ! empty( $get_view_count ) ) {
 			?>
-            <span class="post-count">
-                <?php
-                if ( $data['show_meta_icon'] === 'yes' ) {
-	                if ( isset( $data['post_count_icon']['value'] ) && $data['post_count_icon']['value'] ) {
-		                \Elementor\Icons_Manager::render_icon( $data['post_count_icon'], [ 'aria-hidden' => 'true' ] );
-	                } else {
-		                echo "<i class='fa fa-eye'></i>";
-	                }
-                }
-                echo $get_view_count;
-                ?>
-            </span>
+			<span class="post-count">
+				<?php
+				if ( $data['show_meta_icon'] === 'yes' ) {
+					if ( isset( $data['post_count_icon']['value'] ) && $data['post_count_icon']['value'] ) {
+						\Elementor\Icons_Manager::render_icon( $data['post_count_icon'], [ 'aria-hidden' => 'true' ] );
+					} else {
+						echo "<i class='fa fa-eye'></i>";
+					}
+				}
+				echo $get_view_count;
+				?>
+			</span>
 			<?php
 			echo $meta_separator;
 		}
@@ -2221,12 +2415,12 @@ class Fns {
 			$category_position = 'top_left';
 		}
 		?>
-        <div class="tpg-separate-category <?php echo esc_attr( $data['category_style'] . ' ' . $category_position . ' ' . $class ); ?>">
-            <span class='categories-links'>
-            <?php echo ( $data['show_cat_icon'] === 'yes' ) ? "<i class='fas fa-folder-open'></i>" : null; ?>
-            <?php echo $categories; ?>
-            </span>
-        </div>
+		<div class="tpg-separate-category <?php echo esc_attr( $data['category_style'] . ' ' . $category_position . ' ' . $class ); ?>">
+			<span class='categories-links'>
+			<?php echo ( $data['show_cat_icon'] === 'yes' ) ? "<i class='fas fa-folder-open'></i>" : null; ?>
+			<?php echo $categories; ?>
+			</span>
+		</div>
 		<?php
 	}
 
@@ -2235,14 +2429,16 @@ class Fns {
 	 * Get first image from the content
 	 *
 	 * @param          $post_id
-	 * @param string $type
+	 * @param string  $type
 	 *
 	 * @return mixed|string
 	 */
 	public static function get_content_first_image( $post_id, $type = 'markup', $imgClass = '' ) {
-		if ( $img = preg_match_all( '/<img.+src=[\'"]([^\'"]+)[\'"].*>/i',
+		if ( $img = preg_match_all(
+			'/<img.+src=[\'"]([^\'"]+)[\'"].*>/i',
 			get_the_content( $post_id ),
-			$matches )
+			$matches
+		)
 		) {
 			$imgSrc = $matches[1][0];
 			$size   = '';
@@ -2279,16 +2475,19 @@ class Fns {
 	 * @param         $data
 	 * @param         $link_start
 	 * @param         $link_end
-	 * @param false $offset_size
+	 * @param false      $offset_size
 	 */
 	public static function get_post_thumbnail( $pID, $data, $link_start, $link_end, $offset_size = false ) {
 		$thumb_cat_condition = ( ! ( 'above_title' === $data['category_position'] || 'default' === $data['category_position'] ) );
 		if ( 'grid-layout4' === $data['layout'] && 'default' === $data['category_position'] ) {
 			$thumb_cat_condition = true;
-		} elseif ( in_array( $data['layout'], [
+		} elseif ( in_array(
+			$data['layout'],
+			[
 				'grid-layout4',
-				'grid_hover-layout11'
-			] ) && 'default' === $data['category_position'] ) {
+				'grid_hover-layout11',
+			]
+		) && 'default' === $data['category_position'] ) {
 			$thumb_cat_condition = true;
 		}
 
@@ -2298,7 +2497,6 @@ class Fns {
 		$img_link = get_the_post_thumbnail_url( $pID, 'full' );
 
 		$img_size_key = 'image';
-
 
 		if ( $offset_size ) {
 			$img_size_key = 'image_offset';
@@ -2319,20 +2517,22 @@ class Fns {
 					$attachment_id = get_post_thumbnail_id( $pID );
 					$thumb_info    = wp_get_attachment_image_src( $attachment_id, $fImgSize );
 					$thumb_alt     = trim( wp_strip_all_tags( get_post_meta( $attachment_id, '_wp_attachment_image_alt', true ) ) );
-					if ( $lazy_load ) { ?>
-                        <img data-src="<?php echo esc_url( $thumb_info[0] ); ?>"
-                             src="#none"
-                             class="<?php echo esc_attr( $lazy_class ); ?>"
-                             width="<?php echo esc_attr( $thumb_info[1] ); ?>"
-                             height="<?php echo esc_attr( $thumb_info[2] ); ?>"
-                             alt="<?php echo esc_attr( $thumb_alt ? $thumb_alt : the_title() ) ?>">
+					if ( $lazy_load ) {
+						?>
+						<img data-src="<?php echo esc_url( $thumb_info[0] ); ?>"
+							 src="#none"
+							 class="<?php echo esc_attr( $lazy_class ); ?>"
+							 width="<?php echo esc_attr( $thumb_info[1] ); ?>"
+							 height="<?php echo esc_attr( $thumb_info[2] ); ?>"
+							 alt="<?php echo esc_attr( $thumb_alt ? $thumb_alt : the_title() ); ?>">
 						<?php
-					} else { ?>
-                        <img src="<?php echo esc_url( $thumb_info[0] ); ?>"
-                             class="<?php echo esc_attr( $lazy_class ); ?>"
-                             width="<?php echo esc_attr( $thumb_info[1] ); ?>"
-                             height="<?php echo esc_attr( $thumb_info[2] ); ?>"
-                             alt="<?php echo esc_attr( $thumb_alt ? $thumb_alt : the_title() ) ?>">
+					} else {
+						?>
+						<img src="<?php echo esc_url( $thumb_info[0] ); ?>"
+							 class="<?php echo esc_attr( $lazy_class ); ?>"
+							 width="<?php echo esc_attr( $thumb_info[1] ); ?>"
+							 height="<?php echo esc_attr( $thumb_info[2] ); ?>"
+							 alt="<?php echo esc_attr( $thumb_alt ? $thumb_alt : the_title() ); ?>">
 						<?php
 					}
 					?>
@@ -2343,7 +2543,6 @@ class Fns {
 					$mediaSource   = 'feature_image';
 					$defaultImgId  = null;
 					$customImgSize = [];
-
 
 					if ( isset( $data['image_custom_dimension'] ) ) {
 						$post_thumb_id           = get_post_thumbnail_id( $pID );
@@ -2356,7 +2555,7 @@ class Fns {
 							$customImgSize[2] = $data['img_crop_style'];
 						}
 					}
-					echo Fns::getFeatureImageSrc( $pID, $fImgSize, $mediaSource, $defaultImgId, $customImgSize, $lazy_class );
+					echo self::getFeatureImageSrc( $pID, $fImgSize, $mediaSource, $defaultImgId, $customImgSize, $lazy_class );
 				}
 			}
 		} elseif ( 'first_image' === $data['media_source'] && self::get_content_first_image( $pID ) ) {
@@ -2371,7 +2570,7 @@ class Fns {
 
 		?>
 		<?php if ( $lazy_load ) : ?>
-            <div class="swiper-lazy-preloader swiper-lazy-preloader-white"></div>
+			<div class="swiper-lazy-preloader swiper-lazy-preloader-white"></div>
 		<?php endif; ?>
 
 		<?php echo $data['is_thumb_linked'] === 'yes' ? self::wp_kses( $link_end ) : null; ?>
@@ -2392,7 +2591,7 @@ class Fns {
                 ?>
             </a>
 		<?php endif; ?>
-        <div class="overlay grid-hover-content"></div>
+		<div class="overlay grid-hover-content"></div>
 		<?php
 	}
 
@@ -2406,7 +2605,7 @@ class Fns {
 	 * @return bool
 	 */
 	public static function tpg_get_acf_data_elementor( $data, $pID, $return_type = true ) {
-		if ( ! ( rtTPG()->hasPro() && Fns::is_acf() ) ) {
+		if ( ! ( rtTPG()->hasPro() && self::is_acf() ) ) {
 			return;
 		}
 
@@ -2420,9 +2619,9 @@ class Fns {
 			];
 
 			if ( ! empty( $cf_group ) ) {
-				$acf_html = "<div class='acf-custom-field-wrap'>";
+				$acf_html  = "<div class='acf-custom-field-wrap'>";
 				$acf_html .= Functions::get_cf_formatted_fields( $cf_group, $format, $pID );
-				$acf_html .= "</div>";
+				$acf_html .= '</div>';
 				if ( $return_type ) {
 					echo $acf_html;
 				} else {
@@ -2442,12 +2641,12 @@ class Fns {
 	 */
 	public static function is_filter_enable( $data ) {
 		if ( rtTPG()->hasPro()
-		     && ( $data['show_taxonomy_filter'] == 'show'
-		          || $data['show_author_filter'] == 'show'
-		          || $data['show_order_by'] == 'show'
-		          || $data['show_sort_order'] == 'show'
-		          || $data['show_search'] == 'show'
-		          || ( $data['show_pagination'] == 'show' && $data['pagination_type'] != 'pagination' ) )
+			 && ( $data['show_taxonomy_filter'] == 'show'
+				  || $data['show_author_filter'] == 'show'
+				  || $data['show_order_by'] == 'show'
+				  || $data['show_sort_order'] == 'show'
+				  || $data['show_search'] == 'show'
+				  || ( $data['show_pagination'] == 'show' && $data['pagination_type'] != 'pagination' ) )
 		) {
 			return true;
 		}
@@ -2568,10 +2767,10 @@ class Fns {
 						'target' => [],
 					],
 					'input'  => [
-						'type'   => [],
-						'name'   => [],
-						'class'  => [],
-						'value'  => [],
+						'type'  => [],
+						'name'  => [],
+						'class' => [],
+						'value' => [],
 					],
 				];
 				break;
