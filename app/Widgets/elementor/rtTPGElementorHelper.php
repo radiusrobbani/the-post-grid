@@ -2180,6 +2180,21 @@ class rtTPGElementorHelper {
 		);
 
 		$ref->add_control(
+			'light_box_icon',
+			[
+				'label'     => __( 'Light Box Icon', 'the-post-grid' ),
+				'type'      => \Elementor\Controls_Manager::ICONS,
+				'default'   => [
+					'value'   => 'fas fa-plus',
+					'library' => 'solid',
+				],
+				'condition' => [
+					'is_thumb_lightbox' => 'show',
+				],
+			]
+		);
+
+		$ref->add_control(
 			'is_default_img',
 			[
 				'label'        => __( 'Enable Default Image', 'the-post-grid' ) . $ref->pro_label,
