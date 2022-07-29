@@ -129,8 +129,8 @@ abstract class Custom_Widget_Base extends Widget_Base {
 	 *
 	 * Get last post id
 	 *
-	 * @param  string $post_type
-	 * @param  false  $all_content
+	 * @param string $post_type
+	 * @param false $all_content
 	 *
 	 * @return int
 	 */
@@ -614,7 +614,7 @@ abstract class Custom_Widget_Base extends Widget_Base {
 			} elseif ( in_array( $action_orderby, array_keys( Options::rtMetaKeyType() ) ) ) {
 				$action_orderby_label = __( 'Meta value', 'the-post-grid' );
 			} else {
-				$action_orderby_label = __( 'By ', 'the-post-grid' ) . $action_orderby;
+				$action_orderby_label = __( "By ", "the-post-grid" ) . $action_orderby;
 			}
 			if ( $action_orderby !== 'none' ) {
 				$orders['none'] = __( 'Sort By', 'the-post-grid' );
@@ -675,9 +675,9 @@ abstract class Custom_Widget_Base extends Widget_Base {
 			$htmlUtility .= Fns::rt_pagination( $query, $posts_per_page );
 		} elseif ( rtTPG()->hasPro() && $posts_loading_type == 'pagination_ajax' ) { // && ! $isIsotope
 			$htmlUtility .= "<div class='rt-page-numbers'></div>";
-		} elseif ( rtTPG()->hasPro() && $posts_loading_type == 'load_more' ) {
+		} elseif ( rtTPG()->hasPro() && $posts_loading_type == "load_more" ) {
 			$load_more_btn_text = $data['load_more_button_text'] ? esc_html( $data['load_more_button_text'] ) : __( 'Load More', 'the-post-grid' );
-			$htmlUtility       .= "<div class='rt-loadmore-btn rt-loadmore-action rt-loadmore-style{$hide}'>
+			$htmlUtility        .= "<div class='rt-loadmore-btn rt-loadmore-action rt-loadmore-style{$hide}'>
 											<span class='rt-loadmore-text'>" . $load_more_btn_text . "</span>
 											<div class='rt-loadmore-loading rt-ball-scale-multiple rt-2x'><div></div><div></div><div></div></div>
 										</div>";
@@ -878,6 +878,7 @@ abstract class Custom_Widget_Base extends Widget_Base {
 			'title_position'               => $data['title_position'],
 			'category_style'               => $data['category_style'],
 			'is_thumb_lightbox'            => $data['is_thumb_lightbox'],
+			'light_box_icon'               => $data['light_box_icon'],
 			'author_prefix'                => $data['author_prefix'],
 			'cat_icon'                     => $data['cat_icon'],
 			'tag_icon'                     => $data['tag_icon'],

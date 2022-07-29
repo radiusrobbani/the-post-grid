@@ -34,7 +34,6 @@ class ShortcodeController {
 		}
 	}
 
-
 	public function register_sc_scripts() {
 		$settings = get_option( rtTPG()->options['settings'] );
 
@@ -961,6 +960,7 @@ class ShortcodeController {
 					$arg['excerpt']       = Fns::get_the_excerpt( $pID, $arg );
 					$arg['categories']    = get_the_term_list( $pID, 'category', null, '<span class="rt-separator">,</span>' );
 					$arg['tags']          = get_the_term_list( $pID, 'post_tag', null, '<span class="rt-separator">,</span>' );
+					$arg['post_count']    = get_post_meta( $pID, Fns::get_post_view_count_meta_key(), true );
 					$arg['responsiveCol'] = [ $dCol, $tCol, $mCol ];
 					if ( $isIsotope ) {
 						$termAs    = wp_get_post_terms( $pID, $isotope_filter, [ 'fields' => 'all' ] );
@@ -1077,18 +1077,16 @@ class ShortcodeController {
 											<span class='rt-cb-next-btn'><i class='fa fa-angle-right' aria-hidden='true'></i></span>
 										</div>";
 				} else {
-					$hide = ( $gridQuery->max_num_pages < 2 ? ' rt-hidden-elm' : null );
-					if ( $posts_loading_type == 'pagination' ) {
+					$hide = ( $gridQuery->max_num_pages < 2 ? " rt-hidden-elm" : null );
+					if ( $posts_loading_type == "pagination" ) {
 						if ( ( $isGrid || $isWooCom || $isEdd ) && empty( $filters ) ) {
-							$htmlUtility .= Fns::rt_pagination(
-								$gridQuery,
-								$args['posts_per_page']
-							);
+							$htmlUtility .= Fns::rt_pagination( $gridQuery,
+								$args['posts_per_page'] );
 						}
 					} elseif ( $posts_loading_type == 'pagination_ajax' && ! $isIsotope ) {
 						$htmlUtility .= "<div class='rt-page-numbers'></div>";
-					} elseif ( $posts_loading_type == 'load_more' && rtTPG()->hasPro() ) {
-						$load_more_btn_text = ( ! empty( $scMeta['load_more_text'][0] ) ? $scMeta['load_more_text'][0] : '' );
+					} elseif ( $posts_loading_type == "load_more" && rtTPG()->hasPro() ) {
+						$load_more_btn_text = ( ! empty( $scMeta['load_more_text'][0] ) ? $scMeta['load_more_text'][0] : "" );
 						$load_more_text     = $load_more_btn_text ? esc_html( $load_more_btn_text ) : __( 'Load More', 'the-post-grid' );
 
 						$htmlUtility .= "<div class='rt-loadmore-btn rt-loadmore-action rt-loadmore-style{$hide}'>
