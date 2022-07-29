@@ -4,6 +4,7 @@
     var postType = $( "#rt-sc-post-type" ).val();
     $( document ).on( 'change', '#post_filter input[type=checkbox]', function () {
         var id = $( this ).val();
+        var postType = $( "#rt-sc-post-type" ).val();
         if ( id == 'tpg_taxonomy' ) {
             if ( this.checked ) {
                 rtTPGTaxonomyListByPostType( postType, $( this ) );

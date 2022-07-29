@@ -20,31 +20,47 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @package RT_TPG
  */
 class FilterHooks {
-
+	/**
+	 * Class init
+	 *
+	 * @return void
+	 */
 	public static function init() {
 		add_filter( 'tpg_author_arg', [ __CLASS__, 'filter_author_args' ], 10 );
 		add_filter( 'plugin_row_meta', [ __CLASS__, 'plugin_row_meta' ], 10, 2 );
 
 		$settings = get_option( 'rt_the_post_grid_settings' );
+
 		if ( isset( $settings['show_acf_details'] ) && $settings['show_acf_details'] ) {
 			add_filter( 'the_content', [ __CLASS__, 'tpg_acf_content_filter' ] );
 		}
+
 		add_filter( 'wp_head', [ __CLASS__, 'set_post_view_count' ], 9999 );
 		add_filter( 'admin_body_class', [ __CLASS__, 'admin_body_class' ] );
 	}
 
-
+	/**
+	 * Admin body class
+	 *
+	 * @param string $clsses Classes.
+	 * @return string
+	 */
 	public static function admin_body_class( $clsses ) {
 		$settings = get_option( 'rt_the_post_grid_settings' );
 
-		if ( isset( $settings['tpg_block_type'] ) && in_array( $settings['tpg_block_type'], [ 'elementor', 'shortcode' ] ) ) {
+		if ( isset( $settings['tpg_block_type'] ) && in_array( $settings['tpg_block_type'], [ 'elementor', 'shortcode' ], true ) ) {
 			$clsses .= 'tpg-block-type-elementor-or-shortcode';
 		}
 
 		return $clsses;
 	}
 
-
+	/**
+	 * Set view count.
+	 *
+	 * @param string $content Content.
+	 * @return string
+	 */
 	public static function set_post_view_count( $content ) {
 		if ( is_single() ) {
 			$pId = get_the_ID();
@@ -54,12 +70,25 @@ class FilterHooks {
 		return $content;
 	}
 
+	/**
+	 * Filter author args.
+	 *
+	 * @param array $args Args.
+	 * @return array
+	 */
 	public static function filter_author_args( $args ) {
 		$defaults = [ 'role__in' => [ 'administrator', 'editor', 'author' ] ];
 
 		return wp_parse_args( $args, $defaults );
 	}
 
+	/**
+	 * Add plugin row meta
+	 *
+	 * @param array  $links Links.
+	 * @param string $file File.
+	 * @return array
+	 */
 	public static function plugin_row_meta( $links, $file ) {
 		if ( $file == RT_THE_POST_GRID_PLUGIN_ACTIVE_FILE_NAME ) {
 			$report_url         = 'https://www.radiustheme.com/contact/';
@@ -76,7 +105,12 @@ class FilterHooks {
 		return (array) $links;
 	}
 
-
+	/**
+	 * ACF content filter
+	 *
+	 * @param string $content Content.
+	 * @return string
+	 */
 	public static function tpg_acf_content_filter( $content ) {
 		// Check if we're inside the main loop in a post or page.
 		if ( is_single() && in_the_loop() && is_main_query() && rtTPG()->hasPro() ) {

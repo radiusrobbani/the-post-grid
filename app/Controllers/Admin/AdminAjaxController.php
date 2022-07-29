@@ -126,10 +126,10 @@ class AdminAjaxController {
 			}
 
 			/* LIMIT */
-			$limit                  = ( ( empty( $_REQUEST['limit'] ) || $_REQUEST['limit'] === '-1' ) ? 10000000 : absint( $_REQUEST['limit'] ) );
+			$limit                  = ( ( empty( $_REQUEST['limit'] ) || '-1' === $_REQUEST['limit'] ) ? 10000000 : absint( $_REQUEST['limit'] ) );
 			$queryOffset            = empty( $_REQUEST['offset'] ) ? 0 : absint( $_REQUEST['offset'] );
 			$args['posts_per_page'] = $limit;
-			$pagination             = ! empty( $_REQUEST['pagination'] );
+			$pagination             = isset( $_REQUEST['pagination'] ) && ! empty( $_REQUEST['pagination'] );
 			$posts_loading_type     = ( ! empty( $_REQUEST['posts_loading_type'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['posts_loading_type'] ) ) : 'pagination' );
 
 			if ( $pagination ) {
@@ -151,8 +151,8 @@ class AdminAjaxController {
 				}
 			}
 
-			$adv_filter        = ( isset( $_REQUEST['post_filter'] ) ? array_map( 'sanitize_text_field', $_REQUEST['post_filter'] ) : [] );
-			$taxFilter         = ( ! empty( $_REQUEST['tgp_filter_taxonomy'] ) ? array_map( 'sanitize_text_field', $_REQUEST['tgp_filter_taxonomy'] ) : null );
+			$adv_filter        = ( isset( $_REQUEST['post_filter'] ) ? array_map( 'sanitize_text_field', wp_unslash( $_REQUEST['post_filter'] ) ) : [] );
+			$taxFilter         = ( ! empty( $_REQUEST['tgp_filter_taxonomy'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['tgp_filter_taxonomy'] ) ) : null );
 			$taxHierarchical   = ! empty( $_REQUEST['tgp_filter_taxonomy_hierarchical'] );
 			$taxFilterTerms    = [];
 			$taxFilterOperator = 'IN';
@@ -160,9 +160,11 @@ class AdminAjaxController {
 			$taxQ = [];
 
 			if ( in_array( 'tpg_taxonomy', $adv_filter ) && isset( $_REQUEST['tpg_taxonomy'] ) ) {
-				if ( is_array( $_REQUEST['tpg_taxonomy'] ) && ! empty( $_REQUEST['tpg_taxonomy'] ) ) {
-					foreach ( $_REQUEST['tpg_taxonomy'] as $taxonomy ) {
-						$terms = ( isset( $_REQUEST[ 'term_' . $taxonomy ] ) ? array_map( 'sanitize_text_field', $_REQUEST[ 'term_' . $taxonomy ] ) : [] );
+				$tpgTaxonomy = array_map( 'sanitize_text_field', wp_unslash( $_REQUEST['tpg_taxonomy'] ) );
+
+				if ( is_array( $tpgTaxonomy ) && ! empty( $tpgTaxonomy ) ) {
+					foreach ( $tpgTaxonomy as $taxonomy ) {
+						$terms = ( isset( $_REQUEST[ 'term_' . $taxonomy ] ) ? array_map( 'sanitize_text_field', wp_unslash( $_REQUEST[ 'term_' . $taxonomy ] ) ) : [] );
 
 						if ( $taxonomy == $taxFilter ) {
 							$taxFilterTerms = $terms;
@@ -243,7 +245,7 @@ class AdminAjaxController {
 			}
 
 			if ( in_array( 'tpg_post_status', $adv_filter ) ) {
-				$post_status = ( isset( $_REQUEST['tpg_post_status'] ) ? array_map( 'sanitize_text_field', $_REQUEST['tpg_post_status'] ) : [] );
+				$post_status = ( isset( $_REQUEST['tpg_post_status'] ) ? array_map( 'sanitize_text_field', wp_unslash( $_REQUEST['tpg_post_status'] ) ) : [] );
 
 				if ( ! empty( $post_status ) ) {
 					$args['post_status'] = $post_status;
@@ -253,7 +255,7 @@ class AdminAjaxController {
 			}
 
 			$filterAuthors = [];
-			$author        = ( isset( $_REQUEST['author'] ) ? array_map( 'sanitize_text_field', $_REQUEST['author'] ) : [] );
+			$author        = ( isset( $_REQUEST['author'] ) ? array_map( 'sanitize_text_field', wp_unslash( $_REQUEST['author'] ) ) : [] );
 
 			if ( in_array( 'author', $adv_filter ) && ! empty( $author ) ) {
 				$filterAuthors = $args['author__in'] = $author;
@@ -316,9 +318,9 @@ class AdminAjaxController {
 			$containerDataAttr  = null;
 			$containerDataAttr .= " data-layout='{$layout}' data-desktop-col='{$dCol}'  data-tab-col='{$tCol}'  data-mobile-col='{$mCol}'";
 
-			$dCol = $dCol == 5 ? '24' : round( 12 / $dCol );
-			$tCol = $dCol == 5 ? '24' : round( 12 / $tCol );
-			$mCol = $dCol == 5 ? '24' : round( 12 / $mCol );
+			$dCol = 5 === $dCol ? '24' : round( 12 / $dCol );
+			$tCol = 5 === $dCol ? '24' : round( 12 / $tCol );
+			$mCol = 5 === $dCol ? '24' : round( 12 / $mCol );
 
 			if ( $isCarousel ) {
 				$dCol = $tCol = $mCol = 12;
@@ -326,7 +328,7 @@ class AdminAjaxController {
 
 			$arg['grid'] = "rt-col-md-{$dCol} rt-col-sm-{$tCol} rt-col-xs-{$mCol}";
 
-			if ( ( $layout == 'layout2' ) || ( $layout == 'layout3' ) ) {
+			if ( ( 'layout2' === $layout ) || ( 'layout3' === $layout ) ) {
 				$iCol                = ( isset( $_REQUEST['tgp_layout2_image_column'] ) ? absint( $_REQUEST['tgp_layout2_image_column'] ) : 4 );
 				$iCol                = $iCol > 12 ? 4 : $iCol;
 				$cCol                = 12 - $iCol;
@@ -334,7 +336,7 @@ class AdminAjaxController {
 				$arg['content_area'] = "rt-col-sm-{$cCol} rt-col-xs-12 ";
 			}
 
-			if ( $layout == 'layout4' ) {
+			if ( 'layout4' === $layout ) {
 				$arg['image_area']   = 'rt-col-lg-6 rt-col-md-6 rt-col-sm-12 rt-col-xs-12 ';
 				$arg['content_area'] = 'rt-col-lg-6 rt-col-md-6 rt-col-sm-12 rt-col-xs-12 ';
 			}
@@ -365,9 +367,9 @@ class AdminAjaxController {
 
 			$masonryG = null;
 
-			if ( $gridType == 'even' && ! $isIsotope && ! $isCarousel ) {
+			if ( 'even' === $gridType && ! $isIsotope && ! $isCarousel ) {
 				$masonryG = 'tpg-even';
-			} elseif ( $gridType == 'masonry' && ! $isIsotope && ! $isCarousel ) {
+			} elseif ( 'masonry' === $gridType && ! $isIsotope && ! $isCarousel ) {
 				$masonryG = ' tpg-masonry';
 			}
 
@@ -391,25 +393,25 @@ class AdminAjaxController {
 
 			$margin = ! empty( $_REQUEST['margin_option'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['margin_option'] ) ) : 'default';
 
-			if ( $margin == 'no' ) {
+			if ( 'no' === $margin ) {
 				$arg_class[] = 'no-margin';
 			}
 
-			if ( ! empty( $_REQUEST['tpg_image_type'] ) && $_REQUEST['tpg_image_type'] == 'circle' ) {
+			if ( ! empty( $_REQUEST['tpg_image_type'] ) && 'circle' === $_REQUEST['tpg_image_type'] ) {
 				$arg_class[] = 'tpg-img-circle';
 			}
 
 			$arg['anchorClass'] = null;
 			$arg['anchorClass'] = $arg['link_target'] = null;
 			$link               = isset( $_REQUEST['link_to_detail_page'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['link_to_detail_page'] ) ) : '1';
-			$link               = ( $link == 'yes' ) ? '1' : $link;
+			$link               = ( 'yes' === $link ) ? '1' : $link;
 			$isSinglePopUp      = false;
 			$linkType           = ! empty( $_REQUEST['detail_page_link_type'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['detail_page_link_type'] ) ) : 'popup';
 
-			if ( $link == '1' ) {
-				if ( $linkType == 'popup' && rtTPG()->hasPro() ) {
+			if ( '1' === $link ) {
+				if ( 'popup' === $linkType && rtTPG()->hasPro() ) {
 					$popupType = ! empty( $_REQUEST['popup_type'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['popup_type'] ) ) : 'single';
-					if ( $popupType == 'single' ) {
+					if ( 'single' === $popupType ) {
 						$arg['anchorClass'] .= ' tpg-single-popup';
 						$isSinglePopUp       = true;
 					} else {
@@ -425,10 +427,10 @@ class AdminAjaxController {
 			$isSinglePopUp = false;
 			$linkType      = ! empty( $_REQUEST['detail_page_link_type'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['detail_page_link_type'] ) ) : 'popup';
 
-			if ( $link == '1' && $linkType == 'popup' && rtTPG()->hasPro() ) {
+			if ( '1' === $link && 'popup' === $linkType && rtTPG()->hasPro() ) {
 				$popupType = ! empty( $_REQUEST['popup_type'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['popup_type'] ) ) : 'single';
 
-				if ( $popupType == 'single' ) {
+				if ( 'single' === $popupType ) {
 					$arg['anchorClass'] .= ' tpg-single-popup';
 					$isSinglePopUp       = true;
 				} else {
@@ -438,14 +440,14 @@ class AdminAjaxController {
 
 			$parentClass        = ( ! empty( $_REQUEST['parent_class'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['parent_class'] ) ) : null );
 			$defaultImgId       = ( ! empty( $_REQUEST['default_preview_image'] ) ? absint( $_REQUEST['default_preview_image'] ) : null );
-			$customImgSize      = ( ! empty( $_REQUEST['custom_image_size'] ) ? array_map( 'sanitize_text_field', $_REQUEST['custom_image_size'] ) : [] );
+			$customImgSize      = ( ! empty( $_REQUEST['custom_image_size'] ) ? array_map( 'sanitize_text_field', wp_unslash( $_REQUEST['custom_image_size'] ) ) : [] );
 			$fSmallImgSize      = ( isset( $_REQUEST['featured_small_image_size'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['featured_small_image_size'] ) ) : 'medium' );
-			$customSmallImgSize = ( ! empty( $_REQUEST['custom_small_image_size'] ) ? array_map( 'sanitize_text_field', $_REQUEST['custom_small_image_size'] ) : [] );
+			$customSmallImgSize = ( ! empty( $_REQUEST['custom_small_image_size'] ) ? array_map( 'sanitize_text_field', wp_unslash( $_REQUEST['custom_small_image_size'] ) ) : [] );
 
-			$arg['items'] = isset( $_REQUEST['item_fields'] ) ? ( $_REQUEST['item_fields'] ? array_map( 'sanitize_text_field', $_REQUEST['item_fields'] ) : [] ) : [];
-			$arg['scID']  = $scID = $_REQUEST['sc_id'];
+			$arg['items'] = isset( $_REQUEST['item_fields'] ) ? array_map( 'sanitize_text_field', wp_unslash( $_REQUEST['item_fields'] ) ) : [];
+			$arg['scID']  = $scID = isset( $_REQUEST['sc_id'] ) ? absint( $_REQUEST['sc_id'] ) : null;
 
-			if ( isset( $arg['excerpt_type'] ) && $arg['excerpt_type'] === 'full' && ( $key = array_search( 'read_more', $arg['items'] ) ) !== false ) {
+			if ( isset( $arg['excerpt_type'] ) && 'full' === $arg['excerpt_type'] && ( $key = array_search( 'read_more', $arg['items'] ) ) !== false ) {
 				unset( $arg['items'][ $key ] );
 			}
 
@@ -453,7 +455,7 @@ class AdminAjaxController {
 				$args['ignore_sticky_posts'] = isset( $_REQUEST['ignore_sticky_posts'] );
 			}
 
-			$filters         = ! empty( $_REQUEST['tgp_filter'] ) ? array_map( 'sanitize_text_field', $_REQUEST['tgp_filter'] ) : [];
+			$filters         = ! empty( $_REQUEST['tgp_filter'] ) ? array_map( 'sanitize_text_field', wp_unslash( $_REQUEST['tgp_filter'] ) ) : [];
 			$action_term     = ! empty( $_REQUEST['tgp_default_filter'] ) ? absint( $_REQUEST['tgp_default_filter'] ) : 0;
 			$hide_all_button = ! empty( $_REQUEST['tpg_hide_all_button'] ) ? true : false;
 
@@ -492,10 +494,62 @@ class AdminAjaxController {
 
 			$gridQuery = new \WP_Query( $args );
 
-			$data              .= Fns::layoutStyle( $layoutID, $scMeta, $layout );
+			$styleMeta = [
+				'primary_color'                      => isset( $_REQUEST['primary_color'] ) ? sanitize_hex_color( wp_unslash( $_REQUEST['primary_color'] ) ) : null,
+				'button_bg_color'                    => isset( $_REQUEST['button_bg_color'] ) ? sanitize_hex_color( wp_unslash( $_REQUEST['button_bg_color'] ) ) : null,
+				'button_active_bg_color'             => isset( $_REQUEST['button_active_bg_color'] ) ? sanitize_hex_color( wp_unslash( $_REQUEST['button_active_bg_color'] ) ) : null,
+				'button_hover_bg_color'              => isset( $_REQUEST['button_hover_bg_color'] ) ? sanitize_hex_color( wp_unslash( $_REQUEST['button_hover_bg_color'] ) ) : null,
+				'button_text_color'                  => isset( $_REQUEST['button_text_color'] ) ? sanitize_hex_color( wp_unslash( $_REQUEST['button_text_color'] ) ) : null,
+				'button_text_bg_color'               => isset( $_REQUEST['button_text_bg_color'] ) ? sanitize_hex_color( wp_unslash( $_REQUEST['button_text_bg_color'] ) ) : null,
+				'button_border_color'                => isset( $_REQUEST['button_border_color'] ) ? sanitize_hex_color( wp_unslash( $_REQUEST['button_border_color'] ) ) : null,
+				'button_hover_text_color'            => isset( $_REQUEST['button_hover_text_color'] ) ? sanitize_hex_color( wp_unslash( $_REQUEST['button_hover_text_color'] ) ) : null,
+				'overlay_color'                      => isset( $_REQUEST['overlay_color'] ) ? sanitize_hex_color( wp_unslash( $_REQUEST['overlay_color'] ) ) : null,
+				'overlay_opacity'                    => isset( $_REQUEST['overlay_opacity'] ) ? absint( $_REQUEST['overlay_opacity'] ) : null,
+				'overlay_padding'                    => isset( $_REQUEST['overlay_padding'] ) ? absint( $_REQUEST['overlay_padding'] ) : null,
+				'tgp_gutter'                         => isset( $_REQUEST['tgp_gutter'] ) ? absint( $_REQUEST['tgp_gutter'] ) : null,
+				'tpg_read_more_button_border_radius' => isset( $_REQUEST['tpg_read_more_button_border_radius'] ) ? absint( $_REQUEST['tpg_read_more_button_border_radius'] ) : null,
+				'tpg_full_area_bg'                   => isset( $_REQUEST['tpg_full_area_bg'] ) ? sanitize_hex_color( wp_unslash( $_REQUEST['tpg_full_area_bg'] ) ) : null,
+				'tpg_full_area_margin'               => isset( $_REQUEST['tpg_full_area_margin'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['tpg_full_area_margin'] ) ) : null,
+				'tpg_full_area_padding'              => isset( $_REQUEST['tpg_full_area_margin'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['tpg_full_area_margin'] ) ) : null,
+				'tpg_content_wrap_bg'                => isset( $_REQUEST['tpg_content_wrap_bg'] ) ? sanitize_hex_color( wp_unslash( $_REQUEST['tpg_content_wrap_bg'] ) ) : null,
+				'tpg_content_wrap_border'            => isset( $_REQUEST['tpg_content_wrap_border'] ) ? absint( $_REQUEST['tpg_content_wrap_border'] ) : null,
+				'tpg_content_wrap_border_color'      => isset( $_REQUEST['tpg_content_wrap_border_color'] ) ? sanitize_hex_color( wp_unslash( $_REQUEST['tpg_content_wrap_border_color'] ) ) : null,
+				'tpg_content_wrap_border_radius'     => isset( $_REQUEST['tpg_content_wrap_border_radius'] ) ? absint( $_REQUEST['tpg_content_wrap_border_radius'] ) : null,
+				'tpg_content_wrap_shadow'            => isset( $_REQUEST['tpg_content_wrap_shadow'] ) ? sanitize_hex_color( wp_unslash( $_REQUEST['tpg_content_wrap_shadow'] ) ) : null,
+				'tpg_box_padding'                    => isset( $_REQUEST['tpg_box_padding'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['tpg_box_padding'] ) ) : null,
+				'tpg_content_padding'                => isset( $_REQUEST['tpg_content_padding'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['tpg_content_padding'] ) ) : null,
+				'tpg_heading_bg'                     => isset( $_REQUEST['tpg_heading_bg'] ) ? sanitize_hex_color( wp_unslash( $_REQUEST['tpg_heading_bg'] ) ) : null,
+				'tpg_heading_color'                  => isset( $_REQUEST['tpg_heading_color'] ) ? sanitize_hex_color( wp_unslash( $_REQUEST['tpg_heading_color'] ) ) : null,
+				'tpg_heading_border_color'           => isset( $_REQUEST['tpg_heading_border_color'] ) ? sanitize_hex_color( wp_unslash( $_REQUEST['tpg_heading_border_color'] ) ) : null,
+				'tpg_heading_border_size'            => isset( $_REQUEST['tpg_heading_border_size'] ) ? absint( $_REQUEST['tpg_heading_border_size'] ) : null,
+				'tpg_heading_margin'                 => isset( $_REQUEST['tpg_heading_margin'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['tpg_heading_margin'] ) ) : null,
+				'tpg_heading_padding'                => isset( $_REQUEST['tpg_heading_padding'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['tpg_heading_padding'] ) ) : null,
+				'tpg_category_bg'                    => isset( $_REQUEST['tpg_category_bg'] ) ? sanitize_hex_color( wp_unslash( $_REQUEST['tpg_category_bg'] ) ) : null,
+				'tpg_category_color'                 => isset( $_REQUEST['tpg_category_color'] ) ? sanitize_hex_color( wp_unslash( $_REQUEST['tpg_category_color'] ) ) : null,
+				'tpg_category_border_radius'         => isset( $_REQUEST['tpg_category_border_radius'] ) ? absint( $_REQUEST['tpg_category_border_radius'] ) : null,
+				'tpg_category_margin'                => isset( $_REQUEST['tpg_category_margin'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['tpg_category_margin'] ) ) : null,
+				'tpg_category_padding'               => isset( $_REQUEST['tpg_category_padding'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['tpg_category_padding'] ) ) : null,
+				'rt_tpg_category_font_size'          => isset( $_REQUEST['rt_tpg_category_font_size'] ) ? absint( $_REQUEST['rt_tpg_category_font_size'] ) : null,
+				'tpg_image_border_radius'            => isset( $_REQUEST['tpg_image_border_radius'] ) ? absint( $_REQUEST['tpg_image_border_radius'] ) : null,
+				'title_color'                        => isset( $_REQUEST['title_color'] ) ? sanitize_hex_color( wp_unslash( $_REQUEST['title_color'] ) ) : null,
+				'title_size'                         => isset( $_REQUEST['title_size'] ) ? absint( $_REQUEST['title_size'] ) : null,
+				'title_weight'                       => isset( $_REQUEST['title_weight'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['title_weight'] ) ) : null,
+				'title_alignment'                    => isset( $_REQUEST['title_alignment'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['title_alignment'] ) ) : null,
+				'title_hover_color'                  => isset( $_REQUEST['title_hover_color'] ) ? sanitize_hex_color( wp_unslash( $_REQUEST['title_hover_color'] ) ) : null,
+				'excerpt_color'                      => isset( $_REQUEST['excerpt_color'] ) ? sanitize_hex_color( wp_unslash( $_REQUEST['excerpt_color'] ) ) : null,
+				'excerpt_size'                       => isset( $_REQUEST['excerpt_size'] ) ? absint( $_REQUEST['excerpt_size'] ) : null,
+				'excerpt_weight'                     => isset( $_REQUEST['excerpt_weight'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['excerpt_weight'] ) ) : null,
+				'excerpt_alignment'                  => isset( $_REQUEST['excerpt_alignment'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['excerpt_alignment'] ) ) : null,
+				'meta_data_color'                    => isset( $_REQUEST['meta_data_color'] ) ? sanitize_hex_color( wp_unslash( $_REQUEST['meta_data_color'] ) ) : null,
+				'meta_data_size'                     => isset( $_REQUEST['meta_data_size'] ) ? absint( $_REQUEST['meta_data_size'] ) : null,
+				'meta_data_weight'                   => isset( $_REQUEST['meta_data_weight'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['meta_data_weight'] ) ) : null,
+				'meta_data_alignment'                => isset( $_REQUEST['meta_data_alignment'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['meta_data_alignment'] ) ) : null,
+			];
+
+			$data              .= Fns::layoutStyle( $layoutID, $styleMeta, $layout );
 			$containerDataAttr .= '';
 			$data              .= "<div class='rt-container-fluid rt-tpg-container tpg-shortcode-main-wrapper {$parentClass}' id='{$layoutID}' {$dataArchive} {$containerDataAttr}>";
-			// widget heading
+			// widget heading.
 			$heading_tag       = isset( $_REQUEST['tpg_heading_tag'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['tpg_heading_tag'] ) ) : 'h2';
 			$heading_style     = isset( $_REQUEST['tpg_heading_style'] ) && ! empty( $_REQUEST['tpg_heading_style'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['tpg_heading_style'] ) ) : 'style1';
 			$heading_alignment = isset( $_REQUEST['tpg_heading_alignment'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['tpg_heading_alignment'] ) ) : '';
@@ -515,7 +569,7 @@ class AdminAjaxController {
 				$data .= '</div>';
 			}
 
-			$filters = ! empty( $_REQUEST['tgp_filter'] ) ? array_map( 'sanitize_text_field', $_REQUEST['tgp_filter'] ) : [];
+			$filters = ! empty( $_REQUEST['tgp_filter'] ) ? array_map( 'sanitize_text_field', wp_unslash( $_REQUEST['tgp_filter'] ) ) : [];
 
 			if ( ! empty( $filters ) && ( $isGrid || $isOffset || $isWooCom ) ) {
 				$data                     .= "<div class='rt-layout-filter-container rt-clear'><div class='rt-filter-wrap'>";
@@ -535,7 +589,7 @@ class AdminAjaxController {
 						$allSelect      = null;
 					}
 
-					if ( ! $filterType || $filterType == 'dropdown' ) {
+					if ( ! $filterType || 'dropdown' === $filterType ) {
 						$data            .= "<div class='rt-filter-item-wrap rt-tax-filter rt-filter-dropdown-wrap parent-dropdown-wrap{$postCountClass}' data-taxonomy='{$taxFilter}'>";
 						$termDefaultText  = $allText;
 						$dataTerm         = 'all';
@@ -591,7 +645,7 @@ class AdminAjaxController {
 								}
 
 								if ( is_array( $taxFilterTerms ) && ! empty( $taxFilterTerms ) ) {
-									if ( $taxFilterOperator == 'NOT IN' ) {
+									if ( 'NOT IN' === $taxFilterOperator ) {
 										if ( ! in_array( $id, $taxFilterTerms ) && $action_term != $id ) {
 											$htmlButton .= "<span class='term-dropdown-item rt-filter-dropdown-item' data-term='{$id}'><span class='rt-text'>{$term['name']}{$postCount}</span>{$sT}</span>";
 										}
@@ -665,7 +719,7 @@ class AdminAjaxController {
 								}
 
 								if ( is_array( $taxFilterTerms ) && ! empty( $taxFilterTerms ) ) {
-									if ( $taxFilterOperator == 'NOT IN' ) {
+									if ( 'NOT IN' === $taxFilterOperator ) {
 										if ( ! in_array( $id, $taxFilterTerms ) ) {
 											$bItems .= "<span class='term-button-item rt-filter-button-item {$termSelected}' data-term='{$id}'>{$term['name']}{$postCount}{$sT}</span>";
 										}
@@ -706,7 +760,7 @@ class AdminAjaxController {
 						$allSelect      = null;
 					}
 
-					if ( ! $filterType || $filterType == 'dropdown' ) {
+					if ( ! $filterType || 'dropdown' === $filterType ) {
 						$data           .= "<div class='rt-filter-item-wrap rt-author-filter rt-filter-dropdown-wrap parent-dropdown-wrap{$postCountClass}'>";
 						$termDefaultText = $allText;
 						$dataAuthor      = 'all';
@@ -785,11 +839,11 @@ class AdminAjaxController {
 				}
 
 				if ( in_array( '_order_by', $filters ) ) {
-					$wooFeature     = ( $postType == 'product' ? true : false );
+					$wooFeature     = ( 'product' === $postType ? true : false );
 					$orders         = Options::rtPostOrderBy( $wooFeature );
 					$action_orderby = ( ! empty( $args['orderby'] ) ? trim( $args['orderby'] ) : 'none' );
 
-					if ( $action_orderby == 'none' ) {
+					if ( 'none' === $action_orderby ) {
 						$action_orderby_label = esc_html__( 'Sort By None', 'the-post-grid' );
 					} elseif ( in_array( $action_orderby, array_keys( Options::rtMetaKeyType() ) ) ) {
 						$action_orderby_label = esc_html__( 'Meta value', 'the-post-grid' );
@@ -830,7 +884,7 @@ class AdminAjaxController {
 
 			if ( $gridQuery->have_posts() ) {
 				if ( $isCarousel ) {
-					$cOpt              = ! empty( $_REQUEST['carousel_property'] ) ? array_map( 'sanitize_text_field', $_REQUEST['carousel_property'] ) : [];
+					$cOpt              = ! empty( $_REQUEST['carousel_property'] ) ? array_map( 'sanitize_text_field', wp_unslash( $_REQUEST['carousel_property'] ) ) : [];
 					$slider_js_options = apply_filters(
 						'rttpg_slider_js_options',
 						[
@@ -844,8 +898,7 @@ class AdminAjaxController {
 							'lazyLoad'        => in_array( 'lazyLoad', $cOpt ) ? true : false,
 							'autoHeight'      => in_array( 'auto_height', $cOpt ) ? true : false,
 							'rtl'             => in_array( 'rtl', $cOpt ) ? true : false,
-						],
-						$scMeta
+						]
 					);
 					$data             .= sprintf(
 						'<div class="rt-swiper-holder swiper"  data-rtowl-options="%s"><div class="swiper-wrapper">',
@@ -861,7 +914,7 @@ class AdminAjaxController {
 					$selectedTerms           = [];
 
 					if ( isset( $_REQUEST['post_filter'] ) && in_array( 'tpg_taxonomy', $_REQUEST['post_filter'] ) && isset( $_REQUEST['tpg_taxonomy'] ) && in_array( $isotope_filter, $_REQUEST['tpg_taxonomy'] ) ) {
-						$selectedTerms = ( isset( $_REQUEST[ 'term_' . $isotope_filter ] ) ? array_map( 'sanitize_text_field', $_REQUEST[ 'term_' . $isotope_filter ] ) : [] );
+						$selectedTerms = ( isset( $_REQUEST[ 'term_' . $isotope_filter ] ) ? array_map( 'sanitize_text_field', wp_unslash( $_REQUEST[ 'term_' . $isotope_filter ] ) ) : [] );
 					}
 
 					global $wp_version;
@@ -943,7 +996,7 @@ class AdminAjaxController {
 				$offsetBigHtml = $offsetSmallHtml = null;
 				$tgCol         = 2;
 
-				if ( $layout == 'layout4' ) {
+				if ( 'layout4' === $layout ) {
 					$tgCol = round( 12 / $dCol );
 				}
 
@@ -1016,7 +1069,7 @@ class AdminAjaxController {
 					) : null;
 
 					if ( $isOffset ) {
-						if ( $offLoop == 0 ) {
+						if ( 0 === $offLoop ) {
 							$arg['imgSrc'] = ! $fImg ? Fns::getFeatureImageSrc(
 								$pID,
 								$fImgSize,
@@ -1057,10 +1110,10 @@ class AdminAjaxController {
 					$oTCol = Fns::get_offset_col( $tCol );
 					$oMCol = Fns::get_offset_col( $mCol );
 
-					if ( $layout == 'offset03' || $layout == 'offset04' ) {
+					if ( 'offset03' === $layout || 'offset04' === $layout ) {
 						$oDCol['big'] = $oTCol['big'] = $oDCol['small'] = $oTCol['small'] = 6;
 						$oMCol['big'] = $oMCol['small'] = 12;
-					} elseif ( $layout == 'offset06' ) {
+					} elseif ( 'offset06' === $layout ) {
 						$oDCol['big']   = 7;
 						$oDCol['small'] = 5;
 					}
@@ -1085,7 +1138,7 @@ class AdminAjaxController {
 					}
 				}
 			} else {
-				$not_found_text = isset( $_REQUEST['tgp_not_found_text'] ) && ! empty( $_REQUEST['tgp_not_found_text'] ) ? esc_attr( $_REQUEST['tgp_not_found_text'] ) : __( 'No post found', 'the-post-grid' );
+				$not_found_text = isset( $_REQUEST['tgp_not_found_text'] ) && ! empty( $_REQUEST['tgp_not_found_text'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['tgp_not_found_text'] ) ) : esc_html__( 'No post found', 'the-post-grid' );
 				$data          .= '<p>' . $not_found_text . '</p>';
 			}
 
@@ -1102,31 +1155,31 @@ class AdminAjaxController {
 										<span class='rt-cb-next-btn'><i class='fa fa-angle-right' aria-hidden='true'></i></span>
 									</div>";
 				} else {
-					if ( $posts_loading_type == 'pagination' ) {
+					if ( 'pagination' === $posts_loading_type ) {
 						if ( $isGrid && empty( $filters ) ) {
 							$htmlUtility .= Fns::rt_pagination( $gridQuery, $args['posts_per_page'] );
 						}
-					} elseif ( $posts_loading_type == 'pagination_ajax' && ! $isIsotope ) {
+					} elseif ( 'pagination_ajax' === $posts_loading_type && ! $isIsotope ) {
 						if ( $isGrid ) {
 							$htmlUtility .= "<div class='rt-page-numbers'></div>";
 						} else {
 							$htmlUtility .= Fns::rt_pagination( $gridQuery, $args['posts_per_page'], true );
 						}
-					} elseif ( $posts_loading_type == 'load_more' ) {
-						$load_more_btn_text = ( ! empty( $_REQUEST['load_more_text'][0] ) ? $_REQUEST['load_more_text'][0] : '' );
-						$load_more_text     = $load_more_btn_text ? esc_html( $load_more_btn_text ) : __( 'Load More', 'the-post-grid' );
+					} elseif ( 'load_more' === $posts_loading_type ) {
+						$load_more_btn_text = ( ! empty( $_REQUEST['load_more_text'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['load_more_text'] ) ) : '' );
+						$load_more_text     = $load_more_btn_text ? $load_more_btn_text : esc_html__( 'Load More', 'the-post-grid' );
 
 						if ( $isGrid ) {
 							$htmlUtility .= "<div class='rt-loadmore-btn rt-loadmore-action rt-loadmore-style'>
-												<span class='rt-loadmore-text'>" . $load_more_text . "</span>
+												<span class='rt-loadmore-text'>" . esc_html( $load_more_text ) . "</span>
 												<div class='rt-loadmore-loading rt-ball-scale-multiple rt-2x'><div></div><div></div><div></div></div>
 											</div>";
 						} else {
 							$htmlUtility .= "<div class='rt-tpg-load-more'>
-												<button data-sc-id='' data-paged='2'>" . $load_more_text . '</button>
+												<button data-sc-id='' data-paged='2'>" . esc_html( $load_more_text ) . '</button>
 											</div>';
 						}
-					} elseif ( $posts_loading_type == 'load_on_scroll' ) {
+					} elseif ( 'load_on_scroll' === $posts_loading_type ) {
 						if ( $isGrid ) {
 							$htmlUtility .= "<div class='rt-infinite-action'>
 												<div class='rt-infinite-loading la-fire la-2x'>
@@ -1136,7 +1189,7 @@ class AdminAjaxController {
 												</div>
 											</div>";
 						} else {
-							$htmlUtility .= "<div class='rt-tpg-scroll-load-more' data-trigger='1' data-sc-id='{$scID}' data-paged='2'></div>";
+							$htmlUtility .= '<div class="rt-tpg-scroll-load-more" data-trigger="1" data-sc-id="' . absint( $scID ) . '" data-paged="2"></div>';
 						}
 					}
 				}
@@ -1145,21 +1198,21 @@ class AdminAjaxController {
 			if ( $htmlUtility ) {
 				$l4toggle = null;
 
-				if ( $layout == 'layout4' ) {
-					$l4toggle = "data-l4toggle='{$this->l4toggle}'";
+				if ( 'layout4' === $layout ) {
+					$l4toggle = 'data-l4toggle="' . $this->l4toggle . '"';
 				}
 
 				if ( $isGrid || $isOffset || $isWooCom ) {
-					$data .= "<div class='rt-pagination-wrap' data-total-pages='{$gridQuery->max_num_pages}' data-posts-per-page='{$args['posts_per_page']}' data-type='{$posts_loading_type}' {$l4toggle} >" . $htmlUtility . '</div>';
+					$data .= '<div class="rt-pagination-wrap" data-total-pages="' . absint( $gridQuery->max_num_pages ) . '" data-posts-per-page="' . absint( $args['posts_per_page'] ) . '" data-type="' . esc_attr( $posts_loading_type ) . '" ' . $l4toggle . ' >' . $htmlUtility . '</div>';
 				} else {
-					$data .= "<div class='rt-tpg-utility' {$l4toggle}>" . $htmlUtility . '</div>';
+					$data .= '<div class="rt-tpg-utility" ' . $l4toggle . '>' . $htmlUtility . '</div>';
 				}
 			}
 
 			$data .= '</div>'; // container rt-tpg.
 
 		} else {
-			$msg = __( 'Session Error !!', 'the-post-grid' );
+			$msg = esc_html__( 'Session Error !!', 'the-post-grid' );
 		}
 
 		wp_send_json(

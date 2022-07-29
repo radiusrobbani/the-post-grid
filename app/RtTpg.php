@@ -278,6 +278,33 @@ if ( ! class_exists( RtTpg::class ) ) {
 		public function hasPro() {
 			return class_exists( 'RtTpgPro' ) || class_exists( 'rtTPGP' );
 		}
+
+		/**
+		 * Pro link.
+		 *
+		 * @return string
+		 */
+		public function proLink() {
+			return 'https://www.radiustheme.com/downloads/the-post-grid-pro-for-wordpress/';
+		}
+
+		/**
+		 * Doc link.
+		 *
+		 * @return string
+		 */
+		public function docLink() {
+			return 'https://www.radiustheme.com/docs/the-post-grid/';
+		}
+
+		/**
+		 * Demo link.
+		 *
+		 * @return string
+		 */
+		public function demoLink() {
+			return 'https://www.radiustheme.com/demo/plugins/the-post-grid/';
+		}
 	}
 
 	/**
