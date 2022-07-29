@@ -1813,7 +1813,7 @@ class Fns {
 	public static function get_post_view_count_meta_key() {
 		$count_key = 'tpg-post-view-count';
 
-		return $count_key;
+		return apply_filters('tpg_post_view_count', $count_key);
 	}
 
 

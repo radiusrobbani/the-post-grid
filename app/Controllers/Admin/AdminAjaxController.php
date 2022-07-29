@@ -862,6 +862,7 @@ class AdminAjaxController {
 					$arg['excerpt']       = Fns::get_the_excerpt( $pID, $arg );
 					$arg['categories']    = get_the_term_list( $pID, 'category', null, ', ' );
 					$arg['tags']          = get_the_term_list( $pID, 'post_tag', null, ', ' );
+					$arg['post_count']    = get_post_meta( $pID, Fns::get_post_view_count_meta_key(), true );
 					$arg['responsiveCol'] = [ $dCol, $tCol, $mCol ];
 					if ( $isIsotope ) {
 						$termAs    = wp_get_post_terms( $pID, $isotope_filter, [ "fields" => "all" ] );
@@ -965,16 +966,13 @@ class AdminAjaxController {
 				} else {
 					if ( $posts_loading_type == "pagination" ) {
 						if ( $isGrid && empty( $filters ) ) {
-							$htmlUtility .= Fns::rt_pagination( $gridQuery->max_num_pages,
-								$args['posts_per_page'] );
+							$htmlUtility .= Fns::rt_pagination( $gridQuery, $args['posts_per_page'] );
 						}
 					} elseif ( $posts_loading_type == "pagination_ajax" && ! $isIsotope ) {
 						if ( $isGrid ) {
 							$htmlUtility .= "<div class='rt-page-numbers'></div>";
 						} else {
-							$htmlUtility .= Fns::rt_pagination( $gridQuery->max_num_pages,
-								$args['posts_per_page'],
-								true );
+							$htmlUtility .= Fns::rt_pagination( $gridQuery, $args['posts_per_page'], true );
 						}
 					} elseif ( $posts_loading_type == "load_more" ) {
 
