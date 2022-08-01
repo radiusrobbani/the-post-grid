@@ -20,7 +20,6 @@ class ShortcodeController {
 		}
 	}
 
-
 	public function register_sc_scripts() {
 		$settings = get_option( rtTPG()->options['settings'] );
 
@@ -490,7 +489,7 @@ class ShortcodeController {
 				if ( $is_nav ) {
 					$parentClass .= ' tpg-has-nav';
 				}
-				$cOptMeta     = ! empty( $scMeta['carousel_property'] ) ? $scMeta['carousel_property'] : [];
+				$cOptMeta = ! empty( $scMeta['carousel_property'] ) ? $scMeta['carousel_property'] : [];
 
 				if ( in_array( 'lazy_load', $cOptMeta ) ) {
 					$parentClass .= ' is-lazy-load-yes';
@@ -928,6 +927,7 @@ class ShortcodeController {
 					$arg['excerpt']       = Fns::get_the_excerpt( $pID, $arg );
 					$arg['categories']    = get_the_term_list( $pID, 'category', null, '<span class="rt-separator">,</span>' );
 					$arg['tags']          = get_the_term_list( $pID, 'post_tag', null, '<span class="rt-separator">,</span>' );
+					$arg['post_count']    = get_post_meta( $pID, Fns::get_post_view_count_meta_key(), true );
 					$arg['responsiveCol'] = [ $dCol, $tCol, $mCol ];
 					if ( $isIsotope ) {
 						$termAs    = wp_get_post_terms( $pID, $isotope_filter, [ "fields" => "all" ] );
@@ -1027,15 +1027,18 @@ class ShortcodeController {
 				} else {
 					$hide = ( $gridQuery->max_num_pages < 2 ? " rt-hidden-elm" : null );
 					if ( $posts_loading_type == "pagination" ) {
-						if ( ($isGrid || $isWooCom || $isEdd) && empty( $filters ) ) {
+						if ( ( $isGrid || $isWooCom || $isEdd ) && empty( $filters ) ) {
 							$htmlUtility .= Fns::rt_pagination( $gridQuery,
 								$args['posts_per_page'] );
 						}
 					} elseif ( $posts_loading_type == "pagination_ajax" && ! $isIsotope ) {
 						$htmlUtility .= "<div class='rt-page-numbers'></div>";
 					} elseif ( $posts_loading_type == "load_more" && rtTPG()->hasPro() ) {
+						$load_more_btn_text = ( ! empty( $scMeta['load_more_text'][0] ) ? $scMeta['load_more_text'][0] : "" );
+						$load_more_text     = $load_more_btn_text ? esc_html( $load_more_btn_text ) : __( 'Load More', 'the-post-grid' );
+
 						$htmlUtility .= "<div class='rt-loadmore-btn rt-loadmore-action rt-loadmore-style{$hide}'>
-											<span class='rt-loadmore-text'>" . __( 'Load More', 'the-post-grid' ) . "</span>
+											<span class='rt-loadmore-text'>" . $load_more_text . "</span>
 											<div class='rt-loadmore-loading rt-ball-scale-multiple rt-2x'><div></div><div></div><div></div></div>
 										</div>";
 					} elseif ( $posts_loading_type == "load_on_scroll" && rtTPG()->hasPro() ) {
@@ -1101,7 +1104,6 @@ class ShortcodeController {
 
 				// var_dump( $linkType );
 				if ( 'popup' == $linkType ) {
-					array_push( $style, 'rt-scrollbar' );
 					array_push( $script, 'rt-scrollbar' );
 				}
 
@@ -1113,7 +1115,7 @@ class ShortcodeController {
 
 			array_push( $style, 'rt-tpg-shortcode' );
 
-			if ( ($isCarousel && rtTPG()->hasPro()) || $isWooCom ) {
+			if ( ( $isCarousel && rtTPG()->hasPro() ) || $isWooCom ) {
 				array_push( $style, 'swiper' );
 				array_push( $script, 'swiper' );
 			}

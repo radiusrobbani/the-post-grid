@@ -1813,7 +1813,7 @@ class Fns {
 	public static function get_post_view_count_meta_key() {
 		$count_key = 'tpg-post-view-count';
 
-		return $count_key;
+		return apply_filters( 'tpg_post_view_count', $count_key );
 	}
 
 
@@ -2281,7 +2281,8 @@ class Fns {
 		$thumb_cat_condition = ( ! ( 'above_title' === $data['category_position'] || 'default' === $data['category_position'] ) );
 		if ( 'grid-layout4' === $data['layout'] && 'default' === $data['category_position'] ) {
 			$thumb_cat_condition = true;
-		} elseif ( in_array( $data['layout'], [ 'grid-layout4',
+		} elseif ( in_array( $data['layout'], [
+				'grid-layout4',
 				'grid_hover-layout11'
 			] ) && 'default' === $data['category_position'] ) {
 			$thumb_cat_condition = true;
@@ -2371,18 +2372,20 @@ class Fns {
 
 		<?php echo $data['is_thumb_linked'] === 'yes' ? self::wp_kses( $link_end ) : null; ?>
 
-		<?php if ( 'show' === $data['is_thumb_lightbox']
-		           || ( in_array( $data['layout'], [ 'grid-layout7',
-					'slider-layout4'
-				] ) && in_array( $data['is_thumb_lightbox'], [ 'default', 'show' ] ) )
-		) :
+		<?php if ( 'show' === $data['is_thumb_lightbox'] || ( in_array( $data['layout'], [ 'grid-layout7', 'slider-layout4' ] ) && in_array( $data['is_thumb_lightbox'], [ 'default', 'show' ] ) ) ) :
 			?>
             <a class="tpg-zoom"
                data-elementor-open-lightbox="yes"
                data-elementor-lightbox-slideshow="<?php echo esc_attr( $data['layout'] ); ?>"
                title="<?php echo esc_attr( get_the_title() ); ?>"
                href="<?php echo esc_url( $img_link ) ?>">
-                <i class="fa fa-plus" aria-hidden="true"></i>
+                <?php
+                if ( isset( $data['light_box_icon']['value'] ) && $data['light_box_icon']['value'] ) {
+	                \Elementor\Icons_Manager::render_icon( $data['light_box_icon'], [ 'aria-hidden' => 'true' ] );
+                } else {
+	                echo "<i class='fa fa-plus'></i>";
+                }
+                ?>
             </a>
 		<?php endif; ?>
         <div class="overlay grid-hover-content"></div>

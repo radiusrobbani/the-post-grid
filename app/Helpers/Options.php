@@ -651,6 +651,16 @@ class Options {
 				"default"     => 'pagination',
 				"options"     => self::postLoadingType(),
 			],
+
+			'load_more_text' => [
+				'type'        => 'text',
+				'name'        => 'load_more_text',
+				'label'       => 'Load More Text',
+				'holderClass' => 'pagination-load-more-label tpg-hidden pro-field',
+				'id'          => 'template_class',
+				'value'       => isset( $settings['load_more_text'] ) ? $settings['load_more_text'] : '',
+			],
+
 			'link_to_detail_page'   => [
 				"type"      => "switch",
 				"label"     => "Link To Detail Page",
