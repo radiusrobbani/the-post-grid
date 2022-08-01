@@ -18,7 +18,6 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Base Abstract Class
  */
 abstract class Custom_Widget_Base extends Widget_Base {
-
 	public $tpg_name;
 	public $tpg_base;
 	public $tpg_category;
@@ -47,7 +46,7 @@ abstract class Custom_Widget_Base extends Widget_Base {
 			$this->pro_label       = __( '<span class="tpg-pro-label">Pro</span>', 'the-post-grid' );
 			$this->is_post_layout  = ' the-post-grid-pro-needed';
 			$this->get_pro_message = __(
-				'Please <a target="_blank" href="//www.radiustheme.com/downloads/the-post-grid-pro-for-wordpress/">upgrade</a> to pro for more options',
+				'Please <a target="_blank" href="' . esc_url( rtTpg()->proLink() ) . '">upgrade</a> to pro for more options',
 				'the-post-grid'
 			);
 		}
@@ -60,7 +59,7 @@ abstract class Custom_Widget_Base extends Widget_Base {
 			return;
 		}
 
-		return __( 'Please <a target="_blank" href="//www.radiustheme.com/downloads/the-post-grid-pro-for-wordpress/">upgrade</a> to pro for ' . $message, 'the-post-grid' );
+		return __( 'Please <a target="_blank" href="' . esc_url( rtTpg()->proLink() ) . '">upgrade</a> to pro for ' . $message, 'the-post-grid' );
 	}
 
 	public function get_name() {
@@ -83,12 +82,14 @@ abstract class Custom_Widget_Base extends Widget_Base {
 	public function tpg_template( $data ) {
 		$layout        = str_replace( '-2', '', $data['layout'] );
 		$template_name = '/the-post-grid/elementor/' . $layout . '.php';
+
 		if ( file_exists( STYLESHEETPATH . $template_name ) ) {
 			$file = STYLESHEETPATH . $template_name;
 		} elseif ( file_exists( TEMPLATEPATH . $template_name ) ) {
 			$file = TEMPLATEPATH . $template_name;
 		} else {
 			$file = RT_THE_POST_GRID_PLUGIN_PATH . '/templates/elementor/' . $layout . '.php';
+
 			if ( ! file_exists( $file ) ) {
 				if ( rtTPG()->hasPro() ) {
 					$file = RT_THE_POST_GRID_PRO_PLUGIN_PATH . '/templates/elementor/' . $layout . '.php';
@@ -109,6 +110,7 @@ abstract class Custom_Widget_Base extends Widget_Base {
 		$layout        = str_replace( '-2', '', $data['layout'] );
 		$template_name = '/the-post-grid/elementor/' . $layout . '.php';
 		$path          = RT_THE_POST_GRID_PLUGIN_PATH . '/templates/elementor/';
+
 		if ( file_exists( STYLESHEETPATH . $template_name ) ) {
 			$path = STYLESHEETPATH . '/the-post-grid/elementor/';
 		} elseif ( file_exists( TEMPLATEPATH . $template_name ) ) {
@@ -130,11 +132,10 @@ abstract class Custom_Widget_Base extends Widget_Base {
 	 * Get last post id
 	 *
 	 * @param string $post_type
-	 * @param false $all_content
+	 * @param false  $all_content
 	 *
 	 * @return int
 	 */
-
 	public function get_last_post_id( $post_type = 'post' ): int {
 		if ( is_singular( $post_type ) ) {
 			return get_the_ID();
@@ -165,6 +166,7 @@ abstract class Custom_Widget_Base extends Widget_Base {
 		if ( is_archive() ) {
 			return;
 		}
+
 		$categories = get_terms(
 			[
 				'taxonomy'   => 'category',
@@ -172,13 +174,14 @@ abstract class Custom_Widget_Base extends Widget_Base {
 				'number'     => 1,
 			]
 		);
+
 		if ( ! empty( $categories ) && ! is_wp_error( $categories ) ) {
 			return $categories[0]->term_id;
 		}
 	}
 
-	// post category list
-	function tpg_category_list() {
+	// post category list.
+	public function tpg_category_list() {
 		$categories = get_categories( [ 'hide_empty' => false ] );
 		$lists      = [];
 		foreach ( $categories as $category ) {
@@ -188,8 +191,8 @@ abstract class Custom_Widget_Base extends Widget_Base {
 		return $lists;
 	}
 
-	// post tags lists
-	function tpg_tag_list() {
+	// post tags lists.
+	public function tpg_tag_list() {
 		$tags     = get_tags( [ 'hide_empty' => false ] );
 		$tag_list = [];
 		foreach ( $tags as $tag ) {
@@ -199,7 +202,7 @@ abstract class Custom_Widget_Base extends Widget_Base {
 		return $tag_list;
 	}
 
-	// Get Custom post category:
+	// Get Custom post category:.
 	protected function tpg_get_categories_by_slug( $cat ) {
 		$terms   = get_terms(
 			[
@@ -208,6 +211,7 @@ abstract class Custom_Widget_Base extends Widget_Base {
 			]
 		);
 		$options = [ '0' => __( 'All Categories', 'the-post-grid' ) ];
+
 		if ( ! empty( $terms ) && ! is_wp_error( $terms ) ) {
 			foreach ( $terms as $term ) {
 				$options[ $term->slug ] = $term->name;
@@ -217,7 +221,7 @@ abstract class Custom_Widget_Base extends Widget_Base {
 		}
 	}
 
-	// Get Custom post category:
+	// Get Custom post category.
 	public function tpg_get_categories_by_id( $cat ) {
 		$terms = get_terms(
 			[
@@ -227,6 +231,7 @@ abstract class Custom_Widget_Base extends Widget_Base {
 		);
 
 		$options = [];
+
 		if ( ! empty( $terms ) && ! is_wp_error( $terms ) ) {
 			foreach ( $terms as $term ) {
 				$options[ $term->term_id ] = $term->name;
@@ -240,6 +245,7 @@ abstract class Custom_Widget_Base extends Widget_Base {
 	public function get_all_post_type() {
 		$post_types = get_post_types( [], 'objects' );
 		$pt_list    = [];
+
 		foreach ( $post_types as $type ) {
 			if ( isset( $type->rewrite->slug ) ) {
 				$pt_list[ $type->rewrite->slug ] = $type->rewrite->name;
@@ -290,7 +296,7 @@ abstract class Custom_Widget_Base extends Widget_Base {
 	 */
 	public function get_frontend_filter_markup( $data ) {
 		if ( ! rtTPG()->hasPro()
-			 || ! ( $data['show_taxonomy_filter'] == 'show' || $data['show_author_filter'] == 'show' || $data['show_order_by'] == 'show'
+			|| ! ( $data['show_taxonomy_filter'] == 'show' || $data['show_author_filter'] == 'show' || $data['show_order_by'] == 'show'
 					|| $data['show_sort_order'] == 'show'
 					|| $data['show_search'] == 'show' )
 		) {
@@ -306,8 +312,7 @@ abstract class Custom_Widget_Base extends Widget_Base {
 			$itemClass                = 'swiper-slide';
 			$filter_btn_mobile        = isset( $data['filter_btn_item_per_page_mobile'] ) ? $data['filter_btn_item_per_page_mobile'] : 'auto';
 			$filter_btn_tablet        = isset( $data['filter_btn_item_per_page_tablet'] ) ? $data['filter_btn_item_per_page_tablet'] : 'auto';
-			$filter_btn_item_per_page
-							   = "data-per-page = '{$data['filter_btn_item_per_page']}' data-per-page-mobile = '{$filter_btn_mobile}' data-per-tablet = '{$filter_btn_tablet}'";
+			$filter_btn_item_per_page = "data-per-page = '{$data['filter_btn_item_per_page']}' data-per-page-mobile = '{$filter_btn_mobile}' data-per-tablet = '{$filter_btn_tablet}'";
 		}
 
 		$html .= "<div class='rt-layout-filter-container rt-clear'><div class='rt-filter-wrap'>";
@@ -315,9 +320,7 @@ abstract class Custom_Widget_Base extends Widget_Base {
 		if ( 'show' == $data['show_author_filter'] || 'show' == $data['show_taxonomy_filter'] ) {
 			$html .= "<div class='filter-left-wrapper {$wrapperContainer}' {$filter_btn_item_per_page}>";
 		}
-		// if($data['filter_btn_style'] == 'carousel') {
-		// $html .= "<div class='swiper-pagination'></div>";
-		// }
+
 		$selectedSubTermsForButton = null;
 
 		$filterType = $data['filter_type'];
@@ -334,6 +337,7 @@ abstract class Custom_Widget_Base extends Widget_Base {
 			$taxFilter        = $data[ $section_term_key ];
 
 			$taxonomy_label = '';
+
 			if ( $taxFilter ) {
 				$taxonomy_details = get_taxonomy( $taxFilter );
 				$taxonomy_label   = $taxonomy_details->label;
@@ -346,11 +350,14 @@ abstract class Custom_Widget_Base extends Widget_Base {
 
 			$_taxonomies = get_object_taxonomies( $data['post_type'], 'objects' );
 			$terms       = [];
+
 			foreach ( $_taxonomies as $index => $object ) {
 				if ( $object->name != $taxFilter ) {
 					continue;
 				}
+
 				$setting_key = $object->name . '_ids';
+
 				if ( ! empty( $data[ $setting_key ] ) ) {
 					$terms = $data[ $setting_key ];
 				} else {
@@ -368,6 +375,7 @@ abstract class Custom_Widget_Base extends Widget_Base {
 				$isTermSelected = true;
 				$allSelect      = null;
 			}
+
 			if ( $filterType == 'dropdown' ) {
 				$html            .= "<div class='rt-filter-item-wrap rt-tax-filter rt-filter-dropdown-wrap parent-dropdown-wrap{$postCountClass}' data-taxonomy='{$taxFilter}' data-filter='taxonomy'>";
 				$termDefaultText  = $allText;
@@ -378,43 +386,52 @@ abstract class Custom_Widget_Base extends Widget_Base {
 
 				if ( ! empty( $terms ) ) {
 					$i = 0;
+
 					foreach ( $terms as $term_id ) {
 						$term   = get_term( $term_id, $taxFilter, ARRAY_A );
 						$id     = $term['term_id'];
 						$pCount = $pCount + $term['count'];
 						$sT     = null;
+
 						if ( $data['tgp_filter_taxonomy_hierarchical'] == 'yes' ) {
 							$subTerms = Fns::rt_get_all_term_by_taxonomy( $taxFilter, true, $id );
+
 							if ( ! empty( $subTerms ) ) {
 								$count = 0;
 								$item  = $allCount = null;
+
 								foreach ( $subTerms as $stId => $t ) {
 									$count       = $count + absint( $t['count'] );
 									$sTPostCount = ( $post_count ? " (<span class='rt-post-count'>{$t['count']}</span>)" : null );
 									$item       .= "<span class='term-dropdown-item rt-filter-dropdown-item' data-term='{$stId}'><span class='rt-text'>{$t['name']}{$sTPostCount}</span></span>";
 								}
+
 								if ( $post_count ) {
 									$allCount = " (<span class='rt-post-count'>{$count}</span>)";
 								}
+
 								$sT .= "<div class='rt-filter-item-wrap rt-tax-filter rt-filter-dropdown-wrap sub-dropdown-wrap{$postCountClass}'>";
 								$sT .= "<span class='term-default rt-filter-dropdown-default' data-term='{$id}'>
-								                        <span class='rt-text'>" . $allText . "</span>
-								                        <i class='fa fa-angle-down rt-arrow-angle' aria-hidden='true'></i>
-								                    </span>";
+											<span class='rt-text'>" . $allText . "</span>
+											<i class='fa fa-angle-down rt-arrow-angle' aria-hidden='true'></i>
+										</span>";
 								$sT .= '<span class="term-dropdown rt-filter-dropdown">';
 								$sT .= $item;
 								$sT .= '</span>';
 								$sT .= '</div>';
 							}
+
 							if ( $default_term === $id ) {
 								$selectedSubTerms = $sT;
 							}
 						}
 						$postCount = ( $post_count ? " (<span class='rt-post-count'>{$term['count']}</span>)" : null );
+
 						if ( $default_term && $default_term == $id ) {
 							$termDefaultText = $term['name'] . $postCount;
 							$dataTerm        = $id;
 						}
+
 						if ( is_array( $taxFilterTerms ) && ! empty( $taxFilterTerms ) ) {
 							if ( in_array( $id, $taxFilterTerms ) ) {
 								$htmlButton .= "<span class='term-dropdown-item rt-filter-dropdown-item' data-term='{$id}'><span class='rt-text'>{$term['name']}{$postCount}</span>{$sT}</span>";
@@ -422,52 +439,60 @@ abstract class Custom_Widget_Base extends Widget_Base {
 						} else {
 							$htmlButton .= "<span class='term-dropdown-item rt-filter-dropdown-item' data-term='{$id}'><span class='rt-text'>{$term['name']}{$postCount}</span>{$sT}</span>";
 						}
+
 						$i ++;
 					}
 				}
 				$pAllCount = null;
+
 				if ( $post_count ) {
 					$pAllCount = " (<span class='rt-post-count'>{$pCount}</span>)";
+
 					if ( ! $default_term ) {
 						$termDefaultText = $termDefaultText;
 					}
 				}
 
 				if ( 'yes' == $data['tpg_hide_all_button'] ) {
-					$htmlButton = "<span class='term-dropdown-item rt-filter-dropdown-item' data-term='all'><span class='rt-text'>" . $allText . '</span></span>'
-								  . $htmlButton;
+					$htmlButton = "<span class='term-dropdown-item rt-filter-dropdown-item' data-term='all'><span class='rt-text'>" . $allText . '</span></span>' . $htmlButton;
 				}
+
 				$htmlButton = sprintf( '<span class="term-dropdown rt-filter-dropdown">%s</span>', $htmlButton );
 
 				$showAllhtml = '<span class="term-default rt-filter-dropdown-default" data-term="' . $dataTerm . '">
-								                        <span class="rt-text">' . $termDefaultText . '</span>
-								                        <i class="fa fa-angle-down rt-arrow-angle" aria-hidden="true"></i>
-								                    </span>';
+									<span class="rt-text">' . $termDefaultText . '</span>
+									<i class="fa fa-angle-down rt-arrow-angle" aria-hidden="true"></i>
+								</span>';
 
 				$html .= $showAllhtml . $htmlButton;
 				$html .= '</div>' . $selectedSubTerms;
 			} else {
-				// if Button the execute
+				// if Button the execute.
 				// $termDefaultText = $allText;
 
 				$bCount = 0;
 				$bItems = null;
+
 				if ( ! empty( $terms ) ) {
 					foreach ( $terms as $term_id ) {
-						$term = get_term( $term_id, $taxFilter, ARRAY_A );
-
+						$term   = get_term( $term_id, $taxFilter, ARRAY_A );
 						$id     = $term['term_id'];
 						$bCount = $bCount + absint( $term['count'] );
 						$sT     = null;
+
 						if ( $data['tgp_filter_taxonomy_hierarchical'] == 'yes' && $data['filter_btn_style'] === 'default' && $data['filter_type'] == 'button' ) {
 							$subTerms = Fns::rt_get_all_term_by_taxonomy( $taxFilter, true, $id );
+
 							if ( ! empty( $subTerms ) ) {
 								$sT .= "<div class='rt-filter-sub-tax sub-button-group '>";
+
 								foreach ( $subTerms as $stId => $t ) {
 									$sTPostCount = ( $post_count ? " (<span class='rt-post-count'>{$t['count']}</span>)" : null );
 									$sT         .= "<span class='term-button-item rt-filter-button-item ' data-term='{$stId}'>{$t['name']}{$sTPostCount}</span>";
 								}
+
 								$sT .= '</div>';
+
 								if ( $default_term === $id ) {
 									$selectedSubTermsForButton = $sT;
 								}
@@ -475,9 +500,11 @@ abstract class Custom_Widget_Base extends Widget_Base {
 						}
 						$postCount    = ( $post_count ? " (<span class='rt-post-count'>{$term['count']}</span>)" : null );
 						$termSelected = null;
+
 						if ( $isTermSelected && $id == $default_term ) {
 							$termSelected = ' selected';
 						}
+
 						if ( is_array( $taxFilterTerms ) && ! empty( $taxFilterTerms ) ) {
 							if ( in_array( $id, $taxFilterTerms ) ) {
 								$bItems .= "<span class='term-button-item rt-filter-button-item {$termSelected} {$itemClass}' data-term='{$id}'>{$term['name']}{$postCount}{$sT}</span>";
@@ -489,7 +516,6 @@ abstract class Custom_Widget_Base extends Widget_Base {
 				}
 				$html .= "<div class='rt-filter-item-wrap rt-tax-filter rt-filter-button-wrap{$postCountClass} {$wrapperClass}' data-taxonomy='{$taxFilter}' data-filter='taxonomy'>";
 
-				// $pCountH = ( $post_count ? " (<span class='rt-post-count'>{$bCount}</span>)" : null );
 				if ( 'yes' == $data['tpg_hide_all_button'] ) {
 					$html .= "<span class='term-button-item rt-filter-button-item {$allSelect} {$itemClass}' data-term='all'>" . $allText . '</span>';
 				}
@@ -497,13 +523,14 @@ abstract class Custom_Widget_Base extends Widget_Base {
 				$html .= $bItems;
 
 				$html .= '</div>';
+
 				if ( 'carousel' === $data['filter_btn_style'] ) {
 					$html .= '<div class="swiper-navigation"><div class="swiper-button-prev slider-btn"></div><div class="swiper-button-next slider-btn"></div></div>';
 				}
 			}
 		}
 
-		// TODO: Author filter
+		// TODO: Author filter.
 		if ( 'show' == $data['show_author_filter'] ) {
 			$user_el = $data['author'];
 
@@ -514,13 +541,11 @@ abstract class Custom_Widget_Base extends Widget_Base {
 			} else {
 				$users = get_users( apply_filters( 'tpg_author_arg', [] ) );
 			}
-			$allText   = $allText = $data['author_filter_all_text'] ? $data['author_filter_all_text'] : __( 'All Users', 'the-post-grid' );
-			$allSelect = ' selected';
-			// $isTermSelected = false;
-			// if ( $default_term && $taxFilter ) {
+
+			$allText        = $allText = $data['author_filter_all_text'] ? $data['author_filter_all_text'] : __( 'All Users', 'the-post-grid' );
+			$allSelect      = ' selected';
 			$isTermSelected = true;
-			// $allSelect      = null;
-			// }
+
 			if ( $filterType == 'dropdown' ) {
 				$html           .= "<div class='rt-filter-item-wrap rt-author-filter rt-filter-dropdown-wrap parent-dropdown-wrap{$postCountClass}' data-filter='author'>";
 				$termDefaultText = $allText;
@@ -533,6 +558,7 @@ abstract class Custom_Widget_Base extends Widget_Base {
 					foreach ( $users as $user ) {
 						$user_post_count = false;
 						$post_count ? '(' . count_user_posts( $user->ID, $data['post_type'] ) . ')' : null;
+
 						if ( is_array( $filterAuthors ) && ! empty( $filterAuthors ) ) {
 							if ( in_array( $user->ID, $filterAuthors ) ) {
 								if ( $default_term == $user->ID ) {
@@ -556,9 +582,9 @@ abstract class Custom_Widget_Base extends Widget_Base {
 				$htmlButton .= '</span>';
 
 				$showAllhtml = '<span class="term-default rt-filter-dropdown-default" data-term="' . $dataAuthor . '">
-								                        <span class="rt-text">' . $termDefaultText . '</span>
-								                        <i class="fa fa-angle-down rt-arrow-angle" aria-hidden="true"></i>
-								                    </span>';
+									<span class="rt-text">' . $termDefaultText . '</span>
+									<i class="fa fa-angle-down rt-arrow-angle" aria-hidden="true"></i>
+								</span>';
 
 				$html .= $showAllhtml . $htmlButton;
 				$html .= '</div>';
@@ -579,10 +605,7 @@ abstract class Custom_Widget_Base extends Widget_Base {
 				}
 
 				$html .= "<div class='rt-filter-item-wrap rt-author-filter rt-filter-button-wrap{$postCountClass}' data-filter='author'>";
-				// if ( 'yes' == $data['tax_filter_all_text'] ) {
-				// $pCountH = ( $post_count ? " (<span class='rt-post-count'>{$bCount}</span>)" : null );
 				$html .= "<span class='author-button-item rt-filter-button-item {$allSelect}' data-author='all'>" . $allText . '</span>';
-				// }
 				$html .= $bItems;
 				$html .= '</div>';
 			}
@@ -596,7 +619,7 @@ abstract class Custom_Widget_Base extends Widget_Base {
 			$html .= "<div class='filter-right-wrapper'>";
 		}
 
-		// TODO: Order Filter
+		// TODO: Order Filter.
 		if ( 'show' == $data['show_sort_order'] ) {
 			$action_order = ( $data['order'] ? strtoupper( $data['order'] ) : 'DESC' );
 			$html        .= '<div class="rt-filter-item-wrap rt-sort-order-action" data-filter="order">';
@@ -604,36 +627,40 @@ abstract class Custom_Widget_Base extends Widget_Base {
 			$html        .= '</div>';
 		}
 
-		// TODO: Orderby Filter
+		// TODO: Orderby Filter.
 		if ( 'show' == $data['show_order_by'] ) {
 			$wooFeature     = ( $data['post_type'] == 'product' ? true : false );
 			$orders         = Options::rtPostOrderBy( $wooFeature );
 			$action_orderby = ( ! empty( $data['orderby'] ) ? $data['orderby'] : 'none' );
+
 			if ( $action_orderby == 'none' ) {
 				$action_orderby_label = __( 'Sort By', 'the-post-grid' );
 			} elseif ( in_array( $action_orderby, array_keys( Options::rtMetaKeyType() ) ) ) {
 				$action_orderby_label = __( 'Meta value', 'the-post-grid' );
 			} else {
-				$action_orderby_label = __( "By ", "the-post-grid" ) . $action_orderby;
+				$action_orderby_label = __( 'By ', 'the-post-grid' ) . $action_orderby;
 			}
+
 			if ( $action_orderby !== 'none' ) {
 				$orders['none'] = __( 'Sort By', 'the-post-grid' );
 			}
+
 			$html .= '<div class="rt-filter-item-wrap rt-order-by-action rt-filter-dropdown-wrap" data-filter="orderby">';
 			$html .= "<span class='order-by-default rt-filter-dropdown-default' data-order-by='{$action_orderby}'>
-							                        <span class='rt-text-order-by'>{$action_orderby_label}</span>
-							                        <i class='fa fa-angle-down rt-arrow-angle' aria-hidden='true'></i>
-							                    </span>";
+						<span class='rt-text-order-by'>{$action_orderby_label}</span>
+						<i class='fa fa-angle-down rt-arrow-angle' aria-hidden='true'></i>
+					</span>";
 			$html .= '<span class="order-by-dropdown rt-filter-dropdown">';
 
 			foreach ( $orders as $orderKey => $order ) {
 				$html .= '<span class="order-by-dropdown-item rt-filter-dropdown-item" data-order-by="' . $orderKey . '">' . $order . '</span>';
 			}
+
 			$html .= '</span>';
 			$html .= '</div>';
 		}
 
-		// TODO: Search Filter
+		// TODO: Search Filter.
 		if ( 'show' == $data['show_search'] ) {
 			$html .= '<div class="rt-filter-item-wrap rt-search-filter-wrap" data-filter="search">';
 			$html .= sprintf( '<input type="text" class="rt-search-input" placeholder="%s">', esc_html__( 'Search...', 'the-post-grid' ) );
@@ -675,23 +702,22 @@ abstract class Custom_Widget_Base extends Widget_Base {
 			$htmlUtility .= Fns::rt_pagination( $query, $posts_per_page );
 		} elseif ( rtTPG()->hasPro() && $posts_loading_type == 'pagination_ajax' ) { // && ! $isIsotope
 			$htmlUtility .= "<div class='rt-page-numbers'></div>";
-		} elseif ( rtTPG()->hasPro() && $posts_loading_type == "load_more" ) {
+		} elseif ( rtTPG()->hasPro() && $posts_loading_type == 'load_more' ) {
 			$load_more_btn_text = $data['load_more_button_text'] ? esc_html( $data['load_more_button_text'] ) : __( 'Load More', 'the-post-grid' );
-			$htmlUtility        .= "<div class='rt-loadmore-btn rt-loadmore-action rt-loadmore-style{$hide}'>
-											<span class='rt-loadmore-text'>" . $load_more_btn_text . "</span>
-											<div class='rt-loadmore-loading rt-ball-scale-multiple rt-2x'><div></div><div></div><div></div></div>
-										</div>";
+			$htmlUtility       .= "<div class='rt-loadmore-btn rt-loadmore-action rt-loadmore-style{$hide}'>
+										<span class='rt-loadmore-text'>" . $load_more_btn_text . "</span>
+										<div class='rt-loadmore-loading rt-ball-scale-multiple rt-2x'><div></div><div></div><div></div></div>
+									</div>";
 		} elseif ( rtTPG()->hasPro() && $posts_loading_type == 'load_on_scroll' ) {
 			$htmlUtility .= "<div class='rt-infinite-action'>
-                                <div class='rt-infinite-loading la-fire la-2x'>
-                                    <div></div><div></div><div></div>
-                                </div>
-                            </div>";
+								<div class='rt-infinite-loading la-fire la-2x'>
+									<div></div><div></div><div></div>
+								</div>
+							</div>";
 		}
 
 		if ( $htmlUtility ) {
-			$html = "<div class='rt-pagination-wrap' data-total-pages='{$query->max_num_pages}' data-posts-per-page='{$posts_per_page}' data-type='{$posts_loading_type}' >"
-					. $htmlUtility . '</div>';
+			$html = "<div class='rt-pagination-wrap' data-total-pages='{$query->max_num_pages}' data-posts-per-page='{$posts_per_page}' data-type='{$posts_loading_type}' >" . $htmlUtility . '</div>';
 
 			return $html;
 		}
@@ -702,25 +728,27 @@ abstract class Custom_Widget_Base extends Widget_Base {
 	/**
 	 * Get Popup Modal Markup
 	 */
-	function get_modal_markup() {
+	public function get_modal_markup() {
 		$html  = null;
 		$html .= '<div class="md-modal rt-md-effect" id="rt-modal">
-                        <div class="md-content">
-                            <div class="rt-md-content-holder"></div>
-                            <div class="md-cls-btn">
-                                <button class="md-close"><i class="fa fa-times" aria-hidden="true"></i></button>
-                            </div>
-                        </div>
-                    </div>';
+					<div class="md-content">
+						<div class="rt-md-content-holder"></div>
+						<div class="md-cls-btn">
+							<button class="md-close"><i class="fa fa-times" aria-hidden="true"></i></button>
+						</div>
+					</div>
+				</div>';
 		$html .= "<div class='md-overlay'></div>";
-		echo $html;
+
+		Fns::print_html( $html );
 	}
 
 	/**
 	 * Get Archive page title
 	 */
-	function get_archive_title() {
+	public function get_archive_title() {
 		$queried_obj = get_queried_object();
+
 		if ( is_tag() || is_category() ) {
 			echo esc_html( $queried_obj->name );
 		} elseif ( is_author() ) {
@@ -731,7 +759,7 @@ abstract class Custom_Widget_Base extends Widget_Base {
 			$day         = get_query_var( 'day' );
 			$time_string = $year . '/' . $monthnum . '/' . $day;
 			$time_stamp  = strtotime( $time_string );
-			echo date( get_option( 'date_format' ), $time_stamp );
+			Fns::print_html( date( get_option( 'date_format' ), $time_stamp ) );
 		}
 	}
 
@@ -740,12 +768,13 @@ abstract class Custom_Widget_Base extends Widget_Base {
 	 *
 	 * @param $data
 	 */
-	function get_section_title( $data ) {
+	public function get_section_title( $data ) {
 		if ( 'show' != $data['show_section_title'] ) {
 			return;
 		}
 
 		$_is_link = false;
+
 		if ( ! empty( $data['section_title_link']['url'] ) ) {
 			$this->add_link_attributes( 'section_title_link', $data['section_title_link'] );
 			$_is_link = true;
@@ -758,7 +787,7 @@ abstract class Custom_Widget_Base extends Widget_Base {
 		<div class="tpg-widget-heading-wrapper rt-clear heading-<?php echo esc_attr( $data['section_title_style'] ); ?> ">
 			<span class="tpg-widget-heading-line line-left"></span>
 
-			<?php printf( "<%s class='tpg-widget-heading'>", $data['section_title_tag'] ); ?>
+			<?php printf( "<%s class='tpg-widget-heading'>", esc_attr( $data['section_title_tag'] ) ); ?>
 
 			<?php
 			if ( $_is_link ) :
@@ -771,6 +800,7 @@ abstract class Custom_Widget_Base extends Widget_Base {
 					$archive_prefix = $data['title_prefix'] ? $data['title_prefix'] . ' ' : null;
 					$archive_suffix = $data['title_suffix'] ? ' ' . $data['title_suffix'] : null;
 					printf( "<span class='prefix-text'>%s</span>", esc_html( $archive_prefix ) );
+
 					if ( is_archive() ) {
 						$this->get_archive_title();
 					} elseif ( is_search() ) {
@@ -778,6 +808,7 @@ abstract class Custom_Widget_Base extends Widget_Base {
 					} else {
 						the_title();
 					}
+
 					printf( "<span class='suffix-text'>%s</span>", esc_html( $archive_suffix ) );
 				} else {
 					?>
@@ -803,7 +834,7 @@ abstract class Custom_Widget_Base extends Widget_Base {
 		<?php endif; ?>
 
 		<?php
-		echo ob_get_clean();
+		Fns::print_html( ob_get_clean() );
 	}
 
 
@@ -816,7 +847,7 @@ abstract class Custom_Widget_Base extends Widget_Base {
 	 *
 	 * @return array
 	 */
-	function get_render_data_set( $data, $total_pages, $posts_per_page ) {
+	public function get_render_data_set( $data, $total_pages, $posts_per_page ) {
 		$_prefix = $this->prefix;
 
 		$data_set = [
@@ -902,6 +933,4 @@ abstract class Custom_Widget_Base extends Widget_Base {
 
 		return $data_set;
 	}
-
-
 }

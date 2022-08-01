@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 <div class="field-holder">
 	<div class="field-label"><?php _e( 'ShortCode Heading', 'the-post-grid' ); ?></div>
 	<div class="field">
-		<?php echo Fns::rtFieldGenerator( Options::rtTPGSCHeadingSettings() ); ?>
+		<?php Fns::print_html( Fns::rtFieldGenerator( Options::rtTPGSCHeadingSettings() ), true ); ?>
 	</div>
 </div>
 <div class="field-holder">
@@ -25,36 +25,36 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<label><?php esc_html_e( 'Category', 'the-post-grid' ); ?></label>
 	</div>
 	<div class="field">
-		<?php echo Fns::rtFieldGenerator( Options::rtTPGSCCategorySettings() ); ?>
+		<?php Fns::print_html( Fns::rtFieldGenerator( Options::rtTPGSCCategorySettings() ), true ); ?>
 	</div>
 </div>
 <div class="field-holder">
 	<div class="field-label"><?php _e( 'Title', 'the-post-grid' ); ?></div>
 	<div class="field">
-		<?php echo Fns::rtFieldGenerator( Options::rtTPGSCTitleSettings() ); ?>
+		<?php Fns::print_html( Fns::rtFieldGenerator( Options::rtTPGSCTitleSettings() ), true ); ?>
 	</div>
 </div>
 <div class="field-holder">
 	<div class="field-label"><?php _e( 'Meta', 'the-post-grid' ); ?></div>
 	<div class="field">
-		<?php echo Fns::rtFieldGenerator( Options::rtTPGSCMetaSettings() ); ?>
+		<?php Fns::print_html( Fns::rtFieldGenerator( Options::rtTPGSCMetaSettings() ), true ); ?>
 	</div>
 </div>
 <div class="field-holder">
 	<div class="field-label"><?php _e( 'Image', 'the-post-grid' ); ?></div>
 	<div class="field">
-		<?php echo Fns::rtFieldGenerator( Options::rtTPGSCImageSettings() ); ?>
+		<?php Fns::print_html( Fns::rtFieldGenerator( Options::rtTPGSCImageSettings() ), true ); ?>
 	</div>
 </div>
 <div class="field-holder">
 	<div class="field-label"><?php _e( 'Excerpt', 'the-post-grid' ); ?></div>
 	<div class="field">
-		<?php echo Fns::rtFieldGenerator( Options::rtTPGSCExcerptSettings() ); ?>
+		<?php Fns::print_html( Fns::rtFieldGenerator( Options::rtTPGSCExcerptSettings() ), true ); ?>
 	</div>
 </div>
 <div class="field-holder">
 	<div class="field-label"><?php _e( 'Read More Button', 'the-post-grid' ); ?></div>
 	<div class="field">
-		<?php echo Fns::rtFieldGenerator( Options::rtTPGSCButtonSettings() ); ?>
+		<?php Fns::print_html( Fns::rtFieldGenerator( Options::rtTPGSCButtonSettings() ), true ); ?>
 	</div>
 </div>

@@ -201,7 +201,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 			</div>
 		</div>
 		<div class="rttpg-call-to-action" style="background-image: url('<?php echo rtTPG()->get_assets_uri( 'images/admin/banner.png' ); ?>')">
-			<a href="https://www.radiustheme.com/downloads/the-post-grid-pro-for-wordpress/" target="_blank" class="rt-update-pro-btn">
+			<a href="<?php echo esc_url( rtTpg()->proLink() ); ?>" target="_blank" class="rt-update-pro-btn">
 				Update Pro To Get More Features
 			</a>
 		</div>
@@ -213,7 +213,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 					<div class="rttpg-testimonial">
 						<p>So much functionality in the free version. Thank you very much! Many plugins offer a crippled free version to push into going to their PRO. The guys here provide a free version that brings lots of value also. I needed a flexible grid solution to my website that has dozen of grids in different configurations and the plugin could do everything I needed. Very easy to use and support it fantastic. Highly Recomended!</p>
 						<div class="client-info">
-							<img src="<?php echo rtTPG()->get_assets_uri( 'images/admin/client1.jpeg' ); ?>">
+							<img src="<?php echo esc_url(rtTPG()->get_assets_uri( 'images/admin/client1.jpeg' ) ); ?>">
 							<div>
 								<div class="rttpg-star">
 									<i class="dashicons dashicons-star-filled"></i>
@@ -227,9 +227,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 						</div>
 					</div>
 					<div class="rttpg-testimonial">
-						<p>The post grid is a fantastic plugin! It’s very easy to figure out without having to read any documentation. That is the mark of an excellent developer who knows how to make the user interface easy for people to use. I love that I can take my simple theme, and jazz it up with a nice grid, without having to go to a page builder. I am now teaching this to all my WordPress students 🙂 Hats off to this amazing plugin!</p>
+						<p>The post grid is a fantastic plugin! It's very easy to figure out without having to read any documentation. That is the mark of an excellent developer who knows how to make the user interface easy for people to use. I love that I can take my simple theme, and jazz it up with a nice grid, without having to go to a page builder. I am now teaching this to all my WordPress students 🙂 Hats off to this amazing plugin!</p>
 						<div class="client-info">
-							<img src="<?php echo rtTPG()->get_assets_uri( 'images/admin/client2.jpeg' ); ?>">
+							<img src="<?php echo esc_url( rtTPG()->get_assets_uri( 'images/admin/client2.jpeg' ) ); ?>">
 							<div>
 								<div class="rttpg-star">
 									<i class="dashicons dashicons-star-filled"></i>
@@ -251,16 +251,22 @@ if ( ! defined( 'ABSPATH' ) ) {
 				<div class="rt-box-content">
 					<h3 class="rt-box-title">Documentation</h3>
 					<p>Get started by spending some time with the documentation we included step by step process with screenshots with video.</p>
-					<a href="https://www.radiustheme.com/docs/the-post-grid/" target="_blank" class="rt-admin-btn">Documentation</a>
+					<a href="<?php echo esc_url( rtTpg()->docLink() ); ?>" target="_blank" class="rt-admin-btn">Documentation</a>
 				</div>
 			</div>
+			<?php
+			$rtContact = 'https://www.radiustheme.com/contact/';
+			$rtFb      = 'https://www.facebook.com/groups/234799147426640/';
+			$rtsite    = 'https://www.radiustheme.com/';
+			$rtRating  = 'https://wordpress.org/support/plugin/the-post-grid/reviews/?filter=5#new-post';
+			?>
 			<div class="rt-document-box">
 				<div class="rt-box-icon"><i class="dashicons dashicons-sos"></i></div>
 				<div class="rt-box-content">
 					<h3 class="rt-box-title">Need Help?</h3>
 					<p>Stuck with something? Please create a
-						<a href="https://www.radiustheme.com/contact/">ticket here</a> or post on <a href="https://www.facebook.com/groups/234799147426640/">facebook group</a>. For emergency case join our <a href="https://www.radiustheme.com/">live chat</a>.</p>
-					<a href="https://www.radiustheme.com/contact/" target="_blank" class="rt-admin-btn">Get Support</a>
+						<a href="<?php echo esc_url( $rtContact ); ?>">ticket here</a> or post on <a href="<?php echo esc_url( $rtFb ); ?>">facebook group</a>. For emergency case join our <a href="<?php echo esc_url( $rtsite ); ?>">live chat</a>.</p>
+					<a href="<?php echo esc_url( $rtContact ); ?>" target="_blank" class="rt-admin-btn">Get Support</a>
 				</div>
 			</div>
 			<div class="rt-document-box">
@@ -268,7 +274,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 				<div class="rt-box-content">
 					<h3 class="rt-box-title">Happy Our Work?</h3>
 					<p>If you happy with <strong>The Post Grid</strong> plugin, please add a rating. It would be glad to us.</p>
-					<a href="https://wordpress.org/support/plugin/the-post-grid/reviews/?filter=5#new-post" class="rt-admin-btn" target="_blank">Post Review</a>
+					<a href="<?php echo esc_url( $rtRating ); ?>" class="rt-admin-btn" target="_blank">Post Review</a>
 				</div>
 			</div>
 		</div>

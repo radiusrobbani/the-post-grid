@@ -13,35 +13,36 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit( 'This script cannot be accessed directly.' );
 }
 
-echo Fns::rtFieldGenerator( Options::rtTPGStyleFields() ); ?>
+Fns::print_html( Fns::rtFieldGenerator( Options::rtTPGStyleFields() ), true );
+?>
 
 <div class="field-holder button-color-style-wrapper">
-	<div class="field-label"><?php _e( 'Button Color', 'the-post-grid' ); ?></div>
+	<div class="field-label"><?php esc_html_e( 'Button Color', 'the-post-grid' ); ?></div>
 	<div class="field">
 		<div class="tpg-multiple-field-group">
-			<?php echo Fns::rtFieldGenerator( Options::rtTPGStyleButtonColorFields() ); ?>
+			<?php Fns::print_html( Fns::rtFieldGenerator( Options::rtTPGStyleButtonColorFields() ), true ); ?>
 		</div>
 	</div>
 </div>
 
 <div class="field-holder widget-heading-stle-wrapper">
-	<div class="field-label"><?php _e( 'ShortCode Heading', 'the-post-grid' ); ?></div>
+	<div class="field-label"><?php esc_html_e( 'ShortCode Heading', 'the-post-grid' ); ?></div>
 	<div class="field">
 		<div class="tpg-multiple-field-group">
-			<?php echo Fns::rtFieldGenerator( Options::rtTPGStyleHeading() ); ?>
+			<?php Fns::print_html( Fns::rtFieldGenerator( Options::rtTPGStyleHeading() ), true ); ?>
 		</div>
 	</div>
 </div>
 
 <div class="field-holder full-area-style-wrapper">
-	<div class="field-label"><?php _e( 'Full Area / Section', 'the-post-grid' ); ?></div>
+	<div class="field-label"><?php esc_html_e( 'Full Area / Section', 'the-post-grid' ); ?></div>
 	<div class="field">
 		<div class="tpg-multiple-field-group">
-			<?php echo Fns::rtFieldGenerator( Options::rtTPGStyleFullArea() ); ?>
+			<?php Fns::print_html( Fns::rtFieldGenerator( Options::rtTPGStyleFullArea() ), true ); ?>
 		</div>
 	</div>
 </div>
 
 <?php do_action( 'rt_tpg_sc_style_group_field' ); ?>
 
-<?php echo Fns::rtSmartStyle( Options::extraStyle() ); ?>
+<?php Fns::print_html( Fns::rtSmartStyle( Options::extraStyle() ), true ); ?>

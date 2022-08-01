@@ -25,7 +25,7 @@ class ElementorWidget extends Widget_Base {
 	}
 
 	public function get_title() {
-		return __( 'The Post Grid', 'the-post-grid' );
+		return esc_html__( 'The Post Grid', 'the-post-grid' );
 	}
 
 	public function get_icon() {
@@ -40,7 +40,7 @@ class ElementorWidget extends Widget_Base {
 		$this->start_controls_section(
 			'content_section',
 			[
-				'label' => __( 'The Post Grid', 'the-post-grid' ),
+				'label' => esc_html__( 'The Post Grid', 'the-post-grid' ),
 				'tab'   => \Elementor\Controls_Manager::TAB_CONTENT,
 			]
 		);
@@ -50,7 +50,7 @@ class ElementorWidget extends Widget_Base {
 			[
 				'type'    => \Elementor\Controls_Manager::SELECT2,
 				'id'      => 'style',
-				'label'   => __( 'Post Grid', 'the-post-grid' ),
+				'label'   => esc_html__( 'Post Grid', 'the-post-grid' ),
 				'options' => Fns::getAllTPGShortCodeList(),
 			]
 		);
@@ -60,8 +60,8 @@ class ElementorWidget extends Widget_Base {
 
 	protected function render() {
 		$settings = $this->get_settings_for_display();
-		if ( isset( $settings['post_grid_id'] ) && ! empty( $settings['post_grid_id'] ) && $id = absint( $settings['post_grid_id'] ) ) {
-			echo do_shortcode( '[the-post-grid id="' . $id . '"]' );
+		if ( isset( $settings['post_grid_id'] ) && ! empty( $settings['post_grid_id'] ) && $id = $settings['post_grid_id'] ) {
+			echo do_shortcode( '[the-post-grid id="' . absint( $id ) . '"]' );
 		} else {
 			echo 'Please select a post grid';
 		}

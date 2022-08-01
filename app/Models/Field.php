@@ -28,6 +28,7 @@ class Field {
 	private $class;
 	private $holderClass;
 	private $description;
+	private $descriptionAdv;
 	private $options;
 	private $option;
 	private $optionLabel;
@@ -72,17 +73,18 @@ class Field {
 			}
 		}
 
-		$this->label       = isset( $attr['label'] ) ? ( $attr['label'] ? $attr['label'] : null ) : null;
-		$this->class       = isset( $attr['class'] ) ? ( $attr['class'] ? $attr['class'] : null ) : null;
-		$this->holderClass = isset( $attr['holderClass'] ) ? ( $attr['holderClass'] ? $attr['holderClass'] : null ) : null;
-		$this->placeholder = isset( $attr['placeholder'] ) ? ( $attr['placeholder'] ? $attr['placeholder'] : null ) : null;
-		$this->description = isset( $attr['description'] ) ? ( $attr['description'] ? $attr['description'] : null ) : null;
-		$this->options     = isset( $attr['options'] ) ? ( $attr['options'] ? $attr['options'] : [] ) : [];
-		$this->option      = isset( $attr['option'] ) ? ( $attr['option'] ? $attr['option'] : null ) : null;
-		$this->optionLabel = isset( $attr['optionLabel'] ) ? ( $attr['optionLabel'] ? $attr['optionLabel'] : null ) : null;
-		$this->attr        = isset( $attr['attr'] ) ? ( $attr['attr'] ? $attr['attr'] : null ) : null;
-		$this->alignment   = isset( $attr['alignment'] ) ? ( $attr['alignment'] ? $attr['alignment'] : null ) : null;
-		$this->blank       = ! empty( $attr['blank'] ) ? $attr['blank'] : null;
+		$this->label          = isset( $attr['label'] ) ? ( $attr['label'] ? $attr['label'] : null ) : null;
+		$this->class          = isset( $attr['class'] ) ? ( $attr['class'] ? $attr['class'] : null ) : null;
+		$this->holderClass    = isset( $attr['holderClass'] ) ? ( $attr['holderClass'] ? $attr['holderClass'] : null ) : null;
+		$this->placeholder    = isset( $attr['placeholder'] ) ? ( $attr['placeholder'] ? $attr['placeholder'] : null ) : null;
+		$this->description    = isset( $attr['description'] ) ? ( $attr['description'] ? $attr['description'] : null ) : null;
+		$this->descriptionAdv = isset( $attr['description_adv'] ) ? ( $attr['description_adv'] ? $attr['description_adv'] : null ) : null;
+		$this->options        = isset( $attr['options'] ) ? ( $attr['options'] ? $attr['options'] : [] ) : [];
+		$this->option         = isset( $attr['option'] ) ? ( $attr['option'] ? $attr['option'] : null ) : null;
+		$this->optionLabel    = isset( $attr['optionLabel'] ) ? ( $attr['optionLabel'] ? $attr['optionLabel'] : null ) : null;
+		$this->attr           = isset( $attr['attr'] ) ? ( $attr['attr'] ? $attr['attr'] : null ) : null;
+		$this->alignment      = isset( $attr['alignment'] ) ? ( $attr['alignment'] ? $attr['alignment'] : null ) : null;
+		$this->blank          = ! empty( $attr['blank'] ) ? $attr['blank'] : null;
 
 	}
 
@@ -168,6 +170,9 @@ class Field {
 		}
 		if ( $this->description ) {
 			$html .= "<p class='description'>{$this->description}</p>";
+		}
+		if ( $this->descriptionAdv ) {
+			$html .= "<p class='description'>{$this->descriptionAdv}</p>";
 		}
 		$html .= '</div>'; // field
 		$html .= '</div>'; // field holder

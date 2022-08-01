@@ -42,7 +42,7 @@ class rtTPGElementorQuery {
 			}
 		}
 
-		if ( $prefix !== 'slider' && 'show' === $data['show_pagination'] ) {
+		if ( 'slider' !== $prefix && 'show' === $data['show_pagination'] ) {
 			$_paged        = is_front_page() ? 'page' : 'paged';
 			$args['paged'] = get_query_var( $_paged ) ? absint( get_query_var( $_paged ) ) : 1;
 		}
@@ -55,6 +55,7 @@ class rtTPGElementorQuery {
 			if ( ! rtTPG()->hasPro() && 'rand' == $orderby ) {
 				$orderby = 'date';
 			}
+
 			$args['orderby'] = $orderby;
 		}
 
@@ -96,6 +97,7 @@ class rtTPGElementorQuery {
 				}
 			} else {
 				$setting_key = $object->name . '_ids';
+
 				if ( ! empty( $data[ $setting_key ] ) ) {
 					$args['tax_query'][] = [
 						'taxonomy' => $object->name,
@@ -131,6 +133,7 @@ class rtTPGElementorQuery {
 				}
 			} else {
 				$_posts_per_page = 9;
+
 				if ( 'grid' === $prefix ) {
 					if ( $data['grid_layout'] == 'grid-layout5' ) {
 						$_posts_per_page = 5;
@@ -171,23 +174,27 @@ class rtTPGElementorQuery {
 			}
 		} else {
 			$slider_per_page = $data['post_limit'];
+
 			if ( $data['slider_layout'] == 'slider-layout10' ) {
 				$slider_reminder = ( intval( $data['post_limit'], 10 ) % 5 );
 				if ( $slider_reminder ) {
 					$slider_per_page = ( $data['post_limit'] - $slider_reminder + 5 );
 				}
 			}
+
 			$args['posts_per_page'] = $slider_per_page;
 		}
 
 		if ( $data['exclude'] || $data['offset'] ) {
 			$excluded_ids = [];
+
 			if ( $data['exclude'] ) {
 				$excluded_ids = explode( ',', $data['exclude'] );
 				$excluded_ids = array_map( 'trim', $excluded_ids );
 			}
 
 			$offset_posts = [];
+
 			if ( $data['offset'] ) {
 				$_temp_args = $args;
 				unset( $_temp_args['paged'] );
@@ -239,12 +246,15 @@ class rtTPGElementorQuery {
 			}
 
 			$slider_per_page = $data['post_limit'];
+
 			if ( $data['slider_layout'] == 'slider-layout10' ) {
 				$slider_reminder = ( intval( $data['post_limit'], 10 ) % 5 );
+
 				if ( $slider_reminder ) {
 					$slider_per_page = ( $data['post_limit'] - $slider_reminder + 5 );
 				}
 			}
+
 			$args['posts_per_page'] = $slider_per_page;
 		} else {
 			$args = [
@@ -257,12 +267,14 @@ class rtTPGElementorQuery {
 
 			if ( $data['exclude'] || $data['offset'] ) {
 				$excluded_ids = [];
+
 				if ( $data['exclude'] ) {
 					$excluded_ids = explode( ',', $data['exclude'] );
 					$excluded_ids = array_map( 'trim', $excluded_ids );
 				}
 
 				$offset_posts = [];
+
 				if ( $data['offset'] ) {
 					$_temp_args = [
 						'post_type'      => 'post',
@@ -357,5 +369,4 @@ class rtTPGElementorQuery {
 
 		return $args;
 	}
-
 }

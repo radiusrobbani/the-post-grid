@@ -59,19 +59,19 @@ class TPGGridLayoutArchive extends Custom_Widget_Base {
 	protected function register_controls() {
 		/** Content TAB */
 
-		// Layout
+		// Layout.
 		rtTPGElementorHelper::grid_layouts( $this, 'archive' );
 
-		// Query
+		// Query.
 		rtTPGElementorHelper::query_builder( $this );
 
-		// Filter  Settings
+		// Filter  Settings.
 		// rtTPGElementorHelper::filter_settings( $this, 'archive' );
 
-		// Pagination Settings
+		// Pagination Settings.
 		rtTPGElementorHelper::pagination_settings( $this, 'archive' );
 
-		// Links
+		// Links.
 		rtTPGElementorHelper::links( $this );
 
 		/**
@@ -79,66 +79,66 @@ class TPGGridLayoutArchive extends Custom_Widget_Base {
 		 * ===========
 		 */
 
-		// Field Selection
+		// Field Selection.
 		rtTPGElementorHelper::field_selection( $this );
 
-		// Section Title Settings
+		// Section Title Settings.
 		rtTPGElementorHelper::section_title_settings( $this, 'archive' );
 
-		// Title Settings
+		// Title Settings.
 		rtTPGElementorHelper::post_title_settings( $this );
 
-		// Thumbnail Settings
+		// Thumbnail Settings.
 		rtTPGElementorHelper::post_thumbnail_settings( $this );
 
-		// Excerpt Settings
+		// Excerpt Settings.
 		rtTPGElementorHelper::post_excerpt_settings( $this );
 
-		// Meta Settings
+		// Meta Settings.
 		rtTPGElementorHelper::post_meta_settings( $this );
 
-		// Advanced Custom Field ACF Settings
+		// Advanced Custom Field ACF Settings.
 		rtTPGElementorHelper::tpg_acf_settings( $this );
 
-		// Readmore Settings
+		// Readmore Settings.
 		rtTPGElementorHelper::post_readmore_settings( $this );
 
 		/** Style TAB */
 
-		// Section Title Style
+		// Section Title Style.
 		rtTPGElementorHelper::sectionTitle( $this, 'archive' );
 
-		// Title Style
+		// Title Style.
 		rtTPGElementorHelper::titleStyle( $this );
 
-		// Thumbnail Style
+		// Thumbnail Style.
 		rtTPGElementorHelper::thumbnailStyle( $this );
 
-		// Content Style
+		// Content Style.
 		rtTPGElementorHelper::contentStyle( $this );
 
-		// Meta Info Style
+		// Meta Info Style.
 		rtTPGElementorHelper::metaInfoStyle( $this );
 
-		// Social Share Settings
+		// Social Share Settings.
 		rtTPGElementorHelper::socialShareStyle( $this );
 
-		// ACF Style
+		// ACF Style.
 		rtTPGElementorHelper::tpg_acf_style( $this );
 
-		// Read More Style
+		// Read More Style.
 		rtTPGElementorHelper::readmoreStyle( $this );
 
-		// Link Style
+		// Link Style.
 		rtTPGElementorHelper::linkStyle( $this );
 
-		// Pagination - Loadmore Style
+		// Pagination - Loadmore Style.
 		rtTPGElementorHelper::paginationStyle( $this );
 
-		// Box Settings
+		// Box Settings.
 		rtTPGElementorHelper::articlBoxSettings( $this );
 
-		// Promotions
+		// Promotions.
 		rtTPGElementorHelper::promotions( $this );
 	}
 
@@ -167,29 +167,30 @@ class TPGGridLayoutArchive extends Custom_Widget_Base {
 			wp_enqueue_script( 'rt-pagination' );
 		}
 
-		// Query
+		// Query.
 		$query_args     = rtTPGElementorQuery::post_query_builder( $data, $_prefix );
 		$query          = new WP_Query( $query_args );
-		$rand           = mt_rand();
+		$rand           = wp_rand();
 		$layoutID       = 'rt-tpg-container-' . $rand;
 		$posts_per_page = $data['post_limit'];
 
 		/**
 		 * TODO: Get Post Data for render post
 		 */
-
 		$post_data = $this->get_render_data_set( $data, $query->max_num_pages, $posts_per_page );
 
 		/**
 		 * Post type render
 		 */
-
 		$post_types = Fns::get_post_types();
+
 		foreach ( $post_types as $post_type => $label ) {
 			$_taxonomies = get_object_taxonomies( $post_type, 'object' );
+
 			if ( empty( $_taxonomies ) ) {
 				continue;
 			}
+
 			$post_data[ $data['post_type'] . '_taxonomy' ] = isset( $data[ $data['post_type'] . '_taxonomy' ] ) ? $data[ $data['post_type'] . '_taxonomy' ] : '';
 			$post_data[ $data['post_type'] . '_tags' ]     = isset( $data[ $data['post_type'] . '_tags' ] ) ? $data[ $data['post_type'] . '_tags' ] : '';
 		}
@@ -201,13 +202,13 @@ class TPGGridLayoutArchive extends Custom_Widget_Base {
 		?>
 
 		<div class="rt-container-fluid rt-tpg-container tpg-el-main-wrapper clearfix <?php echo esc_attr( $_layout . '-main' ); ?>"
-			 id="<?php echo esc_attr( $layoutID ); ?>"
-			 data-layout="<?php echo esc_attr( $data[ $_prefix . '_layout' ] ); ?>"
-			 data-grid-style="<?php echo esc_attr( $data[ $_prefix . '_layout_style' ] ); ?>"
-			 data-sc-id="elementor"
-			 data-el-settings='<?php echo htmlspecialchars( wp_json_encode( $post_data ) ); ?>'
-			 data-el-query='<?php echo htmlspecialchars( wp_json_encode( $query_args ) ); ?>'
-			 data-el-path='<?php echo esc_attr( $template_path ); ?>'
+			id="<?php echo esc_attr( $layoutID ); ?>"
+			data-layout="<?php echo esc_attr( $data[ $_prefix . '_layout' ] ); ?>"
+			data-grid-style="<?php echo esc_attr( $data[ $_prefix . '_layout_style' ] ); ?>"
+			data-sc-id="elementor"
+			data-el-settings='<?php Fns::print_html( htmlspecialchars( wp_json_encode( $post_data ) ), true ); ?>'
+			data-el-query='<?php Fns::print_html( htmlspecialchars( wp_json_encode( $query_args ) ), true ); ?>'
+			data-el-path='<?php echo esc_attr( $template_path ); ?>'
 		>
 			<?php
 
@@ -227,12 +228,12 @@ class TPGGridLayoutArchive extends Custom_Widget_Base {
 			$wrapper_class[] = 'grid-behaviour';
 			$wrapper_class[] = ( in_array( $_layout, [ 'grid-layout2' ] ) ) ? 'tpg-even' : $_layout_style;
 			$wrapper_class[] = $_prefix . '_layout_wrapper';
+
 			if ( 'masonry' === $_layout_style && ! in_array( $_layout, [ $this->prefix . '-layout2', $this->prefix . '-layout5', $this->prefix . '-layout6' ] ) ) {
 				$wrapper_class[] = 'tpg-masonry';
 			}
 
-			// section title settings
-
+			// section title settings.
 			echo "<div class='tpg-header-wrapper '>";
 			$this->get_section_title( $data );
 			echo '</div>';
@@ -242,6 +243,7 @@ class TPGGridLayoutArchive extends Custom_Widget_Base {
 				<?php
 				if ( $query->have_posts() ) {
 					$pCount = 1;
+
 					while ( $query->have_posts() ) {
 						$query->the_post();
 						set_query_var( 'tpg_post_count', $pCount );
@@ -261,7 +263,7 @@ class TPGGridLayoutArchive extends Custom_Widget_Base {
 				?>
 			</div>
 
-			<?php echo $this->get_pagination_markup( $query, $data ); ?>
+			<?php Fns::print_html( $this->get_pagination_markup( $query, $data ) ); ?>
 		</div>
 		<?php
 		if ( 'masonry' === $data[ $_prefix . '_layout_style' ] && \Elementor\Plugin::$instance->editor->is_edit_mode() ) {

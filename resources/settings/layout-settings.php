@@ -13,8 +13,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit( 'This script cannot be accessed directly.' );
 }
 
-echo Fns::rtFieldGenerator( Options::rtTPGLayoutSettingFields() );
+Fns::print_html( Fns::rtFieldGenerator( Options::rtTPGLayoutSettingFields() ), true );
 echo '<div class="rd-responsive-column">';
-echo Fns::rtFieldGenerator( Options::responsiveSettingsColumn() );
+Fns::print_html( Fns::rtFieldGenerator( Options::responsiveSettingsColumn() ), true );
 echo '</div>';
-echo Fns::rtFieldGenerator( Options::layoutMiscSettings() );
+Fns::print_html( Fns::rtFieldGenerator( Options::layoutMiscSettings() ), true );

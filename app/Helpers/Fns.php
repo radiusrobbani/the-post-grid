@@ -1888,7 +1888,7 @@ class Fns {
 		if ( $post_type ) {
 			global $wpdb;
 
-			$query = "SELECT DISTINCT($wpdb->postmeta.meta_key)
+			$query     = "SELECT DISTINCT($wpdb->postmeta.meta_key)
 					FROM $wpdb->posts
 					LEFT JOIN $wpdb->postmeta
 					ON $wpdb->posts.ID = $wpdb->postmeta.post_id
@@ -1956,19 +1956,17 @@ class Fns {
 			foreach ( $groups_q as $group ) {
 				$c    = $group->post_content ? unserialize( $group->post_content ) : [];
 				$flag = false;
+
 				if ( ! empty( $c['location'] ) ) {
 					foreach ( $c['location'] as $rules ) {
 						foreach ( $rules as $rule ) {
-							if ( $post_type === 'all' ) {
-								if ( ( ! empty( $rule['param'] ) && $rule['param'] == 'post_type' )
-									 && ( ! empty( $rule['operator'] ) && $rule['operator'] == '==' )
+							if ( 'all' === $post_type ) {
+								if ( ( ! empty( $rule['param'] ) && $rule['param'] == 'post_type' ) && ( ! empty( $rule['operator'] ) && $rule['operator'] == '==' )
 								) {
 									$flag = true;
 								}
 							} else {
-								if ( ( ! empty( $rule['param'] ) && ( $rule['param'] == 'post_type' || ( $rule['param'] == 'post_category' && 'post' == $post_type ) ) )
-									 && ( ! empty( $rule['operator'] ) && $rule['operator'] == '==' )
-									 && ( ! empty( $rule['value'] ) && ( $rule['value'] == $post_type || ( $rule['param'] == 'post_category' && 'post' == $post_type ) ) )
+								if ( ( ! empty( $rule['param'] ) && ( $rule['param'] == 'post_type' || ( $rule['param'] == 'post_category' && 'post' == $post_type ) ) ) && ( ! empty( $rule['operator'] ) && $rule['operator'] == '==' ) && ( ! empty( $rule['value'] ) && ( $rule['value'] == $post_type || ( $rule['param'] == 'post_category' && 'post' == $post_type ) ) )
 
 								) {
 									$flag = true;
@@ -2015,6 +2013,7 @@ class Fns {
 		if ( isset( $data['category'] ) && 'category' == $data['category'] ) {
 			return true;
 		}
+
 		if ( 'default' == $data['category_position']
 			&& in_array(
 				$data['layout'],
@@ -2062,47 +2061,50 @@ class Fns {
 	 */
 	public static function get_post_link( $pID, $data ) {
 		$link_class = $link_start = $link_end = $readmore_link_start = $readmore_link_end = null;
+
 		if ( 'default' == $data['post_link_type'] ) {
 			$link_class = 'tpg-post-link';
 			$link_start = $readmore_link_start = sprintf(
 				'<a data-id="%s" href="%s" class="%s" target="%s">',
-				esc_attr( $pID ),
-				esc_attr( esc_url( get_permalink() ) ),
-				$link_class,
-				$data['link_target']
+				absint( $pID ),
+				esc_url( get_permalink() ),
+				esc_attr( $link_class ),
+				esc_attr( $data['link_target'] ),
 			);
 			$link_end   = $readmore_link_end = '</a>';
 		} elseif ( 'popup' == $data['post_link_type'] ) {
 			$link_class = 'tpg-single-popup tpg-post-link';
+
 			if ( \Elementor\Plugin::$instance->editor->is_edit_mode() ) {
 				$link_class = 'tpg-post-link';
 			}
+
 			$link_start = $readmore_link_start = sprintf(
 				'<a data-id="%s" href="%s" class="%s" target="%s">',
-				esc_attr( $pID ),
+				absint( $pID ),
 				esc_url( get_permalink() ),
-				$link_class,
-				$data['link_target']
+				esc_attr( $link_class ),
+				esc_attr( $data['link_target'] ),
 			);
 			$link_end   = $readmore_link_end = '</a>';
 		} elseif ( 'multi_popup' == $data['post_link_type'] ) {
 			$link_class = 'tpg-multi-popup tpg-post-link';
 			$link_start = $readmore_link_start = sprintf(
 				'<a data-id="%s" href="%s" class="%s" target="%s">',
-				esc_attr( $pID ),
-				esc_attr( esc_url( get_permalink() ) ),
-				$link_class,
-				$data['link_target']
+				absint( $pID ),
+				esc_url( get_permalink() ),
+				esc_attr( $link_class ),
+				esc_attr( $data['link_target'] ),
 			);
 			$link_end   = $readmore_link_end = '</a>';
 		} else {
 			$link_class          = 'tpg-post-link';
 			$readmore_link_start = sprintf(
 				'<a data-id="%s" href="%s" class="%s" target="%s">',
-				esc_attr( $pID ),
-				esc_attr( esc_url( get_permalink() ) ),
-				$link_class,
-				$data['link_target']
+				absint( $pID ),
+				esc_url( get_permalink() ),
+				esc_attr( $link_class ),
+				esc_attr( $data['link_target'] ),
 			);
 			$readmore_link_end   = '</a>';
 		}
@@ -2156,15 +2158,17 @@ class Fns {
 	 */
 	public static function get_post_meta_html( $post_id, $data ) {
 		global $post;
+
 		$author_id   = $post->post_author;
 		$author_name = get_the_author_meta( 'display_name', $post->post_author );
 		$author      = apply_filters( 'rttpg_author_link', sprintf( '<a href="%s">%s</a>', get_author_posts_url( $author_id ), $author_name ) );
 
 		$comments_number = get_comments_number( $post_id );
+		$comment_label   = '';
 
-		$comment_label = '';
 		if ( isset( $data['show_comment_count_label'] ) && $data['show_comment_count_label'] ) {
 			$comment_label = $data['comment_count_label_singular'];
+
 			if ( $comments_number > 1 ) {
 				$comment_label = $data['comment_count_label_plural'];
 			}
@@ -2173,7 +2177,7 @@ class Fns {
 		$comments_text = sprintf( '%s (%s)', esc_html( $comment_label ), number_format_i18n( $comments_number ) );
 		$date          = get_the_date();
 
-		// Category and Tags Management
+		// Category and Tags Management.
 		$_cat_id    = isset( $data['post_type'] ) ? $data['post_type'] . '_taxonomy' : 'category';
 		$_tag_id    = isset( $data['post_type'] ) ? $data['post_type'] . '_tags' : 'post_tag';
 		$categories = get_the_term_list( $post_id, $data[ $_cat_id ], null, '<span class="rt-separator">,</span>' );
@@ -2182,9 +2186,9 @@ class Fns {
 		$count_key      = self::get_post_view_count_meta_key();
 		$get_view_count = get_post_meta( $post_id, $count_key, true );
 
-		$meta_separator = ( $data['meta_separator'] && $data['meta_separator'] !== 'default' ) ? sprintf( "<span class='separator'>%s</span>", $data['meta_separator'] ) : null;
+		$meta_separator = ( $data['meta_separator'] && 'default' !== $data['meta_separator'] ) ? sprintf( "<span class='separator'>%s</span>", $data['meta_separator'] ) : null;
 
-		// Author Meta
+		// Author Meta.
 
 		$post_meta_html = [];
 
@@ -2214,23 +2218,20 @@ class Fns {
 				if ( $data['author_prefix'] ) {
 					echo "<span class='author-prefix'>" . esc_html( $data['author_prefix'] ) . '</span>';
 				}
-				echo $author;
+				echo wp_kses( $author, self::allowedHtml() );
 				?>
 			</span>
 			<?php
-			echo $meta_separator;
+			echo wp_kses( $meta_separator, self::allowedHtml() );
 		}
 
 		$post_meta_html['author'] = ob_get_clean();
 
 		ob_start();
-		// Category Meta
+		// Category Meta.
 
-		$category_condition = ( $categories && 'show' == $data['show_category'] && self::el_ignore_layout( $data )
-								&& in_array(
-									$data['category_position'],
-									[ 'default', 'with_meta' ]
-								) );
+		$category_condition = ( $categories && 'show' == $data['show_category'] && self::el_ignore_layout( $data ) && in_array( $data['category_position'], [ 'default', 'with_meta' ] ) );
+
 		if ( ! rtTPG()->hasPro() ) {
 			$category_condition = ( $categories && 'show' == $data['show_category'] );
 		}
@@ -2246,16 +2247,16 @@ class Fns {
 						echo "<i class='fa fa-user'></i>";
 					}
 				}
-				echo $categories;
+				echo wp_kses( $categories, self::allowedHtml() );
 				?>
 			</span>
 			<?php
-			echo $meta_separator;
+			echo wp_kses( $meta_separator, self::allowedHtml() );
 		}
 		$post_meta_html['category'] = ob_get_clean();
 
 		ob_start();
-		// Date Meta
+		// Date Meta.
 		if ( '' !== $data['show_date'] ) {
 			$archive_year  = get_the_date( 'Y' );
 			$archive_month = get_the_date( 'm' );
@@ -2273,17 +2274,18 @@ class Fns {
 					}
 				}
 				?>
-				 <a href="<?php echo esc_url( get_day_link( $archive_year, $archive_month, $archive_day ) ); ?>">
-					 <?php echo esc_html( $date ); ?>
-				 </a>
+				<a href="<?php echo esc_url( get_day_link( $archive_year, $archive_month, $archive_day ) ); ?>">
+					<?php echo esc_html( $date ); ?>
+				</a>
 			</span>
 			<?php
-			echo $meta_separator;
+			echo wp_kses( $meta_separator, self::allowedHtml() );
 		}
+
 		$post_meta_html['date'] = ob_get_clean();
 
 		ob_start();
-		// Tags Meta
+		// Tags Meta.
 		if ( $tags && 'show' == $data['show_tags'] ) {
 			?>
 			<span class='post-tags-links'>
@@ -2295,16 +2297,16 @@ class Fns {
 						echo "<i class='fa fa-user'></i>";
 					}
 				}
-				echo $tags;
+				echo wp_kses( $tags, self::allowedHtml() );
 				?>
 			</span>
 			<?php
-			echo $meta_separator;
+			echo wp_kses( $meta_separator, self::allowedHtml() );
 		}
 		$post_meta_html['tags'] = ob_get_clean();
 
 		ob_start();
-		// Comment Meta
+		// Comment Meta.
 		if ( 'show' == $data['show_comment_count'] ) {
 			?>
 			<span class="comment-count">
@@ -2316,17 +2318,17 @@ class Fns {
 						echo "<i class='fa fa-user'></i>";
 					}
 				}
-				echo $comments_text;
+				echo wp_kses( $comments_text, self::allowedHtml() );
 				?>
 			</span>
 			<?php
-			echo $meta_separator;
+			echo wp_kses( $meta_separator, self::allowedHtml() );
 		}
 
 		$post_meta_html['comment_count'] = ob_get_clean();
 
 		ob_start();
-		// Comment Meta
+		// Post Count.
 		if ( rtTPG()->hasPro() && 'show' == $data['show_post_count'] && ! empty( $get_view_count ) ) {
 			?>
 			<span class="post-count">
@@ -2338,19 +2340,20 @@ class Fns {
 						echo "<i class='fa fa-eye'></i>";
 					}
 				}
-				echo $get_view_count;
+				echo wp_kses( $get_view_count, self::allowedHtml() );
 				?>
 			</span>
 			<?php
-			echo $meta_separator;
+			echo wp_kses( $meta_separator, self::allowedHtml() );
 		}
 
 		$post_meta_html['post_count'] = ob_get_clean();
 
 		$meta_orering = isset( $data['meta_ordering'] ) && is_array( $data['meta_ordering'] ) ? $data['meta_ordering'] : [];
+
 		foreach ( $meta_orering as $val ) {
 			if ( isset( $post_meta_html[ $val['meta_name'] ] ) ) {
-				echo $post_meta_html[ $val['meta_name'] ];
+				echo wp_kses_post( $post_meta_html[ $val['meta_name'] ] );
 			}
 		}
 	}
@@ -2392,13 +2395,15 @@ class Fns {
 
 	public static function get_el_post_title( $title_tag, $title, $link_start, $link_end, $data ) {
 		echo '<div class="entry-title-wrapper">';
+
 		if ( rtTPG()->hasPro() && 'above_title' === $data['category_position'] || ! self::el_ignore_layout( $data ) ) {
 			self::get_el_thumb_cat( $data, 'cat-above-title' );
 		}
+
 		printf( '<%s class="entry-title">', esc_attr( $title_tag ) );
-		echo self::wp_kses( $link_start );
-		echo self::wp_kses( $title );
-		echo self::wp_kses( $link_end );
+		self::print_html( $link_start );
+		self::print_html( $title );
+		self::print_html( $link_end );
 		printf( '</%s>', esc_attr( $title_tag ) );
 		echo '</div>';
 	}
@@ -2407,18 +2412,20 @@ class Fns {
 		if ( ! ( 'show' == $data['show_meta'] && 'show' == $data['show_category'] ) ) {
 			return;
 		}
+
 		$pID               = get_the_ID();
 		$_cat_id           = $data['post_type'] . '_taxonomy';
 		$categories        = get_the_term_list( $pID, $data[ $_cat_id ], null, '<span class="rt-separator">,</span>' );
 		$category_position = $data['category_position'];
+
 		if ( in_array( $data['layout'], [ 'grid-layout4' ] ) && 'default' === $data['category_position'] ) {
 			$category_position = 'top_left';
 		}
 		?>
 		<div class="tpg-separate-category <?php echo esc_attr( $data['category_style'] . ' ' . $category_position . ' ' . $class ); ?>">
 			<span class='categories-links'>
-			<?php echo ( $data['show_cat_icon'] === 'yes' ) ? "<i class='fas fa-folder-open'></i>" : null; ?>
-			<?php echo $categories; ?>
+			<?php echo ( 'yes' === $data['show_cat_icon'] ) ? "<i class='fas fa-folder-open'></i>" : null; ?>
+			<?php echo wp_kses( $categories, self::allowedHtml() ); ?>
 			</span>
 		</div>
 		<?php
@@ -2449,11 +2456,14 @@ class Fns {
 				$info = getimagesize( $imgAbs );
 				$size = isset( $info[3] ) ? $info[3] : '';
 			}
+
 			$attachment_id = attachment_url_to_postid( $imgSrc );
 			$alt_text      = null;
+
 			if ( ! empty( $attachment_id ) ) {
 				$alt_text = trim( wp_strip_all_tags( get_post_meta( $attachment_id, '_wp_attachment_image_alt', true ) ) );
 			}
+
 			$alt = $alt_text ? $alt_text : get_the_title( $post_id );
 
 			if ( $type == 'markup' ) {
@@ -2479,6 +2489,7 @@ class Fns {
 	 */
 	public static function get_post_thumbnail( $pID, $data, $link_start, $link_end, $offset_size = false ) {
 		$thumb_cat_condition = ( ! ( 'above_title' === $data['category_position'] || 'default' === $data['category_position'] ) );
+
 		if ( 'grid-layout4' === $data['layout'] && 'default' === $data['category_position'] ) {
 			$thumb_cat_condition = true;
 		} elseif ( in_array(
@@ -2494,22 +2505,26 @@ class Fns {
 		if ( rtTPG()->hasPro() && $data['show_category'] == 'show' && $thumb_cat_condition && 'with_meta' !== $data['category_position'] ) {
 			self::get_el_thumb_cat( $data );
 		}
-		$img_link = get_the_post_thumbnail_url( $pID, 'full' );
 
+		$img_link     = get_the_post_thumbnail_url( $pID, 'full' );
 		$img_size_key = 'image';
 
 		if ( $offset_size ) {
 			$img_size_key = 'image_offset';
 		}
+
 		$lazy_load  = ( $data['prefix'] == 'slider' && $data['lazy_load'] == 'yes' ) ? true : false;
 		$lazy_class = 'rt-img-responsive';
+
 		if ( $lazy_load ) {
 			$lazy_class = 'swiper-lazy';
 		}
 
 		echo $data['is_thumb_linked'] === 'yes' ? self::wp_kses( $link_start ) : null;
+
 		if ( has_post_thumbnail() && 'feature_image' === $data['media_source'] ) {
 			$fImgSize = $data['image_size'];
+
 			if ( $offset_size ) {
 				echo get_the_post_thumbnail( $pID, $data['image_offset'] );
 			} else {
@@ -2520,19 +2535,19 @@ class Fns {
 					if ( $lazy_load ) {
 						?>
 						<img data-src="<?php echo esc_url( $thumb_info[0] ); ?>"
-							 src="#none"
-							 class="<?php echo esc_attr( $lazy_class ); ?>"
-							 width="<?php echo esc_attr( $thumb_info[1] ); ?>"
-							 height="<?php echo esc_attr( $thumb_info[2] ); ?>"
-							 alt="<?php echo esc_attr( $thumb_alt ? $thumb_alt : the_title() ); ?>">
+							src="#none"
+							class="<?php echo esc_attr( $lazy_class ); ?>"
+							width="<?php echo esc_attr( $thumb_info[1] ); ?>"
+							height="<?php echo esc_attr( $thumb_info[2] ); ?>"
+							alt="<?php echo esc_attr( $thumb_alt ? $thumb_alt : the_title() ); ?>">
 						<?php
 					} else {
 						?>
 						<img src="<?php echo esc_url( $thumb_info[0] ); ?>"
-							 class="<?php echo esc_attr( $lazy_class ); ?>"
-							 width="<?php echo esc_attr( $thumb_info[1] ); ?>"
-							 height="<?php echo esc_attr( $thumb_info[2] ); ?>"
-							 alt="<?php echo esc_attr( $thumb_alt ? $thumb_alt : the_title() ); ?>">
+							class="<?php echo esc_attr( $lazy_class ); ?>"
+							width="<?php echo esc_attr( $thumb_info[1] ); ?>"
+							height="<?php echo esc_attr( $thumb_info[2] ); ?>"
+							alt="<?php echo esc_attr( $thumb_alt ? $thumb_alt : the_title() ); ?>">
 						<?php
 					}
 					?>
@@ -2547,6 +2562,7 @@ class Fns {
 					if ( isset( $data['image_custom_dimension'] ) ) {
 						$post_thumb_id           = get_post_thumbnail_id( $pID );
 						$default_image_dimension = wp_get_attachment_image_src( $post_thumb_id, 'full' );
+
 						if ( $default_image_dimension[1] <= $data['image_custom_dimension']['width'] || $default_image_dimension[2] <= $data['image_custom_dimension']['height'] ) {
 							$customImgSize = [];
 						} else {
@@ -2555,14 +2571,16 @@ class Fns {
 							$customImgSize[2] = $data['img_crop_style'];
 						}
 					}
-					echo self::getFeatureImageSrc( $pID, $fImgSize, $mediaSource, $defaultImgId, $customImgSize, $lazy_class );
+
+					echo wp_kses_post( self::getFeatureImageSrc( $pID, $fImgSize, $mediaSource, $defaultImgId, $customImgSize, $lazy_class ) );
 				}
 			}
 		} elseif ( 'first_image' === $data['media_source'] && self::get_content_first_image( $pID ) ) {
-			echo self::get_content_first_image( $pID, 'markup', $lazy_class );
+			echo wp_kses_post( self::get_content_first_image( $pID, 'markup', $lazy_class ) );
 			$img_link = self::get_content_first_image( $pID, 'url' );
 		} elseif ( 'yes' === $data['is_default_img'] || 'grid_hover' == $data['prefix'] ) {
 			echo \Elementor\Group_Control_Image_Size::get_attachment_image_html( $data, $img_size_key, 'default_image' );
+
 			if ( ! empty( $data['default_image'] ) && isset( $data['default_image']['url'] ) ) {
 				$img_link = $data['default_image']['url'];
 			}
@@ -2575,21 +2593,23 @@ class Fns {
 
 		<?php echo $data['is_thumb_linked'] === 'yes' ? self::wp_kses( $link_end ) : null; ?>
 
-		<?php if ( 'show' === $data['is_thumb_lightbox'] || ( in_array( $data['layout'], [ 'grid-layout7', 'slider-layout4' ] ) && in_array( $data['is_thumb_lightbox'], [ 'default', 'show' ] ) ) ) :
+		<?php
+		if ( 'show' === $data['is_thumb_lightbox'] || ( in_array( $data['layout'], [ 'grid-layout7', 'slider-layout4' ] ) && in_array( $data['is_thumb_lightbox'], [ 'default', 'show' ] ) ) ) :
 			?>
-            <a class="tpg-zoom"
-               data-elementor-open-lightbox="yes"
-               data-elementor-lightbox-slideshow="<?php echo esc_attr( $data['layout'] ); ?>"
-               title="<?php echo esc_attr( get_the_title() ); ?>"
-               href="<?php echo esc_url( $img_link ) ?>">
-                <?php
-                if ( isset( $data['light_box_icon']['value'] ) && $data['light_box_icon']['value'] ) {
-	                \Elementor\Icons_Manager::render_icon( $data['light_box_icon'], [ 'aria-hidden' => 'true' ] );
-                } else {
-	                echo "<i class='fa fa-plus'></i>";
-                }
-                ?>
-            </a>
+			<a class="tpg-zoom"
+				data-elementor-open-lightbox="yes"
+				data-elementor-lightbox-slideshow="<?php echo esc_attr( $data['layout'] ); ?>"
+				title="<?php echo esc_attr( get_the_title() ); ?>"
+				href="<?php echo esc_url( $img_link ); ?>">
+
+				<?php
+				if ( isset( $data['light_box_icon']['value'] ) && $data['light_box_icon']['value'] ) {
+					\Elementor\Icons_Manager::render_icon( $data['light_box_icon'], [ 'aria-hidden' => 'true' ] );
+				} else {
+					echo "<i class='fa fa-plus'></i>";
+				}
+				?>
+			</a>
 		<?php endif; ?>
 		<div class="overlay grid-hover-content"></div>
 		<?php
@@ -2622,8 +2642,9 @@ class Fns {
 				$acf_html  = "<div class='acf-custom-field-wrap'>";
 				$acf_html .= Functions::get_cf_formatted_fields( $cf_group, $format, $pID );
 				$acf_html .= '</div>';
+
 				if ( $return_type ) {
-					echo $acf_html;
+					self::print_html( $acf_html, true );
 				} else {
 					return $acf_html;
 				}
@@ -2641,12 +2662,12 @@ class Fns {
 	 */
 	public static function is_filter_enable( $data ) {
 		if ( rtTPG()->hasPro()
-			 && ( $data['show_taxonomy_filter'] == 'show'
-				  || $data['show_author_filter'] == 'show'
-				  || $data['show_order_by'] == 'show'
-				  || $data['show_sort_order'] == 'show'
-				  || $data['show_search'] == 'show'
-				  || ( $data['show_pagination'] == 'show' && $data['pagination_type'] != 'pagination' ) )
+			&& ( $data['show_taxonomy_filter'] == 'show'
+				|| $data['show_author_filter'] == 'show'
+				|| $data['show_order_by'] == 'show'
+				|| $data['show_sort_order'] == 'show'
+				|| $data['show_search'] == 'show'
+				|| ( $data['show_pagination'] == 'show' && $data['pagination_type'] != 'pagination' ) )
 		) {
 			return true;
 		}
@@ -2722,6 +2743,10 @@ class Fns {
 						'id'     => [],
 						'target' => [],
 					],
+					'div'    => [
+						'class' => [],
+						'id'    => [],
+					],
 				];
 				break;
 
@@ -2760,11 +2785,12 @@ class Fns {
 						'id'    => [],
 					],
 					'a'      => [
-						'href'   => [],
-						'title'  => [],
-						'class'  => [],
-						'id'     => [],
-						'target' => [],
+						'href'    => [],
+						'title'   => [],
+						'class'   => [],
+						'id'      => [],
+						'data-id' => [],
+						'target'  => [],
 					],
 					'input'  => [
 						'type'  => [],

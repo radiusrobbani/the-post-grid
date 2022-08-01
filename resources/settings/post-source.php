@@ -13,7 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit( 'This script cannot be accessed directly.' );
 }
 
-echo Fns::rtFieldGenerator( Options::rtTPGPostType() );
+Fns::print_html( Fns::rtFieldGenerator( Options::rtTPGPostType() ), true );
 
 $sHtml  = null;
 $sHtml .= '<div class="field-holder rt-tpg-field-group">';
@@ -23,21 +23,21 @@ $sHtml .= Fns::rtFieldGenerator( Options::rtTPGCommonFilterFields() );
 $sHtml .= '</div>';
 $sHtml .= '</div>';
 
-echo $sHtml;
+Fns::print_html( $sHtml, true );
 ?>
 
 <div class='rt-tpg-filter-container rt-tpg-field-group'>
-	<?php echo Fns::rtFieldGenerator( Options::rtTPAdvanceFilters() ); ?>
+	<?php Fns::print_html( Fns::rtFieldGenerator( Options::rtTPAdvanceFilters() ), true ); ?>
 	<div class="rt-tpg-filter-holder">
 		<?php
 		$html       = null;
 		$pt         = get_post_meta( $post->ID, 'tpg_post_type', true );
 		$advFilters = Options::rtTPAdvanceFilters();
-		echo $html;
+		Fns::print_html( $html, true );
 		?>
 	</div>
 </div>
 
 <div class="rt-tpg-field-group">
-	<?php echo Fns::rtFieldGenerator( Options::stickySettings() ); ?>
+	<?php Fns::print_html( Fns::rtFieldGenerator( Options::stickySettings() ), true ); ?>
 </div>

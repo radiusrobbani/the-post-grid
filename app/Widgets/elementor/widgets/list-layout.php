@@ -61,19 +61,19 @@ class TPGListLayout extends Custom_Widget_Base {
 		 * ===========
 		 */
 
-		// Layout
+		// Layout.
 		rtTPGElementorHelper::list_layouts( $this );
 
-		// Query
+		// Query.
 		rtTPGElementorHelper::query( $this );
 
-		// Filter  Settings
+		// Filter  Settings.
 		rtTPGElementorHelper::filter_settings( $this );
 
-		// Pagination Settings
+		// Pagination Settings.
 		rtTPGElementorHelper::pagination_settings( $this );
 
-		// Links
+		// Links.
 		rtTPGElementorHelper::links( $this );
 
 		/**
@@ -81,28 +81,28 @@ class TPGListLayout extends Custom_Widget_Base {
 		 * =============
 		 */
 
-		// Field Selection
+		// Field Selection.
 		rtTPGElementorHelper::field_selection( $this );
 
-		// Section Title Settings
+		// Section Title Settings.
 		rtTPGElementorHelper::section_title_settings( $this );
 
-		// Title Settings
+		// Title Settings.
 		rtTPGElementorHelper::post_title_settings( $this );
 
-		// Thumbnail Settings
+		// Thumbnail Settings.
 		rtTPGElementorHelper::post_thumbnail_settings( $this );
 
-		// Excerpt Settings
+		// Excerpt Settings.
 		rtTPGElementorHelper::post_excerpt_settings( $this );
 
-		// Meta Settings
+		// Meta Settings.
 		rtTPGElementorHelper::post_meta_settings( $this );
 
-		// Advanced Custom Field ACF Settings
+		// Advanced Custom Field ACF Settings.
 		rtTPGElementorHelper::tpg_acf_settings( $this );
 
-		// Readmore Settings
+		// Readmore Settings.
 		rtTPGElementorHelper::post_readmore_settings( $this );
 
 		/**
@@ -110,43 +110,43 @@ class TPGListLayout extends Custom_Widget_Base {
 		 * ===========
 		 */
 
-		// Section Title Style
+		// Section Title Style.
 		rtTPGElementorHelper::sectionTitle( $this );
 
-		// Title Style
+		// Title Style.
 		rtTPGElementorHelper::titleStyle( $this );
 
-		// Thumbnail Style
+		// Thumbnail Style.
 		rtTPGElementorHelper::thumbnailStyle( $this );
 
-		// Content Style
+		// Content Style.
 		rtTPGElementorHelper::contentStyle( $this );
 
-		// Meta Info Style
+		// Meta Info Style.
 		rtTPGElementorHelper::metaInfoStyle( $this );
 
-		// Box Style
+		// Box Style.
 		rtTPGElementorHelper::socialShareStyle( $this );
 
-		// ACF Style
+		// ACF Style.
 		rtTPGElementorHelper::tpg_acf_style( $this );
 
-		// Read More Style
+		// Read More Style.
 		rtTPGElementorHelper::readmoreStyle( $this );
 
-		// Link Style
+		// Link Style.
 		rtTPGElementorHelper::linkStyle( $this );
 
-		// Box Style
+		// Box Style.
 		rtTPGElementorHelper::frontEndFilter( $this );
 
-		// Pagination - Loadmore Style
+		// Pagination - Loadmore Style.
 		rtTPGElementorHelper::paginationStyle( $this );
 
-		// Box Settings
+		// Box Settings.
 		rtTPGElementorHelper::articlBoxSettings( $this );
 
-		// Promotions
+		// Promotions.
 		rtTPGElementorHelper::promotions( $this );
 	}
 
@@ -154,9 +154,11 @@ class TPGListLayout extends Custom_Widget_Base {
 	protected function render() {
 		$data    = $this->get_settings();
 		$_prefix = $this->prefix;
+
 		if ( ! rtTPG()->hasPro() && ! in_array( $data[ $_prefix . '_layout' ], [ 'list-layout1', 'list-layout2', 'list-layout2-2' ] ) ) {
 			$data[ $_prefix . '_layout' ] = 'list-layout1';
 		}
+
 		if ( rtTPG()->hasPro() && ( 'popup' == $data['post_link_type'] || 'multi_popup' == $data['post_link_type'] ) ) {
 			wp_enqueue_style( 'rt-magnific-popup' );
 			wp_enqueue_script( 'rt-scrollbar' );
@@ -180,14 +182,13 @@ class TPGListLayout extends Custom_Widget_Base {
 		$query_args = rtTPGElementorQuery::post_query( $data, $_prefix );
 		$query      = new WP_Query( $query_args );
 
-		$rand           = mt_rand();
+		$rand           = wp_rand();
 		$layoutID       = 'rt-tpg-container-' . $rand;
 		$posts_per_page = $data['display_per_page'] ? $data['display_per_page'] : $data['post_limit'];
 
 		/**
 		 * TODO: Get Post Data for render post
 		 */
-
 		$post_data = $this->get_render_data_set( $data, $query->max_num_pages, $posts_per_page );
 
 		/**
@@ -196,9 +197,11 @@ class TPGListLayout extends Custom_Widget_Base {
 		$post_types = Fns::get_post_types();
 		foreach ( $post_types as $post_type => $label ) {
 			$_taxonomies = get_object_taxonomies( $post_type, 'object' );
+
 			if ( empty( $_taxonomies ) ) {
 				continue;
 			}
+
 			$post_data[ $data['post_type'] . '_taxonomy' ] = isset( $data[ $data['post_type'] . '_taxonomy' ] ) ? $data[ $data['post_type'] . '_taxonomy' ] : '';
 			$post_data[ $data['post_type'] . '_tags' ]     = isset( $data[ $data['post_type'] . '_tags' ] ) ? $data[ $data['post_type'] . '_tags' ] : '';
 		}
@@ -208,13 +211,13 @@ class TPGListLayout extends Custom_Widget_Base {
 		$_layout_style = $data[ $_prefix . '_layout_style' ];
 		?>
 		<div class="rt-container-fluid rt-tpg-container tpg-el-main-wrapper <?php echo esc_attr( $_layout . '-main' ); ?>"
-			 data-sc-id="elementor"
-			 id="<?php echo esc_attr( $layoutID ); ?>"
-			 data-layout="<?php echo esc_attr( $data[ $_prefix . '_layout' ] ); ?>"
-			 data-grid-style="<?php echo esc_attr( $data[ $_prefix . '_layout_style' ] ); ?>"
-			 data-el-settings='<?php echo Fns::is_filter_enable( $data ) ? htmlspecialchars( wp_json_encode( $post_data ) ) : ''; ?>'
-			 data-el-query='<?php echo Fns::is_filter_enable( $data ) ? htmlspecialchars( wp_json_encode( $query_args ) ) : ''; ?>'
-			 data-el-path='<?php echo Fns::is_filter_enable( $data ) ? esc_attr( $template_path ) : ''; ?>'
+			data-sc-id="elementor"
+			id="<?php echo esc_attr( $layoutID ); ?>"
+			data-layout="<?php echo esc_attr( $data[ $_prefix . '_layout' ] ); ?>"
+			data-grid-style="<?php echo esc_attr( $data[ $_prefix . '_layout_style' ] ); ?>"
+			data-el-settings='<?php Fns::is_filter_enable( $data ) ? Fns::print_html( htmlspecialchars( wp_json_encode( $post_data ) ), true ) : ''; ?>'
+			data-el-query='<?php Fns::is_filter_enable( $data ) ? Fns::print_html( htmlspecialchars( wp_json_encode( $query_args ) ), true ) : ''; ?>'
+			data-el-path='<?php echo Fns::is_filter_enable( $data ) ? esc_attr( $template_path ) : ''; ?>'
 		>
 			<?php
 
@@ -233,19 +236,21 @@ class TPGListLayout extends Custom_Widget_Base {
 			$wrapper_class[] = str_replace( '-2', null, $_layout );
 			$wrapper_class[] = 'tpg-even list-behaviour';
 			$wrapper_class[] = $_prefix . '-layout-wrapper';
+
 			if ( 'masonry' === $_layout_style && ! in_array( $_layout, [ 'list-layout2', 'list-layout3' ] ) ) {
 				$wrapper_class[] = 'tpg-masonry';
 			}
 
-			// section title settings
+			// section title settings.
 			$is_carousel = '';
+
 			if ( rtTPG()->hasPro() && 'carousel' == $data['filter_btn_style'] && 'button' == $data['filter_type'] ) {
 				$is_carousel = 'carousel';
 			}
 
 			echo "<div class='tpg-header-wrapper {$is_carousel}'>";
 			$this->get_section_title( $data );
-			echo $this->get_frontend_filter_markup( $data );
+			Fns::print_html( $this->get_frontend_filter_markup( $data ) );
 			echo '</div>';
 			?>
 
@@ -255,6 +260,7 @@ class TPGListLayout extends Custom_Widget_Base {
 					$pCount = 1;
 					while ( $query->have_posts() ) {
 						$query->the_post();
+
 						set_query_var( 'tpg_post_count', $pCount );
 						set_query_var( 'tpg_total_posts', $query->post_count );
 						$this->tpg_template( $post_data );
@@ -271,7 +277,7 @@ class TPGListLayout extends Custom_Widget_Base {
 				?>
 			</div>
 
-			<?php echo $this->get_pagination_markup( $query, $data ); ?>
+			<?php Fns::print_html( $this->get_pagination_markup( $query, $data ) ); ?>
 
 		</div>
 		<?php

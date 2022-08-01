@@ -1,6 +1,6 @@
 <?php
 /**
- * Grid Layout Template - 1
+ * List Layout Template - 2
  *
  * @package RT_TPG
  */
@@ -27,13 +27,13 @@ if ( 'custom' !== $data['title_visibility_style'] ) {
 $post_link = Fns::get_post_link( $pID, $data );
 extract( $post_link );
 
-// Grid Column:
+// Grid Column.
 $gird_column_desktop = '0' !== $data['gird_column'] ? $data['gird_column'] : '6';
 $gird_column_tab     = '0' !== $data['gird_column_tablet'] ? $data['gird_column_tablet'] : '12';
 $gird_column_mobile  = '0' !== $data['gird_column_mobile'] ? $data['gird_column_mobile'] : '12';
 $col_class           = "rt-col-md-{$gird_column_desktop} rt-col-sm-{$gird_column_tab} rt-col-xs-{$gird_column_mobile}";
 
-// Column Dynamic Class
+// Column Dynamic Class.
 $column_classes = [];
 
 $column_classes[] .= $data['hover_animation'];
@@ -43,12 +43,11 @@ $column_classes[] .= 'rt-list-item rt-grid-item';
 $tpg_post_count  = get_query_var( 'tpg_post_count' );
 $tpg_total_posts = get_query_var( 'tpg_total_posts' );
 $offset_size     = false;
+
 if ( $tpg_post_count != 1 ) {
 	$offset_size = true;
 }
-
 ?>
-
 
 <?php if ( $tpg_post_count == 1 || $tpg_post_count == 2 ) : ?>
 	<!--Start Offset left & offset right column-->
@@ -105,17 +104,16 @@ if ( $tpg_post_count != 1 ) {
 
 				<?php
 				if ( rtTPG()->hasPro() && $tpg_post_count == 1 && 'show' == $data['show_social_share'] ) {
-					echo \RT\ThePostGridPro\Helpers\Functions::rtShare( $pID );
+					echo wp_kses( \RT\ThePostGridPro\Helpers\Functions::rtShare( $pID ), Fns::allowedHtml() );
 				}
 				?>
 
-
 				<?php if ( $tpg_post_count == 1 && 'show' == $data['show_read_more'] ) : ?>
 					<div class="post-footer">
-
 						<div class="read-more">
 							<?php
-							echo Fns::wp_kses( $readmore_link_start );
+							echo wp_kses( $readmore_link_start, Fns::allowedHtml() );
+
 							if ( 'yes' == $data['show_btn_icon'] && 'left' == $data['readmore_icon_position'] ) {
 								\Elementor\Icons_Manager::render_icon(
 									$data['readmore_btn_icon'],
@@ -125,7 +123,9 @@ if ( $tpg_post_count != 1 ) {
 									]
 								);
 							}
+
 							echo esc_html( $data['read_more_label'] );
+
 							if ( 'yes' == $data['show_btn_icon'] && 'right' == $data['readmore_icon_position'] ) {
 								\Elementor\Icons_Manager::render_icon(
 									$data['readmore_btn_icon'],
@@ -135,14 +135,14 @@ if ( $tpg_post_count != 1 ) {
 									]
 								);
 							}
-							echo Fns::wp_kses( $readmore_link_end );
+
+							echo wp_kses( $readmore_link_end, Fns::allowedHtml() );
 							?>
 						</div>
 
 					</div>
 				<?php endif; ?>
 			</div>
-
 		</div>
 	</div>
 

@@ -20,8 +20,6 @@ require_once( RT_THE_POST_GRID_PLUGIN_PATH . '/app/Widgets/elementor/rtTPGElemen
  * Elementor Helper Class
  */
 class rtTPGElementorHelper {
-
-
 	/**
 	 *  Post Query Settings
 	 *
@@ -57,7 +55,7 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'common_filters_heading',
 			[
-				'label'     => __( 'Common Filters:', 'the-post-grid' ),
+				'label'     => esc_html__( 'Common Filters:', 'the-post-grid' ),
 				'type'      => \Elementor\Controls_Manager::HEADING,
 				'separator' => 'before',
 				'classes'   => 'tpg-control-type-heading',
@@ -67,48 +65,47 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'post_id',
 			[
-				'label'       => __( 'Include only', 'the-post-grid' ),
+				'label'       => esc_html__( 'Include only', 'the-post-grid' ),
 				'type'        => \Elementor\Controls_Manager::TEXT,
-				'description' => __( 'Enter the post IDs separated by comma for include', 'the-post-grid' ),
-				'placeholder' => "Eg. 10, 15, 17",
+				'description' => esc_html__( 'Enter the post IDs separated by comma for include', 'the-post-grid' ),
+				'placeholder' => 'Eg. 10, 15, 17',
 			]
 		);
 
 		$ref->add_control(
 			'exclude',
 			[
-				'label'       => __( 'Exclude', 'the-post-grid' ),
+				'label'       => esc_html__( 'Exclude', 'the-post-grid' ),
 				'type'        => \Elementor\Controls_Manager::TEXT,
-				'description' => __( 'Enter the post IDs separated by comma for exclude', 'the-post-grid' ),
-				'placeholder' => "Eg. 12, 13",
+				'description' => esc_html__( 'Enter the post IDs separated by comma for exclude', 'the-post-grid' ),
+				'placeholder' => 'Eg. 12, 13',
 			]
 		);
 
 		$ref->add_control(
 			'post_limit',
 			[
-				'label'       => __( 'Limit', 'the-post-grid' ),
+				'label'       => esc_html__( 'Limit', 'the-post-grid' ),
 				'type'        => \Elementor\Controls_Manager::NUMBER,
-				'description' => __( 'The number of posts to show. Enter -1 to show all found posts.', 'the-post-grid' ),
+				'description' => esc_html__( 'The number of posts to show. Enter -1 to show all found posts.', 'the-post-grid' ),
 			]
 		);
 
 		$ref->add_control(
 			'offset',
 			[
-				'label'       => __( 'Offset', 'the-post-grid' ),
+				'label'       => esc_html__( 'Offset', 'the-post-grid' ),
 				'type'        => \Elementor\Controls_Manager::TEXT,
-				'placeholder' => __( 'Enter Post offset', 'the-post-grid' ),
-				'description' => __( 'Number of posts to skip. The offset parameter is ignored when post limit => -1 is used.', 'the-post-grid' ),
+				'placeholder' => esc_html__( 'Enter Post offset', 'the-post-grid' ),
+				'description' => esc_html__( 'Number of posts to skip. The offset parameter is ignored when post limit => -1 is used.', 'the-post-grid' ),
 			]
 		);
 
-		//TODO: Advance Filter
-
+		//TODO: Advance Filter.
 		$ref->add_control(
 			'advanced_filters_heading',
 			[
-				'label'     => __( 'Advanced Filters:', 'the-post-grid' ),
+				'label'     => esc_html__( 'Advanced Filters:', 'the-post-grid' ),
 				'type'      => \Elementor\Controls_Manager::HEADING,
 				'separator' => 'before',
 				'classes'   => 'tpg-control-type-heading',
@@ -117,14 +114,14 @@ class rtTPGElementorHelper {
 
 		foreach ( $taxonomies as $taxonomy => $object ) {
 			if ( ! isset( $object->object_type[0] ) || ! in_array( $object->object_type[0], array_keys( $post_types ) )
-			     || in_array( $taxonomy, Custom_Widget_Base::get_excluded_taxonomy() )
+				|| in_array( $taxonomy, Custom_Widget_Base::get_excluded_taxonomy() )
 			) {
 				continue;
 			}
 			$ref->add_control(
 				$taxonomy . '_ids',
 				[
-					'label'       => __( "By ", 'the-post-grid' ) . $object->label,
+					'label'       => esc_html__( "By ", 'the-post-grid' ) . $object->label,
 					'type'        => \Elementor\Controls_Manager::SELECT2,
 					'label_block' => true,
 					'multiple'    => true,
@@ -139,13 +136,13 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'relation',
 			[
-				'label'   => __( 'Taxonomies Relation', 'the-post-grid' ),
+				'label'   => esc_html__( 'Taxonomies Relation', 'the-post-grid' ),
 				'type'    => \Elementor\Controls_Manager::SELECT,
 				'default' => 'OR',
 				'options' => [
-					'OR'     => __( 'OR', 'the-post-grid' ),
-					'AND'    => __( 'AND', 'the-post-grid' ),
-					'NOT IN' => __( 'NOT IN', 'the-post-grid' ),
+					'OR'     => esc_html__( 'OR', 'the-post-grid' ),
+					'AND'    => esc_html__( 'AND', 'the-post-grid' ),
+					'NOT IN' => esc_html__( 'NOT IN', 'the-post-grid' ),
 				],
 			]
 		);
@@ -153,7 +150,7 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'author',
 			[
-				'label'       => __( 'By Author', 'the-post-grid' ),
+				'label'       => esc_html__( 'By Author', 'the-post-grid' ),
 				'type'        => \Elementor\Controls_Manager::SELECT2,
 				'multiple'    => true,
 				'label_block' => true,
@@ -164,45 +161,46 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'post_keyword',
 			[
-				'label'       => __( 'By Keyword', 'the-post-grid' ),
+				'label'       => esc_html__( 'By Keyword', 'the-post-grid' ),
 				'type'        => \Elementor\Controls_Manager::TEXT,
 				'label_block' => true,
-				'placeholder' => __( 'Search by keyword', 'the-post-grid' ),
-				'description' => __( 'Search by post title or content keyword', 'the-post-grid' ),
+				'placeholder' => esc_html__( 'Search by keyword', 'the-post-grid' ),
+				'description' => esc_html__( 'Search by post title or content keyword', 'the-post-grid' ),
 			]
 		);
 
 		$ref->add_control(
 			'date_range',
 			[
-				'label'          => __( 'Date Range (Start to End)', 'the-post-grid' ) . $ref->pro_label,
+				'label'          => esc_html__( 'Date Range (Start to End)', 'the-post-grid' ) . $ref->pro_label,
 				'type'           => \Elementor\Controls_Manager::DATE_TIME,
-				'placeholder'    => "Choose date...",
-				'description'    => __( "NB: Enter DEL button for delete date range", "the-post-grid" ),
+				'placeholder'    => 'Choose date...',
+				'description'    => esc_html__( 'NB: Enter DEL button for delete date range', 'the-post-grid' ),
 				'classes'        => rtTPG()->hasPro() ? '' : 'the-post-grid-field-hide',
 				'picker_options' => [
 					'enableTime' => false,
-					'mode'       => "range",
-					'dateFormat' => "M j, Y",
+					'mode'       => 'range',
+					'dateFormat' => 'M j, Y',
 				],
 			]
 		);
 
 
 		$orderby_opt = [
-			'date'          => __( 'Date', 'the-post-grid' ),
-			'ID'            => __( 'Order by post ID', 'the-post-grid' ),
-			'author'        => __( 'Author', 'the-post-grid' ),
-			'title'         => __( 'Title', 'the-post-grid' ),
-			'modified'      => __( 'Last modified date', 'the-post-grid' ),
-			'parent'        => __( 'Post parent ID', 'the-post-grid' ),
-			'comment_count' => __( 'Number of comments', 'the-post-grid' ),
-			'menu_order'    => __( 'Menu order', 'the-post-grid' ),
+			'date'          => esc_html__( 'Date', 'the-post-grid' ),
+			'ID'            => esc_html__( 'Order by post ID', 'the-post-grid' ),
+			'author'        => esc_html__( 'Author', 'the-post-grid' ),
+			'title'         => esc_html__( 'Title', 'the-post-grid' ),
+			'modified'      => esc_html__( 'Last modified date', 'the-post-grid' ),
+			'parent'        => esc_html__( 'Post parent ID', 'the-post-grid' ),
+			'comment_count' => esc_html__( 'Number of comments', 'the-post-grid' ),
+			'menu_order'    => esc_html__( 'Menu order', 'the-post-grid' ),
 
 		];
+
 		if ( rtTPG()->hasPro() ) {
 			$prderby_pro_opt = [
-				'rand' => __( 'Random order', 'the-post-grid' ),
+				'rand' => esc_html__( 'Random order', 'the-post-grid' ),
 			];
 			$orderby_opt     = array_merge( $orderby_opt, $prderby_pro_opt );
 		}
@@ -210,7 +208,7 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'orderby',
 			[
-				'label'       => __( 'Order by', 'the-post-grid' ),
+				'label'       => esc_html__( 'Order by', 'the-post-grid' ),
 				'type'        => \Elementor\Controls_Manager::SELECT,
 				'options'     => $orderby_opt,
 				'default'     => 'date',
@@ -221,11 +219,11 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'order',
 			[
-				'label'     => __( 'Sort order', 'the-post-grid' ),
+				'label'     => esc_html__( 'Sort order', 'the-post-grid' ),
 				'type'      => \Elementor\Controls_Manager::SELECT,
 				'options'   => [
-					'ASC'  => __( 'ASC', 'the-post-grid' ),
-					'DESC' => __( 'DESC', 'the-post-grid' ),
+					'ASC'  => esc_html__( 'ASC', 'the-post-grid' ),
+					'DESC' => esc_html__( 'DESC', 'the-post-grid' ),
 				],
 				'default'   => 'DESC',
 				'condition' => [
@@ -248,10 +246,10 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'ignore_sticky_posts',
 			[
-				'label'        => __( 'Ignore sticky posts at the top', 'the-post-grid' ) . $ref->pro_label,
+				'label'        => esc_html__( 'Ignore sticky posts at the top', 'the-post-grid' ) . $ref->pro_label,
 				'type'         => \Elementor\Controls_Manager::SWITCHER,
-				'label_on'     => __( 'Yes', 'the-post-grid' ),
-				'label_off'    => __( 'No', 'the-post-grid' ),
+				'label_on'     => esc_html__( 'Yes', 'the-post-grid' ),
+				'label_off'    => esc_html__( 'No', 'the-post-grid' ),
 				'return_value' => 'yes',
 				'default'      => 'no',
 				'disabled'     => true,
@@ -262,10 +260,10 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'no_posts_found_text',
 			[
-				'label'       => __( 'No post found Text', 'the-post-grid' ),
+				'label'       => esc_html__( 'No post found Text', 'the-post-grid' ),
 				'type'        => \Elementor\Controls_Manager::TEXT,
-				'default'     => __( 'No posts found.', 'the-post-grid' ),
-				'placeholder' => __( 'Enter No post found', 'the-post-grid' ),
+				'default'     => esc_html__( 'No posts found.', 'the-post-grid' ),
+				'placeholder' => esc_html__( 'Enter No post found', 'the-post-grid' ),
 				'separator'   => 'before',
 			]
 		);
@@ -298,9 +296,9 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'post_limit',
 			[
-				'label'       => __( 'Posts per page', 'the-post-grid' ),
+				'label'       => esc_html__( 'Posts per page', 'the-post-grid' ),
 				'type'        => \Elementor\Controls_Manager::NUMBER,
-				'description' => __( 'The number of posts to show. Enter -1 to show all found posts.', 'the-post-grid' ),
+				'description' => esc_html__( 'The number of posts to show. Enter -1 to show all found posts.', 'the-post-grid' ),
 			]
 		);
 
@@ -309,7 +307,7 @@ class rtTPGElementorHelper {
 			$get_all_taxonomy = [];
 			foreach ( $taxonomies as $taxonomy => $object ) {
 				if ( ! isset( $object->object_type[0] ) || ! in_array( $object->object_type[0], array_keys( $post_types ) )
-				     || in_array( $taxonomy, Custom_Widget_Base::get_excluded_taxonomy() )
+					|| in_array( $taxonomy, Custom_Widget_Base::get_excluded_taxonomy() )
 				) {
 					continue;
 				}
@@ -319,7 +317,7 @@ class rtTPGElementorHelper {
 			$ref->add_control(
 				'taxonomy_lists',
 				[
-					'label'   => __( 'Select a Taxonomy for relation', 'the-post-grid' ),
+					'label'   => esc_html__( 'Select a Taxonomy for relation', 'the-post-grid' ),
 					'type'    => \Elementor\Controls_Manager::SELECT,
 					'default' => 'category',
 					'options' => $get_all_taxonomy,
@@ -327,22 +325,22 @@ class rtTPGElementorHelper {
 			);
 
 			$orderby_opt = [
-				'date'          => __( 'Date', 'the-post-grid' ),
-				'ID'            => __( 'Order by post ID', 'the-post-grid' ),
-				'author'        => __( 'Author', 'the-post-grid' ),
-				'title'         => __( 'Title', 'the-post-grid' ),
-				'modified'      => __( 'Last modified date', 'the-post-grid' ),
-				'parent'        => __( 'Post parent ID', 'the-post-grid' ),
-				'comment_count' => __( 'Number of comments', 'the-post-grid' ),
-				'menu_order'    => __( 'Menu order', 'the-post-grid' ),
-				'rand'          => __( 'Random order', 'the-post-grid' ),
+				'date'          => esc_html__( 'Date', 'the-post-grid' ),
+				'ID'            => esc_html__( 'Order by post ID', 'the-post-grid' ),
+				'author'        => esc_html__( 'Author', 'the-post-grid' ),
+				'title'         => esc_html__( 'Title', 'the-post-grid' ),
+				'modified'      => esc_html__( 'Last modified date', 'the-post-grid' ),
+				'parent'        => esc_html__( 'Post parent ID', 'the-post-grid' ),
+				'comment_count' => esc_html__( 'Number of comments', 'the-post-grid' ),
+				'menu_order'    => esc_html__( 'Menu order', 'the-post-grid' ),
+				'rand'          => esc_html__( 'Random order', 'the-post-grid' ),
 
 			];
 
 			$ref->add_control(
 				'orderby',
 				[
-					'label'   => __( 'Order by', 'the-post-grid' ),
+					'label'   => esc_html__( 'Order by', 'the-post-grid' ),
 					'type'    => \Elementor\Controls_Manager::SELECT,
 					'options' => $orderby_opt,
 					'default' => 'date',
@@ -352,11 +350,11 @@ class rtTPGElementorHelper {
 			$ref->add_control(
 				'order',
 				[
-					'label'     => __( 'Sort order', 'the-post-grid' ),
+					'label'     => esc_html__( 'Sort order', 'the-post-grid' ),
 					'type'      => \Elementor\Controls_Manager::SELECT,
 					'options'   => [
-						'ASC'  => __( 'ASC', 'the-post-grid' ),
-						'DESC' => __( 'DESC', 'the-post-grid' ),
+						'ASC'  => esc_html__( 'ASC', 'the-post-grid' ),
+						'DESC' => esc_html__( 'DESC', 'the-post-grid' ),
 					],
 					'default'   => 'DESC',
 					'condition' => [
@@ -368,40 +366,40 @@ class rtTPGElementorHelper {
 			$ref->add_control(
 				'post_id',
 				[
-					'label'       => __( 'Include only', 'the-post-grid' ),
+					'label'       => esc_html__( 'Include only', 'the-post-grid' ),
 					'type'        => \Elementor\Controls_Manager::TEXT,
-					'description' => __( 'Enter the post IDs separated by comma for include', 'the-post-grid' ),
-					'placeholder' => "Eg. 10, 15, 17",
+					'description' => esc_html__( 'Enter the post IDs separated by comma for include', 'the-post-grid' ),
+					'placeholder' => 'Eg. 10, 15, 17',
 				]
 			);
 
 			$ref->add_control(
 				'exclude',
 				[
-					'label'       => __( 'Exclude', 'the-post-grid' ),
+					'label'       => esc_html__( 'Exclude', 'the-post-grid' ),
 					'type'        => \Elementor\Controls_Manager::TEXT,
-					'description' => __( 'Enter the post IDs separated by comma for exclude', 'the-post-grid' ),
-					'placeholder' => "Eg. 12, 13",
+					'description' => esc_html__( 'Enter the post IDs separated by comma for exclude', 'the-post-grid' ),
+					'placeholder' => 'Eg. 12, 13',
 				]
 			);
 
 			$ref->add_control(
 				'offset',
 				[
-					'label'       => __( 'Offset', 'the-post-grid' ),
+					'label'       => esc_html__( 'Offset', 'the-post-grid' ),
 					'type'        => \Elementor\Controls_Manager::TEXT,
-					'placeholder' => __( 'Enter Post offset', 'the-post-grid' ),
-					'description' => __( 'Number of posts to skip. The offset parameter is ignored when post limit => -1 is used.', 'the-post-grid' ),
+					'placeholder' => esc_html__( 'Enter Post offset', 'the-post-grid' ),
+					'description' => esc_html__( 'Number of posts to skip. The offset parameter is ignored when post limit => -1 is used.', 'the-post-grid' ),
 				]
 			);
 
 			$ref->add_control(
 				'no_posts_found_text_archive',
 				[
-					'label'       => __( 'No post found Text', 'the-post-grid' ),
+					'label'       => esc_html__( 'No post found Text', 'the-post-grid' ),
 					'type'        => \Elementor\Controls_Manager::TEXT,
-					'default'     => __( 'No posts found.', 'the-post-grid' ),
-					'placeholder' => __( 'Enter No post found', 'the-post-grid' ),
+					'default'     => esc_html__( 'No posts found.', 'the-post-grid' ),
+					'placeholder' => esc_html__( 'Enter No post found', 'the-post-grid' ),
 					'separator'   => 'before',
 				]
 			);
@@ -420,7 +418,7 @@ class rtTPGElementorHelper {
 		$ref->start_controls_section(
 			$prefix . '_layout_settings',
 			[
-				'label' => __( 'Layout', 'the-post-grid' ),
+				'label' => esc_html__( 'Layout', 'the-post-grid' ),
 				'tab'   => Controls_Manager::TAB_CONTENT,
 			]
 		);
@@ -429,31 +427,31 @@ class rtTPGElementorHelper {
 			$layout_class   = 'grid-layout';
 			$layout_options = [
 				$prefix . '-layout1'   => [
-					'title' => __( 'Layout 1', 'the-post-grid' ),
+					'title' => esc_html__( 'Layout 1', 'the-post-grid' ),
 				],
 				$prefix . '-layout3'   => [
-					'title' => __( 'Layout 2', 'the-post-grid' ),
+					'title' => esc_html__( 'Layout 2', 'the-post-grid' ),
 				],
 				$prefix . '-layout4'   => [
-					'title' => __( 'Layout 3', 'the-post-grid' ),
+					'title' => esc_html__( 'Layout 3', 'the-post-grid' ),
 				],
 				$prefix . '-layout2'   => [
-					'title' => __( 'Layout 4', 'the-post-grid' ),
+					'title' => esc_html__( 'Layout 4', 'the-post-grid' ),
 				],
 				$prefix . '-layout5'   => [
-					'title' => __( 'Layout 5', 'the-post-grid' ),
+					'title' => esc_html__( 'Layout 5', 'the-post-grid' ),
 				],
 				$prefix . '-layout5-2' => [
-					'title' => __( 'Layout 6', 'the-post-grid' ),
+					'title' => esc_html__( 'Layout 6', 'the-post-grid' ),
 				],
 				$prefix . '-layout6'   => [
-					'title' => __( 'Layout 7', 'the-post-grid' ),
+					'title' => esc_html__( 'Layout 7', 'the-post-grid' ),
 				],
 				$prefix . '-layout6-2' => [
-					'title' => __( 'Layout 8', 'the-post-grid' ),
+					'title' => esc_html__( 'Layout 8', 'the-post-grid' ),
 				],
 				$prefix . '-layout7'   => [
-					'title' => __( 'Gallery', 'the-post-grid' ),
+					'title' => esc_html__( 'Gallery', 'the-post-grid' ),
 				],
 			];
 		}
@@ -462,52 +460,52 @@ class rtTPGElementorHelper {
 			$layout_class   = 'grid-hover-layout';
 			$layout_options = [
 				$prefix . '-layout1'   => [
-					'title' => __( 'Layout 1', 'the-post-grid' ),
+					'title' => esc_html__( 'Layout 1', 'the-post-grid' ),
 				],
 				$prefix . '-layout2'   => [
-					'title' => __( 'Layout 2', 'the-post-grid' ),
+					'title' => esc_html__( 'Layout 2', 'the-post-grid' ),
 				],
 				$prefix . '-layout3'   => [
-					'title' => __( 'Layout 3', 'the-post-grid' ),
+					'title' => esc_html__( 'Layout 3', 'the-post-grid' ),
 				],
 				$prefix . '-layout4'   => [
-					'title' => __( 'Layout 4', 'the-post-grid' ),
+					'title' => esc_html__( 'Layout 4', 'the-post-grid' ),
 				],
 				$prefix . '-layout4-2' => [
-					'title' => __( 'Layout 5', 'the-post-grid' ),
+					'title' => esc_html__( 'Layout 5', 'the-post-grid' ),
 				],
 				$prefix . '-layout5'   => [
-					'title' => __( 'Layout 6', 'the-post-grid' ),
+					'title' => esc_html__( 'Layout 6', 'the-post-grid' ),
 				],
 				$prefix . '-layout5-2' => [
-					'title' => __( 'Layout 7', 'the-post-grid' ),
+					'title' => esc_html__( 'Layout 7', 'the-post-grid' ),
 				],
 				$prefix . '-layout6'   => [
-					'title' => __( 'Layout 8', 'the-post-grid' ),
+					'title' => esc_html__( 'Layout 8', 'the-post-grid' ),
 				],
 				$prefix . '-layout6-2' => [
-					'title' => __( 'Layout 9', 'the-post-grid' ),
+					'title' => esc_html__( 'Layout 9', 'the-post-grid' ),
 				],
 				$prefix . '-layout7'   => [
-					'title' => __( 'Layout 10', 'the-post-grid' ),
+					'title' => esc_html__( 'Layout 10', 'the-post-grid' ),
 				],
 				$prefix . '-layout7-2' => [
-					'title' => __( 'Layout 11', 'the-post-grid' ),
+					'title' => esc_html__( 'Layout 11', 'the-post-grid' ),
 				],
 				$prefix . '-layout8'   => [
-					'title' => __( 'Layout 12', 'the-post-grid' ),
+					'title' => esc_html__( 'Layout 12', 'the-post-grid' ),
 				],
 				$prefix . '-layout9'   => [
-					'title' => __( 'Layout 13', 'the-post-grid' ),
+					'title' => esc_html__( 'Layout 13', 'the-post-grid' ),
 				],
 				$prefix . '-layout9-2' => [
-					'title' => __( 'Layout 14', 'the-post-grid' ),
+					'title' => esc_html__( 'Layout 14', 'the-post-grid' ),
 				],
 				$prefix . '-layout10'  => [
-					'title' => __( 'Layout 15', 'the-post-grid' ),
+					'title' => esc_html__( 'Layout 15', 'the-post-grid' ),
 				],
 				$prefix . '-layout11'  => [
-					'title' => __( 'Layout 16', 'the-post-grid' ),
+					'title' => esc_html__( 'Layout 16', 'the-post-grid' ),
 				],
 			];
 		}
@@ -516,43 +514,43 @@ class rtTPGElementorHelper {
 			$layout_class   = 'slider-layout';
 			$layout_options = [
 				$prefix . '-layout1'  => [
-					'title' => __( 'Layout 1', 'the-post-grid' ),
+					'title' => esc_html__( 'Layout 1', 'the-post-grid' ),
 				],
 				$prefix . '-layout2'  => [
-					'title' => __( 'Layout 2', 'the-post-grid' ),
+					'title' => esc_html__( 'Layout 2', 'the-post-grid' ),
 				],
 				$prefix . '-layout3'  => [
-					'title' => __( 'Layout 3', 'the-post-grid' ),
+					'title' => esc_html__( 'Layout 3', 'the-post-grid' ),
 				],
 				$prefix . '-layout4'  => [
-					'title' => __( 'Layout 4', 'the-post-grid' ),
+					'title' => esc_html__( 'Layout 4', 'the-post-grid' ),
 				],
 				$prefix . '-layout5'  => [
-					'title' => __( 'Layout 5', 'the-post-grid' ),
+					'title' => esc_html__( 'Layout 5', 'the-post-grid' ),
 				],
 				$prefix . '-layout6'  => [
-					'title' => __( 'Layout 6', 'the-post-grid' ),
+					'title' => esc_html__( 'Layout 6', 'the-post-grid' ),
 				],
 				$prefix . '-layout7'  => [
-					'title' => __( 'Layout 7', 'the-post-grid' ),
+					'title' => esc_html__( 'Layout 7', 'the-post-grid' ),
 				],
 				$prefix . '-layout8'  => [
-					'title' => __( 'Layout 8', 'the-post-grid' ),
+					'title' => esc_html__( 'Layout 8', 'the-post-grid' ),
 				],
 				$prefix . '-layout9'  => [
-					'title' => __( 'Layout 9', 'the-post-grid' ),
+					'title' => esc_html__( 'Layout 9', 'the-post-grid' ),
 				],
 				$prefix . '-layout10' => [
-					'title' => __( 'Layout 10', 'the-post-grid' ),
+					'title' => esc_html__( 'Layout 10', 'the-post-grid' ),
 				],
 				$prefix . '-layout11' => [
-					'title' => __( 'Layout 11', 'the-post-grid' ),
+					'title' => esc_html__( 'Layout 11', 'the-post-grid' ),
 				],
 				$prefix . '-layout12' => [
-					'title' => __( 'Layout 12', 'the-post-grid' ),
+					'title' => esc_html__( 'Layout 12', 'the-post-grid' ),
 				],
 				$prefix . '-layout13' => [
-					'title' => __( 'Layout 13', 'the-post-grid' ),
+					'title' => esc_html__( 'Layout 13', 'the-post-grid' ),
 				],
 			];
 
@@ -564,7 +562,7 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			$prefix . '_layout',
 			[
-				'label'          => __( 'Choose Layout', 'the-post-grid' ),
+				'label'          => esc_html__( 'Choose Layout', 'the-post-grid' ),
 				'type'           => \Elementor\Controls_Manager::CHOOSE,
 				'label_block'    => true,
 				'options'        => $layout_options,
@@ -578,7 +576,7 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'layout_options_heading',
 			[
-				'label'   => __( 'Layout Options:', 'the-post-grid' ),
+				'label'   => esc_html__( 'Layout Options:', 'the-post-grid' ),
 				'type'    => \Elementor\Controls_Manager::HEADING,
 				'classes' => 'tpg-control-type-heading',
 			]
@@ -586,11 +584,11 @@ class rtTPGElementorHelper {
 
 
 		$column_options = [
-			'0'  => __( 'Default from layout', 'the-post-grid' ),
-			'12' => __( '1 Columns', 'the-post-grid' ),
-			'6'  => __( '2 Columns', 'the-post-grid' ),
-			'4'  => __( '3 Columns', 'the-post-grid' ),
-			'3'  => __( '4 Columns', 'the-post-grid' ),
+			'0'  => esc_html__( 'Default from layout', 'the-post-grid' ),
+			'12' => esc_html__( '1 Columns', 'the-post-grid' ),
+			'6'  => esc_html__( '2 Columns', 'the-post-grid' ),
+			'4'  => esc_html__( '3 Columns', 'the-post-grid' ),
+			'3'  => esc_html__( '4 Columns', 'the-post-grid' ),
 		];
 
 		if ( 'grid' === $prefix ) {
@@ -607,13 +605,13 @@ class rtTPGElementorHelper {
 
 		if ( 'slider' === $prefix ) {
 			$column_options        = [
-				'0' => __( 'Default from layout', 'the-post-grid' ),
-				'1' => __( '1 Columns', 'the-post-grid' ),
-				'2' => __( '2 Columns', 'the-post-grid' ),
-				'3' => __( '3 Columns', 'the-post-grid' ),
-				'4' => __( '4 Columns', 'the-post-grid' ),
-				'5' => __( '5 Columns', 'the-post-grid' ),
-				'6' => __( '6 Columns', 'the-post-grid' ),
+				'0' => esc_html__( 'Default from layout', 'the-post-grid' ),
+				'1' => esc_html__( '1 Columns', 'the-post-grid' ),
+				'2' => esc_html__( '2 Columns', 'the-post-grid' ),
+				'3' => esc_html__( '3 Columns', 'the-post-grid' ),
+				'4' => esc_html__( '4 Columns', 'the-post-grid' ),
+				'5' => esc_html__( '5 Columns', 'the-post-grid' ),
+				'6' => esc_html__( '6 Columns', 'the-post-grid' ),
 			];
 			$grid_column_condition = [
 				'slider_layout!' => [ 'slider-layout10', 'slider-layout11', 'slider-layout13' ],
@@ -629,7 +627,7 @@ class rtTPGElementorHelper {
 				'default'        => '0',
 				'tablet_default' => '0',
 				'mobile_default' => '0',
-				'description'    => __( 'Choose Column for layout.', 'the-post-grid' ),
+				'description'    => esc_html__( 'Choose Column for layout.', 'the-post-grid' ),
 				'condition'      => $grid_column_condition,
 			]
 		);
@@ -638,10 +636,10 @@ class rtTPGElementorHelper {
 			$ref->add_control(
 				'enable_related_slider',
 				[
-					'label'        => __( 'Enable Slider', 'the-post-grid' ),
+					'label'        => esc_html__( 'Enable Slider', 'the-post-grid' ),
 					'type'         => \Elementor\Controls_Manager::SWITCHER,
-					'label_on'     => __( 'Show', 'the-post-grid' ),
-					'label_off'    => __( 'Hide', 'the-post-grid' ),
+					'label_on'     => esc_html__( 'Show', 'the-post-grid' ),
+					'label_off'    => esc_html__( 'Hide', 'the-post-grid' ),
 					'return_value' => 'yes',
 					'default'      => 'yes',
 				]
@@ -650,7 +648,7 @@ class rtTPGElementorHelper {
 			$ref->add_responsive_control(
 				'slider_gap_2',
 				[
-					'label'      => __( 'Grid Gap', 'the-post-grid' ),
+					'label'      => esc_html__( 'Grid Gap', 'the-post-grid' ),
 					'type'       => Controls_Manager::SLIDER,
 					'size_units' => [ 'px' ],
 					'range'      => [
@@ -674,7 +672,7 @@ class rtTPGElementorHelper {
 		$ref->add_responsive_control(
 			$prefix . '_offset_col_width',
 			[
-				'label'      => __( 'Offset Column Width', 'the-post-grid' ),
+				'label'      => esc_html__( 'Offset Column Width', 'the-post-grid' ),
 				'type'       => Controls_Manager::SLIDER,
 				'size_units' => [ '%' ],
 				'range'      => [
@@ -717,12 +715,12 @@ class rtTPGElementorHelper {
 
 		if ( 'grid' === $prefix ) {
 			$layout_style_opt = [
-				'tpg-even'        => __( 'Grid', 'the-post-grid' ),
-				'tpg-full-height' => __( 'Grid Equal Height', 'the-post-grid' ),
+				'tpg-even'        => esc_html__( 'Grid', 'the-post-grid' ),
+				'tpg-full-height' => esc_html__( 'Grid Equal Height', 'the-post-grid' ),
 			];
 			if ( rtTPG()->hasPro() ) {
 				$layout_style_new_opt = [
-					'masonry' => __( 'Masonry', 'the-post-grid' ),
+					'masonry' => esc_html__( 'Masonry', 'the-post-grid' ),
 				];
 				$layout_style_opt     = array_merge( $layout_style_opt, $layout_style_new_opt );
 			}
@@ -730,11 +728,11 @@ class rtTPGElementorHelper {
 			$ref->add_control(
 				$prefix . '_layout_style',
 				[
-					'label'       => __( 'Layout Style', 'the-post-grid' ),
+					'label'       => esc_html__( 'Layout Style', 'the-post-grid' ),
 					'type'        => \Elementor\Controls_Manager::SELECT,
 					'default'     => 'tpg-full-height',
 					'options'     => $layout_style_opt,
-					'description' => __( 'If you use card border then equal height will work. ', 'the-post-grid' ) . $ref->get_pro_message( "masonry layout" ),
+					'description' => esc_html__( 'If you use card border then equal height will work. ', 'the-post-grid' ) . $ref->get_pro_message( "masonry layout" ),
 					'classes'     => rtTPG()->hasPro() ? '' : 'tpg-should-hide-field',
 					'condition'   => [
 						$prefix . '_layout!' => [ 'grid-layout2',
@@ -765,15 +763,15 @@ class rtTPGElementorHelper {
 			$ref->add_control(
 				$prefix . '_layout_alignment',
 				[
-					'label'     => __( 'Vertical Align', 'the-post-grid' ),
+					'label'     => esc_html__( 'Vertical Align', 'the-post-grid' ),
 					'type'      => \Elementor\Controls_Manager::SELECT,
 					'options'   => [
-						''              => __( 'Default', 'the-post-grid' ),
-						'flex-start'    => __( 'Start', 'the-post-grid' ),
-						'center'        => __( 'Center', 'the-post-grid' ),
-						'flex-end'      => __( 'End', 'the-post-grid' ),
-						'space-around'  => __( 'Space Around', 'the-post-grid' ),
-						'space-between' => __( 'Space Between', 'the-post-grid' ),
+						''              => esc_html__( 'Default', 'the-post-grid' ),
+						'flex-start'    => esc_html__( 'Start', 'the-post-grid' ),
+						'center'        => esc_html__( 'Center', 'the-post-grid' ),
+						'flex-end'      => esc_html__( 'End', 'the-post-grid' ),
+						'space-around'  => esc_html__( 'Space Around', 'the-post-grid' ),
+						'space-between' => esc_html__( 'Space Between', 'the-post-grid' ),
 					],
 					'condition' => [
 						$prefix . '_layout!' => [
@@ -800,15 +798,15 @@ class rtTPGElementorHelper {
 			$ref->add_control(
 				$prefix . '_layout_alignment_2',
 				[
-					'label'     => __( 'Vertical Align', 'the-post-grid' ),
+					'label'     => esc_html__( 'Vertical Align', 'the-post-grid' ),
 					'type'      => \Elementor\Controls_Manager::SELECT,
 					'options'   => [
-						''              => __( 'Default', 'the-post-grid' ),
-						'flex-start'    => __( 'Start', 'the-post-grid' ),
-						'center'        => __( 'Center', 'the-post-grid' ),
-						'flex-end'      => __( 'End', 'the-post-grid' ),
-						'space-around'  => __( 'Space Around', 'the-post-grid' ),
-						'space-between' => __( 'Space Between', 'the-post-grid' ),
+						''              => esc_html__( 'Default', 'the-post-grid' ),
+						'flex-start'    => esc_html__( 'Start', 'the-post-grid' ),
+						'center'        => esc_html__( 'Center', 'the-post-grid' ),
+						'flex-end'      => esc_html__( 'End', 'the-post-grid' ),
+						'space-around'  => esc_html__( 'Space Around', 'the-post-grid' ),
+						'space-between' => esc_html__( 'Space Between', 'the-post-grid' ),
 					],
 					'condition' => [
 						$prefix . '_layout!' => [ 'slider-layout1',
@@ -877,7 +875,7 @@ class rtTPGElementorHelper {
 		$ref->start_controls_section(
 			$prefix . '_filter_settings',
 			[
-				'label' => __( 'Filter (Front-end)', 'the-post-grid' ),
+				'label' => esc_html__( 'Filter (Front-end)', 'the-post-grid' ),
 				'tab'   => Controls_Manager::TAB_CONTENT,
 			]
 		);
@@ -885,10 +883,10 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'show_taxonomy_filter',
 			[
-				'label'        => __( 'Taxonomy Filter', 'the-post-grid' ),
+				'label'        => esc_html__( 'Taxonomy Filter', 'the-post-grid' ),
 				'type'         => \Elementor\Controls_Manager::SWITCHER,
-				'label_on'     => __( 'Show', 'the-post-grid' ),
-				'label_off'    => __( 'Hide', 'the-post-grid' ),
+				'label_on'     => esc_html__( 'Show', 'the-post-grid' ),
+				'label_off'    => esc_html__( 'Hide', 'the-post-grid' ),
 				'return_value' => 'show',
 				'default'      => 'hide',
 			]
@@ -897,10 +895,10 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'show_author_filter',
 			[
-				'label'        => __( 'Author filter', 'the-post-grid' ),
+				'label'        => esc_html__( 'Author filter', 'the-post-grid' ),
 				'type'         => \Elementor\Controls_Manager::SWITCHER,
-				'label_on'     => __( 'Show', 'the-post-grid' ),
-				'label_off'    => __( 'Hide', 'the-post-grid' ),
+				'label_on'     => esc_html__( 'Show', 'the-post-grid' ),
+				'label_off'    => esc_html__( 'Hide', 'the-post-grid' ),
 				'return_value' => 'show',
 				'default'      => 'hide',
 			]
@@ -909,10 +907,10 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'show_order_by',
 			[
-				'label'        => __( 'Order By Filter', 'the-post-grid' ),
+				'label'        => esc_html__( 'Order By Filter', 'the-post-grid' ),
 				'type'         => \Elementor\Controls_Manager::SWITCHER,
-				'label_on'     => __( 'Show', 'the-post-grid' ),
-				'label_off'    => __( 'Hide', 'the-post-grid' ),
+				'label_on'     => esc_html__( 'Show', 'the-post-grid' ),
+				'label_off'    => esc_html__( 'Hide', 'the-post-grid' ),
 				'return_value' => 'show',
 				'default'      => 'hide',
 			]
@@ -921,10 +919,10 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'show_sort_order',
 			[
-				'label'        => __( 'Sort Order Filter', 'the-post-grid' ),
+				'label'        => esc_html__( 'Sort Order Filter', 'the-post-grid' ),
 				'type'         => \Elementor\Controls_Manager::SWITCHER,
-				'label_on'     => __( 'Show', 'the-post-grid' ),
-				'label_off'    => __( 'Hide', 'the-post-grid' ),
+				'label_on'     => esc_html__( 'Show', 'the-post-grid' ),
+				'label_off'    => esc_html__( 'Hide', 'the-post-grid' ),
 				'return_value' => 'show',
 				'default'      => 'hide',
 			]
@@ -933,10 +931,10 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'show_search',
 			[
-				'label'        => __( 'Search filter', 'the-post-grid' ),
+				'label'        => esc_html__( 'Search filter', 'the-post-grid' ),
 				'type'         => \Elementor\Controls_Manager::SWITCHER,
-				'label_on'     => __( 'Show', 'the-post-grid' ),
-				'label_off'    => __( 'Hide', 'the-post-grid' ),
+				'label_on'     => esc_html__( 'Show', 'the-post-grid' ),
+				'label_off'    => esc_html__( 'Hide', 'the-post-grid' ),
 				'return_value' => 'show',
 				'default'      => 'hide',
 			]
@@ -980,12 +978,12 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'filter_type',
 			[
-				'label'        => __( 'Filter Type', 'the-post-grid' ),
+				'label'        => esc_html__( 'Filter Type', 'the-post-grid' ),
 				'type'         => \Elementor\Controls_Manager::SELECT,
 				'default'      => 'dropdown',
 				'options'      => [
-					'dropdown' => __( 'Dropdown', 'the-post-grid' ),
-					'button'   => __( 'Button', 'the-post-grid' ),
+					'dropdown' => esc_html__( 'Dropdown', 'the-post-grid' ),
+					'button'   => esc_html__( 'Button', 'the-post-grid' ),
 				],
 				'render_type'  => 'template',
 				'prefix_class' => 'tpg-filter-type-',
@@ -997,39 +995,39 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'filter_btn_style',
 			[
-				'label'       => __( 'Filter Style', 'the-post-grid' ),
+				'label'       => esc_html__( 'Filter Style', 'the-post-grid' ),
 				'type'        => \Elementor\Controls_Manager::SELECT,
 				'default'     => 'default',
 				'options'     => [
-					'default'  => __( 'Default', 'the-post-grid' ),
-					'carousel' => __( 'Collapsable', 'the-post-grid' ),
+					'default'  => esc_html__( 'Default', 'the-post-grid' ),
+					'carousel' => esc_html__( 'Collapsable', 'the-post-grid' ),
 				],
 				'condition'   => [
 					'filter_type' => 'button',
 				],
 				'conditions'  => $front_end_filter_condition,
-				'description' => __( 'If you use collapsable then only category section show on the filter', 'the-post-grid' ),
+				'description' => esc_html__( 'If you use collapsable then only category section show on the filter', 'the-post-grid' ),
 			]
 		);
 
 		$ref->add_responsive_control(
 			'filter_btn_item_per_page',
 			[
-				'label'          => __( 'Button Item Per Slider', 'the-post-grid' ),
+				'label'          => esc_html__( 'Button Item Per Slider', 'the-post-grid' ),
 				'type'           => \Elementor\Controls_Manager::SELECT,
 				'options'        => [
-					'auto' => __( 'Auto', 'the-post-grid' ),
-					'2'    => __( '2', 'the-post-grid' ),
-					'3'    => __( '3', 'the-post-grid' ),
-					'4'    => __( '4', 'the-post-grid' ),
-					'5'    => __( '5', 'the-post-grid' ),
-					'6'    => __( '6', 'the-post-grid' ),
-					'7'    => __( '7', 'the-post-grid' ),
-					'8'    => __( '8', 'the-post-grid' ),
-					'9'    => __( '9', 'the-post-grid' ),
-					'10'   => __( '10', 'the-post-grid' ),
-					'11'   => __( '11', 'the-post-grid' ),
-					'12'   => __( '12', 'the-post-grid' ),
+					'auto' => esc_html__( 'Auto', 'the-post-grid' ),
+					'2'    => esc_html__( '2', 'the-post-grid' ),
+					'3'    => esc_html__( '3', 'the-post-grid' ),
+					'4'    => esc_html__( '4', 'the-post-grid' ),
+					'5'    => esc_html__( '5', 'the-post-grid' ),
+					'6'    => esc_html__( '6', 'the-post-grid' ),
+					'7'    => esc_html__( '7', 'the-post-grid' ),
+					'8'    => esc_html__( '8', 'the-post-grid' ),
+					'9'    => esc_html__( '9', 'the-post-grid' ),
+					'10'   => esc_html__( '10', 'the-post-grid' ),
+					'11'   => esc_html__( '11', 'the-post-grid' ),
+					'12'   => esc_html__( '12', 'the-post-grid' ),
 				],
 				'default'        => 'auto',
 				'tablet_default' => 'auto',
@@ -1039,7 +1037,7 @@ class rtTPGElementorHelper {
 					'filter_btn_style' => 'carousel',
 				],
 				'conditions'     => $front_end_filter_condition,
-				'description'    => __( 'If you use carousel then only category section show on the filter', 'the-post-grid' ),
+				'description'    => esc_html__( 'If you use carousel then only category section show on the filter', 'the-post-grid' ),
 			]
 		);
 
@@ -1089,7 +1087,7 @@ class rtTPGElementorHelper {
 			$ref->add_control(
 				$post_type . '_filter_taxonomy',
 				[
-					'label'       => __( 'Choose Taxonomy', 'the-post-grid' ),
+					'label'       => esc_html__( 'Choose Taxonomy', 'the-post-grid' ),
 					'type'        => \Elementor\Controls_Manager::SELECT,
 					'default'     => $default_cat,
 					'options'     => $taxonomies_list,
@@ -1097,7 +1095,7 @@ class rtTPGElementorHelper {
 						'post_type'            => $post_type,
 						'show_taxonomy_filter' => 'show',
 					],
-					'description' => __( 'Select a taxonomy for showing in filter', 'the-post-grid' ),
+					'description' => esc_html__( 'Select a taxonomy for showing in filter', 'the-post-grid' ),
 				]
 			);
 
@@ -1110,7 +1108,7 @@ class rtTPGElementorHelper {
 					continue;
 				}
 
-				$term_first = [ '0' => __( '--Select--', 'the-post-grid' ) ];
+				$term_first = [ '0' => esc_html__( '--Select--', 'the-post-grid' ) ];
 				$term_lists = get_terms(
 					[
 						'taxonomy'   => $tax->name, //Custom taxonomy name
@@ -1124,7 +1122,7 @@ class rtTPGElementorHelper {
 				$ref->add_control(
 					$tax->name . '_default_terms',
 					[
-						'label'     => __( 'Default ', 'the-post-grid' ) . $tax->label,
+						'label'     => esc_html__( 'Default ', 'the-post-grid' ) . $tax->label,
 						'type'      => \Elementor\Controls_Manager::SELECT,
 						'default'   => '0',
 						'options'   => $term_lists,
@@ -1157,12 +1155,12 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'filter_post_count',
 			[
-				'label'      => __( 'Filter Post Count', 'the-post-grid' ),
+				'label'      => esc_html__( 'Filter Post Count', 'the-post-grid' ),
 				'type'       => \Elementor\Controls_Manager::SELECT,
 				'default'    => 'no',
 				'options'    => [
-					'yes' => __( 'Yes', 'the-post-grid' ),
-					'no'  => __( 'No', 'the-post-grid' ),
+					'yes' => esc_html__( 'Yes', 'the-post-grid' ),
+					'no'  => esc_html__( 'No', 'the-post-grid' ),
 				],
 				'conditions' => $front_end_filter_tax_condition,
 			]
@@ -1172,10 +1170,10 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'tgp_filter_taxonomy_hierarchical',
 			[
-				'label'        => __( 'Tax Hierarchical', 'the-post-grid' ),
+				'label'        => esc_html__( 'Tax Hierarchical', 'the-post-grid' ),
 				'type'         => \Elementor\Controls_Manager::SWITCHER,
-				'label_on'     => __( 'Yes', 'the-post-grid' ),
-				'label_off'    => __( 'No', 'the-post-grid' ),
+				'label_on'     => esc_html__( 'Yes', 'the-post-grid' ),
+				'label_off'    => esc_html__( 'No', 'the-post-grid' ),
 				'return_value' => 'yes',
 				'default'      => 'yes',
 				'conditions'   => $front_end_filter_tax_condition,
@@ -1189,10 +1187,10 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'tpg_hide_all_button',
 			[
-				'label'        => __( 'Hide Show all button', 'the-post-grid' ),
+				'label'        => esc_html__( 'Hide Show all button', 'the-post-grid' ),
 				'type'         => \Elementor\Controls_Manager::SWITCHER,
-				'label_on'     => __( 'Show', 'the-post-grid' ),
-				'label_off'    => __( 'Hide', 'the-post-grid' ),
+				'label_on'     => esc_html__( 'Show', 'the-post-grid' ),
+				'label_off'    => esc_html__( 'Hide', 'the-post-grid' ),
 				'return_value' => 'yes',
 				'default'      => 'yes',
 				'conditions'   => $front_end_filter_tax_condition,
@@ -1205,18 +1203,18 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'tax_filter_all_text',
 			[
-				'label'       => __( 'All Taxonomy Text', 'the-post-grid' ),
+				'label'       => esc_html__( 'All Taxonomy Text', 'the-post-grid' ),
 				'type'        => \Elementor\Controls_Manager::TEXT,
-				'placeholder' => __( 'Enter All Category Text Here..', 'the-post-grid' ),
+				'placeholder' => esc_html__( 'Enter All Category Text Here..', 'the-post-grid' ),
 				'conditions'  => $front_end_filter_tax_condition,
 			]
 		);
 		$ref->add_control(
 			'author_filter_all_text',
 			[
-				'label'       => __( 'All Users Text', 'the-post-grid' ),
+				'label'       => esc_html__( 'All Users Text', 'the-post-grid' ),
 				'type'        => \Elementor\Controls_Manager::TEXT,
-				'placeholder' => __( 'Enter All Users Text Here..', 'the-post-grid' ),
+				'placeholder' => esc_html__( 'Enter All Users Text Here..', 'the-post-grid' ),
 				'condition'   => [
 					'show_author_filter' => 'show',
 					'filter_btn_style'   => 'default',
@@ -1247,30 +1245,30 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'list_layout',
 			[
-				'label'          => __( 'Choose Layout', 'the-post-grid' ),
+				'label'          => esc_html__( 'Choose Layout', 'the-post-grid' ),
 				'type'           => \Elementor\Controls_Manager::CHOOSE,
 				'label_block'    => true,
 				'options'        => [
 					'list-layout1'   => [
-						'title' => __( 'Layout 1', 'the-post-grid' ),
+						'title' => esc_html__( 'Layout 1', 'the-post-grid' ),
 					],
 					'list-layout2'   => [
-						'title' => __( 'Layout 2', 'the-post-grid' ),
+						'title' => esc_html__( 'Layout 2', 'the-post-grid' ),
 					],
 					'list-layout2-2' => [
-						'title' => __( 'Layout 3', 'the-post-grid' ),
+						'title' => esc_html__( 'Layout 3', 'the-post-grid' ),
 					],
 					'list-layout3'   => [
-						'title' => __( 'Layout 4', 'the-post-grid' ),
+						'title' => esc_html__( 'Layout 4', 'the-post-grid' ),
 					],
 					'list-layout3-2' => [
-						'title' => __( 'Layout 5', 'the-post-grid' ),
+						'title' => esc_html__( 'Layout 5', 'the-post-grid' ),
 					],
 					'list-layout4'   => [
-						'title' => __( 'Layout 6', 'the-post-grid' ),
+						'title' => esc_html__( 'Layout 6', 'the-post-grid' ),
 					],
 					'list-layout5'   => [
-						'title' => __( 'Layout 7', 'the-post-grid' ),
+						'title' => esc_html__( 'Layout 7', 'the-post-grid' ),
 					],
 				],
 				'toggle'         => false,
@@ -1283,7 +1281,7 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'layout_options_heading2',
 			[
-				'label'   => __( 'Layout Options:', 'the-post-grid' ),
+				'label'   => esc_html__( 'Layout Options:', 'the-post-grid' ),
 				'type'    => \Elementor\Controls_Manager::HEADING,
 				'classes' => 'tpg-control-type-heading',
 			]
@@ -1295,16 +1293,16 @@ class rtTPGElementorHelper {
 				'label'          => esc_html__( 'Column', 'the-post-grid' ),
 				'type'           => Controls_Manager::SELECT,
 				'options'        => [
-					'0'  => __( 'Default from layout', 'the-post-grid' ),
-					'12' => __( '1 Columns', 'the-post-grid' ),
-					'6'  => __( '2 Columns', 'the-post-grid' ),
-					'4'  => __( '3 Columns', 'the-post-grid' ),
-					'3'  => __( '4 Columns', 'the-post-grid' ),
+					'0'  => esc_html__( 'Default from layout', 'the-post-grid' ),
+					'12' => esc_html__( '1 Columns', 'the-post-grid' ),
+					'6'  => esc_html__( '2 Columns', 'the-post-grid' ),
+					'4'  => esc_html__( '3 Columns', 'the-post-grid' ),
+					'3'  => esc_html__( '4 Columns', 'the-post-grid' ),
 				],
 				'default'        => '0',
 				'tablet_default' => '0',
 				'mobile_default' => '0',
-				'description'    => __( 'Choose Column for layout', 'the-post-grid' ),
+				'description'    => esc_html__( 'Choose Column for layout', 'the-post-grid' ),
 				'condition'      => [
 					'list_layout!' => [ 'list-layout2', 'list-layout2-2', 'list-layout4' ],
 				],
@@ -1315,15 +1313,15 @@ class rtTPGElementorHelper {
 		$ref->add_responsive_control(
 			'list_layout_alignment',
 			[
-				'label'     => __( 'Vertical Alignment', 'the-post-grid' ),
+				'label'     => esc_html__( 'Vertical Alignment', 'the-post-grid' ),
 				'type'      => \Elementor\Controls_Manager::SELECT,
 				'options'   => [
-					''              => __( 'Default', 'the-post-grid' ),
-					'flex-start'    => __( 'Start', 'the-post-grid' ),
-					'center'        => __( 'Center', 'the-post-grid' ),
-					'flex-end'      => __( 'End', 'the-post-grid' ),
-					'space-around'  => __( 'Space Around', 'the-post-grid' ),
-					'space-between' => __( 'Space Between', 'the-post-grid' ),
+					''              => esc_html__( 'Default', 'the-post-grid' ),
+					'flex-start'    => esc_html__( 'Start', 'the-post-grid' ),
+					'center'        => esc_html__( 'Center', 'the-post-grid' ),
+					'flex-end'      => esc_html__( 'End', 'the-post-grid' ),
+					'space-around'  => esc_html__( 'Space Around', 'the-post-grid' ),
+					'space-between' => esc_html__( 'Space Between', 'the-post-grid' ),
 				],
 				'selectors' => [
 					'{{WRAPPER}} .tpg-el-main-wrapper .list-behaviour .rt-holder .rt-el-content-wrapper' => 'align-items: {{VALUE}};',
@@ -1337,7 +1335,7 @@ class rtTPGElementorHelper {
 		$ref->add_responsive_control(
 			'list_left_side_width',
 			[
-				'label'      => __( 'Offset Width', 'the-post-grid' ),
+				'label'      => esc_html__( 'Offset Width', 'the-post-grid' ),
 				'type'       => Controls_Manager::SLIDER,
 				'size_units' => [ '%' ],
 				'range'      => [
@@ -1363,11 +1361,11 @@ class rtTPGElementorHelper {
 
 
 		$layout_style_opt = [
-			'tpg-even' => __( ucwords( $ref->prefix ) . ' Default', 'the-post-grid' ),
+			'tpg-even' => esc_html__( ucwords( $ref->prefix ) . ' Default', 'the-post-grid' ),
 		];
 		if ( rtTPG()->hasPro() ) {
 			$layout_style_new_opt = [
-				'masonry' => __( 'Masonry', 'the-post-grid' ),
+				'masonry' => esc_html__( 'Masonry', 'the-post-grid' ),
 			];
 			$layout_style_opt     = array_merge( $layout_style_opt, $layout_style_new_opt );
 		}
@@ -1375,7 +1373,7 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'list_layout_style',
 			[
-				'label'       => __( 'Layout Style', 'the-post-grid' ),
+				'label'       => esc_html__( 'Layout Style', 'the-post-grid' ),
 				'type'        => \Elementor\Controls_Manager::SELECT,
 				'default'     => 'tpg-even',
 				'options'     => $layout_style_opt,
@@ -1428,7 +1426,7 @@ class rtTPGElementorHelper {
 		$ref->start_controls_section(
 			'pagination_settings',
 			[
-				'label' => __( 'Pagination', 'the-post-grid' ),
+				'label' => esc_html__( 'Pagination', 'the-post-grid' ),
 				'tab'   => \Elementor\Controls_Manager::TAB_CONTENT,
 			]
 		);
@@ -1436,10 +1434,10 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'show_pagination',
 			[
-				'label'        => __( 'Show Pagination', 'the-post-grid' ),
+				'label'        => esc_html__( 'Show Pagination', 'the-post-grid' ),
 				'type'         => \Elementor\Controls_Manager::SWITCHER,
-				'label_on'     => __( 'Show', 'the-post-grid' ),
-				'label_off'    => __( 'Hide', 'the-post-grid' ),
+				'label_on'     => esc_html__( 'Show', 'the-post-grid' ),
+				'label_off'    => esc_html__( 'Hide', 'the-post-grid' ),
 				'return_value' => 'show',
 				'default'      => 'default',
 				'render_type'  => 'template',
@@ -1452,10 +1450,10 @@ class rtTPGElementorHelper {
 			$ref->add_control(
 				'display_per_page',
 				[
-					'label'       => __( 'Display Per Page', 'the-post-grid' ),
+					'label'       => esc_html__( 'Display Per Page', 'the-post-grid' ),
 					'type'        => \Elementor\Controls_Manager::NUMBER,
 					'default'     => 6,
-					'description' => __( 'Enter how may posts will display per page', 'the-post-grid' ),
+					'description' => esc_html__( 'Enter how may posts will display per page', 'the-post-grid' ),
 					'condition'   => [
 						'show_pagination' => 'show',
 					],
@@ -1470,15 +1468,15 @@ class rtTPGElementorHelper {
 			$default_pagination = 'pagination_ajax';
 		} else {
 			$pagination_type = [
-				'pagination' => __( 'Default Pagination', 'the-post-grid' ),
+				'pagination' => esc_html__( 'Default Pagination', 'the-post-grid' ),
 			];
 		}
 
 		if ( rtTPG()->hasPro() ) {
 			$pagination_type_pro = [
-				'pagination_ajax' => __( 'Ajax Pagination ( Only for Grid )', 'the-post-grid' ),
-				'load_more'       => __( 'Load More - On Click', 'the-post-grid' ),
-				'load_on_scroll'  => __( 'Load On Scroll', 'the-post-grid' ),
+				'pagination_ajax' => esc_html__( 'Ajax Pagination ( Only for Grid )', 'the-post-grid' ),
+				'load_more'       => esc_html__( 'Load More - On Click', 'the-post-grid' ),
+				'load_on_scroll'  => esc_html__( 'Load On Scroll', 'the-post-grid' ),
 			];
 			$pagination_type     = array_merge( $pagination_type, $pagination_type_pro );
 		}
@@ -1486,7 +1484,7 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'pagination_type',
 			[
-				'label'       => __( 'Pagination Type', 'the-post-grid' ),
+				'label'       => esc_html__( 'Pagination Type', 'the-post-grid' ),
 				'type'        => \Elementor\Controls_Manager::SELECT,
 				'default'     => $default_pagination,
 				'options'     => $pagination_type,
@@ -1500,10 +1498,10 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'ajax_pagination_type',
 			[
-				'label'        => __( 'Enable Ajax Next Previous', 'the-post-grid' ),
+				'label'        => esc_html__( 'Enable Ajax Next Previous', 'the-post-grid' ),
 				'type'         => \Elementor\Controls_Manager::SWITCHER,
-				'label_on'     => __( 'Yes', 'the-post-grid' ),
-				'label_off'    => __( 'No', 'the-post-grid' ),
+				'label_on'     => esc_html__( 'Yes', 'the-post-grid' ),
+				'label_off'    => esc_html__( 'No', 'the-post-grid' ),
 				'return_value' => 'yes',
 				'default'      => false,
 				'condition'    => [
@@ -1518,9 +1516,9 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'load_more_button_text',
 			[
-				'label'     => __( 'Button Text', 'the-post-grid' ),
+				'label'     => esc_html__( 'Button Text', 'the-post-grid' ),
 				'type'      => \Elementor\Controls_Manager::TEXT,
-				'default'   => __( 'Load More', 'the-post-grid' ),
+				'default'   => esc_html__( 'Load More', 'the-post-grid' ),
 				'condition' => [
 					'pagination_type' => 'load_more',
 					'show_pagination' => 'show',
@@ -1551,10 +1549,10 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'show_section_title',
 			[
-				'label'        => __( 'Section Title', 'the-post-grid' ),
+				'label'        => esc_html__( 'Section Title', 'the-post-grid' ),
 				'type'         => \Elementor\Controls_Manager::SWITCHER,
-				'label_on'     => __( 'Show', 'the-post-grid' ),
-				'label_off'    => __( 'Hide', 'the-post-grid' ),
+				'label_on'     => esc_html__( 'Show', 'the-post-grid' ),
+				'label_off'    => esc_html__( 'Hide', 'the-post-grid' ),
 				'return_value' => 'show',
 				'default'      => 'show',
 				'render_type'  => 'template',
@@ -1565,10 +1563,10 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'show_title',
 			[
-				'label'        => __( 'Post Title', 'the-post-grid' ),
+				'label'        => esc_html__( 'Post Title', 'the-post-grid' ),
 				'type'         => \Elementor\Controls_Manager::SWITCHER,
-				'label_on'     => __( 'Show', 'the-post-grid' ),
-				'label_off'    => __( 'Hide', 'the-post-grid' ),
+				'label_on'     => esc_html__( 'Show', 'the-post-grid' ),
+				'label_off'    => esc_html__( 'Hide', 'the-post-grid' ),
 				'return_value' => 'show',
 				'default'      => 'show',
 				'render_type'  => 'template',
@@ -1583,10 +1581,10 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'show_thumb',
 			[
-				'label'        => __( 'Post Thumbnail', 'the-post-grid' ),
+				'label'        => esc_html__( 'Post Thumbnail', 'the-post-grid' ),
 				'type'         => \Elementor\Controls_Manager::SWITCHER,
-				'label_on'     => __( 'Show', 'the-post-grid' ),
-				'label_off'    => __( 'Hide', 'the-post-grid' ),
+				'label_on'     => esc_html__( 'Show', 'the-post-grid' ),
+				'label_off'    => esc_html__( 'Hide', 'the-post-grid' ),
 				'return_value' => 'show',
 				'default'      => 'show',
 				'render_type'  => 'template',
@@ -1597,10 +1595,10 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'show_excerpt',
 			[
-				'label'        => __( 'Post Excerpt', 'the-post-grid' ),
+				'label'        => esc_html__( 'Post Excerpt', 'the-post-grid' ),
 				'type'         => \Elementor\Controls_Manager::SWITCHER,
-				'label_on'     => __( 'Show', 'the-post-grid' ),
-				'label_off'    => __( 'Hide', 'the-post-grid' ),
+				'label_on'     => esc_html__( 'Show', 'the-post-grid' ),
+				'label_off'    => esc_html__( 'Hide', 'the-post-grid' ),
 				'return_value' => 'show',
 				'default'      => 'show',
 				'render_type'  => 'template',
@@ -1614,10 +1612,10 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'show_meta',
 			[
-				'label'        => __( 'Post Meta', 'the-post-grid' ),
+				'label'        => esc_html__( 'Post Meta', 'the-post-grid' ),
 				'type'         => \Elementor\Controls_Manager::SWITCHER,
-				'label_on'     => __( 'Show', 'the-post-grid' ),
-				'label_off'    => __( 'Hide', 'the-post-grid' ),
+				'label_on'     => esc_html__( 'Show', 'the-post-grid' ),
+				'label_off'    => esc_html__( 'Hide', 'the-post-grid' ),
 				'return_value' => 'show',
 				'default'      => 'show',
 				'render_type'  => 'template',
@@ -1631,10 +1629,10 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'show_date',
 			[
-				'label'        => __( 'Post Date', 'the-post-grid' ),
+				'label'        => esc_html__( 'Post Date', 'the-post-grid' ),
 				'type'         => \Elementor\Controls_Manager::SWITCHER,
-				'label_on'     => __( 'Show', 'the-post-grid' ),
-				'label_off'    => __( 'Hide', 'the-post-grid' ),
+				'label_on'     => esc_html__( 'Show', 'the-post-grid' ),
+				'label_off'    => esc_html__( 'Hide', 'the-post-grid' ),
 				'return_value' => 'show',
 				'default'      => 'show',
 				'render_type'  => 'template',
@@ -1650,10 +1648,10 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'show_category',
 			[
-				'label'        => __( 'Post Categories', 'the-post-grid' ),
+				'label'        => esc_html__( 'Post Categories', 'the-post-grid' ),
 				'type'         => \Elementor\Controls_Manager::SWITCHER,
-				'label_on'     => __( 'Show', 'the-post-grid' ),
-				'label_off'    => __( 'Hide', 'the-post-grid' ),
+				'label_on'     => esc_html__( 'Show', 'the-post-grid' ),
+				'label_off'    => esc_html__( 'Hide', 'the-post-grid' ),
 				'return_value' => 'show',
 				'default'      => 'show',
 				'render_type'  => 'template',
@@ -1669,10 +1667,10 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'show_author',
 			[
-				'label'        => __( 'Post Author', 'the-post-grid' ),
+				'label'        => esc_html__( 'Post Author', 'the-post-grid' ),
 				'type'         => \Elementor\Controls_Manager::SWITCHER,
-				'label_on'     => __( 'Show', 'the-post-grid' ),
-				'label_off'    => __( 'Hide', 'the-post-grid' ),
+				'label_on'     => esc_html__( 'Show', 'the-post-grid' ),
+				'label_off'    => esc_html__( 'Hide', 'the-post-grid' ),
 				'return_value' => 'show',
 				'default'      => 'show',
 				'classes'      => 'tpg-padding-left',
@@ -1686,10 +1684,10 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'show_tags',
 			[
-				'label'        => __( 'Post Tags', 'the-post-grid' ),
+				'label'        => esc_html__( 'Post Tags', 'the-post-grid' ),
 				'type'         => \Elementor\Controls_Manager::SWITCHER,
-				'label_on'     => __( 'Show', 'the-post-grid' ),
-				'label_off'    => __( 'Hide', 'the-post-grid' ),
+				'label_on'     => esc_html__( 'Show', 'the-post-grid' ),
+				'label_off'    => esc_html__( 'Hide', 'the-post-grid' ),
 				'return_value' => 'show',
 				'default'      => false,
 				'classes'      => 'tpg-padding-left',
@@ -1703,10 +1701,10 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'show_comment_count',
 			[
-				'label'        => __( 'Post Comment Count', 'the-post-grid' ),
+				'label'        => esc_html__( 'Post Comment Count', 'the-post-grid' ),
 				'type'         => \Elementor\Controls_Manager::SWITCHER,
-				'label_on'     => __( 'Show', 'the-post-grid' ),
-				'label_off'    => __( 'Hide', 'the-post-grid' ),
+				'label_on'     => esc_html__( 'Show', 'the-post-grid' ),
+				'label_off'    => esc_html__( 'Hide', 'the-post-grid' ),
 				'return_value' => 'show',
 				'default'      => false,
 				'classes'      => 'tpg-padding-left',
@@ -1720,10 +1718,10 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'show_post_count',
 			[
-				'label'        => __( 'Post View Count', 'the-post-grid' ) . $ref->pro_label,
+				'label'        => esc_html__( 'Post View Count', 'the-post-grid' ) . $ref->pro_label,
 				'type'         => \Elementor\Controls_Manager::SWITCHER,
-				'label_on'     => __( 'Show', 'the-post-grid' ),
-				'label_off'    => __( 'Hide', 'the-post-grid' ),
+				'label_on'     => esc_html__( 'Show', 'the-post-grid' ),
+				'label_off'    => esc_html__( 'Hide', 'the-post-grid' ),
 				'return_value' => 'show',
 				'default'      => false,
 				'classes'      => rtTPG()->hasPro() ? 'tpg-padding-left' : 'the-post-grid-field-hide tpg-padding-left',
@@ -1738,10 +1736,10 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'show_read_more',
 			[
-				'label'        => __( 'Read More Button', 'the-post-grid' ),
+				'label'        => esc_html__( 'Read More Button', 'the-post-grid' ),
 				'type'         => \Elementor\Controls_Manager::SWITCHER,
-				'label_on'     => __( 'Show', 'the-post-grid' ),
-				'label_off'    => __( 'Hide', 'the-post-grid' ),
+				'label_on'     => esc_html__( 'Show', 'the-post-grid' ),
+				'label_off'    => esc_html__( 'Hide', 'the-post-grid' ),
 				'return_value' => 'show',
 				'default'      => false,
 				'condition'    => [
@@ -1753,10 +1751,10 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'show_social_share',
 			[
-				'label'        => __( 'Social Share', 'the-post-grid' ) . $ref->pro_label,
+				'label'        => esc_html__( 'Social Share', 'the-post-grid' ) . $ref->pro_label,
 				'type'         => \Elementor\Controls_Manager::SWITCHER,
-				'label_on'     => __( 'Show', 'the-post-grid' ),
-				'label_off'    => __( 'Hide', 'the-post-grid' ),
+				'label_on'     => esc_html__( 'Show', 'the-post-grid' ),
+				'label_off'    => esc_html__( 'Hide', 'the-post-grid' ),
 				'return_value' => 'show',
 				'default'      => 'default',
 				'classes'      => rtTPG()->hasPro() ? '' : 'the-post-grid-field-hide',
@@ -1769,10 +1767,10 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'show_woocommerce_rating',
 			[
-				'label'        => __( 'Rating (WooCommerce)', 'the-post-grid' ),
+				'label'        => esc_html__( 'Rating (WooCommerce)', 'the-post-grid' ),
 				'type'         => \Elementor\Controls_Manager::SWITCHER,
-				'label_on'     => __( 'Show', 'the-post-grid' ),
-				'label_off'    => __( 'Hide', 'the-post-grid' ),
+				'label_on'     => esc_html__( 'Show', 'the-post-grid' ),
+				'label_off'    => esc_html__( 'Hide', 'the-post-grid' ),
 				'return_value' => 'show',
 				'default'      => 'default',
 				'condition'    => [
@@ -1786,10 +1784,10 @@ class rtTPGElementorHelper {
 			$ref->add_control(
 				'show_acf',
 				[
-					'label'        => __( 'Advanced Custom Field', 'the-post-grid' ) . $ref->pro_label,
+					'label'        => esc_html__( 'Advanced Custom Field', 'the-post-grid' ) . $ref->pro_label,
 					'type'         => \Elementor\Controls_Manager::SWITCHER,
-					'label_on'     => __( 'Show', 'the-post-grid' ),
-					'label_off'    => __( 'Hide', 'the-post-grid' ),
+					'label_on'     => esc_html__( 'Show', 'the-post-grid' ),
+					'label_off'    => esc_html__( 'Hide', 'the-post-grid' ),
 					'return_value' => 'show',
 					'default'      => false,
 					'classes'      => rtTPG()->hasPro() ? '' : 'the-post-grid-field-hide',
@@ -1827,14 +1825,14 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'section_title_style',
 			[
-				'label'        => __( 'Section Title Style', 'the-post-grid' ),
+				'label'        => esc_html__( 'Section Title Style', 'the-post-grid' ),
 				'type'         => \Elementor\Controls_Manager::SELECT,
 				'default'      => 'style1',
 				'options'      => [
-					'default' => __( 'Default', 'the-post-grid' ),
-					'style1'  => __( 'Style 1', 'the-post-grid' ),
-					'style2'  => __( 'Style 2', 'the-post-grid' ),
-					'style3'  => __( 'Style 3', 'the-post-grid' ),
+					'default' => esc_html__( 'Default', 'the-post-grid' ),
+					'style1'  => esc_html__( 'Style 1', 'the-post-grid' ),
+					'style2'  => esc_html__( 'Style 2', 'the-post-grid' ),
+					'style3'  => esc_html__( 'Style 3', 'the-post-grid' ),
 				],
 				'prefix_class' => 'section-title-style-',
 				'render_type'  => 'template',
@@ -1857,12 +1855,12 @@ class rtTPGElementorHelper {
 			$ref->add_control(
 				'section_title_source',
 				[
-					'label'     => __( 'Title Source', 'the-post-grid' ),
+					'label'     => esc_html__( 'Title Source', 'the-post-grid' ),
 					'type'      => \Elementor\Controls_Manager::SELECT,
 					'default'   => 'custom_title',
 					'options'   => [
-						'page_title'   => __( 'Page Title', 'the-post-grid' ),
-						'custom_title' => __( 'Custom Title', 'the-post-grid' ),
+						'page_title'   => esc_html__( 'Page Title', 'the-post-grid' ),
+						'custom_title' => esc_html__( 'Custom Title', 'the-post-grid' ),
 					],
 					'condition' => [
 						'show_section_title' => 'show',
@@ -1874,10 +1872,10 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'section_title_text',
 			[
-				'label'       => __( 'Title', 'the-post-grid' ),
+				'label'       => esc_html__( 'Title', 'the-post-grid' ),
 				'type'        => \Elementor\Controls_Manager::TEXT,
-				'placeholder' => __( 'Type your title here', 'the-post-grid' ),
-				'default'     => __( $default, 'the-post-grid' ),
+				'placeholder' => esc_html__( 'Type your title here', 'the-post-grid' ),
+				'default'     => esc_html__( $default, 'the-post-grid' ),
 				'label_block' => true,
 				'condition'   => [
 					'section_title_source' => 'custom_title',
@@ -1890,9 +1888,9 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'title_prefix',
 			[
-				'label'       => __( 'Title Prefix Text', 'the-post-grid' ),
+				'label'       => esc_html__( 'Title Prefix Text', 'the-post-grid' ),
 				'type'        => \Elementor\Controls_Manager::TEXT,
-				'placeholder' => __( 'Title prefix text', 'the-post-grid' ),
+				'placeholder' => esc_html__( 'Title prefix text', 'the-post-grid' ),
 				'condition'   => [
 					'section_title_source' => 'page_title',
 				],
@@ -1902,9 +1900,9 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'title_suffix',
 			[
-				'label'       => __( 'Title Suffix Text', 'the-post-grid' ),
+				'label'       => esc_html__( 'Title Suffix Text', 'the-post-grid' ),
 				'type'        => \Elementor\Controls_Manager::TEXT,
-				'placeholder' => __( 'Title suffix text', 'the-post-grid' ),
+				'placeholder' => esc_html__( 'Title suffix text', 'the-post-grid' ),
 				'condition'   => [
 					'section_title_source' => 'page_title',
 				],
@@ -1914,16 +1912,16 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'section_title_tag',
 			[
-				'label'     => __( 'Title Tag', 'the-post-grid' ),
+				'label'     => esc_html__( 'Title Tag', 'the-post-grid' ),
 				'type'      => Controls_Manager::SELECT,
 				'default'   => 'h2',
 				'options'   => [
-					'h1' => __( 'H1', 'the-post-grid' ),
-					'h2' => __( 'H2', 'the-post-grid' ),
-					'h3' => __( 'H3', 'the-post-grid' ),
-					'h4' => __( 'H4', 'the-post-grid' ),
-					'h5' => __( 'H5', 'the-post-grid' ),
-					'h6' => __( 'H6', 'the-post-grid' ),
+					'h1' => esc_html__( 'H1', 'the-post-grid' ),
+					'h2' => esc_html__( 'H2', 'the-post-grid' ),
+					'h3' => esc_html__( 'H3', 'the-post-grid' ),
+					'h4' => esc_html__( 'H4', 'the-post-grid' ),
+					'h5' => esc_html__( 'H5', 'the-post-grid' ),
+					'h6' => esc_html__( 'H6', 'the-post-grid' ),
 				],
 				'condition' => [
 					'show_section_title' => 'show',
@@ -1935,10 +1933,10 @@ class rtTPGElementorHelper {
 			$ref->add_control(
 				'show_cat_desc',
 				[
-					'label'        => __( 'Show Archive Description', 'the-post-grid' ),
+					'label'        => esc_html__( 'Show Archive Description', 'the-post-grid' ),
 					'type'         => \Elementor\Controls_Manager::SWITCHER,
-					'label_on'     => __( 'Show', 'the-post-grid' ),
-					'label_off'    => __( 'Hide', 'the-post-grid' ),
+					'label_on'     => esc_html__( 'Show', 'the-post-grid' ),
+					'label_off'    => esc_html__( 'Hide', 'the-post-grid' ),
 					'return_value' => 'yes',
 					'default'      => false,
 				]
@@ -1972,12 +1970,12 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'media_source',
 			[
-				'label'   => __( 'Media Source', 'the-post-grid' ),
+				'label'   => esc_html__( 'Media Source', 'the-post-grid' ),
 				'type'    => \Elementor\Controls_Manager::SELECT,
 				'default' => 'feature_image',
 				'options' => [
-					'feature_image' => __( 'Feature Image', 'the-post-grid' ),
-					'first_image'   => __( 'First Image from content', 'the-post-grid' ),
+					'feature_image' => esc_html__( 'Feature Image', 'the-post-grid' ),
+					'first_image'   => esc_html__( 'First Image from content', 'the-post-grid' ),
 				],
 			]
 		);
@@ -2005,12 +2003,12 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'img_crop_style',
 			[
-				'label'     => __( 'Image Crop Style', 'the-post-grid' ),
+				'label'     => esc_html__( 'Image Crop Style', 'the-post-grid' ),
 				'type'      => \Elementor\Controls_Manager::SELECT,
 				'default'   => 'hard',
 				'options'   => [
-					'soft' => __( 'Soft Crop', 'the-post-grid' ),
-					'hard' => __( 'Hard Crop', 'the-post-grid' ),
+					'soft' => esc_html__( 'Soft Crop', 'the-post-grid' ),
+					'hard' => esc_html__( 'Hard Crop', 'the-post-grid' ),
 				],
 				'condition' => [
 					'image_size'   => 'custom',
@@ -2072,7 +2070,7 @@ class rtTPGElementorHelper {
 			$ref->add_responsive_control(
 				'list_image_side_width',
 				[
-					'label'      => __( 'List Image Width', 'the-post-grid' ),
+					'label'      => esc_html__( 'List Image Width', 'the-post-grid' ),
 					'type'       => Controls_Manager::SLIDER,
 					'size_units' => [ 'px', '%' ],
 					'range'      => [
@@ -2100,7 +2098,7 @@ class rtTPGElementorHelper {
 			$ref->add_responsive_control(
 				'image_height',
 				[
-					'label'      => __( 'Image Height', 'the-post-grid' ),
+					'label'      => esc_html__( 'Image Height', 'the-post-grid' ),
 					'type'       => Controls_Manager::SLIDER,
 					'size_units' => [ '%', 'px' ],
 					'range'      => [
@@ -2126,7 +2124,7 @@ class rtTPGElementorHelper {
 			$ref->add_responsive_control(
 				'offset_image_height',
 				[
-					'label'      => __( 'Offset Image Height', 'the-post-grid' ),
+					'label'      => esc_html__( 'Offset Image Height', 'the-post-grid' ),
 					'type'       => Controls_Manager::SLIDER,
 					'size_units' => [ '%', 'px' ],
 					'range'      => [
@@ -2152,16 +2150,16 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'hover_animation',
 			[
-				'label'        => __( 'Image Hover Animation', 'the-post-grid' ),
+				'label'        => esc_html__( 'Image Hover Animation', 'the-post-grid' ),
 				'type'         => \Elementor\Controls_Manager::SELECT,
 				'default'      => 'default',
 				'options'      => [
-					'default'        => __( 'Default', 'the-post-grid' ),
-					'img_zoom_in'    => __( 'Zoom In', 'the-post-grid' ),
-					'img_zoom_out'   => __( 'Zoom Out', 'the-post-grid' ),
-					'slide_to_right' => __( 'Slide to Right', 'the-post-grid' ),
-					'slide_to_left'  => __( 'Slide to Left', 'the-post-grid' ),
-					'img_no_effect'  => __( 'None', 'the-post-grid' ),
+					'default'        => esc_html__( 'Default', 'the-post-grid' ),
+					'img_zoom_in'    => esc_html__( 'Zoom In', 'the-post-grid' ),
+					'img_zoom_out'   => esc_html__( 'Zoom Out', 'the-post-grid' ),
+					'slide_to_right' => esc_html__( 'Slide to Right', 'the-post-grid' ),
+					'slide_to_left'  => esc_html__( 'Slide to Left', 'the-post-grid' ),
+					'img_no_effect'  => esc_html__( 'None', 'the-post-grid' ),
 				],
 				'render_type'  => 'template',
 				'prefix_class' => 'img_hover_animation_',
@@ -2171,13 +2169,13 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'is_thumb_lightbox',
 			[
-				'label'   => __( 'Light Box', 'the-post-grid' ) . $ref->pro_label,
+				'label'   => esc_html__( 'Light Box', 'the-post-grid' ) . $ref->pro_label,
 				'type'    => \Elementor\Controls_Manager::SELECT,
 				'default' => 'default',
 				'options' => [
-					'default' => __( 'Default', 'the-post-grid' ),
-					'show'    => __( 'Show', 'the-post-grid' ),
-					'hide'    => __( 'Hide', 'the-post-grid' ),
+					'default' => esc_html__( 'Default', 'the-post-grid' ),
+					'show'    => esc_html__( 'Show', 'the-post-grid' ),
+					'hide'    => esc_html__( 'Hide', 'the-post-grid' ),
 				],
 				'classes' => rtTPG()->hasPro() ? '' : 'the-post-grid-field-hide',
 			]
@@ -2186,7 +2184,7 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'light_box_icon',
 			[
-				'label'     => __( 'Light Box Icon', 'the-post-grid' ),
+				'label'     => esc_html__( 'Light Box Icon', 'the-post-grid' ),
 				'type'      => \Elementor\Controls_Manager::ICONS,
 				'default'   => [
 					'value'   => 'fas fa-plus',
@@ -2201,10 +2199,10 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'is_default_img',
 			[
-				'label'        => __( 'Enable Default Image', 'the-post-grid' ) . $ref->pro_label,
+				'label'        => esc_html__( 'Enable Default Image', 'the-post-grid' ) . $ref->pro_label,
 				'type'         => \Elementor\Controls_Manager::SWITCHER,
-				'label_on'     => __( 'Show', 'the-post-grid' ),
-				'label_off'    => __( 'Hide', 'the-post-grid' ),
+				'label_on'     => esc_html__( 'Show', 'the-post-grid' ),
+				'label_off'    => esc_html__( 'Hide', 'the-post-grid' ),
 				'return_value' => 'yes',
 				'default'      => false,
 				'classes'      => rtTPG()->hasPro() ? '' : 'the-post-grid-field-hide',
@@ -2215,7 +2213,7 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'default_image',
 			[
-				'label'     => __( 'Default Image', 'the-post-grid' ) . $ref->pro_label,
+				'label'     => esc_html__( 'Default Image', 'the-post-grid' ) . $ref->pro_label,
 				'type'      => \Elementor\Controls_Manager::MEDIA,
 				'default'   => [
 					'url' => rtTPG()->get_assets_uri( 'images/placeholder.png' ),
@@ -2255,16 +2253,16 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'title_tag',
 			[
-				'label'   => __( 'Title Tag', 'the-post-grid' ),
+				'label'   => esc_html__( 'Title Tag', 'the-post-grid' ),
 				'type'    => Controls_Manager::SELECT,
 				'default' => 'h3',
 				'options' => [
-					'h1' => __( 'H1', 'the-post-grid' ),
-					'h2' => __( 'H2', 'the-post-grid' ),
-					'h3' => __( 'H3', 'the-post-grid' ),
-					'h4' => __( 'H4', 'the-post-grid' ),
-					'h5' => __( 'H5', 'the-post-grid' ),
-					'h6' => __( 'H6', 'the-post-grid' ),
+					'h1' => esc_html__( 'H1', 'the-post-grid' ),
+					'h2' => esc_html__( 'H2', 'the-post-grid' ),
+					'h3' => esc_html__( 'H3', 'the-post-grid' ),
+					'h4' => esc_html__( 'H4', 'the-post-grid' ),
+					'h5' => esc_html__( 'H5', 'the-post-grid' ),
+					'h6' => esc_html__( 'H6', 'the-post-grid' ),
 				],
 			]
 		);
@@ -2272,15 +2270,15 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'title_visibility_style',
 			[
-				'label'        => __( 'Title Visibility Style', 'the-post-grid' ),
+				'label'        => esc_html__( 'Title Visibility Style', 'the-post-grid' ),
 				'type'         => \Elementor\Controls_Manager::SELECT,
 				'default'      => 'default',
 				'options'      => [
-					'default'    => __( 'Default', 'the-post-grid' ),
-					'one-line'   => __( 'Show in 1 line', 'the-post-grid' ),
-					'two-line'   => __( 'Show in 2 lines', 'the-post-grid' ),
-					'three-line' => __( 'Show in 3 lines', 'the-post-grid' ),
-					'custom'     => __( 'Custom', 'the-post-grid' ),
+					'default'    => esc_html__( 'Default', 'the-post-grid' ),
+					'one-line'   => esc_html__( 'Show in 1 line', 'the-post-grid' ),
+					'two-line'   => esc_html__( 'Show in 2 lines', 'the-post-grid' ),
+					'three-line' => esc_html__( 'Show in 3 lines', 'the-post-grid' ),
+					'custom'     => esc_html__( 'Custom', 'the-post-grid' ),
 				],
 				'render_type'  => 'template',
 				'prefix_class' => 'title-',
@@ -2290,7 +2288,7 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'title_limit',
 			[
-				'label'     => __( 'Title Length', 'the-post-grid' ),
+				'label'     => esc_html__( 'Title Length', 'the-post-grid' ),
 				'type'      => \Elementor\Controls_Manager::NUMBER,
 				'step'      => 1,
 				'classes'   => 'tpg-padding-left',
@@ -2303,12 +2301,12 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'title_limit_type',
 			[
-				'label'      => __( 'Title Crop by', 'the-post-grid' ),
+				'label'      => esc_html__( 'Title Crop by', 'the-post-grid' ),
 				'type'       => \Elementor\Controls_Manager::SELECT,
 				'default'    => 'word',
 				'options'    => [
-					'word'      => __( 'Words', 'the-post-grid' ),
-					'character' => __( 'Characters', 'the-post-grid' ),
+					'word'      => esc_html__( 'Words', 'the-post-grid' ),
+					'character' => esc_html__( 'Characters', 'the-post-grid' ),
 				],
 				'classes'    => 'tpg-padding-left',
 				'conditions' => [
@@ -2331,12 +2329,12 @@ class rtTPGElementorHelper {
 		);
 
 		$title_position = [
-			'default' => __( 'Default', 'the-post-grid' ),
+			'default' => esc_html__( 'Default', 'the-post-grid' ),
 		];
 		if ( rtTPG()->hasPro() ) {
 			$title_position_pro = [
-				'above_image' => __( 'Above Image', 'the-post-grid' ),
-				'below_image' => __( 'Below Image', 'the-post-grid' ),
+				'above_image' => esc_html__( 'Above Image', 'the-post-grid' ),
+				'below_image' => esc_html__( 'Below Image', 'the-post-grid' ),
 			];
 			$title_position     = array_merge( $title_position, $title_position_pro );
 		}
@@ -2344,7 +2342,7 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'title_position',
 			[
-				'label'        => __( 'Title Position', 'the-post-grid' ) . $ref->pro_label,
+				'label'        => esc_html__( 'Title Position', 'the-post-grid' ) . $ref->pro_label,
 				'type'         => \Elementor\Controls_Manager::SELECT,
 				'default'      => 'default',
 				'prefix_class' => 'title_position_',
@@ -2369,14 +2367,14 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'title_position_hidden',
 			[
-				'label'        => __( 'Title Position', 'the-post-grid' ),
+				'label'        => esc_html__( 'Title Position', 'the-post-grid' ),
 				'type'         => \Elementor\Controls_Manager::SELECT,
 				'default'      => 'default',
 				'prefix_class' => 'title_position_',
 				'render_type'  => 'template',
 				'classes'      => 'tpg-should-hide-field',
 				'options'      => [
-					'default' => __( 'Default', 'the-post-grid' )
+					'default' => esc_html__( 'Default', 'the-post-grid' )
 				],
 				'condition'    => [
 					$prefix . '_layout!' => [
@@ -2395,15 +2393,15 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'title_hover_underline',
 			[
-				'label'        => __( 'Title Hover Underline', 'the-post-grid' ),
+				'label'        => esc_html__( 'Title Hover Underline', 'the-post-grid' ),
 				'type'         => \Elementor\Controls_Manager::SELECT,
 				'default'      => 'default',
 				'prefix_class' => 'title_hover_border_',
 				'render_type'  => 'template',
 				'options'      => [
-					'default' => __( 'Default', 'the-post-grid' ),
-					'enable'  => __( 'Enable', 'the-post-grid' ),
-					'disable' => __( 'Disable', 'the-post-grid' ),
+					'default' => esc_html__( 'Default', 'the-post-grid' ),
+					'enable'  => esc_html__( 'Enable', 'the-post-grid' ),
+					'disable' => esc_html__( 'Disable', 'the-post-grid' ),
 				],
 			]
 		);
@@ -2435,19 +2433,19 @@ class rtTPGElementorHelper {
 		);
 
 		$excerpt_type = [
-			'character' => __( 'Character', 'the-post-grid' ),
-			'word'      => __( 'Word', 'the-post-grid' ),
+			'character' => esc_html__( 'Character', 'the-post-grid' ),
+			'word'      => esc_html__( 'Word', 'the-post-grid' ),
 		];
 
 
 		if ( in_array( $prefix, [ 'grid', 'list' ] ) ) {
-			$excerpt_type['full'] = __( 'Full Content', 'the-post-grid' );
+			$excerpt_type['full'] = esc_html__( 'Full Content', 'the-post-grid' );
 		}
 
 		$ref->add_control(
 			'excerpt_type',
 			[
-				'label'   => __( 'Excerpt Type', 'the-post-grid' ),
+				'label'   => esc_html__( 'Excerpt Type', 'the-post-grid' ),
 				'type'    => \Elementor\Controls_Manager::SELECT,
 				'default' => 'character',
 				'options' => $excerpt_type,
@@ -2462,7 +2460,7 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'excerpt_limit',
 			[
-				'label'     => __( 'Excerpt Limit', 'the-post-grid' ),
+				'label'     => esc_html__( 'Excerpt Limit', 'the-post-grid' ),
 				'type'      => \Elementor\Controls_Manager::NUMBER,
 				'step'      => 1,
 				'default'   => $default_excerpt_limit,
@@ -2475,7 +2473,7 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'excerpt_more_text',
 			[
-				'label'     => __( 'Expansion Indicator', 'the-post-grid' ),
+				'label'     => esc_html__( 'Expansion Indicator', 'the-post-grid' ),
 				'type'      => \Elementor\Controls_Manager::TEXT,
 				'default'   => '...',
 				'condition' => [
@@ -2544,14 +2542,14 @@ class rtTPGElementorHelper {
 		);
 
 		$meta_position = [
-			'default' => __( 'Default', 'the-post-grid' ),
+			'default' => esc_html__( 'Default', 'the-post-grid' ),
 		];
 		if ( rtTPG()->hasPro() ) {
 			$meta_position_pro = [
-				'above_title'   => __( 'Above Title', 'the-post-grid' ),
-				'below_title'   => __( 'Below Title', 'the-post-grid' ),
-				'above_excerpt' => __( 'Above excerpt', 'the-post-grid' ),
-				'below_excerpt' => __( 'Below excerpt', 'the-post-grid' ),
+				'above_title'   => esc_html__( 'Above Title', 'the-post-grid' ),
+				'below_title'   => esc_html__( 'Below Title', 'the-post-grid' ),
+				'above_excerpt' => esc_html__( 'Above excerpt', 'the-post-grid' ),
+				'below_excerpt' => esc_html__( 'Below excerpt', 'the-post-grid' ),
 			];
 			$meta_position     = array_merge( $meta_position, $meta_position_pro );
 		}
@@ -2559,7 +2557,7 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'meta_position',
 			[
-				'label'        => __( 'Meta Position', 'the-post-grid' ) . $ref->pro_label,
+				'label'        => esc_html__( 'Meta Position', 'the-post-grid' ) . $ref->pro_label,
 				'type'         => \Elementor\Controls_Manager::SELECT,
 				'default'      => 'default',
 				'prefix_class' => 'meta_position_',
@@ -2572,10 +2570,10 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'show_meta_icon',
 			[
-				'label'        => __( 'Show Meta Icon', 'the-post-grid' ),
+				'label'        => esc_html__( 'Show Meta Icon', 'the-post-grid' ),
 				'type'         => \Elementor\Controls_Manager::SWITCHER,
-				'label_on'     => __( 'Show', 'the-post-grid' ),
-				'label_off'    => __( 'Hide', 'the-post-grid' ),
+				'label_on'     => esc_html__( 'Show', 'the-post-grid' ),
+				'label_off'    => esc_html__( 'Hide', 'the-post-grid' ),
 				'return_value' => 'yes',
 				'default'      => 'yes',
 			]
@@ -2584,16 +2582,16 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'meta_separator',
 			[
-				'label'   => __( 'Meta Separator', 'the-post-grid' ),
+				'label'   => esc_html__( 'Meta Separator', 'the-post-grid' ),
 				'type'    => \Elementor\Controls_Manager::SELECT,
 				'default' => 'default',
 				'options' => [
-					'default' => __( 'Default - None', 'the-post-grid' ),
-					'.'       => __( 'Dot ( . )', 'the-post-grid' ),
-					'/'       => __( 'Single Slash ( / )', 'the-post-grid' ),
-					'//'      => __( 'Double Slash ( // )', 'the-post-grid' ),
-					'-'       => __( 'Hyphen ( - )', 'the-post-grid' ),
-					'|'       => __( 'Vertical Pipe ( | )', 'the-post-grid' ),
+					'default' => esc_html__( 'Default - None', 'the-post-grid' ),
+					'.'       => esc_html__( 'Dot ( . )', 'the-post-grid' ),
+					'/'       => esc_html__( 'Single Slash ( / )', 'the-post-grid' ),
+					'//'      => esc_html__( 'Double Slash ( // )', 'the-post-grid' ),
+					'-'       => esc_html__( 'Hyphen ( - )', 'the-post-grid' ),
+					'|'       => esc_html__( 'Vertical Pipe ( | )', 'the-post-grid' ),
 				],
 			]
 		);
@@ -2602,10 +2600,10 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'meta_popover_toggle',
 			[
-				'label'        => __( 'Change Meta Icon', 'the-post-grid' ),
+				'label'        => esc_html__( 'Change Meta Icon', 'the-post-grid' ),
 				'type'         => \Elementor\Controls_Manager::POPOVER_TOGGLE,
-				'label_off'    => __( 'Default', 'the-post-grid' ),
-				'label_on'     => __( 'Custom', 'the-post-grid' ),
+				'label_off'    => esc_html__( 'Default', 'the-post-grid' ),
+				'label_on'     => esc_html__( 'Custom', 'the-post-grid' ),
 				'return_value' => 'yes',
 				'condition'    => [
 					'show_meta_icon' => 'yes',
@@ -2618,7 +2616,7 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'user_icon',
 			[
-				'label'     => __( 'Author Icon', 'the-post-grid' ),
+				'label'     => esc_html__( 'Author Icon', 'the-post-grid' ),
 				'type'      => \Elementor\Controls_Manager::ICONS,
 				'default'   => [
 					'value'   => 'fas fa-user',
@@ -2633,7 +2631,7 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'cat_icon',
 			[
-				'label'     => __( 'Category Icon', 'the-post-grid' ),
+				'label'     => esc_html__( 'Category Icon', 'the-post-grid' ),
 				'type'      => \Elementor\Controls_Manager::ICONS,
 				'default'   => [
 					'value'   => 'fas fa-folder-open',
@@ -2648,7 +2646,7 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'date_icon',
 			[
-				'label'     => __( 'Date Icon', 'the-post-grid' ),
+				'label'     => esc_html__( 'Date Icon', 'the-post-grid' ),
 				'type'      => \Elementor\Controls_Manager::ICONS,
 				'default'   => [
 					'value'   => 'far fa-calendar-alt',
@@ -2663,7 +2661,7 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'tag_icon',
 			[
-				'label'     => __( 'Tags Icon', 'the-post-grid' ),
+				'label'     => esc_html__( 'Tags Icon', 'the-post-grid' ),
 				'type'      => \Elementor\Controls_Manager::ICONS,
 				'default'   => [
 					'value'   => 'fa fa-tags',
@@ -2678,7 +2676,7 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'comment_icon',
 			[
-				'label'     => __( 'Comment Icon', 'the-post-grid' ),
+				'label'     => esc_html__( 'Comment Icon', 'the-post-grid' ),
 				'type'      => \Elementor\Controls_Manager::ICONS,
 				'default'   => [
 					'value'   => 'fas fa-comments',
@@ -2693,7 +2691,7 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'post_count_icon',
 			[
-				'label'     => __( 'Post Count Icon', 'the-post-grid' ),
+				'label'     => esc_html__( 'Post Count Icon', 'the-post-grid' ),
 				'type'      => \Elementor\Controls_Manager::ICONS,
 				'default'   => [
 					'value'   => 'fas fa-eye',
@@ -2726,7 +2724,7 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'meta_author_heading',
 			[
-				'label'     => __( 'Author Setting:', 'the-post-grid' ),
+				'label'     => esc_html__( 'Author Setting:', 'the-post-grid' ),
 				'type'      => \Elementor\Controls_Manager::HEADING,
 				'classes'   => 'tpg-control-type-heading',
 				'condition' => [
@@ -2738,9 +2736,9 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'author_prefix',
 			[
-				'label'       => __( 'Author Prefix', 'the-post-grid' ),
+				'label'       => esc_html__( 'Author Prefix', 'the-post-grid' ),
 				'type'        => \Elementor\Controls_Manager::TEXT,
-				'placeholder' => __( 'By', 'the-post-grid' ),
+				'placeholder' => esc_html__( 'By', 'the-post-grid' ),
 				'condition'   => [
 					'show_author!' => '',
 				],
@@ -2750,13 +2748,13 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'author_icon_visibility',
 			[
-				'label'        => __( 'Author Icon Visibility', 'the-post-grid' ),
+				'label'        => esc_html__( 'Author Icon Visibility', 'the-post-grid' ),
 				'type'         => \Elementor\Controls_Manager::SELECT,
 				'default'      => 'default',
 				'options'      => [
-					'default' => __( 'Default', 'the-post-grid' ),
-					'hide'    => __( 'Hide', 'the-post-grid' ),
-					'show'    => __( 'Show', 'the-post-grid' ),
+					'default' => esc_html__( 'Default', 'the-post-grid' ),
+					'hide'    => esc_html__( 'Hide', 'the-post-grid' ),
+					'show'    => esc_html__( 'Show', 'the-post-grid' ),
 				],
 				'condition'    => [
 					'show_author!' => '',
@@ -2768,10 +2766,10 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'show_author_image',
 			[
-				'label'        => __( 'Author Image / Icon', 'the-post-grid' ),
+				'label'        => esc_html__( 'Author Image / Icon', 'the-post-grid' ),
 				'type'         => \Elementor\Controls_Manager::SWITCHER,
-				'label_on'     => __( 'Image', 'the-post-grid' ),
-				'label_off'    => __( 'Icon', 'the-post-grid' ),
+				'label_on'     => esc_html__( 'Image', 'the-post-grid' ),
+				'label_off'    => esc_html__( 'Icon', 'the-post-grid' ),
 				'return_value' => 'show',
 				'default'      => 'show',
 				'render_type'  => 'template',
@@ -2787,7 +2785,7 @@ class rtTPGElementorHelper {
 		$ref->add_responsive_control(
 			'author_icon_width',
 			[
-				'label'      => __( 'Author Image Width', 'the-post-grid' ),
+				'label'      => esc_html__( 'Author Image Width', 'the-post-grid' ),
 				'type'       => Controls_Manager::SLIDER,
 				'size_units' => [ 'px' ],
 				'range'      => [
@@ -2815,7 +2813,7 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'category_heading',
 			[
-				'label'      => __( 'Category and Tags Setting:', 'the-post-grid' ),
+				'label'      => esc_html__( 'Category and Tags Setting:', 'the-post-grid' ),
 				'type'       => \Elementor\Controls_Manager::HEADING,
 				'classes'    => 'tpg-control-type-heading',
 				'conditions' => [
@@ -2840,18 +2838,18 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'category_position',
 			[
-				'label'        => __( 'Category Position', 'the-post-grid' ) . $ref->pro_label,
+				'label'        => esc_html__( 'Category Position', 'the-post-grid' ) . $ref->pro_label,
 				'type'         => \Elementor\Controls_Manager::SELECT,
 				'default'      => 'default',
 				'options'      => [
-					'default'      => __( 'Default', 'the-post-grid' ),
-					'above_title'  => __( 'Above Title', 'the-post-grid' ),
-					'with_meta'    => __( 'With Meta', 'the-post-grid' ),
-					'top_left'     => __( 'Over image (Top Left)', 'the-post-grid' ),
-					'top_right'    => __( 'Over image (Top Right)', 'the-post-grid' ),
-					'bottom_left'  => __( 'Over image (Bottom Left)', 'the-post-grid' ),
-					'bottom_right' => __( 'Over image (Bottom Right)', 'the-post-grid' ),
-					'image_center' => __( 'Over image (Center)', 'the-post-grid' ),
+					'default'      => esc_html__( 'Default', 'the-post-grid' ),
+					'above_title'  => esc_html__( 'Above Title', 'the-post-grid' ),
+					'with_meta'    => esc_html__( 'With Meta', 'the-post-grid' ),
+					'top_left'     => esc_html__( 'Over image (Top Left)', 'the-post-grid' ),
+					'top_right'    => esc_html__( 'Over image (Top Right)', 'the-post-grid' ),
+					'bottom_left'  => esc_html__( 'Over image (Bottom Left)', 'the-post-grid' ),
+					'bottom_right' => esc_html__( 'Over image (Bottom Right)', 'the-post-grid' ),
+					'image_center' => esc_html__( 'Over image (Center)', 'the-post-grid' ),
 				],
 				'condition'    => [
 					'show_category' => 'show',
@@ -2866,13 +2864,13 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'category_style',
 			[
-				'label'     => __( 'Category Style', 'the-post-grid' ) . $ref->pro_label,
+				'label'     => esc_html__( 'Category Style', 'the-post-grid' ) . $ref->pro_label,
 				'type'      => \Elementor\Controls_Manager::SELECT,
 				'default'   => 'style1',
 				'options'   => [
-					'style1' => __( 'Style 1', 'the-post-grid' ),
-					'style2' => __( 'Style 2', 'the-post-grid' ),
-					'style3' => __( 'Style 3', 'the-post-grid' ),
+					'style1' => esc_html__( 'Style 1', 'the-post-grid' ),
+					'style2' => esc_html__( 'Style 2', 'the-post-grid' ),
+					'style3' => esc_html__( 'Style 3', 'the-post-grid' ),
 				],
 				'classes'   => rtTPG()->hasPro() ? '' : 'the-post-grid-field-hide',
 				'condition' => [
@@ -2885,10 +2883,10 @@ class rtTPGElementorHelper {
 			$ref->add_control(
 				'show_cat_icon',
 				[
-					'label'        => __( 'Show Over Image Category Icon', 'the-post-grid' ),
+					'label'        => esc_html__( 'Show Over Image Category Icon', 'the-post-grid' ),
 					'type'         => \Elementor\Controls_Manager::SWITCHER,
-					'label_on'     => __( 'Show', 'the-post-grid' ),
-					'label_off'    => __( 'Hide', 'the-post-grid' ),
+					'label_on'     => esc_html__( 'Show', 'the-post-grid' ),
+					'label_off'    => esc_html__( 'Hide', 'the-post-grid' ),
 					'return_value' => 'yes',
 					'default'      => false,
 					'condition'    => [
@@ -2953,7 +2951,7 @@ class rtTPGElementorHelper {
 			$ref->add_control(
 				$post_type . '_taxonomy',
 				[
-					'label'       => __( 'Category Source', 'the-post-grid' ),
+					'label'       => esc_html__( 'Category Source', 'the-post-grid' ),
 					'type'        => \Elementor\Controls_Manager::SELECT,
 					'default'     => $default_cat,
 					'options'     => $term_options,
@@ -2961,14 +2959,14 @@ class rtTPGElementorHelper {
 						'show_category' => 'show',
 						'post_type'     => $post_type,
 					],
-					'description' => __( 'Select which taxonomy should sit in the place of categories. Default: Category', 'the-post-grid' ),
+					'description' => esc_html__( 'Select which taxonomy should sit in the place of categories. Default: Category', 'the-post-grid' ),
 				]
 			);
 
 			$ref->add_control(
 				$post_type . '_tags',
 				[
-					'label'       => __( 'Tags Source', 'the-post-grid' ),
+					'label'       => esc_html__( 'Tags Source', 'the-post-grid' ),
 					'type'        => \Elementor\Controls_Manager::SELECT,
 					'default'     => $default_tag,
 					'options'     => $term_options,
@@ -2976,7 +2974,7 @@ class rtTPGElementorHelper {
 						'show_category' => 'show',
 						'post_type'     => $post_type,
 					],
-					'description' => __( 'Select which taxonomy should sit in the place of tags. Default: Tags', 'the-post-grid' ),
+					'description' => esc_html__( 'Select which taxonomy should sit in the place of tags. Default: Tags', 'the-post-grid' ),
 				]
 			);
 		}
@@ -2984,7 +2982,7 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'comment_count_heading',
 			[
-				'label'     => __( 'Comment Count ', 'the-post-grid' ),
+				'label'     => esc_html__( 'Comment Count ', 'the-post-grid' ),
 				'type'      => \Elementor\Controls_Manager::HEADING,
 				'classes'   => 'tpg-control-type-heading',
 				'condition' => [
@@ -2996,10 +2994,10 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'show_comment_count_label',
 			[
-				'label'        => __( 'Show Comment Label', 'the-post-grid' ),
+				'label'        => esc_html__( 'Show Comment Label', 'the-post-grid' ),
 				'type'         => \Elementor\Controls_Manager::SWITCHER,
-				'label_on'     => __( 'Show', 'the-post-grid' ),
-				'label_off'    => __( 'Hide', 'the-post-grid' ),
+				'label_on'     => esc_html__( 'Show', 'the-post-grid' ),
+				'label_off'    => esc_html__( 'Hide', 'the-post-grid' ),
 				'return_value' => 'yes',
 				'default'      => 'yes',
 				'condition'    => [
@@ -3011,10 +3009,10 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'comment_count_label_singular',
 			[
-				'label'       => __( 'Comment Label Singular', 'the-post-grid' ),
+				'label'       => esc_html__( 'Comment Label Singular', 'the-post-grid' ),
 				'type'        => \Elementor\Controls_Manager::TEXT,
-				'default'     => __( 'Comment', 'the-post-grid' ),
-				'placeholder' => __( 'Type your title here', 'the-post-grid' ),
+				'default'     => esc_html__( 'Comment', 'the-post-grid' ),
+				'placeholder' => esc_html__( 'Type your title here', 'the-post-grid' ),
 				'condition'   => [
 					'show_comment_count'       => 'show',
 					'show_comment_count_label' => 'yes',
@@ -3025,10 +3023,10 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'comment_count_label_plural',
 			[
-				'label'       => __( 'Comment Label Plural', 'the-post-grid' ),
+				'label'       => esc_html__( 'Comment Label Plural', 'the-post-grid' ),
 				'type'        => \Elementor\Controls_Manager::TEXT,
-				'default'     => __( 'Comments', 'the-post-grid' ),
-				'placeholder' => __( 'Type your title here', 'the-post-grid' ),
+				'default'     => esc_html__( 'Comments', 'the-post-grid' ),
+				'placeholder' => esc_html__( 'Type your title here', 'the-post-grid' ),
 				'condition'   => [
 					'show_comment_count'       => 'show',
 					'show_comment_count_label' => 'yes',
@@ -3039,7 +3037,7 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'meta_ordering_heading',
 			[
-				'label'   => __( 'Meta Ordering', 'the-post-grid' ),
+				'label'   => esc_html__( 'Meta Ordering', 'the-post-grid' ),
 				'type'    => \Elementor\Controls_Manager::HEADING,
 				'classes' => 'tpg-control-type-heading',
 			]
@@ -3124,12 +3122,12 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'readmore_btn_style',
 			[
-				'label'        => __( 'Button Style', 'the-post-grid' ),
+				'label'        => esc_html__( 'Button Style', 'the-post-grid' ),
 				'type'         => \Elementor\Controls_Manager::SELECT,
 				'default'      => 'default-style',
 				'options'      => [
-					'default-style' => __( 'Default from style', 'the-post-grid' ),
-					'only-text'     => __( 'Only Text Button', 'the-post-grid' ),
+					'default-style' => esc_html__( 'Default from style', 'the-post-grid' ),
+					'only-text'     => esc_html__( 'Only Text Button', 'the-post-grid' ),
 				],
 				'prefix_class' => 'readmore-btn-',
 			]
@@ -3138,10 +3136,10 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'read_more_label',
 			[
-				'label'       => __( 'Read More Label', 'the-post-grid' ),
+				'label'       => esc_html__( 'Read More Label', 'the-post-grid' ),
 				'type'        => \Elementor\Controls_Manager::TEXT,
-				'default'     => __( 'Read More', 'the-post-grid' ),
-				'placeholder' => __( 'Type Read More Label here', 'the-post-grid' ),
+				'default'     => esc_html__( 'Read More', 'the-post-grid' ),
+				'placeholder' => esc_html__( 'Type Read More Label here', 'the-post-grid' ),
 			]
 		);
 
@@ -3149,10 +3147,10 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'show_btn_icon',
 			[
-				'label'        => __( 'Show Button Icon', 'the-post-grid' ),
+				'label'        => esc_html__( 'Show Button Icon', 'the-post-grid' ),
 				'type'         => \Elementor\Controls_Manager::SWITCHER,
-				'label_on'     => __( 'Show', 'the-post-grid' ),
-				'label_off'    => __( 'Hide', 'the-post-grid' ),
+				'label_on'     => esc_html__( 'Show', 'the-post-grid' ),
+				'label_off'    => esc_html__( 'Hide', 'the-post-grid' ),
 				'return_value' => 'yes',
 				'default'      => false,
 			]
@@ -3161,7 +3159,7 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'readmore_btn_icon',
 			[
-				'label'     => __( 'Choose Icon', 'the-post-grid' ),
+				'label'     => esc_html__( 'Choose Icon', 'the-post-grid' ),
 				'type'      => \Elementor\Controls_Manager::ICONS,
 				'default'   => [
 					'value'   => 'fas fa-angle-right',
@@ -3212,7 +3210,7 @@ class rtTPGElementorHelper {
 		//		$ref->add_control(
 		//			'cf_group',
 		//			[
-		//				'label'       => __( 'Choose Advanced Custom Field (ACF)', 'the-post-grid' ),
+		//				'label'       => esc_html__( 'Choose Advanced Custom Field (ACF)', 'the-post-grid' ),
 		//				'type'        => \Elementor\Controls_Manager::SELECT2,
 		//				'multiple'    => true,
 		//				'label_block' => true,
@@ -3236,7 +3234,7 @@ class rtTPGElementorHelper {
 			$ref->add_control(
 				$post_type . '_cf_group',
 				[
-					'label'       => __( "Choose Advanced Custom Field (ACF)", 'the-post-grid' ),
+					'label'       => esc_html__( "Choose Advanced Custom Field (ACF)", 'the-post-grid' ),
 					'type'        => \Elementor\Controls_Manager::SELECT2,
 					'label_block' => true,
 					'multiple'    => true,
@@ -3252,10 +3250,10 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'cf_hide_empty_value',
 			[
-				'label'        => __( 'Hide field with empty value?', 'the-post-grid' ),
+				'label'        => esc_html__( 'Hide field with empty value?', 'the-post-grid' ),
 				'type'         => \Elementor\Controls_Manager::SWITCHER,
-				'label_on'     => __( 'No', 'the-post-grid' ),
-				'label_off'    => __( 'Yes', 'the-post-grid' ),
+				'label_on'     => esc_html__( 'No', 'the-post-grid' ),
+				'label_off'    => esc_html__( 'Yes', 'the-post-grid' ),
 				'return_value' => 'yes',
 				'default'      => 'yes',
 			]
@@ -3264,10 +3262,10 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'cf_hide_group_title',
 			[
-				'label'        => __( 'Show group title?', 'the-post-grid' ),
+				'label'        => esc_html__( 'Show group title?', 'the-post-grid' ),
 				'type'         => \Elementor\Controls_Manager::SWITCHER,
-				'label_on'     => __( 'No', 'the-post-grid' ),
-				'label_off'    => __( 'Yes', 'the-post-grid' ),
+				'label_on'     => esc_html__( 'No', 'the-post-grid' ),
+				'label_off'    => esc_html__( 'Yes', 'the-post-grid' ),
 				'return_value' => 'yes',
 				'default'      => 'yes',
 			]
@@ -3276,10 +3274,10 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'cf_show_only_value',
 			[
-				'label'        => __( 'Show label?', 'the-post-grid' ),
+				'label'        => esc_html__( 'Show label?', 'the-post-grid' ),
 				'type'         => \Elementor\Controls_Manager::SWITCHER,
-				'label_on'     => __( 'No', 'the-post-grid' ),
-				'label_off'    => __( 'Yes', 'the-post-grid' ),
+				'label_on'     => esc_html__( 'No', 'the-post-grid' ),
+				'label_off'    => esc_html__( 'Yes', 'the-post-grid' ),
 				'return_value' => 'yes',
 				'default'      => 'yes',
 			]
@@ -3308,18 +3306,18 @@ class rtTPGElementorHelper {
 		);
 
 		$link_type = [
-			'default' => __( 'Link to details page', 'the-post-grid' ),
+			'default' => esc_html__( 'Link to details page', 'the-post-grid' ),
 		];
 		if ( rtTPG()->hasPro() ) {
-			$link_type['popup']       = __( 'Single Popup', 'the-post-grid' );
-			$link_type['multi_popup'] = __( 'Multi Popup', 'the-post-grid' );
+			$link_type['popup']       = esc_html__( 'Single Popup', 'the-post-grid' );
+			$link_type['multi_popup'] = esc_html__( 'Multi Popup', 'the-post-grid' );
 		}
-		$link_type['none'] = __( 'No Link', 'the-post-grid' );
+		$link_type['none'] = esc_html__( 'No Link', 'the-post-grid' );
 
 		$ref->add_control(
 			'post_link_type',
 			[
-				'label'       => __( 'Post link type', 'the-post-grid' ),
+				'label'       => esc_html__( 'Post link type', 'the-post-grid' ),
 				'type'        => \Elementor\Controls_Manager::SELECT,
 				'default'     => 'default',
 				'options'     => $link_type,
@@ -3330,12 +3328,12 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'link_target',
 			[
-				'label'     => __( 'Link Target', 'the-post-grid' ),
+				'label'     => esc_html__( 'Link Target', 'the-post-grid' ),
 				'type'      => \Elementor\Controls_Manager::SELECT,
 				'default'   => '_self',
 				'options'   => [
-					'_self'  => __( 'Same Window', 'the-post-grid' ),
-					'_blank' => __( 'New Window', 'the-post-grid' ),
+					'_self'  => esc_html__( 'Same Window', 'the-post-grid' ),
+					'_blank' => esc_html__( 'New Window', 'the-post-grid' ),
 				],
 				'condition' => [
 					'post_link_type' => 'default',
@@ -3346,10 +3344,10 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'is_thumb_linked',
 			[
-				'label'        => __( 'Thumbnail Link', 'the-post-grid' ),
+				'label'        => esc_html__( 'Thumbnail Link', 'the-post-grid' ),
 				'type'         => \Elementor\Controls_Manager::SWITCHER,
-				'label_on'     => __( 'Yes', 'the-post-grid' ),
-				'label_off'    => __( 'No', 'the-post-grid' ),
+				'label_on'     => esc_html__( 'Yes', 'the-post-grid' ),
+				'label_off'    => esc_html__( 'No', 'the-post-grid' ),
 				'return_value' => 'yes',
 				'default'      => 'yes',
 			]
@@ -3423,19 +3421,19 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'section_title_alignment',
 			[
-				'label'        => __( 'Alignment', 'the-post-grid' ),
+				'label'        => esc_html__( 'Alignment', 'the-post-grid' ),
 				'type'         => \Elementor\Controls_Manager::CHOOSE,
 				'options'      => [
 					'left'   => [
-						'title' => __( 'Left', 'the-post-grid' ),
+						'title' => esc_html__( 'Left', 'the-post-grid' ),
 						'icon'  => 'eicon-text-align-left',
 					],
 					'center' => [
-						'title' => __( 'Center', 'the-post-grid' ),
+						'title' => esc_html__( 'Center', 'the-post-grid' ),
 						'icon'  => 'eicon-text-align-center',
 					],
 					'right'  => [
-						'title' => __( 'Right', 'the-post-grid' ),
+						'title' => esc_html__( 'Right', 'the-post-grid' ),
 						'icon'  => 'eicon-text-align-right',
 					],
 				],
@@ -3449,7 +3447,7 @@ class rtTPGElementorHelper {
 		$ref->add_responsive_control(
 			'section_title_margin',
 			[
-				'label'              => __( 'Margin Y axis', 'the-post-grid' ),
+				'label'              => esc_html__( 'Margin Y axis', 'the-post-grid' ),
 				'type'               => Controls_Manager::DIMENSIONS,
 				'size_units'         => [ 'px' ],
 				'allowed_dimensions' => 'vertical', //horizontal, vertical, [ 'top', 'right', 'bottom', 'left' ]
@@ -3470,7 +3468,7 @@ class rtTPGElementorHelper {
 			$ref->add_responsive_control(
 				'section_title_padding',
 				[
-					'label'              => __( 'Padding', 'the-post-grid' ),
+					'label'              => esc_html__( 'Padding', 'the-post-grid' ),
 					'type'               => Controls_Manager::DIMENSIONS,
 					'size_units'         => [ 'px' ],
 					'allowed_dimensions' => 'all', //horizontal, vertical, [ 'top', 'right', 'bottom', 'left' ]
@@ -3492,7 +3490,7 @@ class rtTPGElementorHelper {
 			\Elementor\Group_Control_Typography::get_type(),
 			[
 				'name'     => 'section_title_typography',
-				'label'    => __( 'Typography', 'the-post-grid' ),
+				'label'    => esc_html__( 'Typography', 'the-post-grid' ),
 				'selector' => '{{WRAPPER}} .tpg-widget-heading-wrapper .tpg-widget-heading',
 			]
 		);
@@ -3500,7 +3498,7 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'section_title_color',
 			[
-				'label'     => __( 'Title Color', 'the-post-grid' ),
+				'label'     => esc_html__( 'Title Color', 'the-post-grid' ),
 				'type'      => \Elementor\Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .tpg-widget-heading-wrapper .tpg-widget-heading' => 'color: {{VALUE}}',
@@ -3511,7 +3509,7 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'section_title_bg_color',
 			[
-				'label'     => __( 'Title Background Color', 'the-post-grid' ),
+				'label'     => esc_html__( 'Title Background Color', 'the-post-grid' ),
 				'type'      => \Elementor\Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .tpg-widget-heading-wrapper.heading-style2 .tpg-widget-heading, {{WRAPPER}} .tpg-widget-heading-wrapper.heading-style3 .tpg-widget-heading'                => 'background-color: {{VALUE}}',
@@ -3527,7 +3525,7 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'section_title_dot_color',
 			[
-				'label'     => __( 'Dot Color', 'the-post-grid' ),
+				'label'     => esc_html__( 'Dot Color', 'the-post-grid' ),
 				'type'      => \Elementor\Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .tpg-widget-heading-wrapper.heading-style1 .tpg-widget-heading::before' => 'background-color: {{VALUE}}',
@@ -3541,7 +3539,7 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'section_title_line_color',
 			[
-				'label'     => __( 'Line / Border Color', 'the-post-grid' ),
+				'label'     => esc_html__( 'Line / Border Color', 'the-post-grid' ),
 				'type'      => \Elementor\Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .tpg-widget-heading-wrapper.heading-style1 .tpg-widget-heading-line'                                                                                                                                                                                                                                                                      => 'border-color: {{VALUE}}',
@@ -3561,7 +3559,7 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'prefix_text_color',
 			[
-				'label'     => __( 'Prefix Color', 'the-post-grid' ),
+				'label'     => esc_html__( 'Prefix Color', 'the-post-grid' ),
 				'type'      => \Elementor\Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .tpg-widget-heading-wrapper .tpg-widget-heading .prefix-text' => 'color: {{VALUE}}',
@@ -3574,7 +3572,7 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'suffix_text_color',
 			[
-				'label'     => __( 'Suffix Color', 'the-post-grid' ),
+				'label'     => esc_html__( 'Suffix Color', 'the-post-grid' ),
 				'type'      => \Elementor\Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .tpg-widget-heading-wrapper .tpg-widget-heading .suffix-text' => 'color: {{VALUE}}',
@@ -3590,7 +3588,7 @@ class rtTPGElementorHelper {
 			$ref->add_control(
 				'cat_tag_description_heading',
 				[
-					'label'     => __( 'Category / Tag Description', 'the-post-grid' ),
+					'label'     => esc_html__( 'Category / Tag Description', 'the-post-grid' ),
 					'type'      => \Elementor\Controls_Manager::HEADING,
 					'classes'   => 'tpg-control-type-heading',
 					'condition' => [
@@ -3603,7 +3601,7 @@ class rtTPGElementorHelper {
 				\Elementor\Group_Control_Typography::get_type(),
 				[
 					'name'      => 'taxonomy_des_typography',
-					'label'     => __( 'Description Typography', 'the-post-grid' ),
+					'label'     => esc_html__( 'Description Typography', 'the-post-grid' ),
 					'selector'  => '{{WRAPPER}} .tpg-category-description',
 					'condition' => [
 						'show_cat_desc' => 'yes',
@@ -3614,19 +3612,19 @@ class rtTPGElementorHelper {
 			$ref->add_responsive_control(
 				'taxonomy_des_alignment',
 				[
-					'label'     => __( 'Alignment', 'the-post-grid' ),
+					'label'     => esc_html__( 'Alignment', 'the-post-grid' ),
 					'type'      => \Elementor\Controls_Manager::CHOOSE,
 					'options'   => [
 						'left'   => [
-							'title' => __( 'Left', 'the-post-grid' ),
+							'title' => esc_html__( 'Left', 'the-post-grid' ),
 							'icon'  => 'eicon-text-align-left',
 						],
 						'center' => [
-							'title' => __( 'Center', 'the-post-grid' ),
+							'title' => esc_html__( 'Center', 'the-post-grid' ),
 							'icon'  => 'eicon-text-align-center',
 						],
 						'right'  => [
-							'title' => __( 'Right', 'the-post-grid' ),
+							'title' => esc_html__( 'Right', 'the-post-grid' ),
 							'icon'  => 'eicon-text-align-right',
 						],
 					],
@@ -3642,7 +3640,7 @@ class rtTPGElementorHelper {
 			$ref->add_control(
 				'taxonomy_des_color',
 				[
-					'label'     => __( 'Title Color', 'the-post-grid' ),
+					'label'     => esc_html__( 'Title Color', 'the-post-grid' ),
 					'type'      => \Elementor\Controls_Manager::COLOR,
 					'selectors' => [
 						'{{WRAPPER}} .tpg-category-description' => 'color: {{VALUE}}',
@@ -3656,7 +3654,7 @@ class rtTPGElementorHelper {
 			$ref->add_responsive_control(
 				'taxonomy_des_dimension',
 				[
-					'label'      => __( 'Padding', 'the-post-grid' ),
+					'label'      => esc_html__( 'Padding', 'the-post-grid' ),
 					'type'       => Controls_Manager::DIMENSIONS,
 					'size_units' => [ 'px' ],
 					'selectors'  => [
@@ -3685,7 +3683,7 @@ class rtTPGElementorHelper {
 		$ref->start_controls_section(
 			'thumbnail_style',
 			[
-				'label'     => __( 'Thumbnail', 'the-post-grid' ),
+				'label'     => esc_html__( 'Thumbnail', 'the-post-grid' ),
 				'tab'       => Controls_Manager::TAB_STYLE,
 				'condition' => [
 					'show_thumb' => 'show',
@@ -3696,7 +3694,7 @@ class rtTPGElementorHelper {
 		$ref->add_responsive_control(
 			'img_border_radius',
 			[
-				'label'              => __( 'Border Radius', 'the-post-grid' ) . $ref->pro_label,
+				'label'              => esc_html__( 'Border Radius', 'the-post-grid' ) . $ref->pro_label,
 				'type'               => Controls_Manager::DIMENSIONS,
 				'size_units'         => [ 'px', '%', 'em' ],
 				'allowed_dimensions' => 'all', //horizontal, vertical, [ 'top', 'right', 'bottom', 'left' ]
@@ -3718,13 +3716,13 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'image_width',
 			[
-				'label'     => __( 'Image Width (Optional)', 'the-post-grid' ),
+				'label'     => esc_html__( 'Image Width (Optional)', 'the-post-grid' ),
 				'type'      => \Elementor\Controls_Manager::SELECT,
 				'default'   => 'inherit',
 				'options'   => [
-					'inherit' => __( 'Default', 'the-post-grid' ),
-					'100%'    => __( '100%', 'the-post-grid' ),
-					'auto'    => __( 'Auto', 'the-post-grid' ),
+					'inherit' => esc_html__( 'Default', 'the-post-grid' ),
+					'100%'    => esc_html__( '100%', 'the-post-grid' ),
+					'auto'    => esc_html__( 'Auto', 'the-post-grid' ),
 				],
 				'selectors' => [
 					'{{WRAPPER}} .tpg-el-main-wrapper .tpg-el-image-wrap img' => 'width: {{VALUE}};',
@@ -3736,7 +3734,7 @@ class rtTPGElementorHelper {
 			$ref->add_responsive_control(
 				'thumbnail_spacing',
 				[
-					'label'      => __( 'Thumbnail Margin', 'the-post-grid' ),
+					'label'      => esc_html__( 'Thumbnail Margin', 'the-post-grid' ),
 					'type'       => Controls_Manager::DIMENSIONS,
 					'size_units' => [ 'px' ],
 					'selectors'  => [
@@ -3773,7 +3771,7 @@ class rtTPGElementorHelper {
 			$ref->add_responsive_control(
 				'grid_hover_thumbnail_margin',
 				[
-					'label'      => __( 'Thumbnail padding', 'the-post-grid' ),
+					'label'      => esc_html__( 'Thumbnail padding', 'the-post-grid' ),
 					'type'       => Controls_Manager::DIMENSIONS,
 					'size_units' => [ 'px' ],
 					'selectors'  => [
@@ -3790,7 +3788,7 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'thumb_overlay_style_heading',
 			[
-				'label'   => __( 'Overlay Style:', 'the-post-grid' ),
+				'label'   => esc_html__( 'Overlay Style:', 'the-post-grid' ),
 				'type'    => \Elementor\Controls_Manager::HEADING,
 				'classes' => 'tpg-control-type-heading',
 			]
@@ -3804,7 +3802,7 @@ class rtTPGElementorHelper {
 		$ref->start_controls_tab(
 			'grid_hover_style_normal_tab',
 			[
-				'label' => __( 'Normal', 'the-post-grid' ),
+				'label' => esc_html__( 'Normal', 'the-post-grid' ),
 			]
 		);
 
@@ -3812,7 +3810,7 @@ class rtTPGElementorHelper {
 			\Elementor\Group_Control_Background::get_type(),
 			[
 				'name'           => 'grid_hover_overlay_color',
-				'label'          => __( 'Overlay BG', 'the-post-grid' ),
+				'label'          => esc_html__( 'Overlay BG', 'the-post-grid' ),
 				'types'          => [ 'classic', 'gradient' ],
 				'selector'       => '{{WRAPPER}} .rt-tpg-container .rt-grid-hover-item .rt-holder .grid-hover-content:before, {{WRAPPER}} .tpg-el-main-wrapper .tpg-el-image-wrap .overlay',
 				'exclude'        => [ 'image' ],
@@ -3833,7 +3831,7 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'thumb_lightbox_bg',
 			[
-				'label'     => __( 'Light Box Background', 'the-post-grid' ),
+				'label'     => esc_html__( 'Light Box Background', 'the-post-grid' ),
 				'type'      => \Elementor\Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .rt-tpg-container .rt-holder .rt-img-holder .tpg-zoom .fa' => 'background-color: {{VALUE}}',
@@ -3847,7 +3845,7 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'thumb_lightbox_color',
 			[
-				'label'     => __( 'Light Box Color', 'the-post-grid' ),
+				'label'     => esc_html__( 'Light Box Color', 'the-post-grid' ),
 				'type'      => \Elementor\Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .rt-tpg-container .rt-holder .rt-img-holder .tpg-zoom .fa' => 'color: {{VALUE}}',
@@ -3864,7 +3862,7 @@ class rtTPGElementorHelper {
 		$ref->start_controls_tab(
 			'grid_hover_style_hover_tab',
 			[
-				'label' => __( 'Hover', 'the-post-grid' ),
+				'label' => esc_html__( 'Hover', 'the-post-grid' ),
 			]
 		);
 
@@ -3872,7 +3870,7 @@ class rtTPGElementorHelper {
 			\Elementor\Group_Control_Background::get_type(),
 			[
 				'name'           => 'grid_hover_overlay_color_hover',
-				'label'          => __( 'Overlay BG - Hover', 'the-post-grid' ),
+				'label'          => esc_html__( 'Overlay BG - Hover', 'the-post-grid' ),
 				'types'          => [ 'classic', 'gradient' ],
 				'selector'       => '{{WRAPPER}} .rt-tpg-container .rt-grid-hover-item .rt-holder .grid-hover-content:after, {{WRAPPER}} .tpg-el-main-wrapper .rt-holder:hover .tpg-el-image-wrap .overlay',
 				'exclude'        => [ 'image' ],
@@ -3894,7 +3892,7 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'thumb_lightbox_bg_hover',
 			[
-				'label'     => __( 'Light Box Background - Hover', 'the-post-grid' ),
+				'label'     => esc_html__( 'Light Box Background - Hover', 'the-post-grid' ),
 				'type'      => \Elementor\Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .rt-tpg-container .rt-holder .rt-img-holder .tpg-zoom .fa' => 'background-color: {{VALUE}}',
@@ -3908,7 +3906,7 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'thumb_lightbox_color_hover',
 			[
-				'label'     => __( 'Light Box Color - Hover', 'the-post-grid' ),
+				'label'     => esc_html__( 'Light Box Color - Hover', 'the-post-grid' ),
 				'type'      => \Elementor\Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .rt-tpg-container .rt-holder .rt-img-holder .tpg-zoom .fa' => 'color: {{VALUE}}',
@@ -3931,21 +3929,21 @@ class rtTPGElementorHelper {
 		);
 
 		$overlay_type_opt = [
-			'always'              => __( 'Show Always', 'the-post-grid' ),
-			'fadein-on-hover'     => __( 'FadeIn on hover', 'the-post-grid' ),
-			'fadeout-on-hover'    => __( 'FadeOut on hover', 'the-post-grid' ),
-			'slidein-on-hover'    => __( 'SlideIn on hover', 'the-post-grid' ),
-			'slideout-on-hover'   => __( 'SlideOut on hover', 'the-post-grid' ),
-			'zoomin-on-hover'     => __( 'ZoomIn on hover', 'the-post-grid' ),
-			'zoomout-on-hover'    => __( 'ZoomOut on hover', 'the-post-grid' ),
-			'zoominall-on-hover'  => __( 'ZoomIn Content on hover', 'the-post-grid' ),
-			'zoomoutall-on-hover' => __( 'ZoomOut Content on hover', 'the-post-grid' ),
+			'always'              => esc_html__( 'Show Always', 'the-post-grid' ),
+			'fadein-on-hover'     => esc_html__( 'FadeIn on hover', 'the-post-grid' ),
+			'fadeout-on-hover'    => esc_html__( 'FadeOut on hover', 'the-post-grid' ),
+			'slidein-on-hover'    => esc_html__( 'SlideIn on hover', 'the-post-grid' ),
+			'slideout-on-hover'   => esc_html__( 'SlideOut on hover', 'the-post-grid' ),
+			'zoomin-on-hover'     => esc_html__( 'ZoomIn on hover', 'the-post-grid' ),
+			'zoomout-on-hover'    => esc_html__( 'ZoomOut on hover', 'the-post-grid' ),
+			'zoominall-on-hover'  => esc_html__( 'ZoomIn Content on hover', 'the-post-grid' ),
+			'zoomoutall-on-hover' => esc_html__( 'ZoomOut Content on hover', 'the-post-grid' ),
 		];
 
 		if ( $ref->prefix == 'grid_hover' || $ref->prefix == 'slider' ) {
 			$overlay_type_opt2 = [
-				'flipin-on-hover'  => __( 'FlipIn on hover', 'the-post-grid' ),
-				'flipout-on-hover' => __( 'FlipOut on hover', 'the-post-grid' ),
+				'flipin-on-hover'  => esc_html__( 'FlipIn on hover', 'the-post-grid' ),
+				'flipout-on-hover' => esc_html__( 'FlipOut on hover', 'the-post-grid' ),
 			];
 			$overlay_type_opt  = array_merge( $overlay_type_opt, $overlay_type_opt2 );
 		}
@@ -3953,11 +3951,11 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'grid_hover_overlay_type',
 			[
-				'label'        => __( 'Overlay Interaction', 'the-post-grid' ),
+				'label'        => esc_html__( 'Overlay Interaction', 'the-post-grid' ),
 				'type'         => \Elementor\Controls_Manager::SELECT,
 				'default'      => 'always',
 				'options'      => $overlay_type_opt,
-				'description'  => __( 'If you don\'t choose overlay background then it will work only for some selected layout ', 'the-post-grid' ),
+				'description'  => esc_html__( 'If you don\'t choose overlay background then it will work only for some selected layout ', 'the-post-grid' ),
 				'prefix_class' => 'grid-hover-overlay-type-',
 			]
 		);
@@ -3973,13 +3971,13 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'grid_hover_overlay_height',
 			[
-				'label'        => __( 'Overlay Height', 'the-post-grid' ),
+				'label'        => esc_html__( 'Overlay Height', 'the-post-grid' ),
 				'type'         => \Elementor\Controls_Manager::SELECT,
 				'default'      => 'default',
 				'options'      => [
-					'default' => __( 'Default', 'the-post-grid' ),
-					'full'    => __( '100%', 'the-post-grid' ),
-					'auto'    => __( 'Auto', 'the-post-grid' ),
+					'default' => esc_html__( 'Default', 'the-post-grid' ),
+					'full'    => esc_html__( '100%', 'the-post-grid' ),
+					'auto'    => esc_html__( 'Auto', 'the-post-grid' ),
 				],
 				'condition'    => $overlay_height_condition,
 				'prefix_class' => 'grid-hover-overlay-height-',
@@ -3989,13 +3987,13 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'on_hover_overlay',
 			[
-				'label'        => __( 'Overlay Height on hover', 'the-post-grid' ),
+				'label'        => esc_html__( 'Overlay Height on hover', 'the-post-grid' ),
 				'type'         => \Elementor\Controls_Manager::SELECT,
 				'default'      => 'default',
 				'options'      => [
-					'default' => __( 'Default', 'the-post-grid' ),
-					'full'    => __( '100%', 'the-post-grid' ),
-					'auto'    => __( 'Auto', 'the-post-grid' ),
+					'default' => esc_html__( 'Default', 'the-post-grid' ),
+					'full'    => esc_html__( '100%', 'the-post-grid' ),
+					'auto'    => esc_html__( 'Auto', 'the-post-grid' ),
 				],
 				'condition'    => $overlay_height_condition,
 				'prefix_class' => 'hover-overlay-height-',
@@ -4017,7 +4015,7 @@ class rtTPGElementorHelper {
 		$ref->start_controls_section(
 			'title_style',
 			[
-				'label'     => __( 'Post Title', 'the-post-grid' ),
+				'label'     => esc_html__( 'Post Title', 'the-post-grid' ),
 				'tab'       => \Elementor\Controls_Manager::TAB_STYLE,
 				'condition' => [
 					'show_title'         => 'show',
@@ -4029,7 +4027,7 @@ class rtTPGElementorHelper {
 		$ref->add_responsive_control(
 			'title_spacing',
 			[
-				'label'              => __( 'Title Margin', 'the-post-grid' ),
+				'label'              => esc_html__( 'Title Margin', 'the-post-grid' ),
 				'type'               => Controls_Manager::DIMENSIONS,
 				'size_units'         => [ 'px' ],
 				'selectors'          => [
@@ -4049,7 +4047,7 @@ class rtTPGElementorHelper {
 		$ref->add_responsive_control(
 			'title_padding',
 			[
-				'label'              => __( 'Title Padding', 'the-post-grid' ),
+				'label'              => esc_html__( 'Title Padding', 'the-post-grid' ),
 				'type'               => Controls_Manager::DIMENSIONS,
 				'size_units'         => [ 'px' ],
 				'selectors'          => [
@@ -4082,7 +4080,7 @@ class rtTPGElementorHelper {
 				'name'        => 'title_offset_typography',
 				'label'       => esc_html__( 'Offset Typography', 'the-post-grid' ),
 				'selector'    => '{{WRAPPER}} .tpg-el-main-wrapper .offset-left .entry-title-wrapper .entry-title',
-				'description' => __( 'You can overwrite offset title font style', 'the-post-grid' ),
+				'description' => esc_html__( 'You can overwrite offset title font style', 'the-post-grid' ),
 				'condition'   => [
 					$prefix . '_layout' => [
 						'grid-layout5',
@@ -4111,13 +4109,13 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'title_border_visibility',
 			[
-				'label'        => __( 'Title Border Bottom', 'the-post-grid' ),
+				'label'        => esc_html__( 'Title Border Bottom', 'the-post-grid' ),
 				'type'         => \Elementor\Controls_Manager::SELECT,
 				'default'      => 'default',
 				'options'      => [
-					'default' => __( 'Default', 'the-post-grid' ),
-					'show'    => __( 'Show', 'the-post-grid' ),
-					'hide'    => __( 'Hide', 'the-post-grid' ),
+					'default' => esc_html__( 'Default', 'the-post-grid' ),
+					'show'    => esc_html__( 'Show', 'the-post-grid' ),
+					'hide'    => esc_html__( 'Hide', 'the-post-grid' ),
 				],
 				'prefix_class' => 'tpg-title-border-',
 				'condition'    => [
@@ -4129,23 +4127,23 @@ class rtTPGElementorHelper {
 		$ref->add_responsive_control(
 			'title_alignment',
 			[
-				'label'        => __( 'Alignment', 'the-post-grid' ),
+				'label'        => esc_html__( 'Alignment', 'the-post-grid' ),
 				'type'         => \Elementor\Controls_Manager::CHOOSE,
 				'options'      => [
 					'left'    => [
-						'title' => __( 'Left', 'the-post-grid' ),
+						'title' => esc_html__( 'Left', 'the-post-grid' ),
 						'icon'  => 'eicon-text-align-left',
 					],
 					'center'  => [
-						'title' => __( 'Center', 'the-post-grid' ),
+						'title' => esc_html__( 'Center', 'the-post-grid' ),
 						'icon'  => 'eicon-text-align-center',
 					],
 					'right'   => [
-						'title' => __( 'Right', 'the-post-grid' ),
+						'title' => esc_html__( 'Right', 'the-post-grid' ),
 						'icon'  => 'eicon-text-align-right',
 					],
 					'justify' => [
-						'title' => __( 'Justify', 'the-post-grid' ),
+						'title' => esc_html__( 'Justify', 'the-post-grid' ),
 						'icon'  => 'eicon-text-align-justify',
 					],
 				],
@@ -4165,14 +4163,14 @@ class rtTPGElementorHelper {
 		$ref->start_controls_tab(
 			'title_normal_tab',
 			[
-				'label' => __( 'Normal', 'the-post-grid' ),
+				'label' => esc_html__( 'Normal', 'the-post-grid' ),
 			]
 		);
 		//TODO: Normal Tab
 		$ref->add_control(
 			'title_color',
 			[
-				'label'     => __( 'Title Color', 'the-post-grid' ),
+				'label'     => esc_html__( 'Title Color', 'the-post-grid' ),
 				'type'      => \Elementor\Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .tpg-el-main-wrapper .entry-title' => 'color: {{VALUE}}',
@@ -4183,7 +4181,7 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'title_bg_color',
 			[
-				'label'     => __( 'Title Background', 'the-post-grid' ),
+				'label'     => esc_html__( 'Title Background', 'the-post-grid' ),
 				'type'      => \Elementor\Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .tpg-el-main-wrapper .entry-title' => 'background-color: {{VALUE}}',
@@ -4194,7 +4192,7 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'title_border_color',
 			[
-				'label'     => __( 'Title Separator Color', 'the-post-grid' ),
+				'label'     => esc_html__( 'Title Separator Color', 'the-post-grid' ),
 				'type'      => \Elementor\Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .rt-tpg-container .rt-holder .entry-title-wrapper .entry-title::before' => 'background-color: {{VALUE}}',
@@ -4209,7 +4207,7 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'title_hover_border_color',
 			[
-				'label'     => __( 'Title Hover Border Color', 'the-post-grid' ),
+				'label'     => esc_html__( 'Title Hover Border Color', 'the-post-grid' ),
 				'type'      => \Elementor\Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}}' => '--tpg-primary-color: {{VALUE}}',
@@ -4225,7 +4223,7 @@ class rtTPGElementorHelper {
 		$ref->start_controls_tab(
 			'title_hover_tab',
 			[
-				'label' => __( 'Hover', 'the-post-grid' ),
+				'label' => esc_html__( 'Hover', 'the-post-grid' ),
 			]
 		);
 
@@ -4233,7 +4231,7 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'title_hover_color',
 			[
-				'label'     => __( 'Title Color on Hover', 'the-post-grid' ),
+				'label'     => esc_html__( 'Title Color on Hover', 'the-post-grid' ),
 				'type'      => \Elementor\Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .tpg-el-main-wrapper .tpg-post-holder .entry-title:hover, {{WRAPPER}} .tpg-el-main-wrapper .tpg-post-holder .entry-title a:hover' => 'color: {{VALUE}} !important',
@@ -4244,7 +4242,7 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'title_bg_color_hover',
 			[
-				'label'     => __( 'Title Background on hover', 'the-post-grid' ),
+				'label'     => esc_html__( 'Title Background on hover', 'the-post-grid' ),
 				'type'      => \Elementor\Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .tpg-el-main-wrapper .entry-title:hover' => 'background-color: {{VALUE}} !important',
@@ -4257,7 +4255,7 @@ class rtTPGElementorHelper {
 		$ref->start_controls_tab(
 			'title_box_hover_tab',
 			[
-				'label' => __( 'Box Hover', 'the-post-grid' ),
+				'label' => esc_html__( 'Box Hover', 'the-post-grid' ),
 			]
 		);
 
@@ -4265,7 +4263,7 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'title_color_box_hover',
 			[
-				'label'     => __( 'Title color on boxhover', 'the-post-grid' ),
+				'label'     => esc_html__( 'Title color on boxhover', 'the-post-grid' ),
 				'type'      => \Elementor\Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .tpg-el-main-wrapper .tpg-post-holder:hover .entry-title, {{WRAPPER}} .tpg-el-main-wrapper .tpg-post-holder:hover .entry-title a' => 'color: {{VALUE}}',
@@ -4276,7 +4274,7 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'title_bg_color_box_hover',
 			[
-				'label'     => __( 'Title Background on boxhover', 'the-post-grid' ),
+				'label'     => esc_html__( 'Title Background on boxhover', 'the-post-grid' ),
 				'type'      => \Elementor\Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .tpg-el-main-wrapper .tpg-post-holder:hover .entry-title' => 'background-color: {{VALUE}}',
@@ -4287,7 +4285,7 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'title_border_color_hover',
 			[
-				'label'     => __( 'Title Separator color - boxhover', 'the-post-grid' ),
+				'label'     => esc_html__( 'Title Separator color - boxhover', 'the-post-grid' ),
 				'type'      => \Elementor\Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .rt-tpg-container .rt-holder:hover .entry-title-wrapper .entry-title::before' => 'background-color: {{VALUE}}',
@@ -4317,7 +4315,7 @@ class rtTPGElementorHelper {
 		$ref->start_controls_section(
 			'excerpt_style',
 			[
-				'label'     => __( 'Excerpt / Content', 'the-post-grid' ),
+				'label'     => esc_html__( 'Excerpt / Content', 'the-post-grid' ),
 				'tab'       => \Elementor\Controls_Manager::TAB_STYLE,
 				'condition' => [
 					'show_excerpt'       => 'show',
@@ -4337,7 +4335,7 @@ class rtTPGElementorHelper {
 		$ref->add_responsive_control(
 			'excerpt_spacing',
 			[
-				'label'              => __( 'Excerpt Spacing', 'the-post-grid' ),
+				'label'              => esc_html__( 'Excerpt Spacing', 'the-post-grid' ),
 				'type'               => Controls_Manager::DIMENSIONS,
 				'size_units'         => [ 'px' ],
 				'selectors'          => [
@@ -4357,23 +4355,23 @@ class rtTPGElementorHelper {
 		$ref->add_responsive_control(
 			'content_alignment',
 			[
-				'label'     => __( 'Alignment', 'the-post-grid' ),
+				'label'     => esc_html__( 'Alignment', 'the-post-grid' ),
 				'type'      => \Elementor\Controls_Manager::CHOOSE,
 				'options'   => [
 					'left'    => [
-						'title' => __( 'Left', 'the-post-grid' ),
+						'title' => esc_html__( 'Left', 'the-post-grid' ),
 						'icon'  => 'eicon-text-align-left',
 					],
 					'center'  => [
-						'title' => __( 'Center', 'the-post-grid' ),
+						'title' => esc_html__( 'Center', 'the-post-grid' ),
 						'icon'  => 'eicon-text-align-center',
 					],
 					'right'   => [
-						'title' => __( 'Right', 'the-post-grid' ),
+						'title' => esc_html__( 'Right', 'the-post-grid' ),
 						'icon'  => 'eicon-text-align-right',
 					],
 					'justify' => [
-						'title' => __( 'Justify', 'the-post-grid' ),
+						'title' => esc_html__( 'Justify', 'the-post-grid' ),
 						'icon'  => 'eicon-text-align-justify',
 					],
 				],
@@ -4393,7 +4391,7 @@ class rtTPGElementorHelper {
 		$ref->start_controls_tab(
 			'excerpt_normal_tab',
 			[
-				'label' => __( 'Normal', 'the-post-grid' ),
+				'label' => esc_html__( 'Normal', 'the-post-grid' ),
 			]
 		);
 
@@ -4401,7 +4399,7 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'excerpt_color',
 			[
-				'label'     => __( 'Excerpt color', 'the-post-grid' ),
+				'label'     => esc_html__( 'Excerpt color', 'the-post-grid' ),
 				'type'      => \Elementor\Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .tpg-el-main-wrapper .tpg-el-excerpt .tpg-excerpt-inner' => 'color: {{VALUE}}',
@@ -4412,7 +4410,7 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'excerpt_border',
 			[
-				'label'     => __( 'Border color', 'the-post-grid' ),
+				'label'     => esc_html__( 'Border color', 'the-post-grid' ),
 				'type'      => \Elementor\Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}}.meta_position_default .tpg-el-main-wrapper .grid-layout3 .rt-holder .rt-el-post-meta::before' => 'background: {{VALUE}}',
@@ -4429,7 +4427,7 @@ class rtTPGElementorHelper {
 		$ref->start_controls_tab(
 			'excerpt_hover_tab',
 			[
-				'label' => __( 'Box Hover', 'the-post-grid' ),
+				'label' => esc_html__( 'Box Hover', 'the-post-grid' ),
 			]
 		);
 
@@ -4437,7 +4435,7 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'excerpt_hover_color',
 			[
-				'label'     => __( 'Excerpt color on hover', 'the-post-grid' ),
+				'label'     => esc_html__( 'Excerpt color on hover', 'the-post-grid' ),
 				'type'      => \Elementor\Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .tpg-el-main-wrapper .tpg-post-holder:hover .tpg-el-excerpt .tpg-excerpt-inner' => 'color: {{VALUE}} !important',
@@ -4448,7 +4446,7 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'excerpt_border_hover',
 			[
-				'label'     => __( 'Border color - Hover', 'the-post-grid' ),
+				'label'     => esc_html__( 'Border color - Hover', 'the-post-grid' ),
 				'type'      => \Elementor\Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}}.meta_position_default .tpg-el-main-wrapper .grid-layout3 .rt-holder:hover .rt-el-post-meta::before' => 'background: {{VALUE}}',
@@ -4478,7 +4476,7 @@ class rtTPGElementorHelper {
 		$ref->start_controls_section(
 			'post_meta_style',
 			[
-				'label'     => __( 'Post Meta', 'the-post-grid' ),
+				'label'     => esc_html__( 'Post Meta', 'the-post-grid' ),
 				'tab'       => \Elementor\Controls_Manager::TAB_STYLE,
 				'condition' => [
 					'show_meta'          => 'show',
@@ -4498,7 +4496,7 @@ class rtTPGElementorHelper {
 		$ref->add_responsive_control(
 			'meta_spacing',
 			[
-				'label'              => __( 'Meta Spacing', 'the-post-grid' ),
+				'label'              => esc_html__( 'Meta Spacing', 'the-post-grid' ),
 				'type'               => Controls_Manager::DIMENSIONS,
 				'size_units'         => [ 'px' ],
 				'selectors'          => [
@@ -4518,7 +4516,7 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'separator_cat_heading',
 			[
-				'label'     => __( 'Separate Category', 'the-post-grid' ),
+				'label'     => esc_html__( 'Separate Category', 'the-post-grid' ),
 				'type'      => \Elementor\Controls_Manager::HEADING,
 				'classes'   => 'tpg-control-type-heading',
 				'condition' => [
@@ -4541,7 +4539,7 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'category_margin_bottom',
 			[
-				'label'     => __( 'Category Margin Bottom', 'the-post-grid' ),
+				'label'     => esc_html__( 'Category Margin Bottom', 'the-post-grid' ),
 				'type'      => \Elementor\Controls_Manager::NUMBER,
 				'min'       => 0,
 				'max'       => 50,
@@ -4559,7 +4557,7 @@ class rtTPGElementorHelper {
 		$ref->add_responsive_control(
 			'category_radius',
 			[
-				'label'      => __( 'Category Border Radius', 'the-post-grid' ),
+				'label'      => esc_html__( 'Category Border Radius', 'the-post-grid' ),
 				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => [ 'px' ],
 				'selectors'  => [
@@ -4589,7 +4587,7 @@ class rtTPGElementorHelper {
 		$ref->start_controls_tab(
 			'meta_info_normal_tab',
 			[
-				'label' => __( 'Normal', 'the-post-grid' ),
+				'label' => esc_html__( 'Normal', 'the-post-grid' ),
 			]
 		);
 
@@ -4598,7 +4596,7 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'meta_info_color',
 			[
-				'label'     => __( 'Meta Color', 'the-post-grid' ),
+				'label'     => esc_html__( 'Meta Color', 'the-post-grid' ),
 				'type'      => \Elementor\Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .tpg-el-main-wrapper .post-meta-tags span' => 'color: {{VALUE}}',
@@ -4609,7 +4607,7 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'meta_link_color',
 			[
-				'label'     => __( 'Meta Link Color', 'the-post-grid' ),
+				'label'     => esc_html__( 'Meta Link Color', 'the-post-grid' ),
 				'type'      => \Elementor\Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .tpg-el-main-wrapper .post-meta-tags a' => 'color: {{VALUE}}',
@@ -4620,7 +4618,7 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'meta_separator_color',
 			[
-				'label'     => __( 'Separator Color', 'the-post-grid' ),
+				'label'     => esc_html__( 'Separator Color', 'the-post-grid' ),
 				'type'      => \Elementor\Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .tpg-el-main-wrapper .post-meta-tags .separator' => 'color: {{VALUE}}',
@@ -4634,7 +4632,7 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'meta_icon_color',
 			[
-				'label'     => __( 'Icon Color', 'the-post-grid' ),
+				'label'     => esc_html__( 'Icon Color', 'the-post-grid' ),
 				'type'      => \Elementor\Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .tpg-el-main-wrapper .post-meta-tags i' => 'color: {{VALUE}}',
@@ -4645,7 +4643,7 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'separate_category_color',
 			[
-				'label'     => __( 'Category Color', 'the-post-grid' ),
+				'label'     => esc_html__( 'Category Color', 'the-post-grid' ),
 				'type'      => \Elementor\Controls_Manager::COLOR,
 				'separator' => 'before',
 				'selectors' => [
@@ -4658,7 +4656,7 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'separate_category_bg',
 			[
-				'label'     => __( 'Category Background', 'the-post-grid' ),
+				'label'     => esc_html__( 'Category Background', 'the-post-grid' ),
 				'type'      => \Elementor\Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .tpg-el-main-wrapper .tpg-separate-category.style1 .categories-links'               => 'background-color: {{VALUE}};padding: 3px 8px 1px;',
@@ -4671,7 +4669,7 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'separate_category_icon_color',
 			[
-				'label'     => __( 'Category Icon Color', 'the-post-grid' ),
+				'label'     => esc_html__( 'Category Icon Color', 'the-post-grid' ),
 				'type'      => \Elementor\Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .tpg-el-main-wrapper .tpg-separate-category .categories-links i' => 'color: {{VALUE}}',
@@ -4688,7 +4686,7 @@ class rtTPGElementorHelper {
 		$ref->start_controls_tab(
 			'meta_info_hover_tab',
 			[
-				'label' => __( 'Hover', 'the-post-grid' ),
+				'label' => esc_html__( 'Hover', 'the-post-grid' ),
 			]
 		);
 
@@ -4698,7 +4696,7 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'meta_link_colo_hover',
 			[
-				'label'     => __( 'Meta Link Color - Hover', 'the-post-grid' ),
+				'label'     => esc_html__( 'Meta Link Color - Hover', 'the-post-grid' ),
 				'type'      => \Elementor\Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .tpg-el-main-wrapper .tpg-post-holder .post-meta-tags a:hover' => 'color: {{VALUE}}',
@@ -4709,7 +4707,7 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'separate_category_color_hover',
 			[
-				'label'     => __( 'Category Color - Hover', 'the-post-grid' ),
+				'label'     => esc_html__( 'Category Color - Hover', 'the-post-grid' ),
 				'type'      => \Elementor\Controls_Manager::COLOR,
 				'separator' => 'before',
 				'selectors' => [
@@ -4722,7 +4720,7 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'separate_category_bg_hover',
 			[
-				'label'     => __( 'Category Background - Hover', 'the-post-grid' ),
+				'label'     => esc_html__( 'Category Background - Hover', 'the-post-grid' ),
 				'type'      => \Elementor\Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .tpg-el-main-wrapper .tpg-separate-category.style1 .categories-links:hover'                => 'background-color: {{VALUE}};padding: 3px 8px;',
@@ -4738,7 +4736,7 @@ class rtTPGElementorHelper {
 		$ref->start_controls_tab(
 			'meta_info_box_hover_tab',
 			[
-				'label' => __( 'Box Hover', 'the-post-grid' ),
+				'label' => esc_html__( 'Box Hover', 'the-post-grid' ),
 			]
 		);
 
@@ -4748,7 +4746,7 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'meta_link_colo_box_hover',
 			[
-				'label'     => __( 'Meta Color - Box Hover', 'the-post-grid' ),
+				'label'     => esc_html__( 'Meta Color - Box Hover', 'the-post-grid' ),
 				'type'      => \Elementor\Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .tpg-el-main-wrapper .tpg-post-holder:hover .post-meta-tags *' => 'color: {{VALUE}}',
@@ -4759,7 +4757,7 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'separate_category_color_box_hover',
 			[
-				'label'     => __( 'Category Color - Hover', 'the-post-grid' ),
+				'label'     => esc_html__( 'Category Color - Hover', 'the-post-grid' ),
 				'type'      => \Elementor\Controls_Manager::COLOR,
 				'separator' => 'before',
 				'selectors' => [
@@ -4771,7 +4769,7 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'separate_category_bg_box_hover',
 			[
-				'label'     => __( 'Category Background - Box Hover', 'the-post-grid' ),
+				'label'     => esc_html__( 'Category Background - Box Hover', 'the-post-grid' ),
 				'type'      => \Elementor\Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .tpg-el-main-wrapper .tpg-post-holder:hover .tpg-separate-category.style1 .categories-links'                => 'background-color: {{VALUE}};padding: 3px 8px;',
@@ -4785,7 +4783,7 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'separate_category_icon_color_box_hover',
 			[
-				'label'     => __( 'Category Icon Color - Box Hover', 'the-post-grid' ),
+				'label'     => esc_html__( 'Category Icon Color - Box Hover', 'the-post-grid' ),
 				'type'      => \Elementor\Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .tpg-el-main-wrapper .tpg-post-holder:hover .tpg-separate-category .categories-links i' => 'color: {{VALUE}}',
@@ -4816,7 +4814,7 @@ class rtTPGElementorHelper {
 		$ref->start_controls_section(
 			'readmore_button_style',
 			[
-				'label'     => __( 'Read More', 'the-post-grid' ),
+				'label'     => esc_html__( 'Read More', 'the-post-grid' ),
 				'tab'       => \Elementor\Controls_Manager::TAB_STYLE,
 				'condition' => [
 					'show_read_more'     => 'show',
@@ -4837,7 +4835,7 @@ class rtTPGElementorHelper {
 		$ref->add_responsive_control(
 			'readmore_spacing',
 			[
-				'label'              => __( 'Button Spacing', 'the-post-grid' ),
+				'label'              => esc_html__( 'Button Spacing', 'the-post-grid' ),
 				'type'               => Controls_Manager::DIMENSIONS,
 				'size_units'         => [ 'px' ],
 				'allowed_dimensions' => 'all',
@@ -4857,7 +4855,7 @@ class rtTPGElementorHelper {
 		$ref->add_responsive_control(
 			'readmore_padding',
 			[
-				'label'      => __( 'Button Padding', 'the-post-grid' ),
+				'label'      => esc_html__( 'Button Padding', 'the-post-grid' ),
 				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => [ 'px' ],
 				'selectors'  => [
@@ -4873,19 +4871,19 @@ class rtTPGElementorHelper {
 		$ref->add_responsive_control(
 			'readmore_btn_alignment',
 			[
-				'label'     => __( 'Button Alignment', 'the-post-grid' ),
+				'label'     => esc_html__( 'Button Alignment', 'the-post-grid' ),
 				'type'      => \Elementor\Controls_Manager::CHOOSE,
 				'options'   => [
 					'left'   => [
-						'title' => __( 'Left', 'the-post-grid' ),
+						'title' => esc_html__( 'Left', 'the-post-grid' ),
 						'icon'  => 'eicon-text-align-left',
 					],
 					'center' => [
-						'title' => __( 'Center', 'the-post-grid' ),
+						'title' => esc_html__( 'Center', 'the-post-grid' ),
 						'icon'  => 'eicon-text-align-center',
 					],
 					'right'  => [
-						'title' => __( 'Right', 'the-post-grid' ),
+						'title' => esc_html__( 'Right', 'the-post-grid' ),
 						'icon'  => 'eicon-text-align-right',
 					],
 				],
@@ -4899,12 +4897,12 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'readmore_icon_position',
 			[
-				'label'     => __( 'Icon Position', 'the-post-grid' ),
+				'label'     => esc_html__( 'Icon Position', 'the-post-grid' ),
 				'type'      => \Elementor\Controls_Manager::SELECT,
 				'default'   => 'right',
 				'options'   => [
-					'left'  => __( 'Left', 'the-post-grid' ),
-					'right' => __( 'Right', 'the-post-grid' ),
+					'left'  => esc_html__( 'Left', 'the-post-grid' ),
+					'right' => esc_html__( 'Right', 'the-post-grid' ),
 				],
 				'separator' => 'before',
 				'condition' => [
@@ -4916,7 +4914,7 @@ class rtTPGElementorHelper {
 		$ref->add_responsive_control(
 			'readmore_icon_size',
 			[
-				'label'      => __( 'Icon Size', 'the-post-grid' ),
+				'label'      => esc_html__( 'Icon Size', 'the-post-grid' ),
 				'type'       => Controls_Manager::SLIDER,
 				'size_units' => [ 'px' ],
 				'range'      => [
@@ -4938,7 +4936,7 @@ class rtTPGElementorHelper {
 		$ref->add_responsive_control(
 			'readmore_icon_y_position',
 			[
-				'label'      => __( 'Icon Vertical Position', 'the-post-grid' ),
+				'label'      => esc_html__( 'Icon Vertical Position', 'the-post-grid' ),
 				'type'       => Controls_Manager::SLIDER,
 				'size_units' => [ 'px' ],
 				'range'      => [
@@ -4965,14 +4963,14 @@ class rtTPGElementorHelper {
 		$ref->start_controls_tab(
 			'readmore_style_normal_tab',
 			[
-				'label' => __( 'Normal', 'the-post-grid' ),
+				'label' => esc_html__( 'Normal', 'the-post-grid' ),
 			]
 		);
 
 		$ref->add_control(
 			'readmore_text_color',
 			[
-				'label'     => __( 'Text Color', 'the-post-grid' ),
+				'label'     => esc_html__( 'Text Color', 'the-post-grid' ),
 				'type'      => \Elementor\Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .rt-tpg-container .tpg-post-holder .rt-detail .read-more a' => 'color: {{VALUE}}',
@@ -4983,7 +4981,7 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'readmore_icon_color',
 			[
-				'label'     => __( 'Icon Color', 'the-post-grid' ),
+				'label'     => esc_html__( 'Icon Color', 'the-post-grid' ),
 				'type'      => \Elementor\Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .rt-tpg-container .tpg-post-holder .rt-detail .read-more a i' => 'color: {{VALUE}}',
@@ -4997,7 +4995,7 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'readmore_bg',
 			[
-				'label'     => __( 'Background Color', 'the-post-grid' ),
+				'label'     => esc_html__( 'Background Color', 'the-post-grid' ),
 				'type'      => \Elementor\Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .rt-tpg-container .tpg-post-holder .rt-detail .read-more a' => 'background-color: {{VALUE}}',
@@ -5011,7 +5009,7 @@ class rtTPGElementorHelper {
 		$ref->add_responsive_control(
 			'readmore_icon_margin',
 			[
-				'label'              => __( 'Icon Spacing', 'the-post-grid' ),
+				'label'              => esc_html__( 'Icon Spacing', 'the-post-grid' ),
 				'type'               => Controls_Manager::DIMENSIONS,
 				'size_units'         => [ 'px' ],
 				'allowed_dimensions' => 'horizontal',
@@ -5034,7 +5032,7 @@ class rtTPGElementorHelper {
 		$ref->add_responsive_control(
 			'border_radius',
 			[
-				'label'              => __( 'Border Radius', 'the-post-grid' ),
+				'label'              => esc_html__( 'Border Radius', 'the-post-grid' ),
 				'type'               => Controls_Manager::DIMENSIONS,
 				'size_units'         => [ 'px', '%', 'em' ],
 				'allowed_dimensions' => 'all',
@@ -5051,7 +5049,7 @@ class rtTPGElementorHelper {
 			\Elementor\Group_Control_Border::get_type(),
 			[
 				'name'           => 'readmore_border',
-				'label'          => __( 'Button Border', 'the-post-grid' ),
+				'label'          => esc_html__( 'Button Border', 'the-post-grid' ),
 				'selector'       => '{{WRAPPER}} .rt-tpg-container .tpg-post-holder .rt-detail .read-more a',
 				'fields_options' => [
 					'border' => [
@@ -5083,14 +5081,14 @@ class rtTPGElementorHelper {
 		$ref->start_controls_tab(
 			'readmore_style_hover_tab',
 			[
-				'label' => __( 'Hover', 'the-post-grid' ),
+				'label' => esc_html__( 'Hover', 'the-post-grid' ),
 			]
 		);
 
 		$ref->add_control(
 			'readmore_text_color_hover',
 			[
-				'label'     => __( 'Text Color hover', 'the-post-grid' ),
+				'label'     => esc_html__( 'Text Color hover', 'the-post-grid' ),
 				'type'      => \Elementor\Controls_Manager::COLOR,
 				'selectors' => [
 					'body {{WRAPPER}} .rt-tpg-container .tpg-post-holder .rt-detail .read-more a:hover' => 'color: {{VALUE}}',
@@ -5101,7 +5099,7 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'readmore_icon_color_hover',
 			[
-				'label'     => __( 'Icon Color Hover', 'the-post-grid' ),
+				'label'     => esc_html__( 'Icon Color Hover', 'the-post-grid' ),
 				'type'      => \Elementor\Controls_Manager::COLOR,
 				'selectors' => [
 					'body {{WRAPPER}} .rt-tpg-container .tpg-post-holder .rt-detail .read-more a:hover i' => 'color: {{VALUE}}',
@@ -5115,7 +5113,7 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'readmore_bg_hover',
 			[
-				'label'     => __( 'Background Color hover', 'the-post-grid' ),
+				'label'     => esc_html__( 'Background Color hover', 'the-post-grid' ),
 				'type'      => \Elementor\Controls_Manager::COLOR,
 				'selectors' => [
 					'body {{WRAPPER}} .rt-tpg-container .tpg-post-holder .rt-detail .read-more a:hover' => 'background-color: {{VALUE}}',
@@ -5129,7 +5127,7 @@ class rtTPGElementorHelper {
 		$ref->add_responsive_control(
 			'readmore_icon_margin_hover',
 			[
-				'label'              => __( 'Icon Spacing - Hover', 'the-post-grid' ),
+				'label'              => esc_html__( 'Icon Spacing - Hover', 'the-post-grid' ),
 				'type'               => Controls_Manager::DIMENSIONS,
 				'size_units'         => [ 'px' ],
 				'allowed_dimensions' => 'horizontal',
@@ -5152,7 +5150,7 @@ class rtTPGElementorHelper {
 		$ref->add_responsive_control(
 			'border_radius_hover',
 			[
-				'label'              => __( 'Border Radius - Hover', 'the-post-grid' ),
+				'label'              => esc_html__( 'Border Radius - Hover', 'the-post-grid' ),
 				'type'               => Controls_Manager::DIMENSIONS,
 				'size_units'         => [ 'px', '%', 'em' ],
 				'allowed_dimensions' => 'all',
@@ -5169,7 +5167,7 @@ class rtTPGElementorHelper {
 			\Elementor\Group_Control_Border::get_type(),
 			[
 				'name'           => 'readmore_border_hover',
-				'label'          => __( 'Button Border - Hover', 'the-post-grid' ),
+				'label'          => esc_html__( 'Button Border - Hover', 'the-post-grid' ),
 				'selector'       => 'body {{WRAPPER}} .rt-tpg-container .tpg-post-holder .rt-detail .read-more a:hover',
 				'fields_options' => [
 					'border' => [
@@ -5202,14 +5200,14 @@ class rtTPGElementorHelper {
 		$ref->start_controls_tab(
 			'readmore_style_box_hover_tab',
 			[
-				'label' => __( 'Box Hover', 'the-post-grid' ),
+				'label' => esc_html__( 'Box Hover', 'the-post-grid' ),
 			]
 		);
 
 		$ref->add_control(
 			'readmore_text_color_box_hover',
 			[
-				'label'     => __( 'Text Color - BoxHover', 'the-post-grid' ),
+				'label'     => esc_html__( 'Text Color - BoxHover', 'the-post-grid' ),
 				'type'      => \Elementor\Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .rt-tpg-container .tpg-post-holder:hover .rt-detail .read-more a' => 'color: {{VALUE}}',
@@ -5220,7 +5218,7 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'readmore_icon_color_box_hover',
 			[
-				'label'     => __( 'Icon Color - BoxHover', 'the-post-grid' ),
+				'label'     => esc_html__( 'Icon Color - BoxHover', 'the-post-grid' ),
 				'type'      => \Elementor\Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .rt-tpg-container .tpg-post-holder:hover .rt-detail .read-more a i' => 'color: {{VALUE}}',
@@ -5234,7 +5232,7 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'readmore_bg_box_hover',
 			[
-				'label'     => __( 'Background Color - BoxHover', 'the-post-grid' ),
+				'label'     => esc_html__( 'Background Color - BoxHover', 'the-post-grid' ),
 				'type'      => \Elementor\Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .rt-tpg-container .tpg-post-holder:hover .rt-detail .read-more a' => 'background-color: {{VALUE}}',
@@ -5249,7 +5247,7 @@ class rtTPGElementorHelper {
 			\Elementor\Group_Control_Border::get_type(),
 			[
 				'name'      => 'readmore_border_box_hover',
-				'label'     => __( 'Button Border - Box Hover', 'the-post-grid' ),
+				'label'     => esc_html__( 'Button Border - Box Hover', 'the-post-grid' ),
 				'selector'  => '{{WRAPPER}} .rt-tpg-container .tpg-post-holder:hover .rt-detail .read-more a',
 				'condition' => [
 					'readmore_btn_style' => 'default-style',
@@ -5275,7 +5273,7 @@ class rtTPGElementorHelper {
 		$ref->start_controls_section(
 			'pagination_loadmore_style',
 			[
-				'label'     => __( 'Pagination / Load More', 'the-post-grid' ),
+				'label'     => esc_html__( 'Pagination / Load More', 'the-post-grid' ),
 				'tab'       => \Elementor\Controls_Manager::TAB_STYLE,
 				'condition' => [
 					'show_pagination' => 'show',
@@ -5322,7 +5320,7 @@ class rtTPGElementorHelper {
 		$ref->add_responsive_control(
 			'pagination_spacing',
 			[
-				'label'              => __( 'Button Vertical Spacing', 'the-post-grid' ),
+				'label'              => esc_html__( 'Button Vertical Spacing', 'the-post-grid' ),
 				'type'               => Controls_Manager::DIMENSIONS,
 				'size_units'         => [ 'px' ],
 				'allowed_dimensions' => 'vertical',
@@ -5345,7 +5343,7 @@ class rtTPGElementorHelper {
 		$ref->add_responsive_control(
 			'pagination_padding',
 			[
-				'label'              => __( 'Button Padding', 'the-post-grid' ),
+				'label'              => esc_html__( 'Button Padding', 'the-post-grid' ),
 				'type'               => Controls_Manager::DIMENSIONS,
 				'size_units'         => [ 'px' ],
 				'allowed_dimensions' => 'all',
@@ -5361,7 +5359,7 @@ class rtTPGElementorHelper {
 		$ref->add_responsive_control(
 			'pagination_border_radius',
 			[
-				'label'      => __( 'Border Radius', 'the-post-grid' ),
+				'label'      => esc_html__( 'Border Radius', 'the-post-grid' ),
 				'type'       => Controls_Manager::SLIDER,
 				'size_units' => [ 'px', '%' ],
 				'range'      => [
@@ -5401,14 +5399,14 @@ class rtTPGElementorHelper {
 		$ref->start_controls_tab(
 			'pagination_style_normal_tab',
 			[
-				'label' => __( 'Normal', 'the-post-grid' ),
+				'label' => esc_html__( 'Normal', 'the-post-grid' ),
 			]
 		);
 
 		$ref->add_control(
 			'pagination_color',
 			[
-				'label'     => __( 'Color', 'the-post-grid' ),
+				'label'     => esc_html__( 'Color', 'the-post-grid' ),
 				'type'      => \Elementor\Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .rt-pagination .pagination-list > li:not(:hover) > a, {{WRAPPER}} .rt-pagination .pagination-list > li:not(:hover) > span' => 'color: {{VALUE}}',
@@ -5422,7 +5420,7 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'pagination_bg',
 			[
-				'label'     => __( 'Background Color', 'the-post-grid' ),
+				'label'     => esc_html__( 'Background Color', 'the-post-grid' ),
 				'type'      => \Elementor\Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .rt-pagination .pagination-list > li > a:not(:hover), {{WRAPPER}} .rt-pagination .pagination-list > li:not(:hover) > span' => 'background-color: {{VALUE}}',
@@ -5436,7 +5434,7 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'pagination_border_color',
 			[
-				'label'     => __( 'Border Color', 'the-post-grid' ),
+				'label'     => esc_html__( 'Border Color', 'the-post-grid' ),
 				'type'      => \Elementor\Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .rt-pagination .pagination-list > li > a:not(:hover), {{WRAPPER}} .rt-pagination .pagination-list > li:not(:hover) > span' => 'border-color: {{VALUE}}',
@@ -5452,14 +5450,14 @@ class rtTPGElementorHelper {
 		$ref->start_controls_tab(
 			'pagination_style_hover_tab',
 			[
-				'label' => __( 'Hover', 'the-post-grid' ),
+				'label' => esc_html__( 'Hover', 'the-post-grid' ),
 			]
 		);
 
 		$ref->add_control(
 			'pagination_color_hover',
 			[
-				'label'     => __( 'Color - hover', 'the-post-grid' ),
+				'label'     => esc_html__( 'Color - hover', 'the-post-grid' ),
 				'type'      => \Elementor\Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .rt-pagination .pagination-list > li:hover > a, {{WRAPPER}} .rt-pagination .pagination-list > li:hover > span' => 'color: {{VALUE}} !important',
@@ -5472,7 +5470,7 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'pagination_bg_hover',
 			[
-				'label'     => __( 'Background Color - Hover', 'the-post-grid' ),
+				'label'     => esc_html__( 'Background Color - Hover', 'the-post-grid' ),
 				'type'      => \Elementor\Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .rt-pagination .pagination-list > li:hover > a, {{WRAPPER}} .rt-pagination .pagination-list > li:hover > span' => 'background-color: {{VALUE}} !important',
@@ -5485,7 +5483,7 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'pagination_border_color_hover',
 			[
-				'label'     => __( 'Border Color - Hover', 'the-post-grid' ),
+				'label'     => esc_html__( 'Border Color - Hover', 'the-post-grid' ),
 				'type'      => \Elementor\Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .rt-pagination .pagination-list > li:hover > a, {{WRAPPER}} .rt-pagination .pagination-list > li:hover > span' => 'border-color: {{VALUE}} !important',
@@ -5502,14 +5500,14 @@ class rtTPGElementorHelper {
 		$ref->start_controls_tab(
 			'pagination_style_active_tab',
 			[
-				'label' => __( 'Active', 'the-post-grid' ),
+				'label' => esc_html__( 'Active', 'the-post-grid' ),
 			]
 		);
 
 		$ref->add_control(
 			'pagination_color_active',
 			[
-				'label'     => __( 'Color - Active', 'the-post-grid' ),
+				'label'     => esc_html__( 'Color - Active', 'the-post-grid' ),
 				'type'      => \Elementor\Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .rt-pagination .pagination-list > .active > a,
@@ -5527,7 +5525,7 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'pagination_bg_active',
 			[
-				'label'     => __( 'Background Color - Active', 'the-post-grid' ),
+				'label'     => esc_html__( 'Background Color - Active', 'the-post-grid' ),
 				'type'      => \Elementor\Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .rt-pagination .pagination-list > .active > a,
@@ -5544,7 +5542,7 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'pagination_border_color_active',
 			[
-				'label'     => __( 'Border Color - Active', 'the-post-grid' ),
+				'label'     => esc_html__( 'Border Color - Active', 'the-post-grid' ),
 				'type'      => \Elementor\Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .rt-pagination .pagination-list > .active > a,
@@ -5617,7 +5615,7 @@ class rtTPGElementorHelper {
 			\Elementor\Group_Control_Typography::get_type(),
 			[
 				'name'     => 'front_filter_typography',
-				'label'    => __( 'Filter Typography', 'the-post-grid' ),
+				'label'    => esc_html__( 'Filter Typography', 'the-post-grid' ),
 				'selector' => '{{WRAPPER}} .rt-layout-filter-container .rt-filter-wrap .rt-filter-item-wrap, {{WRAPPER}} .tpg-header-wrapper.carousel .rt-filter-item-wrap.swiper-wrapper .swiper-slide',
 			]
 		);
@@ -5683,7 +5681,7 @@ class rtTPGElementorHelper {
 		$ref->add_responsive_control(
 			'filter_button_width',
 			[
-				'label'      => __( 'Filter Width', 'the-post-grid' ),
+				'label'      => esc_html__( 'Filter Width', 'the-post-grid' ),
 				'type'       => Controls_Manager::SLIDER,
 				'size_units' => [ 'px', '%' ],
 				'range'      => [
@@ -5711,12 +5709,12 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'border_style',
 			[
-				'label'        => __( 'Filter Border', 'the-post-grid' ),
+				'label'        => esc_html__( 'Filter Border', 'the-post-grid' ),
 				'type'         => \Elementor\Controls_Manager::SELECT,
 				'default'      => 'disable',
 				'options'      => [
-					'disable' => __( 'Disable', 'the-post-grid' ),
-					'enable'  => __( 'Enable', 'the-post-grid' ),
+					'disable' => esc_html__( 'Disable', 'the-post-grid' ),
+					'enable'  => esc_html__( 'Enable', 'the-post-grid' ),
 				],
 				'condition'    => [
 					'filter_type'          => 'button',
@@ -5730,12 +5728,12 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'filter_next_prev_btn',
 			[
-				'label'        => __( 'Next/Prev Button', 'the-post-grid' ),
+				'label'        => esc_html__( 'Next/Prev Button', 'the-post-grid' ),
 				'type'         => \Elementor\Controls_Manager::SELECT,
 				'default'      => 'visible',
 				'options'      => [
-					'visible' => __( 'Visible', 'the-post-grid' ),
-					'hidden'  => __( 'Hidden', 'the-post-grid' ),
+					'visible' => esc_html__( 'Visible', 'the-post-grid' ),
+					'hidden'  => esc_html__( 'Hidden', 'the-post-grid' ),
 				],
 				'condition'    => [
 					'filter_type'      => 'button',
@@ -5779,7 +5777,7 @@ class rtTPGElementorHelper {
 		$ref->add_responsive_control(
 			'filter_btn_radius',
 			[
-				'label'      => __( 'Border Radius', 'the-post-grid' ),
+				'label'      => esc_html__( 'Border Radius', 'the-post-grid' ),
 				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => [ 'px' ],
 				'selectors'  => [
@@ -5802,14 +5800,14 @@ class rtTPGElementorHelper {
 		$ref->start_controls_tab(
 			'frontend_filter_style_normal_tab',
 			[
-				'label' => __( 'Normal', 'the-post-grid' ),
+				'label' => esc_html__( 'Normal', 'the-post-grid' ),
 			]
 		);
 
 		$ref->add_control(
 			'filter_color',
 			[
-				'label'     => __( 'Filter Color', 'the-post-grid' ),
+				'label'     => esc_html__( 'Filter Color', 'the-post-grid' ),
 				'type'      => \Elementor\Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .rt-filter-item-wrap.rt-filter-button-wrap span.rt-filter-button-item, {{WRAPPER}} .rt-filter-item-wrap.rt-filter-button-wrap span.rt-filter-button-item'                            => 'color: {{VALUE}}',
@@ -5823,7 +5821,7 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'filter_bg_color',
 			[
-				'label'     => __( 'Filter Background Color', 'the-post-grid' ),
+				'label'     => esc_html__( 'Filter Background Color', 'the-post-grid' ),
 				'type'      => \Elementor\Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .rt-filter-item-wrap.rt-filter-button-wrap span.rt-filter-button-item'                    => 'background-color: {{VALUE}}',
@@ -5836,7 +5834,7 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'filter_border_color',
 			[
-				'label'     => __( 'Filter Border Color', 'the-post-grid' ),
+				'label'     => esc_html__( 'Filter Border Color', 'the-post-grid' ),
 				'type'      => \Elementor\Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .rt-filter-item-wrap.rt-filter-button-wrap span.rt-filter-button-item'                    => 'border-color: {{VALUE}}',
@@ -5851,7 +5849,7 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'filter_search_bg',
 			[
-				'label'     => __( 'Search Background', 'the-post-grid' ),
+				'label'     => esc_html__( 'Search Background', 'the-post-grid' ),
 				'type'      => \Elementor\Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .rt-filter-item-wrap.rt-search-filter-wrap input.rt-search-input' => 'background-color: {{VALUE}}',
@@ -5866,7 +5864,7 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'sub_menu_color_heading',
 			[
-				'label'     => __( 'Sub Menu Options', 'the-post-grid' ),
+				'label'     => esc_html__( 'Sub Menu Options', 'the-post-grid' ),
 				'type'      => \Elementor\Controls_Manager::HEADING,
 				'separator' => 'before',
 				'classes'   => 'tpg-control-type-heading',
@@ -5879,7 +5877,7 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'sub_menu_bg_color',
 			[
-				'label'     => __( 'Submenu Background', 'the-post-grid' ),
+				'label'     => esc_html__( 'Submenu Background', 'the-post-grid' ),
 				'type'      => \Elementor\Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .rt-layout-filter-container .rt-filter-wrap .rt-filter-item-wrap.rt-filter-dropdown-wrap .rt-filter-dropdown' => 'background-color: {{VALUE}}',
@@ -5893,7 +5891,7 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'sub_menu_color',
 			[
-				'label'     => __( 'Submenu Color', 'the-post-grid' ),
+				'label'     => esc_html__( 'Submenu Color', 'the-post-grid' ),
 				'type'      => \Elementor\Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .rt-layout-filter-container .rt-filter-wrap .rt-filter-item-wrap.rt-filter-dropdown-wrap .rt-filter-dropdown .rt-filter-dropdown-item' => 'color: {{VALUE}}',
@@ -5907,7 +5905,7 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'sub_menu_border_bottom',
 			[
-				'label'     => __( 'Submenu Border', 'the-post-grid' ),
+				'label'     => esc_html__( 'Submenu Border', 'the-post-grid' ),
 				'type'      => \Elementor\Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .rt-layout-filter-container .rt-filter-wrap .rt-filter-item-wrap.rt-filter-dropdown-wrap .rt-filter-dropdown .rt-filter-dropdown-item' => 'border-bottom-color: {{VALUE}}',
@@ -5921,7 +5919,7 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'filter_nav_color',
 			[
-				'label'     => __( 'Filter Nav Color', 'the-post-grid' ),
+				'label'     => esc_html__( 'Filter Nav Color', 'the-post-grid' ),
 				'type'      => \Elementor\Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .rt-tpg-container .swiper-navigation .slider-btn' => 'color: {{VALUE}}',
@@ -5936,7 +5934,7 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'filter_nav_bg',
 			[
-				'label'     => __( 'Filter Nav Background', 'the-post-grid' ),
+				'label'     => esc_html__( 'Filter Nav Background', 'the-post-grid' ),
 				'type'      => \Elementor\Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .rt-tpg-container .swiper-navigation .slider-btn' => 'background-color: {{VALUE}}',
@@ -5951,7 +5949,7 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'filter_nav_border',
 			[
-				'label'     => __( 'Filter Nav Border', 'the-post-grid' ),
+				'label'     => esc_html__( 'Filter Nav Border', 'the-post-grid' ),
 				'type'      => \Elementor\Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .rt-tpg-container .swiper-navigation .slider-btn' => 'border-color: {{VALUE}}',
@@ -5969,14 +5967,14 @@ class rtTPGElementorHelper {
 		$ref->start_controls_tab(
 			'frontend_filter_style_hover_tab',
 			[
-				'label' => __( 'Hover / Active', 'the-post-grid' ),
+				'label' => esc_html__( 'Hover / Active', 'the-post-grid' ),
 			]
 		);
 
 		$ref->add_control(
 			'filter_color_hover',
 			[
-				'label'     => __( 'Filter Color - Hover', 'the-post-grid' ),
+				'label'     => esc_html__( 'Filter Color - Hover', 'the-post-grid' ),
 				'type'      => \Elementor\Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .rt-filter-item-wrap.rt-filter-button-wrap span.rt-filter-button-item.selected, {{WRAPPER}} .rt-filter-item-wrap.rt-filter-button-wrap span.rt-filter-button-item:hover'                         => 'color: {{VALUE}}',
@@ -5989,7 +5987,7 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'filter_bg_color_hover',
 			[
-				'label'     => __( 'Filter Background Color - Hover', 'the-post-grid' ),
+				'label'     => esc_html__( 'Filter Background Color - Hover', 'the-post-grid' ),
 				'type'      => \Elementor\Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .rt-filter-item-wrap.rt-filter-button-wrap span.rt-filter-button-item.selected, {{WRAPPER}} .rt-filter-item-wrap.rt-filter-button-wrap span.rt-filter-button-item:hover' => 'background-color: {{VALUE}}',
@@ -6002,7 +6000,7 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'filter_border_color_hover',
 			[
-				'label'     => __( 'Filter Border Color - Hover', 'the-post-grid' ),
+				'label'     => esc_html__( 'Filter Border Color - Hover', 'the-post-grid' ),
 				'type'      => \Elementor\Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .rt-filter-item-wrap.rt-filter-button-wrap span.rt-filter-button-item.selected, {{WRAPPER}} .rt-filter-item-wrap.rt-filter-button-wrap span.rt-filter-button-item:hover' => 'border-color: {{VALUE}}',
@@ -6017,7 +6015,7 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'filter_search_bg_hover',
 			[
-				'label'     => __( 'Search Background - Hover', 'the-post-grid' ),
+				'label'     => esc_html__( 'Search Background - Hover', 'the-post-grid' ),
 				'type'      => \Elementor\Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .rt-filter-item-wrap.rt-search-filter-wrap input.rt-search-input:hover' => 'background-color: {{VALUE}}',
@@ -6032,7 +6030,7 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'sub_menu_color_heading_hover',
 			[
-				'label'     => __( 'Sub Menu Options - Hover', 'the-post-grid' ),
+				'label'     => esc_html__( 'Sub Menu Options - Hover', 'the-post-grid' ),
 				'type'      => \Elementor\Controls_Manager::HEADING,
 				'separator' => 'before',
 				'classes'   => 'tpg-control-type-heading',
@@ -6045,7 +6043,7 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'sub_menu_bg_color_hover',
 			[
-				'label'     => __( 'Submenu Background - Hover', 'the-post-grid' ),
+				'label'     => esc_html__( 'Submenu Background - Hover', 'the-post-grid' ),
 				'type'      => \Elementor\Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .rt-layout-filter-container .rt-filter-wrap .rt-filter-item-wrap.rt-filter-dropdown-wrap .rt-filter-dropdown .rt-filter-dropdown-item:hover' => 'background-color: {{VALUE}}',
@@ -6059,7 +6057,7 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'sub_menu_color_hover',
 			[
-				'label'     => __( 'Submenu Color - Hover', 'the-post-grid' ),
+				'label'     => esc_html__( 'Submenu Color - Hover', 'the-post-grid' ),
 				'type'      => \Elementor\Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .rt-layout-filter-container .rt-filter-wrap .rt-filter-item-wrap.rt-filter-dropdown-wrap .rt-filter-dropdown .rt-filter-dropdown-item:hover' => 'color: {{VALUE}}',
@@ -6073,7 +6071,7 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'sub_menu_border_bottom_hover',
 			[
-				'label'     => __( 'Submenu Border - Hover', 'the-post-grid' ),
+				'label'     => esc_html__( 'Submenu Border - Hover', 'the-post-grid' ),
 				'type'      => \Elementor\Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .rt-layout-filter-container .rt-filter-wrap .rt-filter-item-wrap.rt-filter-dropdown-wrap .rt-filter-dropdown .rt-filter-dropdown-item:hover' => 'border-bottom-color: {{VALUE}}',
@@ -6087,7 +6085,7 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'filter_nav_color_hover',
 			[
-				'label'     => __( 'Filter Nav Color - Hover', 'the-post-grid' ),
+				'label'     => esc_html__( 'Filter Nav Color - Hover', 'the-post-grid' ),
 				'type'      => \Elementor\Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .rt-tpg-container .swiper-navigation .slider-btn:hover' => 'color: {{VALUE}}',
@@ -6102,7 +6100,7 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'filter_nav_bg_hover',
 			[
-				'label'     => __( 'Filter Nav Background - Hover', 'the-post-grid' ),
+				'label'     => esc_html__( 'Filter Nav Background - Hover', 'the-post-grid' ),
 				'type'      => \Elementor\Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .rt-tpg-container .swiper-navigation .slider-btn:hover' => 'background-color: {{VALUE}}',
@@ -6117,7 +6115,7 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'filter_nav_border_hover',
 			[
-				'label'     => __( 'Filter Nav Border - Hover', 'the-post-grid' ),
+				'label'     => esc_html__( 'Filter Nav Border - Hover', 'the-post-grid' ),
 				'type'      => \Elementor\Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .rt-tpg-container .swiper-navigation .slider-btn:hover' => 'border-color: {{VALUE}}',
@@ -6174,15 +6172,15 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'social_icon_style',
 			[
-				'label'       => __( 'Icon Color Style', 'the-post-grid' ),
+				'label'       => esc_html__( 'Icon Color Style', 'the-post-grid' ),
 				'type'        => \Elementor\Controls_Manager::SELECT,
 				'default'     => 'default',
 				'options'     => [
-					'default'         => __( 'Default (Brand Color)', 'the-post-grid' ),
-					'different_color' => __( 'Different Color for each', 'the-post-grid' ),
-					'custom'          => __( 'Custom color', 'the-post-grid' ),
+					'default'         => esc_html__( 'Default (Brand Color)', 'the-post-grid' ),
+					'different_color' => esc_html__( 'Different Color for each', 'the-post-grid' ),
+					'custom'          => esc_html__( 'Custom color', 'the-post-grid' ),
 				],
-				'description' => __( 'Select Custom for your own customize', 'the-post-grid' ),
+				'description' => esc_html__( 'Select Custom for your own customize', 'the-post-grid' ),
 			]
 		);
 
@@ -6192,7 +6190,7 @@ class rtTPGElementorHelper {
 		$ref->add_responsive_control(
 			'social_icon_margin',
 			[
-				'label'              => __( 'Icon Margin', 'the-post-grid' ),
+				'label'              => esc_html__( 'Icon Margin', 'the-post-grid' ),
 				'type'               => Controls_Manager::DIMENSIONS,
 				'size_units'         => [ 'px' ],
 				'allowed_dimensions' => 'all',
@@ -6205,7 +6203,7 @@ class rtTPGElementorHelper {
 		$ref->add_responsive_control(
 			'social_wrapper_margin',
 			[
-				'label'              => __( 'Icon Wrapper Spacing', 'the-post-grid' ),
+				'label'              => esc_html__( 'Icon Wrapper Spacing', 'the-post-grid' ),
 				'type'               => Controls_Manager::DIMENSIONS,
 				'size_units'         => [ 'px' ],
 				'allowed_dimensions' => 'all', //horizontal, vertical, [ 'top', 'right', 'bottom', 'left' ]
@@ -6225,7 +6223,7 @@ class rtTPGElementorHelper {
 		$ref->add_responsive_control(
 			'social_icon_radius',
 			[
-				'label'              => __( 'Border Radius', 'the-post-grid' ),
+				'label'              => esc_html__( 'Border Radius', 'the-post-grid' ),
 				'type'               => Controls_Manager::DIMENSIONS,
 				'size_units'         => [ 'px', '%', 'em' ],
 				'allowed_dimensions' => 'all',
@@ -6245,7 +6243,7 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'icon_width_height',
 			[
-				'label'       => __( 'Icon Dimension', 'the-post-grid' ),
+				'label'       => esc_html__( 'Icon Dimension', 'the-post-grid' ),
 				'type'        => \Elementor\Controls_Manager::IMAGE_DIMENSIONS,
 				'default'     => [
 					'width'  => '',
@@ -6254,7 +6252,7 @@ class rtTPGElementorHelper {
 				'selectors'   => [
 					'{{WRAPPER}} .rt-tpg-social-share a i' => 'width:{{width}}px; height:{{height}}px; line-height:{{height}}px; text-align:center',
 				],
-				'description' => __( 'Just write number. Don\'t use (px or em).', 'the-post-grid' ),
+				'description' => esc_html__( 'Just write number. Don\'t use (px or em).', 'the-post-grid' ),
 				'classes'     => 'should-show-title',
 			]
 		);
@@ -6262,7 +6260,7 @@ class rtTPGElementorHelper {
 		$ref->add_responsive_control(
 			'icon_font_size',
 			[
-				'label'      => __( 'Icon Font Size', 'the-post-grid' ),
+				'label'      => esc_html__( 'Icon Font Size', 'the-post-grid' ),
 				'type'       => Controls_Manager::SLIDER,
 				'size_units' => [ 'px' ],
 				'range'      => [
@@ -6286,7 +6284,7 @@ class rtTPGElementorHelper {
 		$ref->start_controls_tab(
 			'social_share_normal_tab',
 			[
-				'label' => __( 'Normal', 'the-post-grid' ),
+				'label' => esc_html__( 'Normal', 'the-post-grid' ),
 			]
 		);
 		//TODO: Normal Tab
@@ -6295,7 +6293,7 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'social_icon_color',
 			[
-				'label'     => __( 'Social Icon color', 'the-post-grid' ),
+				'label'     => esc_html__( 'Social Icon color', 'the-post-grid' ),
 				'type'      => \Elementor\Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .rt-tpg-social-share a i' => 'color: {{VALUE}}',
@@ -6309,7 +6307,7 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'social_icon_bg_color',
 			[
-				'label'     => __( 'Social Icon Background', 'the-post-grid' ),
+				'label'     => esc_html__( 'Social Icon Background', 'the-post-grid' ),
 				'type'      => \Elementor\Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .rt-tpg-social-share a i' => 'background-color: {{VALUE}}',
@@ -6325,7 +6323,7 @@ class rtTPGElementorHelper {
 			$ref->add_control(
 				$ss . '_social_icon_color',
 				[
-					'label'     => ucwords( $ss ) . __( ' color', 'the-post-grid' ),
+					'label'     => ucwords( $ss ) . esc_html__( ' color', 'the-post-grid' ),
 					'type'      => \Elementor\Controls_Manager::COLOR,
 					'selectors' => [
 						'{{WRAPPER}} .rt-tpg-social-share a.' . $ss . ' i' => 'color: {{VALUE}}',
@@ -6339,7 +6337,7 @@ class rtTPGElementorHelper {
 			$ref->add_control(
 				$ss . '_social_icon_bg_color',
 				[
-					'label'     => __( ucwords( $ss ) . ' Background', 'the-post-grid' ),
+					'label'     => esc_html__( ucwords( $ss ) . ' Background', 'the-post-grid' ),
 					'type'      => \Elementor\Controls_Manager::COLOR,
 					'selectors' => [
 						'{{WRAPPER}} .rt-tpg-social-share a.' . $ss . ' i' => 'background-color: {{VALUE}}',
@@ -6356,7 +6354,7 @@ class rtTPGElementorHelper {
 			\Elementor\Group_Control_Border::get_type(),
 			[
 				'name'     => 'social_icon_border',
-				'label'    => __( 'Icon Border', 'the-post-grid' ),
+				'label'    => esc_html__( 'Icon Border', 'the-post-grid' ),
 				'selector' => '{{WRAPPER}} .rt-tpg-social-share a i',
 			]
 		);
@@ -6366,7 +6364,7 @@ class rtTPGElementorHelper {
 		$ref->start_controls_tab(
 			'socia_hover_tab',
 			[
-				'label' => __( 'Hover', 'the-post-grid' ),
+				'label' => esc_html__( 'Hover', 'the-post-grid' ),
 			]
 		);
 
@@ -6375,7 +6373,7 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'social_icon_color_hover',
 			[
-				'label'     => __( 'Icon color', 'the-post-grid' ),
+				'label'     => esc_html__( 'Icon color', 'the-post-grid' ),
 				'type'      => \Elementor\Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .rt-tpg-social-share a:hover i' => 'color: {{VALUE}}',
@@ -6389,7 +6387,7 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'social_icon_bg_color_hover',
 			[
-				'label'     => __( 'Social Icon Background', 'the-post-grid' ),
+				'label'     => esc_html__( 'Social Icon Background', 'the-post-grid' ),
 				'type'      => \Elementor\Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .rt-tpg-social-share a:hover i' => 'background-color: {{VALUE}}',
@@ -6404,7 +6402,7 @@ class rtTPGElementorHelper {
 			$ref->add_control(
 				$ss . '_social_icon_color_hover',
 				[
-					'label'     => ucwords( $ss ) . __( ' color - Hover', 'the-post-grid' ),
+					'label'     => ucwords( $ss ) . esc_html__( ' color - Hover', 'the-post-grid' ),
 					'type'      => \Elementor\Controls_Manager::COLOR,
 					'selectors' => [
 						'{{WRAPPER}} .rt-tpg-social-share a.' . $ss . ':hover i' => 'color: {{VALUE}}',
@@ -6418,7 +6416,7 @@ class rtTPGElementorHelper {
 			$ref->add_control(
 				$ss . '_social_icon_bg_color_hover',
 				[
-					'label'     => __( ucwords( $ss ) . ' Background - Hover', 'the-post-grid' ),
+					'label'     => esc_html__( ucwords( $ss ) . ' Background - Hover', 'the-post-grid' ),
 					'type'      => \Elementor\Controls_Manager::COLOR,
 					'selectors' => [
 						'{{WRAPPER}} .rt-tpg-social-share a.' . $ss . ':hover i' => 'background-color: {{VALUE}}',
@@ -6434,7 +6432,7 @@ class rtTPGElementorHelper {
 			\Elementor\Group_Control_Border::get_type(),
 			[
 				'name'     => 'social_icon_border_hover',
-				'label'    => __( 'Icon Border - Hover', 'the-post-grid' ),
+				'label'    => esc_html__( 'Icon Border - Hover', 'the-post-grid' ),
 				'selector' => '{{WRAPPER}} .rt-tpg-social-share a:hover i',
 			]
 		);
@@ -6463,7 +6461,7 @@ class rtTPGElementorHelper {
 			$ref->add_responsive_control(
 				'box_margin',
 				[
-					'label'       => __( 'Card Gap', 'the-post-grid' ),
+					'label'       => esc_html__( 'Card Gap', 'the-post-grid' ),
 					'type'        => Controls_Manager::DIMENSIONS,
 					'size_units'  => [ 'px' ],
 					'render_type' => 'template',
@@ -6521,7 +6519,7 @@ class rtTPGElementorHelper {
 			$ref->add_responsive_control(
 				'content_box_padding',
 				[
-					'label'              => __( 'Content Padding', 'the-post-grid' ),
+					'label'              => esc_html__( 'Content Padding', 'the-post-grid' ),
 					'type'               => Controls_Manager::DIMENSIONS,
 					'size_units'         => [ 'px' ],
 					'allowed_dimensions' => 'all',
@@ -6538,7 +6536,7 @@ class rtTPGElementorHelper {
 			$ref->add_responsive_control(
 				'content_box_padding_offset',
 				[
-					'label'              => __( 'Content Padding', 'the-post-grid' ),
+					'label'              => esc_html__( 'Content Padding', 'the-post-grid' ),
 					'type'               => Controls_Manager::DIMENSIONS,
 					'size_units'         => [ 'px' ],
 					'allowed_dimensions' => 'all',
@@ -6560,7 +6558,7 @@ class rtTPGElementorHelper {
 		$ref->add_responsive_control(
 			'content_box_padding_2',
 			[
-				'label'              => __( 'Content Padding', 'the-post-grid' ),
+				'label'              => esc_html__( 'Content Padding', 'the-post-grid' ),
 				'type'               => Controls_Manager::DIMENSIONS,
 				'size_units'         => [ 'px' ],
 				'allowed_dimensions' => 'all',
@@ -6576,7 +6574,7 @@ class rtTPGElementorHelper {
 		$ref->add_responsive_control(
 			'box_radius',
 			[
-				'label'      => __( 'Card Border Radius', 'the-post-grid' ),
+				'label'      => esc_html__( 'Card Border Radius', 'the-post-grid' ),
 				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => [ 'px', '%' ],
 				'selectors'  => [
@@ -6605,12 +6603,12 @@ class rtTPGElementorHelper {
 			$ref->add_control(
 				'is_box_border',
 				[
-					'label'        => __( 'Enable Border & Box Shadow', 'the-post-grid' ),
+					'label'        => esc_html__( 'Enable Border & Box Shadow', 'the-post-grid' ),
 					'type'         => \Elementor\Controls_Manager::SELECT,
 					'default'      => 'enable',
 					'options'      => [
-						'enable'  => __( 'Enable', 'the-post-grid' ),
-						'disable' => __( 'Disable', 'the-post-grid' ),
+						'enable'  => esc_html__( 'Enable', 'the-post-grid' ),
+						'disable' => esc_html__( 'Disable', 'the-post-grid' ),
 					],
 					'prefix_class' => 'tpg-el-box-border-',
 					'condition'    => [
@@ -6634,7 +6632,7 @@ class rtTPGElementorHelper {
 			$ref->start_controls_tab(
 				'box_style_normal_tab',
 				[
-					'label' => __( 'Normal', 'the-post-grid' ),
+					'label' => esc_html__( 'Normal', 'the-post-grid' ),
 				]
 			);
 
@@ -6642,7 +6640,7 @@ class rtTPGElementorHelper {
 				\Elementor\Group_Control_Background::get_type(),
 				[
 					'name'           => 'box_background',
-					'label'          => __( 'Background', 'the-post-grid' ),
+					'label'          => esc_html__( 'Background', 'the-post-grid' ),
 					'fields_options' => [
 						'background' => [
 							'label' => esc_html__( 'Card Background', 'the-post-grid' ),
@@ -6660,7 +6658,7 @@ class rtTPGElementorHelper {
 				\Elementor\Group_Control_Background::get_type(),
 				[
 					'name'           => 'box_background2',
-					'label'          => __( 'Background', 'the-post-grid' ),
+					'label'          => esc_html__( 'Background', 'the-post-grid' ),
 					'fields_options' => [
 						'background' => [
 							'label' => esc_html__( 'Card Background', 'the-post-grid' ),
@@ -6678,7 +6676,7 @@ class rtTPGElementorHelper {
 				$ref->add_control(
 					'box_border',
 					[
-						'label'     => __( 'Border Color', 'the-post-grid' ),
+						'label'     => esc_html__( 'Border Color', 'the-post-grid' ),
 						'type'      => \Elementor\Controls_Manager::COLOR,
 						'selectors' => [
 							'body {{WRAPPER}} .tpg-el-main-wrapper .tpg-post-holder' => 'border: 1px solid {{VALUE}}',
@@ -6699,7 +6697,7 @@ class rtTPGElementorHelper {
 					\Elementor\Group_Control_Box_Shadow::get_type(),
 					[
 						'name'      => 'box_box_shadow',
-						'label'     => __( 'Box Shadow', 'the-post-grid' ),
+						'label'     => esc_html__( 'Box Shadow', 'the-post-grid' ),
 						'selector'  => 'body {{WRAPPER}} .tpg-el-main-wrapper .tpg-post-holder',
 						'condition' => [
 							'is_box_border'      => 'enable',
@@ -6717,7 +6715,7 @@ class rtTPGElementorHelper {
 				\Elementor\Group_Control_Box_Shadow::get_type(),
 				[
 					'name'      => 'box_box_shadow2',
-					'label'     => __( 'Box Shadow', 'the-post-grid' ),
+					'label'     => esc_html__( 'Box Shadow', 'the-post-grid' ),
 					'selector'  => 'body {{WRAPPER}} .rt-tpg-container .slider-layout13 .rt-holder .post-content',
 					'condition' => [
 						$prefix . '_layout' => [ 'slider-layout13' ],
@@ -6733,7 +6731,7 @@ class rtTPGElementorHelper {
 			$ref->start_controls_tab(
 				'box_style_hover_tab',
 				[
-					'label' => __( 'Hover', 'the-post-grid' ),
+					'label' => esc_html__( 'Hover', 'the-post-grid' ),
 				]
 			);
 
@@ -6741,7 +6739,7 @@ class rtTPGElementorHelper {
 				\Elementor\Group_Control_Background::get_type(),
 				[
 					'name'           => 'box_background_hover',
-					'label'          => __( 'Background - Hover', 'the-post-grid' ),
+					'label'          => esc_html__( 'Background - Hover', 'the-post-grid' ),
 					'fields_options' => [
 						'background' => [
 							'label' => esc_html__( 'Card Background - Hover', 'the-post-grid' ),
@@ -6759,7 +6757,7 @@ class rtTPGElementorHelper {
 				\Elementor\Group_Control_Background::get_type(),
 				[
 					'name'           => 'box_background_hover2',
-					'label'          => __( 'Background - Hover', 'the-post-grid' ),
+					'label'          => esc_html__( 'Background - Hover', 'the-post-grid' ),
 					'fields_options' => [
 						'background' => [
 							'label' => esc_html__( 'Card Background - Hover', 'the-post-grid' ),
@@ -6777,7 +6775,7 @@ class rtTPGElementorHelper {
 				$ref->add_control(
 					'box_border_hover',
 					[
-						'label'     => __( 'Border Color - Hover', 'the-post-grid' ),
+						'label'     => esc_html__( 'Border Color - Hover', 'the-post-grid' ),
 						'type'      => \Elementor\Controls_Manager::COLOR,
 						'selectors' => [
 							'body {{WRAPPER}} .tpg-el-main-wrapper .tpg-post-holder:hover' => 'border: 1px solid {{VALUE}}',
@@ -6797,7 +6795,7 @@ class rtTPGElementorHelper {
 					\Elementor\Group_Control_Box_Shadow::get_type(),
 					[
 						'name'      => 'box_box_shadow_hover',
-						'label'     => __( 'Box Shadow - Hover', 'the-post-grid' ),
+						'label'     => esc_html__( 'Box Shadow - Hover', 'the-post-grid' ),
 						'selector'  => 'body {{WRAPPER}} .tpg-el-main-wrapper .tpg-post-holder:hover',
 						'condition' => [
 							'is_box_border'      => 'enable',
@@ -6816,7 +6814,7 @@ class rtTPGElementorHelper {
 				\Elementor\Group_Control_Box_Shadow::get_type(),
 				[
 					'name'      => 'box_box_shadow_hover2',
-					'label'     => __( 'Box Shadow - Hover', 'the-post-grid' ),
+					'label'     => esc_html__( 'Box Shadow - Hover', 'the-post-grid' ),
 					'selector'  => 'body {{WRAPPER}} .rt-tpg-container .slider-layout13 .rt-holder .post-content',
 					'condition' => [
 						$prefix . '_layout' => [ 'slider-layout13' ],
@@ -6862,7 +6860,7 @@ class rtTPGElementorHelper {
 		$ref->add_responsive_control(
 			'slider_gap',
 			[
-				'label'      => __( 'Slider Gap', 'the-post-grid' ),
+				'label'      => esc_html__( 'Slider Gap', 'the-post-grid' ),
 				'type'       => Controls_Manager::SLIDER,
 				'size_units' => [ 'px' ],
 				'range'      => [
@@ -6891,10 +6889,10 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'arrows',
 			[
-				'label'        => __( 'Arrow Visibility', 'the-post-grid' ),
+				'label'        => esc_html__( 'Arrow Visibility', 'the-post-grid' ),
 				'type'         => \Elementor\Controls_Manager::SWITCHER,
-				'label_on'     => __( 'Show', 'the-post-grid' ),
-				'label_off'    => __( 'Hide', 'the-post-grid' ),
+				'label_on'     => esc_html__( 'Show', 'the-post-grid' ),
+				'label_off'    => esc_html__( 'Hide', 'the-post-grid' ),
 				'return_value' => 'yes',
 				'default'      => 'yes',
 				'condition'    => [
@@ -6907,14 +6905,14 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'arrow_position',
 			[
-				'label'        => __( 'Arrow Position', 'the-post-grid' ),
+				'label'        => esc_html__( 'Arrow Position', 'the-post-grid' ),
 				'type'         => \Elementor\Controls_Manager::SELECT,
 				'default'      => 'default',
 				'options'      => [
-					'default'    => __( 'Default', 'the-post-grid' ),
-					'top-right'  => __( 'Top Right', 'the-post-grid' ),
-					'top-left'   => __( 'Top Left', 'the-post-grid' ),
-					'show-hover' => __( 'Center (Show on hover)', 'the-post-grid' ),
+					'default'    => esc_html__( 'Default', 'the-post-grid' ),
+					'top-right'  => esc_html__( 'Top Right', 'the-post-grid' ),
+					'top-left'   => esc_html__( 'Top Left', 'the-post-grid' ),
+					'show-hover' => esc_html__( 'Center (Show on hover)', 'the-post-grid' ),
 				],
 				'condition'    => [
 					'arrows'             => 'yes',
@@ -6927,10 +6925,10 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'dots',
 			[
-				'label'        => __( 'Dots Visibility', 'the-post-grid' ),
+				'label'        => esc_html__( 'Dots Visibility', 'the-post-grid' ),
 				'type'         => \Elementor\Controls_Manager::SWITCHER,
-				'label_on'     => __( 'Show', 'the-post-grid' ),
-				'label_off'    => __( 'Hide', 'the-post-grid' ),
+				'label_on'     => esc_html__( 'Show', 'the-post-grid' ),
+				'label_off'    => esc_html__( 'Hide', 'the-post-grid' ),
 				'return_value' => 'yes',
 				'default'      => 'yes',
 				'prefix_class' => 'slider-dot-enable-',
@@ -6944,10 +6942,10 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'dynamic_dots',
 			[
-				'label'        => __( 'Enable Dynamic Dots', 'the-post-grid' ),
+				'label'        => esc_html__( 'Enable Dynamic Dots', 'the-post-grid' ),
 				'type'         => \Elementor\Controls_Manager::SWITCHER,
-				'label_on'     => __( 'Show', 'the-post-grid' ),
-				'label_off'    => __( 'Hide', 'the-post-grid' ),
+				'label_on'     => esc_html__( 'Show', 'the-post-grid' ),
+				'label_off'    => esc_html__( 'Hide', 'the-post-grid' ),
 				'return_value' => 'yes',
 				'default'      => 'no',
 				'render_type'  => 'template',
@@ -6961,12 +6959,12 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'dots_style',
 			[
-				'label'        => __( 'Dots Style', 'the-post-grid' ),
+				'label'        => esc_html__( 'Dots Style', 'the-post-grid' ),
 				'type'         => \Elementor\Controls_Manager::SELECT,
 				'default'      => 'default',
 				'options'      => [
-					'default'    => __( 'Default', 'the-post-grid' ),
-					'background' => __( 'With Background', 'the-post-grid' ),
+					'default'    => esc_html__( 'Default', 'the-post-grid' ),
+					'background' => esc_html__( 'With Background', 'the-post-grid' ),
 				],
 				'condition'    => [
 					'dots'               => 'yes',
@@ -6979,10 +6977,10 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'infinite',
 			[
-				'label'        => __( 'Infinite', 'the-post-grid' ),
+				'label'        => esc_html__( 'Infinite', 'the-post-grid' ),
 				'type'         => \Elementor\Controls_Manager::SWITCHER,
-				'label_on'     => __( 'Yes', 'the-post-grid' ),
-				'label_off'    => __( 'No', 'the-post-grid' ),
+				'label_on'     => esc_html__( 'Yes', 'the-post-grid' ),
+				'label_off'    => esc_html__( 'No', 'the-post-grid' ),
 				'return_value' => 'yes',
 				'default'      => 'yes',
 			]
@@ -6991,10 +6989,10 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'autoplay',
 			[
-				'label'        => __( 'Autoplay', 'the-post-grid' ),
+				'label'        => esc_html__( 'Autoplay', 'the-post-grid' ),
 				'type'         => \Elementor\Controls_Manager::SWITCHER,
-				'label_on'     => __( 'Yes', 'the-post-grid' ),
-				'label_off'    => __( 'No', 'the-post-grid' ),
+				'label_on'     => esc_html__( 'Yes', 'the-post-grid' ),
+				'label_off'    => esc_html__( 'No', 'the-post-grid' ),
 				'return_value' => 'yes',
 				'default'      => false,
 			]
@@ -7003,7 +7001,7 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'autoplaySpeed',
 			[
-				'label'     => __( 'Autoplay Speed', 'the-post-grid' ),
+				'label'     => esc_html__( 'Autoplay Speed', 'the-post-grid' ),
 				'type'      => \Elementor\Controls_Manager::NUMBER,
 				'min'       => 1000,
 				'max'       => 10000,
@@ -7018,10 +7016,10 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'stopOnHover',
 			[
-				'label'        => __( 'Stop On Hover', 'the-post-grid' ),
+				'label'        => esc_html__( 'Stop On Hover', 'the-post-grid' ),
 				'type'         => \Elementor\Controls_Manager::SWITCHER,
-				'label_on'     => __( 'Yes', 'the-post-grid' ),
-				'label_off'    => __( 'No', 'the-post-grid' ),
+				'label_on'     => esc_html__( 'Yes', 'the-post-grid' ),
+				'label_off'    => esc_html__( 'No', 'the-post-grid' ),
 				'return_value' => 'yes',
 				'default'      => 'yes',
 				'condition' => [
@@ -7033,10 +7031,10 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'grabCursor',
 			[
-				'label'        => __( 'Allow Touch Move', 'the-post-grid' ),
+				'label'        => esc_html__( 'Allow Touch Move', 'the-post-grid' ),
 				'type'         => \Elementor\Controls_Manager::SWITCHER,
-				'label_on'     => __( 'Yes', 'the-post-grid' ),
-				'label_off'    => __( 'No', 'the-post-grid' ),
+				'label_on'     => esc_html__( 'Yes', 'the-post-grid' ),
+				'label_off'    => esc_html__( 'No', 'the-post-grid' ),
 				'return_value' => 'yes',
 				'default'      => 'yes',
 			]
@@ -7046,10 +7044,10 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'autoHeight',
 			[
-				'label'        => __( 'Auto Height', 'the-post-grid' ),
+				'label'        => esc_html__( 'Auto Height', 'the-post-grid' ),
 				'type'         => \Elementor\Controls_Manager::SWITCHER,
-				'label_on'     => __( 'Yes', 'the-post-grid' ),
-				'label_off'    => __( 'No', 'the-post-grid' ),
+				'label_on'     => esc_html__( 'Yes', 'the-post-grid' ),
+				'label_off'    => esc_html__( 'No', 'the-post-grid' ),
 				'return_value' => 'yes',
 				'default'      => false,
 				'condition'    => [
@@ -7062,10 +7060,10 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'lazyLoad',
 			[
-				'label'        => __( 'lazy Load', 'the-post-grid' ),
+				'label'        => esc_html__( 'lazy Load', 'the-post-grid' ),
 				'type'         => \Elementor\Controls_Manager::SWITCHER,
-				'label_on'     => __( 'Yes', 'the-post-grid' ),
-				'label_off'    => __( 'No', 'the-post-grid' ),
+				'label_on'     => esc_html__( 'Yes', 'the-post-grid' ),
+				'label_off'    => esc_html__( 'No', 'the-post-grid' ),
 				'return_value' => 'yes',
 				'default'      => false,
 				'prefix_class' => 'is-lazy-load-',
@@ -7076,7 +7074,7 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'speed',
 			[
-				'label'   => __( 'Speed', 'the-post-grid' ),
+				'label'   => esc_html__( 'Speed', 'the-post-grid' ),
 				'type'    => \Elementor\Controls_Manager::NUMBER,
 				'min'     => 100,
 				'max'     => 3000,
@@ -7088,15 +7086,15 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'enable_2_rows',
 			[
-				'label'        => __( 'Enable 2 Rows', 'the-post-grid' ),
+				'label'        => esc_html__( 'Enable 2 Rows', 'the-post-grid' ),
 				'type'         => \Elementor\Controls_Manager::SWITCHER,
-				'label_on'     => __( 'Show', 'the-post-grid' ),
-				'label_off'    => __( 'Hide', 'the-post-grid' ),
+				'label_on'     => esc_html__( 'Show', 'the-post-grid' ),
+				'label_off'    => esc_html__( 'Hide', 'the-post-grid' ),
 				'return_value' => 'yes',
 				'default'      => false,
 				'prefix_class' => 'enable-two-rows-',
 				'render_type'  => 'template',
-				'description'  => __( 'If you use 2 rows then you have to put an even number for post limit', 'the-post-grid' ),
+				'description'  => esc_html__( 'If you use 2 rows then you have to put an even number for post limit', 'the-post-grid' ),
 				'condition'    => [
 					$prefix . '_layout!' => [ 'slider-layout13',
 						'slider-layout11',
@@ -7110,12 +7108,12 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'carousel_overflow',
 			[
-				'label'        => __( 'Slider Overflow', 'the-post-grid' ),
+				'label'        => esc_html__( 'Slider Overflow', 'the-post-grid' ),
 				'type'         => \Elementor\Controls_Manager::SELECT,
 				'default'      => 'hidden',
 				'options'      => [
-					'hidden' => __( 'Hidden', 'the-post-grid' ),
-					'none'   => __( 'None', 'the-post-grid' ),
+					'hidden' => esc_html__( 'Hidden', 'the-post-grid' ),
+					'none'   => esc_html__( 'None', 'the-post-grid' ),
 				],
 				'render_type'  => 'template',
 				'prefix_class' => 'is-carousel-overflow-',
@@ -7128,12 +7126,12 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'slider_direction',
 			[
-				'label'        => __( 'Direction', 'the-post-grid' ),
+				'label'        => esc_html__( 'Direction', 'the-post-grid' ),
 				'type'         => \Elementor\Controls_Manager::SELECT,
 				'default'      => 'ltr',
 				'options'      => [
-					'ltr' => __( 'LTR', 'the-post-grid' ),
-					'rtl' => __( 'RTL', 'the-post-grid' ),
+					'ltr' => esc_html__( 'LTR', 'the-post-grid' ),
+					'rtl' => esc_html__( 'RTL', 'the-post-grid' ),
 				],
 				'prefix_class' => 'slider-direction-',
 				'render_type'  => 'template',
@@ -7174,7 +7172,7 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'arrow_style_heading',
 			[
-				'label'     => __( 'Arrow Style', 'the-post-grid' ),
+				'label'     => esc_html__( 'Arrow Style', 'the-post-grid' ),
 				'type'      => \Elementor\Controls_Manager::HEADING,
 				'separator' => 'before',
 				'classes'   => 'tpg-control-type-heading',
@@ -7187,7 +7185,7 @@ class rtTPGElementorHelper {
 		$ref->add_responsive_control(
 			'arrow_font_size',
 			[
-				'label'      => __( 'Arrow Font Size', 'the-post-grid' ),
+				'label'      => esc_html__( 'Arrow Font Size', 'the-post-grid' ),
 				'type'       => Controls_Manager::SLIDER,
 				'size_units' => [ 'px' ],
 				'range'      => [
@@ -7209,7 +7207,7 @@ class rtTPGElementorHelper {
 		$ref->add_responsive_control(
 			'arrow_border_radius',
 			[
-				'label'      => __( 'Arrow Radius', 'the-post-grid' ),
+				'label'      => esc_html__( 'Arrow Radius', 'the-post-grid' ),
 				'type'       => Controls_Manager::SLIDER,
 				'size_units' => [ 'px', '%' ],
 				'range'      => [
@@ -7236,7 +7234,7 @@ class rtTPGElementorHelper {
 		$ref->add_responsive_control(
 			'arrow_width',
 			[
-				'label'      => __( 'Arrow Width', 'the-post-grid' ),
+				'label'      => esc_html__( 'Arrow Width', 'the-post-grid' ),
 				'type'       => Controls_Manager::SLIDER,
 				'size_units' => [ 'px' ],
 				'range'      => [
@@ -7258,7 +7256,7 @@ class rtTPGElementorHelper {
 		$ref->add_responsive_control(
 			'arrow_height',
 			[
-				'label'      => __( 'Arrow Height', 'the-post-grid' ),
+				'label'      => esc_html__( 'Arrow Height', 'the-post-grid' ),
 				'type'       => Controls_Manager::SLIDER,
 				'size_units' => [ 'px' ],
 				'range'      => [
@@ -7280,7 +7278,7 @@ class rtTPGElementorHelper {
 		$ref->add_responsive_control(
 			'arrow_x_position',
 			[
-				'label'      => __( 'Arrow X Position', 'the-post-grid' ),
+				'label'      => esc_html__( 'Arrow X Position', 'the-post-grid' ),
 				'type'       => Controls_Manager::SLIDER,
 				'size_units' => [ 'px' ],
 				'range'      => [
@@ -7305,7 +7303,7 @@ class rtTPGElementorHelper {
 		$ref->add_responsive_control(
 			'arrow_y_position',
 			[
-				'label'      => __( 'Arrow Y Position', 'the-post-grid' ),
+				'label'      => esc_html__( 'Arrow Y Position', 'the-post-grid' ),
 				'type'       => Controls_Manager::SLIDER,
 				'size_units' => [ 'px', '%' ],
 				'range'      => [
@@ -7338,7 +7336,7 @@ class rtTPGElementorHelper {
 		$ref->start_controls_tab(
 			'arrow_style_normal_tab',
 			[
-				'label' => __( 'Normal', 'the-post-grid' ),
+				'label' => esc_html__( 'Normal', 'the-post-grid' ),
 			]
 		);
 
@@ -7368,7 +7366,7 @@ class rtTPGElementorHelper {
 			\Elementor\Group_Control_Box_Shadow::get_type(),
 			[
 				'name'     => 'arrow_box_shadow',
-				'label'    => __( 'Box Shadow', 'the-post-grid' ),
+				'label'    => esc_html__( 'Box Shadow', 'the-post-grid' ),
 				'selector' => '{{WRAPPER}} .rt-tpg-container .swiper-navigation .slider-btn',
 			]
 		);
@@ -7387,7 +7385,7 @@ class rtTPGElementorHelper {
 		$ref->start_controls_tab(
 			'arrow_style_hover_tab',
 			[
-				'label' => __( 'Hover', 'the-post-grid' ),
+				'label' => esc_html__( 'Hover', 'the-post-grid' ),
 			]
 		);
 
@@ -7417,7 +7415,7 @@ class rtTPGElementorHelper {
 			\Elementor\Group_Control_Box_Shadow::get_type(),
 			[
 				'name'     => 'arrow_box_shadow_hover',
-				'label'    => __( 'Box Shadow - Hover', 'the-post-grid' ),
+				'label'    => esc_html__( 'Box Shadow - Hover', 'the-post-grid' ),
 				'selector' => '{{WRAPPER}} .rt-tpg-container .swiper-navigation .slider-btn:hover',
 			]
 		);
@@ -7442,7 +7440,7 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'dot_style_heading',
 			[
-				'label'     => __( 'Dots Style', 'the-post-grid' ),
+				'label'     => esc_html__( 'Dots Style', 'the-post-grid' ),
 				'type'      => \Elementor\Controls_Manager::HEADING,
 				'separator' => 'before',
 				'classes'   => 'tpg-control-type-heading',
@@ -7455,19 +7453,19 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'dots_text_align',
 			[
-				'label'        => __( 'Dots Alignment', 'the-post-grid' ),
+				'label'        => esc_html__( 'Dots Alignment', 'the-post-grid' ),
 				'type'         => \Elementor\Controls_Manager::CHOOSE,
 				'options'      => [
 					'left'   => [
-						'title' => __( 'Left', 'the-post-grid' ),
+						'title' => esc_html__( 'Left', 'the-post-grid' ),
 						'icon'  => 'eicon-text-align-left',
 					],
 					'center' => [
-						'title' => __( 'Center', 'the-post-grid' ),
+						'title' => esc_html__( 'Center', 'the-post-grid' ),
 						'icon'  => 'eicon-text-align-center',
 					],
 					'right'  => [
-						'title' => __( 'Right', 'the-post-grid' ),
+						'title' => esc_html__( 'Right', 'the-post-grid' ),
 						'icon'  => 'eicon-text-align-right',
 					],
 				],
@@ -7483,7 +7481,7 @@ class rtTPGElementorHelper {
 		$ref->add_responsive_control(
 			'dot_wrapper_radius',
 			[
-				'label'      => __( 'Dots Wrapper Radius', 'the-post-grid' ),
+				'label'      => esc_html__( 'Dots Wrapper Radius', 'the-post-grid' ),
 				'type'       => Controls_Manager::SLIDER,
 				'size_units' => [ 'px', '%' ],
 				'range'      => [
@@ -7506,7 +7504,7 @@ class rtTPGElementorHelper {
 		$ref->add_responsive_control(
 			'dots_border_radius',
 			[
-				'label'      => __( 'Dots Radius', 'the-post-grid' ),
+				'label'      => esc_html__( 'Dots Radius', 'the-post-grid' ),
 				'type'       => Controls_Manager::SLIDER,
 				'size_units' => [ 'px', '%' ],
 				'range'      => [
@@ -7533,7 +7531,7 @@ class rtTPGElementorHelper {
 		$ref->add_responsive_control(
 			'dots_width',
 			[
-				'label'      => __( 'Dots Width', 'the-post-grid' ),
+				'label'      => esc_html__( 'Dots Width', 'the-post-grid' ),
 				'type'       => Controls_Manager::SLIDER,
 				'size_units' => [ 'px' ],
 				'range'      => [
@@ -7556,7 +7554,7 @@ class rtTPGElementorHelper {
 		$ref->add_responsive_control(
 			'dots_height',
 			[
-				'label'      => __( 'Dots Height', 'the-post-grid' ),
+				'label'      => esc_html__( 'Dots Height', 'the-post-grid' ),
 				'type'       => Controls_Manager::SLIDER,
 				'size_units' => [ 'px' ],
 				'range'      => [
@@ -7579,7 +7577,7 @@ class rtTPGElementorHelper {
 		$ref->add_responsive_control(
 			'dots_margin',
 			[
-				'label'      => __( 'Dots Margin', 'the-post-grid' ),
+				'label'      => esc_html__( 'Dots Margin', 'the-post-grid' ),
 				'type'       => Controls_Manager::SLIDER,
 				'size_units' => [ 'px' ],
 				'range'      => [
@@ -7601,7 +7599,7 @@ class rtTPGElementorHelper {
 		$ref->add_responsive_control(
 			'dots_position',
 			[
-				'label'      => __( 'Dots Y Position', 'the-post-grid' ),
+				'label'      => esc_html__( 'Dots Y Position', 'the-post-grid' ),
 				'type'       => Controls_Manager::SLIDER,
 				'size_units' => [ 'px' ],
 				'range'      => [
@@ -7634,7 +7632,7 @@ class rtTPGElementorHelper {
 		$ref->start_controls_tab(
 			'dots_style_normal_tab',
 			[
-				'label' => __( 'Normal', 'the-post-grid' ),
+				'label' => esc_html__( 'Normal', 'the-post-grid' ),
 			]
 		);
 
@@ -7687,7 +7685,7 @@ class rtTPGElementorHelper {
 		$ref->start_controls_tab(
 			'dots_style_hover_tab',
 			[
-				'label' => __( 'Hover', 'the-post-grid' ),
+				'label' => esc_html__( 'Hover', 'the-post-grid' ),
 			]
 		);
 
@@ -7734,7 +7732,7 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'popup_head_bg',
 			[
-				'label'     => __( 'Header Background', 'the-post-grid' ),
+				'label'     => esc_html__( 'Header Background', 'the-post-grid' ),
 				'type'      => \Elementor\Controls_Manager::COLOR,
 				'selectors' => [
 					'body .rt-popup-wrap .rt-popup-navigation-wrap' => 'background-color: {{VALUE}}',
@@ -7745,7 +7743,7 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'popup_head_txt_color',
 			[
-				'label'     => __( 'Header Text Color', 'the-post-grid' ),
+				'label'     => esc_html__( 'Header Text Color', 'the-post-grid' ),
 				'type'      => \Elementor\Controls_Manager::COLOR,
 				'selectors' => [
 					'body #rt-popup-wrap .rt-popup-singlePage-counter' => 'color: {{VALUE}}',
@@ -7756,7 +7754,7 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'popup_title_color',
 			[
-				'label'     => __( 'Popup Title Color', 'the-post-grid' ),
+				'label'     => esc_html__( 'Popup Title Color', 'the-post-grid' ),
 				'type'      => \Elementor\Controls_Manager::COLOR,
 				'selectors' => [
 					'body .md-content .rt-md-content-holder > .md-header .entry-title' => 'color: {{VALUE}}',
@@ -7770,7 +7768,7 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'popup_meta_color',
 			[
-				'label'     => __( 'Popup Meta Color', 'the-post-grid' ),
+				'label'     => esc_html__( 'Popup Meta Color', 'the-post-grid' ),
 				'type'      => \Elementor\Controls_Manager::COLOR,
 				'selectors' => [
 					'body .md-content .rt-md-content-holder > .md-header .post-meta-user *' => 'color: {{VALUE}}',
@@ -7783,7 +7781,7 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'popup_content_color',
 			[
-				'label'     => __( 'Popup Content Color', 'the-post-grid' ),
+				'label'     => esc_html__( 'Popup Content Color', 'the-post-grid' ),
 				'type'      => \Elementor\Controls_Manager::COLOR,
 				'selectors' => [
 					'body .md-content .rt-md-content *'                       => 'color: {{VALUE}}',
@@ -7796,7 +7794,7 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'popup_bg',
 			[
-				'label'     => __( 'Popup Background', 'the-post-grid' ),
+				'label'     => esc_html__( 'Popup Background', 'the-post-grid' ),
 				'type'      => \Elementor\Controls_Manager::COLOR,
 				'selectors' => [
 					'body .md-content, body #rt-popup-wrap .rt-popup-content' => 'background-color: {{VALUE}}',
@@ -7897,7 +7895,7 @@ class rtTPGElementorHelper {
 			\Elementor\Group_Control_Background::get_type(),
 			[
 				'name'           => 'thumb_wrapper_bg',
-				'label'          => __( 'Thumb Wrapper Background', 'the-post-grid' ),
+				'label'          => esc_html__( 'Thumb Wrapper Background', 'the-post-grid' ),
 				'fields_options' => [
 					'background' => [
 						'label' => esc_html__( 'Thumb Wrapper Background', 'the-post-grid' ),
@@ -7948,7 +7946,7 @@ class rtTPGElementorHelper {
 			\Elementor\Group_Control_Typography::get_type(),
 			[
 				'name'     => 'acf_group_title_typography',
-				'label'    => __( 'Group Title Typography', 'the-post-grid' ),
+				'label'    => esc_html__( 'Group Title Typography', 'the-post-grid' ),
 				'selector' => '{{WRAPPER}} .rt-tpg-container .tpg-cf-group-title',
 			]
 		);
@@ -7957,7 +7955,7 @@ class rtTPGElementorHelper {
 			\Elementor\Group_Control_Typography::get_type(),
 			[
 				'name'     => 'acf_typography',
-				'label'    => __( 'ACF Fields Typography', 'the-post-grid' ),
+				'label'    => esc_html__( 'ACF Fields Typography', 'the-post-grid' ),
 				'selector' => '{{WRAPPER}} .rt-tpg-container .tpg-cf-fields',
 			]
 		);
@@ -7965,13 +7963,13 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'acf_label_style',
 			[
-				'label'        => __( 'Label Style', 'the-post-grid' ),
+				'label'        => esc_html__( 'Label Style', 'the-post-grid' ),
 				'type'         => \Elementor\Controls_Manager::SELECT,
 				'default'      => 'inline',
 				'options'      => [
-					'default' => __( 'Default', 'the-post-grid' ),
-					'inline'  => __( 'Inline', 'the-post-grid' ),
-					'block'   => __( 'Block', 'the-post-grid' ),
+					'default' => esc_html__( 'Default', 'the-post-grid' ),
+					'inline'  => esc_html__( 'Inline', 'the-post-grid' ),
+					'block'   => esc_html__( 'Block', 'the-post-grid' ),
 				],
 				'condition'    => [
 					'cf_show_only_value' => 'yes',
@@ -7984,7 +7982,7 @@ class rtTPGElementorHelper {
 		$ref->add_responsive_control(
 			'acf_label_width',
 			[
-				'label'      => __( 'Label Min Width', 'the-post-grid' ),
+				'label'      => esc_html__( 'Label Min Width', 'the-post-grid' ),
 				'type'       => Controls_Manager::SLIDER,
 				'size_units' => [ 'px' ],
 				'range'      => [
@@ -8042,14 +8040,14 @@ class rtTPGElementorHelper {
 			$ref->start_controls_tab(
 				'acf_style_normal_tab',
 				[
-					'label' => __( 'Normal', 'the-post-grid' ),
+					'label' => esc_html__( 'Normal', 'the-post-grid' ),
 				]
 			);
 		}
 		$ref->add_control(
 			'acf_group_title_color',
 			[
-				'label'     => __( 'Group Title Color', 'the-post-grid' ),
+				'label'     => esc_html__( 'Group Title Color', 'the-post-grid' ),
 				'type'      => \Elementor\Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .acf-custom-field-wrap .tpg-cf-group-title' => 'color: {{VALUE}}',
@@ -8063,7 +8061,7 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'acf_label_color',
 			[
-				'label'     => __( 'Label Color', 'the-post-grid' ),
+				'label'     => esc_html__( 'Label Color', 'the-post-grid' ),
 				'type'      => \Elementor\Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .acf-custom-field-wrap .tgp-cf-field-label' => 'color: {{VALUE}}',
@@ -8077,7 +8075,7 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'acf_value_color',
 			[
-				'label'     => __( 'Value Color', 'the-post-grid' ),
+				'label'     => esc_html__( 'Value Color', 'the-post-grid' ),
 				'type'      => \Elementor\Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .acf-custom-field-wrap .tgp-cf-field-value' => 'color: {{VALUE}}',
@@ -8093,14 +8091,14 @@ class rtTPGElementorHelper {
 			$ref->start_controls_tab(
 				'acf_style_hover_tab',
 				[
-					'label' => __( 'Hover', 'the-post-grid' ),
+					'label' => esc_html__( 'Hover', 'the-post-grid' ),
 				]
 			);
 
 			$ref->add_control(
 				'acf_group_title_color_hover',
 				[
-					'label'     => __( 'Group Title Color - Hover', 'the-post-grid' ),
+					'label'     => esc_html__( 'Group Title Color - Hover', 'the-post-grid' ),
 					'type'      => \Elementor\Controls_Manager::COLOR,
 					'selectors' => [
 						'{{WRAPPER}} .rt-tpg-container .rt-holder:hover .tpg-cf-group-title' => 'color: {{VALUE}}',
@@ -8114,7 +8112,7 @@ class rtTPGElementorHelper {
 			$ref->add_control(
 				'acf_label_color_hover',
 				[
-					'label'     => __( 'Label Color - Hover', 'the-post-grid' ),
+					'label'     => esc_html__( 'Label Color - Hover', 'the-post-grid' ),
 					'type'      => \Elementor\Controls_Manager::COLOR,
 					'selectors' => [
 						'{{WRAPPER}} .rt-tpg-container .rt-holder:hover .tgp-cf-field-label' => 'color: {{VALUE}}',
@@ -8128,7 +8126,7 @@ class rtTPGElementorHelper {
 			$ref->add_control(
 				'acf_value_color_hover',
 				[
-					'label'     => __( 'Value Color - Hover', 'the-post-grid' ),
+					'label'     => esc_html__( 'Value Color - Hover', 'the-post-grid' ),
 					'type'      => \Elementor\Controls_Manager::COLOR,
 					'selectors' => [
 						'{{WRAPPER}} .rt-tpg-container .rt-holder:hover .tgp-cf-field-value' => 'color: {{VALUE}}',
@@ -8142,7 +8140,4 @@ class rtTPGElementorHelper {
 			//End Tab
 		}
 	}
-
-
-	//End the class
 }

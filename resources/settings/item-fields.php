@@ -13,4 +13,4 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit( 'This script cannot be accessed directly.' );
 }
 
-echo Fns::rtFieldGenerator( Options::itemFields() );
+Fns::print_html( Fns::rtFieldGenerator( Options::itemFields() ), true );

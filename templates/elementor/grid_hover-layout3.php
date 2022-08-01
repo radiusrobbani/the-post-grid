@@ -1,6 +1,6 @@
 <?php
 /**
- * Grid Layout Template - 1
+ * Grid Hover Layout Template - 3
  *
  * @package RT_TPG
  */
@@ -84,7 +84,7 @@ if ( 'masonry' == $data['layout_style'] ) {
 
 				<?php
 				if ( rtTPG()->hasPro() && 'show' === $data['show_social_share'] ) {
-					echo \RT\ThePostGridPro\Helpers\Functions::rtShare( $pID );
+					echo wp_kses( \RT\ThePostGridPro\Helpers\Functions::rtShare( $pID ), Fns::allowedHtml() );
 				}
 				?>
 
@@ -93,7 +93,8 @@ if ( 'masonry' == $data['layout_style'] ) {
 					<div class="post-footer">
 						<div class="read-more">
 							<?php
-							echo Fns::wp_kses( $readmore_link_start );
+							echo wp_kses( $readmore_link_start, Fns::allowedHtml() );
+
 							if ( 'yes' == $data['show_btn_icon'] && 'left' == $data['readmore_icon_position'] ) {
 								\Elementor\Icons_Manager::render_icon(
 									$data['readmore_btn_icon'],
@@ -103,7 +104,9 @@ if ( 'masonry' == $data['layout_style'] ) {
 									]
 								);
 							}
+
 							echo esc_html( $data['read_more_label'] );
+
 							if ( 'yes' == $data['show_btn_icon'] && 'right' == $data['readmore_icon_position'] ) {
 								\Elementor\Icons_Manager::render_icon(
 									$data['readmore_btn_icon'],
@@ -113,7 +116,8 @@ if ( 'masonry' == $data['layout_style'] ) {
 									]
 								);
 							}
-							echo Fns::wp_kses( $readmore_link_end );
+
+							echo wp_kses( $readmore_link_end, Fns::allowedHtml() );
 							?>
 						</div>
 					</div>

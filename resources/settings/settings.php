@@ -16,9 +16,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 <div class="wrap rttpg-wrapper">
 	<div id="upf-icon-edit-pages" class="icon32 icon32-posts-page"><br/></div>
-	<h2><?php _e( 'The Post Grid Settings', 'the-post-grid' ); ?></h2>
-	<h3><?php _e( 'General settings', 'the-post-grid' ); ?>
-		<a style="margin-left: 15px; font-size: 15px;" href="https://www.radiustheme.com/docs/the-post-grid/" target="_blank"><?php _e( 'Documentation', 'the-post-grid' ); ?></a>
+	<h2><?php esc_html_e( 'The Post Grid Settings', 'the-post-grid' ); ?></h2>
+	<h3><?php esc_html_e( 'General settings', 'the-post-grid' ); ?>
+		<a style="margin-left: 15px; font-size: 15px;" href="<?php echo esc_url( rtTpg()->docLink() ); ?>" target="_blank"><?php esc_html_e( 'Documentation', 'the-post-grid' ); ?></a>
 	</h3>
 
 	<div class="rt-setting-wrapper">
@@ -82,7 +82,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 			$html .= sprintf( '<input type="hidden" id="_tpg_last_active_tab" name="_tpg_last_active_tab"  value="%s"/>', $last_tab );
 			$html .= '</div>';
 
-			echo $html;
+			Fns::print_html( $html, true );
 			?>
 			<p class="submit-wrap"><input type="submit" name="submit" class="button button-primary rtSaveButton" value="Save Changes"></p>
 

@@ -66,13 +66,13 @@ class TPGSliderLayoutArchive extends Custom_Widget_Base {
 		 * =============
 		 */
 
-		// Layout
+		// Layout.
 		rtTPGElementorHelper::grid_layouts( $this, 'archive' );
 
-		// Query
+		// Query.
 		rtTPGElementorHelper::query_builder( $this );
 
-		// Links
+		// Links.
 		rtTPGElementorHelper::links( $this );
 
 		/**
@@ -80,31 +80,31 @@ class TPGSliderLayoutArchive extends Custom_Widget_Base {
 		 * =============
 		 */
 
-		// Field Selection
+		// Field Selection.
 		rtTPGElementorHelper::field_selection( $this );
 
-		// Section Title Settings
+		// Section Title Settings.
 		rtTPGElementorHelper::section_title_settings( $this, 'archive' );
 
-		// Title Settings
+		// Title Settings.
 		rtTPGElementorHelper::post_title_settings( $this );
 
-		// Thumbnail Settings
+		// Thumbnail Settings.
 		rtTPGElementorHelper::post_thumbnail_settings( $this );
 
-		// Excerpt Settings
+		// Excerpt Settings.
 		rtTPGElementorHelper::post_excerpt_settings( $this );
 
-		// Meta Settings
+		// Meta Settings.
 		rtTPGElementorHelper::post_meta_settings( $this );
 
-		// Advanced Custom Field ACF Settings
+		// Advanced Custom Field ACF Settings.
 		rtTPGElementorHelper::tpg_acf_settings( $this );
 
-		// Readmore Settings
+		// Readmore Settings.
 		rtTPGElementorHelper::post_readmore_settings( $this );
 
-		// Slider Settings
+		// Slider Settings.
 		rtTPGElementorHelper::slider_settings( $this );
 
 		/**
@@ -112,41 +112,41 @@ class TPGSliderLayoutArchive extends Custom_Widget_Base {
 		 * =============
 		 */
 
-		// Section Title
+		// Section Title.
 		rtTPGElementorHelper::sectionTitle( $this, 'archive' );
 
-		// Title Style
+		// Title Style.
 		rtTPGElementorHelper::titleStyle( $this );
 
-		// Thumbnail Style
+		// Thumbnail Style.
 		rtTPGElementorHelper::thumbnailStyle( $this );
 
-		// Content Style
+		// Content Style.
 		rtTPGElementorHelper::contentStyle( $this );
 
-		// Meta Info Style
+		// Meta Info Style.
 		rtTPGElementorHelper::metaInfoStyle( $this );
 
-		// Social Style
+		// Social Style.
 		rtTPGElementorHelper::socialShareStyle( $this );
 
-		// ACF Style
+		// ACF Style.
 		rtTPGElementorHelper::tpg_acf_style( $this );
 
-		// Read more style
+		// Read more style.
 		rtTPGElementorHelper::readmoreStyle( $this );
 
-		// Link Style
+		// Link Style.
 		rtTPGElementorHelper::linkStyle( $this );
 
-		// Slider Style
+		// Slider Style.
 		rtTPGElementorHelper::slider_style( $this );
 		rtTPGElementorHelper::slider_thumb_style( $this );
 
-		// Box Settings
+		// Box Settings.
 		rtTPGElementorHelper::articlBoxSettings( $this );
 
-		// Promotions
+		// Promotions.
 		rtTPGElementorHelper::promotions( $this );
 	}
 
@@ -168,7 +168,7 @@ class TPGSliderLayoutArchive extends Custom_Widget_Base {
 			add_action( 'wp_footer', [ $this, 'get_modal_markup' ], 1 );
 		}
 
-		// Query
+		// Query.
 		$query_args     = rtTPGElementorQuery::post_query_builder( $data, $_prefix );
 		$query          = new WP_Query( $query_args );
 		$rand           = mt_rand();
@@ -186,13 +186,14 @@ class TPGSliderLayoutArchive extends Custom_Widget_Base {
 		/**
 		 * Post type render
 		 */
-
 		$post_types = Fns::get_post_types();
 		foreach ( $post_types as $post_type => $label ) {
 			$_taxonomies = get_object_taxonomies( $post_type, 'object' );
+
 			if ( empty( $_taxonomies ) ) {
 				continue;
 			}
+
 			$post_data[ $data['post_type'] . '_taxonomy' ] = isset( $data[ $data['post_type'] . '_taxonomy' ] ) ? $data[ $data['post_type'] . '_taxonomy' ] : '';
 			$post_data[ $data['post_type'] . '_tags' ]     = isset( $data[ $data['post_type'] . '_tags' ] ) ? $data[ $data['post_type'] . '_tags' ] : '';
 		}
@@ -219,14 +220,14 @@ class TPGSliderLayoutArchive extends Custom_Widget_Base {
 
 		?>
 		<div class="rt-container-fluid rt-tpg-container tpg-el-main-wrapper slider-layout-main loading <?php echo esc_attr( $_layout . '-main' ); ?>"
-			 id="<?php echo esc_attr( $layoutID ); ?>"
-			 data-layout="<?php echo esc_attr( $data[ $_prefix . '_layout' ] ); ?>"
-			 data-grid-style=""
-			 data-desktop-col="<?php echo esc_attr( $gird_column_desktop ); ?>"
-			 data-tab-col="<?php echo esc_attr( $gird_column_tab ); ?>"
-			 data-mobile-col="<?php echo esc_attr( $gird_column_mobile ); ?>"
-			 data-sc-id="elementor"
-			 data-el-query=''
+			id="<?php echo esc_attr( $layoutID ); ?>"
+			data-layout="<?php echo esc_attr( $data[ $_prefix . '_layout' ] ); ?>"
+			data-grid-style=""
+			data-desktop-col="<?php echo esc_attr( $gird_column_desktop ); ?>"
+			data-tab-col="<?php echo esc_attr( $gird_column_tab ); ?>"
+			data-mobile-col="<?php echo esc_attr( $gird_column_mobile ); ?>"
+			data-sc-id="elementor"
+			data-el-query=''
 		>
 			<?php
 
@@ -242,7 +243,6 @@ class TPGSliderLayoutArchive extends Custom_Widget_Base {
 			}
 
 			$wrapper_class = [];
-			// $wrapper_class[] = $_layout;
 			$wrapper_class[] = 'rt-content-loader grid-behaviour';
 
 			if ( $_layout == 'slider-layout1' ) {
@@ -273,11 +273,8 @@ class TPGSliderLayoutArchive extends Custom_Widget_Base {
 
 			$wrapper_class[] = $_prefix . '_layout_wrapper';
 
-			// section title settings
+			// section title settings.
 			$this->get_section_title( $data );
-
-			// $data['carousel_overflow']
-			// $data['slider_gap']
 
 			$slider_data = [
 				'speed'           => $data['speed'],
@@ -300,12 +297,13 @@ class TPGSliderLayoutArchive extends Custom_Widget_Base {
 
 			<div class="slider-main-wrapper <?php echo esc_attr( $_layout ); ?>">
 				<div class="rt-swiper-holder swiper"
-					 data-rtowl-options='<?php echo wp_json_encode( $slider_data ); ?>'
-					 dir="<?php echo esc_attr( $data['slider_direction'] ); ?>">
+					data-rtowl-options='<?php echo wp_json_encode( $slider_data ); ?>'
+					dir="<?php echo esc_attr( $data['slider_direction'] ); ?>">
 					<div class="swiper-wrapper <?php echo esc_attr( implode( ' ', $wrapper_class ) ); ?>">
 						<?php
 						if ( $query->have_posts() ) {
 							$pCount = 1;
+
 							while ( $query->have_posts() ) {
 								$query->the_post();
 								set_query_var( 'tpg_post_count', $pCount );
@@ -352,11 +350,11 @@ class TPGSliderLayoutArchive extends Custom_Widget_Base {
 								<?php
 								if ( $query->have_posts() ) {
 									$pCount = 1;
+
 									while ( $query->have_posts() ) {
 										$query->the_post();
 										set_query_var( 'tpg_post_count', $pCount );
 										set_query_var( 'tpg_total_posts', $query->post_count );
-										// $this->tpg_template( $post_data );
 										?>
 										<div class="swiper-slide">
 											<div class="post-thumbnail-wrap">
@@ -392,14 +390,9 @@ class TPGSliderLayoutArchive extends Custom_Widget_Base {
 						</div>
 					</div>
 				<?php endif; ?>
-
-
 			</div>
-
-
 		</div>
 		<?php
 		do_action( 'tpg_elementor_script' );
 	}
-
 }
