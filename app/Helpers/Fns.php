@@ -2069,7 +2069,7 @@ class Fns {
 				absint( $pID ),
 				esc_url( get_permalink() ),
 				esc_attr( $link_class ),
-				esc_attr( $data['link_target'] ),
+				esc_attr( $data['link_target'] )
 			);
 			$link_end   = $readmore_link_end = '</a>';
 		} elseif ( 'popup' == $data['post_link_type'] ) {
@@ -2084,7 +2084,7 @@ class Fns {
 				absint( $pID ),
 				esc_url( get_permalink() ),
 				esc_attr( $link_class ),
-				esc_attr( $data['link_target'] ),
+				esc_attr( $data['link_target'] )
 			);
 			$link_end   = $readmore_link_end = '</a>';
 		} elseif ( 'multi_popup' == $data['post_link_type'] ) {
@@ -2094,7 +2094,7 @@ class Fns {
 				absint( $pID ),
 				esc_url( get_permalink() ),
 				esc_attr( $link_class ),
-				esc_attr( $data['link_target'] ),
+				esc_attr( $data['link_target'] )
 			);
 			$link_end   = $readmore_link_end = '</a>';
 		} else {
@@ -2104,7 +2104,7 @@ class Fns {
 				absint( $pID ),
 				esc_url( get_permalink() ),
 				esc_attr( $link_class ),
-				esc_attr( $data['link_target'] ),
+				esc_attr( $data['link_target'] )
 			);
 			$readmore_link_end   = '</a>';
 		}
