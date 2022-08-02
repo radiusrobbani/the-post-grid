@@ -480,7 +480,7 @@ class Options {
 			],
 			'layout'                           => [
 				'type'    => 'radio-image',
-				'label'   => __( 'Layout', 'the-post-grid' ),
+				'label'   => esc_html__( 'Layout', 'the-post-grid' ),
 				'id'      => 'rt-tpg-sc-layout',
 				'class'   => 'rt-select2',
 				'options' => self::rtTPGLayouts(),
@@ -519,7 +519,7 @@ class Options {
 				'holderClass' => 'sc-tpg-grid-filter sc-tpg-filter tpg-hidden',
 				'class'       => 'rt-select2',
 				'attr'        => "data-selected='" . get_post_meta( get_the_ID(), 'tgp_default_filter', true ) . "'",
-				'options'     => [ '' => __( 'Show All', 'the-post-grid' ) ],
+				'options'     => [ '' => esc_html__( 'Show All', 'the-post-grid' ) ],
 			],
 			'tpg_hide_all_button'              => [
 				'type'        => 'switch',
@@ -552,7 +552,7 @@ class Options {
 					'isotope_default_filter',
 					true
 				) . "'",
-				'options'     => [ '' => __( 'Show all', 'the-post-grid' ) ],
+				'options'     => [ '' => esc_html__( 'Show all', 'the-post-grid' ) ],
 			],
 			'tpg_show_all_text'                => [
 				'type'        => 'text',

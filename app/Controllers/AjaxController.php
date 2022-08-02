@@ -298,7 +298,7 @@ class AjaxController {
 		if ( $scQ->have_posts() ) {
 			$html .= "<div class='mce-container mce-form'>";
 			$html .= "<div class='mce-container-body'>";
-			$html .= '<label class="mce-widget mce-label" style="padding: 20px;font-weight: bold;" for="scid">' . __( 'Select Short code', 'the-post-grid' ) . '</label>';
+			$html .= '<label class="mce-widget mce-label" style="padding: 20px;font-weight: bold;" for="scid">' . esc_html__( 'Select Short code', 'the-post-grid' ) . '</label>';
 			$html .= "<select name='id' id='scid' style='width: 150px;margin: 15px;'>";
 			$html .= "<option value=''>" . esc_html__( 'Default', 'the-post-grid' ) . '</option>';
 

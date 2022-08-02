@@ -6163,7 +6163,8 @@ class rtTPGElementorHelper {
 	}
 
 	/**
-	 * Get Social Share
+
+	* Get Social Share
 	 *
 	 * @param $ref
 	 * @param $prefix
@@ -6337,7 +6338,7 @@ class rtTPGElementorHelper {
 			$ref->add_control(
 				$ss . '_social_icon_bg_color',
 				[
-					'label'     => esc_html__( ucwords( $ss ) . ' Background', 'the-post-grid' ),
+					'label'     => ucwords( $ss ) . esc_html__( ' Background', 'the-post-grid' ),
 					'type'      => \Elementor\Controls_Manager::COLOR,
 					'selectors' => [
 						'{{WRAPPER}} .rt-tpg-social-share a.' . $ss . ' i' => 'background-color: {{VALUE}}',
@@ -6416,7 +6417,7 @@ class rtTPGElementorHelper {
 			$ref->add_control(
 				$ss . '_social_icon_bg_color_hover',
 				[
-					'label'     => esc_html__( ucwords( $ss ) . ' Background - Hover', 'the-post-grid' ),
+					'label'     => ucwords( $ss ) . esc_html__( ' Background - Hover', 'the-post-grid' ),
 					'type'      => \Elementor\Controls_Manager::COLOR,
 					'selectors' => [
 						'{{WRAPPER}} .rt-tpg-social-share a.' . $ss . ':hover i' => 'background-color: {{VALUE}}',

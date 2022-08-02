@@ -54,7 +54,7 @@ class MetaController {
 	 * @return array
 	 */
 	public function arrange_rttpg_columns( $columns ) {
-		$shortcode = [ 'shortcode' => __( 'Shortcode', 'the-post-grid' ) ];
+		$shortcode = [ 'shortcode' => esc_html__( 'Shortcode', 'the-post-grid' ) ];
 
 		return array_slice( $columns, 0, 2, true ) + $shortcode + array_slice( $columns, 1, null, true );
 	}
@@ -199,13 +199,17 @@ class MetaController {
 			esc_html__( 'Get started by spending some time with the documentation we included step by step process with screenshots with video.', 'the-post-grid' )
 		);
 
+		$rtContact = 'https://www.radiustheme.com/contact/';
+		$rtFb      = 'https://www.facebook.com/groups/234799147426640/';
+		$rtsite    = 'https://www.radiustheme.com/';
+
 		$html .= '<div class="rt-document-box">
 						<div class="rt-box-icon"><i class="dashicons dashicons-sos"></i></div>
 						<div class="rt-box-content">
 							<h3 class="rt-box-title">Need Help?</h3>
 							<p>Stuck with something? Please create a
-							<a href="https://www.radiustheme.com/contact/">ticket here</a> or post on <a href="https://www.facebook.com/groups/234799147426640/">facebook group</a>. For emergency case join our <a href="https://www.radiustheme.com/">live chat</a>.</p>
-							<a href="https://www.radiustheme.com/contact/" target="_blank" class="rt-admin-btn">' . __( 'Get Support', 'the-post-grid' ) . '</a>
+							<a href="' . esc_url( $rtContact ) . '">ticket here</a> or post on <a href="' . esc_url( $rtFb ) . '">facebook group</a>. For emergency case join our <a href="' . esc_url( $rtsite ) . '">live chat</a>.</p>
+							<a href="' . esc_url( $rtContact ) . '" target="_blank" class="rt-admin-btn">' . esc_html__( 'Get Support', 'the-post-grid' ) . '</a>
 						</div>
 					</div>';
 
@@ -473,7 +477,7 @@ class MetaController {
 		}
 
 		if ( isset( $_POST['_tpg_last_active_tab'] ) && $active_tab = sanitize_text_field( wp_unslash( $_POST['_tpg_last_active_tab'] ) ) ) {
-			update_post_meta( $post_id, '_tpg_last_active_tab', $_POST['_tpg_last_active_tab'] );
+			update_post_meta( $post_id, '_tpg_last_active_tab', $active_tab );
 		}
 
 	}

@@ -25,10 +25,10 @@ class TPGWidget extends WP_Widget {
 	public function __construct() {
 		$widget_ops = [
 			'classname'   => 'widget_tpg_post_grid',
-			'description' => __( 'Display the post grid.', 'the-post-grid' ),
+			'description' => esc_html__( 'Display the post grid.', 'the-post-grid' ),
 		];
 
-		parent::__construct( 'widget_tpg_post_grid', __( 'The Post Grid', 'the-post-grid' ), $widget_ops );
+		parent::__construct( 'widget_tpg_post_grid', esc_html__( 'The Post Grid', 'the-post-grid' ), $widget_ops );
 
 	}
 

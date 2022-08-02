@@ -880,7 +880,7 @@ class AdminAjaxController {
 				$data .= "</div>$selectedSubTermsForButton</div>";
 			}
 
-			$data .= "<div data-title='" . __( 'Loading ...', 'the-post-grid' ) . "' class='rt-row rt-content-loader {$layout} {$masonryG} {$preLoader}'>";
+			$data .= "<div data-title='" . esc_html__( 'Loading ...', 'the-post-grid' ) . "' class='rt-row rt-content-loader {$layout} {$masonryG} {$preLoader}'>";
 
 			if ( $gridQuery->have_posts() ) {
 				if ( $isCarousel ) {

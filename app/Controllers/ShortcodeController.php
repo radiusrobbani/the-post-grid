@@ -595,7 +595,7 @@ class ShortcodeController {
 			if ( ! empty( $filters ) && ( $isGrid || $isOffset || $isWooCom || $isEdd ) ) {
 				$html                     .= "<div class='rt-layout-filter-container rt-clear'><div class='rt-filter-wrap'>";
 				$selectedSubTermsForButton = null;
-				$allText                   = apply_filters( 'tpg_filter_all_text', __( 'All', 'the-post-grid' ), $scMeta );
+				$allText                   = apply_filters( 'tpg_filter_all_text', esc_html__( 'All', 'the-post-grid' ), $scMeta );
 
 				if ( in_array( '_taxonomy_filter', $filters ) && $taxFilter ) {
 					$filterType     = ( ! empty( $scMeta['tgp_filter_type'][0] ) ? $scMeta['tgp_filter_type'][0] : null );
@@ -865,15 +865,15 @@ class ShortcodeController {
 					}
 
 					if ( $action_orderby == 'none' ) {
-						$action_orderby_label = __( 'Sort By None', 'the-post-grid' );
+						$action_orderby_label = esc_html__( 'Sort By None', 'the-post-grid' );
 					} elseif ( in_array( $action_orderby, array_keys( Options::rtMetaKeyType() ) ) ) {
-						$action_orderby_label = __( 'Meta value', 'the-post-grid' );
+						$action_orderby_label = esc_html__( 'Meta value', 'the-post-grid' );
 					} else {
 						$action_orderby_label = $orders[ $action_orderby ];
 					}
 
 					if ( $action_orderby !== 'none' ) {
-						$orders['none'] = __( 'Sort By None', 'the-post-grid' );
+						$orders['none'] = esc_html__( 'Sort By None', 'the-post-grid' );
 					}
 					$html .= '<div class="rt-filter-item-wrap rt-order-by-action rt-filter-dropdown-wrap">';
 					$html .= "<span class='order-by-default rt-filter-dropdown-default' data-order-by='{$action_orderby}'>
@@ -1195,7 +1195,7 @@ class ShortcodeController {
 						$htmlUtility .= "<div class='rt-page-numbers'></div>";
 					} elseif ( $posts_loading_type == 'load_more' && rtTPG()->hasPro() ) {
 						$load_more_btn_text = ( ! empty( $scMeta['load_more_text'][0] ) ? $scMeta['load_more_text'][0] : '' );
-						$load_more_text     = $load_more_btn_text ? esc_html( $load_more_btn_text ) : __( 'Load More', 'the-post-grid' );
+						$load_more_text     = $load_more_btn_text ? esc_html( $load_more_btn_text ) : esc_html__( 'Load More', 'the-post-grid' );
 
 						$htmlUtility .= "<div class='rt-loadmore-btn rt-loadmore-action rt-loadmore-style{$hide}'>
 											<span class='rt-loadmore-text'>" . $load_more_text . "</span>
@@ -1289,7 +1289,7 @@ class ShortcodeController {
 			wp_enqueue_script( $script );
 
 		} else {
-			$html .= '<p>' . __( 'No shortCode found', 'the-post-grid' ) . '</p>';
+			$html .= '<p>' . esc_html__( 'No shortCode found', 'the-post-grid' ) . '</p>';
 		}
 
 		// restriction issue.
@@ -1304,7 +1304,7 @@ class ShortcodeController {
 					if ( count( array_intersect( $restriction, $currentUserRoles ) ) ) {
 						$html = $html;
 					} else {
-						$html = '<p>' . __(
+						$html = '<p>' . esc_html__(
 							'You are not permitted to view this content.',
 							'the-post-grid'
 						) . '</p>';

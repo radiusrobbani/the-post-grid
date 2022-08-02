@@ -45,10 +45,7 @@ abstract class Custom_Widget_Base extends Widget_Base {
 		if ( ! rtTPG()->hasPro() ) {
 			$this->pro_label       = __( '<span class="tpg-pro-label">Pro</span>', 'the-post-grid' );
 			$this->is_post_layout  = ' the-post-grid-pro-needed';
-			$this->get_pro_message = __(
-				'Please <a target="_blank" href="' . esc_url( rtTpg()->proLink() ) . '">upgrade</a> to pro for more options',
-				'the-post-grid'
-			);
+			$this->get_pro_message = 'Please <a target="_blank" href="' . esc_url( rtTpg()->proLink() ) . '">upgrade</a> to pro for more options';
 		}
 
 		parent::__construct( $data, $args );
@@ -59,7 +56,7 @@ abstract class Custom_Widget_Base extends Widget_Base {
 			return;
 		}
 
-		return __( 'Please <a target="_blank" href="' . esc_url( rtTpg()->proLink() ) . '">upgrade</a> to pro for ' . $message, 'the-post-grid' );
+		return 'Please <a target="_blank" href="' . esc_url( rtTpg()->proLink() ) . '">upgrade</a> to pro for ' . esc_html( $message );
 	}
 
 	public function get_name() {
@@ -210,7 +207,7 @@ abstract class Custom_Widget_Base extends Widget_Base {
 				'hide_empty' => true,
 			]
 		);
-		$options = [ '0' => __( 'All Categories', 'the-post-grid' ) ];
+		$options = [ '0' => esc_html__( 'All Categories', 'the-post-grid' ) ];
 
 		if ( ! empty( $terms ) && ! is_wp_error( $terms ) ) {
 			foreach ( $terms as $term ) {
@@ -346,7 +343,7 @@ abstract class Custom_Widget_Base extends Widget_Base {
 			$default_term_key = $taxFilter . '_default_terms';
 			$default_term     = $data[ $default_term_key ];
 
-			$allText = $data['tax_filter_all_text'] ? $data['tax_filter_all_text'] : __( 'All ', 'the-post-grid' ) . $taxonomy_label;
+			$allText = $data['tax_filter_all_text'] ? $data['tax_filter_all_text'] : esc_html__( 'All ', 'the-post-grid' ) . $taxonomy_label;
 
 			$_taxonomies = get_object_taxonomies( $data['post_type'], 'objects' );
 			$terms       = [];
@@ -542,7 +539,7 @@ abstract class Custom_Widget_Base extends Widget_Base {
 				$users = get_users( apply_filters( 'tpg_author_arg', [] ) );
 			}
 
-			$allText        = $allText = $data['author_filter_all_text'] ? $data['author_filter_all_text'] : __( 'All Users', 'the-post-grid' );
+			$allText        = $allText = $data['author_filter_all_text'] ? $data['author_filter_all_text'] : esc_html__( 'All Users', 'the-post-grid' );
 			$allSelect      = ' selected';
 			$isTermSelected = true;
 
@@ -634,15 +631,15 @@ abstract class Custom_Widget_Base extends Widget_Base {
 			$action_orderby = ( ! empty( $data['orderby'] ) ? $data['orderby'] : 'none' );
 
 			if ( $action_orderby == 'none' ) {
-				$action_orderby_label = __( 'Sort By', 'the-post-grid' );
+				$action_orderby_label = esc_html__( 'Sort By', 'the-post-grid' );
 			} elseif ( in_array( $action_orderby, array_keys( Options::rtMetaKeyType() ) ) ) {
-				$action_orderby_label = __( 'Meta value', 'the-post-grid' );
+				$action_orderby_label = esc_html__( 'Meta value', 'the-post-grid' );
 			} else {
-				$action_orderby_label = __( 'By ', 'the-post-grid' ) . $action_orderby;
+				$action_orderby_label = esc_html__( 'By ', 'the-post-grid' ) . $action_orderby;
 			}
 
 			if ( $action_orderby !== 'none' ) {
-				$orders['none'] = __( 'Sort By', 'the-post-grid' );
+				$orders['none'] = esc_html__( 'Sort By', 'the-post-grid' );
 			}
 
 			$html .= '<div class="rt-filter-item-wrap rt-order-by-action rt-filter-dropdown-wrap" data-filter="orderby">';
@@ -703,7 +700,7 @@ abstract class Custom_Widget_Base extends Widget_Base {
 		} elseif ( rtTPG()->hasPro() && $posts_loading_type == 'pagination_ajax' ) { // && ! $isIsotope
 			$htmlUtility .= "<div class='rt-page-numbers'></div>";
 		} elseif ( rtTPG()->hasPro() && $posts_loading_type == 'load_more' ) {
-			$load_more_btn_text = $data['load_more_button_text'] ? esc_html( $data['load_more_button_text'] ) : __( 'Load More', 'the-post-grid' );
+			$load_more_btn_text = $data['load_more_button_text'] ? esc_html( $data['load_more_button_text'] ) : esc_html__( 'Load More', 'the-post-grid' );
 			$htmlUtility       .= "<div class='rt-loadmore-btn rt-loadmore-action rt-loadmore-style{$hide}'>
 										<span class='rt-loadmore-text'>" . $load_more_btn_text . "</span>
 										<div class='rt-loadmore-loading rt-ball-scale-multiple rt-2x'><div></div><div></div><div></div></div>
@@ -792,7 +789,7 @@ abstract class Custom_Widget_Base extends Widget_Base {
 			<?php
 			if ( $_is_link ) :
 				?>
-			<a <?php echo $this->get_render_attribute_string( 'section_title_link' ); ?>>
+			<a <?php Fns::print_html( $this->get_render_attribute_string( 'section_title_link' ), true ); ?>>
 				<?php endif; ?>
 
 				<?php

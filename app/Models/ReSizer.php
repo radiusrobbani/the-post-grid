@@ -53,13 +53,34 @@ class ReSizer {
 		try {
 			// Validate inputs.
 			if ( ! $url ) {
-				return new WP_Error( 'broke', __( "$url parameter is required", 'the-post-grid' ) );
+				return new WP_Error(
+					'broke',
+					sprintf(
+						/* Translators: %s URL */
+						esc_html__( '%s parameter is required', 'the-post-grid' ),
+						$url
+					)
+				);
 			}
 			if ( ! $width ) {
-				return new WP_Error( 'broke', __( "$width parameter is required", 'the-post-grid' ) );
+				return new WP_Error(
+					'broke',
+					sprintf(
+						/* Translators: %s Width */
+						esc_html__( '%s parameter is required', 'the-post-grid' ),
+						$width
+					)
+				);
 			}
 			if ( ! $height ) {
-				return new WP_Error( 'broke', __( "$height parameter is required", 'the-post-grid' ) );
+				return new WP_Error(
+					'broke',
+					sprintf(
+						/* Translators: %s Height */
+						esc_html__( '%s parameter is required', 'the-post-grid' ),
+						$height
+					)
+				);
 			}
 
 			// Caipt'n, ready to hook.
@@ -96,7 +117,14 @@ class ReSizer {
 
 			// Check if $img_url is local.
 			if ( false === strpos( $url, $upload_url ) ) {
-				return new WP_Error( 'broke', __( "Image must be local: $url", 'the-post-grid' ) );
+				return new WP_Error(
+					'broke',
+					sprintf(
+						/* Translators: %s URL */
+						esc_html__( 'Image must be local: %s', 'the-post-grid' ),
+						$url
+					)
+				);
 			}
 
 			// Define path of image.

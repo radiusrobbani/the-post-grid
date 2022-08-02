@@ -2520,7 +2520,7 @@ class Fns {
 			$lazy_class = 'swiper-lazy';
 		}
 
-		echo $data['is_thumb_linked'] === 'yes' ? self::wp_kses( $link_start ) : null;
+		echo 'yes' === $data['is_thumb_linked'] ? wp_kses( $link_start, self::allowedHtml() ) : null;
 
 		if ( has_post_thumbnail() && 'feature_image' === $data['media_source'] ) {
 			$fImgSize = $data['image_size'];
@@ -2591,7 +2591,7 @@ class Fns {
 			<div class="swiper-lazy-preloader swiper-lazy-preloader-white"></div>
 		<?php endif; ?>
 
-		<?php echo $data['is_thumb_linked'] === 'yes' ? self::wp_kses( $link_end ) : null; ?>
+		<?php echo 'yes' === $data['is_thumb_linked'] ? wp_kses( $link_end, self::allowedHtml() ) : null; ?>
 
 		<?php
 		if ( 'show' === $data['is_thumb_lightbox'] || ( in_array( $data['layout'], [ 'grid-layout7', 'slider-layout4' ] ) && in_array( $data['is_thumb_lightbox'], [ 'default', 'show' ] ) ) ) :

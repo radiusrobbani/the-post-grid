@@ -21,6 +21,7 @@ class ComposerStaticInit980773d3d1a4a085b2a5ee06b8a191ee
     );
 
     public static $classMap = array (
+        'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
         'RT\\ThePostGrid\\Controllers\\Admin\\AdminAjaxController' => __DIR__ . '/../..' . '/app/Controllers/Admin/AdminAjaxController.php',
         'RT\\ThePostGrid\\Controllers\\Admin\\MetaController' => __DIR__ . '/../..' . '/app/Controllers/Admin/MetaController.php',
         'RT\\ThePostGrid\\Controllers\\Admin\\NoticeController' => __DIR__ . '/../..' . '/app/Controllers/Admin/NoticeController.php',

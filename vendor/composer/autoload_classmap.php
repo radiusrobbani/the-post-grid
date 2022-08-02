@@ -6,6 +6,7 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'Composer\\InstalledVersions' => $vendorDir . '/composer/InstalledVersions.php',
     'RT\\ThePostGrid\\Controllers\\Admin\\AdminAjaxController' => $baseDir . '/app/Controllers/Admin/AdminAjaxController.php',
     'RT\\ThePostGrid\\Controllers\\Admin\\MetaController' => $baseDir . '/app/Controllers/Admin/MetaController.php',
     'RT\\ThePostGrid\\Controllers\\Admin\\NoticeController' => $baseDir . '/app/Controllers/Admin/NoticeController.php',
