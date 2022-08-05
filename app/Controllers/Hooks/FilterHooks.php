@@ -56,7 +56,7 @@ class FilterHooks {
 	}
 
 	/**
-	 * Set view count.
+	 * Set view count
 	 *
 	 * @param string $content Content.
 	 * @return string
