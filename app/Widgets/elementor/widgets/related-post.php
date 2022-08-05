@@ -38,6 +38,7 @@ class TPGRelatedPost extends Custom_Widget_Base {
 	public function get_script_depends() {
 		$scripts = [];
 		array_push( $scripts, 'imagesloaded' );
+		array_push( $scripts, 'swiper' );
 		array_push( $scripts, 'rt-tpg' );
 		array_push( $scripts, 'rt-tpg-el-pro' );
 
@@ -166,9 +167,9 @@ class TPGRelatedPost extends Custom_Widget_Base {
 			add_action( 'wp_footer', [ $this, 'get_modal_markup' ], 1 );
 		}
 
-		if ( 'show' == $data['show_pagination'] && 'pagination_ajax' == $data['pagination_type'] ) {
-			wp_enqueue_script( 'rt-pagination' );
-		}
+		// if ( 'show' == $data['show_pagination'] && 'pagination_ajax' == $data['pagination_type'] ) {
+		// 	wp_enqueue_script( 'rt-pagination' );
+		// }
 
 		// Query.
 		$query_args     = rtTPGElementorQuery::post_query_builder( $data, $_prefix, 'single' );

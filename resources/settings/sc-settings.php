@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 ?>
 <div class="field-holder">
-	<div class="field-label"><?php _e( 'ShortCode Heading', 'the-post-grid' ); ?></div>
+	<div class="field-label"><?php esc_html_e( 'ShortCode Heading', 'the-post-grid' ); ?></div>
 	<div class="field">
 		<?php Fns::print_html( Fns::rtFieldGenerator( Options::rtTPGSCHeadingSettings() ), true ); ?>
 	</div>
@@ -29,31 +29,31 @@ if ( ! defined( 'ABSPATH' ) ) {
 	</div>
 </div>
 <div class="field-holder">
-	<div class="field-label"><?php _e( 'Title', 'the-post-grid' ); ?></div>
+	<div class="field-label"><?php esc_html_e( 'Title', 'the-post-grid' ); ?></div>
 	<div class="field">
 		<?php Fns::print_html( Fns::rtFieldGenerator( Options::rtTPGSCTitleSettings() ), true ); ?>
 	</div>
 </div>
 <div class="field-holder">
-	<div class="field-label"><?php _e( 'Meta', 'the-post-grid' ); ?></div>
+	<div class="field-label"><?php esc_html_e( 'Meta', 'the-post-grid' ); ?></div>
 	<div class="field">
 		<?php Fns::print_html( Fns::rtFieldGenerator( Options::rtTPGSCMetaSettings() ), true ); ?>
 	</div>
 </div>
 <div class="field-holder">
-	<div class="field-label"><?php _e( 'Image', 'the-post-grid' ); ?></div>
+	<div class="field-label"><?php esc_html_e( 'Image', 'the-post-grid' ); ?></div>
 	<div class="field">
 		<?php Fns::print_html( Fns::rtFieldGenerator( Options::rtTPGSCImageSettings() ), true ); ?>
 	</div>
 </div>
 <div class="field-holder">
-	<div class="field-label"><?php _e( 'Excerpt', 'the-post-grid' ); ?></div>
+	<div class="field-label"><?php esc_html_e( 'Excerpt', 'the-post-grid' ); ?></div>
 	<div class="field">
 		<?php Fns::print_html( Fns::rtFieldGenerator( Options::rtTPGSCExcerptSettings() ), true ); ?>
 	</div>
 </div>
 <div class="field-holder">
-	<div class="field-label"><?php _e( 'Read More Button', 'the-post-grid' ); ?></div>
+	<div class="field-label"><?php esc_html_e( 'Read More Button', 'the-post-grid' ); ?></div>
 	<div class="field">
 		<?php Fns::print_html( Fns::rtFieldGenerator( Options::rtTPGSCButtonSettings() ), true ); ?>
 	</div>
