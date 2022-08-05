@@ -49,7 +49,7 @@ class FilterHooks {
 		$settings = get_option( 'rt_the_post_grid_settings' );
 
 		if ( isset( $settings['tpg_block_type'] ) && in_array( $settings['tpg_block_type'], [ 'elementor', 'shortcode' ], true ) ) {
-			$clsses .= 'tpg-block-type-elementor-or-shortcode';
+			$clsses .= ' tpg-block-type-elementor-or-shortcode';
 		}
 
 		return $clsses;
