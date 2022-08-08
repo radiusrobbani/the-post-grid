@@ -662,12 +662,13 @@ class Options {
 				'id'          => 'rt-tpg-pagination',
 				'description' => esc_html__( 'Pagination not allow in Grid Hover layout', 'the-post-grid' ),
 				'option'      => 'Enable',
+				'default'     => 1,
 			],
 			'posts_per_page'        => [
 				'type'        => 'number',
 				'label'       => esc_html__( 'Display per page', 'the-post-grid' ),
 				'holderClass' => 'pagination-item posts-per-page tpg-hidden',
-				'default'     => 5,
+				'default'     => 9,
 				'description' => esc_html__( 'If value of Limit setting is not blank (empty), this value should be smaller than Limit value.', 'the-post-grid' ),
 			],
 			'posts_loading_type'    => [

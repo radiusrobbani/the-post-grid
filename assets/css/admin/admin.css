@@ -1198,7 +1198,7 @@ body .rt-admin-btn:hover {
     -webkit-transform: rotate(45deg);
     width: 67px;
     display: block;
-    background: linear-gradient(#f70505,#8f0808);
+    background: linear-gradient(#f70505, #8f0808);
     box-shadow: 0 3px 10px -5px #000;
     position: absolute;
     top: 7px;
@@ -1546,14 +1546,14 @@ input:checked + .rttm-switch-slider:before {
 #tpg_common_settings_heading_holder {
     display: flex;
     flex-direction: column;
-    background: #db1f31!important;
+    background: #db1f31 !important;
     padding: 13px 19px 15px;
     margin-top: -15px;
     margin-left: -15px;
     margin-right: -15px;
 }
 
-#tpg_common_settings_heading_holder .field{
+#tpg_common_settings_heading_holder .field {
     background: none;
     border: none;
     padding: 10px 0 0;
@@ -1562,10 +1562,11 @@ input:checked + .rttm-switch-slider:before {
 #tpg_common_settings_heading_holder.field-holder .field-label {
     width: 100%;
     font-size: 21px;
-    border-bottom: 1px solid rgba(0,0,0,.2);
+    border-bottom: 1px solid rgba(0, 0, 0, .2);
     padding-bottom: 11px;
     color: #ffffff;
 }
+
 #tpg_common_settings_heading_holder.field-holder .description {
     color: #ffffff;
     font-size: 17px;
@@ -1596,7 +1597,7 @@ body .rt-tpg-container .swiper-navigation .slider-btn {
 }
 
 label[for="popup-fields-tpg_default_value"],
-label[for="item-fields-tpg_default_value"]{
+label[for="item-fields-tpg_default_value"] {
     display: none !important;
     pointer-events: none;
     text-indent: -99999px;
@@ -1803,11 +1804,12 @@ Date Picker CSS
     margin: 6px 0 0 2px;
 }
 
-.ui-datepicker .ui-state-default.ui-state-highlight{
+.ui-datepicker .ui-state-default.ui-state-highlight {
     border-color: #dcdcdc;
     background-color: #cff3f8 !important;
     color: #3e9aba !important;
 }
+
 .openemr-calendar .ui-state-default {
     font-size: 10px;
     margin: 0;
@@ -1899,4 +1901,9 @@ Date Picker CSS
 
 .openemr-calendar .ui-datepicker-month {
     margin-right: 10px !important;
+}
+
+.rt-pagination .pagination-list > li > a,
+.rt-pagination .pagination-list > li > span {
+    pointer-events: none;
 }

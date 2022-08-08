@@ -192,7 +192,6 @@ class ShortcodeController {
 			$args['posts_per_page'] = $limit;
 			$pagination             = ! empty( $scMeta['pagination'][0] );
 			$posts_loading_type     = ( ! empty( $scMeta['posts_loading_type'][0] ) ? $scMeta['posts_loading_type'][0] : 'pagination' );
-
 			if ( $pagination ) {
 				$posts_per_page         = ( isset( $scMeta['posts_per_page'][0] ) ? intval( $scMeta['posts_per_page'][0] ) : $limit );
 				$args['posts_per_page'] = $posts_per_page;

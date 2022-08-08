@@ -126,7 +126,7 @@ class AdminAjaxController {
 			}
 
 			/* LIMIT */
-			$limit                  = ( ( empty( $_REQUEST['limit'] ) || '-1' === $_REQUEST['limit'] ) ? 10000000 : absint( $_REQUEST['limit'] ) );
+			$limit                  = ( ( empty( $_REQUEST['limit'] ) || '-1' === $_REQUEST['limit'] ) ? -1 : absint( $_REQUEST['limit'] ) );
 			$queryOffset            = empty( $_REQUEST['offset'] ) ? 0 : absint( $_REQUEST['offset'] );
 			$args['posts_per_page'] = $limit;
 			$pagination             = isset( $_REQUEST['pagination'] ) && ! empty( $_REQUEST['pagination'] );
@@ -135,7 +135,7 @@ class AdminAjaxController {
 			if ( $pagination ) {
 				$posts_per_page = ( isset( $_REQUEST['posts_per_page'] ) ? absint( $_REQUEST['posts_per_page'] ) : $limit );
 
-				if ( $posts_per_page > $limit ) {
+				if ( $posts_per_page > $limit && $limit != '-1' ) {
 					$posts_per_page = $limit;
 				}
 
@@ -146,7 +146,7 @@ class AdminAjaxController {
 				$offset        = $posts_per_page * ( (int) $paged - 1 );
 				$args['paged'] = $paged;
 
-				if ( intval( $args['posts_per_page'] ) > $limit - $offset ) {
+				if ( intval( $args['posts_per_page'] ) > $limit - $offset && $limit != '-1' ) {
 					$args['posts_per_page'] = $limit - $offset;
 				}
 			}
@@ -480,6 +480,18 @@ class AdminAjaxController {
 						'terms'    => [ $action_term ],
 					],
 				];
+			}
+
+			if ( $limit != - 1 && $pagination ) {
+				$tempArgs                   = $args;
+				$tempArgs['posts_per_page'] = $limit;
+				$tempArgs['paged']          = 1;
+				$tempArgs['fields']         = 'ids';
+				$tempQ                      = new \WP_Query( $tempArgs );
+
+				if ( ! empty( $tempQ->posts ) ) {
+					$args['post__in'] = $tempQ->posts;
+				}
 			}
 
 			if ( $pagination && $queryOffset && isset( $args['paged'] ) ) {
