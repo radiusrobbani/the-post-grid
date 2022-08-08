@@ -175,8 +175,7 @@ class TPGRelatedPost extends Custom_Widget_Base {
 				}
 			}
 		}
-
-
+        
 		if ( ! rtTPG()->hasPro() ) { ?>
             <h3 style="text-align: center"><?php echo esc_html__( 'Please upgrade to pro for slider layout!', 'the-post-grid' ); ?></h3>
 			<?php
