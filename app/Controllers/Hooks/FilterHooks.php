@@ -45,10 +45,12 @@ class FilterHooks {
 	 * @param string $clsses Classes.
 	 * @return string
 	 */
-	public static function admin_body_class( $clsses ) {
-		$settings = get_option( 'rt_the_post_grid_settings' );
 
-		if ( isset( $settings['tpg_block_type'] ) && in_array( $settings['tpg_block_type'], [ 'elementor', 'shortcode' ], true ) ) {
+	public static function admin_body_class($clsses){
+		$settings = get_option('rt_the_post_grid_settings');
+
+		if( isset($settings['tpg_block_type']) && in_array($settings['tpg_block_type'], ['elementor', 'shortcode']) ) {
+
 			$clsses .= ' tpg-block-type-elementor-or-shortcode';
 		}
 

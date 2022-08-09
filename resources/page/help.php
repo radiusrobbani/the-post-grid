@@ -164,6 +164,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 				margin-left: 0;
 			}
 		}
+
 	</style>
 	<div class="rttpg-help-wrapper" >
 		<div class="rttpg-help-section rt-document-box">

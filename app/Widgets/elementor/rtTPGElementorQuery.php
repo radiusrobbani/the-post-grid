@@ -1,49 +1,43 @@
 <?php
 /**
- * Elementor Query Class
- *
- * @package RT_TPG
+ * @author  RadiusTheme
+ * @since   1.0
+ * @version 1.2
  */
 
-// Do not allow directly accessing this file.
+
+use RT\ThePostGrid\Helpers\Fns;
+
 if ( ! defined( 'ABSPATH' ) ) {
-	exit( 'This script cannot be accessed directly.' );
+	exit;
 }
 
-/**
- * Elementor Query Class
- */
 class rtTPGElementorQuery {
 
 	/**
 	 * Post Query for normal grid widget
 	 *
 	 * @param          $data
-	 * @param  string $prefix
+	 * @param string $prefix
 	 *
 	 * @return array
 	 */
 	public static function post_query( $data, $prefix = '' ): array {
-		$args = [
-			'post_type'   => [ $data['post_type'] ],
-			'post_status' => $data['post_status'],
+		$post_type = isset( $data['post_type'] ) ? $data['post_type'] : 'post';
+		$args      = [
+			'post_type'   => [ $post_type ],
+			'post_status' => isset( $data['post_status'] ) ? $data['post_status'] : 'publish',
 		];
-
-		$excluded_ids = null;
 
 		if ( $data['post_id'] ) {
 			$post_ids = explode( ',', $data['post_id'] );
 			$post_ids = array_map( 'trim', $post_ids );
 
 			$args['post__in'] = $post_ids;
-
-			if ( $excluded_ids != null && is_array( $excluded_ids ) ) {
-				$args['post__in'] = array_diff( $post_ids, $excluded_ids );
-			}
 		}
 
-		if ( 'slider' !== $prefix && 'show' === $data['show_pagination'] ) {
-			$_paged        = is_front_page() ? 'page' : 'paged';
+		if ( $prefix !== 'slider' && 'show' === $data['show_pagination'] ) {
+			$_paged        = is_front_page() ? "page" : "paged";
 			$args['paged'] = get_query_var( $_paged ) ? absint( get_query_var( $_paged ) ) : 1;
 		}
 
@@ -55,7 +49,6 @@ class rtTPGElementorQuery {
 			if ( ! rtTPG()->hasPro() && 'rand' == $orderby ) {
 				$orderby = 'date';
 			}
-
 			$args['orderby'] = $orderby;
 		}
 
@@ -67,23 +60,25 @@ class rtTPGElementorQuery {
 			$args['author__in'] = $data['author'];
 		}
 
-		if ( rtTPG()->hasPro() && $data['date_range'] ) {
-			if ( strpos( $data['date_range'], 'to' ) ) {
-				$date_range         = explode( 'to', $data['date_range'] );
-				$args['date_query'] = [
-					[
-						'after'     => trim( $date_range[0] ),
-						'before'    => trim( $date_range[1] ),
-						'inclusive' => true,
-					],
-				];
+		if ( isset( $data['date_range'] ) ) :
+			if ( rtTPG()->hasPro() && $data['date_range'] ) {
+				if ( strpos( $data['date_range'], 'to' ) ) {
+					$date_range         = explode( 'to', $data['date_range'] );
+					$args['date_query'] = [
+						[
+							'after'     => trim( $date_range[0] ),
+							'before'    => trim( $date_range[1] ),
+							'inclusive' => true,
+						],
+					];
+				}
 			}
-		}
+		endif;
 
 		$_taxonomies = get_object_taxonomies( $data['post_type'], 'objects' );
 
 		foreach ( $_taxonomies as $index => $object ) {
-			if ( in_array( $object->name, Custom_Widget_Base::get_excluded_taxonomy() ) ) {
+			if ( in_array( $object->name, Fns::get_excluded_taxonomy() ) ) {
 				continue;
 			}
 
@@ -97,7 +92,6 @@ class rtTPGElementorQuery {
 				}
 			} else {
 				$setting_key = $object->name . '_ids';
-
 				if ( ! empty( $data[ $setting_key ] ) ) {
 					$args['tax_query'][] = [
 						'taxonomy' => $object->name,
@@ -116,6 +110,27 @@ class rtTPGElementorQuery {
 			$args['s'] = $data['post_keyword'];
 		}
 
+
+		$offset_posts = $excluded_ids = [];
+		if ( $data['exclude'] || $data['offset'] ) {
+			if ( $data['exclude'] ) {
+				$excluded_ids = explode( ',', $data['exclude'] );
+				$excluded_ids = array_map( 'trim', $excluded_ids );
+			}
+
+			if ( $data['offset'] ) {
+				$_temp_args = $args;
+				unset( $_temp_args['paged'] );
+				$_temp_args['posts_per_page'] = $data['offset'];
+				$_temp_args['fields']         = 'ids';
+
+				$offset_posts = get_posts( $_temp_args );
+			}
+
+			$excluded_post_ids    = array_merge( $offset_posts, $excluded_ids );
+			$args['post__not_in'] = array_unique( $excluded_post_ids );
+		}
+
 		if ( $prefix !== 'slider' ) {
 			if ( $data['post_limit'] ) {
 				if ( 'show' !== $data['show_pagination'] ) {
@@ -125,7 +140,10 @@ class rtTPGElementorQuery {
 					$tempArgs['posts_per_page'] = $data['post_limit'];
 					$tempArgs['paged']          = 1;
 					$tempArgs['fields']         = 'ids';
-					$tempQ                      = new WP_Query( $tempArgs );
+					if ( ! empty( $offset_posts ) ) {
+						$tempArgs['post__not_in'] = $offset_posts;
+					}
+					$tempQ = new WP_Query( $tempArgs );
 					if ( ! empty( $tempQ->posts ) ) {
 						$args['post__in']       = $tempQ->posts;
 						$args['posts_per_page'] = $data['post_limit'];
@@ -133,7 +151,6 @@ class rtTPGElementorQuery {
 				}
 			} else {
 				$_posts_per_page = 9;
-
 				if ( 'grid' === $prefix ) {
 					if ( $data['grid_layout'] == 'grid-layout5' ) {
 						$_posts_per_page = 5;
@@ -151,17 +168,32 @@ class rtTPGElementorQuery {
 				} elseif ( 'grid_hover' === $prefix ) {
 					if ( in_array( $data['grid_hover_layout'], [ 'grid_hover-layout4', 'grid_hover-layout4-2' ] ) ) {
 						$_posts_per_page = 7;
-					} elseif ( in_array( $data['grid_hover_layout'], [ 'grid_hover-layout5', 'grid_hover-layout5-2' ] ) ) {
+					} elseif ( in_array( $data['grid_hover_layout'], [
+						'grid_hover-layout5',
+						'grid_hover-layout5-2'
+					] ) ) {
 						$_posts_per_page = 3;
-					} elseif ( in_array(
-						$data['grid_hover_layout'],
-						[ 'grid_hover-layout6', 'grid_hover-layout6-2', 'grid_hover-layout9', 'grid_hover-layout9-2', 'grid_hover-layout10', 'grid_hover-layout11' ]
-					)
+					} elseif ( in_array( $data['grid_hover_layout'],
+						[
+							'grid_hover-layout6',
+							'grid_hover-layout6-2',
+							'grid_hover-layout9',
+							'grid_hover-layout9-2',
+							'grid_hover-layout10',
+							'grid_hover-layout11'
+						] )
 					) {
 						$_posts_per_page = 4;
-					} elseif ( in_array( $data['grid_hover_layout'], [ 'grid_hover-layout7', 'grid_hover-layout7-2', 'grid_hover-layout8' ] ) ) {
+					} elseif ( in_array( $data['grid_hover_layout'], [
+						'grid_hover-layout7',
+						'grid_hover-layout7-2',
+						'grid_hover-layout8'
+					] ) ) {
 						$_posts_per_page = 5;
-					} elseif ( in_array( $data['grid_hover_layout'], [ 'grid_hover-layout6', 'grid_hover-layout6-2' ] ) ) {
+					} elseif ( in_array( $data['grid_hover_layout'], [
+						'grid_hover-layout6',
+						'grid_hover-layout6-2'
+					] ) ) {
 						$_posts_per_page = 4;
 					}
 				}
@@ -174,26 +206,142 @@ class rtTPGElementorQuery {
 			}
 		} else {
 			$slider_per_page = $data['post_limit'];
-
 			if ( $data['slider_layout'] == 'slider-layout10' ) {
 				$slider_reminder = ( intval( $data['post_limit'], 10 ) % 5 );
 				if ( $slider_reminder ) {
 					$slider_per_page = ( $data['post_limit'] - $slider_reminder + 5 );
 				}
 			}
-
 			$args['posts_per_page'] = $slider_per_page;
 		}
 
-		if ( $data['exclude'] || $data['offset'] ) {
-			$excluded_ids = [];
 
+		return $args;
+	}
+
+
+	/**
+	 * Post Query for gutenberg
+	 *
+	 * @param $data
+	 * @param $prefix
+	 *
+	 * @return array
+	 */
+	public static function post_query_guten( $data, $prefix = '' ): array {
+		$post_type = isset( $data['post_type'] ) ? $data['post_type'] : 'post';
+		$args      = [
+			'post_type'   => [ $post_type ],
+			'post_status' => isset( $data['post_status'] ) ? $data['post_status'] : 'publish',
+		];
+
+		if ( $data['post_id'] ) {
+			$post_ids         = explode( ',', $data['post_id'] );
+			$post_ids         = array_map( 'trim', $post_ids );
+			$args['post__in'] = $post_ids;
+		}
+
+		if ( $prefix !== 'slider' && 'show' === $data['show_pagination'] ) {
+			$_paged        = is_front_page() ? "page" : "paged";
+			$args['paged'] = get_query_var( $_paged ) ? absint( get_query_var( $_paged ) ) : 1;
+		}
+
+		if ( rtTPG()->hasPro() && 'yes' == $data['ignore_sticky_posts'] ) {
+			$args['ignore_sticky_posts'] = 1;
+		}
+
+		if ( $orderby = $data['orderby'] ) {
+			if ( ! rtTPG()->hasPro() && 'rand' == $orderby ) {
+				$orderby = 'date';
+			}
+			$args['orderby'] = $orderby;
+		}
+
+		if ( $data['order'] ) {
+			$args['order'] = $data['order'];
+		}
+
+		if ( $data['author'] ) {
+			$args['author__in'] = $data['author'];
+		}
+
+		if ( isset( $data['date_range'] ) ) :
+			if ( rtTPG()->hasPro() && $data['date_range'] ) {
+				if ( strpos( $data['date_range'], 'to' ) ) {
+					$date_range         = explode( 'to', $data['date_range'] );
+					$args['date_query'] = [
+						[
+							'after'     => trim( $date_range[0] ),
+							'before'    => trim( $date_range[1] ),
+							'inclusive' => true,
+						],
+					];
+				}
+			}
+		endif;
+
+		$_taxonomies             = get_object_taxonomies( $data['post_type'], 'objects' );
+		$_taxonomy_list          = $data['taxonomy_lists'];
+		$filtered_taxonomy_lists = [];
+
+		//error_log( print_r( $_taxonomy_list , true ) . "\n\n" , 3, __DIR__ . '/log.txt' );
+
+		if ( isset( $_taxonomy_list ) && ! empty( $_taxonomy_list ) ) {
+			foreach ( $_taxonomies as $index => $object ) {
+				if ( in_array( $object->name, Fns::get_excluded_taxonomy() ) ) {
+					continue;
+				}
+
+				if ( ! isset( $_taxonomy_list[ $object->name ]['options'] ) ) {
+					continue;
+				}
+
+				$_term_list = wp_list_pluck( $_taxonomy_list[ $object->name ]['options'], 'value' );
+				if ( ! empty( $_term_list ) ) {
+					$args['tax_query'][] = [
+						'taxonomy' => $object->name,
+						'field'    => 'term_id',
+						'terms'    => $_term_list,
+					];
+				}
+
+
+				// if ( $prefix !== 'slider' && rtTPG()->hasPro() && 'show' === $data['show_taxonomy_filter'] ) {
+				// 	if ( ( $data[ $data['post_type'] . '_filter_taxonomy' ] == $object->name ) && $data[ $object->name . '_default_terms' ] !== '0' ) {
+				// 		$args['tax_query'][] = [
+				// 			'taxonomy' => $data[ $data['post_type'] . '_filter_taxonomy' ],
+				// 			'field'    => 'term_id',
+				// 			'terms'    => $data[ $object->name . '_default_terms' ],
+				// 		];
+				// 	}
+				// } else {
+				// 	$setting_key = $object->name . '_ids';
+				// 	if ( ! empty( $data[ $setting_key ] ) ) {
+				// 		$args['tax_query'][] = [
+				// 			'taxonomy' => $object->name,
+				// 			'field'    => 'term_id',
+				// 			'terms'    => $data[ $setting_key ],
+				// 		];
+				// 	}
+				// }
+
+			}
+		}
+
+		if ( ! empty( $args['tax_query'] ) && $data['relation'] ) {
+			$args['tax_query']['relation'] = $data['relation'];
+		}
+
+		if ( $data['post_keyword'] ) {
+			$args['s'] = $data['post_keyword'];
+		}
+
+		$offset_posts = $excluded_ids = [];
+		if ( $data['exclude'] || $data['offset'] ) {
 			if ( $data['exclude'] ) {
 				$excluded_ids = explode( ',', $data['exclude'] );
 				$excluded_ids = array_map( 'trim', $excluded_ids );
 			}
-
-			$offset_posts = [];
 
 			if ( $data['offset'] ) {
 				$_temp_args = $args;
@@ -208,6 +356,91 @@ class rtTPGElementorQuery {
 			$args['post__not_in'] = array_unique( $excluded_post_ids );
 		}
 
+		if ( $prefix !== 'slider' ) {
+			if ( $data['post_limit'] ) {
+				if ( 'show' !== $data['show_pagination'] ) {
+					$args['posts_per_page'] = $data['post_limit'];
+				} else {
+					$tempArgs                   = $args;
+					$tempArgs['posts_per_page'] = $data['post_limit'];
+					$tempArgs['paged']          = 1;
+					$tempArgs['fields']         = 'ids';
+					if ( ! empty( $offset_posts ) ) {
+						$tempArgs['post__not_in'] = $offset_posts;
+					}
+					$tempQ = new WP_Query( $tempArgs );
+					if ( ! empty( $tempQ->posts ) ) {
+						$args['post__in']       = $tempQ->posts;
+						$args['posts_per_page'] = $data['post_limit'];
+					}
+				}
+			} else {
+				$_posts_per_page = 9;
+				if ( 'grid' === $prefix ) {
+					if ( $data['grid_layout'] == 'grid-layout5' ) {
+						$_posts_per_page = 5;
+					} elseif ( in_array( $data['grid_layout'], [ 'grid-layout6', 'grid-layout6-2' ] ) ) {
+						$_posts_per_page = 3;
+					} elseif ( in_array( $data['grid_layout'], [ 'grid-layout5', 'grid-layout5-2' ] ) ) {
+						$_posts_per_page = 5;
+					}
+				} elseif ( 'list' === $prefix ) {
+					if ( in_array( $data['list_layout'], [ 'list-layout2', 'list-layout2-2' ] ) ) {
+						$_posts_per_page = 9;
+					} elseif ( in_array( $data['list_layout'], [ 'list-layout3', 'list-layout3-2' ] ) ) {
+						$_posts_per_page = 5;
+					}
+				} elseif ( 'grid_hover' === $prefix ) {
+					if ( in_array( $data['grid_hover_layout'], [ 'grid_hover-layout4', 'grid_hover-layout4-2' ] ) ) {
+						$_posts_per_page = 7;
+					} elseif ( in_array( $data['grid_hover_layout'], [
+						'grid_hover-layout5',
+						'grid_hover-layout5-2'
+					] ) ) {
+						$_posts_per_page = 3;
+					} elseif ( in_array( $data['grid_hover_layout'],
+						[
+							'grid_hover-layout6',
+							'grid_hover-layout6-2',
+							'grid_hover-layout9',
+							'grid_hover-layout9-2',
+							'grid_hover-layout10',
+							'grid_hover-layout11'
+						] )
+					) {
+						$_posts_per_page = 4;
+					} elseif ( in_array( $data['grid_hover_layout'], [
+						'grid_hover-layout7',
+						'grid_hover-layout7-2',
+						'grid_hover-layout8'
+					] ) ) {
+						$_posts_per_page = 5;
+					} elseif ( in_array( $data['grid_hover_layout'], [
+						'grid_hover-layout6',
+						'grid_hover-layout6-2'
+					] ) ) {
+						$_posts_per_page = 4;
+					}
+				}
+
+				$args['posts_per_page'] = $_posts_per_page;
+			}
+
+			if ( 'show' === $data['show_pagination'] && $data['display_per_page'] ) {
+				$args['posts_per_page'] = $data['display_per_page'];
+			}
+		} else {
+			$slider_per_page = $data['post_limit'];
+			if ( $data['slider_layout'] == 'slider-layout10' ) {
+				$slider_reminder = ( intval( $data['post_limit'], 10 ) % 5 );
+				if ( $slider_reminder ) {
+					$slider_per_page = ( $data['post_limit'] - $slider_reminder + 5 );
+				}
+			}
+			$args['posts_per_page'] = $slider_per_page;
+		}
+
+
 		return $args;
 	}
 
@@ -216,8 +449,8 @@ class rtTPGElementorQuery {
 	 * Post Query for page builder block
 	 *
 	 * @param          $data
-	 * @param  string $prefix
-	 * @param  string $template_type
+	 * @param string $prefix
+	 * @param string $template_type
 	 *
 	 * @return array
 	 */
@@ -246,15 +479,12 @@ class rtTPGElementorQuery {
 			}
 
 			$slider_per_page = $data['post_limit'];
-
 			if ( $data['slider_layout'] == 'slider-layout10' ) {
 				$slider_reminder = ( intval( $data['post_limit'], 10 ) % 5 );
-
 				if ( $slider_reminder ) {
 					$slider_per_page = ( $data['post_limit'] - $slider_reminder + 5 );
 				}
 			}
-
 			$args['posts_per_page'] = $slider_per_page;
 		} else {
 			$args = [
@@ -267,14 +497,12 @@ class rtTPGElementorQuery {
 
 			if ( $data['exclude'] || $data['offset'] ) {
 				$excluded_ids = [];
-
 				if ( $data['exclude'] ) {
 					$excluded_ids = explode( ',', $data['exclude'] );
 					$excluded_ids = array_map( 'trim', $excluded_ids );
 				}
 
 				$offset_posts = [];
-
 				if ( $data['offset'] ) {
 					$_temp_args = [
 						'post_type'      => 'post',
@@ -330,7 +558,7 @@ class rtTPGElementorQuery {
 			}
 
 			if ( 'slider' !== $prefix && 'show' === $data['show_pagination'] ) {
-				$args['paged'] = get_query_var( 'paged' ) ? absint( get_query_var( 'paged' ) ) : 1;
+				$args['paged'] = get_query_var( "paged" ) ? absint( get_query_var( "paged" ) ) : 1;
 			}
 
 			if ( is_tag() ) {
@@ -369,4 +597,5 @@ class rtTPGElementorQuery {
 
 		return $args;
 	}
+
 }

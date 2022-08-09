@@ -30,11 +30,11 @@ $post_link = Fns::get_post_link( $pID, $data );
 
 extract( $post_link );
 
-// Grid Column.
-$gird_column_desktop = '0' !== $data['gird_column'] ? $data['gird_column'] : '4';
-$gird_column_tab     = '0' !== $data['gird_column_tablet'] ? $data['gird_column_tablet'] : '6';
-$gird_column_mobile  = '0' !== $data['gird_column_mobile'] ? $data['gird_column_mobile'] : '12';
-$col_class           = "rt-col-md-{$gird_column_desktop} rt-col-sm-{$gird_column_tab} rt-col-xs-{$gird_column_mobile}";
+//Grid Column:
+$grid_column_desktop = '0' !== $data['grid_column'] ? $data['grid_column'] : '4';
+$grid_column_tab     = '0' !== $data['grid_column_tablet'] ? $data['grid_column_tablet'] : '6';
+$grid_column_mobile  = '0' !== $data['grid_column_mobile'] ? $data['grid_column_mobile'] : '12';
+$col_class           = "rt-col-md-{$grid_column_desktop} rt-col-sm-{$grid_column_tab} rt-col-xs-{$grid_column_mobile}";
 
 // Column Dynamic Class.
 $column_classes = [];

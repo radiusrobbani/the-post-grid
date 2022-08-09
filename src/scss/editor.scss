@@ -1,0 +1,13 @@
+::placeholder {
+    color: gray;
+}
+body{
+    background: red;
+}
+
+@media (min-width: 1200px) {
+    /* Chung Nguyễn Blog */
+    .name {
+        height: 168px;
+    }
+}

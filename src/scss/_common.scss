@@ -1997,7 +1997,7 @@ body > .rt-tooltip .rt-tooltip-bottom:after {
     padding-right: 15px;
     margin-top: 0;
     padding-top: 0;
-    margin-bottom: -1px;
+    margin-bottom: -1px !important;
     line-height: 1;
 }
 
@@ -2540,7 +2540,7 @@ TPG EVEN Style
 
 .rt-tpg-container .tpg-cf-group-title {
     font-size: 16px;
-    margin-bottom: 0;
+    margin-bottom: 0 !important;
 }
 
 .rt-tpg-container .tpg-cf-fields {

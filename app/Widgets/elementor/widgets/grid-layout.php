@@ -121,7 +121,7 @@ class TPGGridLayout extends Custom_Widget_Base {
 		// Meta Info Style.
 		rtTPGElementorHelper::metaInfoStyle( $this );
 
-		// Box Style.
+		//Social Icon Style
 		rtTPGElementorHelper::socialShareStyle( $this );
 
 		// ACF Style.
@@ -136,7 +136,7 @@ class TPGGridLayout extends Custom_Widget_Base {
 		// Pagination - Load more Style.
 		rtTPGElementorHelper::paginationStyle( $this );
 
-		// Box Style.
+		//Front-end Filter Style
 		rtTPGElementorHelper::frontEndFilter( $this );
 
 		// Box Settings.
@@ -165,7 +165,7 @@ class TPGGridLayout extends Custom_Widget_Base {
 			wp_enqueue_style( 'rt-magnific-popup' );
 			wp_enqueue_script( 'rt-scrollbar' );
 			wp_enqueue_script( 'rt-magnific-popup' );
-			add_action( 'wp_footer', [ $this, 'get_modal_markup' ] );
+			add_action( 'wp_footer', [ Fns::class, 'get_modal_markup' ] );
 		}
 
 		if ( rtTPG()->hasPro() && 'button' == $data['filter_type'] && 'carousel' == $data['filter_btn_style'] ) {
@@ -191,7 +191,8 @@ class TPGGridLayout extends Custom_Widget_Base {
 		/**
 		 * TODO: Get Post Data for render post
 		 */
-		$post_data = $this->get_render_data_set( $data, $query->max_num_pages, $posts_per_page );
+
+		$post_data = Fns::get_render_data_set( $data, $query->max_num_pages, $posts_per_page, $_prefix );
 
 		/**
 		 * Post type render
@@ -208,7 +209,7 @@ class TPGGridLayout extends Custom_Widget_Base {
 			$post_data[ $data['post_type'] . '_tags' ]     = isset( $data[ $data['post_type'] . '_tags' ] ) ? $data[ $data['post_type'] . '_tags' ] : '';
 		}
 
-		$template_path = $this->tpg_template_path( $post_data );
+		$template_path = Fns::tpg_template_path( $post_data );
 		$_layout       = $data[ $_prefix . '_layout' ];
 		$_layout_style = $data[ $_prefix . '_layout_style' ];
 
@@ -260,9 +261,10 @@ class TPGGridLayout extends Custom_Widget_Base {
 			}
 
 			echo "<div class='tpg-header-wrapper {$is_carousel}'>";
-			$this->get_section_title( $data );
-			Fns::print_html( $this->get_frontend_filter_markup( $data ) );
+			Fns::get_section_title( $data );
+			Fns::print_html( Fns::get_frontend_filter_markup( $data ) );
 			echo '</div>';
+
 			?>
 
 			<div data-title="Loading ..." class="rt-row rt-content-loader <?php echo esc_attr( implode( ' ', $wrapper_class ) ); ?>">
@@ -274,7 +276,7 @@ class TPGGridLayout extends Custom_Widget_Base {
 						$query->the_post();
 						set_query_var( 'tpg_post_count', $pCount );
 						set_query_var( 'tpg_total_posts', $query->post_count );
-						$this->tpg_template( $post_data );
+						Fns::tpg_template( $post_data );
 						$pCount ++;
 					}
 				} else {
@@ -287,8 +289,7 @@ class TPGGridLayout extends Custom_Widget_Base {
 				wp_reset_postdata();
 				?>
 			</div>
-
-			<?php Fns::print_html( $this->get_pagination_markup( $query, $data ) ); ?>
+			<?php Fns::print_html( Fns::get_pagination_markup( $query, $data ) ); ?>
 
 		</div>
 		<?php

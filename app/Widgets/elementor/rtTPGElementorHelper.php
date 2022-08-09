@@ -101,7 +101,8 @@ class rtTPGElementorHelper {
 			]
 		);
 
-		//TODO: Advance Filter.
+		// Advance Filter
+
 		$ref->add_control(
 			'advanced_filters_heading',
 			[
@@ -114,7 +115,7 @@ class rtTPGElementorHelper {
 
 		foreach ( $taxonomies as $taxonomy => $object ) {
 			if ( ! isset( $object->object_type[0] ) || ! in_array( $object->object_type[0], array_keys( $post_types ) )
-				|| in_array( $taxonomy, Custom_Widget_Base::get_excluded_taxonomy() )
+			     || in_array( $taxonomy, Fns::get_excluded_taxonomy() )
 			) {
 				continue;
 			}
@@ -125,7 +126,7 @@ class rtTPGElementorHelper {
 					'type'        => \Elementor\Controls_Manager::SELECT2,
 					'label_block' => true,
 					'multiple'    => true,
-					'options'     => $ref->tpg_get_categories_by_id( $taxonomy ),
+					'options'     => Fns::tpg_get_categories_by_id( $taxonomy ),
 					'condition'   => [
 						'post_type' => $object->object_type,
 					],
@@ -140,8 +141,8 @@ class rtTPGElementorHelper {
 				'type'    => \Elementor\Controls_Manager::SELECT,
 				'default' => 'OR',
 				'options' => [
-					'OR'     => esc_html__( 'OR', 'the-post-grid' ),
-					'AND'    => esc_html__( 'AND', 'the-post-grid' ),
+					'OR'     => __( 'OR', 'the-post-grid' ),
+					'AND'    => __( 'AND', 'the-post-grid' ),
 				],
 			]
 		);
@@ -306,7 +307,7 @@ class rtTPGElementorHelper {
 			$get_all_taxonomy = [];
 			foreach ( $taxonomies as $taxonomy => $object ) {
 				if ( ! isset( $object->object_type[0] ) || ! in_array( $object->object_type[0], array_keys( $post_types ) )
-					|| in_array( $taxonomy, Custom_Widget_Base::get_excluded_taxonomy() )
+				     || in_array( $taxonomy, Fns::get_excluded_taxonomy() )
 				) {
 					continue;
 				}
@@ -1440,7 +1441,7 @@ class rtTPGElementorHelper {
 				'return_value' => 'show',
 				'default'      => 'default',
 				'render_type'  => 'template',
-				'prefix_class' => 'pagination-visibility-',
+				// 'prefix_class' => 'pagination-visibility-',
 			]
 		);
 
@@ -1555,7 +1556,7 @@ class rtTPGElementorHelper {
 				'return_value' => 'show',
 				'default'      => 'show',
 				'render_type'  => 'template',
-				'prefix_class' => 'section-title-visibility-',
+				// 'prefix_class' => 'section-title-visibility-',
 			]
 		);
 
@@ -1569,7 +1570,7 @@ class rtTPGElementorHelper {
 				'return_value' => 'show',
 				'default'      => 'show',
 				'render_type'  => 'template',
-				'prefix_class' => 'title-visibility-',
+				// 'prefix_class' => 'title-visibility-',
 				'condition'    => [
 					$prefix . '_layout!' => [ 'grid-layout7' ],
 				],
@@ -1587,7 +1588,7 @@ class rtTPGElementorHelper {
 				'return_value' => 'show',
 				'default'      => 'show',
 				'render_type'  => 'template',
-				'prefix_class' => 'thumbnail-visibility-',
+				// 'prefix_class' => 'thumbnail-visibility-',
 			]
 		);
 
@@ -1601,7 +1602,7 @@ class rtTPGElementorHelper {
 				'return_value' => 'show',
 				'default'      => 'show',
 				'render_type'  => 'template',
-				'prefix_class' => 'excerpt-visibility-',
+				// 'prefix_class' => 'excerpt-visibility-',
 				'condition'    => [
 					$prefix . '_layout!' => [ 'grid-layout7' ],
 				],
@@ -1636,7 +1637,7 @@ class rtTPGElementorHelper {
 				'default'      => 'show',
 				'render_type'  => 'template',
 				'classes'      => 'tpg-padding-left',
-				'prefix_class' => 'date-visibility-',
+				// 'prefix_class' => 'date-visibility-',
 				'condition'    => [
 					'show_meta'          => 'show',
 					$prefix . '_layout!' => [ 'grid-layout7' ],
@@ -1655,7 +1656,7 @@ class rtTPGElementorHelper {
 				'default'      => 'show',
 				'render_type'  => 'template',
 				'classes'      => 'tpg-padding-left',
-				'prefix_class' => 'category-visibility-',
+				// 'prefix_class' => 'category-visibility-',
 				'condition'    => [
 					'show_meta'          => 'show',
 					$prefix . '_layout!' => [ 'grid-layout7' ],
@@ -1763,20 +1764,23 @@ class rtTPGElementorHelper {
 			]
 		);
 
-		$ref->add_control(
-			'show_woocommerce_rating',
-			[
-				'label'        => esc_html__( 'Rating (WooCommerce)', 'the-post-grid' ),
-				'type'         => \Elementor\Controls_Manager::SWITCHER,
-				'label_on'     => esc_html__( 'Show', 'the-post-grid' ),
-				'label_off'    => esc_html__( 'Hide', 'the-post-grid' ),
-				'return_value' => 'show',
-				'default'      => 'default',
-				'condition'    => [
-					'post_type' => [ 'product', 'download' ],
-				],
-			]
-		);
+		if ( Fns::is_woocommerce() ) {
+			$ref->add_control(
+				'show_woocommerce_rating',
+				[
+					'label'        => __( 'Rating (WooCommerce)', 'the-post-grid' ),
+					'type'         => \Elementor\Controls_Manager::SWITCHER,
+					'label_on'     => __( 'Show', 'the-post-grid' ),
+					'label_off'    => __( 'Hide', 'the-post-grid' ),
+					'return_value' => 'show',
+					'default'      => 'default',
+					'condition'    => [
+						'post_type' => [ 'product', 'download' ],
+					],
+				]
+			);
+		}
+
 
 		$cf = Fns::is_acf();
 		if ( $cf ) {
@@ -2215,7 +2219,7 @@ class rtTPGElementorHelper {
 				'label'     => esc_html__( 'Default Image', 'the-post-grid' ) . $ref->pro_label,
 				'type'      => \Elementor\Controls_Manager::MEDIA,
 				'default'   => [
-					'url' => rtTPG()->get_assets_uri( 'images/placeholder.png' ),
+					'url' => rtTPG()->get_assets_uri( 'images/placeholder.jpg' ),
 				],
 				'condition' => [
 					'is_default_img' => 'yes',
@@ -2833,7 +2837,6 @@ class rtTPGElementorHelper {
 			]
 		);
 
-
 		$ref->add_control(
 			'category_position',
 			[
@@ -3127,6 +3130,7 @@ class rtTPGElementorHelper {
 				'options'      => [
 					'default-style' => esc_html__( 'Default from style', 'the-post-grid' ),
 					'only-text'     => esc_html__( 'Only Text Button', 'the-post-grid' ),
+
 				],
 				'prefix_class' => 'readmore-btn-',
 			]
@@ -3206,20 +3210,6 @@ class rtTPGElementorHelper {
 	}
 
 	public static function get_tpg_acf_settings( $ref ) {
-		//		$ref->add_control(
-		//			'cf_group',
-		//			[
-		//				'label'       => esc_html__( 'Choose Advanced Custom Field (ACF)', 'the-post-grid' ),
-		//				'type'        => \Elementor\Controls_Manager::SELECT2,
-		//				'multiple'    => true,
-		//				'label_block' => true,
-		//				'default'     => [ $selected_acf_id ],
-		//				'options'     => Fns::get_groups_by_post_type( 'post' ),
-		//				'condition'   => [
-		//					'show_acf' => 'show',
-		//				],
-		//			]
-		//		);
 
 		$post_types = Fns::get_post_types();
 
@@ -3542,12 +3532,10 @@ class rtTPGElementorHelper {
 				'type'      => \Elementor\Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .tpg-widget-heading-wrapper.heading-style1 .tpg-widget-heading-line'                                                                                                                                                                                                                                                                      => 'border-color: {{VALUE}}',
-					//'{{WRAPPER}}.section-title-style-style2 .tpg-header-wrapper, {{WRAPPER}}.section-title-style-style3 .tpg-header-wrapper'                                                                                                                                         => 'border-bottom-color: {{VALUE}}',
 					'{{WRAPPER}}.section-title-style-style2 .tpg-header-wrapper:not(.carousel) .tpg-widget-heading-wrapper,{{WRAPPER}}.section-title-style-style3 .tpg-header-wrapper:not(.carousel) .tpg-widget-heading-wrapper,{{WRAPPER}}.section-title-style-style2 .tpg-header-wrapper.carousel, {{WRAPPER}}.section-title-style-style3 .tpg-header-wrapper.carousel' => 'border-bottom-color: {{VALUE}}',
 					'{{WRAPPER}}.section-title-style-style2 .tpg-header-wrapper.carousel .rt-filter-item-wrap.swiper-wrapper .swiper-slide.selected, {{WRAPPER}}.section-title-style-style3 .tpg-header-wrapper.carousel .rt-filter-item-wrap.swiper-wrapper .swiper-slide.selected'                                                                                       => 'color: {{VALUE}}',
 					'{{WRAPPER}}.section-title-style-style2 .tpg-header-wrapper.carousel .rt-filter-item-wrap.swiper-wrapper .swiper-slide:hover, {{WRAPPER}}.section-title-style-style2 .tpg-header-wrapper.carousel .rt-filter-item-wrap.swiper-wrapper .swiper-slide:hover'                                                                                             => 'color: {{VALUE}}',
 					'{{WRAPPER}}.section-title-style-style2 .tpg-header-wrapper.carousel .rt-filter-item-wrap.swiper-wrapper .swiper-slide::before, {{WRAPPER}}.section-title-style-style3 .tpg-header-wrapper.carousel .rt-filter-item-wrap.swiper-wrapper .swiper-slide::before'                                                                                         => 'border-bottom-color: {{VALUE}}',
-
 				],
 				'condition' => [
 					'section_title_style!' => 'default',
@@ -3919,6 +3907,8 @@ class rtTPGElementorHelper {
 		$ref->end_controls_tab();
 
 		$ref->end_controls_tabs();
+
+		//TODO: End Tab Hover
 
 		$ref->add_control(
 			'hr_for_overlay',
@@ -4304,7 +4294,7 @@ class rtTPGElementorHelper {
 	}
 
 	/**
-	 * Content Style Tab
+	 * Content Style / Excerpt Style Tab
 	 *
 	 * @param $ref
 	 */
@@ -5564,7 +5554,7 @@ class rtTPGElementorHelper {
 
 
 	/**
-	 * Front-End Filter style
+	 * Front-end Filter style / frontend style
 	 *
 	 * @param $ref
 	 */
@@ -6138,7 +6128,7 @@ class rtTPGElementorHelper {
 
 
 	/**
-	 * Social Share control
+	 * Social Share Style
 	 *
 	 * @param $ref
 	 */
@@ -6443,7 +6433,7 @@ class rtTPGElementorHelper {
 	}
 
 	/**
-	 * Box Settings
+	 * Box style / Card style
 	 *
 	 * @param $ref
 	 */
@@ -7022,7 +7012,7 @@ class rtTPGElementorHelper {
 				'label_off'    => esc_html__( 'No', 'the-post-grid' ),
 				'return_value' => 'yes',
 				'default'      => 'yes',
-				'condition' => [
+				'condition'    => [
 					'autoplay' => 'yes',
 				],
 			]
@@ -7051,7 +7041,7 @@ class rtTPGElementorHelper {
 				'return_value' => 'yes',
 				'default'      => false,
 				'condition'    => [
-					'enable_2_rows!' => 'yes',
+					'enable_2_rows!'     => 'yes',
 					$prefix . '_layout!' => [ 'slider-layout11', 'slider-layout12' ],
 				],
 			]

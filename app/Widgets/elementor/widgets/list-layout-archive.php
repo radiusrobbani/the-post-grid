@@ -161,7 +161,7 @@ class TPGListLayoutArchive extends Custom_Widget_Base {
 			wp_enqueue_style( 'rt-magnific-popup' );
 			wp_enqueue_script( 'rt-scrollbar' );
 			wp_enqueue_script( 'rt-magnific-popup' );
-			add_action( 'wp_footer', [ $this, 'get_modal_markup' ] );
+			add_action( 'wp_footer', [ Fns::class, 'get_modal_markup' ] );
 		}
 
 		if ( 'masonry' === $data['list_layout_style'] ) {
@@ -183,7 +183,7 @@ class TPGListLayoutArchive extends Custom_Widget_Base {
 		/**
 		 * TODO: Get Post Data for render post
 		 */
-		$post_data = $this->get_render_data_set( $data, $query->max_num_pages, $posts_per_page );
+		$post_data = Fns::get_render_data_set( $data, $query->max_num_pages, $posts_per_page, $_prefix );
 
 		/**
 		 * Post type render
@@ -200,7 +200,7 @@ class TPGListLayoutArchive extends Custom_Widget_Base {
 			$post_data[ $data['post_type'] . '_tags' ]     = isset( $data[ $data['post_type'] . '_tags' ] ) ? $data[ $data['post_type'] . '_tags' ] : '';
 		}
 
-		$template_path = $this->tpg_template_path( $post_data );
+		$template_path = Fns::tpg_template_path( $post_data );
 		$_layout       = $data[ $_prefix . '_layout' ];
 		$_layout_style = $data[ $_prefix . '_layout_style' ];
 		?>
@@ -236,8 +236,8 @@ class TPGListLayoutArchive extends Custom_Widget_Base {
 
 			// section title settings.
 			echo "<div class='tpg-header-wrapper'>";
-			$this->get_section_title( $data );
-			echo '</div>';
+			Fns::get_section_title( $data );
+			echo "</div>";
 			?>
 
 			<div data-title="Loading ..." class="rt-row rt-content-loader <?php echo esc_attr( implode( ' ', $wrapper_class ) ); ?>">
@@ -249,7 +249,7 @@ class TPGListLayoutArchive extends Custom_Widget_Base {
 						$query->the_post();
 						set_query_var( 'tpg_post_count', $pCount );
 						set_query_var( 'tpg_total_posts', $query->post_count );
-						$this->tpg_template( $post_data );
+						Fns::tpg_template( $post_data );
 						$pCount ++;
 					}
 				} else {
@@ -263,7 +263,7 @@ class TPGListLayoutArchive extends Custom_Widget_Base {
 				?>
 			</div>
 
-			<?php Fns::print_html( $this->get_pagination_markup( $query, $data ) ); ?>
+			<?php Fns::print_html( Fns::get_pagination_markup( $query, $data ) ); ?>
 
 		</div>
 		<?php

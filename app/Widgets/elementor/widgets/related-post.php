@@ -186,7 +186,7 @@ class TPGRelatedPost extends Custom_Widget_Base {
 			wp_enqueue_style( 'rt-magnific-popup' );
 			wp_enqueue_script( 'rt-scrollbar' );
 			wp_enqueue_script( 'rt-magnific-popup' );
-			add_action( 'wp_footer', [ $this, 'get_modal_markup' ], 1 );
+			add_action( 'wp_footer', [ Fns::class, 'get_modal_markup' ], 1 );
 		}
 
 		// if ( 'show' == $data['show_pagination'] && 'pagination_ajax' == $data['pagination_type'] ) {
@@ -203,7 +203,7 @@ class TPGRelatedPost extends Custom_Widget_Base {
 		/**
 		 * TODO: Get Post Data for render post
 		 */
-		$post_data = $this->get_render_data_set( $data, $query->max_num_pages, $posts_per_page );
+		$post_data = Fns::get_render_data_set( $data, $query->max_num_pages, $posts_per_page, $_prefix );
 		$_layout   = $data[ $_prefix . '_layout' ];
 
 		$post_data['lazy_load'] = $data['lazyLoad'];
@@ -225,15 +225,16 @@ class TPGRelatedPost extends Custom_Widget_Base {
 
 		$post_data['enable_2_rows'] = false;
 
-		$default_gird_column_desktop = $enable_related_slider ? '3' : '4';
-		$default_gird_column_tab     = $enable_related_slider ? '2' : '6';
-		$default_gird_column_mobile  = $enable_related_slider ? '1' : '12';
+		$default_grid_column_desktop = $enable_related_slider ? '3' : '4';
+		$default_grid_column_tab     = $enable_related_slider ? '2' : '6';
+		$default_grid_column_mobile  = $enable_related_slider ? '1' : '12';
 
-		$gird_column_desktop = '0' !== $post_data['gird_column'] ? $post_data['gird_column'] : $default_gird_column_desktop;
-		$gird_column_tab     = '0' !== $post_data['gird_column_tablet'] ? $post_data['gird_column_tablet'] : $default_gird_column_tab;
-		$gird_column_mobile  = '0' !== $post_data['gird_column_mobile'] ? $post_data['gird_column_mobile'] : $default_gird_column_mobile;
+		$grid_column_desktop = '0' !== $post_data['grid_column'] ? $post_data['grid_column'] : $default_grid_column_desktop;
+		$grid_column_tab     = '0' !== $post_data['grid_column_tablet'] ? $post_data['grid_column_tablet'] : $default_grid_column_tab;
+		$grid_column_mobile  = '0' !== $post_data['grid_column_mobile'] ? $post_data['grid_column_mobile'] : $default_grid_column_mobile;
 
-		$item_column = "rt-col-md-{$gird_column_desktop} rt-col-sm-{$gird_column_tab} rt-col-xs-{$gird_column_mobile}";
+
+		$item_column = "rt-col-md-{$grid_column_desktop} rt-col-sm-{$grid_column_tab} rt-col-xs-{$grid_column_mobile}";
 
 		$slider_main_class = $enable_related_slider ? 'slider-layout-main loading' : 'slider-is-disable';
 
@@ -243,9 +244,9 @@ class TPGRelatedPost extends Custom_Widget_Base {
              id="<?php echo esc_attr( $layoutID ); ?>"
              data-layout="<?php echo esc_attr( $data[ $_prefix . '_layout' ] ); ?>"
              data-grid-style=""
-             data-desktop-col="<?php echo esc_attr( $gird_column_desktop ); ?>"
-             data-tab-col="<?php echo esc_attr( $gird_column_tab ); ?>"
-             data-mobile-col="<?php echo esc_attr( $gird_column_mobile ); ?>"
+             data-desktop-col="<?php echo esc_attr( $grid_column_desktop ); ?>"
+             data-tab-col="<?php echo esc_attr( $grid_column_tab ); ?>"
+             data-mobile-col="<?php echo esc_attr( $grid_column_mobile ); ?>"
              data-sc-id="elementor"
              data-el-query=''
         >
@@ -292,8 +293,8 @@ class TPGRelatedPost extends Custom_Widget_Base {
 
 			$wrapper_class[] = $_prefix . '_layout_wrapper';
 
-			// section title settings.
-			$this->get_section_title( $data );
+			//section title settings
+			Fns::get_section_title( $data );
 
 			$slider_data = [
 				'speed'           => $data['speed'],
@@ -339,7 +340,7 @@ class TPGRelatedPost extends Custom_Widget_Base {
                     <div class='<?php echo esc_attr( $item_column ); ?>'>
 				<?php } ?>
 				<?php
-				$this->tpg_template( $post_data );
+				Fns::tpg_template( $post_data );
 				?>
 				<?php if ( ! $enable_related_slider ) { ?>
                     </div>

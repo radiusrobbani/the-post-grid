@@ -9,6 +9,7 @@ use Elementor\Widget_Base;
 use RT\ThePostGrid\Helpers\Fns;
 use RT\ThePostGrid\Helpers\Options;
 
+
 // Do not allow directly accessing this file.
 if ( ! defined( 'ABSPATH' ) ) {
 	exit( 'This script cannot be accessed directly.' );
@@ -75,55 +76,6 @@ abstract class Custom_Widget_Base extends Widget_Base {
 		return [ $this->tpg_category ];
 	}
 
-
-	public function tpg_template( $data ) {
-		$layout        = str_replace( '-2', '', $data['layout'] );
-		$template_name = '/the-post-grid/elementor/' . $layout . '.php';
-
-		if ( file_exists( STYLESHEETPATH . $template_name ) ) {
-			$file = STYLESHEETPATH . $template_name;
-		} elseif ( file_exists( TEMPLATEPATH . $template_name ) ) {
-			$file = TEMPLATEPATH . $template_name;
-		} else {
-			$file = RT_THE_POST_GRID_PLUGIN_PATH . '/templates/elementor/' . $layout . '.php';
-
-			if ( ! file_exists( $file ) ) {
-				if ( rtTPG()->hasPro() ) {
-					$file = RT_THE_POST_GRID_PRO_PLUGIN_PATH . '/templates/elementor/' . $layout . '.php';
-				} else {
-					$layout = substr( $layout, 0, - 1 );
-					$layout = strpos( $layout, '1' ) ? str_replace( '1', '', $layout ) : $layout;
-					$file   = RT_THE_POST_GRID_PLUGIN_PATH . '/templates/elementor/' . $layout . '1.php';
-				}
-			}
-		}
-
-		ob_start();
-		include $file;
-		echo ob_get_clean();
-	}
-
-	public function tpg_template_path( $data ) {
-		$layout        = str_replace( '-2', '', $data['layout'] );
-		$template_name = '/the-post-grid/elementor/' . $layout . '.php';
-		$path          = RT_THE_POST_GRID_PLUGIN_PATH . '/templates/elementor/';
-
-		if ( file_exists( STYLESHEETPATH . $template_name ) ) {
-			$path = STYLESHEETPATH . '/the-post-grid/elementor/';
-		} elseif ( file_exists( TEMPLATEPATH . $template_name ) ) {
-			$path = TEMPLATEPATH . '/the-post-grid/elementor/';
-		} else {
-			$template_path = RT_THE_POST_GRID_PLUGIN_PATH . '/templates/elementor/' . $layout . '.php';
-
-			if ( ! file_exists( $template_path ) && rtTPG()->hasPro() ) {
-				$path = RT_THE_POST_GRID_PRO_PLUGIN_PATH . '/templates/elementor/';
-			}
-		}
-
-		return $path;
-	}
-
-
 	/**
 	 *
 	 * Get last post id
@@ -154,31 +106,9 @@ abstract class Custom_Widget_Base extends Widget_Base {
 	}
 
 
-	/**
-	 * Get Last Category ID
-	 *
-	 * @return mixed
-	 */
-	public function get_last_category_id() {
-		if ( is_archive() ) {
-			return;
-		}
 
-		$categories = get_terms(
-			[
-				'taxonomy'   => 'category',
-				'hide_empty' => false,
-				'number'     => 1,
-			]
-		);
-
-		if ( ! empty( $categories ) && ! is_wp_error( $categories ) ) {
-			return $categories[0]->term_id;
-		}
-	}
-
-	// post category list.
-	public function tpg_category_list() {
+	//post category list
+	function tpg_category_list() {
 		$categories = get_categories( [ 'hide_empty' => false ] );
 		$lists      = [];
 		foreach ( $categories as $category ) {
@@ -213,29 +143,8 @@ abstract class Custom_Widget_Base extends Widget_Base {
 			foreach ( $terms as $term ) {
 				$options[ $term->slug ] = $term->name;
 			}
-
-			return $options;
 		}
-	}
-
-	// Get Custom post category.
-	public function tpg_get_categories_by_id( $cat ) {
-		$terms = get_terms(
-			[
-				'taxonomy'   => $cat,
-				'hide_empty' => true,
-			]
-		);
-
-		$options = [];
-
-		if ( ! empty( $terms ) && ! is_wp_error( $terms ) ) {
-			foreach ( $terms as $term ) {
-				$options[ $term->term_id ] = $term->name;
-			}
-
-			return $options;
-		}
+		return $options;
 	}
 
 
@@ -799,7 +708,7 @@ abstract class Custom_Widget_Base extends Widget_Base {
 					printf( "<span class='prefix-text'>%s</span>", esc_html( $archive_prefix ) );
 
 					if ( is_archive() ) {
-						$this->get_archive_title();
+						Fns::get_archive_title();
 					} elseif ( is_search() ) {
 						echo get_query_var( 's' );
 					} else {
@@ -824,10 +733,11 @@ abstract class Custom_Widget_Base extends Widget_Base {
 			<span class="tpg-widget-heading-line line-right"></span>
 		</div>
 
-		<?php if ( isset( $data['show_cat_desc'] ) && $data['show_cat_desc'] == 'yes' && category_description( $this->get_last_category_id() ) ) : ?>
-			<div class="tpg-category-description">
-				<?php echo category_description( $this->get_last_category_id() ); ?>
-			</div>
+		<?php if ( isset( $data['show_cat_desc'] ) && $data['show_cat_desc'] == 'yes' && category_description( Fns::get_last_category_id() ) ) : ?>
+            <div class="tpg-category-description">
+				<?php echo category_description( Fns::get_last_category_id() ); ?>
+            </div>
+
 		<?php endif; ?>
 
 		<?php
@@ -850,9 +760,9 @@ abstract class Custom_Widget_Base extends Widget_Base {
 		$data_set = [
 			'block_type'                   => 'elementor',
 			'prefix'                       => $_prefix,
-			'gird_column'                  => $data[ $_prefix . '_column' ],
-			'gird_column_tablet'           => isset( $data[ $_prefix . '_column_tablet' ] ) ? $data[ $_prefix . '_column_tablet' ] : '0',
-			'gird_column_mobile'           => isset( $data[ $_prefix . '_column_mobile' ] ) ? $data[ $_prefix . '_column_mobile' ] : '0',
+			'grid_column'                  => $data[ $_prefix . '_column' ],
+			'grid_column_tablet'           => isset( $data[ $_prefix . '_column_tablet' ] ) ? $data[ $_prefix . '_column_tablet' ] : '0',
+			'grid_column_mobile'           => isset( $data[ $_prefix . '_column_mobile' ] ) ? $data[ $_prefix . '_column_mobile' ] : '0',
 			'layout'                       => $data[ $_prefix . '_layout' ],
 			'pagination_type'              => 'slider' === $_prefix ? 'slider' : $data['pagination_type'],
 			'total_pages'                  => $total_pages,

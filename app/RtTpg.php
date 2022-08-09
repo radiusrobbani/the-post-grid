@@ -10,6 +10,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit( 'This script cannot be accessed directly.' );
 }
 
+require_once __DIR__ . './../vendor/autoload.php';
+
 use RT\ThePostGrid\Controllers\Admin\AdminAjaxController;
 use RT\ThePostGrid\Controllers\Admin\MetaController;
 use RT\ThePostGrid\Controllers\Admin\NoticeController;
@@ -26,7 +28,6 @@ use RT\ThePostGrid\Controllers\WidgetController;
 use RT\ThePostGrid\Helpers\Install;
 use RT\ThePostGrid\Controllers\Admin\UpgradeController;
 
-require_once __DIR__ . './../vendor/autoload.php';
 
 if ( ! class_exists( RtTpg::class ) ) {
 	/**

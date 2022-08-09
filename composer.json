@@ -11,5 +11,7 @@
             "email": "admin@radiustheme.com"
         }
     ],
-    "require": {}
+    "require": {
+        "ext-json": "*"
+    }
 }

@@ -71,7 +71,12 @@
 }
 
 .tpg-el-main-wrapper .entry-title a {
-    color: inherit;
+    color: inherit !important ;
+}
+
+.tpg-el-main-wrapper .entry-title a:focus {
+    box-shadow: none;
+    border: none;
 }
 
 .tpg-el-main-wrapper .entry-title a:hover {
