@@ -142,7 +142,6 @@ class rtTPGElementorHelper {
 				'options' => [
 					'OR'     => esc_html__( 'OR', 'the-post-grid' ),
 					'AND'    => esc_html__( 'AND', 'the-post-grid' ),
-					'NOT IN' => esc_html__( 'NOT IN', 'the-post-grid' ),
 				],
 			]
 		);
