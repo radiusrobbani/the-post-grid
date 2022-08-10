@@ -34,9 +34,10 @@ class Fns {
 	/**
 	 * Render view
 	 *
-	 * @param string  $viewName View name.
-	 * @param array   $args Args.
+	 * @param string $viewName View name.
+	 * @param array $args Args.
 	 * @param boolean $return Include/return.
+	 *
 	 * @return string
 	 */
 	public static function view( $viewName, $args = [], $return = false ) {
@@ -48,7 +49,7 @@ class Fns {
 			return new \WP_Error(
 				'brock',
 				sprintf(
-					/* translators: %s File name */
+				/* translators: %s File name */
 					esc_html__( '%s file not found', 'the-post-grid' ),
 					$viewFile
 				)
@@ -73,6 +74,7 @@ class Fns {
 	 * Update post view
 	 *
 	 * @param integer $post_id Listing ID.
+	 *
 	 * @return void
 	 */
 	public static function update_post_views_count( $post_id ) {
@@ -107,7 +109,7 @@ class Fns {
 	 * Template Content
 	 *
 	 * @param string $template_name Template name.
-	 * @param array  $args Arguments. (default: array).
+	 * @param array $args Arguments. (default: array).
 	 * @param string $template_path Template path. (default: '').
 	 * @param string $default_path Default path. (default: '').
 	 */
@@ -139,7 +141,7 @@ class Fns {
 	 * Get template content and return
 	 *
 	 * @param string $template_name Template name.
-	 * @param array  $args Arguments. (default: array).
+	 * @param array $args Arguments. (default: array).
 	 * @param string $template_path Template path. (default: '').
 	 * @param string $default_path Default path. (default: '').
 	 *
@@ -158,6 +160,7 @@ class Fns {
 	 * @param string $template_name Template.
 	 * @param string $template_path Path.
 	 * @param string $default_path Default path.
+	 *
 	 * @return mixed|void
 	 */
 	public static function locate_template( $template_name, $template_path = '', $default_path = '' ) {
@@ -191,6 +194,7 @@ class Fns {
 	 * @param string $function — The function that was called.
 	 * @param string $message — A message explaining what has been done incorrectly.
 	 * @param string $version — The version of WordPress where the message was added.
+	 *
 	 * @return void
 	 */
 	public static function doing_it_wrong( $function, $message, $version ) {
@@ -426,6 +430,7 @@ class Fns {
 			$data_set['c_image_height'] = isset( $data['c_image_height'] ) ? $data['c_image_height'] : '';
 			$data_set['grid_column']    = (array) $data[ $_prefix . '_column' ];
 		}
+
 		return $data_set;
 	}
 
@@ -1213,7 +1218,7 @@ class Fns {
 	 * Sanitize field value
 	 *
 	 * @param array $field
-	 * @param null  $value
+	 * @param null $value
 	 *
 	 * @return array|null
 	 * @internal param $value
@@ -1329,26 +1334,26 @@ class Fns {
 				$h .= '<div class="field-label"><label>' . esc_html( $label ) . '' . self::htmlKses( $proText, 'basic' ) . '</label></div>';
 				$h .= "<div class='field'>";
 				// color.
-				$h     .= "<div class='field-inner col-4'>";
-				$h     .= "<div class='field-inner-container size'>";
-				$h     .= "<span class='label'>Color</span>";
+				$h      .= "<div class='field-inner col-4'>";
+				$h      .= "<div class='field-inner-container size'>";
+				$h      .= "<span class='label'>Color</span>";
 				$cValue = get_post_meta( get_the_ID(), $key . '_color', true );
-				$h     .= '<input type="text" value="' . esc_attr( $cValue ) . '" class="rt-color" name="' . esc_attr( $key ) . '_color">';
-				$h     .= '</div>';
-				$h     .= '</div>';
+				$h      .= '<input type="text" value="' . esc_attr( $cValue ) . '" class="rt-color" name="' . esc_attr( $key ) . '_color">';
+				$h      .= '</div>';
+				$h      .= '</div>';
 
 				// Font size.
-				$h     .= "<div class='field-inner col-4'>";
-				$h     .= "<div class='field-inner-container size'>";
-				$h     .= "<span class='label'>Font size</span>";
-				$h     .= '<select ' . self::htmlKses( $atts, 'basic' ) . ' name="' . esc_attr( $key ) . '_size" class="rt-select2">';
+				$h      .= "<div class='field-inner col-4'>";
+				$h      .= "<div class='field-inner-container size'>";
+				$h      .= "<span class='label'>Font size</span>";
+				$h      .= '<select ' . self::htmlKses( $atts, 'basic' ) . ' name="' . esc_attr( $key ) . '_size" class="rt-select2">';
 				$fSizes = Options::scFontSize();
 				$sValue = get_post_meta( get_the_ID(), $key . '_size', true );
-				$h     .= "<option value=''>Default</option>";
+				$h      .= "<option value=''>Default</option>";
 
 				foreach ( $fSizes as $size => $sizeLabel ) {
 					$sSlt = ( $size == $sValue ? 'selected' : null );
-					$h   .= '<option value="' . esc_attr( $size ) . '" ' . esc_attr( $sSlt ) . '>' . esc_html( $sizeLabel ) . '</option>';
+					$h    .= '<option value="' . esc_attr( $size ) . '" ' . esc_attr( $sSlt ) . '>' . esc_html( $sizeLabel ) . '</option>';
 				}
 
 				$h .= '</select>';
@@ -1356,17 +1361,17 @@ class Fns {
 				$h .= '</div>';
 
 				// Weight.
-				$h      .= "<div class='field-inner col-4'>";
-				$h      .= "<div class='field-inner-container weight'>";
-				$h      .= "<span class='label'>Weight</span>";
-				$h      .= '<select ' . self::htmlKses( $atts, 'basic' ) . ' name="' . esc_attr( $key ) . '_weight" class="rt-select2">';
-				$h      .= "<option value=''>Default</option>";
+				$h       .= "<div class='field-inner col-4'>";
+				$h       .= "<div class='field-inner-container weight'>";
+				$h       .= "<span class='label'>Weight</span>";
+				$h       .= '<select ' . self::htmlKses( $atts, 'basic' ) . ' name="' . esc_attr( $key ) . '_weight" class="rt-select2">';
+				$h       .= "<option value=''>Default</option>";
 				$weights = Options::scTextWeight();
 				$wValue  = get_post_meta( get_the_ID(), $key . '_weight', true );
 
 				foreach ( $weights as $weight => $weightLabel ) {
 					$wSlt = ( $weight == $wValue ? 'selected' : null );
-					$h   .= '<option value="' . esc_attr( $weight ) . '" ' . esc_attr( $wSlt ) . '>' . esc_html( $weightLabel ) . '</option>';
+					$h    .= '<option value="' . esc_attr( $weight ) . '" ' . esc_attr( $wSlt ) . '>' . esc_html( $weightLabel ) . '</option>';
 				}
 
 				$h .= '</select>';
@@ -1374,17 +1379,17 @@ class Fns {
 				$h .= '</div>';
 
 				// Alignment.
-				$h     .= "<div class='field-inner col-4'>";
-				$h     .= "<div class='field-inner-container alignment'>";
-				$h     .= "<span class='label'>Alignment</span>";
-				$h     .= '<select ' . self::htmlKses( $atts, 'basic' ) . ' name="' . esc_attr( $key ) . '_alignment" class="rt-select2">';
-				$h     .= "<option value=''>Default</option>";
+				$h      .= "<div class='field-inner col-4'>";
+				$h      .= "<div class='field-inner-container alignment'>";
+				$h      .= "<span class='label'>Alignment</span>";
+				$h      .= '<select ' . self::htmlKses( $atts, 'basic' ) . ' name="' . esc_attr( $key ) . '_alignment" class="rt-select2">';
+				$h      .= "<option value=''>Default</option>";
 				$aligns = Options::scAlignment();
 				$aValue = get_post_meta( get_the_ID(), $key . '_alignment', true );
 
 				foreach ( $aligns as $align => $alignLabel ) {
 					$aSlt = ( $align == $aValue ? 'selected' : null );
-					$h   .= '<option value="' . esc_attr( $align ) . '" ' . esc_attr( $aSlt ) . '>' . esc_html( $alignLabel ) . '</option>';
+					$h    .= '<option value="' . esc_attr( $align ) . '" ' . esc_attr( $aSlt ) . '>' . esc_html( $alignLabel ) . '</option>';
 				}
 
 				$h .= '</select>';
@@ -1465,7 +1470,7 @@ class Fns {
 	}
 
 	public static function socialShare( $pLink ) {
-		$html  = null;
+		$html = null;
 		$html .= "<div class='single-tpg-share'>
 					<div class='fb-share'>
 						<div class='fb-share-button' data-href='" . esc_url( $pLink ) . "' data-layout='button_count'></div>
@@ -1806,7 +1811,7 @@ class Fns {
 			}
 
 			if ( $paged > 1 && $showitems < $pages && ! $ajax ) {
-				$p     = $paged - 1;
+				$p    = $paged - 1;
 				$html .= "<li><a data-paged='{$p}' href='" . get_pagenum_link( $p ) . "' aria-label='Previous'>&lsaquo;</a></li>";
 			}
 
@@ -1823,7 +1828,7 @@ class Fns {
 			}
 
 			if ( $paged < $pages && $showitems < $pages && ! $ajax ) {
-				$p     = $paged + 1;
+				$p    = $paged + 1;
 				$html .= "<li><a data-paged='{$p}' href=\"" . get_pagenum_link( $paged + 1 ) . "\"  aria-label='Next'>&rsaquo;</a></li>";
 			}
 
@@ -1851,10 +1856,10 @@ class Fns {
 	 * Call the Image resize model for resize function
 	 *
 	 * @param              $url
-	 * @param null       $width
-	 * @param null       $height
-	 * @param null       $crop
-	 * @param bool|true  $single
+	 * @param null $width
+	 * @param null $height
+	 * @param null $crop
+	 * @param bool|true $single
 	 * @param bool|false $upscale
 	 *
 	 * @return array|bool|string
@@ -1955,7 +1960,7 @@ class Fns {
 	}
 
 	public static function layoutStyle( $layoutID, $scMeta, $layout, $scId = null ) {
-		$css  = null;
+		$css = null;
 		$css .= "<style type='text/css' media='all'>";
 		// primary color
 		if ( $scId ) {
@@ -2117,7 +2122,7 @@ class Fns {
 			$css .= 'background-color:' . $primaryColor . ';';
 			$css .= '}';
 
-			$ocp  = self::rtHex2rgba(
+			$ocp = self::rtHex2rgba(
 				$primaryColor,
 				! empty( $scMeta['overlay_opacity'][0] ) ? absint( $scMeta['overlay_opacity'][0] ) / 10 : .8
 			);
@@ -2495,8 +2500,8 @@ class Fns {
 
 			if ( $title_size ) {
 				$lineHeight = $title_size + 10;
-				$css       .= 'font-size:' . $title_size . 'px;';
-				$css       .= 'line-height:' . $lineHeight . 'px;';
+				$css        .= 'font-size:' . $title_size . 'px;';
+				$css        .= 'line-height:' . $lineHeight . 'px;';
 			}
 
 			if ( $title_weight ) {
@@ -2811,35 +2816,35 @@ class Fns {
 		}
 
 		if ( 'default' == $data['category_position']
-			&& in_array(
-				$data['layout'],
-				[
-					'grid-layout4',
-					'grid-layout5',
-					'grid-layout5-2',
-					'grid-layout6',
-					'grid-layout6-2',
-					'list-layout4',
-					'list-layout5',
-					'grid_hover-layout5',
-					'grid_hover-layout6',
-					'grid_hover-layout7',
-					'grid_hover-layout8',
-					'grid_hover-layout9',
-					'grid_hover-layout10',
-					'grid_hover-layout5-2',
-					'grid_hover-layout6-2',
-					'grid_hover-layout7-2',
-					'grid_hover-layout9-2',
-					'slider-layout5',
-					'slider-layout6',
-					'slider-layout7',
-					'slider-layout8',
-					'slider-layout9',
-					'slider-layout11',
-					'slider-layout12',
-				]
-			)
+		     && in_array(
+			     $data['layout'],
+			     [
+				     'grid-layout4',
+				     'grid-layout5',
+				     'grid-layout5-2',
+				     'grid-layout6',
+				     'grid-layout6-2',
+				     'list-layout4',
+				     'list-layout5',
+				     'grid_hover-layout5',
+				     'grid_hover-layout6',
+				     'grid_hover-layout7',
+				     'grid_hover-layout8',
+				     'grid_hover-layout9',
+				     'grid_hover-layout10',
+				     'grid_hover-layout5-2',
+				     'grid_hover-layout6-2',
+				     'grid_hover-layout7-2',
+				     'grid_hover-layout9-2',
+				     'slider-layout5',
+				     'slider-layout6',
+				     'slider-layout7',
+				     'slider-layout8',
+				     'slider-layout9',
+				     'slider-layout11',
+				     'slider-layout12',
+			     ]
+		     )
 		) {
 			return false;
 		}
@@ -2973,7 +2978,7 @@ class Fns {
 		$comments_text = sprintf( '%s (%s)', esc_html( $comment_label ), number_format_i18n( $comments_number ) );
 		$date          = get_the_date();
 
-		
+
 		//Category and Tags Management
 		$_cat_id      = isset( $data['post_type'] ) ? $data['post_type'] . '_taxonomy' : 'category';
 		$_tag_id      = isset( $data['post_type'] ) ? $data['post_type'] . '_tags' : 'post_tag';
@@ -3000,7 +3005,7 @@ class Fns {
 				$is_author_avatar = 'has-author-avatar';
 			}
 			?>
-			<span class='author <?php echo esc_attr( $is_author_avatar ); ?>'>
+            <span class='author <?php echo esc_attr( $is_author_avatar ); ?>'>
 
 				<?php
 				if ( '' !== $data['show_author_image'] ) {
@@ -3038,7 +3043,7 @@ class Fns {
 
 		if ( $category_condition ) {
 			?>
-			<span class='categories-links'>
+            <span class='categories-links'>
 				<?php
 				if ( $data['show_meta_icon'] === 'yes' ) {
 					if ( isset( $data['cat_icon']['value'] ) && $data['cat_icon']['value'] ) {
@@ -3065,7 +3070,7 @@ class Fns {
 
 			?>
 
-			<span class='date'>
+            <span class='date'>
 				<?php
 				if ( $data['show_meta_icon'] === 'yes' ) {
 					if ( isset( $data['date_icon']['value'] ) && $data['date_icon']['value'] ) {
@@ -3090,7 +3095,7 @@ class Fns {
 		if ( $tags && 'show' == $data['show_tags'] ) {
 			?>
 
-			<span class='post-tags-links'>
+            <span class='post-tags-links'>
 				<?php
 				if ( $data['show_meta_icon'] === 'yes' ) {
 					if ( isset( $data['tag_icon']['value'] ) && $data['tag_icon']['value'] ) {
@@ -3111,7 +3116,7 @@ class Fns {
 		// Comment Meta.
 		if ( 'show' == $data['show_comment_count'] ) {
 			?>
-			<span class="comment-count">
+            <span class="comment-count">
 				<?php
 				if ( $data['show_meta_icon'] === 'yes' ) {
 					if ( isset( $data['comment_icon']['value'] ) && $data['comment_icon']['value'] ) {
@@ -3133,7 +3138,7 @@ class Fns {
 		// Post Count.
 		if ( rtTPG()->hasPro() && 'show' == $data['show_post_count'] && ! empty( $get_view_count ) ) {
 			?>
-			<span class="post-count">
+            <span class="post-count">
 				<?php
 				if ( $data['show_meta_icon'] === 'yes' ) {
 					if ( isset( $data['post_count_icon']['value'] ) && $data['post_count_icon']['value'] ) {
@@ -3248,12 +3253,12 @@ class Fns {
 			$category_position = 'top_left';
 		}
 		?>
-		<div class="tpg-separate-category <?php echo esc_attr( $data['category_style'] . ' ' . $category_position . ' ' . $class ); ?>">
+        <div class="tpg-separate-category <?php echo esc_attr( $data['category_style'] . ' ' . $category_position . ' ' . $class ); ?>">
 			<span class='categories-links'>
 			<?php echo ( 'yes' === $data['show_cat_icon'] ) ? "<i class='fas fa-folder-open'></i>" : null; ?>
 			<?php echo wp_kses( $categories, self::allowedHtml() ); ?>
 			</span>
-		</div>
+        </div>
 		<?php
 	}
 
@@ -3262,7 +3267,7 @@ class Fns {
 	 * Get first image from the content
 	 *
 	 * @param          $post_id
-	 * @param string  $type
+	 * @param string $type
 	 *
 	 * @return mixed|string
 	 */
@@ -3311,20 +3316,14 @@ class Fns {
 	 * @param         $data
 	 * @param         $link_start
 	 * @param         $link_end
-	 * @param false      $offset_size
+	 * @param false $offset_size
 	 */
 	public static function get_post_thumbnail( $pID, $data, $link_start, $link_end, $offset_size = false ) {
 		$thumb_cat_condition = ( ! ( 'above_title' === $data['category_position'] || 'default' === $data['category_position'] ) );
 
 		if ( 'grid-layout4' === $data['layout'] && 'default' === $data['category_position'] ) {
 			$thumb_cat_condition = true;
-		} elseif ( in_array(
-			$data['layout'],
-			[
-				'grid-layout4',
-				'grid_hover-layout11'
-			] ) && 'default' === $data['thumb_cat_condition'] ) {
-
+		} elseif ( in_array( $data['layout'], [ 'grid-layout4', 'grid_hover-layout11' ] ) && 'default' === $data['category_position'] ) {
 			$thumb_cat_condition = true;
 		}
 
@@ -3361,20 +3360,20 @@ class Fns {
 					$thumb_alt     = trim( wp_strip_all_tags( get_post_meta( $attachment_id, '_wp_attachment_image_alt', true ) ) );
 					if ( $lazy_load ) {
 						?>
-						<img data-src="<?php echo esc_url( $thumb_info[0] ); ?>"
-							src="#none"
-							class="<?php echo esc_attr( $lazy_class ); ?>"
-							width="<?php echo esc_attr( $thumb_info[1] ); ?>"
-							height="<?php echo esc_attr( $thumb_info[2] ); ?>"
-							alt="<?php echo esc_attr( $thumb_alt ? $thumb_alt : the_title() ); ?>">
+                        <img data-src="<?php echo esc_url( $thumb_info[0] ); ?>"
+                             src="#none"
+                             class="<?php echo esc_attr( $lazy_class ); ?>"
+                             width="<?php echo esc_attr( $thumb_info[1] ); ?>"
+                             height="<?php echo esc_attr( $thumb_info[2] ); ?>"
+                             alt="<?php echo esc_attr( $thumb_alt ? $thumb_alt : the_title() ); ?>">
 						<?php
 					} else {
 						?>
-						<img src="<?php echo esc_url( $thumb_info[0] ); ?>"
-							class="<?php echo esc_attr( $lazy_class ); ?>"
-							width="<?php echo esc_attr( $thumb_info[1] ); ?>"
-							height="<?php echo esc_attr( $thumb_info[2] ); ?>"
-							alt="<?php echo esc_attr( $thumb_alt ? $thumb_alt : the_title() ); ?>">
+                        <img src="<?php echo esc_url( $thumb_info[0] ); ?>"
+                             class="<?php echo esc_attr( $lazy_class ); ?>"
+                             width="<?php echo esc_attr( $thumb_info[1] ); ?>"
+                             height="<?php echo esc_attr( $thumb_info[2] ); ?>"
+                             alt="<?php echo esc_attr( $thumb_alt ? $thumb_alt : the_title() ); ?>">
 						<?php
 					}
 					?>
@@ -3424,7 +3423,7 @@ class Fns {
 
 		?>
 		<?php if ( $lazy_load ) : ?>
-			<div class="swiper-lazy-preloader swiper-lazy-preloader-white"></div>
+            <div class="swiper-lazy-preloader swiper-lazy-preloader-white"></div>
 		<?php endif; ?>
 
 		<?php echo 'yes' === $data['is_thumb_linked'] ? wp_kses( $link_end, self::allowedHtml() ) : null; ?>
@@ -3449,7 +3448,7 @@ class Fns {
             </a>
 
 		<?php endif; ?>
-		<div class="overlay grid-hover-content"></div>
+        <div class="overlay grid-hover-content"></div>
 		<?php
 	}
 
@@ -3480,11 +3479,11 @@ class Fns {
 			if ( ! empty( $cf_group ) ) {
 
 				$acf_html = "<div class='acf-custom-field-wrap'>";
-//				if ( isset( $data['is_guten'] ) && $data['is_guten'] === 'yes' ) {
-//					$acf_html .= Functions::get_cf_formatted_fields_guten( $cf_group, $format, $pID );
-//				} else {
-//					$acf_html .= Functions::get_cf_formatted_fields( $cf_group, $format, $pID );
-//				}
+				//				if ( isset( $data['is_guten'] ) && $data['is_guten'] === 'yes' ) {
+				//					$acf_html .= Functions::get_cf_formatted_fields_guten( $cf_group, $format, $pID );
+				//				} else {
+				//					$acf_html .= Functions::get_cf_formatted_fields( $cf_group, $format, $pID );
+				//				}
 
 				$acf_html .= Functions::get_cf_formatted_fields( $cf_group, $format, $pID );
 				$acf_html .= '</div>';
@@ -3508,12 +3507,12 @@ class Fns {
 	 */
 	public static function is_filter_enable( $data ) {
 		if ( rtTPG()->hasPro()
-			&& ( $data['show_taxonomy_filter'] == 'show'
-				|| $data['show_author_filter'] == 'show'
-				|| $data['show_order_by'] == 'show'
-				|| $data['show_sort_order'] == 'show'
-				|| $data['show_search'] == 'show'
-				|| ( $data['show_pagination'] == 'show' && $data['pagination_type'] != 'pagination' ) )
+		     && ( $data['show_taxonomy_filter'] == 'show'
+		          || $data['show_author_filter'] == 'show'
+		          || $data['show_order_by'] == 'show'
+		          || $data['show_sort_order'] == 'show'
+		          || $data['show_search'] == 'show'
+		          || ( $data['show_pagination'] == 'show' && $data['pagination_type'] != 'pagination' ) )
 		) {
 			return true;
 		}
@@ -3650,7 +3649,7 @@ class Fns {
 	 * Prints HTML.
 	 *
 	 * @param string $html HTML.
-	 * @param bool   $allHtml All HTML.
+	 * @param bool $allHtml All HTML.
 	 *
 	 * @return mixed
 	 */
