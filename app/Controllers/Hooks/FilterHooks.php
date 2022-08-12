@@ -37,6 +37,22 @@ class FilterHooks {
 
 		add_filter( 'wp_head', [ __CLASS__, 'set_post_view_count' ], 9999 );
 		add_filter( 'admin_body_class', [ __CLASS__, 'admin_body_class' ] );
+		add_filter( 'wp_kses_allowed_html', [ __CLASS__, 'tpg_custom_wpkses_post_tags' ], 10, 2 );
+	}
+
+	public static function tpg_custom_wpkses_post_tags( $tags, $context ) {
+
+		if ( 'post' === $context ) {
+			$tags['iframe'] = array(
+				'src'             => true,
+				'height'          => true,
+				'width'           => true,
+				'frameborder'     => true,
+				'allowfullscreen' => true,
+			);
+		}
+
+		return $tags;
 	}
 
 	/**
