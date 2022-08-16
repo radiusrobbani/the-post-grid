@@ -2863,6 +2863,22 @@ class rtTPGElementorHelper {
 			]
 		);
 
+		$category_style_condition = [
+			'relation' => 'or',
+			'terms'    => [
+				[
+					'name'     => 'category_position',
+					'operator' => '!=',
+					'value'    => 'default',
+				],
+				[
+					'name'     => $prefix.'_layout',
+					'operator' => 'in',
+					'value'    => [ 'grid-layout5', 'grid-layout5-2', 'grid-layout6', 'grid-layout6-2' ],
+				],
+			],
+		];
+
 		$ref->add_control(
 			'category_style',
 			[
@@ -2875,9 +2891,7 @@ class rtTPGElementorHelper {
 					'style3' => esc_html__( 'Style 3', 'the-post-grid' ),
 				],
 				'classes'   => rtTPG()->hasPro() ? '' : 'the-post-grid-field-hide',
-				'condition' => [
-					'category_position!' => 'default',
-				],
+				'conditions' => $category_style_condition,
 			]
 		);
 
@@ -2891,9 +2905,7 @@ class rtTPGElementorHelper {
 					'label_off'    => esc_html__( 'Hide', 'the-post-grid' ),
 					'return_value' => 'yes',
 					'default'      => false,
-					'condition'    => [
-						'category_position!' => 'default',
-					],
+					'conditions' => $category_style_condition,
 				]
 			);
 		}
@@ -4648,7 +4660,7 @@ class rtTPGElementorHelper {
 				'label'     => esc_html__( 'Category Background', 'the-post-grid' ),
 				'type'      => \Elementor\Controls_Manager::COLOR,
 				'selectors' => [
-					'{{WRAPPER}} .tpg-el-main-wrapper .tpg-separate-category.style1 .categories-links'               => 'background-color: {{VALUE}};padding: 3px 8px 1px;',
+					'{{WRAPPER}} .tpg-el-main-wrapper .tpg-separate-category.style1 .categories-links a'               => 'background-color: {{VALUE}};padding: 3px 8px 1px;',
 					'{{WRAPPER}} .tpg-el-main-wrapper .tpg-separate-category:not(.style1) .categories-links a'       => 'background-color: {{VALUE}}',
 					'{{WRAPPER}} .tpg-el-main-wrapper .tpg-separate-category:not(.style1) .categories-links a:after' => 'border-top-color: {{VALUE}}',
 					'{{WRAPPER}} .tpg-el-main-wrapper .post-meta-tags .categories-links a'                           => 'background-color: {{VALUE}}',
@@ -6153,7 +6165,7 @@ class rtTPGElementorHelper {
 
 	/**
 
-	* Get Social Share
+	 * Get Social Share
 	 *
 	 * @param $ref
 	 * @param $prefix
@@ -6672,12 +6684,7 @@ class rtTPGElementorHelper {
 							'body {{WRAPPER}} .tpg-el-main-wrapper .tpg-post-holder' => 'border: 1px solid {{VALUE}}',
 						],
 						'condition' => [
-							'is_box_border'      => 'enable',
-							$prefix . '_layout!' => [
-								'slider-layout11',
-								'slider-layout12',
-								'slider-layout13',
-							],
+							'is_box_border'      => 'enable'
 						],
 					]
 				);
@@ -6690,12 +6697,7 @@ class rtTPGElementorHelper {
 						'label'     => esc_html__( 'Box Shadow', 'the-post-grid' ),
 						'selector'  => 'body {{WRAPPER}} .tpg-el-main-wrapper .tpg-post-holder',
 						'condition' => [
-							'is_box_border'      => 'enable',
-							$prefix . '_layout!' => [
-								'slider-layout11',
-								'slider-layout12',
-								'slider-layout13',
-							],
+							'is_box_border'      => 'enable'
 						],
 					]
 				);
@@ -6772,11 +6774,6 @@ class rtTPGElementorHelper {
 						],
 						'condition' => [
 							'is_box_border'      => 'enable',
-							$prefix . '_layout!' => [
-								'slider-layout11',
-								'slider-layout12',
-								'slider-layout13',
-							],
 						],
 					]
 				);
@@ -6789,11 +6786,6 @@ class rtTPGElementorHelper {
 						'selector'  => 'body {{WRAPPER}} .tpg-el-main-wrapper .tpg-post-holder:hover',
 						'condition' => [
 							'is_box_border'      => 'enable',
-							$prefix . '_layout!' => [
-								'slider-layout11',
-								'slider-layout12',
-								'slider-layout13',
-							],
 						],
 					]
 				);
@@ -7917,7 +7909,7 @@ class rtTPGElementorHelper {
 		$ref->start_controls_section(
 			'tgp_acf_style',
 			[
-				'label'     => esc_html__( 'Advanced Custom Field', 'the-post-grid' ),
+				'label'     => esc_html__( 'Advanced Custom Field (ACF)', 'the-post-grid' ),
 				'tab'       => Controls_Manager::TAB_STYLE,
 				'condition' => [
 					'show_acf'           => 'show',
@@ -7978,8 +7970,8 @@ class rtTPGElementorHelper {
 				'range'      => [
 					'px' => [
 						'min'  => 0,
-						'max'  => 1000,
-						'step' => 5,
+						'max'  => 500,
+						'step' => 1,
 					],
 				],
 				'condition'  => [
@@ -8076,12 +8068,11 @@ class rtTPGElementorHelper {
 		if ( $hover_control ) {
 			$ref->end_controls_tab();
 
-
 			//Hover Tab
 			$ref->start_controls_tab(
 				'acf_style_hover_tab',
 				[
-					'label' => esc_html__( 'Hover', 'the-post-grid' ),
+					'label' => esc_html__( 'Box Hover', 'the-post-grid' ),
 				]
 			);
 
