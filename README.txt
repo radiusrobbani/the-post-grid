@@ -367,8 +367,7 @@ With the Post Grid PRO, you get to use the Single Page Builder, which is based o
 == Changelog ==
 
 = 4.2.1 =
-* Fixed: Thumbnail Popup link not working
-* Fixed: Filter search input escaping issue
+* Fixed: Some escaping issue
 * Fixed: Elementor controller condition
 * Fixed: Elementor controller css selector
 

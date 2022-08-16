@@ -667,6 +667,12 @@ body .readmore-btn-only-text .rt-tpg-container .tpg-post-holder .read-more a {
     background: #e59100;
 }
 
+.rt-tpg-container .list-layout4 .tpg-separate-category.style3 a:hover::after,
+.rt-tpg-container .grid-layout5 .tpg-separate-category.style3 a:hover::after,
+.rt-tpg-container .grid-layout4 .cat-over-image a:hover::after {
+    border-top-color: #e59100;
+}
+
 .rt-tpg-container .grid-layout5 .tpg-separate-category .rt-separator,
 .rt-tpg-container .grid-layout4 .cat-over-image .rt-separator {
     display: none;
