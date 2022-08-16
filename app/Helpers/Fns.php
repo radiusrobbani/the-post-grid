@@ -3346,7 +3346,7 @@ class Fns {
 			$lazy_class = 'swiper-lazy';
 		}
 
-		echo 'yes' === $data['is_thumb_linked'] ? wp_kses( $link_start, self::allowedHtml() ) : null;
+		echo 'yes' === $data['is_thumb_linked'] ? self::print_html( $link_start) : null;
 
 		if ( has_post_thumbnail() && 'feature_image' === $data['media_source'] ) {
 			$fImgSize = $data['image_size'];

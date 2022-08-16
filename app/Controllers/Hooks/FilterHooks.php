@@ -14,6 +14,7 @@ use RT\ThePostGrid\Helpers\Fns;
 if ( ! defined( 'ABSPATH' ) ) {
 	exit( 'This script cannot be accessed directly.' );
 }
+
 /**
  * Filter Hooks class.
  *
@@ -43,13 +44,21 @@ class FilterHooks {
 	public static function tpg_custom_wpkses_post_tags( $tags, $context ) {
 
 		if ( 'post' === $context ) {
-			$tags['iframe'] = array(
+			$tags['iframe'] = [
 				'src'             => true,
 				'height'          => true,
 				'width'           => true,
 				'frameborder'     => true,
 				'allowfullscreen' => true,
-			);
+			];
+			$tags['input']  = [
+				'type'        => true,
+				'class'       => true,
+				'placeholder' => true,
+			];
+			$tags['style']  = [
+				'src' => true,
+			];
 		}
 
 		return $tags;
@@ -59,13 +68,14 @@ class FilterHooks {
 	 * Admin body class
 	 *
 	 * @param string $clsses Classes.
+	 *
 	 * @return string
 	 */
 
-	public static function admin_body_class($clsses){
-		$settings = get_option('rt_the_post_grid_settings');
+	public static function admin_body_class( $clsses ) {
+		$settings = get_option( 'rt_the_post_grid_settings' );
 
-		if( isset($settings['tpg_block_type']) && in_array($settings['tpg_block_type'], ['elementor', 'shortcode']) ) {
+		if ( isset( $settings['tpg_block_type'] ) && in_array( $settings['tpg_block_type'], [ 'elementor', 'shortcode' ] ) ) {
 
 			$clsses .= ' tpg-block-type-elementor-or-shortcode';
 		}
@@ -77,6 +87,7 @@ class FilterHooks {
 	 * Set view count
 	 *
 	 * @param string $content Content.
+	 *
 	 * @return string
 	 */
 	public static function set_post_view_count( $content ) {
@@ -92,6 +103,7 @@ class FilterHooks {
 	 * Filter author args.
 	 *
 	 * @param array $args Args.
+	 *
 	 * @return array
 	 */
 	public static function filter_author_args( $args ) {
@@ -103,8 +115,9 @@ class FilterHooks {
 	/**
 	 * Add plugin row meta
 	 *
-	 * @param array  $links Links.
+	 * @param array $links Links.
 	 * @param string $file File.
+	 *
 	 * @return array
 	 */
 	public static function plugin_row_meta( $links, $file ) {
@@ -127,6 +140,7 @@ class FilterHooks {
 	 * ACF content filter
 	 *
 	 * @param string $content Content.
+	 *
 	 * @return string
 	 */
 	public static function tpg_acf_content_filter( $content ) {

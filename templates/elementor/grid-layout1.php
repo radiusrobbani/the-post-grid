@@ -33,7 +33,6 @@ $grid_column_tab     = '0' !== $data['grid_column_tablet'] ? $data['grid_column_
 $grid_column_mobile  = '0' !== $data['grid_column_mobile'] ? $data['grid_column_mobile'] : '12';
 $col_class           = "rt-col-md-{$grid_column_desktop} rt-col-sm-{$grid_column_tab} rt-col-xs-{$grid_column_mobile}";
 
-
 // Column Dynamic Class.
 $column_classes = [];
 
