@@ -42,10 +42,10 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'post_type',
 			[
-				'label'   => esc_html__( 'Post Source', 'the-post-grid' ),
-				'type'    => Controls_Manager::SELECT,
-				'options' => $post_types,
-				'default' => 'post',
+				'label'       => esc_html__( 'Post Source', 'the-post-grid' ),
+				'type'        => Controls_Manager::SELECT,
+				'options'     => $post_types,
+				'default'     => 'post',
 				'description' => $ref->get_pro_message( 'all post type.' ),
 			]
 		);
@@ -141,8 +141,8 @@ class rtTPGElementorHelper {
 				'type'    => \Elementor\Controls_Manager::SELECT,
 				'default' => 'OR',
 				'options' => [
-					'OR'     => __( 'OR', 'the-post-grid' ),
-					'AND'    => __( 'AND', 'the-post-grid' ),
+					'OR'  => __( 'OR', 'the-post-grid' ),
+					'AND' => __( 'AND', 'the-post-grid' ),
 				],
 			]
 		);
@@ -195,12 +195,14 @@ class rtTPGElementorHelper {
 			'parent'        => esc_html__( 'Post parent ID', 'the-post-grid' ),
 			'comment_count' => esc_html__( 'Number of comments', 'the-post-grid' ),
 			'menu_order'    => esc_html__( 'Menu order', 'the-post-grid' ),
-
 		];
 
 		if ( rtTPG()->hasPro() ) {
 			$prderby_pro_opt = [
-				'rand' => esc_html__( 'Random order', 'the-post-grid' ),
+				'rand'                => esc_html__( 'Random order', 'the-post-grid' ),
+				'meta_value'          => esc_html__( 'Meta value', 'the-post-grid' ),
+				'meta_value_num'      => esc_html__( 'Meta value number', 'the-post-grid' ),
+				'meta_value_datetime' => esc_html__( 'Meta value datetime', 'the-post-grid' ),
 			];
 			$orderby_opt     = array_merge( $orderby_opt, $prderby_pro_opt );
 		}
@@ -217,6 +219,18 @@ class rtTPGElementorHelper {
 		);
 
 		$ref->add_control(
+			'meta_key',
+			[
+				'label'       => esc_html__( 'Meta Key', 'the-post-grid' ),
+				'type'        => \Elementor\Controls_Manager::TEXT,
+				'placeholder' => esc_html__( 'Enter Meta Key.', 'the-post-grid' ),
+				'condition'   => [
+					'orderby' => [ 'meta_value', 'meta_value_num', 'meta_value_datetime' ],
+				],
+			]
+		);
+
+		$ref->add_control(
 			'order',
 			[
 				'label'     => esc_html__( 'Sort order', 'the-post-grid' ),
@@ -227,7 +241,7 @@ class rtTPGElementorHelper {
 				],
 				'default'   => 'DESC',
 				'condition' => [
-					'orderby!' => 'menu_order',
+					'orderby!' => [ 'menu_order', 'rand' ],
 				],
 			]
 		);
@@ -735,7 +749,8 @@ class rtTPGElementorHelper {
 					'description' => esc_html__( 'If you use card border then equal height will work. ', 'the-post-grid' ) . $ref->get_pro_message( "masonry layout" ),
 					'classes'     => rtTPG()->hasPro() ? '' : 'tpg-should-hide-field',
 					'condition'   => [
-						$prefix . '_layout!' => [ 'grid-layout2',
+						$prefix . '_layout!' => [
+							'grid-layout2',
 							'grid-layout5',
 							'grid-layout5-2',
 							'grid-layout6',
@@ -809,7 +824,8 @@ class rtTPGElementorHelper {
 						'space-between' => esc_html__( 'Space Between', 'the-post-grid' ),
 					],
 					'condition' => [
-						$prefix . '_layout!' => [ 'slider-layout1',
+						$prefix . '_layout!' => [
+							'slider-layout1',
 							'slider-layout2',
 							'slider-layout3',
 							'slider-layout13',
@@ -1050,7 +1066,8 @@ class rtTPGElementorHelper {
 			}
 			$taxonomies_list = [];
 			foreach ( $_taxonomies as $tax ) {
-				if ( in_array( $tax->name, [ 'post_format',
+				if ( in_array( $tax->name, [
+					'post_format',
 					'elementor_library_type',
 					'product_visibility',
 					'product_shipping_class'
@@ -1100,7 +1117,8 @@ class rtTPGElementorHelper {
 			);
 
 			foreach ( $_taxonomies as $tax ) {
-				if ( in_array( $tax->name, [ 'post_format',
+				if ( in_array( $tax->name, [
+					'post_format',
 					'elementor_library_type',
 					'product_visibility',
 					'product_shipping_class'
@@ -2872,7 +2890,7 @@ class rtTPGElementorHelper {
 					'value'    => 'default',
 				],
 				[
-					'name'     => $prefix.'_layout',
+					'name'     => $prefix . '_layout',
 					'operator' => 'in',
 					'value'    => [ 'grid-layout5', 'grid-layout5-2', 'grid-layout6', 'grid-layout6-2' ],
 				],
@@ -2882,15 +2900,15 @@ class rtTPGElementorHelper {
 		$ref->add_control(
 			'category_style',
 			[
-				'label'     => esc_html__( 'Category Style', 'the-post-grid' ) . $ref->pro_label,
-				'type'      => \Elementor\Controls_Manager::SELECT,
-				'default'   => 'style1',
-				'options'   => [
+				'label'      => esc_html__( 'Category Style', 'the-post-grid' ) . $ref->pro_label,
+				'type'       => \Elementor\Controls_Manager::SELECT,
+				'default'    => 'style1',
+				'options'    => [
 					'style1' => esc_html__( 'Style 1', 'the-post-grid' ),
 					'style2' => esc_html__( 'Style 2', 'the-post-grid' ),
 					'style3' => esc_html__( 'Style 3', 'the-post-grid' ),
 				],
-				'classes'   => rtTPG()->hasPro() ? '' : 'the-post-grid-field-hide',
+				'classes'    => rtTPG()->hasPro() ? '' : 'the-post-grid-field-hide',
 				'conditions' => $category_style_condition,
 			]
 		);
@@ -2905,7 +2923,7 @@ class rtTPGElementorHelper {
 					'label_off'    => esc_html__( 'Hide', 'the-post-grid' ),
 					'return_value' => 'yes',
 					'default'      => false,
-					'conditions' => $category_style_condition,
+					'conditions'   => $category_style_condition,
 				]
 			);
 		}
@@ -3753,7 +3771,8 @@ class rtTPGElementorHelper {
 		if ( in_array( $prefix, [ 'grid_hover', 'slider' ] ) ) {
 			if ( 'slider' == $prefix ) {
 				$thumbnail_padding_condition = [
-					'slider_layout' => [ 'slider-layout4',
+					'slider_layout' => [
+						'slider-layout4',
 						'slider-layout5',
 						'slider-layout6',
 						'slider-layout7',
@@ -4235,7 +4254,7 @@ class rtTPGElementorHelper {
 				'label'     => esc_html__( 'Title Color on Hover', 'the-post-grid' ),
 				'type'      => \Elementor\Controls_Manager::COLOR,
 				'selectors' => [
-					'{{WRAPPER}} .tpg-el-main-wrapper .tpg-post-holder .entry-title:hover, {{WRAPPER}} .tpg-el-main-wrapper .tpg-post-holder .entry-title a:hover' => 'color: {{VALUE}} !important',
+					'{{WRAPPER}} .tpg-el-main-wrapper .tpg-post-holder .entry-title:hover' => 'color: {{VALUE}} !important',
 				],
 			]
 		);
@@ -4267,7 +4286,7 @@ class rtTPGElementorHelper {
 				'label'     => esc_html__( 'Title color on boxhover', 'the-post-grid' ),
 				'type'      => \Elementor\Controls_Manager::COLOR,
 				'selectors' => [
-					'{{WRAPPER}} .tpg-el-main-wrapper .tpg-post-holder:hover .entry-title, {{WRAPPER}} .tpg-el-main-wrapper .tpg-post-holder:hover .entry-title a' => 'color: {{VALUE}}',
+					'{{WRAPPER}} .tpg-el-main-wrapper .tpg-post-holder:hover .entry-title' => 'color: {{VALUE}}',
 				],
 			]
 		);
@@ -4660,7 +4679,7 @@ class rtTPGElementorHelper {
 				'label'     => esc_html__( 'Category Background', 'the-post-grid' ),
 				'type'      => \Elementor\Controls_Manager::COLOR,
 				'selectors' => [
-					'{{WRAPPER}} .tpg-el-main-wrapper .tpg-separate-category.style1 .categories-links a'               => 'background-color: {{VALUE}};padding: 3px 8px 1px;',
+					'{{WRAPPER}} .tpg-el-main-wrapper .tpg-separate-category.style1 .categories-links a'             => 'background-color: {{VALUE}};padding: 3px 8px 1px;',
 					'{{WRAPPER}} .tpg-el-main-wrapper .tpg-separate-category:not(.style1) .categories-links a'       => 'background-color: {{VALUE}}',
 					'{{WRAPPER}} .tpg-el-main-wrapper .tpg-separate-category:not(.style1) .categories-links a:after' => 'border-top-color: {{VALUE}}',
 					'{{WRAPPER}} .tpg-el-main-wrapper .post-meta-tags .categories-links a'                           => 'background-color: {{VALUE}}',
@@ -6164,7 +6183,6 @@ class rtTPGElementorHelper {
 	}
 
 	/**
-
 	 * Get Social Share
 	 *
 	 * @param $ref
@@ -6684,7 +6702,7 @@ class rtTPGElementorHelper {
 							'body {{WRAPPER}} .tpg-el-main-wrapper .tpg-post-holder' => 'border: 1px solid {{VALUE}}',
 						],
 						'condition' => [
-							'is_box_border'      => 'enable'
+							'is_box_border' => 'enable'
 						],
 					]
 				);
@@ -6697,7 +6715,7 @@ class rtTPGElementorHelper {
 						'label'     => esc_html__( 'Box Shadow', 'the-post-grid' ),
 						'selector'  => 'body {{WRAPPER}} .tpg-el-main-wrapper .tpg-post-holder',
 						'condition' => [
-							'is_box_border'      => 'enable'
+							'is_box_border' => 'enable'
 						],
 					]
 				);
@@ -6773,7 +6791,7 @@ class rtTPGElementorHelper {
 							'body {{WRAPPER}} .tpg-el-main-wrapper .tpg-post-holder:hover' => 'border: 1px solid {{VALUE}}',
 						],
 						'condition' => [
-							'is_box_border'      => 'enable',
+							'is_box_border' => 'enable',
 						],
 					]
 				);
@@ -6785,7 +6803,7 @@ class rtTPGElementorHelper {
 						'label'     => esc_html__( 'Box Shadow - Hover', 'the-post-grid' ),
 						'selector'  => 'body {{WRAPPER}} .tpg-el-main-wrapper .tpg-post-holder:hover',
 						'condition' => [
-							'is_box_border'      => 'enable',
+							'is_box_border' => 'enable',
 						],
 					]
 				);
@@ -6858,7 +6876,8 @@ class rtTPGElementorHelper {
 					'{{WRAPPER}} .rt-tpg-container .slider-column.swiper-slide .rt-slider-item' => 'padding-top: {{SIZE}}{{UNIT}}; padding-bottom: {{SIZE}}{{UNIT}};',
 				],
 				'condition'  => [
-					$prefix . '_layout!' => [ 'slider-layout10',
+					$prefix . '_layout!' => [
+						'slider-layout10',
 						'slider-layout11',
 						'slider-layout12',
 						'slider-layout13'
@@ -7078,7 +7097,8 @@ class rtTPGElementorHelper {
 				'render_type'  => 'template',
 				'description'  => esc_html__( 'If you use 2 rows then you have to put an even number for post limit', 'the-post-grid' ),
 				'condition'    => [
-					$prefix . '_layout!' => [ 'slider-layout13',
+					$prefix . '_layout!' => [
+						'slider-layout13',
 						'slider-layout11',
 						'slider-layout12',
 						'slider-layout10'

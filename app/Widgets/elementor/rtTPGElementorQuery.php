@@ -46,10 +46,13 @@ class rtTPGElementorQuery {
 		}
 
 		if ( $orderby = $data['orderby'] ) {
-			if ( ! rtTPG()->hasPro() && 'rand' == $orderby ) {
-				$orderby = 'date';
+
+			$order_by        = ($orderby == 'meta_value_datetime') ? 'meta_value_num' : $orderby;
+			$args['orderby'] = $order_by;
+
+			if ( in_array( $orderby, [ 'meta_value', 'meta_value_num', 'meta_value_datetime' ] ) && $data['meta_key'] ) {
+				$args['meta_key'] = $data['meta_key'];
 			}
-			$args['orderby'] = $orderby;
 		}
 
 		if ( $data['order'] ) {
@@ -251,9 +254,6 @@ class rtTPGElementorQuery {
 		}
 
 		if ( $orderby = $data['orderby'] ) {
-			if ( ! rtTPG()->hasPro() && 'rand' == $orderby ) {
-				$orderby = 'date';
-			}
 			$args['orderby'] = $orderby;
 		}
 
@@ -471,7 +471,12 @@ class rtTPGElementorQuery {
 			];
 
 			if ( $orderby = $data['orderby'] ) {
-				$args['orderby'] = $orderby;
+				$order_by        = $data['orderby'] == 'meta_value_datetime' ? 'meta_value_num' : $data['orderby'];
+				$args['orderby'] = $order_by;
+
+				if ( in_array( $orderby, [ 'meta_value', 'meta_value_num' ] ) && $data['meta_key'] ) {
+					$args['meta_key'] = $data['meta_key'];
+				}
 			}
 
 			if ( $data['order'] ) {

@@ -1,13 +1,10 @@
-=================================================
-This branch is merge from gutenber branch
-=================================================
 === The Post Grid – Shortcode, Elementor Addon for Post Grid ===
 Contributors: techlabpro1
 Donate link:
 Tags: post grid, content grid, post display, post slider, post grid elementor addon
 Requires at least: 4.5
 Tested up to: 6.0
-Stable tag: 4.2.1
+Stable tag: 4.2.2
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -365,6 +362,11 @@ With the Post Grid PRO, you get to use the Single Page Builder, which is based o
 11. Elementor Page builder
 
 == Changelog ==
+
+= 4.2.2 =
+* Fixed: Post title hover color issue fix
+* Added: Meta orderby for both (shortcode and elementor) added
+* Added: Some CSS added
 
 = 4.2.1 =
 * Fixed: Some escaping issue

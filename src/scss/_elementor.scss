@@ -72,6 +72,7 @@
 
 .tpg-el-main-wrapper .entry-title a {
     color: inherit !important ;
+    transition: none !important;
 }
 
 .tpg-el-main-wrapper .entry-title a:focus {
@@ -79,7 +80,7 @@
     border: none;
 }
 
-.tpg-el-main-wrapper .entry-title a:hover {
+.tpg-el-main-wrapper .entry-title:hover {
     color: var(--tpg-primary-color, #0d6efd);
 }
 

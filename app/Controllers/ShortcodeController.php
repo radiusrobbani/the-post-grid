@@ -247,6 +247,7 @@ class ShortcodeController {
 				$order_by = ( isset( $scMeta['order_by'][0] ) ? $scMeta['order_by'][0] : null );
 				$order    = ( isset( $scMeta['order'][0] ) ? $scMeta['order'][0] : null );
 
+
 				if ( $order ) {
 					$args['order'] = $order;
 				}
@@ -255,11 +256,17 @@ class ShortcodeController {
 					$args['orderby'] = $order_by;
 					$meta_key        = ! empty( $scMeta['tpg_meta_key'][0] ) ? trim( $scMeta['tpg_meta_key'][0] ) : null;
 
+
 					if ( in_array( $order_by, array_keys( Options::rtMetaKeyType() ) ) && $meta_key ) {
 						$args['orderby']  = $order_by;
 						$args['meta_key'] = $meta_key;
+
+						if ( $order_by === 'meta_value_datetime' ) {
+							$args['orderby'] = 'meta_value_num';
+						}
 					}
 				}
+
 			}
 
 			// Status.
