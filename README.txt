@@ -13,9 +13,9 @@ Post Grid Plugin allows you to create grid, list, filter and slider view. Post G
 
 👉 [Plugin Demo](https://www.radiustheme.com/demo/plugins/the-post-grid/) | [Elementor Demo](https://www.radiustheme.com/demo/plugins/the-post-grid-elementor/) | [Documentation](https://www.radiustheme.com/docs/the-post-grid/) | [Get Pro](https://www.radiustheme.com/downloads/the-post-grid-pro-for-wordpress/) 👈
 
-== The Post Grid – Shortcode and Elementor Addons for Post Grid ==
+== Post Grid – Shortcode and Elementor Addons for Post Grid ==
 
-[The Post Grid](https://www.radiustheme.com/downloads/the-post-grid-pro-for-wordpress/) is the top popular plugin for creating the most elegant grids for any website with Shortcode or Post Grid Elementor Addons. It would be great for displaying blogs, menu items, and whatever else your website is meant to showcase. It is fully responsive and mobile friendly so that the grids you use it to create all look great on all devices.
+[Post Grid](https://www.radiustheme.com/downloads/the-post-grid-pro-for-wordpress/) is the top popular plugin for creating the most elegant grids for any website with Shortcode or Post Grid Elementor Addons. It would be great for displaying blogs, menu items, and whatever else your website is meant to showcase. It is fully responsive and mobile friendly so that the grids you use it to create all look great on all devices.
 
 With this plugin, you can create and display your posts in grid, list, and isotope views. The best part is that it exempts you from the need of any coding expertise. It has pre-made layouts that you can work with easily. The Post Grid makes it easy to generate grids from the admin end and insert them into any page or post.
 

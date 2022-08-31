@@ -110,7 +110,6 @@ if ( ! class_exists( 'ElementorController' ) ) :
 				'list-layout'       => '\TPGListLayout',
 				'grid-hover-layout' => '\TPGGridHoverLayout',
 				'slider-layout'     => '\TPGSliderLayout',
-				'default'           => '\RtElementorWidget',
 			];
 
 			$widgets = apply_filters( 'tpg_el_widget_register', $widgets );

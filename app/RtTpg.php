@@ -149,8 +149,8 @@ if ( ! class_exists( RtTpg::class ) ) {
 			register_deactivation_hook( RT_THE_POST_GRID_PLUGIN_FILE, [ Install::class, 'deactivate' ] );
 
 			add_action( 'plugins_loaded', [ $this, 'on_plugins_loaded' ], - 1 );
-			add_action( 'init', [ &$this, 'init_hooks' ], 0 );
-			add_filter( 'wp_calculate_image_srcset', '__return_false' );
+			add_action( 'init', [ $this, 'init_hooks' ], 0 );
+			add_filter( 'wp_calculate_image_srcset', [ $this, 'calculate_image_srcset' ] );
 		}
 
 		/**
@@ -162,6 +162,14 @@ if ( ! class_exists( RtTpg::class ) ) {
 			do_action( 'rttpg_before_init', $this );
 
 			$this->load_language();
+		}
+
+		/**
+		 * Remove calculate image srcset
+		 * @return array
+		 */
+		public function calculate_image_srcset(){
+			return [];
 		}
 
 		/**
